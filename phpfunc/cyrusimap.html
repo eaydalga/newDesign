@@ -1,0 +1,92 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Cyrus IMAP Yönetim İşlevleri</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">18 Şubat 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>Cyrus IMAP Yönetim İşlevleri</h2>
+
+<h3>Giriş</h3>
+
+    Not: Bu uzantı Windows ortamında yoktur.
+<br /><br />
+    Not: Bu uzantı PHP 5.0.0 sürümünde pakete dahil değildir. PECL havuzuna aktarılmıştır.
+
+<h3>Kurulum</h3>
+
+Cyrus IMAP desteğini açmak için ve bu işlevleri kullanabilmek için PHP
+"--with-cyrus" seçeneğiyle derlenmelidir.
+
+<h3>UYARI</h3>
+
+IMAP, recode, YAZ ve Cyrus uzantıları birlikte kullanılmaz, çünkü hepsi de
+aynı içsel sembolleri paylaşmaktadır.
+
+<h3>Kaynak Türleri</h3>
+
+Bu uzantı Cyrus cyrus_connect() işlevinden dönen IMAP bağlantı belirticisini tanımlar.
+
+<h3>Önceden Tanımlı Değişmezler</h3>
+
+Aşağıdaki değişmezler bu uzantıda tanımlanmıştır ve yalnız uzantı PHP içinde
+derlenince ya da dinamik olarak çalışma zamanında yüklenince etkin olur.
+<dl>
+<dt>CYRUS_CONN_NONSYNCLITERAL (integer, tamsayı)</dt>
+<dt>CYRUS_CONN_INITIALRESPONSE (integer, tamsayı)</dt>
+<dt>CYRUS_CALLBACK_NUMBERED (integer, tamsayı)</dt>
+<dt>CYRUS_CALLBACK_NOLITERAL (integer, tamsayı)</dt>
+</dl>
+<h3>İçindekiler</h3>
+<ul>
+    <li> cyrus_authenticate — Cyrus IMAP sunucuda Kullanıcı/Şifre denetimi
+    <li> cyrus_bind — Cyrus IMAP erişimine geri beslemeleri bağlama.
+    <li> cyrus_close — Cyrus IMAP sunucusuna erişimi kapama
+    <li> cyrus_connect — Cyrus IMAP sunucusuna bağlantı kurma
+    <li> cyrus_query — Cyrus IMAP sunucusuna bir sorgu gönderme
+    <li> cyrus_unbind — Bağı bozma ...
+</ul>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

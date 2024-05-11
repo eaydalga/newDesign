@@ -1,0 +1,44 @@
+i<?php
+$image_info = array(
+    'image'    => 'sample_signature.gif'
+);
+
+$image_text_ary = array();
+$image_text_ary[] = array(
+    array(
+        'x'     => 8,
+        'y'     => 6,
+        'color' => array(50, 100, 180),
+        'font'  => 9,
+        'text'  => " This is my second dynamic signature!"
+    ),
+    array(
+        'x'     => 8,
+        'y'     => 22,
+        'color' => array(50, 100, 180),
+        'font'  => 9,
+        'text'  => " It could be used to show your favorite quotes."
+    )
+);
+$image_text_ary[] = array(
+    array(
+        'x'     => 8,
+        'y'     => 6,
+        'color' => array(50, 150, 100),
+        'font'  => 9,
+        'text'  => " This is ALSO my second dynamic signature!"
+    ),
+    array(
+        'x'     => 8,
+        'y'     => 22,
+        'color' => array(50, 150, 100),
+        'font'  => 9,
+        'text'  => " It all depends on your imagination ;-)"
+    )
+);
+
+$random = time() % count($image_text_ary);
+$image_text = $image_text_ary[$random];
+
+include('./includes/dynamic_gd_image.php');
+?> 

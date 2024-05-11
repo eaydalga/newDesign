@@ -1,0 +1,331 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>HTML çerçeveleri (Frames) </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="htmltxt1.html" class="nav">Öğeler</a>
+               <a href="htmltxt2.html" class="nav">Biçimler</a>
+               <a href="htmltxt3.html" class="nav">Kalıplama</a>
+               <a href="htmltxt4.html" class="nav">Varlıklar</a>
+               <a href="htmltxt5.html" class="nav">Bağlar</a>
+               <a href="htmltxt6.html" class="nav">Çerçeveler</a>
+               <a href="htmltxt7.html" class="nav">Tablolar</a>
+               <a href="htmltxt8.html" class="nav">Listeler</a>
+               <a href="htmltxt9.html" class="nav">Formlar</a>
+               <a href="htmltxt10.html" class="nav">Resimler</a>
+               <a href="htmltxt11.html" class="nav">Art-Alan</a>
+               <a href="htmltxt12.html" class="nav">Renkler</a>
+               <a href="htmltxt13.html" class="nav">RenkDeğerleri</a>
+               <a href="htmltxt14.html" class="nav">RenkAdları</a>
+               <font color="#8e9ccb"><h3>Gelişmiş</h3></font>
+               <a href="ahtmltxt1.html" class="nav">Yerleşim</a>
+               <a href="ahtmltxt2.html" class="nav">YazıTipleri</a>
+               <a href="ahtmltxt3.html" class="nav">Stiller</a>
+               <a href="ahtmltxt4.html" class="nav">Başlık</a>
+               <a href="ahtmltxt6.html" class="nav">URL-Adresleri</a>
+               <a href="ahtmltxt7.html" class="nav">YazıDüzeni</a>
+               <a href="ahtmltxt8.html" class="nav">Nitelikler</a>
+               <a href="ahtmltxt9.html" class="nav">Olaylar</a>
+               <a href="ahtmltxt10.html" class="nav">URL-Kodlama</a>
+               <a href="ahtmltxt11.html" class="nav">Muzik-Kodu</a>
+               <a href="ahtmltxt12.html" class="nav">Video-Kodu</a>
+               <a href="ahtmltxt13.html" class="nav">WEB-Sunucu</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>HTML</h2></center>
+       <div id="ortataraf">
+<!-- html sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">30 Kasım 2007</span></div>
+<h2>HTML çerçeveleri (Frames)</h2>
+<span class="yazi">
+Çerçevelerle, birden çok WEB sayfasını aynı tarayıcı penceresinde aynı anda görüntüleyebilirsiniz.<br />
+</span>
+<h3>Çerçeveler (Frames)</h3>
+<span class="yazi">
+Çerçevelerle, birden çok WEB sayfasını aynı tarayıcı penceresinde aynı anda görüntüleyebilirsiniz. Görüntülenen her HTML bir çerçeve olur ve her biri de diğerinden bağımsızdır.<br />
+<br />
+Çerçeve kullanımının yarasız olduğu konular şöyledir:<br />
+</span>
+<ul class="yazi">
+    <li> WEB geliştiren daha çok HTML sayfasıyla uğraşmak zorunda kalır</li>
+    <li> Tüm sayfayı yazdırmak çok zordur</li>
+</ul>
+<h3>Çerçeve-kurma (Frameset) Biçimi</h3>
+
+<ul class="yazi">
+    <li> &lt;frameset&gt; etketi sayfayı çerçevelere nasıl bölüneceğini tanımlar</li>
+    <li> Her çerçeve-kurma işlemi satırlar ve kolonlar tanımlar</li>
+    <li> Satır/Kolon değerleri görüntü alanının ekranda ne kadar yer kaplayacağını belirtir.</li>
+</ul>
+
+<h3>Çerçeve (Frame) Biçimi</h3>
+
+<ul class="yazi">
+    <li> &lt;frame&gt; biçimi her çerçeveye ne tür HTML sayfası yerleştirileceğini belirtir.</li>
+</ul>
+<span class="yazi">
+Aşağıdaki örnekte iki kolonlu bir "framset" biçimi vardır. İlk kolon tarayıcı eninin %25 kadarını kapsar. İkinci kolonsa %75 oranındadır. "frame_a.htm" adlı HTML dosyası ilk kolona, "frame_b.htm" ise ikinci kolona yerleşir:
+</span>
+<fieldset class="fyazi">
+<pre>
+&lt;frameset cols="25%,75%"&gt;
+   &lt;frame src="frame_a.htm"&gt;
+   &lt;frame src="frame_b.htm"&gt;
+&lt;/frameset&gt;
+</pre>
+</fieldset>
+
+<span class="yazi">
+Not: frameset kolon boyu değeri pixel türünden de olabilir (cols="200,500"), ve kolonlardan biri kalan alanı kullanmak üzere tanımlanabilir (cols="25%,*").
+</span>
+<h3>Temel Notlar - Kullanışlı ipuçları</h3>
+<span class="yazi">
+Eğer bir çerçevenin sınırları varsa, kullanıcı sınırları çekiştirerek çerçevenin değerini değiştirebilir. Bunu önlemek için noresize="noresize" niteliği &lt;frame&gt; biçiminde yer alır.<br />
+<br />
+&lt;noframes&gt; biçimi çerçeveleri desteklemeyen tarayıcılar için kullanılır.<br />
+</span>
+
+<table>
+<tr><td valign="top">
+<fieldset class="fyazi">
+<pre>
+&lt;pre&gt;
+&lt;html&gt;
+
+&lt;frameset cols="25%,50%,25%"&gt;
+  &lt;frame src="frame_a.htm"&gt;
+  &lt;frame src="frame_b.htm"&gt;
+  &lt;frame src="frame_c.htm"&gt;
+
+&lt;noframes&gt;
+&lt;body&gt;Your browser does not handle frames!&lt;/body&gt;
+&lt;/noframes&gt;
+
+&lt;/frameset&gt;
+
+&lt;/html&gt;
+
+</pre>
+</fieldset>
+</td><td valign="top">
+<img src="img/Screenshot0.jpg" />
+</td></tr>
+</table>
+<br />
+<span class="yazi">
+Önemli: &lt;body&gt;&lt;/body&gt; biçimleri &lt;frameset&gt;&lt;/frameset&gt; biçimleriyle birlikte kullanılabilir! Ancak çerçeve desteklemeyen tarayıcılar için &lt;noframe&gt; kullanılırsa ve içinde yazı da varsa bu tanımın &lt;body&gt; ile &lt;/body&gt; arasında olmalıdır.<br />
+</span>
+<h3>karışık çerçeve-kurma (Mixed frameset)</h3>
+<span class="yazi">
+Bu örnek çerçeve-kurma işleminin üç belgeyle nasıl yapıldığını anlatmak ve satırlarla kolonlar arasına nasıl karıştırılacağını göreceğiz.<br />
+</span>
+<table>
+<tr><td valign="top">
+<fieldset class="fyazi">
+<pre>
+&lt;html&gt;
+
+&lt;frameset rows="50%,50%"&gt;
+
+&lt;frame src="frame_a.htm"&gt;
+
+&lt;frameset cols="25%,75%"&gt;
+&lt;frame src="frame_b.htm"&gt;
+&lt;frame src="frame_c.htm"&gt;
+&lt;/frameset&gt;
+
+&lt;/frameset&gt;
+
+&lt;/html&gt;
+</pre>
+</fieldset>
+</td><td valign="top">
+<img src="img/Screenshot1.jpg">
+</td></tr>
+</table>
+<br />
+<h3>Çerçeve-kurma (Frameset) noresize="noresize" niteliğiyle</h3>
+<span class="yazi">
+Bu örnekte noresize niteliğini gösterilmektedir. Çerçeveler değiştirilebilecek biçimde değildir. Sınırlara fareyi götürseniz de sınırları yerinden oynatmak olanaksızdır.<br />
+</span>
+<table>
+<tr><td valign="top">
+<fieldset class="fyazi">
+<pre>
+&lt;html&gt;
+
+&lt;frameset rows="50%,50%"&gt;
+
+&lt;frame noresize="noresize" src="frame_a.htm"&gt;
+
+&lt;frameset cols="25%,75%"&gt;
+&lt;frame noresize="noresize" src="frame_b.htm"&gt;
+&lt;frame noresize="noresize" src="frame_c.htm"&gt;
+&lt;/frameset&gt;
+
+&lt;/frameset&gt;
+
+&lt;/html&gt;
+</pre>
+</fieldset>
+</td><td valign="top">
+<img src="img/Screenshot2.jpg">
+</td></tr>
+</table>
+<br />
+<h3>Gezgin (Navigation) çerçevesi (frame)</h3>
+<span class="yazi">
+Bu örnek gezgin çerçevesinin nasıl yapılacağını anlatır. Gezgin çerçevelerinde bir dizi bağ vardır ve bağlardaki HTML adreslerinin amacı (target) bu çerçevelerdir.<br />
+</span>
+<fieldset class="fyazi">
+<pre>
+&lt;a href ="frame_a.htm" target ="showframe"&gt;Frame a&lt;/a&gt;&lt;br&gt;
+&lt;a href ="frame_b.htm" target ="showframe"&gt;Frame b&lt;/a&gt;&lt;br&gt;
+&lt;a href ="frame_c.htm" target ="showframe"&gt;Frame c&lt;/a&gt;
+</pre>
+</fieldset>
+<table>
+<tr><td valign="top">
+<fieldset class="fyazi">
+<pre>
+&lt;html&gt;
+
+&lt;frameset cols="120,*"&gt;
+
+&lt;frame src="tryhtml_contents.htm"&gt;
+&lt;frame src="frame_a.htm" 
+name="showframe"&gt;
+
+&lt;/frameset&gt;
+
+&lt;/html&gt;
+</pre>
+</fieldset>
+</td><td valign="top">
+<img src="img/Screenshot3.jpg">
+</td></tr>
+</table>
+<span class="yazi">
+İkinci çerçeve bağlanan belgeyi gösterir.<br />
+</span>
+<br />
+<h3>İçsel çerçeve (Inline frame)</h3>
+<span class="yazi">
+Bu örnek içsel çerçevenin nasıl yapıldığını gösterir (bir HTML sayfası içinde çerçeve tanımı olması).<br />
+</span>
+<table>
+<tr><td valign="top">
+<fieldset class="fyazi">
+<pre>
+&lt;html&gt;
+&lt;body&gt;
+
+&lt;iframe src="default.asp"&gt;&lt;/iframe&gt;
+
+&lt;p&gt;Bazı eski tarayıcılar iframes desteklemez.&lt;/p&gt;
+&lt;p&gt;Eğer desteklenmiyorsa, iframes görünmez.&lt;/p&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+</fieldset>
+</td><td valign="top">
+<img src="img/Screenshot4.jpg">
+</td></tr>
+</table>
+<br />
+<h3>Bir çerçeve içinde beliritlen bölüme gitme</h3>
+<span class="yazi">
+Bu örnek iki çerçeveyi tanımlar. Bir çerçevede bir dosyadaki bölümü belirten kaynak vardır. Belirtilen bölüm "link.htm" dosyasında &lt;a name="C10"&gt; olarak tanımlanmıştır.<br />
+</span>
+<table>
+<tr><td valign="top">
+<fieldset class="fyazi">
+<pre>
+&lt;html&gt;
+
+&lt;frameset cols="20%,80%"&gt;
+
+ &lt;frame src="frame_a.htm"&gt;
+ &lt;frame src="link.htm#C10"&gt;
+
+&lt;/frameset&gt;
+
+&lt;/html&gt;
+
+</pre>
+</fieldset>
+</td><td valign="top">
+<img src="img/Screenshot5.jpg">
+</td></tr>
+</table>
+
+<h3>Gezgin çerçeveyle seçilen bölüme sıçrama</h3>
+<span class="yazi">
+Bu örnekte iki çerçeve tanımlanmıştır. Soldaki gezgin çerçeve (content.htm), bir dizi bağlantıları içerir. Bu bağların amaç alanı ikinci çerçevedeir (link.htm). İkinci çerçeve bağlanan belgeyi gösterir. Gezgin çerçevesi içindeki bir bağ, amaç dosya alanı içindeki bir bölümü gösterir. HTML kodu şöyledir:<br />
+&lt;a href ="link.htm" target ="showframe"&gt;Çapasız bağ&lt;/a&gt;&lt;br&gt;&lt;a href ="link.htm#C10" target ="showframe"&gt;Çapalı bağ&lt;/a&gt;.
+</span>
+<table>
+<tr><td valign="top">
+<fieldset class="fyazi">
+<pre>
+&lt;html&gt;
+
+&lt;frameset cols="180,*"&gt;
+
+&lt;frame src="content.htm"&gt;
+&lt;frame src="link.htm" name="showframe"&gt;
+
+&lt;/frameset&gt;
+
+&lt;/html&gt;
+
+</pre>
+</fieldset>
+</td><td valign="top">
+<img src="img/Screenshot6.jpg">
+</td></tr>
+</table>
+<br />
+<h3>Çerçeve (Frame) Biçimleri</h3>
+<table celpadding="0" border="1" class="fyazi">
+<tr><td>Biçim</td><td>Açıklama</td></tr>
+<tr><td>&lt;frameset&gt;</td><td>Bir dizi çerçeveyi tanımlar</td></tr>
+<tr><td>&lt;frame&gt;</td><td>Alt pencereyi tanımlar (bir çerçeve)</td></tr>
+<tr><td>&lt;noframes&gt;</td><td>Çerçeve desteklemeyen tarayıcılar için çerçevesiz bölümü tanımlar</td></tr>
+<tr><td>&lt;iframe&gt;</td><td>Görüntülenen satıriçi alt pencereyi tanımlar (çerçeve)</td></tr>
+</table>
+<br />
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

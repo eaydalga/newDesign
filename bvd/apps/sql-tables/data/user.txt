@@ -1,0 +1,6 @@
+12340	aa0@aa.com.tr	bos	İlk Üye	1
+12341	aa1@aa.com.tr	bos	Birinci Üye	1
+12342	aa2@aa.com.tr	bos	İkinci Üye	1
+12343	aa3@aa.com.tr	bos	Üçüncü Üye	1
+12345	aa4@aa.com.tr	bos	Dördüncü Üye	1
+12346	aa5@aa.com.tr	bos	Beşinci Üye	1

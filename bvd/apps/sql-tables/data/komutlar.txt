@@ -1,0 +1,1 @@
+load data local infile 'user.txt' into table user;

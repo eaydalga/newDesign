@@ -1,0 +1,662 @@
+Multibyte String Functions
+Introduction
+
+While there are many languages in which every necessary character can be represented by a one-to-one mapping to an 8-bit value, there are also several languages which require so many characters for written communication that they cannot be contained within the range a mere byte can code (A byte is made up of eight bits. Each bit can contain only two distinct values, one or zero. Because of this, a byte can only represent 256 unique values (two to the power of eight)). Multibyte character encoding schemes were developed to express more than 256 characters in the regular bytewise coding system.
+
+When you manipulate (trim, split, splice, etc.) strings encoded in a multibyte encoding, you need to use special functions since two or more consecutive bytes may represent a single character in such encoding schemes. Otherwise, if you apply a non-multibyte-aware string function to the string, it probably fails to detect the beginning or ending of the multibyte character and ends up with a corrupted garbage string that most likely loses its original meaning.
+
+mbstring provides multibyte specific string functions that help you deal with multibyte encodings in PHP. In addition to that, mbstring handles character encoding conversion between the possible encoding pairs. mbstring is designed to handle Unicode-based encodings such as UTF-8 and UCS-2 and many single-byte encodings for convenience (listed below).
+PHP Character Encoding Requirements
+
+Encodings of the following types are safely used with PHP.
+
+    *
+
+      A singlebyte encoding,
+          o which has ASCII-compatible (ISO646 compatible) mappings for the characters in range of 00h to 7fh.
+    *
+
+      A multibyte encoding,
+          o which has ASCII-compatible mappings for the characters in range of 00h to 7fh.
+          o which don't use ISO2022 escape sequences.
+          o which don't use a value from 00h to 7fh in any of the compounded bytes that represents a single character.
+
+These are examples of character encodings that are unlikely to work with PHP.
+
+JIS, SJIS, ISO-2022-JP, BIG-5
+
+Although PHP scripts written in any of those encodings might not work, especially in the case where encoded strings appear as identifiers or literals in the script, you can almost avoid using these encodings by setting up the mbstring's transparent encoding filter function for incoming HTTP queries.
+
+    Note: It's highly discouraged to use SJIS, BIG5, CP936, CP949 and GB18030 for the internal encoding unless you are familiar with the parser, the scanner and the character encoding.
+
+    Note: If you are connecting to a database with PHP, it is recommended that you use the same character encoding for both the database and the internal encoding for ease of use and better performance.
+    If you are using PostgreSQL, the character encoding used in the database and the one used in PHP may differ as it supports automatic character set conversion between the backend and the frontend.
+
+Installation
+
+mbstring is a non-default extension. This means it is not enabled by default. You must explicitly enable the module with the configure option. See the Install section for details.
+
+The following configure options are related to the mbstring module.
+
+    *
+
+      --enable-mbstring: Enable mbstring functions. This option is required to use mbstring functions.
+
+      libmbfl is necesarry for mbstring. libmbfl is bundled with mbstring. If libmbfl is already installed on the system, --with-libmbfl[=DIR] can be specified to use the installed library.
+
+      As of PHP 4.3.0, mbstring extension provides enhanced support for Simplified Chinese, Traditional Chinese, Korean, and Russian in addition to Japanese.
+
+      For PHP 4.3.3 or before, To enable that feature, you will have to supply either one of the following options to the LANG parameter of --enable-mbstring=LANG; --enable-mbstring=cn for Simplified Chinese support, --enable-mbstring=tw for Traditional Chinese support, --enable-mbstring=kr for Korean support, --enable-mbstring=ru for Russian support, and --enable-mbstring=ja for Japanese support (default). To enable all supported encoding, use --enable-mbstring=all.
+
+          Note: As of PHP 4.3.4, all supported encoding by libmbfl is enabled with --enable-mbstring.
+
+    *
+
+      --enable-mbstr-enc-trans : Enable HTTP input character encoding conversion using mbstring conversion engine. If this feature is enabled, HTTP input character encoding may be converted to mbstring.internal_encoding automatically.
+
+          Note: As of PHP 4.3.0, the option --enable-mbstr-enc-trans was eliminated and replaced with the runtime setting mbstring.encoding_translation. HTTP input character encoding conversion is enabled when this is set to On (the default is Off).
+
+    *
+
+      --disable-mbregex: Disable regular expression functions with multibyte character support.
+
+Runtime Configuration
+
+The behaviour of these functions is affected by settings in php.ini.
+
+mbstring configuration options Name 	Default 	Changeable 	Changelog
+mbstring.language 	"neutral" 	PHP_INI_PERDIR 	Available since PHP 4.3.0.
+mbstring.detect_order 	NULL 	PHP_INI_ALL 	Available since PHP 4.0.6.
+mbstring.http_input 	"pass" 	PHP_INI_ALL 	Available since PHP 4.0.6.
+mbstring.http_output 	"pass" 	PHP_INI_ALL 	Available since PHP 4.0.6.
+mbstring.internal_encoding 	NULL 	PHP_INI_ALL 	Available since PHP 4.0.6.
+mbstring.script_encoding 	NULL 	PHP_INI_ALL 	Available since PHP 4.3.0.
+mbstring.substitute_character 	NULL 	PHP_INI_ALL 	Available since PHP 4.0.6.
+mbstring.func_overload 	"0" 	PHP_INI_PERDIR 	PHP_INI_SYSTEM in PHP <= 4.2.3. Available since PHP 4.2.0.
+mbstring.encoding_translation 	"0" 	PHP_INI_PERDIR 	Available since PHP 4.3.0.
+mbstring.strict_detection 	"0" 	PHP_INI_ALL 	Available since PHP 5.1.2.
+For the definition of the PHP_INI_* constants, please refer to ini_set().
+
+Here's a short explanation of the configuration directives.
+
+mbstring.language string
+
+    The default national language setting (NLS) used in mbstring. Note that this option automagically defines mbstring.internal_encoding and mbstring.internal_encoding should be placed after mbstring.language in php.ini
+mbstring.encoding_translation boolean
+
+    Enables the transparent character encoding filter for the incoming HTTP queries, which performs detection and conversion of the input encoding to the internal character encoding.
+mbstring.internal_encoding string
+
+    Defines the default internal character encoding.
+mbstring.http_input string
+
+    Defines the default HTTP input character encoding.
+mbstring.http_output string
+
+    Defines the default HTTP output character encoding.
+mbstring.detect_order string
+
+    Defines default character code detection order. See also mb_detect_order().
+mbstring.substitute_character string
+
+    Defines character to substitute for invalid character encoding.
+mbstring.func_overload string
+
+    Overloads a set of single byte functions by the mbstring counterparts. See Function overloading for more information.
+mbstring.strict_detection boolean
+
+    Enables the strict encoding detection.
+
+According to the » HTML 4.01 specification, Web browsers are allowed to encode a form being submitted with a character encoding different from the one used for the page. See mb_http_input() to detect character encoding used by browsers.
+
+Although popular browsers are capable of giving a reasonably accurate guess to the character encoding of a given HTML document, it would be better to set the charset parameter in the Content-Type HTTP header to the appropriate value by header() or default_charset ini setting.
+
+Example#1 php.ini setting examples
+
+; Set default language
+mbstring.language        = Neutral; Set default language to Neutral(UTF-8) (default)
+mbstring.language        = English; Set default language to English 
+mbstring.language        = Japanese; Set default language to Japanese
+
+;; Set default internal encoding
+;; Note: Make sure to use character encoding works with PHP
+mbstring.internal_encoding    = UTF-8  ; Set internal encoding to UTF-8
+
+;; HTTP input encoding translation is enabled.
+mbstring.encoding_translation = On
+
+;; Set default HTTP input character encoding
+;; Note: Script cannot change http_input setting.
+mbstring.http_input           = pass    ; No conversion. 
+mbstring.http_input           = auto    ; Set HTTP input to auto
+                                ; "auto" is expanded to "ASCII,JIS,UTF-8,EUC-JP,SJIS"
+mbstring.http_input           = SJIS    ; Set HTTP2 input to  SJIS
+mbstring.http_input           = UTF-8,SJIS,EUC-JP ; Specify order
+
+;; Set default HTTP output character encoding 
+mbstring.http_output          = pass    ; No conversion
+mbstring.http_output          = UTF-8   ; Set HTTP output encoding to UTF-8
+
+;; Set default character encoding detection order
+mbstring.detect_order         = auto    ; Set detect order to auto
+mbstring.detect_order         = ASCII,JIS,UTF-8,SJIS,EUC-JP ; Specify order
+
+;; Set default substitute character
+mbstring.substitute_character = 12307   ; Specify Unicode value
+mbstring.substitute_character = none    ; Do not print character
+mbstring.substitute_character = long    ; Long Example: U+3000,JIS+7E7E
+
+Example#2 php.ini setting for EUC-JP users
+
+;; Disable Output Buffering
+output_buffering      = Off
+
+;; Set HTTP header charset
+default_charset       = EUC-JP    
+
+;; Set default language to Japanese
+mbstring.language = Japanese
+
+;; HTTP input encoding translation is enabled.
+mbstring.encoding_translation = On
+
+;; Set HTTP input encoding conversion to auto
+mbstring.http_input   = auto 
+
+;; Convert HTTP output to EUC-JP
+mbstring.http_output  = EUC-JP    
+
+;; Set internal encoding to EUC-JP
+mbstring.internal_encoding = EUC-JP    
+
+;; Do not print invalid characters
+mbstring.substitute_character = none   
+
+Example#3 php.ini setting for SJIS users
+
+;; Enable Output Buffering
+output_buffering     = On
+
+;; Set mb_output_handler to enable output conversion
+output_handler       = mb_output_handler
+
+;; Set HTTP header charset
+default_charset      = Shift_JIS
+
+;; Set default language to Japanese
+mbstring.language = Japanese
+
+;; Set http input encoding conversion to auto
+mbstring.http_input  = auto 
+
+;; Convert to SJIS
+mbstring.http_output = SJIS    
+
+;; Set internal encoding to EUC-JP
+mbstring.internal_encoding = EUC-JP    
+
+;; Do not print invalid characters
+mbstring.substitute_character = none   
+
+Resource Types
+
+This extension has no resource types defined.
+Predefined Constants
+
+The constants below are defined by this extension, and will only be available when the extension has either been compiled into PHP or dynamically loaded at runtime.
+
+MB_OVERLOAD_MAIL (integer)
+MB_OVERLOAD_STRING (integer)
+MB_OVERLOAD_REGEX (integer)
+MB_CASE_UPPER (integer)
+MB_CASE_LOWER (integer)
+MB_CASE_TITLE (integer)
+
+HTTP Input and Output
+
+HTTP input/output character encoding conversion may convert binary data also. Users are supposed to control character encoding conversion if binary data is used for HTTP input/output.
+
+    Note: In PHP 4.3.2 or earlier versions, there was a limitation in this functionality that mbstring does not perform character encoding conversion in POST data if the enctype attribute in the form element is set to multipart/form-data. So you have to convert the incoming data by yourself in this case if necessary.
+    Beginning with PHP 4.3.3, if enctype for HTML form is set to multipart/form-data and mbstring.encoding_translation is set to On in php.ini the POST'ed variables and the names of uploaded files will be converted to the internal character encoding as well. However, the conversion isn't applied to the query keys.
+
+    * HTTP Input
+
+      There is no way to control HTTP input character conversion from a PHP script. To disable HTTP input character conversion, it has to be done in php.ini.
+
+      Example#4 Disable HTTP input conversion in php.ini
+      ;; Disable HTTP Input conversion
+      mbstring.http_input = pass
+      ;; Disable HTTP Input conversion (PHP 4.3.0 or higher)
+      mbstring.encoding_translation = Off
+
+      When using PHP as an Apache module, it is possible to override those settings in each Virtual Host directive in httpd.conf or per directory with .htaccess. Refer to the Configuration section and Apache Manual for details.
+    * HTTP Output
+
+      There are several ways to enable output character encoding conversion. One is using php.ini, another is using ob_start() with mb_output_handler() as the ob_start callback function.
+
+          Note: PHP3-i18n users should note that mbstring's output conversion differs from PHP3-i18n. Character encoding is converted using an output buffer.
+
+Example#5 php.ini setting example
+
+;; Enable output character encoding conversion for all PHP pages
+
+;; Enable Output Buffering
+output_buffering    = On
+
+;; Set mb_output_handler to enable output conversion
+output_handler      = mb_output_handler
+
+Example#6 Script example
+<?php
+
+// Enable output character encoding conversion only for this page
+
+// Set HTTP output character encoding to SJIS
+mb_http_output('SJIS');
+
+// Start buffering and specify "mb_output_handler" as
+// callback function
+ob_start('mb_output_handler');
+
+?>
+Supported Character Encodings
+
+Currently the following character encodings are supported by the mbstring module. Any of those Character encodings can be specified in the encoding parameter of mbstring functions.
+
+The following character encodings are supported in this PHP extension:
+
+    * UCS-4
+    * UCS-4BE
+    * UCS-4LE
+    * UCS-2
+    * UCS-2BE
+    * UCS-2LE
+    * UTF-32
+    * UTF-32BE
+    * UTF-32LE
+    * UTF-16
+    * UTF-16BE
+    * UTF-16LE
+    * UTF-7
+    * UTF7-IMAP
+    * UTF-8
+    * ASCII
+    * EUC-JP
+    * SJIS
+    * eucJP-win
+    * SJIS-win
+    * ISO-2022-JP
+    * JIS
+    * ISO-8859-1
+    * ISO-8859-2
+    * ISO-8859-3
+    * ISO-8859-4
+    * ISO-8859-5
+    * ISO-8859-6
+    * ISO-8859-7
+    * ISO-8859-8
+    * ISO-8859-9
+    * ISO-8859-10
+    * ISO-8859-13
+    * ISO-8859-14
+    * ISO-8859-15
+    * byte2be
+    * byte2le
+    * byte4be
+    * byte4le
+    * BASE64
+    * HTML-ENTITIES
+    * 7bit
+    * 8bit
+    * EUC-CN
+    * CP936
+    * HZ
+    * EUC-TW
+    * CP950
+    * BIG-5
+    * EUC-KR
+    * UHC (CP949)
+    * ISO-2022-KR
+    * Windows-1251 (CP1251)
+    * Windows-1252 (CP1252)
+    * CP866 (IBM866)
+    * KOI8-R
+
+Any php.ini entry which accepts an encoding name can also use the values "auto" and "pass". mbstring functions which accept an encoding name can also use the value "auto".
+
+If "pass" is set, no character encoding conversion is performed.
+
+If "auto" is set, it is expanded to the list of encodings defined per the NLS. For instance, if the NLS is set to Japanese, the value is assumed to be "ASCII,JIS,UTF-8,EUC-JP,SJIS".
+
+See also mb_detect_order()
+Function Overloading Feature
+
+You might often find it difficult to get an existing PHP application to work in a given multibyte environment. This happens because most PHP applications out there are written with the standard string functions such as substr(), which are known to not properly handle multibyte-encoded strings.
+
+mbstring supports a 'function overloading' feature which enables you to add multibyte awareness to such an application without code modification by overloading multibyte counterparts on the standard string functions. For example, mb_substr() is called instead of substr() if function overloading is enabled. This feature makes it easy to port applications that only support single-byte encodings to a multibyte environment in many cases.
+
+To use function overloading, set mbstring.func_overload in php.ini to a positive value that represents a combination of bitmasks specifying the categories of functions to be overloaded. It should be set to 1 to overload the mail() function. 2 for string functions, 4 for regular expression functions. For example, if it is set to 7, mail, strings and regular expression functions will be overloaded. The list of overloaded functions are shown below.
+Functions to be overloaded value of mbstring.func_overload 	original function 	overloaded function
+1 	mail() 	mb_send_mail()
+2 	strlen() 	mb_strlen()
+2 	strpos() 	mb_strpos()
+2 	strrpos() 	mb_strrpos()
+2 	substr() 	mb_substr()
+2 	strtolower() 	mb_strtolower()
+2 	strtoupper() 	mb_strtoupper()
+2 	substr_count() 	mb_substr_count()
+4 	ereg() 	mb_ereg()
+4 	eregi() 	mb_eregi()
+4 	ereg_replace() 	mb_ereg_replace()
+4 	eregi_replace() 	mb_eregi_replace()
+4 	split() 	mb_split()
+
+    Note: It is not recommended to use the function overloading option in the per-directory context, because it's not confirmed yet to be stable enough in a production environment and may lead to undefined behaviour.
+
+Basics of Japanese multi-byte encodings
+
+Japanese characters can only be represented by multibyte encodings, and multiple encoding standards are used depending on platform and text purpose. To make matters worse, these encoding standards differ slightly from one another. In order to create a web application which would be usable in a Japanese environment, a developer has to keep these complexities in mind to ensure that the proper character encodings are used.
+
+    * Storage for a character can be up to six bytes
+    * Most Japanese multibyte characters appear twice as wide as single-byte characters. These characters are called "zen-kaku" in Japanese, which means "full width". Other, narrower, characters are called "han-kaku", which means "half width". The graphical properties of the characters, however, depends upon the type faces used to display them.
+    * Some character encodings use shift(escape) sequences defined in ISO-2022 to switch the code map of the specific code area (00h to 7fh).
+    * ISO-2022-JP should be used in SMTP/NNTP, and headers and entities should be reencoded as per RFC requirements. Although those are not requisites, it's still a good idea because several popular user agents cannot recognize any other encoding methods.
+    * Web pages created for mobile phone services such as » i-mode, » Vodafone live!, or » EZweb are supposed to use Shift_JIS.
+
+References
+
+Multibyte character encoding schemes and their related issues are fairly complicated, and are beyond the scope of this documentation. Please refer to the following URLs and other resources for further information regarding these topics.
+
+    *
+
+      Unicode materials
+
+      » http://www.unicode.org/
+    *
+
+      Japanese/Korean/Chinese character information
+
+      » http://examples.oreilly.com/cjkvinfo/doc/cjk.inf
+
+Summaries of supported encodings
+Summaries of supported encodings
+Name in the IANA character set registry:ISO-10646-UCS-4
+Underlying character set:ISO 10646
+Description: The Universal Character Set with 31-bit code space, standardized as UCS-4 by ISO/IEC 10646. It is kept synchronized with the latest version of the Unicode code map.
+Additional note: If this name is used in the encoding conversion facility, the converter attempts to identify by the preceding BOM (byte order mark)in which endian the subsequent bytes are represented.
+Name in the IANA character set registry:ISO-10646-UCS-4
+Underlying character set:UCS-4
+Description: See above.
+Additional note: In contrast to UCS-4, strings are always assumed to be in big endian form.
+Name in the IANA character set registry:ISO-10646-UCS-4
+Underlying character set:UCS-4
+Description: See above.
+Additional note: In contrast to UCS-4, strings are always assumed to be in little endian form.
+Name in the IANA character set registry:ISO-10646-UCS-2
+Underlying character set:UCS-2
+Description: The Universal Character Set with 16-bit code space, standardized as UCS-2 by ISO/IEC 10646. It is kept synchronized with the latest version of the unicode code map.
+Additional note: If this name is used in the encoding conversion facility, the converter attempts to identify by the preceding BOM (byte order mark)in which endian the subsequent bytes are represented.
+Name in the IANA character set registry:ISO-10646-UCS-2
+Underlying character set:UCS-2
+Description: See above.
+Additional note: In contrast to UCS-2, strings are always assumed to be in big endian form.
+Name in the IANA character set registry:ISO-10646-UCS-2
+Underlying character set:UCS-2
+Description: See above.
+Additional note: In contrast to UCS-2, strings are always assumed to be in little endian form.
+Name in the IANA character set registry:UTF-32
+Underlying character set:Unicode
+Description: Unicode Transformation Format of 32-bit unit width, whose encoding space refers to the Unicode's codeset standard. This encoding scheme wasn't identical to UCS-4 because the code space of Unicode were limited to a 21-bit value.
+Additional note: If this name is used in the encoding conversion facility, the converter attempts to identify by the preceding BOM (byte order mark)in which endian the subsequent bytes are represented.
+Name in the IANA character set registry:UTF-32BE
+Underlying character set:Unicode
+Description:See above
+Additional note: In contrast to UTF-32, strings are always assumed to be in big endian form.
+Name in the IANA character set registry:UTF-32LE
+Underlying character set:Unicode
+Description:See above
+Additional note: In contrast to UTF-32, strings are always assumed to be in little endian form.
+Name in the IANA character set registry:UTF-16
+Underlying character set:Unicode
+Description: Unicode Transformation Format of 16-bit unit width. It's worth a note that UTF-16 is no longer the same specification as UCS-2 because the surrogate mechanism has been introduced since Unicode 2.0 and UTF-16 now refers to a 21-bit code space.
+Additional note: If this name is used in the encoding conversion facility, the converter attempts to identify by the preceding BOM (byte order mark)in which endian the subsequent bytes are represented.
+Name in the IANA character set registry:UTF-16BE
+Underlying character set:Unicode
+Description: See above.
+Additional note: In contrast to UTF-16, strings are always assumed to be in big endian form.
+Name in the IANA character set registry:UTF-16LE
+Underlying character set:Unicode
+Description: See above.
+Additional note: In contrast to UTF-16, strings are always assumed to be in little endian form.
+Name in the IANA character set registry:UTF-8
+Underlying character set:Unicode / UCS
+Description: Unicode Transformation Format of 8-bit unit width.
+Additional note:none
+Name in the IANA character set registry:UTF-7
+Underlying character set:Unicode
+Description: A mail-safe transformation format of Unicode, specified in » RFC2152.
+Additional note:none
+Name in the IANA character set registry:(none)
+Underlying character set:Unicode
+Description: A variant of UTF-7 which is specialized for use in the » IMAP protocol.
+Additional note:none
+Name in the IANA character set registry: US-ASCII (preferred MIME name) / iso-ir-6 / ANSI_X3.4-1986 / ISO_646.irv:1991 / ASCII / ISO646-US / us / IBM367 / CP367 / csASCII
+Underlying character set:ASCII / ISO 646
+Description: American Standard Code for Information Interchange is a commonly-used 7-bit encoding. Also standardized as an international standard, ISO 646.
+Additional note:(none)
+Name in the IANA character set registry: EUC-JP (preferred MIME name) / Extended_UNIX_Code_Packed_Format_for_Japanese / csEUCPkdFmtJapanese
+Underlying character set: Compound of US-ASCII / JIS X0201:1997 (hankaku kana part) / JIS X0208:1990 / JIS X0212:1990
+Description: As you see the name is derived from an abbreviation of Extended UNIX Code Packed Format for Japanese, this encoding is mostly used on UNIX or alike platforms. The original encoding scheme, Extended UNIX Code, is designed on the basis of ISO 2022.
+Additional note: The character set referred to by EUC-JP is different to IBM932 / CP932, which are used by OS/2® and Microsoft® Windows®. For information interchange with those platforms, use EUCJP-WIN instead.
+Name in the IANA character set registry:Shift_JIS (preferred MIME name) / MS_Kanji / csShift_JIS
+Underlying character set:Compound of JIS X0201:1997 / JIS X0208:1997
+Description: Shift_JIS was developed in early 80's, at the time personal Japanese word processors were brought into the market, in order to maintain compatiblities with the legacy encoding scheme JIS X 0201:1976. According to the IANA definition the codeset of Shift_JIS is slightly different to IBM932 / CP932. However, the names "SJIS" / "Shift_JIS" are often wrongly used to refer to these codesets.
+Additional note:For the CP932 codemap, use SJIS-WIN instead.
+Name in the IANA character set registry:(none)
+Underlying character set: Compound of JIS X0201:1997 / JIS X0208:1997 / IBM extensions / NEC extensions
+Description: While this "encoding" uses the same encoding scheme as EUC-JP, the underlying character set is different. That is, some code points map to different characters than EUC-JP.
+Additional note:none
+Name in the IANA character set registry:Windows-31J / csWindows31J
+Underlying character set: Compound of JIS X0201:1997 / JIS X0208:1997 / IBM extensions / NEC extensions
+Description: While this "encoding" uses the same encoding scheme as Shift_JIS, the underlying character set is different. That means some code points map to different characters than Shift_JIS.
+Additional note:(none)
+Name in the IANA character set registry:ISO-2022-JP (preferred MIME name) / csISO2022JP
+Underlying character set: US-ASCII / JIS X0201:1976 / JIS X0208:1978 / JIS X0208:1983
+Description:» RFC1468
+Additional note:(none)
+Name in the IANA character set registry:JIS
+Underlying character set:
+Description:
+Additional note:
+Name in the IANA character set registry:ISO-8859-1
+Underlying character set:
+Description:
+Additional note:
+Name in the IANA character set registry:ISO-8859-2
+Underlying character set:
+Description:
+Additional note:
+Name in the IANA character set registry:ISO-8859-3
+Underlying character set:
+Description:
+Additional note:
+Name in the IANA character set registry:ISO-8859-4
+Underlying character set:
+Description:
+Additional note:
+Name in the IANA character set registry:ISO-8859-5
+Underlying character set:
+Description:
+Additional note:
+Name in the IANA character set registry:ISO-8859-6
+Underlying character set:
+Description:
+Additional note:
+Name in the IANA character set registry:ISO-8859-7
+Underlying character set:
+Description:
+Additional note:
+Name in the IANA character set registry:ISO-8859-8
+Underlying character set:
+Description:
+Additional note:
+Name in the IANA character set registry:ISO-8859-9
+Underlying character set:
+Description:
+Additional note:
+Name in the IANA character set registry:ISO-8859-10
+Underlying character set:
+Description:
+Additional note:
+Name in the IANA character set registry:ISO-8859-13
+Underlying character set:
+Description:
+Additional note:
+Name in the IANA character set registry:ISO-8859-14
+Underlying character set:
+Description:
+Additional note:
+Name in the IANA character set registry:ISO-8859-15
+Underlying character set:
+Description:
+Additional note:
+Name in the IANA character set registry:byte2be
+Underlying character set:
+Description:
+Additional note:
+Name in the IANA character set registry:byte2le
+Underlying character set:
+Description:
+Additional note:
+Name in the IANA character set registry:byte4be
+Underlying character set:
+Description:
+Additional note:
+Name in the IANA character set registry:byte4le
+Underlying character set:
+Description:
+Additional note:
+Name in the IANA character set registry:BASE64
+Underlying character set:
+Description:
+Additional note:
+Name in the IANA character set registry:HTML-ENTITIES
+Underlying character set:
+Description:
+Additional note:
+Name in the IANA character set registry:7bit
+Underlying character set:
+Description:
+Additional note:
+Name in the IANA character set registry:8bit
+Underlying character set:
+Description:
+Additional note:
+Name in the IANA character set registry:EUC-CN
+Underlying character set:
+Description:
+Additional note:
+Name in the IANA character set registry:CP936
+Underlying character set:
+Description:
+Additional note:
+Name in the IANA character set registry:HZ
+Underlying character set:
+Description:
+Additional note:
+Name in the IANA character set registry:EUC-TW
+Underlying character set:
+Description:
+Additional note:
+Name in the IANA character set registry:CP950
+Underlying character set:
+Description:
+Additional note:
+Name in the IANA character set registry:BIG-5
+Underlying character set:
+Description:
+Additional note:
+Name in the IANA character set registry:EUC-KR
+Underlying character set:
+Description:
+Additional note:
+Name in the IANA character set registry:UHC (CP949)
+Underlying character set:
+Description:
+Additional note:
+Name in the IANA character set registry:ISO-2022-KR
+Underlying character set:
+Description:
+Additional note:
+Name in the IANA character set registry:Windows-1251 (CP1251)
+Underlying character set:
+Description:
+Additional note:
+Name in the IANA character set registry:Windows-1252 (CP1252)
+Underlying character set:
+Description:
+Additional note:
+Name in the IANA character set registry:CP866 (IBM866)
+Underlying character set:
+Description:
+Additional note:
+Name in the IANA character set registry:KOI8-R
+Underlying character set:
+Description:
+Additional note:
+Table of Contents
+
+    * mb_check_encoding — Check if the string is valid for the specified encoding
+    * mb_convert_case — Perform case folding on a string
+    * mb_convert_encoding — Convert character encoding
+    * mb_convert_kana — Convert "kana" one from another ("zen-kaku", "han-kaku" and more)
+    * mb_convert_variables — Convert character code in variable(s)
+    * mb_decode_mimeheader — Decode string in MIME header field
+    * mb_decode_numericentity — Decode HTML numeric string reference to character
+    * mb_detect_encoding — Detect character encoding
+    * mb_detect_order — Set/Get character encoding detection order
+    * mb_encode_mimeheader — Encode string for MIME header
+    * mb_encode_numericentity — Encode character to HTML numeric string reference
+    * mb_ereg_match — Regular expression match for multibyte string
+    * mb_ereg_replace — Replace regular expression with multibyte support
+    * mb_ereg_search_getpos — Returns start point for next regular expression match
+    * mb_ereg_search_getregs — Retrieve the result from the last multibyte regular expression match
+    * mb_ereg_search_init — Setup string and regular expression for multibyte regularexpression match
+    * mb_ereg_search_pos — Return position and length of matched part of multibyte regular expression for predefined multibyte string
+    * mb_ereg_search_regs — Returns the matched part of multibyte regular expression
+    * mb_ereg_search_setpos — Set start point of next regular expression match
+    * mb_ereg_search — Multibyte regular expression match for predefined multibyte string
+    * mb_ereg — Regular expression match with multibyte support
+    * mb_eregi_replace — Replace regular expression with multibyte support ignoring case
+    * mb_eregi — Regular expression match ignoring case with multibyte support
+    * mb_get_info — Get internal settings of mbstring
+    * mb_http_input — Detect HTTP input character encoding
+    * mb_http_output — Set/Get HTTP output character encoding
+    * mb_internal_encoding — Set/Get internal character encoding
+    * mb_language — Set/Get current language
+    * mb_output_handler — Callback function converts character encoding in output buffer
+    * mb_parse_str — Parse GET/POST/COOKIE data and set global variable
+    * mb_preferred_mime_name — Get MIME charset string
+    * mb_regex_encoding — Returns current encoding for multibyte regex as string
+    * mb_regex_set_options — Set/Get the default options for mbregex functions
+    * mb_send_mail — Send encoded mail
+    * mb_split — Split multibyte string using regular expression
+    * mb_strcut — Get part of string
+    * mb_strimwidth — Get truncated string with specified width
+    * mb_stripos — Finds position of first occurrence of a string within another, case insensitive
+    * mb_stristr — Finds first occurrence of a string within another, case insensitive
+    * mb_strlen — Get string length
+    * mb_strpos — Find position of first occurrence of string in a string
+    * mb_strrchr — Finds the last occurrence of a character in a string within another
+    * mb_strrichr — Finds the last occurrence of a character in a string within another, case insensitive
+    * mb_strripos — Finds position of last occurrence of a string within another, case insensitive
+    * mb_strrpos — Find position of last occurrence of a string in a string
+    * mb_strstr — Finds first occurrence of a string within another
+    * mb_strtolower — Make a string lowercase
+    * mb_strtoupper — Make a string uppercase
+    * mb_strwidth — Return width of string
+    * mb_substitute_character — Set/Get substitution character
+    * mb_substr_count — Count the number of substring occurrences
+    * mb_substr — Get part of string
+
+

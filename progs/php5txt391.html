@@ -1,0 +1,1498 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP - Sınıflar ve Nesneler (Classes and Objects) (PHP 5) Bölüm2 </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="javascript:myvoid();" class="nav">Başlarken</a>
+               <a href="phptxt11.html" class="sub">ilk Anlatım</a>
+               <a href="javascript:myvoid();" class="nav">Kurulumlar</a>
+               <a href="phptxt21.html" class="sub">Genel Kurulum</a><br />
+               <a href="phptxt22.html" class="sub">UNIX Kurulumu</a><br />
+               <a href="phptxt23.html" class="sub">OSX Kurulumu</a><br />
+               <a href="phptxt24.html" class="sub">Wins Kurulumu</a>
+               <a href="javascript:myvoid();" class="nav">Dil Kuralları</a>
+               <a href="phptxt31.html" class="sub">Temel yazım</a><br />
+               <a href="phptxt32.html" class="sub">Tipler</a><br />
+               <a href="phptxt33.html" class="sub">Değişkenler</a><br />
+               <a href="phptxt34.html" class="sub">Değişmezler</a><br />
+               <a href="phptxt35.html" class="sub">Deyimler</a><br />
+               <a href="phptxt36.html" class="sub">İşlemler</a><br />
+               <a href="phptxt37.html" class="sub">Kontrol Yapıları</a><br />
+               <a href="phptxt38.html" class="sub">İşlevler</a><br />
+               <a href="phptxt39.html" class="sub">Sınıflar Nesneler</a><br />
+               <a href="phptxt391.html" class="sub">Ad uzayı</a><br />
+               <a href="phptxt392.html" class="sub">İstisnalar</a>
+               <a href="javascript:myvoid();" class="nav">Güvenlik</a>
+               <a href="phptxt41.html" class="sub">Giriş</a><br />
+               <a href="phptxt42.html" class="sub">Genel bilgi</a><br />
+               <a href="phptxt43.html" class="sub">CGI iklisi</a><br />
+               <a href="phptxt44.html" class="sub">Apache modülü</a><br />
+               <a href="phptxt45.html" class="sub">Dosyadüzeni</a><br />
+               <a href="phptxt46.html" class="sub">Veritabanı</a><br />
+               <a href="phptxt47.html" class="sub">Hatalar</a><br />
+               <a href="phptxt48.html" class="sub">Diğerleri</a><br />
+               <a href="javascript:myvoid();" class="nav">Özellikler</a>
+               <a href="phptxt51.html" class="sub">HTTP Şifresi</a><br />
+               <a href="phptxt52.html" class="sub">Çerezler</a><br />
+               <a href="phptxt53.html" class="sub">Oturumlar</a><br />
+               <a href="phptxt54.html" class="sub">XForm</a><br />
+               <a href="phptxt55.html" class="sub">DosyaYükleme</a><br />
+               <a href="phptxt56.html" class="sub">UzakDosyalar</a><br />
+               <a href="phptxt57.html" class="sub">Bağlantılar</a><br />
+               <a href="phptxt58.html" class="sub">VTBağlantısı</a>
+               <font color="#8e9ccb"><h3>Gelişmiş</h3></font>
+               <a href="../phpfunc/islevler.html" class="nav">İşlevler</a>
+               <a href="phptxt7.html" class="nav">Php Kökü</a>
+               <a href="phptxt8.html" class="nav">Ekler</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">2 Şubat 2008</span></div>
+<h2>Sınıflar ve Nesneler (Classes and Objects) (PHP 5) Bölüm2</h2>
+<div id="bdy" class="yazi">
+
+<h3>Desenler (Patterns)</h3>
+
+Desenler en iyi partik ve iyi tasarım yollarıdır. Sıradan programlama sorunlarına esnek çözümler göstermektir.
+<b>Fabrika (Factory)</b>
+
+Fabrika desenleri nesnelerin çalışma zamanında kopyalanmasına izin verir. Fabrika deseni denir çünkü nesnenin üretilmesinden sorumludur. Parametrelenmiş bir fabrika sınıfın adı gelince, onu kopyalama için parametre olarak kullanır.
+<br /><Br />
+Parametreli Fabrika yöntemi örneği
+<pre>
+&lt;?php
+class Example
+{
+    // parametreli fabrika yöntemi
+    public static function factory($type)
+    {
+        if (include_once 'Drivers/' . $type . '.php') {
+            $classname = 'Driver_' . $type;
+            return new $classname;
+        } else {
+            throw new Exception ('Sürücü bulunmadı');
+        }
+    }
+}
+?&gt;
+</pre>
+Bu yöntemi bir sınıf içinde tanımlamak sürücülerin hemen yüklenmesini sağlar. Eğer örnek sınıf veri tabanı soyutlamasıysa, MySQL ve SQLite sürücüler aşağıdaki gibi yüklenir:
+<pre>
+&lt;?php
+// MySQL Sürücüsünü yükleme
+$mysql = Example::factory('MySQL');
+
+// SQLite sürücüsünü yükleme
+$sqlite = Example::factory('SQLite');
+?&gt;
+</pre>
+<h3>Tek Çocuk (Singleton)</h3>
+
+Tek çocuk deseni bir sınıfın tek kopyasının olması gerektiği durumlarda uygulanır. Buna en uygun örnek veri tabanı bağlantısıdır. Bu deseni kullanmakla programcılar birçok başka nesne tarafından kolayca erişilebilir tek kopya yaratırlar.
+<br /><br />
+Singleton (Tek çocuk) İşlevi örneği
+<pre>
+&lt;?php
+class Example
+{
+    // sınıfın bir kopyasını tut
+    private static $instance;
+    
+    // Özel yapıcı; nesnenin doğrudan yaratılmasını önler
+    private function __construct() 
+    {
+        echo 'Ben yapıldım';
+    }
+
+    // singleton yöntemi
+    public static function singleton() 
+    {
+        if (!isset(self::$instance)) {
+            $c = __CLASS__;
+            self::$instance = new $c;
+        }
+
+        return self::$instance;
+    }
+    
+    // örnek yöntem
+    public function bark()
+    {
+        echo 'Kurt!';
+    }
+
+    // Kullanıcıların koyyayı klonlamasını engeller
+    public function __clone()
+    {
+        trigger_error('Klonlamaya izin verilmez.', E_USER_ERROR);
+    }
+
+}
+
+?&gt;
+</pre>
+Bu "Example" sınıfının bir kopyasının okunmasını sağlar.
+<pre>
+&lt;?php
+// Bu hataya düşer çünkü yapıcı özeldir
+$test = new Example;
+
+// Bu her zaman sınıfın tek kopyasını okur
+$test = Example::singleton();
+$test-&gt;bark();
+
+// Bu E_USER_ERROR hatası yaratır.
+$test_clone = clone $test;
+?&gt;
+</pre>
+<hr>
+
+<h3>Tılsımlı Yöntemler (Magic Methods)</h3>
+
+The function names __construct, __destruct (see Constructors and Destructors), __call, __get, __set, __isset, __unset (see Overloading), __sleep, __wakeup, __toString, __set_state and __clone are magical in PHP classes. You cannot have functions with these names in any of your classes unless you want the magic functionality associated with them.
+__construct, __destruct (Yapıcılara ve Bozuculara bakın), __call, __get, __set, __isset, __unset (aşırı yüklemeye bakın), __sleep, __wakeup, __toString, __set_state ve __clone PHP sınıflarında tılsımlı işlevlerdir. Sınıflarınızda bu adlarla işlevleriniz olmaz. Ancak bu işlevlerin tılsımlı işlev özelliğini kullanmak isterseniz adlarını belirtebilirsiniz.
+<h3>Dikkat</h3>
+
+PHP, __ ile başlayan tüm işlev adlarını saklı tutar. Önerilen __ ile başlayan işlev adları tanımlanmamasıdır. Eğer siz belirtilmiş tıslım özelliklerini kullanmak isterseniz işlevlerde yukarıdaki adları kullanabilirsiniz.
+<h3>__sleep (uyuma) ve __wakeup (uyanma)</h3>
+
+serialize(), sınıflarınızda __sleep adlı tılsımlı bir işlev olup olmadığını araştırır. Eğer öyleyse, o işlem sıralamadan önce çalıştırılır. nesneyi temizler ve o nesnenin sıralanabilecek tüm değişkenlerini bir dizide döndürür. Eğer yöntem hiçbir şey döndürmezse, NULL sıralanır cw E_NOTICE uyarısı verilir.
+<br /><br />
+__sleep işlevinin tasarlanan kullanımı, bekleyen verileri onaylamak ya da benzeri temizlik işlerini yapmaktır. Bu işlev çok büyük nesnelerde tümüyle saklanması gerek olduğu durumlarda da yararlı kullanılabilir.
+<br /><br />
+Tersine unserialize() adı __wakeup() olan tılsımlı işlevin varlığını arar. Eğer varsa, nesnenin tüm kaynaklarını yeniden yapılandırır.
+<br /><br />
+__wakeup işlevinin tasarlanan kullanımıi  sıralamada kaybolan veritabanı bağlantılarını yeniden kurmak ve diğer yeniden ilkleme işlemlerini yapmaktır.
+<br /><br />
+Uyuma (sleep) ve uyanma (awake) örneği:
+<pre>
+&lt;?php
+class Connection {
+    protected $link;
+    private $server, $username, $password, $db;
+    
+    public function __construct($server, $username, $password, $db)
+    {
+        $this-&gt;server = $server;
+        $this-&gt;username = $username;
+        $this-&gt;password = $password;
+        $this-&gt;db = $db;
+        $this-&gt;connect();
+    }
+    
+    private function connect()
+    {
+        $this-&gt;link = mysql_connect($this-&gt;server, $this-&gt;username, $this-&gt;password);
+        mysql_select_db($this-&gt;db, $this-&gt;link);
+    }
+    
+    public function __sleep()
+    {
+        return array('server', 'username', 'password', 'db');
+    }
+    
+    public function __wakeup()
+    {
+        $this-&gt;connect();
+    }
+}
+?&gt;
+</pre>
+<h3>__toString</h3>
+
+__toString yöntemi bir sınıfın yazı dizisine çevrildiğinde nasıl davranacağına karar vermesi için izin verir.
+
+Basit örnek
+<pre>
+&lt;?php
+// Basit bir sınıf tanımla
+class TestClass
+{
+    public $foo;
+
+    public function __construct($foo) {
+        $this-&gt;foo = $foo;
+    }
+
+    public function __toString() {
+        return $this-&gt;foo;
+    }
+}
+
+$class = new TestClass('Hello');
+echo $class;
+?&gt;
+</pre>
+Yukarıdaki örneğin çıktısı:
+<pre>
+Hello
+</pre>
+
+PHP 5.2.0 sürümünden önce __toString yöntemi doğrudan echo() ve print() ile birleştirilirse çağrılabiliyordu. Belirtilen sürümden beri herhangi bir yazı içeriğinde kullanılabilir oldu (printf() işlevinde %s değiştiricisiyle kullanılabilir) ama tür değiştirenlerle (örneğin %d değiştiricisi gibi) kullanılamaz. PHP 5.2.0 nesneleri __toString yöntemi ile yazı dizisine çevirmek E_RECOVERABLE_ERROR hatasını oluşturur.
+<h3>__set_state</h3>
+
+Bu durağan işlev PHP 5.1.0 sürümünden beri var_export(9 ile dışa taşınan sınıflar için çağrılır.
+<br /><br />
+Bu yöntemin tek parametresi dışa taşınan özellikleri içeren array('property' => value, ...) biçiminde bir dizidir.
+<hr>
+
+<h3>Final (son) Anahtar Sözcüğü</h3>
+
+PHP 5 "final" anahtar kelimesini sunar. Çocuk sınıfların bir yöntemin üzerine gelmesini başına eklenen "final" sözcüğüyle engeller. Eğer sınıf kendisi "final" olarak tanımlandıysa yeniden genişletilemez.
+<br /><br />
+Final yöntem örneği
+<pre>
+&lt;?php
+class BaseClass {
+   public function test() {
+       echo "BaseClass::test() called\n";
+   }
+   
+   final public function moreTesting() {
+       echo "BaseClass::moreTesting() called\n";
+   }
+}
+
+class ChildClass extends BaseClass {
+   public function moreTesting() {
+       echo "ChildClass::moreTesting() called\n";
+   }
+}
+// Sonuç Kritik hata: Cannot override final method BaseClass::moreTesting()
+?&gt;
+</pre>
+
+Final sınıfı örneği
+<pre>
+&lt;?php
+final class BaseClass {
+   public function test() {
+       echo "BaseClass::test() çağrıldı\n";
+   }
+
+   // final ya da olmaması burada çok önemli değildir.
+   final public function moreTesting() {
+       echo "BaseClass::moreTesting() called\n";
+   }
+}
+
+class ChildClass extends BaseClass {
+}
+// Sonuç Kritik Hata:
+// Class ChildClass may not inherit from final class (BaseClass)
+?&gt;
+</pre>
+
+<h3>Nesne Klonlama (Object cloning)</h3>
+
+Bir nesnenin kopyasını yaratmak tümüyle benzetilen özellikleriyle her zaman istenen şey değildir. Kopyalama yapıcının gerektiğini belirten en uygun örnek, GTK penceresini gösteren bir nesneniz varsa ve nesne GTK özelliklerini tutuyorsa aynı özellikleri taşıyan bir pencere daha tanımlamak isteyebilirsiniz. Eğer nesneniz kullanıdığı başka bir nesneye gösterge tutarsa ve baba nesneyi çoğaltırsanız, diğer nesnenin yeni kopyasını yaratırsınız. Böylece çoğaltılan ayrı bir kopya olur.
+<br /><br />
+Bir nesnenin kopyası "clone" anahtar kelimesi kullanılarak yaratılır (varsa nesnenin __clone() yöntemini çağırır). Bir nesnenin __clone(yöntemi doğrudan çağrılamaz.
+<pre>
+   $copy_of_object = clone $object;
+</pre>
+Bir nesne klonlandı mı, PHP 5 nesnenin tüm özelliklerinin gölge kopyası üretilir.  Başka değişkenlere adreslenmiş herhangi bir özellik, aynı biçimde kalır. Eğer __clone() yöntemi tanımlanmışsa, yeni yaratılan nesnede __clone() yöntemi değişecek özelliklere izin vermek için çağrılır.
+<br /><br />
+Bir nesneyi klonlama örneği
+<pre>
+&lt;?php
+class SubObject
+{
+    static $instances = 0;
+    public $instance;
+
+    public function __construct() {
+        $this-&gt;instance = ++self::$instances;
+    }
+
+    public function __clone() {
+        $this-&gt;instance = ++self::$instances;
+    }
+}
+
+class MyCloneable
+{
+    public $object1;
+    public $object2;
+
+    function __clone()
+    {
+        // this-&gt;object için bir kopyaya zorlar, aksi halde
+        // Aynı nesneyi gösterir
+        $this-&gt;object1 = clone $this-&gt;object1;
+    }
+}
+
+$obj = new MyCloneable();
+
+$obj-&gt;object1 = new SubObject();
+$obj-&gt;object2 = new SubObject();
+
+$obj2 = clone $obj;
+
+
+print("Asıl Nesne:\n");
+print_r($obj);
+
+print("Klonlanmış Nesne:\n");
+print_r($obj2);
+
+?&gt;
+</pre>
+Yukarıdaki örneği çıktısı:
+<pre>
+Asıl Nesne:
+MyCloneable Object
+(
+    [object1] =&gt; SubObject Object
+        (
+            [instance] =&gt; 1
+        )
+
+    [object2] =&gt; SubObject Object
+        (
+            [instance] =&gt; 2
+        )
+
+)
+Klonlanmış Nesne:
+MyCloneable Object
+(
+    [object1] =&gt; SubObject Object
+        (
+            [instance] =&gt; 3
+        )
+
+    [object2] =&gt; SubObject Object
+        (
+            [instance] =&gt; 2
+        )
+
+)
+</pre>
+<hr>
+
+<h3>Nesneleri Karşılaştırma (Comparing objects)</h3>
+
+PHP 5 altında karşılaştırma PHP 4 de olduğundan daha karmaşıktır.
+<br /><br />
+Karşılaştırma işlemi (==) ile nesne değişkenleri basit anlamda karşılaştırılır. İki nesne kopyası eğer nitelik ve değerlerin hepsi eşitse, eşittir.
+<br /><br />
+Bir başka yönden bakınca özdeş işleminde (===) nesne değişkenleri özdeştir eğer ve yalnız eğer aynı sınıfın aynı kopyasını gösterirlerse.
+<br /><br />
+Bu kuralları bir örnek açıklayabilir:
+<br /><br />
+PHP 5 altında nesne karşılaştırması örneği
+<pre>
+&lt;?php
+function bool2str($bool)
+{
+    if ($bool === false) {
+        return 'FALSE';
+    } else {
+        return 'TRUE';
+    }
+}
+
+function compareObjects(&$o1, &$o2)
+{
+    echo 'o1 == o2 : ' . bool2str($o1 == $o2) . "\n";
+    echo 'o1 != o2 : ' . bool2str($o1 != $o2) . "\n";
+    echo 'o1 === o2 : ' . bool2str($o1 === $o2) . "\n";
+    echo 'o1 !== o2 : ' . bool2str($o1 !== $o2) . "\n";
+}
+
+class Flag
+{
+    public $flag;
+
+    function Flag($flag = true) {
+        $this-&gt;flag = $flag;
+    }
+}
+
+class OtherFlag
+{
+    public $flag;
+
+    function OtherFlag($flag = true) {
+        $this-&gt;flag = $flag;
+    }
+}
+
+$o = new Flag();
+$p = new Flag();
+$q = $o;
+$r = new OtherFlag();
+
+echo "Two instances of the same class\n";
+compareObjects($o, $p);
+
+echo "\nTwo references to the same instance\n";
+compareObjects($o, $q);
+
+echo "\nInstances of two different classes\n";
+compareObjects($o, $r);
+?&gt;
+</pre>
+
+Yukarıdaki örneği çıktısı:
+
+<pre>
+Two instances of the same class
+o1 == o2 : TRUE
+o1 != o2 : FALSE
+o1 === o2 : FALSE
+o1 !== o2 : TRUE
+
+Two references to the same instance
+o1 == o2 : TRUE
+o1 != o2 : FALSE
+o1 === o2 : TRUE
+o1 !== o2 : FALSE
+
+Instances of two different classes
+o1 == o2 : FALSE
+o1 != o2 : TRUE
+o1 === o2 : FALSE
+o1 !== o2 : TRUE
+</pre>
+
+    Not: Uzantılar nesne karşılaştırmaları için kendi kurallarını oluşturabilirler.
+<hr>
+------------------------------------------------------------------------
+<h3>Yansıma (Reflection)</h3>
+
+    * Introduction
+    * The Reflector interface
+    * The ReflectionException class
+    * The ReflectionFunction class
+    * The ReflectionParameter class
+    * The ReflectionClass class
+    * The ReflectionObject class
+    * The ReflectionMethod class
+    * The ReflectionProperty class
+    * The ReflectionExtension class
+    * Extending the reflection classes
+
+<b>Yansıma Giriş</b>
+
+PHP 5 tümüyle yansıma API (Uygulama programı arayüzü) ile gelir. Bunlar sınıflara, arayüzlerine, işlevlere ve yöntemlere yetenek eklerler. Eke olarak yansıma API, işlevlerin, sınıfların ve yöntemlerin belgeleri hakkındaki açıklamaları okumaya uygun sunum yollarını da gösterir.
+<br /><br />
+Yansıma API Zend makinesi için  nesnel tabanlı uzantıdır. Aşağıdaki sınıflardan oluşur:
+<pre>
+&lt;?php
+class Reflection { }
+interface Reflector { }
+class ReflectionException extends Exception { }
+class ReflectionFunction extends
+      ReflectionFunctionAbstract implements Reflector { }
+class ReflectionParameter implements Reflector { }
+class ReflectionMethod extends
+      ReflectionFunctionAbstract implements Reflector { }
+class ReflectionClass implements Reflector { }
+class ReflectionObject extends ReflectionClass { }
+class ReflectionProperty implements Reflector { }
+class ReflectionExtension implements Reflector { }
+?&gt;
+</pre>
+
+Aşağıdaki örneği çalıştıracak olsak:
+
+Yansıma API kullanımı örneği
+<pre>
+&lt;?php
+Reflection::export(new ReflectionClass('Exception'));
+?&gt;
+</pre>
+
+Yukarıdaki örneğin çıktısı:
+<pre>
+Class [ <internal> class Exception ] {
+
+  - Constants [0] {
+  }
+
+  - Static properties [0] {
+  }
+
+  - Static methods [0] {
+  }
+
+  - Properties [6] {
+    Property [ <default> protected $message ]
+    Property [ <default> private $string ]
+    Property [ <default> protected $code ]
+    Property [ <default> protected $file ]
+    Property [ <default> protected $line ]
+    Property [ <default> private $trace ]
+  }
+
+  - Methods [9] {
+    Method [ <internal> final private method __clone ] {
+    }
+
+    Method [ <internal, ctor> public method __construct ] {
+
+      - Parameters [2] {
+        Parameter #0 [ <optional> $message ]
+        Parameter #1 [ <optional> $code ]
+      }
+    }
+
+    Method [ <internal> final public method getMessage ] {
+    }
+
+    Method [ <internal> final public method getCode ] {
+    }
+
+    Method [ <internal> final public method getFile ] {
+    }
+
+    Method [ <internal> final public method getLine ] {
+    }
+
+    Method [ <internal> final public method getTrace ] {
+    }
+
+    Method [ <internal> final public method getTraceAsString ] {
+    }
+
+    Method [ <internal> public method __toString ] {
+    }
+  }
+}
+</pre>
+     
+
+<b>Yansıtıcı (Reflector)</b>
+
+Yansıtıcı, dışa taşınabilir tüm Yansıma sınıflarınca uygulanan bir arayüzdür.
+<pre>
+&lt;?php
+interface Reflector
+{
+    public string __toString()
+    public static string export()
+}
+?&gt;
+</pre>
+
+<b>ReflectionException</b>
+
+Yansıma başkalığı sıradan başkalığı geliştirir ve Yansıma API tarafından fırlatılır. Burada özel yöntemler ve özellikler sunulmaz.
+<b>ReflectionFunction</b>
+
+ReflectionFunction sınıfı mühendislik işlevlerini ters çevirmenize yarar.
+<pre>
+&lt;?php
+class ReflectionFunction extends ReflectionFunctionAbstract implements Reflector
+{
+    final private __clone()
+    public void __construct(string name)
+    public string __toString()
+    public static string export(string name, bool return)
+    public string getName()
+    public bool isInternal()
+    public bool isDisabled()
+    public bool isUserDefined()
+    public string getFileName()
+    public int getStartLine()
+    public int getEndLine()
+    public string getDocComment()
+    public array getStaticVariables()
+    public mixed invoke([mixed args [, ...]])
+    public mixed invokeArgs(array args)
+    public bool returnsReference()
+    public ReflectionParameter[] getParameters()
+    public int getNumberOfParameters()
+    public int getNumberOfRequiredParameters()
+}
+?&gt;
+</pre>
+Baba sınıfın ReflectionFunctionAbstract ile aynı yöntemi vardır yalnız invoke(), invokeArgs(), export() ve isDisabled() bunların arasında olmaz.
+<br /><br />
+    Not: getNumberOfParameters() ve getNumberOfRequiredParameters() PHP 5.0.3 sürümünde eklendi, invokeArgs() PHP 5.1.0 sürümünde eklendi. 
+<br /><br />
+Önce ReflectionFunction sınıfından kopya yaratmanız sonra bir işlevi içgözlem yaparsınız. Sonra yukarıdaki yöntemlerden herhangi birini bu kopyada kullanabilirsiniz.
+<br /><br />
+ReflectionFunction sınıfını kullanma örneği
+<pre>
+&lt;?php
+/**
+ * Basit bir sayaç
+ *
+ * @return    int
+ */
+function counter() 
+{
+    static $c = 0;
+    return $c++;
+}
+
+// ReflectionFunction sınıfının bir kopyasını yaratın
+$func = new ReflectionFunction('counter');
+
+// Temel bilgileri yazdırın
+printf(
+    "===&gt; The %s function '%s'\n".
+    "     declared in %s\n".
+    "     lines %d to %d\n",
+    $func-&gt;isInternal() ? 'internal' : 'user-defined',
+    $func-&gt;getName(),
+    $func-&gt;getFileName(),
+    $func-&gt;getStartLine(),
+    $func-&gt;getEndline()
+);
+
+// Belge açıklamasını yazdırın
+printf("---&gt; Documentation:\n %s\n", var_export($func-&gt;getDocComment(), 1));
+
+// Eğer varsa durağan değişkenleri yazın
+if ($statics = $func-&gt;getStaticVariables())
+{
+    printf("---&gt; Static variables: %s\n", var_export($statics, 1));
+}
+
+// İşlevi çağır
+printf("---&gt; Invokation results in: ");
+var_dump($func-&gt;invoke());
+
+
+// export() yöntemini kullanmayı seçebilirsiniz
+echo "\nReflectionFunction::export() results:\n";
+echo ReflectionFunction::export('counter');
+?&gt;
+</pre>
+    Not: invoke() yöntemi değişken sayıda parametreleri olmasına izin verir aynı call_user_func() ile olduğu gibi.
+
+<b>Yansıma Parametresi (ReflectionParameter)</b>
+
+ReflectionParameter sınıfı bir işlevin ya da yöntemin parametreleri hakkında bilgiyi okur.
+<pre>
+&lt;?php
+class ReflectionParameter implements Reflector
+{
+    final private __clone()
+    public void __construct(string function, string parameter)
+    public string __toString()
+    public static string
+           export(mixed function, mixed parameter, bool return)
+    public string getName()
+    public bool isPassedByReference()
+    public ReflectionClass getDeclaringClass()
+    public ReflectionClass getClass()
+    public bool isArray()
+    public bool allowsNull()
+    public bool isPassedByReference()
+    public bool isOptional()
+    public bool isDefaultValueAvailable()
+    public mixed getDefaultValue()
+}
+?&gt;
+</pre>
+
+    Not: getDefaultValue(), isDefaultValueAvailable() ve isOptional() PHP 5.0.3 sürümünde eklendi, PHP 5.1.0 sürümü ile isArray() eklendi ve PHP 5.2.3 sürümünde getDeclaringFunction() ve getPosition() eklendi.
+
+İşlev parametrelerinin içgözlemi için, ReflectionFunction ya da ReflectionMethod sınıflarının kopyaları yaratılır ve getParameters() yöntemi kullanılarak parametre dizisi kullanılır.
+<br /><br />
+ReflectionParameter sınıfı kullanım örneği
+<pre>
+&lt;?php
+function foo($a, $b, $c) { }
+function bar(Exception $a, &$b, $c) { }
+function baz(ReflectionFunction $a, $b = 1, $c = null) { }
+function abc() { }
+
+// ReflectionFunction kopyasını kullanın
+// parametre komut satırından alınır.
+$reflect = new ReflectionFunction($argv[1]);
+
+echo $reflect;
+
+foreach ($reflect-&gt;getParameters() as $i =&gt; $param) {
+    printf(
+        "-- Parameter #%d: %s {\n".
+        "   Class: %s\n".
+        "   Allows NULL: %s\n".
+        "   Passed to by reference: %s\n".
+        "   Is optional?: %s\n".
+        "}\n",
+        $i, 
+        $param-&gt;getName(),
+        var_export($param-&gt;getClass(), 1),
+        var_export($param-&gt;allowsNull(), 1),
+        var_export($param-&gt;isPassedByReference(), 1),
+        $param-&gt;isOptional() ? 'yes' : 'no'
+    );
+}
+?&gt;
+</pre>
+<b>ReflectionClass (yansıma sınıfı)</b>
+
+ReflectionClass sınıfı sınıfların ve arayüzlerinin ters kurulumunu sağlar
+(reverse-engineering)
+<pre>
+&lt;?php
+class ReflectionClass implements Reflector
+{
+    final private __clone()
+    public void __construct(string name)
+    public string __toString()
+    public static string export(mixed class, bool return)
+    public string getName()
+    public bool isInternal()
+    public bool isUserDefined()
+    public bool isInstantiable()
+    public bool hasConstant(string name)
+    public bool hasMethod(string name)
+    public bool hasProperty(string name)
+    public string getFileName()
+    public int getStartLine()
+    public int getEndLine()
+    public string getDocComment()
+    public ReflectionMethod getConstructor()
+    public ReflectionMethod getMethod(string name)
+    public ReflectionMethod[] getMethods()
+    public ReflectionProperty getProperty(string name)
+    public ReflectionProperty[] getProperties()
+    public array getConstants()
+    public mixed getConstant(string name)
+    public ReflectionClass[] getInterfaces()
+    public bool isInterface()
+    public bool isAbstract()
+    public bool isFinal()
+    public int getModifiers()
+    public bool isInstance(stdclass object)
+    public stdclass newInstance(mixed args)
+    public stdclass newInstanceArgs(array args)
+    public ReflectionClass getParentClass()
+    public bool isSubclassOf(ReflectionClass class)
+    public array getStaticProperties()
+    public mixed
+           getStaticPropertyValue(string name [, mixed default])
+    public void setStaticPropertyValue(string name, mixed value)
+    public array getDefaultProperties()
+    public bool isIterateable()
+    public bool implementsInterface(string name)
+    public ReflectionExtension getExtension()
+    public string getExtensionName()
+}
+?&gt;
+</pre>
+    Not: PHP 5.1.3 sürümünden sonra hasConstant(), hasMethod(), hasProperty(), getStaticPropertyValue() ve setStaticPropertyValue() eklendi 
+<br /><br />
+Bir sınıfı içgözlemlerken önce ReflectionClass sınıfının kopyası yaratılır. Bu kopya üzerinde yukarıdaki yöntemlerden herhangi birini çağırabilirsiniz.
+<br /><br />
+ReflectionClass sınıf kullanım örneği
+<pre>
+&lt;?php
+interface Serializable
+{
+    // ...
+}
+
+class Object
+{
+    // ...
+}
+
+/**
+ * A counter class
+ */
+class Counter extends Object implements Serializable 
+{
+    const START = 0;
+    private static $c = Counter::START;
+
+    /**
+     * Invoke counter
+     *
+     * @access  public
+     * @return  int
+     */
+    public function count() {
+        return self::$c++;
+    }
+}
+
+// Create an instance of the ReflectionClass class
+$class = new ReflectionClass('Counter');
+
+// Print out basic information
+printf(
+    "===&gt; The %s%s%s %s '%s' [extends %s]\n" .
+    "     declared in %s\n" .
+    "     lines %d to %d\n" .
+    "     having the modifiers %d [%s]\n",
+        $class-&gt;isInternal() ? 'internal' : 'user-defined',
+        $class-&gt;isAbstract() ? ' abstract' : '',
+        $class-&gt;isFinal() ? ' final' : '',
+        $class-&gt;isInterface() ? 'interface' : 'class',
+        $class-&gt;getName(),
+        var_export($class-&gt;getParentClass(), 1),
+        $class-&gt;getFileName(),
+        $class-&gt;getStartLine(),
+        $class-&gt;getEndline(),
+        $class-&gt;getModifiers(),
+        implode(' ', Reflection::getModifierNames($class-&gt;getModifiers()))
+);
+
+// Print documentation comment
+printf("---&gt; Documentation:\n %s\n", var_export($class-&gt;getDocComment(), 1));
+
+// Print which interfaces are implemented by this class
+printf("---&gt; Implements:\n %s\n", var_export($class-&gt;getInterfaces(), 1));
+
+// Print class constants
+printf("---&gt; Constants: %s\n", var_export($class-&gt;getConstants(), 1));
+
+// Print class properties
+printf("---&gt; Properties: %s\n", var_export($class-&gt;getProperties(), 1));
+
+// Print class methods
+printf("---&gt; Methods: %s\n", var_export($class-&gt;getMethods(), 1));
+
+// If this class is instantiable, create an instance
+if ($class-&gt;isInstantiable()) {
+    $counter = $class-&gt;newInstance();
+
+    echo '---&gt; $counter is instance? '; 
+    echo $class-&gt;isInstance($counter) ? 'yes' : 'no';
+
+    echo "\n---&gt; new Object() is instance? ";
+    echo $class-&gt;isInstance(new Object()) ? 'yes' : 'no';
+}
+?&gt;
+</pre>
+    Not: newInstance() yöntemi call_user_func() işlevindeki gibi değişken sayıda parametreye izin verir.
+
+    Not: $class = new ReflectionClass('Foo'); $class-&gt;isInstance($arg) ile $arg instanceof Foo  ya da is_a($arg, 'Foo') eşdeğerdir.
+
+<b>Yansıma Nesnesi (ReflectionObject)</b>
+
+ReflectionObject sınıfı nesneleri ters çevirerek kullanmanızı sağlar
+<pre>
+&lt;?php
+class ReflectionObject extends ReflectionClass
+{
+    final private __clone()
+    public void __construct(mixed object)
+    public string __toString()
+    public static string export(mixed object, bool return)
+}
+?&gt;
+</pre>
+<b>Yansıma yöntemi (ReflectionMethod)</b>
+
+ReflectionMethod sınıfı yöntemleri ters çevirerek kullanmanızı sağlar
+
+<pre>
+&lt;?php
+class ReflectionMethod extends ReflectionFunctionAbstract implements Reflector
+{
+    public void __construct(mixed class, string name)
+    public string __toString()
+    public static string
+           export(mixed class, string name, bool return)
+    public mixed
+           invoke(stdclass object [, mixed args [, ...]])
+    public mixed
+           invokeArgs(stdclass object, array args)
+    public bool isFinal()
+    public bool isAbstract()
+    public bool isPublic()
+    public bool isPrivate()
+    public bool isProtected()
+    public bool isStatic()
+    public bool isConstructor()
+    public bool isDestructor()
+    public int getModifiers()
+    public ReflectionClass getDeclaringClass()
+
+    // Inherited from ReflectionFunctionAbstract
+    final private __clone()
+    public string getName()
+    public bool isInternal()
+    public bool isUserDefined()
+    public string getFileName()
+    public int getStartLine()
+    public int getEndLine()
+    public string getDocComment()
+    public array getStaticVariables()
+    public bool returnsReference()
+    public ReflectionParameter[] getParameters()
+    public int getNumberOfParameters()
+    public int getNumberOfRequiredParameters()
+}
+?&gt;
+</pre>
+
+Bir yöntemi içgözlemlemek için önce ReflectionMethod sınıfının bir kopyasını oluşturmak gerekir. Bu kopya üzerinden yukarıdaki yöntemlerin herhangi birini çağırabilirsiniz.
+<br /><br />
+ReflectionMethod sınıfı kullanma örneği
+<pre>
+&lt;?php
+class Counter
+{
+    private static $c = 0;
+
+    /**
+     * Increment counter
+     *
+     * @final
+     * @static
+     * @access  public
+     * @return  int
+     */
+    final public static function increment()
+    {
+        return ++self::$c;
+    }
+}
+
+// Create an instance of the ReflectionMethod class
+$method = new ReflectionMethod('Counter', 'increment');
+
+// Print out basic information
+printf(
+    "===&gt; The %s%s%s%s%s%s%s method '%s' (which is %s)\n" .
+    "     declared in %s\n" .
+    "     lines %d to %d\n" .
+    "     having the modifiers %d[%s]\n",
+        $method-&gt;isInternal() ? 'internal' : 'user-defined',
+        $method-&gt;isAbstract() ? ' abstract' : '',
+        $method-&gt;isFinal() ? ' final' : '',
+        $method-&gt;isPublic() ? ' public' : '',
+        $method-&gt;isPrivate() ? ' private' : '',
+        $method-&gt;isProtected() ? ' protected' : '',
+        $method-&gt;isStatic() ? ' static' : '',
+        $method-&gt;getName(),
+        $method-&gt;isConstructor() ? 'the constructor' : 'a regular method',
+        $method-&gt;getFileName(),
+        $method-&gt;getStartLine(),
+        $method-&gt;getEndline(),
+        $method-&gt;getModifiers(),
+        implode(' ', Reflection::getModifierNames($method-&gt;getModifiers()))
+);
+
+// Print documentation comment
+printf("---&gt; Documentation:\n %s\n",
+      var_export($method-&gt;getDocComment(), 1));
+
+// Print static variables if existant
+if ($statics= $method-&gt;getStaticVariables()) {
+    printf("---&gt; Static variables: %s\n", var_export($statics, 1));
+}
+
+// Invoke the method
+printf("---&gt; Invokation results in: ");
+var_dump($method-&gt;invoke(NULL));
+?&gt;
+</pre>
+    Not: özel, korunmalı ya da soyut yöntemleri çağırmaya çalışmak başkalığın invoke() yönteminden fırlatılmasına neden olur.
+<br /><br />
+    Not: Yukarıdaki gibi durağan yçntemlerde, invoke() yöntemine ilk parametre olarak NULL geçirilmelidir. Durağan olmayan yöntemler için sınıfın bir kopyasını geçirmek yeterlidir.
+
+<b>Yansıma Özelliği (ReflectionProperty)</b>
+
+ReflectionProperty sınıfı yöntemleri ters çevirerek kullanmanızı sağlar
+<pre>
+&lt;?php
+class ReflectionProperty implements Reflector
+{
+    final private __clone()
+    public void __construct(mixed class, string name)
+    public string __toString()
+    public static string export(mixed class, string name, bool return)
+    public string getName()
+    public bool isPublic()
+    public bool isPrivate()
+    public bool isProtected()
+    public bool isStatic()
+    public bool isDefault()
+    public int getModifiers()
+    public mixed getValue(stdclass object)
+    public void setValue(stdclass object, mixed value)
+    public ReflectionClass getDeclaringClass()
+    public string getDocComment()
+}
+?&gt;
+</pre>
+
+    Not: getDocComment() PHP 5.1.0. sürümünden sonra eklendi.
+<br /><br />
+Bir özelliği içgözlemlemek için ReflectionProperty kopyası yaratılmalıdır. Sonra yukarıdaki yöntemlerde herhangi birini bu kopya üzerinden çağırabilirsiniz. 
+<br /><br />
+ReflectionProperty sınıfını kullanma örneği
+<pre>
+&lt;?php
+class String
+{
+    public $length  = 5;
+}
+
+// Create an instance of the ReflectionProperty class
+$prop = new ReflectionProperty('String', 'length');
+
+// Print out basic information
+printf(
+    "===&gt; The%s%s%s%s property '%s' (which was %s)\n" .
+    "     having the modifiers %s\n",
+        $prop-&gt;isPublic() ? ' public' : '',
+        $prop-&gt;isPrivate() ? ' private' : '',
+        $prop-&gt;isProtected() ? ' protected' : '',
+        $prop-&gt;isStatic() ? ' static' : '',
+        $prop-&gt;getName(),
+        $prop-&gt;isDefault() ? 'declared at compile-time' : 'created at run-time',
+        var_export(Reflection::getModifierNames($prop-&gt;getModifiers()), 1)
+);
+
+// Create an instance of String
+$obj= new String();
+
+// Get current value
+printf("---&gt; Value is: ");
+var_dump($prop-&gt;getValue($obj));
+
+// Change value
+$prop-&gt;setValue($obj, 10);
+printf("---&gt; Setting value to 10, new value is: ");
+var_dump($prop-&gt;getValue($obj));
+
+// Dump object
+var_dump($obj);
+?&gt;
+</pre>
+    Not: Korunmalı ya da özel sınıf özelliklerinin değerini okumak ya da yazmak istendiğinde başkalık fırlatılır.
+
+<b>Yansıma Uzantısı (ReflectionExtension)</b>
+
+ReflectionExtension sınıfı yöntemleri ters çevirerek kullanmanızı sağlar. Tüm yüklenmiş uzantılara çalışma zamanında get_loaded_extensions() kullanarak okuyabilirsiniz.
+<pre>
+&lt;?php
+class ReflectionExtension implements Reflector {
+    final private __clone()
+    public void __construct(string name)
+    public string __toString()
+    public static string export(string name, bool return)
+    public string getName()
+    public string getVersion()
+    public ReflectionFunction[] getFunctions()
+    public array getConstants()
+    public array getINIEntries()
+    public ReflectionClass[] getClasses()
+    public array getClassNames()
+    public string info()
+}
+?&gt;
+</pre>
+
+Bir uzantıyı içgözlemlemek için  ReflectionExtension sınıfının bir kopyası yaratılır. Yukarıdaki yöntemlerden herhangi birini bu kopyayı kullanarak çağırabilirsiniz.
+
+ReflectionExtension sınıfı kullanımı örneği
+<pre>
+&lt;?php
+// Create an instance of the ReflectionProperty class
+$ext = new ReflectionExtension('standard');
+
+// Print out basic information
+printf(
+    "Name        : %s\n" .
+    "Version     : %s\n" .
+    "Functions   : [%d] %s\n" .
+    "Constants   : [%d] %s\n" .
+    "INI entries : [%d] %s\n" .
+    "Classes     : [%d] %s\n",
+        $ext-&gt;getName(),
+        $ext-&gt;getVersion() ? $ext-&gt;getVersion() : 'NO_VERSION',
+        sizeof($ext-&gt;getFunctions()),
+        var_export($ext-&gt;getFunctions(), 1),
+
+        sizeof($ext-&gt;getConstants()),
+        var_export($ext-&gt;getConstants(), 1),
+
+        sizeof($ext-&gt;getINIEntries()),
+        var_export($ext-&gt;getINIEntries(), 1),
+
+        sizeof($ext-&gt;getClassNames()),
+        var_export($ext-&gt;getClassNames(), 1)
+);
+?&gt;
+</pre>
+<h3>Yansıma sınıflarının uzantıları (Extending the reflection classes)</h3>
+
+Hazır sınıfların özel sürümlerini yaratmak isterseniz daha ileriye götürüp onları geliştirebilirsiniz. Örneğin renklendirilmiş HTML yaratmak için dışarı taşındığında kolay erişilebilen üye değişkenleri yöntem ya da hazır yöntemlerin yerine kullanmak söz konusudur.
+<br /><br />
+Hazır sınıfların uzantıları örneği
+<pre>
+&lt;?php
+/**
+ * My Reflection_Method class
+ */
+class My_Reflection_Method extends ReflectionMethod
+{
+    public $visibility = array();
+
+    public function __construct($o, $m)
+    {
+        parent::__construct($o, $m);
+        $this-&gt;visibility =
+           Reflection::getModifierNames($this-&gt;getModifiers());
+    }
+}
+
+/**
+ * Demo class #1
+ *
+ */
+class T {
+    protected function x() {}
+}
+
+/**
+ * Demo class #2
+ *
+ */
+class U extends T {
+    function x() {}
+}
+
+// Print out information
+var_dump(new My_Reflection_Method('U', 'x'));
+?&gt;
+</pre>
+
+    Not: Dikkat: yapıcıyı değiştiriyorsanız, hiçbir kod eklemeden babanın yapıcısını çağırmayı unutmayın. Bunu yapmamanız aşağıdaki sonuca ulaşır: Kritik hata: İçsel hata: yansıyan nesneyi okuma hatası (Fatal error: Internal error: Failed to retrieve the reflection object).
+
+<hr>
+
+<h3>İpucu türü (Type Hinting)</h3>
+
+PHP 5 herkese ipucu türünü tanıştırır. İşlevler parametrelerin nesne olmalarını zorlayabilir (işlev prototipi içinde sınıfın adını yanımlayarak yapabilir) ya da dizilerle yapabilir.
+<br /><br />
+İpucu tütü örneği
+<pre>
+&lt;?php
+// An example class
+class MyClass
+{
+    /**
+     * A test function
+     *
+     * First parameter must be an object of type OtherClass
+     */
+    public function test(OtherClass $otherclass) {
+        echo $otherclass-&gt;var;
+    }
+
+
+    /**
+     * Another test function
+     *
+     * First parameter must be an array
+     */
+    public function test_array(array $input_array) {
+        print_r($input_array);
+    }
+}
+
+// Another example class
+class OtherClass {
+    public $var = 'Hello World';
+}
+?&gt;
+</pre>
+
+ipucu türünü doyurma sorunu yakalanabilir kritik hataya neden olur.
+
+<pre>
+&lt;?php
+// An instance of each class
+$myclass = new MyClass;
+$otherclass = new OtherClass;
+
+// Fatal Error: Argument 1 must be an object of class OtherClass
+$myclass-&gt;test('hello');
+
+// Fatal Error: Argument 1 must be an instance of OtherClass
+$foo = new stdClass;
+$myclass-&gt;test($foo);
+
+// Fatal Error: Argument 1 must not be null
+$myclass-&gt;test(null);
+
+// Works: Prints Hello World
+$myclass-&gt;test($otherclass);
+
+// Fatal Error: Argument 1 must be an array
+$myclass-&gt;test_array('a string');
+
+// Works: Prints the array
+$myclass-&gt;test_array(array('a', 'b', 'c'));
+?&gt;
+</pre>
+
+İpucu türü işlevlerle de olur.
+<pre>
+&lt;?php
+// An example class
+class MyClass {
+    public $var = 'Hello World';
+}
+
+/**
+ * A test function
+ *
+ * First parameter must be an object of type MyClass
+ */
+function MyFunction (MyClass $foo) {
+    echo $foo-&gt;var;
+}
+
+// Works
+$myclass = new MyClass;
+MyFunction($myclass);
+?&gt;
+</pre>
+
+İpucu türü nesne ve dizilerle kullanılan türdür. Geleneksel int ve string ile ipucu türü kullanımı artık desteklenmez.
+<hr>
+
+<h3>Son Durağan bağlar (Late Static Bindings)</h3>
+
+PHP 5.3.0 sürümünde başlayarak yeni bir özellik "Son Durağan Bağlar" uygulanmıştır. Durağan kalıtın içeriğinde çağrılan sınıfın göstergesi olarak kullanılır.
+<br /><br />
+This feature was named "late static bindings" with an internal perspective in mind. "Late binding" comes from the fact that static:: will no longer be resolved using the class where the method is defined but it will rather be computed using runtime information. It was also called a "static binding" as it can be used for (but is not limited to) static method calls.
+Bu özellik "late static bindings" olarak adlandırılır. İçsel perspektifi akılda tutulmalıdır. "late static bindings", static:: artık çözümlenmediği için ortaya çıkmıştır. Sınıfı kullanarak yöntem tanımlanır ama çalışma zamanında hesaplanır. Buna durağan yöntemleri çağırırken kullanılan durağan bağlama "static binding" de denir (yalnız bu türle kullanılmaz).
+<br /><br />
+<b>self:: sınırlamaları</b>
+<br /><br />
+O anki sınıfa self:: gibi ya da __CLASS__ gibi göstergelerle işlevin içinde olduğu sınıfı kullanarak durağan adresleri çözümlenir
+<br /><br />
+self:: kullanım örneği
+<pre>
+&lt;?php
+class A {
+    public static function who() {
+        echo __CLASS__;
+    }
+    public static function test() {
+        self::who();      
+    }  
+}  
+
+class B extends A {      
+    public static function who() {
+         echo __CLASS__;
+    }  
+}   
+
+B::test();
+?&gt;
+</pre>
+
+Yukarıdaki örneğin çıktısı:
+<pre>
+A
+</pre>
+
+<h3>Son durağan bağların kullanımı (Late Static Bindings' usage)</h3>
+
+Son durağan bağlar bu sınırlamayı, ilk kez çalışma zamanında çağrılan sınıfı adresleyen anahtar kelimeyi tanıştırarak çözümlemeye çalışır. Temel olarak, test() içinden B yi adreslemeye izin verecek anahtar kelime  önceki örnektedir. Başka bir anahtar kelimeyle tanışmak yerine saklanan "static" sözcüğünü kullanmak yeterlidir.
+<br /><br />
+static:: basit kullanım örneği
+<pre>
+&lt;?php
+class A {
+    public static function who() {
+        echo __CLASS__;
+    }
+    public static function test() {
+        static::who(); // Here comes Late Static Bindings     
+    }  
+}  
+
+class B extends A {      
+    public static function who() {
+         echo __CLASS__;
+    }  
+}   
+
+B::test();
+?&gt;
+</pre>
+
+Yukarıdaki örneği çıktısı:
+<pre>
+B
+</pre>
+
+    Not: "static::" durağan yöntemlerde $this gibi çalışmaz. "$this-&gt; " kalıt kurallarını izlerken "static::" bunu yapmaz. Bun konu daha sonra açıklanmıştır.
+<br /><br />
+static:: kullanımı (durağan olmayan içerikte) örneği
+<pre>
+&lt;?php
+class TestChild extends TestParent {
+    public function __construct() {
+        static::who();
+    }
+
+    public function test() {
+        $o = new TestParent();
+    }
+
+    public static function who() {
+        echo __CLASS__."\n";
+    }
+}
+
+class TestParent {
+    public function __construct() {
+        static::who();
+    }
+
+    public static function who() {
+        echo __CLASS__."\n";
+    }
+}
+$o = new TestChild;
+$o-&gt;test();
+
+?&gt;
+</pre>
+
+Yukarıdaki örneğin çıktısı:
+<pre>
+TestChild
+TestParent
+</pre>
+
+    Not: Son durağan bağlama çözümleri tümüyle çözümlenen durağan çağırmalarda durur ve geri gitmez.
+<br /><br />
+Tümüyle çözümlenmiş durağan çağırma örneği:
+<pre>
+    &lt;?php
+    class A {
+        public static function foo() {
+            static::who();
+        }
+            
+        public static function who() {
+            echo __CLASS__."\n";
+        }
+    }
+
+    class B extends A {
+        public static function test() {
+            A::foo();
+        }
+
+        public static function who() {
+            echo __CLASS__."\n";
+        }
+    }
+
+    B::test();
+    ?&gt;
+</pre>
+
+Yukarıdaki örneğin çıktısı:
+<pre>
+    A
+</pre>
+
+<h3>Kenar olayı (Edge cases)</h3>
+
+PHP içinde çağrılan bir yöntemi tetiklemenin bir çok değişik yolu vardır. Tılsımlı yöntemler ve geri aramalar (callback) gibi... Son durağan bağlamalar çözümlerini çalışma zamanını temel aldığından, kenar olaylarında (edge cases) beklenmedik sonuçlar verebilir.
+<br /><br />
+Tılsımlı yöntemlerin içinde son durağan bağlama örneği
+<pre>
+&lt;?php
+class A {
+
+   protected static function who() {
+        echo __CLASS__."\n";
+   }
+
+   public function __get($var) {
+       return static::who();
+   }
+}
+
+class B extends A {
+
+   protected static function who() {
+        echo __CLASS__."\n";
+   }
+}
+
+$b = new B;
+$b-&gt;foo;
+?&gt;
+</pre>
+Yukarıdaki örneğin çıktısı:
+<pre>
+B
+</pre>
+
+<hr>
+<a href="phptxt39.html" class="ynav">Sınıflar ve Nesneler (PHP 4)</a>    
+<br />
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8541306787668208";
+//120x600, created 1/16/08
+google_ad_slot = "7007060807";
+google_ad_width = 120;
+google_ad_height = 600;
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<br />
+<script type="text/javascript"><!--
+google_ad_client = "pub-8541306787668208";
+//120x240, created 1/25/08
+google_ad_slot = "8433790203";
+google_ad_width = 120;
+google_ad_height = 240;
+google_cpa_choice = ""; // on file
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

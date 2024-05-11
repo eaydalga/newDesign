@@ -1,0 +1,12 @@
+1. Fortis_CGI.zip dosyasını klasör olarak açın.
+2. Linux klasörünün içerisinde yer alan paycgi ve payment.ini dosyalarını ftp ile cgi-bin klasörünüzün içine atın.
+3. cgi-bin klasörünüz yok ise yeni klasör yaratın ve atın. cgi-bin klasörünün CHMOD ayarı 755, paycgi dosyasının CHMOD ayarı 755, payment.ini dosyasının CHMOD ayarı 644 olmalıdır.
+4. logs diye bir klasör yaratın ve içine paymennt.log, sonuclar.log diye dosyalar yaratın.
+5. logs klasörünün CHMOD ayarı 755, payment.log ve sonuclar.log dosyalarının CHMOD ayarları 777 olmalıdır.
+6. paycgi dosyası üzerinde hiçbir şekilde değişiklik yapmıyor ve editlemiyoruz.
+7. payment.ini dosyasını editörünüzde açarak aşağıdaki şekilde düzenleme yapıyoruz
+
+NAME:xxxx # bu kısma api kullanıcı adınızı yazıyorsunuz
+PASSWORD:xxxx # bu kısma api şifrenizi yazıyorsunuz
+CLIENTID: xxxx # bu kısma est müşteri kodunuzu yazıyorsunuz
+HTTP:1.1 # 1.0 veya 1.1 olabiliyor. bunu host firmanıza sorabilirsiniz. ilk olarak 1.1 deneyin, çalışırsa sorun yoktur, çalışmazsa 1.0 deneyin. ama genelde 1.1 ile çalışır sistemler.

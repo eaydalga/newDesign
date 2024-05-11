@@ -1,0 +1,253 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>CSS - Tablo (table) </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="csstxt1.html" class="nav">Dil-Kuralı</a>
+               <a href="csstxt2.html" class="nav">Art-Alan</a>
+               <a href="csstxt3.html" class="nav">Yazı</a>
+               <a href="csstxt4.html" class="nav">Yazı-tipi</a>
+               <a href="csstxt5.html" class="nav">Sınır</a>
+               <a href="csstxt6.html" class="nav">Dışçizgi</a>
+               <a href="csstxt7.html" class="nav">Kenarlar</a>
+               <a href="csstxt8.html" class="nav">Dolgu</a>
+               <a href="csstxt9.html" class="nav">Liste</a>
+               <a href="csstxt10.html" class="nav">Tablo</a>
+               <font color="#8e9ccb"><h3>Gelişmiş</h3></font>
+               <a href="acsstxt11.html" class="nav">Boyut</a>
+               <a href="acsstxt12.html" class="nav">Sınıflandırma</a>
+               <a href="acsstxt13.html" class="nav">Konumlama</a>
+               <a href="acsstxt14.html" class="nav">Sözde-Sınıf</a>
+               <a href="acsstxt15.html" class="nav">Sözde-Öğe</a>
+               <a href="acsstxt16.html" class="nav">Galeri</a>
+               <a href="acsstxt17.html" class="nav">Donukluk</a>
+               <a href="acsstxt18.html" class="nav">Ortam-Türü</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>Ardaşık Stil Sayfaları (CSS)</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">26 Ekim 2007</span></div>
+<h2>Tablo (table)</h2>
+<span class="yazi">
+Tablo özelliği bir tablonun sayfaya yayılışını düzenler.
+</span>
+<h3>Genel</h3>
+<span class="yazi">
+Tablo özelliği bir tablonun sayfaya yayılışını düzenler.
+</span>
+<br />
+<table class="yazi">
+<tr><td>Destekleyen Tarayıcılar:</td><td>IE: Internet Explorer, F: Firefox, N: Netscape.</td></tr>
+<tr><td></td><td>W3C: Buradaki sayısal değer CSS türünü (CSS1 ya da CSS2) gösterir.</td></tr>
+</table>
+<br />
+<table cellspacing="0" border="1" cellpadding="3" class="fyazi">
+  <tr>
+    <th width="25%" align="left">Özellikler</th>
+    <th width="30%" align="left">Açıklama</th>
+    <th width="25%" align="left">Değerler</th>
+    <th width="5%" align="left">IE</th>
+    <th width="4%" align="left">F</th>
+    <th width="4%" align="left">N</th>
+    <th width="7%" align="left">W3C</th>
+  </tr>
+  <tr>
+    <td valign="top">border-collapse</td>
+    <td valign="top">Sınırlar tek sınıra indirgensin mi yoksa standart HTML'de olduğu gibi mi kalsın </td>
+    <td valign="top">collapse<br />
+      separate</td>
+    <td valign="top">5</td>
+    <td valign="top">1</td>
+    <td valign="top">7</td>
+    <td valign="top">2</td>
+  </tr>
+  <tr>
+    <td valign="top">border-spacing</td>
+    <td valign="top">Hücre sınırlarını belirleyen uzaklığı saptar
+      (yalnız &quot;separated borders&quot; modeli için)</td>
+    <td valign="top"><i>uzunluk uzunluk</i></td>
+    <td valign="top">5M</td>
+
+    <td valign="top">1</td>
+    <td valign="top">6</td>
+    <td valign="top">2</td>
+  </tr>
+  <tr>
+    <td valign="top">caption-side</td>
+    <td valign="top">
+      Tablo başlığının yerini belirler</td>
+    <td valign="top">top<br />
+      bottom<br />
+      left<br />
+      right</td>
+    <td valign="top">5M</td>
+    <td valign="top"> 1</td>
+    <td valign="top">6</td>
+    <td valign="top"> 2</td>
+  </tr>
+  <tr>
+    <td valign="top">empty-cells</td>
+    <td valign="top">
+      Bir tabloda boş hücreleri gösterilip gösterilmeyeceğini belirler (
+      "separated borders" modeli için)&nbsp;</td>
+    <td valign="top">show<br />
+      hide</td>
+    <td valign="top">5M</td>
+    <td valign="top"> 1</td>
+    <td valign="top">6</td>
+    <td valign="top"> 2</td>
+  </tr>
+  <tr>
+    <td valign="top">table-layout</td>
+    <td valign="top">
+      Tablonun hücrelerini satır ve kolonlarını görüntülüyen algoritmayı belirler</td>
+    <td valign="top">auto<br />
+      fixed</td>
+    <td valign="top">5</td>
+    <td valign="top"> 1</td>
+    <td valign="top">6</td>
+    <td valign="top"> 2</td>
+  </tr>
+</table>
+<br />
+<h3>Sınır İndirgeme (border-collapse) Özelliği</h3>
+<span class="yazi">
+Bu özellik tablo sınırlarının tek sınıra indirgenmesini ya da standart HTML'de olduğu gibi ayrık kalmasını belirler.<br />
+</span>
+<fieldset class="fyazi">
+<pre>
+table 
+{
+border-collapse: separate
+}
+</pre>
+</fieldset>
+<span class="yazi">
+Olası değerler:
+<br>
+separate: Sınırlar teke indirgenmeyecek<br />
+collapse: Varsayılan: Olanak oldukça sınırlar tek sınır çizgisine indirgenecek<br />
+</span>
+<br />
+<h3>Sınır aralığı (border-spacing) Özelliği</h3>
+<span class="yazi">
+Bu özellik komşu hücrelerin sınır çizgileri arasındaki aralığı ayarlar (yalnız "separated borders" modeli için geçerlidir).<br />
+</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+table 
+{
+border-spacing: 10px
+}
+</pre>
+</fieldset>
+<span class="yazi">
+Olası değerler:
+<br>
+uzunluk uzunluk: uzaklığı px, cm, vb. birimlerle tanımlar.  Eğer tek uzunluk parametresi verilirse, hem yatay hem de düşey uzaklığı belirtir. Aksi halde ilki yatay uzaklığı ikincisi düşey uzaklığı belirler. Uzunluklar eksi olamaz.
+</span>
+<br /> 
+<h3>Başlık yanı (caption-side) Özelliği</h3>
+<span class="yazi">
+Bu özellik tablo başlığını yerini belirtir.<br />
+</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+table 
+{
+caption-side: left
+} 
+</pre>
+</fieldset>
+<span class="yazi">
+Olası değerler:
+<br>
+top: Varsayılan değer. Tablo başlığını tablonun üstüne yerleştirir.<br />
+bottom: Tablo başlığını tablonun altına yerleştirir.<br />
+left: Tablo başlığını tablonun soluna yerleştirir<br />
+right: Tablo başlığını tablonun sağına yerleştirir.<br />
+</span>
+<br />
+<h3>Boş hücreler (empty-cells) Özelliği</h3>
+<span class="yazi">
+Bu özellik bir tabloda boş hücrelerin gösterilip gösterilmeyeceğini belirtir (yalnız "separated borders" modeli için geçerlidir).
+</span>
+<fieldset class="fyazi">
+<pre>
+table 
+{
+empty-cells: show
+}
+</pre>
+</fieldset>
+<span class="yazi">
+Olası değerler:
+<br>
+hide: Varsayılan değer. Boş hücrelerin çevresine sınır çizgileri çizilmez.<br />
+show: Sınır çizgileri boş hücrelerin çevrelerine çizilir.<br />
+</span>
+<h3>Tablo yayma (table-layout) Özelliği</h3>
+<span class="yazi">
+Bu özellik tablo hücrelerini, satırları ve kolonları görüntülemek için gereken algoritmayı belirtir.<br />
+<br />
+Değişmez tablo yayılımı:<br />
+<br />
+    <li> Değişmez tablo yayılımı, tablonun tarayıcı tarafından otomatik tabloya göre daha hızlı açılıp gösterilmesini sağlar.<br />
+    <li> Değişmez tablo yayılımında, yatay açılım yalnız tablonun enine bağlıdır. Kolonların enleri ya da hücrelerin içerikleri yayılmada önemli değildir.<br />
+    <li> Değişmez tablo yayılımını kullanarak, tarayıcının tüm tabloyu göstermesi ilk satırdaki hücrelerin alınmasıyla başlayabilir.<br />
+<br />
+Otomatik tablo yayılması:<br />
+<br />
+    <li> Otomatik tablo yayılmasında kolon uzunlukları o kolondaki parçalanamaz bölümü en büyük olan hücreye göre saptanır.<br />
+    <li> Bu yöntem bir ölçüde daha yavaştır. Çünkü tüm tablonun bilgilerinin alınmasından sonra tablo yazılmaya başlanır.<br />
+</span>
+<fieldset class="fyazi">
+<pre>
+table 
+{
+table-layout: fixed
+}
+</pre>
+</fieldset>
+<span class="yazi">
+Olası değerler:
+<br>
+automatic: Varsayılan değer. Kolon eni hücre içeriğine göre düzenlenir.<br />
+fixed: Kolon eni tablo enine ve kolonların enine göre düzenlenir.<br />
+</span>
+<br />
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Kopça güvenlik kodu </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <a href="javascript:oku('kopca.html');" class="nav">Kopça</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>Güvenlik Kodları</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">2 Aralık 2007</span></div>
+<h2>Kopça güvenlik kodu</h2>
+<span class="yazi">
+Bu kodlama (script) "Captcha" (Kopça) adı verilen resimler üretir. Amaç formları spam ve robot saldırısından güvenlik koduyla korumaktır. Yötem; Bir soysal (generic) kodu resim içinde görüntülemek ve kullanıcıya gördüklerini yazdırmak cwbiçimindedir. Otomatik arama robotlarını ve spam oluşturacak hazır programları devre dışına çıkarır. En azından, formu dolduran kişilerin gördüklerini yazdıkları varsayılır ve bunu yapanın yazılım olmayıp, insan olduğu söylenebilir.
+</span>
+<p class="yazi">
+   Buradaki örnek programı i<a href="http://www.white-hat-web-design.co.uk/articles/php-captcha.php"> PHP Captcha Security Images</a> sayfasında bulabilirsiniz. Gereken dosyaları buradan indirebilirsiniz. Burada örnek kodun nasıl çalıştığını anlatılır.
+</p>
+<pre class="fyazi">
+&lt;?php
+session_start();
+ 
+/*
+* Dosya: CaptchaSecurityImages.php
+* Yazan: Simon Jarvis
+* Copyright: 2006 Simon Jarvis
+* Date: 03/08/06
+* Updated: 07/02/07
+* Gereksinim: PHP 4/5 with GD and FreeType kitaplıklar
+* Bağ: http://www.white-hat-web-design.co.uk/articles/php-captcha.php
+* 
+* Bu program ücretsiz yazılımdır; Free Software Foundation tarafından
+* yayımlanan GNU Genel Halk Lisansı koşullarıyla bu yazılım yeniden
+* dağıtılabilir ve/ya da değiştirilebilir (Lisansın sürüm 2 ya da daha
+* sonraki sürümlerindeki koşullarda).
+*
+* This program is free software; you can redistribute it and/or 
+* modify it under the terms of the GNU General Public License 
+* as published by the Free Software Foundation; either version 2 
+* of the License, or (at your option) any later version.
+* 
+* Bu yazılım kullanışlı olabileceği düşünülerek dağıtılmıştır.
+* Hiç bir GARANTİ verilmez ve satılabilirliği konusunda herhangi
+* bir ima ya da bir amaç için uyumluluk düşünülemez. Ayrıntılar
+* için GNU Lisansı incelenmelidir:
+* http://www.gnu.org/licenses/gpl.html
+*
+*/
+ 
+class CaptchaSecurityImages {
+ 
+   var $font = 'monofont.ttf';
+ 
+   function generateCode($characters) {
+      /* Var olabilecek tüm harfler, benzer olanlar
+         ve sesli harfler çıkarılarak hazırlanmıştır */
+      $possible = '23456789bcdfghjkmnpqrstvwxyz';
+      $code = '';
+      $i = 0;
+      while ($i < $characters) { 
+         $code .= substr($possible, mt_rand(0, strlen($possible)-1), 1);
+         $i++;
+      }
+      return $code;
+   }
+ 
+   function CaptchaSecurityImages($width='120',$height='40',$characters='6') {
+      $code = $this->generateCode($characters);
+      /* resim boyunun %75 kadarı yazı tipi boyu olur */
+      $font_size = $height * 0.75;
+      $image = imagecreate($width, $height) or
+               die('Yeni GD görüntü dosyası ilklenemedi');
+      /* Renklerin atanması */
+      $background_color = imagecolorallocate($image, 255, 255, 255);
+      $text_color = imagecolorallocate($image, 20, 40, 100);
+      $noise_color = imagecolorallocate($image, 100, 120, 180);
+      /* Art alanda rastgele noktalar konulması */
+      for( $i=0; $i<($width*$height)/3; $i++ ) {
+         imagefilledellipse($image, mt_rand(0,$width), mt_rand(0,$height), 1, 1, $noise_color);
+      }
+      /* art alanda rastgele çizgiler oluştur */
+      for( $i=0; $i<($width*$height)/150; $i++ ) {
+         imageline($image, mt_rand(0,$width), mt_rand(0,$height),
+                   mt_rand(0,$width), mt_rand(0,$height), $noise_color);
+      }
+      /* yazı kutusu yarat ve yazı ekle */
+      $textbox = imagettfbbox($font_size, 0, $this->font, $code)
+                 or die('Error in imagettfbbox function');
+      $x = ($width - $textbox[4])/2;
+      $y = ($height - $textbox[5])/2;
+      /* kodu kullanarak resim üretme işlemi */
+      imagettftext($image, $font_size, 0, $x, $y, $text_color,
+           $this->font , $code) or die('imagettftext işlevinde hata oldu');
+      /* tarayıcıya captcha resminin gönderilmesi */
+      header('Content-Type: image/jpeg');
+      imagejpeg($image);
+      imagedestroy($image);
+      $_SESSION['security_code'] = $code;
+   }
+}
+ 
+$width = isset($_GET['width']) && $_GET['height'] < 600 ?
+             $_GET['width'] : '120';
+$height = isset($_GET['height']) && $_GET['height'] < 200 ?
+             $_GET['height'] : '40';
+$characters = isset($_GET['characters']) && $_GET['characters'] > 2 ?
+             $_GET['characters'] : '6';
+ 
+$captcha = new CaptchaSecurityImages($width,$height,$characters);
+ 
+?&gt;
+</pre>
+<h3>Form içinden Captcha resmini çağırma</h3>
+<div class="yazi">
+<p class="yazi">Aşağıdaki kod kullanılacak form içine yerleştirilir. Bu işlem rastgele karakterlerden oluşan bir resim yaratır. Kullanıcılar bu resimdeki yazıların yeniden girilmesi için bir giriş alanı vardır.</p>
+
+<pre class="fyazi">
+&lt;img src="CaptchaSecurityImages.php" /&gt;
+Güvenlik Kodu: 
+&lt;input id="security_code" name="security_code" type="text" /&gt;
+</pre>
+
+<p class="yazi">Resim için bazı seçenekleri parametre olarak programa geçirmek olanağı vardır. Seçenekler resim yüksekliği, eni ve görüntülenecek karakter sayısıdır.</p>
+
+<pre class="fyazi">
+&lt;img src="CaptchaSecurityImages.php?width=100&height=40&characters=5"
+    alt="captcha" /&gt;
+&lt;input id="security_code" name="security_code" type="text" /&gt;
+</pre>
+</div>
+
+<h3>Captcha Resminden Girileni Denetleme</h3>
+<div class="fyazi">
+<p class="yazi">
+Aşağıdaki kod, formun gönderileceği yere taşınır. Bu kod kullanıcının resimdekinden neyi yazdığına bakar. Kod, sunucuda WEB sayfaları arasında yer alır.
+</p>
+
+<pre class="fyazi">
+&lt;?php 
+   session_start();
+   if(($_SESSION['security_code'] == $_POST['security_code']) &&
+      (!empty($_SESSION['security_code'])) ) {
+         // buraya formu işleyecek kodu eklemek gerekir.
+         // Örneğin email gönderme, veri tabanına ekleme gibi...
+         unset($_SESSION['security_code']);
+   } else {
+         // Burada hata olduğunu gösteren kodu ekleyin
+   }
+?&gt;
+</pre>
+</div>
+
+<div class="fyazi">
+Eğer "img" biçiminin php yerine jpg uzantılı dosyaya bağlanması istenirse mod_rewrite kullanılmalı. Aşağıdakiler .htaccess dosyasına eklenirse form içinde &lt;img src="captcha.jpg" /&gt; kullanılabilir.
+
+<pre class="fyazi">
+RewriteEngine on
+RewriteRule captcha.jpg /CaptchaSecurityImages.php
+</pre>
+
+<p class="yazi">
+Captcha resminin renklerinde değişiklik istenirse, art alan rengi, yazı rengi ve gürültü rengi değişkenlerinin değerleri değiştirilebilir (değişkenlerin adları: backgorund color, text colour ve noise_colour diye tanımlanmıştır). Burada imagecolorallocate() işlevi rengi veren RGB (Kırmızı, Yeşil, Mavi) değerlerinden oluşur. Bir başka düşünce, mt_rand işlevini kullanarak her çalıştırıldığında rengin rastgele değişmesi sağlanabilir.
+</p>
+</div>
+<div class="fyazi">
+<h3>Captcha Siteleri</h3>
+<p class="yazi">Aşağıdaki listede Wikipedia bağlantısı ve Kendi sitesinin bağlantısı verilmiştir. Ayrıntılı bilgi buradaki diğer sayfalardan ve bağlardan sağlanabilir.</p>
+<li><a href="http://www.captcha.net/">Official CAPTCHA Site</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Captcha">CAPTCHA Wikipedia</a></li>
+
+<h3>Captcha yazılımı kuruluş gereksinimleri ve sorunlar</h3>
+<p class="yazi">
+Çeşitli nedenlerle php kurulumunda sunucular bazı php özelliklerini web sunuculara eklemezler. Bu durumda "Captcha" yazılımları doğru çalışmaz. Burada firma olarak sunucuların nasıl incelenebileceğini anlatmaya çalıştık (Bu deneyim kendi bulduklarımızdır. Başka kaynaklarda olanlardan farklı olabilir).
+</p>
+<p class="yazi">
+Öncelikle Web sunucuda kurulu olan php üzerinde doğru modülün varlığı incelenmelidir. Aşağıdaki kodlama php üzerindeki modülleri inceler:
+</p>
+<pre class="fyazi">
+&lt;?php
+$array = gd_info();
+foreach ($array as $key =&gt; $val)
+{
+   if ($key != "GD Version") {
+       if ($val == true || $val == false) {
+           if ($val == true) {
+               $val = "Enabled";
+           }
+           elseif ($val == false)
+           {
+               $val = "Disabled";
+           }
+       }
+   }
+   echo "$key: $val &lt;br&gt;";
+}
+?&gt;
+</pre>
+<p class="yazi">
+Sunucuya bu programı yükleyip çalıştırırsanız elde edilecek liste:</p>
+<pre class="fyazi">
+   GD Version: bundled (2.0.34 compatible)
+   FreeType Support: Enabled
+   FreeType Linkage: Enabled
+   T1Lib Support: Disabled
+   GIF Read Support: Enabled
+   GIF Create Support: Enabled
+   JPG Support: Enabled
+   PNG Support: Enabled
+   WBMP Support: Enabled
+   XPM Support: Disabled
+   XBM Support: Enabled
+   JIS-mapped Japanese Font Support: Disabled 
+</pre>
+<p class="yazi">biçimindedir. Burada GD seçenekleri arasında bulunmayan özellikler "Captcha" programının doğru çalışmasını engelleyebilir. Özellikle görüntü işlevelrinden güvenlik nedeniyle kapatılanlar olabilir. Örneğin aşağıdaki kod:</p>
+<pre class="fyazi">
+      /* yazı kutusu yarat ve yazı ekle */
+      $textbox = imagettfbbox($font_size, 0, $this-&gt;font, $code)
+                 or die('Error in imagettfbbox function');
+      $x = ($width - $textbox[4])/2;
+      $y = ($height - $textbox[5])/2;
+      imagettftext($image, $font_size, 0, $x, $y, $text_color,
+           $this-&gt;font , $code) or die('Error in imagettftext function');
+</pre>
+<p class="yazi">çalışmayabilir. Pek çok kullanıcı da bu kodu çalıştıramadığını belirtmiştir. Firmamızın kullandığı sunucuda imagettfbox ve imagettftext işlemleri yoktu. Bu nedenle belirtilen kodu programdan çıkartmak zorunda kaldık. Kodlamayı resim yaratacak biçime çevirmek için bu kod yerine aşağıdaki satırları ekledik:</p>
+<pre class="fyazi">
+      $font = imageloadfont("etc/almosnow.gdf");
+      ImageString($image, $font, 5, 2, $code, $text_color);
+</pre>
+<p class="yazi">Burada kullanılan gdf fontlar (örnekteki ttf yerine kullanıldı) için aşağıdaki başlık incelenmelidir.</p>
+
+<h3>Captcha için gdf fontlar nerelerde var</h3>
+<p class="yazi">
+Örnek fontlar her yerden sağlanabilir. Burada iki değişik siteden sağlanacak fontlar belirtilmiştir.</p>
+<li><a href="http://www.devtrolls.com/gdf_fonts/fonts.html">GD Fonts for php</a></li>
+<li><a href="http://www.hirfal.hu/fonts/?C=S;O=D">Font Dizini</a></li>
+<li><a href="http://www.phpmix.org/how_to_create_a_dynamic_signature/resources">phpMiX.org</a></li>
+</div>
+<br />
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

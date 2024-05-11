@@ -1,0 +1,289 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<TITLE>AYBIM - ROBOTS.TXT</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onload="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="ortataraf">
+           <span><img src="../img/transparent.gif" width="1" height="50">
+           <img src="../img/transparent.gif" width="780" height="1"></span>
+           <div id="banner">
+             <img src="img/baslik.gif"><br />
+             <div id="mycontainer">
+               <div id="content">
+<div id="bdy" class="yazi">
+<br>
+<br>
+<div id="sag"><span class="yazi">24 Ocak 2008</span></div>
+<H2>robots.txt YAPISI (Tüm Döküman) </H2>
+
+<P>Web sayfalarınızı dolaşan robot adlı programların ilk aradıkları
+kütük "robots.txt" adlı kütüktür. Robot, sizin sayfalarınızın hangilerini
+çekip arama makinesine taşıyacağını bu kütükten öğrenir. Benim burada
+amacım, "robots.txt" kütüğünün yapısını ve içeriğini anlatmaktır. Bu
+kütüğü WEB sayfalarınızın bulunduğu yere koymakla tüm robotların sizin
+istemediğiniz sayfalara erişmesi önlenmiş olacaktır. Bu kütüğü
+okuyan robotlar, (kütüğün içeriğini değerlendiriyorlarsa) yalnız bu kütükte 
+yazdığınız erişim politikasına göre sayfalarınızı ziyaret ederler.
+Robot.txt kütüğü hakkında ayrıntılı bilgi
+<A HREF="http://www.robotstxt.org/">http://www.robotstxt.org/</A> adresinden
+öğrenilebilir. Bu yazıyı oradaki açıklamaları Türkçe'ye çevirerek oluşturdum.
+
+<P><B>GİRİŞ</B>
+
+<P>WWW Robotları (bunlara arayanlar ya da casuslar da deniyor) bir WEB
+sayfasındaki bağlantıları özdevinli bir algoritma ile tarayan programlara
+verilen genel addır.
+
+<P>1993 ve 1994 yıllarında robotların ziyaret ettiği WEB sitelerinde
+pek iyi karşılanmadıkları durumlar olmuştur. Bunların pek çoğu robotlara
+özel hızlı bilgi toplamadan kaynaklanıyordu. Robot programlar siteden
+çok hızlı bilgi çektikleri için WEB sunucuyu zora sokabiliyorlardı. Bazen
+bağların (link'lerin) hatalı konulmuş olmasından, aynı sayfayı defalarca
+okudukları da oluyordu. Ayrıca robotlar çok derinlere inen WEB ağaçlarını
+taradıkları için yinelenen tarama ve geçici sayfaları ziyaret etme
+gibi sorunları da vardı.
+
+<P>Bu nedenler WEB sunucularının, robotların hangi sayfalara erişmeleri 
+gerektiğini belirtmeleri zorunlu hale geldi.
+
+
+<P><B>YÖNTEM</B>
+
+<P>Robotları sunucudan uzak tutmanın yöntemi, sunucuda robotların
+erişim politikasını belirleyen bir kütük oluşturmaktır. Bu kütüğe HTTP
+protolu ile erişilebilmedir ve URL adresi "/robots.txt" olmalıdır.
+
+<P>Bu yöntemin seçilmesinin en büyük nedeni, kütüğün WWW sunucularda kolaylıkla
+yaratılabilmesidir. Tüm robotlar yalnız bu kütüğü okuyarak sitenin
+erişim politikasını kolaylıkla öğrenebilirler.
+
+A possible drawback of this single-file approach is that only a server
+administrator can maintain such a list, not the individual document
+maintainers on the server. This can be resolved by a local process to
+construct the single file from a number of others, but if, or how, this is
+done is outside of the scope of this document.
+<P>Bunun bir sakıncası, böyle bir kütüğün bakımını yalnızca sunucu 
+yöneticisinin yapmasıdır. Her dökümanı oluşturan bu kütüğün bakımını
+yapamaz. Bunu çözmenin bir yolu, yerel bir program ile her bölümdeki
+bilgileri bir kütük altında toparlamaktır.
+
+<P>Bu kütük için seçilen URL adresi aşağıdaki kriterler esas alınarak saptanmıştır:
+
+<UL>
+<LI> Kütük adı bilinen ve sıkça kullanılan işletim sistemleri tarafından
+okunabilecek ve yaratılabilecek biçimde olmalıydı.
+<LI> Kütük uzantısı sunucuda ayrıca bir özel tanıtım ve yapılanma
+yapılmasını gerektirmemeliydi.
+<LI> Kütük adı kolay hatırlanabilmeli ve amacını belirtmeliydi.
+<LI>
+   * The likelihood of a clash with existing files should be minimal.
+</UL>
+
+<P><B>KÜTÜK YAPISI</B>
+
+<P>"/robots.txt" kütüğünün yapısı ve dil bilgisi kuralları şöyle olmalıdır :
+
+<P>Kütük, bir ya da birden çok boş satırla (CR, CR/NL ya da NL satır 
+bitimini gösterir) ayrılmış bir ya da daha çok kayıttan oluşmalıdır.
+Her satırda aşağıdaki kalıba uygun bir tanım bulunmalıdır:
+
+<UL>
+<alan_adı>:<bosluk><deger><bosluk>
+</UL>
+
+<P><alan_adı> büyük ve küçük harf olabilmelidir.
+
+<P>Kütük içindeki açıklamalarda UNIX "bourne shell" açıklama kavramları
+bulunmalıdır. "#" işaretini izleyen boşluk (eğer varsa) ve satırın 
+geri kalanı açıklama alanıdır ve dikkate alınmamalıdır. Yalnız açıklama
+bulunan satırlar tümüyle silindiğinden kayıt ayıracı olarak kullanılmamalıdır.
+
+Kayıtlar bir ya da daha çok "user-agent" satırından oluşmalıdır. Bu satırların
+peşinden kısıtlama (disallow) satırları gelmelidir. Bilinmeyen alan adları
+dikkate alınmaz ve atlanır.
+
+<P><B>(User-agent) ikilisi</B>
+<UL>
+<P>Bu alana erişim politikası belirtilen robotun adı yazılır.
+
+<P>Eğer birden çok robot adı bu alana yazılmış ise, erişim politikası
+burada adı geçen tüm robot programları için aynı olacak demektir.
+
+<P>Robot bu alanı çözümleyebilmelidir. Büyük ve küçük harf ayrımı yapılmadan
+ve sürüm numarası olmadan yazılmış adlar tercih edilmelidir.
+
+<P>Eğer bu değer * ise tüm robotlar için kabul edilen erişim politikası
+anlatılmış olmaktadır. Bu tür kayıttan her "/robot.txt" kütüğünde en çok
+bir tane bulunmalıdır.
+</UL>
+
+<P><B>KISITLAMA</B> (Disallow)
+
+<UL>
+<P>Bu alan ziyaret edilmemesi gereken URL adreslerini içerir. Bu ya tüm yol olarak,
+ya da generik yol olarak tanımlanmış URL adresi olabilir. Örneğin:
+
+<P>Disallow:/help 
+
+<P>komutu /help.html ve /help/index.html erişimlerini kısıtlarken
+
+<P>Disallow:/help/
+
+<P>komutu /help/index.html erişimini kısıtlar ama /help.html için bir
+kısıtlama yoktur.
+
+<P>Boş bir değer tüm URL adreslerinin erişilebileceğini belirtir. En az bir
+kısıtlama (disallow) kayıdı "/robot.txt" içinde bulunmalıdır.
+</UL>
+
+<P>Boş bir "/robot.txt" kütüğü herhangi bir anlam belirtmez. Robot programlar
+böyle bir kütüğün olmadığını varsayarlar ve işlemlerini bildikleri gibi yaparlar.
+
+
+<P><B>ÖRNEKLER</B>
+
+<P>Aşağıdaki örnekte "/robots.txt" kütüğü hiçbir robot programın
+"/cyberworld/map/" ya da "/tmp/" yollarına girmemesi gerektiğini
+belirtir.
+
+<hr>
+<PRE>
+# robots.txt for http://www.site.com/
+
+User-agent: *
+Disallow: /cyberworld/map/ # Burasi sanal bir sonsuzluk alanıdır
+Disallow: /tmp/ # bunlar yakında yok olacak bilgilerdir
+</PRE>
+<hr>
+
+<P>Buradaki örnekte "/robots.txt" kütüğü "cybermapper"
+dışındaki hiçbir robot programının
+"/cyberworld/map/" yoluna girmemesi gerektiğni belirtir.
+
+<hr>
+<PRE>
+# robots.txt for http://www.site.com/
+
+User-agent: *
+Disallow: /cyberworld/map/ # Burasi sanal bir sonsuzluk alanıdır
+
+# Cybermapper nereye gideceğini biliyor
+User-agent: cybermapper
+Disallow:
+</PRE>
+<hr>
+
+<P>Bu örnekte hiçbir robot programının siteyi ziyaret etmemesi gerektiği
+belirtilir.
+<hr>
+<PRE>
+# git buradan
+User-agent: *
+Disallow: /
+</PRE>
+<hr>
+
+<P><B>Robot.txt için Genel Kavram</B>
+
+Özetlemek gerekirse burada yapılandırılmış bir yazı kütüğü ile 
+robot programlara WEB sunucunun bazı
+bölümlerinin (ya da tümünün) kısıtlı erişimi olduğu belirtilmektedir.
+
+<P>Aşağıdaki örnekte bu konu açıkanmıştır:
+
+<hr>
+<PRE>
+# /robots.txt file for http://mysite.nih.gov/
+
+User-agent: webcrawler
+Disallow:
+
+User-agent: lycos
+Disallow: /
+
+User-agent: *
+Disallow: /stay_out
+Disallow: /logs
+</PRE>
+<hr>
+
+<P>İlk satırdaki "#" ile yazılan bilgi bir açıklamadır.
+
+<P>İlk paragrafta yazılan komutlar kısaca "webcrawler"adlı robot 
+için kısıtlama yoktur, nereye isterse gidebilir demektedir.
+
+The second paragraph indicates that the robot called 'lycos' has all
+relative URLs starting with '/' disallowed. Because all relative URL's on a
+server start with '/', this means the entire site is closed off.
+<P>İkinci paragrafta yer alan komutlar "lycos" adı robot'a
+göreceli olarak '/' yolundan başlayarak tüm URL
+adresilerine karşı bir kısıtlama uygulanmakta olduğunu göstermektedir.
+
+<P>Üçüncü paragraf diğer tüm robotların /stay_out ve /tmp yollarına
+girmemeleri gerektiğini belirtir. Burada '*' özel bir komuttur, bir
+açılım karakteri değildir.
+
+<P>İki genel Hata hakkında:
+<UL>
+<LI>Açılım karakterleri tanımlanmamıştır. Örneğin 'Disallow: /tmp/*'
+yaerine yalnızca 'Disallow: /tmp' yazmak yeterlidir.
+<LI>Bir 'Disallow' omutuna birden çok yol tanımı konulmamalıdır (Belki
+bu özellik ileride değişebilir).
+</UL>
+<hr>
+<a href="../index.html">Ana Sayfaya</a>
+&nbsp;&nbsp;<A HREF="index.html">Teknik Bilgiler Sayfasina</A>
+<br />
+</div>
+               </div>
+             </div>
+           </div>
+
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+          <a href="../index.html" class="box"><img src="../img/aybim.png"></a><br /><br />
+          <a href="aglar.html" class="nav">Aglar</a>
+          <a href="aglink.html" class="nav">Aglink</a>
+          <a href="agteknik.html" class="nav">Agteknik</a>
+          <a href="ccode.html" class="nav">C-Kodlama</a>
+          <a href="cprep.html" class="nav">C-Önişleme</a>
+          <a href="crclrc.html" class="nav">CRC/LRC</a>
+          <a href="dea.html" class="nav">DEA</a>
+          <a href="etcsrv.html" class="nav">etcsrv</a>
+          <a href="fork.html" class="nav">Çatal (fork)</a>
+          <a href="ilet.html" class="nav">ilet</a>
+          <a href="inetd.html" class="nav">inetd</a>
+          <a href="make.html" class="nav">Make</a>
+          <a href="msgauth.html" class="nav">Msg Auth</a>
+          <a href="recur.html" class="nav">Özyinelemeli</a>
+          <a href="robots.html" class="nav">Robotlar için</a>
+          <a href="sdlc.html" class="nav">SDLC</a>
+          <a href="secure.html" class="nav">Güvenlik</a>
+          <a href="seri.html" class="nav">Seri uçlar</a>
+          <a href="snalu0.html" class="nav">SNA LU0</a>
+          <a href="snalu62.html" class="nav">SNA LU6.2</a>
+          <a href="tcpip.html" class="nav">tcp/ip</a>
+          <a href="tcpprg.html" class="nav">tcp Programı</a>
+          <a href="unix.html" class="nav">Unix</a>
+          <a href="vi.html" class="nav">vi Editör</a>
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

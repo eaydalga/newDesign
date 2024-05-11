@@ -1,0 +1,280 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>HTML'de Karakter Varlığı </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="htmltxt1.html" class="nav">Öğeler</a>
+               <a href="htmltxt2.html" class="nav">Biçimler</a>
+               <a href="htmltxt3.html" class="nav">Kalıplama</a>
+               <a href="htmltxt4.html" class="nav">Varlıklar</a>
+               <a href="htmltxt5.html" class="nav">Bağlar</a>
+               <a href="htmltxt6.html" class="nav">Çerçeveler</a>
+               <a href="htmltxt7.html" class="nav">Tablolar</a>
+               <a href="htmltxt8.html" class="nav">Listeler</a>
+               <a href="htmltxt9.html" class="nav">Formlar</a>
+               <a href="htmltxt10.html" class="nav">Resimler</a>
+               <a href="htmltxt11.html" class="nav">Art-Alan</a>
+               <a href="htmltxt12.html" class="nav">Renkler</a>
+               <a href="htmltxt13.html" class="nav">RenkDeğerleri</a>
+               <a href="htmltxt14.html" class="nav">RenkAdları</a>
+               <font color="#8e9ccb"><h3>Gelişmiş</h3></font>
+               <a href="ahtmltxt1.html" class="nav">Yerleşim</a>
+               <a href="ahtmltxt2.html" class="nav">YazıTipleri</a>
+               <a href="ahtmltxt3.html" class="nav">Stiller</a>
+               <a href="ahtmltxt4.html" class="nav">Başlık</a>
+               <a href="ahtmltxt6.html" class="nav">URL-Adresleri</a>
+               <a href="ahtmltxt7.html" class="nav">YazıDüzeni</a>
+               <a href="ahtmltxt8.html" class="nav">Nitelikler</a>
+               <a href="ahtmltxt9.html" class="nav">Olaylar</a>
+               <a href="ahtmltxt10.html" class="nav">URL-Kodlama</a>
+               <a href="ahtmltxt11.html" class="nav">Muzik-Kodu</a>
+               <a href="ahtmltxt12.html" class="nav">Video-Kodu</a>
+               <a href="ahtmltxt13.html" class="nav">WEB-Sunucu</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>HTML</h2></center>
+       <div id="ortataraf">
+<!-- html sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">30 Kasım 2007</span></div>
+<h2>HTML'de Karakter Varlığı</h2>
+<span class="yazi">
+Bazı karakterler (&lt; gibi), HTML içinde özel anlam taşır. Bu nedenle doğrudan yazı içinde kullanılamazlar.<br />
+</span>
+
+<h3>Karakter Varlığı</h3>
+
+<span class="yazi">
+Bazı karakterleri HTML içinde özel anlamı vardır (Küçüktür işareti gibi). Bu işaretin bir biçimin başladığını anlatması gibi. Bu karakterlerin tarayıcıda normal görünebilmeleri için bunlar yerine geçen varlık tanımlarını kullanmamız gerekir.<br />
+<br />
+Bir karakter varlığının üç bölümü vardır: İlki (&) işaretidir, onu varlık adı ya da (#) işaretinden sonra varlık numarası izler. Son olarak (;) işareti karaker varlığını tanımlar...<br />
+<br />
+Küçüktür işaretini görüntüleme için HTML içinde &lt; ya da &#60; kullanılmalıdır.<br />
+<br />
+Bir sayı yerine ad kullanmanın yararı, adların daha kolay anımsanmasıdır. Yararlı olmadığı durumsa, tüm tarayıcıların yeni tanımlanmış varlıkların hepsinin adlarını anlamıyor olmalarıdır. Bu durumda varlık numaralarını kullanmak tüm tarayıcılarda en uygun çözüm gibi görünebilir.<br />
+<br />
+Not: Varlıklar büyük-küçük harf duyarlıdır.<br />
+<br />
+</span>
+<table class="fyazi" cellspacing="0" border="1">
+    <tr>
+      <th align="left">Sonuç</th>
+      <th align="left">Açıklama</th>
+      <th align="left">Varlık Adı</th>
+      <th align="left">Varlık Sayısı</th>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>kırılamayan boşluk</td>
+      <td>&amp;nbsp;</td>
+      <td>&amp;#160;</td>
+    </tr>
+    <tr>
+      <td>&#60;</td>
+      <td>küçüktür</td>
+      <td>&amp;lt;</td>
+      <td>&amp;#60;</td>
+    </tr>
+    <tr>
+      <td>&gt;</td>
+      <td>Büyüktür</td>
+      <td>&amp;gt;</td>
+      <td>&amp;#62;</td>
+    </tr>
+    <tr>
+      <td>&amp;</td>
+      <td>ve imi</td>
+      <td>&amp;amp;</td>
+      <td>&amp;#38;</td>
+    </tr>
+
+    <tr>
+      <td>&quot;</td>
+      <td>tırnak işareti</td>
+      <td>&amp;quot;</td>
+      <td>&amp;#34;</td>
+    </tr>
+    <tr>
+      <td>'</td>
+      <td>kesme imi&nbsp;</td>
+      <td>&amp;apos; (IE'de çalışmaz)</td>
+      <td>&amp;#39;</td>
+    </tr>
+</table>
+
+<h3>Sıkça kullanılan diğer karakter varlıkları:</h3>
+
+<table class="fyazi" cellspacing="0" border="1">
+    <tr>
+      <th align="left">Sonuç</th>
+      <th align="left">Açıklama</th>
+      <th align="left">Varlık Adı</th>
+      <th align="left">Varlık Sayısı</th>
+    </tr>
+    <tr>
+      <td>¢</td>
+      <td>sent</td>
+      <td>&amp;cent;</td>
+      <td>&amp;#162;</td>
+    </tr>
+    <tr>
+
+      <td>&pound;</td>
+      <td>Sterlin</td>
+      <td>&amp;pound;</td>
+      <td>&amp;#163;</td>
+    </tr>
+    <tr>
+      <td>&yen;</td>
+      <td>yen</td>
+      <td>&amp;yen;</td>
+      <td>&amp;#165;</td>
+    </tr>
+    <tr>
+      <td>§</td>
+      <td>Bölüm</td>
+      <td>&amp;sect;</td>
+      <td>&amp;#167;</td>
+    </tr>
+    <tr>
+      <td>&copy;</td>
+      <td>Telif Hakkı</td>
+      <td>&amp;copy;</td>
+      <td>&amp;#169;</td>
+    </tr>
+    <tr>
+      <td>&#174;</td>
+      <td>Tescilli Marka</td>
+      <td>&amp;reg;</td>
+      <td>&amp;#174;</td>
+    </tr>
+    <tr>
+      <td>×</td>
+      <td>çarpma</td>
+      <td>&amp;times;</td>
+      <td>&amp;#215;</td>
+    </tr>
+
+    <tr>
+      <td>÷</td>
+      <td>bölme</td>
+      <td>&amp;divide;</td>
+      <td>&amp;#247;</td>
+    </tr>
+</table>
+<br />
+<h3>Kırılamaz Boşluk</h3>
+
+<span class="yazi">
+HTML içindeki en sık kullanılan karakter varlığı kırılamaz boşluktur<br />
+<br />
+Normal HTML belge içindeki boşlukları kısaltır. ama eğer &amp;nbsp; kullanırsanız boşluk kısaltılmadan kalır...<br />
+</span>
+
+<h2>Özel karakterler için varlık yazımı</h2>
+<div class="yazi">
+<p class="yazi">Kaynak: <http://www.w3.org/People/Raggett>Gelişmiş Özellikler</a></p>
+
+<p class="yazi">HTML 4.0 &amp;trade; işaretini "trademark" (ticari marka) yerine kullanır ama &amp;#8482; hala tarayıcılarda geniş bir kullanım bulamadı...</p>
+
+<p class="yazi">Yararlı olduğu düşünülebilecek başka varlık yazımları da var.</p>
+
+<table class="fyazi" width="80%">
+<tr><th>Symbol</th><th>Entity</th><th>Example</th></tr>
+<tr><td>Less than</td><td>&amp;lt;</td><td><</td></tr>
+<tr><td>Greater than</td><td>&amp;gt;</td><td>></td></tr>
+<tr><td>Ampersand</td><td>&amp;amp;</td><td>&</td></tr>
+<tr><td>nonbreaking space</td><td>&amp;nbsp;</td><td></td></tr>
+<tr><td>em dash</td><td>&amp;#8212;</td><td>?</td></tr>
+<tr><td>quotation mark</td><td>&amp;quot;</td><td>"</td></tr>
+</table>
+
+<p class="yazi">Ve sonra, özel semboller ve aksanlı karakterler için Latin-1'deki varlık yazım biçimleri aşağıdaki tabloda gösterilmiştir:</p>
+<table class="fyazi" width="80%">
+<tr><td> </td><td>&amp;nbsp;</td><td>&#160;</td><td>Ð</td><td>&amp;ETH;</td><td>&#208;</td></tr>
+<tr><td>¡</td><td>&amp;iexcl;</td><td>&#161;</td><td>Ñ</td><td>&amp;Ntilde;</td><td>&#209;</td></tr></td></tr>
+<tr><td>¢</td><td>&amp;cent;</td><td>&#162;</td><td>Ò</td><td>&amp;Ograve;</td><td>&#210;</td></tr>
+<tr><td>£</td><td>&amp;pound;</td><td>&#163;</td><td>Ó</td><td>&amp;Oacute;</td><td>&#211;</td></tr>
+<tr><td>¤</td><td>&amp;curren;</td><td>&#164;</td><td>Ô</td><td>&amp;Ocirc;</td><td>&#212;</td></tr>
+<tr><td>¥</td><td>&amp;yen;</td><td>&#165;</td><td>Õ</td><td>&amp;Otilde;</td><td>&#213;</td></tr>
+<tr><td>¦</td><td>&amp;brvbar;</td><td>&#166;</td><td>Ö</td><td>&amp;Ouml;</td><td>&#214;</td></tr>
+<tr><td>§</td><td>&amp;sect;</td><td>&#167;</td><td>×</td><td>&amp;times;</td><td>&#215;</td></tr>
+<tr><td>¨</td><td>&amp;uml;</td><td>&#168;</td><td>Ø</td><td>&amp;Oslash;</td><td>&#216;</td></tr>
+<tr><td>©</td><td>&amp;copy;</td><td>&#169;</td><td>Ù</td><td>&amp;Ugrave;</td><td>&#217;</td></tr>
+<tr><td>ª</td><td>&amp;ordf;</td><td>&#170;</td><td>Ú</td><td>&amp;Uacute;</td><td>&#218;</td></tr>
+<tr><td>«</td><td>&amp;laquo;</td><td>&#171;</td><td>Û</td><td>&amp;Ucirc;</td><td>&#219;</td></tr>
+<tr><td>¬</td><td>&amp;not;</td><td>&#172;</td><td>Ü</td><td>&amp;Uuml;</td><td>&#220;</td></tr>
+<tr><td>­</td><td>&amp;shy;</td><td>&#173;</td><td>Ý</td><td>&amp;Yacute;</td><td>&#221;</td></tr>
+<tr><td>®</td><td>&amp;reg;</td><td>&#174;</td><td>Þ</td><td>&amp;THORN;</td><td>&#222;</td></tr>
+<tr><td>¯</td><td>&amp;macr;</td><td>&#175;</td><td>ß</td><td>&amp;szlig;</td><td>&#223;</td></tr>
+<tr><td>°</td><td>&amp;deg;</td><td>&#176;</td><td>à</td><td>&amp;agrave;</td><td>&#224;</td></tr>
+<tr><td>±</td><td>&amp;plusmn;</td><td>&#177;</td><td>á</td><td>&amp;aacute;</td><td>&#225;</td></tr>
+<tr><td>²</td><td>&amp;sup2;</td><td>&#178;</td><td>â</td><td>&amp;acirc;</td><td>&#226;</td></tr>
+<tr><td>³</td><td>&amp;sup3;</td><td>&#179;</td><td>ã</td><td>&amp;atilde;</td><td>&#227;</td></tr>
+<tr><td>´</td><td>&amp;acute;</td><td>&#180;</td><td>ä</td><td>&amp;auml;</td><td>&#228;</td></tr>
+<tr><td>µ</td><td>&amp;micro;</td><td>&#181;</td><td>å</td><td>&amp;aring;</td><td>&#229;</td></tr>
+<tr><td>¶</td><td>&amp;para;</td><td>&#182;</td><td>æ</td><td>&amp;aelig;</td><td>&#230;</td></tr>
+<tr><td>·</td><td>&amp;middot;</td><td>&#183;</td><td>ç</td><td>&amp;ccedil;</td><td>&#231;</td></tr>
+<tr><td>¸</td><td>&amp;cedil;</td><td>&#184;</td><td>è</td><td>&amp;egrave;</td><td>&#232;</td></tr>
+<tr><td>¹</td><td>&amp;sup1;</td><td>&#185;</td><td>é</td><td>&amp;eacute;</td><td>&#233;</td></tr>
+<tr><td>º</td><td>&amp;ordm;</td><td>&#186;</td><td>ê</td><td>&amp;ecirc;</td><td>&#234;</td></tr>
+<tr><td>»</td><td>&amp;raquo;</td><td>&#187;</td><td>ë</td><td>&amp;euml;</td><td>&#235;</td></tr>
+<tr><td>¼</td><td>&amp;frac14;</td><td>&#188;</td><td>ì</td><td>&amp;igrave;</td><td>&#236;</td></tr>
+<tr><td>½</td><td>&amp;frac12;</td><td>&#189;</td><td>í</td><td>&amp;iacute;</td><td>&#237;</td></tr>
+<tr><td>¾</td><td>&amp;frac34;</td><td>&#190;</td><td>î</td><td>&amp;icirc;</td><td>&#238;</td></tr>
+<tr><td>¿</td><td>&amp;iquest;</td><td>&#191;</td><td>ï</td><td>&amp;iuml;</td><td>&#239;</td></tr>
+<tr><td>À</td><td>&amp;Agrave;</td><td>&#192;</td><td>ð</td><td>&amp;eth;</td><td>&#240;</td></tr>
+<tr><td>Á</td><td>&amp;Aacute;</td><td>&#193;</td><td>ñ</td><td>&amp;ntilde;</td><td>&#241;</td></tr>
+<tr><td>Â</td><td>&amp;Acirc;</td><td>&#194;</td><td>ò</td><td>&amp;ograve;</td><td>&#242;</td></tr>
+<tr><td>Ã</td><td>&amp;Atilde;</td><td>&#195;</td><td>ó</td><td>&amp;oacute;</td><td>&#243;</td></tr>
+<tr><td>Ä</td><td>&amp;Auml;</td><td>&#196;</td><td>ô</td><td>&amp;ocirc;</td><td>&#244;</td></tr>
+<tr><td>Å</td><td>&amp;Aring;</td><td>&#197;</td><td>õ</td><td>&amp;otilde;</td><td>&#245;</td></tr>
+<tr><td>Æ</td><td>&amp;AElig;</td><td>&#198;</td><td>ö</td><td>&amp;ouml;</td><td>&#246;</td></tr>
+<tr><td>Ç</td><td>&amp;Ccedil;</td><td>&#199;</td><td>÷</td><td>&amp;divide;</td><td>&#247;</td></tr>
+<tr><td>È</td><td>&amp;Egrave;</td><td>&#200;</td><td>ø</td><td>&amp;oslash;</td><td>&#248;</td></tr>
+<tr><td>É</td><td>&amp;Eacute;</td><td>&#201;</td><td>ù</td><td>&amp;ugrave;</td><td>&#249;</td></tr>
+<tr><td>Ê</td><td>&amp;Ecirc;</td><td>&#202;</td><td>ú</td><td>&amp;uacute;</td><td>&#250;</td></tr>
+<tr><td>Ë</td><td>&amp;Euml;</td><td>&#203;</td><td>û</td><td>&amp;ucirc;</td><td>&#251;</td></tr>
+<tr><td>Ì</td><td>&amp;Igrave;</td><td>&#204;</td><td>ü</td><td>&amp;uuml;</td><td>&#252;</td></tr>
+<tr><td>Í</td><td>&amp;Iacute;</td><td>&#205;</td><td>ý</td><td>&amp;yacute;</td><td>&#253;</td></tr>
+<tr><td>Î</td><td>&amp;Icirc;</td><td>&#206;</td><td>þ</td><td>&amp;thorn;</td><td>&#254;</td></tr>
+<tr><td>Ï</td><td>&amp;Iuml;</td><td>&#207;</td><td>ÿ</td><td>&amp;yuml;</td><td>&#255;</td></tr>
+</table>
+
+<p class="yazi">Sayısal yazım biçimi Yunan harfleri ve Unicode altında tanımlanan matematik sembolleri de gösterebilir. Daha geniş bilgi için HTML 4.0 özelliklerinde anlatılmıştır. Buradaki yazım adları NN 4'de tanınmaz. Bu nedenle sayısal yazım biçimini kullanmak en iyisidir.</p>
+
+<p class="yazi">Tarayıcıların gösterebildiği renklerin neler olduğu <a href="http://www.w3.org/MarkUp/Guide/Style.html">W3C HTML belgelerinde</a> bir başka tablo olarak da gösterilmiştir.</p>
+</div>
+<br />
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

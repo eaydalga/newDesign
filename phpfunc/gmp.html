@@ -1,0 +1,167 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP GMP İşlevleri</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">18 Şubat 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>GMP İşlevleri</h2>
+
+<h3>Giriş</h3>
+
+Bu işlevler sınırsız uzunluktaki tamsayılarla çalışmanızı sağlarlar. Burada GNU MP kitaplığı kullanılır.
+<br /><br />
+PHP 4.0.4 sürümünden sonra eklenmiştir.
+<br /><br />
+
+    Not: 
+Aşağıdaki kaynaklarda belirtildiği gibi pekçok GMP işlevi GMP sayılarını parametre olarak kabul eder. Ama bu işlevlerin pekçoğunda sayısal ve yazı biçiminde parametreler de vardır. Bu durumda parametreler tamsayı olunca daha hızlı işlem kullanılarak sonuç bulunur. İşlem saydamdır. Bunun anlamı GMP kullanılan her yerde tamsayı kullanılabiliyor olmasıdır.
+
+<h3>UYARI</h3>
+
+Eğer büyük bir tamsayını açıttan belirtmek isterseniz, onu yazı dizisi olarak
+tanımlayın. Eğer böyle yapmazsanız PHP onu tamsayı olarak algılayacak ve
+belki de duyarlığında bazı basamakları kaybedebileceksiniz. 
+
+<br /><br />
+    Not: Bu uzantı windows ortamında PHP 5.1.0 sürümünden beri var. 
+
+<h3>Gereksinim</h3>
+
+GMP kitaplığını http://www.swox.com/gmp/ adresinden indirebilirsiniz.
+
+<br /><br />
+Bu işlevleri kullanabilmeniz için GMP sürüm 2 y ada daha yenisine
+gereksiniminiz vardır. Bazı GMP işlevleri daha yeni sürümleri isteyebilir.
+
+<h3>Kurulum</h3>
+
+Bu işlevleri kullanmak için PHP "--with-gmp" seçeneğiyle derlenmelidir.
+
+<h3>Kaynak Türleri</h3>
+
+Pekçok GPM işlevi GMP sayısı döndürür ya da GMP sayısını kullanır.
+
+<h3>Önceden Tanımlı Değişmezler</h3>
+Aşağıdaki değişmezle bu uzantı için tanımlanmıştır.
+<dl>
+<dt>GMP_ROUND_ZERO (integer)</dt>
+<dt>GMP_ROUND_PLUSINF (integer)</dt>
+<dt>GMP_ROUND_MINUSINF (integer)</dt>
+<dt>GMP_VERSION (string)
+    <dd>GMP kitaplığı sürüm numarası
+    </dd></dt>
+</dl>
+<h3>Örnekler</h3>
+
+Örnek1 GMP kullanarak faktorial işlevi
+<pre>
+&lt;?php
+function fact($x) 
+{
+    $return = 1;
+    for ($i=2; $i < $x; $i++) {
+        $return = gmp_mul($return, $i);
+    }
+    return $return;
+}
+
+echo gmp_strval(fact(1000)) . "\n";
+?&gt;
+</pre>
+
+Burada faktoriyal 1000 (oldukça büyük bir sayıdır) hesaplanır.
+<br /><br />
+Ayrıca bakılması gerekenler:
+<br /><br />
+More mathematical functions can be found in the sections 
+bölümlerinde daha birçok işlev vardır.
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> gmp_abs — Mutlak değer
+    <li> gmp_add — Sayıları ekler
+    <li> gmp_and — Mantıksal VE (AND)
+    <li> gmp_clrbit — Bit temizle
+    <li> gmp_cmp — Sayıları karşılaştır
+    <li> gmp_com — Bir'in tersini hesaplar
+    <li> gmp_div_q — Sayıları böler
+    <li> gmp_div_qr — Sayıları böl ve bölümle kalanı al
+    <li> gmp_div_r — Sayıların bölümden kalan
+    <li> gmp_div — gmp_div_q eşdeğeri
+    <li> gmp_divexact — Sayıların tam bölümü
+    <li> gmp_fact — Faktoryal
+    <li> gmp_gcd — En büyük ortak bölen (GCD) hesapla
+    <li> gmp_gcdext — EOB ve bölenleri (GCD ve multipliers)
+    <li> gmp_hamdist — Hamming uzaklığı
+    <li> gmp_init — GMP sayısı yarat
+    <li> gmp_intval — GMP sayısını tamsayıya çevir
+    <li> gmp_invert — modulo aritmetiğiyle tersini alma
+    <li> gmp_jacobi — Jacobi sembolü
+    <li> gmp_legendre — Legendre semebolü
+    <li> gmp_mod — Modulo işlemi
+    <li> gmp_mul — Sayıları çarpma
+    <li> gmp_neg — Sayısının eksisini alma
+    <li> gmp_nextprime — Bir sonraki asal sayıyı bulma
+    <li> gmp_or — Mantıksal VEYA (OR)
+    <li> gmp_perfect_square — Tam kare denetimi
+    <li> gmp_popcount — Nüfus sayımı
+    <li> gmp_pow — Sayının üssünü alma
+    <li> gmp_powm — Sayının modulüs üssünü alma
+    <li> gmp_prob_prime — Sayı "Olası asaldır" denetimini yap
+    <li> gmp_random — Rastgele sayı
+    <li> gmp_scan0 — 0 için arama
+    <li> gmp_scan1 — 1 için arama
+    <li> gmp_setbit — bit ayarla
+    <li> gmp_sign — Sayının işareti
+    <li> gmp_sqrt — Kare kök alma
+    <li> gmp_sqrtrem — Kalanlı kare kök alma
+    <li> gmp_strval — GMP sayıyı yazı dizisine çevirme
+    <li> gmp_sub — Sayıları çıkart
+    <li> gmp_testbit — Bit kurulu mu bak
+    <li> gmp_xor — Mantıksal XOR (dışsal veya)
+</ul>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

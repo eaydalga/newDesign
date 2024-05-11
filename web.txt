@@ -1,0 +1,4 @@
+<tr><td align="center">
+<a href="durgun.html" class="box"><img src="img/globe_01.gif" alt="" title="" border="0" /></a><br />
+<span class="syazi">Web Tasarım</span>
+</td></tr>

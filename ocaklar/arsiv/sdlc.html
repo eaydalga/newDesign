@@ -1,0 +1,194 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>AYBIM - SNA SDLC</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onload="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+          <a href="../index.php" class="box"><img src="../img/aybim.png" border="0"></a><br /><br />
+          <a href="aglar.html" class="nav">Aglar</a>
+          <a href="aglink.html" class="nav">Aglink</a>
+          <a href="agteknik.html" class="nav">Agteknik</a>
+          <a href="ccode.html" class="nav">C-Kodlama</a>
+          <a href="cprep.html" class="nav">C-Önişleme</a>
+          <a href="crclrc.html" class="nav">CRC/LRC</a>
+          <a href="dea.html" class="nav">DEA</a>
+          <a href="etcsrv.html" class="nav">etcsrv</a>
+          <a href="fork.html" class="nav">Çatal (fork)</a>
+          <a href="ilet.html" class="nav">ilet</a>
+          <a href="inetd.html" class="nav">inetd</a>
+          <a href="make.html" class="nav">Make</a>
+          <a href="msgauth.html" class="nav">Msg Auth</a>
+          <a href="recur.html" class="nav">Özyinelemeli</a>
+          <a href="robots.html" class="nav">Robotlar için</a>
+          <a href="sdlc.html" class="nav">SDLC</a>
+          <a href="secure.html" class="nav">Güvenlik</a>
+          <a href="seri.html" class="nav">Seri uçlar</a>
+          <a href="snalu0.html" class="nav">SNA LU0</a>
+          <a href="snalu62.html" class="nav">SNA LU6.2</a>
+          <a href="tcpip.html" class="nav">tcp/ip</a>
+          <a href="tcpprg.html" class="nav">tcp Programı</a>
+          <a href="unix.html" class="nav">Unix</a>
+          <a href="vi.html" class="nav">vi Editör</a>
+       </div>
+       </td>
+       <td valign="top">
+       <div id="ortataraf">
+           <span><img src="../img/transparent.gif" width="1" height="50">
+           <img src="../img/transparent.gif" width="780" height="1"></span>
+           <div id="banner">
+             <img src="img/baslik.gif"><br />
+             <div id="mycontainer">
+               <div id="content">
+<div id="bdy" class="yazi">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8541306787668208";
+//728x90, created 1/16/08
+google_ad_slot = "7459135715";
+google_ad_width = 728;
+google_ad_height = 90;
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<br>
+<br>
+<div id="sag"><span class="yazi">24 Ocak 2008</span></div>
+<H2>SDLC (Synchronous Data Link Communication) </H2>
+<HR>
+<p>
+<h3>GİRİŞ</h3>
+<p>
+SDLC protokolune göre SNA ortamında iki tip
+bilgisayar vardır. Bunlardan merkezdekine birincil bilgisayar, uzaktan
+bağlanana ise ikincil bilgisayar denir. Birincil bilgisayar kurulan iletişim
+yöntemini denetleyen bilgisayardır. Fiziksel birimler birbirleri ile
+iletişimi kurduktan sonra, her iki bilgisayarda yer alan mantıksal birimler
+birbirleri ile oturum başlatır. Her mantıksal birim karşısındaki mantıksal
+birimle başka birimlerden bağımsız oturum kurabilir. Bir hat üzerinde 
+birden çok ikincil bilgisayar olabilir. Bu bilgisayarlar fiziksel birimlerdir.
+Aynı hat üzerindeki birden çok fiziksel birim C1, C2 gibi adreslerle
+birbirlerinden ayrılır. Aynı hattı paylaşımlı kullanırlar.
+Bir fiziksel bilgisayarın karşı tarafa bağlantısı için gereken SDLC
+komutları şöyledir :
+<P>
+<table class="yazi">
+<tr>
+<td valign=top WIDTH=100>
+SNRM<br>(Set Normal Response Mode)
+</td><td>
+İlk bağlantı kurulurken gönderilen
+paketleri karşı taraf aldığında gelen paket bu komutu içerir.
+RR (Read to Receive) : Her iki bilgisayar "Bekleme" konumunda iken veya
+gelen paket alındıktan sonra gönderilen boş pakettir. Bir paketin karşı
+taraftan alındığı, karşıdan gelen RR paketi ile anlaşılır.</td>
+</tr>
+<tr>
+<td valign=top WIDTH=100>
+ACTPU (Activate PU)
+</td><td>
+Birincil bilgisayar iikincil bilgisayarın fiziksel
+biriminin Aktif olmasını istemektedir. Aslında fiziksel bilgisayarın aktif
+duruma gelmesi demek SDLC protokolunda mesaj alış verişini her iki
+bilgisayarında başlatmış olması demektir.
+</td>
+</tr>
+<tr>
+<td valign=top WIDTH=100>
+DACTPU (Deactivate PU)
+</td><td>
+Fiziksel birimi kapat. Bu komut varsa oturumda
+olan mantıksal birimlerin oturumlarının da kapanmasına neden olur. Oturumda
+olsun olmasın tüm mantıksal birimler bu komutla "Deactive" konuma gecer.
+<P>
+Mantıksal birimlerin SDLC protokolunda kullandığı komutlar 
+aşağıda açıklanmıştır.</td></tr>
+<tr>
+<td valign=top WIDTH=100>
+ACTLU (Activate LU)
+</td><td>
+Birincil bilgisayarda karşı bilgisayarda bulunabilecek
+mantıksal birimler tanımlıdır. Bu komut mantıksal birimlerin ikincil
+bilgisayarda da tanımlı olup olmadığını anlamak için kullanılır. İkincil
+bilgisayar gelen her ACTLU komutuna, tanım varsa olumlu yanıt verir. Aksi
+halde DACTLU komutu ile yanıt verilir ve Birincil bilgisayar bu mantıksal
+birim ile bağlantı kurulamayacağını anlar.</td>
+</td></tr><tr><td WIDTH=100>
+XID (Exchange ID)
+</td><td>
+Her iki bilgisayar, birbirleri ile tanım alışverişinde
+bulunur. Max. Mesaj boyu ve bilgisayar tanımları gibi bilgiler bi komut
+ile bilgisayarlar arasında değiş tokuş yapılır.
+</td>
+</tr>
+<tr>
+<td valign=top WIDTH=100>
+INITSELF
+</td><td>
+Bu komut ile ilgili ayrıntılı bilgi protokol arayüzünde
+anlatılmıştır.
+</td>
+</tr>
+<tr>
+<td valign=top WIDTH=100>
+BIND
+</td><td>
+İki uygulama programının birbiri ile bağlantı kurması bu komut
+aracılığı ile yapılır. Kurulan bağlantıda kullanılan kalıp ve sistemlerin
+mesaj algılama biçimleri bu komut ile tanımlanır. Birincil bilgisayar
+komutun içeriğini belirtir, ikincil bilgisayar, bu komutu kabul ediyorsa
+olumlu cevap verir ve oturum kurulmuş olur. Komut kabul edilmiyorsa
+ikincil bilgisayar bağlantının kesilmesi için UNBIND gönderir.
+</td>
+</tr>
+<tr>
+<td valign=top WIDTH=100>
+SSNUM<br>(Set Sequence Number)
+</td><td>
+Oturum kurulduğunda paketlerde yer alan
+paket sıra numarası bu komu ile her iki bilgisayarda da ilk değerine
+getirilir.
+</td></tr><tr>
+<td valign=top WIDTH=100>
+SDT (Start Data Trafic)
+</td>
+<td valign=top>
+Komut alış verişi tamamlandıktan sonra birincil
+bilgisayar, veri iletişiminin başlayabileceğini bu komut ile birdirir.
+Atrık bilgisayarlar uygulama programı bilgilerini birbirlerine 
+gönderebilirler.
+</td></tr><tr>
+<td valign=top WIDTH=100>
+DACTLU (Deactivate LU)
+</td><td>
+Bu komut oturumun kapanması ve mantıksal birimin
+artık merkez tarafından tanınmadığının belirtilmesi anlamına gelir.
+</td>
+</tr>
+</table>
+<HR>
+<br />
+</div>
+               </div>
+             </div>
+           </div>
+
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

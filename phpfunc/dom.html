@@ -1,0 +1,632 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP DOM İşlevleri</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">18 Şubat 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>DOM İşlevleri</h2>
+
+<h3>Giriş</h3>
+
+PHP 5 sürümlerinde XML belgelerini işlemek DOM uzantısıyla sağlanır.
+<br /><br />
+PHP 4 için DOM XML kullanın.
+<br /><br />
+    Not: DOM uzantısı UTF-8 kullanır. utf8_encode() ve utf8_decode() ISO-8859-1 ile kullanılmalı. Diğerleri için Iconv kullanılmalıdır.
+
+<h3>Önceden Tanımlanan Sınıflar</h3>
+
+Bu modülün program arayüzleri DOM düzey 3 standratlarına yakın olmaya çalışır
+(olabildiğince). Bu modülle DOM standartının hazır olması iyi bir düşüncedir.
+<br /><br />
+Bu modül bir kaç sınıf tanımlar. Aşağıdaki tablolarda bunlar açıklanmıştır.
+
+<b>DOMAttr</b>
+
+DOMNode (Dom düğümü) geliştirir. DOMAttr arayüzü DOMElement nesnesinde bir
+nitelikle belirtilir.
+
+<h3>Yapıcılar (Constructor)</h3>
+
+    * DOMAttr->__construct() - yeni DOMAttr nesnesi yarat
+
+<h3>Yöntemler (Methods)</h3>
+
+    * DOMAttr->isId() - Tanımlanmış ID eğer nitelikse
+
+<b>Özellikler</b>
+<table class="fyazi" width="100%">
+<tr><td>Ad</td><td>Tür</td><td>Yalnız Okuma</td><td>Açıklama</td></tr>
+<tr><td>name</td><td>string</td><td>yes</td><td>Niteliğin adı </td></tr>
+<tr><td>ownerElement</td><td>DOMElement</td><td>yes</td><td>niteliği içeren öğe</td></tr>
+<tr><td>schemaTypeInfo</td><td>bool</td><td>yes</td><td>Henüz uygulanmadı, her zaman NULL döner</td></tr>
+<tr><td>specified</td><td>bool</td><td>yes</td><td>Henüz uygulanmadı, her zaman NULL döner</td></tr>
+<tr><td>value</td><td>string</td><td>no</td><td>niteliğin değeri </td></tr>
+</table>
+
+<b>DOMCharacterData</b>
+
+DOMNode Geliştirir.
+
+<h3>Yöntemler (Methods)</h3>
+<ul>
+    <li> DOMCharacterData->appendData() - Düğümün karakter verisinin sonuna ekleme yapar.
+    <li> DOMCharacterData->deleteData() - Düğümden sınırları belirli karakterleri siler
+    <li> DOMCharacterData->insertData() - 16-bitlik birimlerde belirtilen uzaklıktan sonrasına ekleme yapar
+    <li> DOMCharacterData->replaceData() - bir alt yazı dizisini DOMCharacterData ile düğüme ekler
+    <li> DOMCharacterData->substringData() - Düğümden belirli bir bölümü almak
+</ul>
+
+<b>Özellikler</b>
+<table class="fyazi" width="100%">
+<tr><td>Ad</td><td>Tür</td><td>Yalnız Okuma</td><td>Açıklama</td></tr>
+<tr><td>data</td><td>string</td><td>no</td><td>Düğümün içeriği</td></tr>
+<tr><td>length</td><td>int</td><td>yes</td><td>İçeriğin uzunluğu </td></tr>
+</table>
+
+<b>DOMComment</b>
+
+DOMCharacterData geliştirir.
+
+<h3>Yapıcılar (Constructor)</h3>
+<ul>
+    <li> DOMComment->__construct() - Yeni DOMComment nesne yaratmak
+</ul>
+<b>DOMDocument</b>
+
+DOMNode geliştirir.
+
+<h3>Yapıcılar (Constructor)</h3>
+<ul>
+    <li> DOMDocument->__construct() - construct a new DOMDocument object
+</ul>
+<h3>Yöntemler (Methods)</h3>
+<ul>
+    <li> DOMDocument->createAttribute() - Yeni nitelik yarat
+    <li> DOMDocument->createAttributeNS() - İlgili ad alanına bağlı Yeni nitelik düğümü
+    <li> DOMDocument->createCDATASection() - Yeni cdata düğümü yarat
+    <li> DOMDocument->createComment() - Yeni açıklama düğümü yarat
+    <li> DOMDocument->createDocumentFragment() - Yeni belge parçası yaratma
+    <li> DOMDocument->createElement() - Yeni öğe düğümü yaratma
+    <li> DOMDocument->createElementNS() - İlgili ad alanına bağlı yeni öğe düğümü yaratma
+    <li> DOMDocument->createEntityReference() - Yeni varlık göstergesi düğümü yaratma
+    <li> DOMDocument->createProcessingInstruction() - Yeni PI düğümü
+    <li> DOMDocument->createTextNode() - Yeni yazı düğümü
+    <li> DOMDocument->getElementById() - belirli bir adla öğeyi aramak
+    <li> DOMDocument->getElementsByTagName() - Biçim adıyla tüm öğeleri arar
+    <li> DOMDocument->getElementsByTagNameNS() - Belirtilen ad alanı içinde verilen biçim adıyla öğeleri aramak
+    <li> DOMDocument->importNode() - O anki belge içine düğümü dıştan alma
+    <li> DOMDocument->load() - Bir dosyadan XML yükleme
+    <li> DOMDocument->loadHTML() - Bir yazı dizisinden HTML yükleme
+    <li> DOMDocument->loadHTMLFile() - Dosyadan HTML yükleme
+    <li> DOMDocument->loadXML() - Yazı dizisinden XML yükleme
+    <li> DOMDocument->normalizeDocument() - Belgeyi düzgelemek
+    <li> DOMDocument->relaxNGValidate() - Belge üzerinde relaxNG denetimi yapar
+    <li> DOMDocument->relaxNGValidateSource() - Belge üzerinde relaxNG denetimi yapar
+    <li> DOMDocument->registerNodeClass() - Ana düğüm türü (DOM standardı değil) kayıt ile uzatılmış sınıf kullanımıyla yaratılır.
+    <li> DOMDocument->save() - İçsel XML ağacını bir dosyaya döker
+    <li> DOMDocument->saveHTML() - HTML kalıplaması kullanarak içsel belgeyi yazı dizisine döker
+    <li> DOMDocument->saveHTMLFile() - HTML kalıplaması kullanarak içsel belgeyi dosyaya döker
+    <li> DOMDocument->saveXML() - İçsel XML ağacını bir yazı dizisine döker
+    <li> DOMDocument->schemaValidate() - Bir şemaya göre belgeyi denetlemek
+    <li> DOMDocument->schemaValidateSource() - Bir şemaya göre belgeyi denetlemek
+    <li> DOMDocument->validate() - DTD değerine göre belgeyi denetlemek
+    <li> DOMDocument->xinclude() - Belge içindeki DOMDocument nesnesinde XIncludes değerini değiştirme
+</ul>
+<b>Özellikler</b>
+<table class="fyazi" width="100%">
+<tr><td>Ad</td><td>Tür</td><td>Yalnız Okuma</td><td>Açıklama</td></tr>
+<tr><td>actualEncoding</td><td>string</td><td>yes</td><td></td></tr>
+<tr><td>config</td><td>DOMConfiguration</td><td>yes</td><td></td></tr>
+<tr><td>doctype</td><td>DOMDocumentType</td><td>yes</td><td>Bu belgeyle ilişkilendirilmiş Belge türü tanımı.</td></tr>
+<tr><td>documentElement</td><td>DOMElement</td><td>yes</td><td>Bu çocuk düğüme doğrudan erişime hakkı veren uygun niteliktir. Bu da belgenin "document" öğesidir .</td></tr>
+<tr><td>documentURI</td><td>string</td><td>no</td><td>Belgenin yeri ya da yoksa NULL.</td></tr>
+<tr><td>encoding</td><td>string</td><td>no</td><td></td></tr>
+<tr><td>formatOutput</td><td>bool</td><td>no</td><td></td></tr>
+<tr><td>implementation</td><td>DOMImplementation</td><td>yes</td><td>Bu belgeyi ele alan DOMImplementation nesnesi.</td></tr>
+<tr><td>preserveWhiteSpace</td><td>bool</td><td>no</td><td>Gereksiz boşlukların kaldırılmaması . Varsayılan değer TRUE.</td></tr>
+<tr><td>recover</td><td>bool</td><td>no</td><td></td></tr>
+<tr><td>resolveExternals</td><td>bool</td><td>no</td><td>"doctype" tanımı için dışsal varlıkların yüklenmesi için TRUE ataması yapılır. Bu XML belgelerinize karakter varlıkları eklemeye yarar.</td></tr>
+<tr><td>standalone</td><td>bool</td><td>no</td><td></td></tr>
+<tr><td>strictErrorChecking</td><td>bool</td><td>no</td><td>Hatalarda DOMException itetikler. Varsayılan TRUE.</td></tr>
+<tr><td>substituteEntities</td><td>bool</td><td>no</td><td></td></tr>
+<tr><td>validateOnParse</td><td>bool</td><td>no</td><td>DTD'ye karşı yükleyip denetim yapar. Varsayılan FALSE.</td></tr>
+<tr><td>version</td><td>string</td><td>no</td><td></td></tr>
+<tr><td>xmlEncoding</td><td>string</td><td>yes</td><td>XML tanımının bir parçası olarak nitelik belirtmek. Bu belgenin kodlanması. Belirtilmezse, ya da bilinmiyorsa NULL olur (Belge bellekte yaratıldığında).</td></tr>
+<tr><td>xmlStandalone</td><td>bool</td><td>no</td><td>XML tanımının bir parçası olarak belirtilen niteliktir. Belgenin yalnız başına olması söz konusudur. Belge belirsizse, değeri FALSE olur.</td></tr>
+<tr><td>xmlVersion</td><td>string</td><td>no</td><td>XML tanımının bir parçası olarak nitelik belirtme (Bu belgenin sürüm numarası kullanılır). Eğer tanımlama yoksa ve bu belge XML hatası verirse değer "1.0" olur.</td></tr>
+</table>
+
+<b>DOMDocumentFragment</b>
+
+DOMNode Geliştirir.
+
+<h3>Yöntemler (Methods)</h3>
+<ul>
+    <li> DOMDocumentFragment->appendXML() - ham XML verisi ekleme (DOM standartı değil)
+</ul>
+<b>DOMDocumentType</b>
+
+DOMNode Geliştirir
+<br /><br />
+Her DOMDocument için doctype niteliği vardır. Değeri ya NULL olur ya da DOMDocumentType nesne.
+
+<b>Özellikler</b>
+<table class="fyazi" width="100%">
+<tr><td>Ad</td><td>Tür</td><td>Yalnız Okuma</td><td>Açıklama</td></tr>
+<tr><td>publicId</td><td>string</td><td>yes</td><td>Dışsal alt kümenin halka açık tanıtıcısı (id).</td></tr>
+<tr><td>systemId</td><td>string</td><td>yes</td><td>Dışsal alt kümenin sistem tanıtıcısı. Bu mutlak URI olur ya da olmaz.</td></tr>
+<tr><td>name</td><td>string</td><td>yes</td><td>DTD adı; Yani, DOCTYPE anahtar sözcüğünü izleyen addır.</td></tr>
+<tr><td>entities</td><td>DOMNamedNodeMap</td><td>yes</td><td>DOMNamedNodeMap genel varlıkları içerir. DTD içinde tanımlanan dışsal ve içsel varlıklar.</td></tr>
+<tr><td>notations</td><td>DOMNamedNodeMap</td><td>yes</td><td>A DOMNamedNodeMap DTD içinde tanımlanan gösterilimi içerir.</td></tr>
+<tr><td>internalSubset</td><td>string</td><td>yes</td><td>bir yazı dizisi olarak içsel alt kümedir ya da null olur. Burada ayıraç olan köşeli parantezler yoktur.</td></tr>
+</table>
+
+<b>DOMElement</b>
+
+DOMNode geliştiri.
+
+<h3>Yapıcı (Constructor)</h3>
+<ul>
+    <li> DOMElement->__construct() - Yeni DOMElement nesnesi yapılandırır
+</ul>
+<h3>Yöntemler (Methods)</h3>
+<ul>
+    <li> DOMElement->getAttribute() - Niteliğin değerini döndürür
+    <li> DOMElement->getAttributeNode() - Niteliğin düğümünü döndürür
+    <li> DOMElement->getAttributeNodeNS() - Niteliğin düğümünü döndürür
+    <li> DOMElement->getAttributeNS() - Niteliğin düğümünü döndürür.
+    <li> DOMElement->getElementsByTagName() - Öğeleri biçim adıyla alır
+    <li> DOMElement->getElementsByTagNameNS() - Get elements by namespaceURI and localName
+    <li> DOMElement->hasAttribute() - Nitelik var mı bakar
+    <li> DOMElement->hasAttributeNS() - Nitelik var mı bakar
+    <li> DOMElement->removeAttribute() - Nitelikleri Siler
+    <li> DOMElement->removeAttributeNode() - Nitelikleri Siler
+    <li> DOMElement->removeAttributeNS() - Nitelikleri Siler
+    <li> DOMElement->setAttribute() - Yeni nitelikleri ekler
+    <li> DOMElement->setAttributeNode() - Yeni nitelik düğümünü öğeye ekler
+    <li> DOMElement->setAttributeNodeNS() - Yeni nitelik düğümünü öğeye ekler
+    <li> DOMElement->setAttributeNS() - Yeni nitelikleri ekler
+    <li> DOMElement->setIdAttribute() - ID niteliğini tanımlar
+    <li> DOMElement->setIdAttributeNode() - ID niteliğini tanımlar
+    <li> DOMElement->setIdAttributeNS() - ID niteliğini tanımlar
+</ul>
+<b>Özellikler</b>
+<table class="fyazi" width="100%">
+<tr><td>Ad</td><td>Tür</td><td>Yalnız Okuma</td><td>Açıklama</td></tr>
+<tr><td>schemaTypeInfo</td><td>bool</td><td>yes</td><td>Henüz uygulanmadı, her zaman NULL döner</td></tr>
+<tr><td>tagName</td><td>string</td><td>yes</td><td>Öğenin adı</td></tr>
+</table>
+
+<b>DOMEntity</b>
+
+DOMNode geliştirir
+<br /><br />
+Bu arayüz XML belgesi içinde taranmış ya da taranmamış bilinen varlığı gösterir.
+
+<b>Özellikler</b>
+<table class="fyazi" width="100%">
+<tr><td>Ad</td><td>Tür</td><td>Yalnız Okuma</td><td>Açıklama</td></tr>
+<tr><td>publicId</td><td>string</td><td>yes</td><td>Varlıkla ilgili halka açık tanımlama, aksi halde NULL olur.</td></tr>
+<tr><td>systemId</td><td>string</td><td>yes</td><td>Varlıkla ilgili sistem tanımlaması. Eğer yoksa NULL olur. Bu mutlak URI olur ya da yoktur.</td></tr>
+<tr><td>notationName</td><td>string</td><td>yes</td><td>Taranmayan varlıkların, adının gösterilimi. Taranmış varlıklarda değeri NULL olur.</td></tr>
+<tr><td>actualEncoding</td><td>string</td><td>no</td><td>Belirten bir niteliği tarama zamanında anlatır. Eğer içsel bir alt kümeyse değeri vardır. Tanımsızsa değeri yoktur.</td></tr>
+<tr><td>encoding</td><td>string</td><td>yes</td><td>Yazı tanımının bir parçası olarak tanımlanan nitelik dışsal tarama yapılan bir varlıksa kodlaması vardır. Yoksa değeri NULL olur.</td></tr>
+<tr><td>version</td><td>string</td><td>yes</td><td>Yazı tanımının bir parçası olarak tanımlanan nitelik dışsal tarama yapıldığında varlığın sürüm numarası olur. Aksi halde nULL olur.</td></tr>
+</table>
+
+<b>DOMEntityReference</b>
+
+DOMNode geliştirir.
+
+<h3>Yapıcılar (Constructor)</h3>
+<ul>
+    <li> DOMEntityReference->__construct() - Yeni DOMEntityReference nesnesi yapılandırır.
+</ul>
+<b>DOMException</b>
+
+DOM işlemi bazı özel durumlarda başkalık başlatır (Mantıksal nedenlerle işlemi
+yapamayacak durumda olduğunda).
+
+<b>Özellikler</b>
+<table class="fyazi" width="100%">
+<tr><td>Ad</td><td>Tür</td><td>Yalnız Okuma</td><td>Açıklama</td></tr>
+<tr><td>code</td><td>int</td><td>yes</td><td>Üretilen hatanın sayısal değerini verir</td></tr>
+</table>
+
+<b>DOMImplementation</b>
+
+DOMImplementation arayüzü belge nesne modeline bağımlı olmayan birçok yöntemi
+sağlar.
+
+<h3>Yapıcılar (Constructor)</h3>
+<ul>
+    <li> DOMImplementation->__construct() - Yeni DOMImplementation nesnesini yapılandırır
+</ul>
+<h3>Yöntemler (Methods)</h3>
+<ul
+    <li> DOMImplementation->createDocument() - DOM Document nesnesi yaratır. Onun belge öğesinin özel türü belirtilir.
+    <li> DOMImplementation->createDocumentType() - Boş DOMDocumentType nesnesi yaratır
+    <li> DOMImplementation->hasFeature() - DOM uygulaması bir özelliği sunuyor mu denetlemek için kullanılır.
+</ul>
+<b>DOMNamedNodeMap</b>
+
+<h3>Yöntemler (Methods)</h3>
+<ul>
+    <li> DOMNamedNodeMap->getNamedItem() - Adıyla belirtilen bir düğüme erişmek
+    <li> DOMNamedNodeMap->getNamedItemNS() - Yerel ad ve Ad alanı bilgisiyle bir düğüme erişmek
+    <li> DOMNamedNodeMap->item() - Dizinle belirtilen düğüme erişim
+</ul>
+<b>DOMNode</b>
+
+<h3>Yöntem (Methods)</h3>
+<ul>
+    <li> DOMNode->appendChild() - Çocukların arkasına yeni bir çocuk ekler
+    <li> DOMNode->cloneNode() - Bir düğümü çoğaltır
+    <li> DOMNode->hasAttributes() - Düğümün nitelikleri olup olmadığını test eder.
+    <li> DOMNode->hasChildNodes() - Düğümün çocukları var mı bakar
+    <li> DOMNode->insertBefore() - Göterilen düğümden önce bir çocuk ekler
+    <li> DOMNode->isDefaultNamespace() - Belirtilen namespaceURI, varsayılan ad alanı mıdır diye test eder.
+    <li> DOMNode->isSameNode() - iki düğüm aynı düğüm olduğunu belirtir
+    <li> DOMNode->isSupported() - Belirtilen sürümde bu özellik destekleniyor ona bakar
+    <li> DOMNode->lookupNamespaceURI() - ön eke dayanarak düğümün Ad alanı URI değerini döndürür.
+    <li> DOMNode->lookupPrefix() - Düğümün namespaceURI değerine dayanan ad alanı ön ekini döndürür
+    <li> DOMNode->normalize() - Düğümü düzenler
+    <li> DOMNode->removeChild() - Çocuklar listesinden çocuğu siler
+    <li> DOMNode->replaceChild() - Bir çocuğu değiştirir
+</ul>
+
+<b>Özellikler</b>
+<table class="fyazi" width="100%">
+<tr><td>Ad</td><td>Tür</td><td>Yalnız Okuma</td><td>Açıklama</td></tr>
+<tr><td>nodeName</td><td>string</td><td>yes</td><td>O anki düğüm tipinin en doğru adını döndürür </td></tr>
+<tr><td>nodeValue</td><td>string</td><td>no</td><td>Bu düğümün değeri (tipine bağlıdır).</td></tr>
+<tr><td>nodeType</td><td>int</td><td>yes</td><td>Düğümün tipini alır. önceden tanımlanmış XML_xxx_NODE değişmezlerindendir.</td></tr>
+<tr><td>parentNode</td><td>DOMNode</td><td>yes</td><td>Bu düğümün babasıdır.</td></tr>
+<tr><td>childNodes</td><td>DOMNodeList</td><td>yes</td><td>DOMNodeList düğümün tüm çocuklarının listesidir. Eğer çocuklar yoksa, bu boş bir DOMNodeList listesidir.</td></tr>
+<tr><td>firstChild</td><td>DOMNode</td><td>yes</td><td>Bu düğümün ilk çocuğudur. Eğer böyle bir düğüm yoksa NULL döner.</td></tr>
+<tr><td>lastChild</td><td>DOMNode</td><td>yes</td><td>Düğümün son çocuğudur. Eğer böyle bir düğüm yoksa NULL döner.</td></tr>
+<tr><td>previousSibling</td><td>DOMNode</td><td>yes</td><td>Bu düğümün önündeki düğümdür. Böyle düğüm yoksa NULL döner.</td></tr>
+<tr><td>nextSibling</td><td>DOMNode</td><td>yes</td><td>Bu düğümü izleyen düğüm. Eğer yoksa NULL döner.</td></tr>
+<tr><td>attributes</td><td>DOMNamedNodeMap</td><td>yes</td><td>DOMNamedNodeMap bu düğümün niteliklerini içerir (DOMElement ise) aksi halde NULL olur.</td></tr>
+<tr><td>ownerDocument</td><td>DOMDocument</td><td>yes</td><td>iBu düğümle ilişkili DOMDocument nesnesi.</td></tr>
+<tr><td>namespaceURI</td><td>string</td><td>yes</td><td>Bu düğümün namespace URI değeri, ya da NULL eğer belirsizse.</td></tr>
+<tr><td>prefix</td><td>string</td><td>no</td><td>Bu düğümün ad alanı ön eki, ya da NULL eğer belirsizse.</td></tr>
+<tr><td>localName</td><td>string</td><td>yes</td><td>Bu düğümün yerel parçası belirgin adı döner.</td></tr>
+<tr><td>baseURI</td><td>string</td><td>yes</td><td>Bu düğümün mutlak URI tabanı ya da eğer uygulama mutlak URI elde edemezse NULL olur.</td></tr>
+<tr><td>textContent</td><td>string</td><td>no</td><td>Bu düğümün yazı içeriğinin niteliklerini döndürür. </td></tr>
+</table>
+
+<b>DOMNodeList</b>
+
+<h3>Yöntemler (Methods(</h3>
+<ul>
+    <li> DOMNodelist->item() - bir dizinle belirtilen düğüme erişir
+</ul>
+
+<b>Özellikler</b>
+<table class="fyazi" width="100%">
+<tr><td>Ad </td><td>Tür </td><td>Yalnız Okuma </td><td>Açıklama</td></tr>
+<tr><td>length </td><td>int </td><td>yes </td><td>Listedeki düğümlerin sayısı. Geçerli çocuk düğüm dizileri 0 dan uzunluk -1 değerine kadar değişir.</td></tr>
+</table>
+
+<b>DOMNotation</b>
+
+DOMNode geliştirir
+
+<b>Özellikler</b>
+<table class="fyazi" width="100%">
+<tr><td>Ad </td><td>Tür </td><td>Yalnız Okuma </td><td>Açıklama</td></tr>
+<tr><td>publicId </td><td>string </td><td>yes </td><td> </td></tr>
+<tr><td>systemId </td><td>string </td><td>yes </td><td> </td></tr>
+</table>
+
+<b>DOMProcessingInstruction</b>
+
+DOMNode geliştirir
+
+<h3>Yapımcılar (Constructor)</h3>
+<ul>
+    <li> DOMProcessingInstruction->__construct() - Yeni DOMProcessingInstruction nesnesi yapılır.
+</ul>
+
+<b>Özellikler</b>
+<table class="fyazi" width="100%">
+<tr><td>Ad </td><td>Tür </td><td>Yalnız Okuma </td><td>Açıklama</td></tr>
+<tr><td>target </td><td>string </td><td>yes </td><td> </td></tr>
+<tr><td>data </td><td>string </td><td>no </td><td> </td></tr>
+</table>
+
+<b>DOMText</b>
+
+DOMCharacterData geliştirir.
+
+<h3>Yapıcılar (Constructor)</h3>
+<ul>
+    <li> DOMText->__construct() - Yeni DOMText nesnesi yapılır.
+</ul>
+<h3>Yöntem (Methods)</h3>
+<ul>
+    <li> DOMText->isWhitespaceInElementContent() - Bu yazı düğümünün boşluk içerdiğini söyler
+    <li> DOMText->splitText() - Düğümü belirtilen uzaklıktan iki düğüme ayırır.
+</ul>
+
+<b>Özellikler</b>
+<table class="fyazi" width="100%">
+<tr><td>Ad </td><td>Tür </td><td>Yalnız Okuma </td><td>Açıklama</td></tr>
+<tr><td>wholeText </td><td>string </td><td>yes </td><td> </td></tr>
+</table>
+
+<b>DOMXPath</b>
+
+<h3>Yapıcı (Constructor)</h3>
+<ul>
+    <li> DOMXPath->__construct() - Yeni DOMXPath nesnesi yaratır
+</ul>
+<h3>Yöntem (Methods)</h3>
+<ul>
+    <li> DOMXPath->registerNamespace() - DOMXpath nesnesiyle ad alanını kayıt eder.
+    <li> DOMXPath->evaluate() - Verilen XPath deyimini hesap eder ve sonuç tipini döndürür (eğer mümkün olursa)
+    <li> DOMXPath->query() - Verilen XPath deyimini hesap
+</ul>
+
+<b>Özellikler</b>
+<table class="fyazi" width="100%">
+<tr><td>Ad </td><td>Tür </td><td>Yalnız Okuma </td><td>Açıklama</td></tr>
+<tr><td>document </td><td>DOMDocument </td><td>  </td><td> </td></tr>
+</table>
+
+Örnekler
+<br /><br />
+Bu gösterimdeki pekçok örnek XML dosyası ister. Bu dosya aşağıdakini içerir:
+<br /><br />
+Örnek: book.xml
+<pre>
+&lt;?xml version="1.0" encoding="iso-8859-1"?&gt;
+&lt;!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+ "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+]&gt;
+&lt;book id="listing"&gt;
+ &lt;title&gt;My lists&lt;/title&gt;
+ &lt;chapter id="books"&gt;
+  &lt;title&gt;My books&lt;/title&gt;
+  &lt;para&gt;
+   &lt;informaltable&gt;
+    &lt;tgroup cols="4"&gt;
+     &lt;thead&gt;
+      &lt;row&gt;
+       &lt;entry&gt;Title&lt;/entry&gt;
+       &lt;entry&gt;Author&lt;/entry&gt;
+       &lt;entry&gt;Language&lt;/entry&gt;
+       &lt;entry&gt;ISBN&lt;/entry&gt;
+      &lt;/row&gt;
+     &lt;/thead&gt;
+     &lt;tbody&gt;
+      &lt;row&gt;
+       &lt;entry&gt;The Grapes of Wrath&lt;/entry&gt;
+       &lt;entry&gt;John Steinbeck&lt;/entry&gt;
+       &lt;entry&gt;en&lt;/entry&gt;
+       &lt;entry&gt;0140186409&lt;/entry&gt;
+      &lt;/row&gt;
+      &lt;row&gt;
+       &lt;entry&gt;The Pearl&lt;/entry&gt;
+       &lt;entry&gt;John Steinbeck&lt;/entry&gt;
+       &lt;entry&gt;en&lt;/entry&gt;
+       &lt;entry&gt;014017737X&lt;/entry&gt;
+      &lt;/row&gt;
+      &lt;row&gt;
+       &lt;entry&gt;Samarcande&lt;/entry&gt;
+       &lt;entry&gt;Amine Maalouf&lt;/entry&gt;
+       &lt;entry&gt;fr&lt;/entry&gt;
+       &lt;entry&gt;2253051209&lt;/entry&gt;
+      &lt;/row&gt;
+      &lt;!-- TODO: I have a lot of remaining books to add.. --&gt;
+     &lt;/tbody&gt;
+    &lt;/tgroup&gt;
+   &lt;/informaltable&gt;
+  &lt;/para&gt;
+ &lt;/chapter&gt;
+&lt;/book&gt;
+</pre>
+<h3>Önceden Tanımlanan Değişmezler</h3>
+
+Aşağıdaki değişmezler bu uzantı tarafından tanımlanmıştır ve uzantı PHP içinde
+derlenince ya da modül olarak yüklendiğinde kullanılabilirler.
+<b>XML Değişmez </b>
+<table class="fyazi" width="100%">
+<tr><td>Değişmez </td><td>Değer </td><td>Açıklama</td></tr>
+<tr><td>XML_ELEMENT_NODE (integer) </td><td>1 </td><td>Düğüm 
+DOMElement</td></tr>
+<tr><td>XML_ATTRIBUTE_NODE (integer) </td><td>2 </td><td>Düğüm
+DOMAttr</td></tr>
+<tr><td>XML_TEXT_NODE (integer) </td><td>3 </td><td>Düğüm
+DOMText</td></tr>
+<tr><td>XML_CDATA_SECTION_NODE (integer) </td><td>4 </td><td>Düğüm DOMCharacterData</td></tr>
+<tr><td>XML_ENTITY_REF_NODE (integer) </td><td>5 </td><td>Düğüm DOMEntityReference</td></tr>
+<tr><td>XML_ENTITY_NODE (integer) </td><td>6 </td><td>Düğüm
+DOMEntity</td></tr>
+<tr><td>XML_PI_NODE (integer) </td><td>7 </td><td>Düğüm DOMProcessingInstruction</td></tr>
+<tr><td>XML_COMMENT_NODE (integer) </td><td>8 </td><td>Düğüm
+DOMComment</td></tr>
+<tr><td>XML_DOCUMENT_NODE (integer) </td><td>9 </td><td>Düğüm
+DOMDocument</td></tr>
+<tr><td>XML_DOCUMENT_TYPE_NODE (integer) </td><td>10 </td><td>Düğüm DOMDocumentType</td></tr>
+<tr><td>XML_DOCUMENT_FRAG_NODE (integer) </td><td>11 </td><td>Düğüm DOMDocumentFragment</td></tr>
+<tr><td>XML_NOTATION_NODE (integer) </td><td>12 </td><td>Düğüm
+DOMNotation</td></tr>
+<tr><td>XML_HTML_DOCUMENT_NODE (integer) </td><td>13 </td><td> </td></tr>
+<tr><td>XML_DTD_NODE (integer) </td><td>14 </td><td> </td></tr>
+<tr><td>XML_ELEMENT_DECL_NODE (integer) </td><td>15 </td><td> </td></tr>
+<tr><td>XML_ATTRIBUTE_DECL_NODE (integer) </td><td>16 </td><td> </td></tr>
+<tr><td>XML_ENTITY_DECL_NODE (integer) </td><td>17 </td><td> </td></tr>
+<tr><td>XML_NAMESPACE_DECL_NODE (integer) </td><td>18 </td><td> </td></tr>
+<tr><td>XML_ATTRIBUTE_CDATA (integer) </td><td>1 </td><td> </td></tr>
+<tr><td>XML_ATTRIBUTE_ID (integer) </td><td>2 </td><td> </td></tr>
+<tr><td>XML_ATTRIBUTE_IDREF (integer) </td><td>3 </td><td> </td></tr>
+<tr><td>XML_ATTRIBUTE_IDREFS (integer) </td><td>4 </td><td> </td></tr>
+<tr><td>XML_ATTRIBUTE_ENTITY (integer) </td><td>5 </td><td> </td></tr>
+<tr><td>XML_ATTRIBUTE_NMTOKEN (integer) </td><td>7 </td><td> </td></tr>
+<tr><td>XML_ATTRIBUTE_NMTOKENS (integer) </td><td>8 </td><td> </td></tr>
+<tr><td>XML_ATTRIBUTE_ENUMERATION (integer) </td><td>9 </td><td> </td></tr>
+<tr><td>XML_ATTRIBUTE_NOTATION (integer) </td><td>10 </td><td> </td></tr>
+</table>
+
+<b>DOMException Değişmezleri</b>
+<table class="fyazi" width="100%">
+<tr><td>Değişmez </td><td>Değer </td><td>Açıklama</td></tr>
+<tr><td>DOM_INDEX_SIZE_ERR (integer) </td><td>1 </td><td>Eğer dizin ya da boyut eksiyse ya da izin verilenden büyükse.</td></tr>
+<tr><td>DOMSTRING_SIZE_ERR (integer) </td><td>2 </td><td>Yazının belirtilen sınırları DOMString içine sığmazsa.</td></tr>
+<tr><td>DOM_HIERARCHY_REQUEST_ERR (integer) </td><td>3 </td><td>Eğer düğüm uygun olmayan bir yere eklenirse</td></tr>
+<tr><td>DOM_WRONG_DOCUMENT_ERR (integer) </td><td>4 </td><td>Eğer bir düğüm kendini yaratan begenin içinde değil başka yerdedir.</td></tr>
+<tr><td>DOM_INVALID_CHARACTER_ERR (integer) </td><td>5 </td><td>Eğer geçersiz ya da olmayacak bir karakter belirtilirse adındaki gibi.</td></tr>
+<tr><td>DOM_NO_DATA_ALLOWED_ERR (integer) </td><td>6 </td><td>Özellikle veri desteklemeyen bir düğüm için veri belirtilirse.</td></tr>
+<tr><td>DOM_NO_MODIFICATION_ALLOWED_ERR (integer) </td><td>7 </td><td>Eğer değişikliğe izin verilmeyen bir nesne için değişiklik yapılmak istenirse.</td></tr>
+<tr><td>DOM_NOT_FOUND_ERR (integer) </td><td>8 </td><td>Bir içerik içinde bir düğüm gösterimek istenirse ama düğüm orada yoksa.</td></tr>
+<tr><td>DOM_NOT_SUPPORTED_ERR (integer) </td><td>9 </td><td>İstenen tür nesne ya da işlem uygulamada desteklenmiyorsa.</td></tr>
+<tr><td>DOM_INUSE_ATTRIBUTE_ERR (integer) </td><td>10 </td><td>Bir başka yerde kullanılmış olan bir niteliğin eklenmesine çalışıldığında.</td></tr>
+<tr><td>DOM_INVALID_STATE_ERR (integer) </td><td>11 </td><td>Artık kullanılmayan bir nesneyi kullanmaya kalkılınca olur.</td></tr>
+<tr><td>DOM_SYNTAX_ERR (integer) </td><td>12 </td><td>Geçersiz ve anlamsız bir yazı dizisi belirtilirse.</td></tr>
+<tr><td>DOM_INVALID_MODIFICATION_ERR (integer) </td><td>13 </td><td>Nesnenin türü değiştirilmek istendiğinde.</td></tr>
+<tr><td>DOM_NAMESPACE_ERR (integer) </td><td>14 </td><td>Ad alanlarına göre doğru olmayan bir nesneyi yaratma ya da değiştirmeye kalkmak.</td></tr>
+<tr><td>DOM_INVALID_ACCESS_ERR (integer) </td><td>15 </td><td>Nesneyle ilgili parametre ya da işlem desteklenmezse.</td></tr>
+<tr><td>DOM_VALIDATION_ERR (integer) </td><td>16 </td><td>Eğer insertBefore ya da removeChild yöntemilerini çağırma düğümü "yarım geçerlilikten" geçersize düşürebilir. Bu durumda başkalık olur ve işlem tamamlanmaz.</td></tr>
+</table>
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> DOMAttr->__construct() - yeni DOMAttr nesnesi yarat
+    <li> DOMAttr->isId() - Tanımlanmış ID eğer nitelikse
+    <li> DOMCharacterData->appendData() - Düğümün karakter verisinin sonuna ekleme yapar.
+    <li> DOMCharacterData->deleteData() - Düğümden sınırları belirli karakterleri siler
+    <li> DOMCharacterData->insertData() - 16-bitlik birimlerde belirtilen uzaklıktan sonrasına ekleme yapar
+    <li> DOMCharacterData->replaceData() - bir alt yazı dizisini DOMCharacterData ile düğüme ekler
+    <li> DOMCharacterData->substringData() - Düğümden belirli bir bölümü almak
+    <li> DOMComment->__construct() - Yeni DOMComment nesne yaratmak
+    <li> DOMDocument->__construct() - construct a new DOMDocument object
+    <li> DOMDocument->createAttribute() - Yeni nitelik yarat
+    <li> DOMDocument->createAttributeNS() - İlgili ad alanına bağlı Yeni nitelik düğümü
+    <li> DOMDocument->createCDATASection() - Yeni cdata düğümü yarat
+    <li> DOMDocument->createComment() - Yeni açıklama düğümü yarat
+    <li> DOMDocument->createDocumentFragment() - Yeni belge parçası yaratma
+    <li> DOMDocument->createElement() - Yeni öğe düğümü yaratma
+    <li> DOMDocument->createElementNS() - İlgili ad alanına bağlı yeni öğe düğümü yaratma
+    <li> DOMDocument->createEntityReference() - Yeni varlık göstergesi düğümü yaratma
+    <li> DOMDocument->createProcessingInstruction() - Yeni PI düğümü
+    <li> DOMDocument->createTextNode() - Yeni yazı düğümü
+    <li> DOMDocument->getElementById() - belirli bir adla öğeyi aramak
+    <li> DOMDocument->getElementsByTagName() - Biçim adıyla tüm öğeleri arar
+    <li> DOMDocument->getElementsByTagNameNS() - Belirtilen ad alanı içinde verilen biçim adıyla öğeleri aramak
+    <li> DOMDocument->importNode() - O anki belge içine düğümü dıştan alma
+    <li> DOMDocument->load() - Bir dosyadan XML yükleme
+    <li> DOMDocument->loadHTML() - Bir yazı dizisinden HTML yükleme
+    <li> DOMDocument->loadHTMLFile() - Dosyadan HTML yükleme
+    <li> DOMDocument->loadXML() - Yazı dizisinden XML yükleme
+    <li> DOMDocument->normalizeDocument() - Belgeyi düzgelemek
+    <li> DOMDocument->relaxNGValidate() - Belge üzerinde relaxNG denetimi yapar
+    <li> DOMDocument->relaxNGValidateSource() - Belge üzerinde relaxNG denetimi yapar
+    <li> DOMDocument->registerNodeClass() - Ana düğüm türü (DOM standardı değil) kayıt ile uzatılmış sınıf kullanımıyla yaratılır.
+    <li> DOMDocument->save() - İçsel XML ağacını bir dosyaya döker
+    <li> DOMDocument->saveHTML() - HTML kalıplaması kullanarak içsel belgeyi yazı dizisine döker
+    <li> DOMDocument->saveHTMLFile() - HTML kalıplaması kullanarak içsel belgeyi dosyaya döker
+    <li> DOMDocument->saveXML() - İçsel XML ağacını bir yazı dizisine döker
+    <li> DOMDocument->schemaValidate() - Bir şemaya göre belgeyi denetlemek
+    <li> DOMDocument->schemaValidateSource() - Bir şemaya göre belgeyi denetlemek
+    <li> DOMDocument->validate() - DTD değerine göre belgeyi denetlemek
+    <li> DOMDocument->xinclude() - Belge içindeki DOMDocument nesnesinde XIncludes değerini değiştirme
+    <li> DOMDocumentFragment->appendXML() - ham XML verisi ekleme (DOM standartı değil)
+    <li> DOMElement->__construct() - Yeni DOMElement nesnesi yapılandırır
+    <li> DOMElement->getAttribute() - Niteliğin değerini döndürür
+    <li> DOMElement->getAttributeNode() - Niteliğin düğümünü döndürür
+    <li> DOMElement->getAttributeNodeNS() - Niteliğin düğümünü döndürür
+    <li> DOMElement->getAttributeNS() - Niteliğin düğümünü döndürür.
+    <li> DOMElement->getElementsByTagName() - Öğeleri biçim adıyla alır
+    <li> DOMElement->getElementsByTagNameNS() - Get elements by namespaceURI and localName
+    <li> DOMElement->hasAttribute() - Nitelik var mı bakar
+    <li> DOMElement->hasAttributeNS() - Nitelik var mı bakar
+    <li> DOMElement->removeAttribute() - Nitelikleri Siler
+    <li> DOMElement->removeAttributeNode() - Nitelikleri Siler
+    <li> DOMElement->removeAttributeNS() - Nitelikleri Siler
+    <li> DOMElement->setAttribute() - Yeni nitelikleri ekler
+    <li> DOMElement->setAttributeNode() - Yeni nitelik düğümünü öğeye ekler
+    <li> DOMElement->setAttributeNodeNS() - Yeni nitelik düğümünü öğeye ekler
+    <li> DOMElement->setAttributeNS() - Yeni nitelikleri ekler
+    <li> DOMElement->setIdAttribute() - ID niteliğini tanımlar
+    <li> DOMElement->setIdAttributeNode() - ID niteliğini tanımlar
+    <li> DOMElement->setIdAttributeNS() - ID niteliğini tanımlar
+    <li> DOMEntityReference->__construct() - Yeni DOMEntityReference nesnesi yapılandırır.
+    <li> DOMImplementation->__construct() - Yeni DOMImplementation nesnesini yapılandırır
+    <li> DOMImplementation->createDocument() - DOM Document nesnesi yaratır. Onun belge öğesinin özel türü belirtilir.
+    <li> DOMImplementation->createDocumentType() - Boş DOMDocumentType nesnesi yaratır
+    <li> DOMImplementation->hasFeature() - DOM uygulaması bir özelliği sunuyor mu denetlemek için kullanılır.
+    <li> DOMNamedNodeMap->getNamedItem() - Adıyla belirtilen bir düğüme erişmek
+    <li> DOMNamedNodeMap->getNamedItemNS() - Yerel ad ve Ad alanı bilgisiyle bir düğüme erişmek
+    <li> DOMNamedNodeMap->item() - Dizinle belirtilen düğüme erişim
+    <li> DOMNode->appendChild() - Çocukların arkasına yeni bir çocuk ekler
+    <li> DOMNode->cloneNode() - Bir düğümü çoğaltır
+    <li> DOMNode->hasAttributes() - Düğümün nitelikleri olup olmadığını test eder.
+    <li> DOMNode->hasChildNodes() - Düğümün çocukları var mı bakar
+    <li> DOMNode->insertBefore() - Göterilen düğümden önce bir çocuk ekler
+    <li> DOMNode->isDefaultNamespace() - Belirtilen namespaceURI, varsayılan ad alanı mıdır diye test eder.
+    <li> DOMNode->isSameNode() - iki düğüm aynı düğüm olduğunu belirtir
+    <li> DOMNode->isSupported() - Belirtilen sürümde bu özellik destekleniyor ona bakar
+    <li> DOMNode->lookupNamespaceURI() - ön eke dayanarak düğümün Ad alanı URI değerini döndürür.
+    <li> DOMNode->lookupPrefix() - Düğümün namespaceURI değerine dayanan ad alanı ön ekini döndürür
+    <li> DOMNode->normalize() - Düğümü düzenler
+    <li> DOMNode->removeChild() - Çocuklar listesinden çocuğu siler
+    <li> DOMNode->replaceChild() - Bir çocuğu değiştirir
+    <li> DOMNodelist->item() - bir dizinle belirtilen düğüme erişir
+    <li> DOMProcessingInstruction->__construct() - Yeni DOMProcessingInstruction nesnesi yapılır.
+    <li> DOMText->__construct() - Yeni DOMText nesnesi yapılır.
+    <li> DOMText->isWhitespaceInElementContent() - Bu yazı düğümünün boşluk içerdiğini söyler
+    <li> DOMText->splitText() - Düğümü belirtilen uzaklıktan iki düğüme ayırır.
+    <li> DOMXPath->__construct() - Yeni DOMXPath nesnesi yaratır
+    <li> DOMXPath->registerNamespace() - DOMXpath nesnesiyle ad alanını kayıt eder.
+    <li> DOMXPath->evaluate() - Verilen XPath deyimini hesap eder ve sonuç tipini döndürür (eğer mümkün olursa)
+    <li> DOMXPath->query() - Verilen XPath deyimini hesap
+    <li> dom_import_simplexml — SimpleXMLElement nesnesinde   DOMElement nesnesi alır
+</ul>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

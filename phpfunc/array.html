@@ -1,0 +1,195 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Dizi (Array) İşlevleri</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">18 Şubat 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>Dizi (Array) İşlevleri</h2>
+<h3>Giriş</h3>
+
+Bu işlevler dizilerle etkileşim kurmanızı ve işlem yapmanızı sağlar. Diziler kümeler biçimindeki verileri saklamak, düzenlemek ve işlemek için diziler çok önemlidir.
+
+Basit ve çok boyutlu diziler desteklenir. Diziler ya kullanıcılar tarafından yaratılır ya da  bir başka işlevle yaratılırlar. Özel veri tabanı ele alma işlevlerinde veri tabanı sorgularının yanıtları dizilerde toplanır. Birçok işlev de sonuç olarak dizi döndürür.
+
+<h3>Gereksinimler</h3>
+
+Bu uzantıyı kurmak için fazladan jitaplık kullanmak gerekmez.
+
+<h3>Kurulum</h3>
+
+Bu işlevleri kullanmak için özel kurulum gerekmez. PHP çekirdeğinin bir
+parçasıdır.
+<h3>Çalışma zamanı ayarları</h3>
+
+Bu uzantı için php.ini içinde araylama yönelticisi tanımlanmaz.
+<h3>Kaynak Türleri</h3>
+
+Bu uzantı için kaynak tipi tanımlanmaz.
+<h3>Önceden Tanımlı Değişmezler (Predefined Constants)</h3>
+
+Aşağıdaki değişmezler PHP çekirdeğinde vardır.
+<dl>
+<dt>CASE_LOWER (integer)
+    <dd>CASE_LOWER array_change_key_case() ile kullanılır ve dizi anahtarlarını küçük harfe çevirmek için kullanılır. Bu array_change_key_case() için varsayılan örnektir. </dd></dt>
+<dt>CASE_UPPER (integer)
+    <dd>CASE_UPPER array_change_key_case() ile kullanılır ve dizi anahtarlarını büyük harfe çevirmek için kullanılır. </dd></dt>
+</dl>
+Sıralama yönü işaretleri (flags):
+<dl>
+<dt>SORT_ASC (integer)
+    <dd>SORT_ASC array_multisort() ile artan sırada dizmek için kullanılır.
+</dd></dt>
+<dt>SORT_DESC (integer)
+    <dd>SORT_DESC array_multisort() ile eksilen sırada dizmek için kullanılır
+</dd></dt>
+</dl>
+Sıralama tipi işaretleri (flags): birçok sıralama işlevleriyle kullanılır.
+<dl>
+<dt>SORT_REGULAR (integer)
+    <dd>SORT_REGULAR öğeleri normal karşılaştırmak için kullanılır. </dd></dt>
+<dt>SORT_NUMERIC (integer)
+    <dd>SORT_NUMERIC öğeleri sayısal karşılaştırmak için kullanılır. </dd></dt>
+<dt>SORT_STRING (integer)
+    <dd>SORT_STRING öğeleri yazı dizisi olarak karşılaştırmak için kullanılır. </dd></dt>
+<dt>SORT_LOCALE_STRING (integer)
+    <dd>SORT_LOCALE_STRING öğeleri yazı dizisi olarak karşılaştırmakta kullanılır (o anki yerel dil koduna göre karşılaştırma yapılır) PHP 4.4.0 ve 5.0.2 sürümlerinde eklendi.</dd></dt>
+
+<dt>COUNT_NORMAL (integer, tamsayı)</dt>
+<dt>COUNT_RECURSIVE (integer, tamsayı)</dt>
+<dt>EXTR_OVERWRITE (integer, tamsayı)</dt>
+<dt>EXTR_SKIP (integer, tamsayı)</dt>
+<dt>EXTR_PREFIX_SAME (integer, tamsayı)</dt>
+<dt>EXTR_PREFIX_ALL (integer, tamsayı)</dt>
+<dt>EXTR_PREFIX_INVALID (integer, tamsayı)</dt>
+<dt>EXTR_PREFIX_IF_EXISTS (integer, tamsayı)</dt>
+<dt>EXTR_IF_EXISTS (integer, tamsayı)</dt>
+<dt>EXTR_REFS (integer, tamsayı)</dt>
+</dl>
+<h3>Bakınız</h3>
+
+is_array(), explode(), implode(), split(), preg_split(), and unset().
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> array_change_key_case — Bir dizideki tüm anahtarları değiştirir.
+    <li> array_chunk — diziyi parçalara ayırmak.
+    <li> array_combine — İki diziden biri anahtarlar diğeri değerler için kullanılarak bir dizi yaratılır.
+    <li> array_count_values — Dizinin tüm değerlerini sayar...
+    <li> array_diff_assoc — Ek dizin kontroluyla dizilerin farklarını hesaplar
+    <li> array_diff_key — anahtarları karşılaştırarak dizilerin farklarını hesaplar
+    <li> array_diff_uassoc — Ek dizin kontroluyla dizilerin farklarını hesaplar (İşlem kullanıcının yarattığı geri besleme işleviyle sağlanır)
+    <li> array_diff_ukey — Geri besleme işlevini kullanarak dizilerin farklarını anahtarları karşılaştırarak bulur.
+    <li> array_diff — Dizilerin farklarını hesaplar.
+    <li> array_fill_keys —  Bir diziyi anahtarını belirterek değerlerle doldurur
+    <li> array_fill — Diziyi değerlerle doldurur
+    <li> array_filter — Geri besleme işlevi kullanarak bir diziyi filitreler
+    <li> array_flip — Anahtarları karşılığı olan değerlerle değiştirme
+    <li> array_intersect_assoc — Ek dizin kontroluyla dizilerin kesiştikleri noktaları hesaplar
+    <li> array_intersect_key — Anahtarları karşılaştırmada kullanarak dizilerin kesişimlerini hesaplar
+    <li> array_intersect_uassoc — Ek dizin kontroluyla dizilerin kesişimlerini hesaplar, dizinler geri besleme işleviyle karşılaştırır.
+    <li> array_intersect_ukey — Geri besleme işlevini anahtarların karşılaştırılmasında kullanarak dizilerin kesişimlerini hesaplar
+    <li> array_intersect — Dizilerin kesişimlerini hesaplar.
+    <li> array_key_exists — dizide verilen anahtar ya da dizin var mı diye bakar
+    <li> array_keys — Bir dizinin tüm anahtarlarını döndürür
+    <li> array_map — Geri beslemeyi verilen dizi öğelerine uygular
+    <li> array_merge_recursive — İki ya da daha çok diziyi özyineleyerek
+birleştirir.
+    <li> array_merge — Bir ya da iki diziyi birleştirir
+    <li> array_multisort — Birçok diziyi ya da çok boyutlu diziyi sıralama
+    <li> array_pad — Diziyi belirtilen uzunluğa değer atayarak çıkarır.
+    <li> array_pop — Dizinin sonundaki öğeyi alır.
+    <li> array_product — Dizileri değerleri çarpımını hesapalr
+    <li> array_push — bir ya da daha çok öğeyi dizinin sonuna ekler
+    <li> array_rand — Bir ya ada daha çok rastgele öğeyi diziden çıkartmak
+    <li> array_reduce — Geri besleme işlevini kullanarak yineliyerek dizden her seferinde bir değer eksiltmek
+    <li> array_reverse — Öğeleri ters çevirerek döndürür
+    <li> array_search — Bir diziyi verilen değer için arar ve karşıtı olan ahatarrı döndürür
+    <li> array_shift — Bir öğeyi dizinin başından dışarı atmak
+    <li> array_slice — Diziden bir kesimi (dilimi) çıkartmak
+    <li> array_splice — Dizinin bir bölümünü kaldırma ve burayı bir başkasıyla doldurma
+    <li> array_sum — dizideki değerlerin toplamını hesaplar
+    <li> array_udiff_assoc — Ek dizin kontroluyla dizilerdeki farkı hesaplar, geri besleme işleviyle verileri karşılaştırır.
+    <li> array_udiff_uassoc — Ek dizin kontroluyla dizilerdeki farkı hesaplar, geri besleme işleviyle dizinleri ve verileri karşılaştırır.
+    <li> array_udiff — veri karşılaştırması için geri besleme işleviyle dizilerin farkını hesaplar.
+    <li> array_uintersect_assoc — Ek dizin kontroluyla dizilerdeki kesişimi hesaplar, geri besleme işleviyle verileri karşılaştırır.
+    <li> array_uintersect_uassoc — Ek dizin kontroluyla dizilerdeki farkı hesaplar, geri besleme işleviyle dizinleri ve verileri karşılaştırır.
+    <li> array_uintersect — Dizilerdeki kesişimi hesaplar, geri besleme işleviyle verileri karşılaştırır.
+    <li> array_unique — Yineleyen değerleri dizilerden siler.
+    <li> array_unshift — bir dizinin başına bir ya da daha çok öğe ekler.
+    <li> array_values — Bir dizinin tüm öğelerini döndürür
+    <li> array_walk_recursive — Kullanıcı işlevini özyineleyerek dizinin her öğesine uygular.
+    <li> array_walk — Dizinin her öğesine kullanıcı işlevini uygular.
+    <li> array — Bir dizi yaratır.
+    <li> arsort — Dizinlerin bakımı için diziyi ters sıraya dizer.
+    <li> asort — Diziyi sıralar ve dizin bakımını yapar.
+    <li> compact — Create array containing variables and their values
+    <li> count — Bir dizideki öğeleri ya da bir özellikteki nesneleri sayar.
+    <li> current — Dizinin o anki öğesini dönrürür.
+    <li> each — O anki anahtar ve değer ikilisini döndürür ve dizi imleçini arttırır.
+    <li> end — Dizinin içsel göstergesini son öğeye göre düzenler.
+    <li> extract — Bir diziden o anki simge tablosundaki değişkenlere dıştan taşınma yapılması.
+    <li> in_array — Değerin dizi içinde olup olmadığı kontrol edilir.
+    <li> key — İlgili diziden anahtarı arama.
+    <li> krsort — Anahtara göre diziyi ters sıralama.
+    <li> ksort — Bir diziyi anahtarla sıralama.
+    <li> list — Değişkenlere bir dizideymiş gibi atama yapma.
+    <li> natcasesort — Küçük büyük harf duyarlı "doğal sıra" algoritmasıyla diziyi sıralama.
+    <li> natsort — "Doğal sıra" algoritmasıyla diziyi sıralama.
+    <li> next — Bir dizinin içsel göstergesini ilerletme.
+    <li> pos — "O anın" eşdeğeridir
+    <li> prev — Dizi göstergesini geri çevirme.
+    <li> range — Bir aralık içindeki öğeleri olan diziyi yaratma.
+    <li> reset — Dizinin iç göstergesini ilk öğeye göre ayarlamak.
+    <li> rsort — Bir diziyi ters sırada dizme.
+    <li> shuffle — Bir diziyi karıştırma.
+    <li> sizeof — "Sayının" eşdeğeridir.
+    <li> sort — Bir diziyi sırala.
+    <li> uasort — Bir diziyi kullanıcı tanımlı karşılaştırma işleviyle sıralamak ve ilgili dizinini düzenlemek.
+    <li> uksort — Bir diziyi kullanıcı tanımlı işlev kullanarak anahtarlarıyla sıralamak.
+    <li> usort — Kullanıcı tanımlı işlevlerin değerlerine göre diziyi sıralama.
+</ul>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

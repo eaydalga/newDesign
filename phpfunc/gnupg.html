@@ -1,0 +1,180 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP gnupg İşlevleri</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">18 Şubat 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>gnupg İşlevleri</h2>
+
+<h3>Giriş</h3>
+
+Bu modül gnupg ile etkileşim olmasını sağlar
+
+<h3>Gereksinim</h3>
+
+gnupg uzantısı PHP 4.3 sürümünü ister. Bu uzantıyı tam anlamıyla kullanabilmek
+için PHP 5 sürümleri gerekir.
+<br /><br />
+Uzantı için gpgme kitaplığı gerekir
+
+<h3>Kurulum</h3>
+
+gnupg-extension PHP ile paketlenmemiştir.  http://pecl.php.net/package/gnupg
+adresinden sağlanabilir.
+
+<h3>Önceden Tanımlanmış Değişmezler</h3>
+
+<pre class="yazi">
+GNUPG_SIG_MODE_NORMAL (integer)
+GNUPG_SIG_MODE_DETACH (integer)
+GNUPG_SIG_MODE_CLEAR (integer)
+GNUPG_VALIDITY_UNKNOWN (integer)
+GNUPG_VALIDITY_UNDEFINED (integer)
+GNUPG_VALIDITY_NEVER (integer)
+GNUPG_VALIDITY_MARGINAL (integer)
+GNUPG_VALIDITY_FULL (integer)
+GNUPG_VALIDITY_ULTIMATE (integer)
+GNUPG_PROTOCOL_OpenPGP (integer)
+GNUPG_PROTOCOL_CMS (integer)
+GNUPG_SIGSUM_VALID (integer)
+GNUPG_SIGSUM_GREEN (integer)
+GNUPG_SIGSUM_RED (integer)
+GNUPG_SIGSUM_KEY_REVOKED (integer)
+GNUPG_SIGSUM_KEY_EXPIRED (integer)
+GNUPG_SIGSUM_KEY_MISSING (integer)
+GNUPG_SIGSUM_SIG_EXPIRED (integer)
+GNUPG_SIGSUM_CRL_MISSING (integer)
+GNUPG_SIGSUM_CRL_TOO_OLD (integer)
+GNUPG_SIGSUM_BAD_POLICY (integer)
+GNUPG_SIGSUM_SYS_ERROR (integer)
+GNUPG_ERROR_WARNING (integer)
+GNUPG_ERROR_EXCEPTION (integer)
+GNUPG_ERROR_SILENT (integer)
+</pre>
+
+Notlar
+
+Bu uzantı o anki kullanıcının anahtar zincirini de kullanır. Genelde anahtar
+zinciri ~/.gnupg/ dosya yolunda bulunur. Kişisel değişiklik istendiğinde yeni
+yolu GNUPGHOME adlı evrensel değişkene yazmak gerekir.
+<br /><br />
+Bazı işlevler anahtar tanımlanmasını isterler. Bu tanımlama tekil anahtarı
+gösteren herhangi birşey olabilir (kullanıcı kodu, anahtar tanımı, parmak izi
+vb). Buradaki örneklerde parmak izi kullanılmıştır.
+
+<h3>Anahtar listesi yineleyicisi (keylistiterator)</h3>
+
+Bu uzantı anahtar zinciriniz için bir yineleyiciyle gelir.
+<pre>
+&lt;?php
+// tüm halka açık anahtarların içinde 'example' olanlarına ilişkin
+// yeni bir yineleyici yarat.
+$iterator = new gnupg_keylistiterator("example");
+foreach($iterator as $fingerprint => $userid){
+    echo $fingerprint." -> ".$userid."\n";
+}
+?&gt;
+</pre>
+
+<h3>Örnekler</h3>
+
+Bu örnek verilen bir yazıda imzayı denetler.
+<br /><br />
+Örnek1: gnupg ile imza denetleme örneği
+<pre>
+&lt;?php
+// gnupg ilkle
+$res = gnupg_init();
+// gerçekten gerekli değildir. Varsayılan imza denetimidir
+gnupg_setsignmode($res,GNUPG_SIG_MODE_CLEAR);
+// imzalamak için geçiş deyimi 'test' anahtara eklenir
+gnupg_addsignkey($res,"8660281B6051D071D94B5B230549F9DC851566DC","test");
+// imza
+$signed = gnupg_sign($res,"yalnız bir deneme");
+echo $signed;
+?&lt;
+</pre>
+
+Örnek2: gnupg imza denetim örneği (00)
+<pre>
+&lt;?php
+// yeni sınıf
+$gnupg = new gnupg();
+// Aslında gerekli değil. İmza denetimi varsayılandır
+$gnupg->setsignmode(gnupg::SIG_MODE_CLEAR);
+// imzalamak için geçiş deyimi 'test' anahtara eklenir
+$gnupg->addsignkey("8660281B6051D071D94B5B230549F9DC851566DC","test");
+// imza
+$signed = $gnupg->sign("yalnız bir deneme");
+echo $signed;
+?&gt;
+</pre>
+<h3>İçindekiler</h3>
+<ul>
+    <li> gnupg_adddecryptkey — kripto açmak için anahtar ekle
+    <li> gnupg_addencryptkey — kripto için anahtar ekle
+    <li> gnupg_addsignkey — İmza için anahtar ekle
+    <li> gnupg_cleardecryptkeys — Daha önce kripto açmadan kullanılan tüm anahtarları kaldırır.
+    <li> gnupg_clearencryptkeys — Daha önce hriptoda kullanılan tüm anahtarları kaldırır.
+    <li> gnupg_clearsignkeys — Daha önce imzalamada kullanılan tüm anahtarları kaldırır
+    <li> gnupg_decrypt — Verilen yazının kriptosunu çöz
+    <li> gnupg_decryptverify — Verilen bir yazının kriptosunu çözer ve
+denetler
+    <li> gnupg_encrypt — verilen bir yazıyı kriptolar
+    <li> gnupg_encryptsign — Bir yazıyı imzalar ve kriptolar
+    <li> gnupg_export — Bir anahtarı dışa taşır
+    <li> gnupg_geterror — İşlev hatalıysa hata yazısını döndürür
+    <li> gnupg_getprotocol — O anki etkin protokolü tüm işlemler için döndürür
+    <li> gnupg_import — Bir anahtarı içe alır
+    <li> gnupg_keyinfo — Verilen desene uyan tüm anahtarları ilişkin bilgiyi dizide döndürür
+    <li> gnupg_setarmor — Zırhlı çıktıyı değiştir
+    <li> gnupg_seterrormode — Konumu hata raporlar biçime getirir
+    <li> gnupg_setsignmode — Konumu imzalar biçime getirir
+    <li> gnupg_sign — Bir yazıyı imzalar
+    <li> gnupg_verify — imzalı yazıyı denetler
+</ul>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

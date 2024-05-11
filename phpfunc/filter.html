@@ -1,0 +1,394 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Filitre (Filter) İşlevleri </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">22 Şubat 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>Filitre (Filter) İşlevleri</h2>
+
+<h3>Giriş</h3>
+
+Bu uzantı güvenilmez bir kaynaktan gelen verinin (kullanıcı girişi gibi) geçerliliğine bakar ve gerekirse filitreler.
+<br /><br />
+Şu anda var olan filitreler aşağıdadır:
+
+<h3>Existing filters</h3>
+
+<dl>
+<dt> FILTER_VALIDATE_INT
+<dd>
+<table class="fyazi" width="100%">
+<tr><th>Ad</th><th>Seçenek</th><th>Durum Kodu</th><th>Açıklama</th></tr>
+<tr><td>"int"</td><td>min_range , max_range</td><td>FILTER_FLAG_ALLOW_OCTAL, FILTER_FLAG_ALLOW_HEX</td><td>Bir tamsayının değerinin geçerliliğine bakar, ieğer verilmişse, belirtilen sınırlar arasında olmasına da bakılır.</td></tr>
+</table>
+</dd></dt>
+<dt> FILTER_VALIDATE_BOOLEAN
+<dd>
+<table class="fyazi" width="100%">
+<tr><th>Ad</th><th>Seçenek</th><th>Durum Kodu</th><th>Açıklama</th></tr>
+<tr><td>"boolean"</td><td></td><td>FILTER_NULL_ON_FAILURE</td><td>
+"1", "true", "on" ve "yes" için TRUE, döndürür. Aksi halde FALSE döner.
+<br />
+Eğer FILTER_NULL_ON_FAILURE ayarlıysa, Yalnız "0" için FALSE döner, "false", "off", "no" ve  "" için NULL döner.</td></tr>
+</table>
+</dd></dt>
+<dt> FILTER_VALIDATE_FLOAT
+<dd>
+<table class="fyazi" width="100%">
+<tr><th>Ad</th><th>Seçenek</th><th>Durum Kodu</th><th>Açıklama</th></tr>
+<tr><td>"float"</td><td>decimal</td><td>FILTER_FLAG_ALLOW_THOUSAND</td><td>Değer kayan noktalı mı bakar.</td></tr>
+</table>
+</dd></dt>
+<dt> FILTER_VALIDATE_REGEXP
+<dd>
+<table class="fyazi" width="100%">
+<tr><th>Ad</th><th>Seçenek</th><th>Durum Kodu</th><th>Açıklama</th></tr>
+<tr><td>"validate_regexp"</td><td>regexp</td><td> </td><td>Değeri regexp (perl uyumlu kurallı deyim) karşılaştırarak denetler.</td></tr>
+</table>
+</dd></dt>
+<dt> FILTER_VALIDATE_URL
+<dd>
+<table class="fyazi" width="100%">
+<tr><th>Ad</th><th>Seçenek</th><th>Durum Kodu</th><th>Açıklama</th></tr>
+<tr><td>"validate_url" </td><td></td><td>FILTER_FLAG_PATH_REQUIRED, FILTER_FLAG_QUERY_REQUIRED</td><td>Değeri URL olarak denetler, verilirse istenen parçalarıyla birlikte.</td></tr>
+</table>
+</dd></dt>
+<dt> FILTER_VALIDATE_EMAIL
+<dd>
+<table class="fyazi" width="100%">
+<tr><th>Ad</th><th>Seçenek</th><th>Durum Kodu</th><th>Açıklama</th></tr>
+<tr><td>"validate_email"</td><td> </td><td> </td><td>Değeri e-posta adresi olarak denetler.</td></tr>
+</table>
+</dd></dt>
+<dt> FILTER_VALIDATE_IP
+<dd>
+<table class="fyazi" width="100%">
+<tr><th>Ad</th><th>Seçenek</th><th>Durum Kodu</th><th>Açıklama</th></tr>
+<tr><td>"validate_ip"</td><td> </td><td>FILTER_FLAG_IPV4, FILTER_FLAG_IPV6, FILTER_FLAG_NO_PRIV_RANGE, FILTER_FLAG_NO_RES_RANGE</td><td>Değeri IP adresi olarak denetler, Seçenek olarak yalnız IPv4 ya da IPV6 denetlenebilir, özel IP ya da korunmuş sınırlar arasında olmayan IP olabilir.</td></tr>
+</table>
+</dd></dt>
+<dt> FILTER_SANITIZE_STRING
+<dd>
+<table class="fyazi" width="100%">
+<tr><th>Ad</th><th>Seçenek</th><th>Durum Kodu</th><th>Açıklama</th></tr>
+<tr><td>"string"</td><td> </td><td>FILTER_FLAG_NO_ENCODE_QUOTES, FILTER_FLAG_STRIP_LOW, FILTER_FLAG_STRIP_HIGH, FILTER_FLAG_ENCODE_LOW, FILTER_FLAG_ENCODE_HIGH, FILTER_FLAG_ENCODE_AMP</td><td>Biçimlerden arındırır, seçenek olarak özel karakterleri soymak ya da kodlamak da olabilir.</td></tr>
+</table>
+</dd></dt>
+<dt> FILTER_SANITIZE_STRIPPED
+<dd>
+<table class="fyazi" width="100%">
+<tr><th>Ad</th><th>Seçenek</th><th>Durum Kodu</th><th>Açıklama</th></tr>
+<tr><td>"stripped"</td><td> </td><td> </td><td>"string" filitresinin eşdeğeri.</td></tr>
+</table>
+</dd></dt>
+<dt> FILTER_SANITIZE_ENCODED
+<dd>
+<table class="fyazi" width="100%">
+<tr><th>Ad</th><th>Seçenek</th><th>Durum Kodu</th><th>Açıklama</th></tr>
+<tr><td>"encoded"</td><td> </td><td>FILTER_FLAG_STRIP_LOW, FILTER_FLAG_STRIP_HIGH, FILTER_FLAG_ENCODE_LOW, FILTER_FLAG_ENCODE_HIGH</td><td>URL-kodlanmış yazı dizisi, seçenek olarak özel karakterleri kodla ya da kaldır.</td></tr>
+</table>
+</dd></dt>
+<dt> FILTER_SANITIZE_SPECIAL_CHARS
+<dd>
+<table class="fyazi" width="100%">
+<tr><th>Ad</th><th>Seçenek</th><th>Durum Kodu</th><th>Açıklama</th></tr>
+<tr><td>"special_chars"</td><td> </td><td>FILTER_FLAG_STRIP_LOW, FILTER_FLAG_STRIP_HIGH, FILTER_FLAG_ENCODE_HIGH</td><td>HTML-kaçışı '"&lt;&gt;& ve ASCII değeri 32'den az olan karakterler, seçenek olarak diğer özel karakterler kaldırılır ya da kodlanır </td></tr>
+</table>
+</dd></dt>
+<dt> FILTER_UNSAFE_RAW
+<dd>
+<table class="fyazi" width="100%">
+<tr><th>Ad</th><th>Seçenek</th><th>Durum Kodu</th><th>Açıklama</th></tr>
+<tr><td>"unsafe_raw"</td><td> </td><td>FILTER_FLAG_STRIP_LOW, FILTER_FLAG_STRIP_HIGH, FILTER_FLAG_ENCODE_LOW, FILTER_FLAG_ENCODE_HIGH, FILTER_FLAG_ENCODE_AMP</td><td>Hiç bir şey yapma, seçenek olarak özel karakterleri kaldır ya da kodla.</td></tr>
+</table>
+</dd></dt>
+<dt> FILTER_SANITIZE_EMAIL
+<dd>
+<table class="fyazi" width="100%">
+<tr><th>Ad</th><th>Seçenek</th><th>Durum Kodu</th><th>Açıklama</th></tr>
+<tr><td>"email"</td><td> </td><td> </td><td>Tüm karakterleri kaldır harfler, sayılar ve !#$%&'*+-/=?^_`{|}~@.[] hariç.</td></tr>
+</table>
+</dd></dt>
+<dt> FILTER_SANITIZE_URL
+<dd>
+<table class="fyazi" width="100%">
+<tr><th>Ad</th><th>Seçenek</th><th>Durum Kodu</th><th>Açıklama</th></tr>
+<tr><td>"url"</td><td> </td><td> </td><td>Tüm karakterleri kaldır harfler, sayılar ve $-_.+!*'(),{}|\\^~[]`<>#%";/?:@&= hariç.</td></tr>
+</table>
+</dd></dt>
+<dt> FILTER_SANITIZE_NUMBER_INT
+<dd>
+<table class="fyazi" width="100%">
+<tr><th>Ad</th><th>Seçenek</th><th>Durum Kodu</th><th>Açıklama</th></tr>
+<tr><td>"number_int"</td><td> </td><td> </td><td>Tüm karakterleri kaldır sayılar, artı ve eksi işaretleri hariç.</td></tr>
+</table>
+</dd></dt>
+<dt> FILTER_SANITIZE_NUMBER_FLOAT
+<dd>
+<table class="fyazi" width="100%">
+<tr><th>Ad</th><th>Seçenek</th><th>Durum Kodu</th><th>Açıklama</th></tr>
+<tr><td>"number_float"</td><td> </td><td>FILTER_FLAG_ALLOW_FRACTION, FILTER_FLAG_ALLOW_THOUSAND, FILTER_FLAG_ALLOW_SCIENTIFIC</td><td>Tüm karakterleri kaldır sayılar, +- ve seçenek olarak .,eE hariç.</td></tr>
+</table>
+</dd></dt>
+<dt> FILTER_SANITIZE_MAGIC_QUOTES
+<dd>
+<table class="fyazi" width="100%">
+<tr><th>Ad</th><th>Seçenek</th><th>Durum Kodu</th><th>Açıklama</th></tr>
+<tr><td>"magic_quotes"</td><td> </td><td> </td><td>addslashes() uygula.</td></tr>
+</table>
+</dd></dt>
+<dt> FILTER_CALLBACK
+<dd>
+<table class="fyazi" width="100%">
+<tr><th>Ad</th><th>Seçenek</th><th>Durum Kodu</th><th>Açıklama</th></tr>
+<tr><td>"callback"</td><td>callback işlevi ya da yöntem</td><td> </td><td>Kullanıcı tanımlı işlevi veri filitrelemek için kullan.</td></tr>
+</table>
+</dd></dt>
+</dl>
+
+<h3>Kurulum</h3>
+
+Kısa kurulum notu: konsoldan aşağıdakini yazın
+<br /><br />
+$ pecl install filter
+<br /><br />  
+
+<h3>Çalışma Zamanı Ayarları</h3>
+
+php.ini içindeki ayarlara göre işlevlerin davranışı değişir
+
+<h3>Filitre Ayar Seçenekleri</h3>
+
+<table class="fyazi" width="100%">
+<tr><th>Ad</th><th>Varsayılan</th><th>Değiştirilebilir</th><th>Değişen Kaydı</th></tr>
+<tr><td>filter.default</td><td>"unsafe_raw"</td><td>PHP_INI_PERDIR</td><td>filitrede PHP_INI_ALL <= 0.9.4. Available since PHP 5.2.0.</td></tr>
+<tr><td>filter.default_flags</td><td>NULL</td><td>PHP_INI_PERDIR</td><td>filitrede PHP_INI_ALL <= 0.9.4. Available since PHP 5.2.0.</td></tr>
+</table>
+
+Daha ayrıntılı bilgi için php.ini yönelticilerine bakın
+<br /><br />
+
+Ayar yönetcileri hakkında kısa bilgi
+<dl>
+<dt>filter.default yazı dizisi
+
+    <dd>Bu filitreyle $_GET, $_POST, $_COOKIE ve $_REQUEST verilerini filitrele. Gerçek veriiye filter_input() ile erişilir.
+
+    Varsayılan olarak kullanılacak filitrenin adını kabul eder. Filitre adları listesine göre var olan filitre listesine bakın.
+</dd></dt>
+<dt>filter.default_flags tamsayı
+
+    <dd>Varsayılan durum kodları</dd></dt>
+</dl>
+<h3>Predefined Constants</h3>
+
+Aşağıdaki değişmezler Bu uzantı için tanımlandı. Uzantılar PHP derlemesinde olmalı ya da modül olarak yüklenmelidir.
+<dl>
+<dt>INPUT_POST (integer)
+    <dd>POST değişkenleri (gönderme). 
+</dd></dt>
+<dt>INPUT_GET (integer)
+    <dd>GET değişkenleri (alma). 
+</dd></dt>
+<dt>INPUT_COOKIE (integer)
+    <dd>COOKIE değişkenleri (çerez)
+</dd></dt>
+<dt>INPUT_ENV (integer)
+    <dd>ENV değişkenleri (çevresel). 
+</dd></dt>
+<dt>INPUT_SERVER (integer)
+    <dd>SERVER değişkenleri (sunucu). 
+</dd></dt>
+<dt>INPUT_SESSION (integer)
+    <dd>SESSION değişkenleri (oturum). (daha uygulanmadı) 
+</dd></dt>
+<dt>INPUT_REQUEST (integer)
+    <dd>REQUEST değişkenleri (istek). (daha uygulanmadı)
+</dd></dt>
+<dt>FILTER_FLAG_NONE (integer)
+    <dd>Durum kodları yok.
+</dd></dt>
+<dt>FILTER_REQUIRE_SCALAR (integer)
+    <dd>Ölçülü girişe gerek duyulan durum kodları kullanımı
+</dd></dt>
+<dt>FILTER_REQUIRE_ARRAY (integer)
+    <dd>Diziye giriş bilgisi olarak gerek duyar
+</dd></dt>
+<dt>FILTER_FORCE_ARRAY (integer)
+    <dd>Her zaman dizi döndürür
+</dd></dt>
+<dt>FILTER_NULL_ON_FAILURE (integer)
+    <dd>Hata durumunda FALSE yerine NULL kullanmak
+</dd></dt>
+<dt>FILTER_VALIDATE_INT (integer)
+    <dd>"int" filitresinin tanıtım kodu (ID). 
+</dd></dt>
+<dt>FILTER_VALIDATE_BOOLEAN (integer)
+    <dd>"boolean" filitresinin tanıtım kodu (ID). 
+</dd></dt>
+<dt>FILTER_VALIDATE_FLOAT (integer)
+    <dd>"float" filitresinin tanıtım kodu (ID)
+</dd></dt>
+<dt>FILTER_VALIDATE_REGEXP (integer)
+    <dd>"validate_regexp" filitresinin tanıtım kodu (ID). 
+</dd></dt>
+<dt>FILTER_VALIDATE_URL (integer)
+    <dd>"validate_url" filitresinin tanıtım kod (ID). 
+</dd></dt>
+<dt>FILTER_VALIDATE_EMAIL (integer)
+    <dd>"validate_email" filitresinin tanıtım kod (ID). 
+</dd></dt>
+<dt>FILTER_VALIDATE_IP (integer)
+    <dd>"validate_ip" filitresinin tanıtım kod (ID). 
+</dd></dt>
+<dt>FILTER_DEFAULT (integer)
+    <dd>default ("string") filitresinin tanıtım kod (ID). 
+</dd></dt>
+<dt>FILTER_UNSAFE_RAW (integer)
+    <dd>"unsafe_raw" filitresinin tanıtım kod (ID). 
+</dd></dt>
+<dt>FILTER_SANITIZE_STRING (integer)
+    <dd>"string" filitresinin tanıtım kod (ID). 
+</dd></dt>
+<dt>FILTER_SANITIZE_STRIPPED (integer)
+    <dd>"stripped" filitresinin tanıtım kod (ID). 
+</dd></dt>
+<dt>FILTER_SANITIZE_ENCODED (integer)
+    <dd>"encoded" filitresinin tanıtım kod (ID). 
+</dd></dt>
+<dt>FILTER_SANITIZE_SPECIAL_CHARS (integer)
+    <dd>"special_chars" filitresinin tanıtım kod (ID). 
+</dd></dt>
+<dt>FILTER_SANITIZE_EMAIL (integer)
+    <dd>"email" filitresinin tanıtım kod (ID). 
+</dd></dt>
+<dt>FILTER_SANITIZE_URL (integer)
+    <dd>"url" filitresinin tanıtım kod (ID). 
+</dd></dt>
+<dt>FILTER_SANITIZE_NUMBER_INT (integer)
+    <dd>"number_int" filitresinin tanıtım kod (ID). 
+</dd></dt>
+<dt>FILTER_SANITIZE_NUMBER_FLOAT (integer)
+    <dd>"number_float" filitresinin tanıtım kod (ID). 
+</dd></dt>
+<dt>FILTER_SANITIZE_MAGIC_QUOTES (integer)
+    <dd>"magic_quotes" filitresinin tanıtım kod (ID). 
+</dd></dt>
+<dt>FILTER_CALLBACK (integer)
+    <dd>"callback" filitresinin tanıtım kod (ID). 
+</dd></dt>
+<dt>FILTER_FLAG_ALLOW_OCTAL (integer)
+    <dd>"int" filitresinde sekizli (0[0-7]+) sayıya izin ver
+</dd></dt>
+<dt>FILTER_FLAG_ALLOW_HEX (integer)
+    <dd>"int" filitresinde onaltılı (0x[0-9a-fA-F]+)  sayıya izin ver
+</dd></dt>
+<dt>FILTER_FLAG_STRIP_LOW (integer)
+    <dd>ASCII değeri 32'den az olan karakterleri kaldır
+</dd></dt>
+<dt>FILTER_FLAG_STRIP_HIGH (integer)
+    <dd>ASCII değeri 127'den büyük olan karakterleri kaldır
+</dd></dt>
+<dt>FILTER_FLAG_ENCODE_LOW (integer)
+    <dd>ASCII değeri 32'den az olan karakterleri kodla
+</dd></dt>
+<dt>FILTER_FLAG_ENCODE_HIGH (integer)
+    <dd>ASCII değeri 127'den fazla olan karakterleri kodla
+</dd></dt>
+<dt>FILTER_FLAG_ENCODE_AMP (integer)
+    <dd> & işaretini kodla. 
+</dd></dt>
+<dt>FILTER_FLAG_NO_ENCODE_QUOTES (integer)
+    <dd>Tek tırnak ve çift tırnak karakterlerini kodlama
+</dd></dt>
+<dt>FILTER_FLAG_EMPTY_STRING_NULL (integer)
+    <dd>(Şimdilik kullanımı yok.) 
+</dd></dt>
+<dt>FILTER_FLAG_ALLOW_FRACTION (integer)
+    <dd>"number_float" filitresinde sayının küsürlü bölümüne izin ver. 
+</dd></dt>
+<dt>FILTER_FLAG_ALLOW_THOUSAND (integer)
+    <dd>"number_float" fililtesinde binler ayıracına (,) izin ver 
+</dd></dt>
+<dt>FILTER_FLAG_ALLOW_SCIENTIFIC (integer)
+    <dd>"number_float" filitresinde bilimsel kullanıma (e E gibi) izin ver. 
+</dd></dt>
+<dt>FILTER_FLAG_SCHEME_REQUIRED (integer)
+    <dd>"validate_url" filitresinde şema gerekir. 
+</dd></dt>
+<dt>FILTER_FLAG_HOST_REQUIRED (integer)
+    <dd>"validate_url" filitresinde sunucu gerekir. 
+</dd></dt>
+<dt>FILTER_FLAG_PATH_REQUIRED (integer)
+    <dd>"validate_url" filitresinde dosya yolu gerekir. 
+</dd></dt>
+<dt>FILTER_FLAG_QUERY_REQUIRED (integer)
+    <dd>"validate_url" filitresinde sorgulama gerekir. 
+</dd></dt>
+<dt>FILTER_FLAG_IPV4 (integer)
+    <dd>"validate_ip" filitresinde IPv4 adreslerine izin verilir. 
+</dd></dt>
+<dt>FILTER_FLAG_IPV6 (integer)
+    <dd>"validate_ip" filitresinde yalnız IPv6 adreslerine izin verilir. 
+</dd></dt>
+<dt>FILTER_FLAG_NO_RES_RANGE (integer)
+    <dd>"validate_ip" filitresinde korunmuş adresleri reddet. 
+</dd></dt>
+<dt>FILTER_FLAG_NO_PRIV_RANGE (integer)
+    <dd>"validate_ip" filitresinde özel adresleri reddet. 
+</dd></dt>
+</dl>
+<h3>İçindekiler</h3>
+<ul>
+    <li> filter_has_var — Eğer belirtilen türde değişken varsa denetimi yapılır
+    <li> filter_id — Adlandırılan filitreye ilişkin filitre tanıtım kodunu döndürür
+    <li> filter_input_array — PHP dışındaki çoklu değişkenleri alır ve filitre seçeneği vardır
+    <li> filter_input — PHP dışından değişken alır ve ayrıca filitreliyebilir
+    <li> filter_list — Desteklenen tüm filitrelerin listesini döndürür
+    <li> filter_var_array — Çoklu değişkenleri alır ve filitreler
+    <li> filter_var — Bir değişkenli belirtilenle filitreler
+</ul>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

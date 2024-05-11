@@ -1,0 +1,172 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Hyperlink Preprocessor </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">28 Mart 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>MCAL İşlevleri</h2>
+
+<h3>Giriş</h3>
+
+MCAL Modüler Takvim Erişim Kitaplığı (Modular Calendar Access Library) anlamına gelir.
+<br /><br />
+Libmcal takvimlere erişim için kullanılan C kitaplığıdır. Çok modüler olması
+planlanarak yazılmıştır ve takılabilir sürücüleri kullanır. MCAL takvimler
+için IMAP posta kutuları için nasılsa o anlamda kullanışlıdır.
+<br /><br />
+mcal desteğiyle, takvim akarı IMAP destekli posta kutusu akarına çok benzer biçimde açılır. Takvimler yerel dosyalar, uzaktaki ICAP sunucuları ya da mcal kitaplığınca desteklenen diğer kalıplar olabilir.
+<br /><br />
+Takvim olayları açılabilir, sorgulanabilir ve saklanabilir. Takvim
+tetiklemeleri (alarmlar) ve iyileştirme olayları için de destek vardır.
+<br /><br />
+libmcal ile özel veri tabanı işlemlerine ya da yerel dosya erişimine gerek
+olmadan merkezi takvim sunucusuna erişilebilir.
+<br /><br />
+Birçok işlev içsel olay yapısı kullanır. Her akar için tekildir. Büyük
+nesneleri işlevler arasında dolaştırmayı azaltır. Olay yapı değerlerini
+ayarlamak, ilklemek ve erişmek için uygun işlevler vardır.
+<br /><br />
+    Not: Bu uzantı PECL havuzuna aktarılmıştır ve PHP ile paketlenmemiştir.
+<br /><br />
+    Not: Eskiden PHP'de ICAP uzantısı vardı. Ama orjinal kitaplık ve PHP uzantısı artık desteklenmez. Önerilen değişiklik MCAL uzantısıdır.
+<br /><br />
+    Not: Bu uzantı windows ortamında yoktur.
+
+<h3>Gereksinim</h3>
+
+Uzantılar mcal kitaplığının kurulmasını ister. İlgili kitaplık http://mcal.chek.com/ adresinden indirilmeli ve derlenmelidir.
+
+<h3>Kurulum</h3>
+
+mcal kitaplığını kurduktan sonra, bu işlevleri çalıştırmak için PHP
+"--with-mcal[=DIR]" ile derlenmelidir.
+
+<h3>Önceden Tanımlanan Değişmezler</h3>
+
+Bu uzantı için tanımlanmış değişkenler aşağıdadır. Uzantı yüklenmeden
+kullanılmaz.
+<pre>
+MCAL_SUNDAY (tamsayı)
+MCAL_MONDAY (tamsayı)
+MCAL_TUESDAY (tamsayı)
+MCAL_WEDNESDAY (tamsayı)
+MCAL_THURSDAY (tamsayı)
+MCAL_FRIDAY (tamsayı)
+MCAL_SATURDAY (tamsayı)
+MCAL_JANUARY (tamsayı)
+MCAL_FEBRUARY (tamsayı)
+MCAL_MARCH (tamsayı)
+MCAL_APRIL (tamsayı)
+MCAL_MAY (tamsayı)
+MCAL_JUNE (tamsayı)
+MCAL_JULY (tamsayı)
+MCAL_AUGUST (tamsayı)
+MCAL_SEPTEMBER (tamsayı)
+MCAL_OCTOBER (tamsayı)
+MCAL_NOVEMBER (tamsayı)
+MCAL_DECEMBER (tamsayı)
+MCAL_RECUR_NONE (tamsayı)
+MCAL_RECUR_DAILY (tamsayı)
+MCAL_RECUR_WEEKLY (tamsayı)
+MCAL_RECUR_MONTHLY_MDAY (tamsayı)
+MCAL_RECUR_MONTHLY_WDAY (tamsayı)
+MCAL_RECUR_YEARLY (tamsayı)
+MCAL_M_SUNDAY (tamsayı)
+MCAL_M_MONDAY (tamsayı)
+MCAL_M_TUESDAY (tamsayı)
+MCAL_M_WEDNESDAY (tamsayı)
+MCAL_M_THURSDAY (tamsayı)
+MCAL_M_FRIDAY (tamsayı)
+MCAL_M_SATURDAY (tamsayı)
+MCAL_M_WEEKDAYS (tamsayı)
+MCAL_M_WEEKEND (tamsayı)
+MCAL_M_ALLDAYS (tamsayı)
+</pre>
+<h3>İçindekiler</h3>
+<ul>
+    <li> mcal_append_event — MCAL takvimine yeni olayı saklamak
+    <li> mcal_close — MCAL akarını kapat
+    <li> mcal_create_calendar — yeni MCAL takvimini yarat
+    <li> mcal_date_compare — İki tarihi karşılaştırır
+    <li> mcal_date_valid — Eğer verilen yıl, ay, gün geçerli tarih ise TRUE döner
+    <li> mcal_day_of_week — Verilen tarih için haftanın gününü döndürür
+    <li> mcal_day_of_year — Verilen tarih için yılın kaçıncı günü olduğunu
+döndürür
+    <li> mcal_days_in_month — Bir aydaki gün sayısını döndürür
+    <li> mcal_delete_calendar — MCAL takvimini siler
+    <li> mcal_delete_event — MCAL takviminden bir olayı siler
+    <li> mcal_event_add_attribute — Akarın evrensel yapısına nitelik ve değerini ekler
+    <li> mcal_event_init — Akarın evrensel yapısını ilkler
+    <li> mcal_event_set_alarm — Akarın evrensel yapısının alarm ayarını düzenler
+    <li> mcal_event_set_category — Akarın evrensel yapısının kategorisini ayarlar
+    <li> mcal_event_set_class — Akarın evrensel yapısının sınıfını ayarlar
+    <li> mcal_event_set_description — Akarın evrensel yapısının açıklamasını ayarlar
+    <li> mcal_event_set_end — Akarın evrensel yapısının son tarih ve saatini ayarlar
+    <li> mcal_event_set_recur_daily — Akarın evrensel yapısının günlük yinelemesinin ayarını yapar
+    <li> mcal_event_set_recur_monthly_mday — Akarın evrensel yapısının yinelemesinin ayarını yapar
+    <li> mcal_event_set_recur_monthly_wday — Akarın evrensel yapısının yinelemesinin ayarını yapar
+    <li> mcal_event_set_recur_none — Akarın evrensel yapısının yinelemesinin ayarını yapar
+    <li> mcal_event_set_recur_weekly — Akarın evrensel yapısının yinelemesinin ayarını yapar
+    <li> mcal_event_set_recur_yearly — Akarın evrensel yapısının yinelemesinin ayarını yapar
+    <li> mcal_event_set_start — Akarın evrensel yapısının başlama tarih ve saatini ayarlar
+    <li> mcal_event_set_title —  Akarın evrensel yapısının başlığını ayarlar
+    <li> mcal_expunge — Silinecek diye işaretlenmiş tüm olayları siler
+    <li> mcal_fetch_current_stream_event — o anki akarın olay yapısının nesnesini döndürür
+    <li> mcal_fetch_event — Takvim akarından bir olayı seçer
+    <li> mcal_is_leap_year — Verilen yılın artık olup olmadığına bakar
+    <li> mcal_list_alarms — Verilen tarih ve zamanda alrm tetiklemesiyle sıralanmış olayların listesini verir
+    <li> mcal_list_events — Bir tarih ya da iki tarih arası için tanıtım (ID) listesini döndürür
+    <li> mcal_next_recurrence — Olayın sonraki yineleneceği anı döndürür
+    <li> mcal_open — MCAL bağlantıyı açar
+    <li> mcal_popen — Sürekli MCAL bağlantısı açar
+    <li> mcal_rename_calendar — MCAL takvimin adını değiştir
+    <li> mcal_reopen — MCAL bağlantıyı yeniden açar
+    <li> mcal_snooze — Bir olay için alarmı kapatır
+    <li> mcal_store_event — MCAL takviminde bir olayı değiştir
+    <li> mcal_time_valid — Eğer verilen saat, dakika ve saniye geçerliyse TRUE döndürür
+    <li> mcal_week_of_year — Verilen tarihin hafta sayısını döndürür
+</ul>
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

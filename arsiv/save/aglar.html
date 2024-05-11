@@ -1,0 +1,1139 @@
+<HTML>
+<HEAD>
+<TITLE>AYBIM - AGLAR</TITLE>
+</HEAD>
+<BODY BGCOLOR="white" LEFTMARGIN=50>
+<TABLE WIDTH="100%" CELLSPACING=10 CELLPADDING=5>
+<TR><TD WIDTH="10%" BGCOLOR="black" VALIGN="TOP">
+&nbsp;
+</TD>
+<TD>
+<H2>INTERNET AĞLARI</H2>
+<HR>
+
+<H4>GİRİŞ</H4>
+
+<P>Burada ele aldığım konular ayrıntılı olarak LINUX altında "NET-3-HOWTO"
+(Copyright (c) 1997 Terry Dawson)
+adlı belgede İnglizce olarak yazılmıştır. Benim yaptığım bu belgeyi
+Türkçe'ye çevirmek. Buradaki bilgilerde daha çok LINUX işletim sistemindeki
+ayrıntıları anlatır, ama iyi bir programcı (C dili ve UNIX biliyorsa) bu
+bilgileri kullanarak diğer UNIX işletim sistemleride benzeri
+tanımlamaları kolaylıkla yapabilir. Ben bu bölümde adı geçen bazı
+programları ve komutları başka UNIX ortamlarında derledim, denedim ve 
+çalıştırabildim. Programları çalıştırırken biraz
+kod üzerinde değişiklik yapmak gerekebiliyor. Ama emek harcanmadan sonuç
+elde edilmez ki...
+
+<HR>
+
+<P><B>INTERNET İÇİN KENDİ AĞINIZI KURMAK</B>
+
+<P>Önce bilgisayarınızda kullanacağınız araçlara ve "fire-wall" yazılımına
+ihtiyacınız var. Bu araçlar ya aldığınız bilgisayarın  işletim sistemi
+ile gelmiştir, ya da siz bunları INTERNET üzerinden sağlamışsınızdır.
+Benim gördüğün kadarı ile Türkiye'deki en iyi ve en son bilgi 
+sunsite.bilkent.edu.tr sunucusunda var. Ama isterseniz 
+ODTÜ ve EGE Üniversitesi sunucularından da gereken yazılımı alabilirsiniz.
+
+<P><B>GEREKLİ AĞ ARAÇLARI</B>
+
+<P>Bu araçlar, sisteminizin Ağ bilgilerini (parametrelerini) düzenlediğiniz
+yönlendirmeyi (routing) yaptığınız programlardır.
+
+<P><B>INTERNET ADRESLERİ</B>
+
+<P>Bugün için INTERNET adresleri 4 byte uzunluğunda bir sayıdır (Bu sayının
+6 byte uzunluğunda olması çalışmaları devam etmektedir). Bu sayıyı kolay
+hatırlamamız ve söyleyebilmemiz için "noktalı tamsayı kavramı" geliştirilmiştir.
+Bu sayıdaki her byte için kullanılan 0-255 değeri ayrı ayrı aralarına
+nokta konarak yazılınca belirttiğimiz noktalı tamsayı kavramı çıkar. Bu
+kavramda sayı sıfır değilse soldaki sıfırla yazılmaz ve okunmaz.
+
+<P>INTERNET kavramlarına göre ağdaki her bilgisayarın noktalı tamsayılarla
+gösterilen bir adresi vardır ve bu adres tekildir. Bu kavramı biraz
+genişletip her ağ donanımı için bir adres kullanmak gerekir diyebiliriz.
+Böylece bir bilgisayarda seri uçtan bağlantı olanağı varsa bu seri uç
+için bir adres, iki ethernet kartı varsa, her ethernet için ayrı bir adres
+gerekir. Biz bu adreslere IP adresi adını veriyoruz.
+
+<P>Bir yerel ağda bulunan bilgisayarların IP adreslerinin bir 
+bölümü (2 ayda 3 byte'lık bir bölümü) ortaktır. Ortak olan adreslere
+yerel ağ adresi ya da "yöre" (domain) adresi diyoruz. Kalan bölümüne
+ise adresin bilgisayar bölümü diyoruz. O yerel ağdaki ortak adres
+bilgisinin ilki her zaman yerel ağın adresi olarak kabul edilir.
+Ağ maskesi ise o ağa gelecek mesajlardan yalnız o ağa ait olanları
+almak için kullanılan maskeye verilen addır. Bir ağ içindeki tüm
+bilgisayarlara mesaj göndermek için Yayım Adresi kullanılır ve bu
+adres ağ için tanımlanmış bilgisayar adreslerinin en büyüğüdür.
+
+<P>Örneğin :
+<P>
+<TABLE BORDER>
+<TR><TD>  Bilgisayar Adresi </TD><TD> 192</TD><TD>.168</TD><TD>.110</TD><TD>.23</TD></TR>
+<TR><TD>  Ağ Maskesi        </TD><TD> 255</TD><TD>.255</TD><TD>.255</TD><TD>.0</TD></TR>
+<TR><TD>  Ağ (Yöre) Bölümü  </TD><TD> 192</TD><TD>.168</TD><TD>.110</TD><TD>.</TD></TR>
+<TR><TD>  Bilgisayar Bölümü </TD><TD></TD><TD></TD><TD></TD><TD>.23</TD></TR>
+<TR><TD></TD><TD></TD></TR>
+<TR><TD>  Yerel Ağ Adresi   </TD><TD> 192</TD><TD>.168</TD><TD>.110</TD><TD>.0</TD></TR>
+<TR><TD>  Yayım Adresi      </TD><TD> 192</TD><TD>.168</TD><TD>.110</TD><TD>.255</TD></TR>
+<TR><TD></TD><TD></TD></TR>
+</TABLE>
+
+<P>Bir yerel ağın INTERNET için bir anlam taşıyabilmesi ancak bir
+ağ adresi, bir yayım adresi ve en az iki bilgisayar adresi olması
+gerekir. INTERNET ortamında ardaşık en az dört adres bir ağ oluşturur.
+Bu sayı iki sayısının katları olarak artar (4, 8, 16, 32 v.b.)
+
+<P>Ağ maskesi ile mantıksal VE işlemine sokulan bir adres sonunda bulunduğu
+ağın adresini verir.
+
+<P>Ağ içindeki tüm bilgisayarlar kendi adresleri dışında bir de yayım
+adresine gelen mesajları dinlerler. Onun için yayım adresi ağ içindeki
+en büyük IP adresi olarak tanımlanır. Bazı yönlendirme mesajları ve uyarı
+mesajları yayım adresini kullanır. Böylece ağ içindeki tüm bilgisayarlar
+bu mesajı aynı anda alabilirler. Bazen yayım adresi olarak ağ adresi
+kullanılabilir. Aslında yayım adresinin ne olduğu pek önemli değildir.
+Ağ maskesi sınırları içinde kalmak ve ağ içindeki tüm bilgisayarlarda
+aynı tanımlanmak koşulu ile herhangi bir IP olabilir.
+
+<P>Eskiden kalan bir kullanım biçimine göre IP adresleri ağlara ve
+sınıflara ayrılmıştır. Bu sınıflar ve ağlar aşağıdaki tabloda gösterilmiştir :
+<P>
+<TABLE BORDER>
+<TR><TH> Ağ Sınıfı</TH><TH> Ağ Maskesi</TH><TH> Ağ Adresi </TH></TR>
+<TR><TD>A</TD><TD> 255.0.0.0</TD><TD> 0.0.0.0    - 127.255.255.255 </TD></TR>
+<TR><TD>B</TD><TD> 255.255.0.0</TD><TD> 128.0.0.0  - 191.255.255.255 </TD></TR>
+<TR><TD>C</TD><TD> 255.255.255.0</TD><TD> 192.0.0.0  - 223.255.255.255 </TD></TR>
+<TR><TD>Multicast </TD><TD> 240.0.0.0</TD><TD> 224.0.0.0  - 239.255.255.255 </TD></TR>
+</TABLE>
+
+<P>Hangi tür adres kullanacağınız aslında sizin ne yapmak istediğinize göre
+değişir. Bazen yapacağınız işleme bağımlı olarak yukarıdaki 
+adreslerin bir dolu karışımını kullanabilirsiniz.
+
+<P>Bir bilgisayarı mevcut bir yerel ağa bağlamak için gerekli olan adresler :
+<P><LI>  Bilgisayar IP Adresi
+<LI>  Ağ için IP adresi
+<LI>  Yayım IP adresi
+<LI>  Ağ Maskesi
+<LI>  Eşik - Router (Gateway) adresi
+<LI>  Yörenin Ad Sunucu Adresi
+
+
+<P>Yeni bir ağ kuruyorsanız ve bu ağı INTERNET ortamına hiç
+bağlamayacaksanız :
+
+<P>Aslında ağınızı INTERNET ortamına hiç bağlamayacaksanız herhangi
+bir adresi seçebilirsiniz. Ama aşağıdaki tabloda
+bulunan adresleri kulanırsanız, bu adresler INTERNET ortamında
+tanımlı olmadığından, dah güvenli bir yerel ağ kurmuş olursunuz.
+
+<P>Bu tabloda yer alan adresler RFC1697 belgelerinde belirtilmiştir.
+<P>
+<TABLE BORDER>
+<TR><TH COLSPAN=3>ÖZEL AĞLAR İÇİN AYRILMIŞ ADRESLER</TH></TR>
+<TR><TH> Ağ Sınıfı</TH><TH> Ağ Maskesi    </TH><TH> Ağ Adresi </TH></TR>
+<TR><TD>A</TD><TD> 255.0.0.0     </TD><TD> 10.0.0.0    - 10.255.255.255  </TD></TR>
+<TR><TD>B</TD><TD> 255.255.0.0   </TD><TD> 172.16.0.0  - 172.31.255.255  </TD></TR>
+<TR><TD>C</TD><TD> 255.255.255.0 </TD><TD> 192.168.0.0 - 192.168.255.255 </TD></TR>
+</TABLE>
+
+<P>Önce ağınızın büyüklüğünü belirlemek daha sonra bu ağ için hangi adres
+sınıflarını kullanacağınızı seçmek sizin ilk tasarım işiniz olacaktır.
+
+<P><B>AĞ BİLGİSİ VE KOMUTLARI NEREYE KONULMALI (TANIMLAMA)</B>
+
+<P>Tüm UNIX ortamlarında kernel yüklendikten sonra ilk olarak 'init'
+programı çalışır. Bu program işlemleri nasıl yapacağını /etc/inittab
+kütüğündeki bilgilerden öğrenir.
+
+<P>Genelde inittab kütüğünde aşağıdaki gibi bir satır bulunur :
+
+<UL>
+si::sysinit:/etc/init.d/boot
+</UL>
+
+<P>Bu satır işletim sisteminin belleğe yüklenmesi, ilk anda çalışacak
+programların belirlenmesi için kullanılır. Bu bir "shell" yazılımıdır.
+Bu kütük MS-DOS ortamındaki AUTOEXEC.BAT gibidir.
+
+<P>Aynı mantıkla yazılmış bakşa "shell" yazılımları da vardır. Bunlardan
+bazıları ağı tanımlamak için kullanılır.
+
+<P>Aşağıdaki tablo çeşitli Linux dağıtıcılarının kullandığı "shell" yazılımlarının
+yerlerini gösteren bir örnektir. Diğer UNIX sistemleri için de aynı bilgiler
+benzer yollarda bulunmaktadır.
+<P>
+<TABLE BORDER>
+<TR><TH>Distrib. </TH><TH>Interface Config/Routing </TH><TH>Server Initialisation</TH></TR>
+<TR><TD>Debian   </TD><TD>/etc/init.d/network  </TD><TD>/etc/init.d/netbase
+<BR>/etc/init.d/netstd_init
+<BR>/etc/init.d/netstd_nfs
+<BR>/etc/init.d/netstd_misc</TD></TR>
+<TR><TD>Slackware</TD><TD>/etc/rc.d/rc.inet1</TD><TD>/etc/rc.d/rc.inet2</TD></TR>
+<TR><TD>RedHat   </TD><TD>/etc/sysconfig/network-scripts/ifup-<ifname></TD><TD>/etc/rc.d/init.d/network</TD></TR>
+</TABLE>
+
+<P>Pek çok UNIX dağıtıcısı bu tür "shell" yazılımlarını ayarlamak için
+hazır programların dağıtımını yapmışlardır. Kullanıcı yalnız bu programları
+çalıştırarak "shell" yazılımlarının içine girmeden ağ ayarlamalarını
+yapabilir.
+
+<HR>
+
+<P><B>KENDİ AĞ ARAYÜZLERİNİZİ YARATMA</B>
+
+<P>Pekçok UNIX ortamında ağ donanımlarına ilişkin çevre birimi tanımı /dev
+yolu altında yer alır (Linux hariç). Linux ortamında dinamik olarak
+ağ arayüzü çevre birimi yaratılır, ayrıca /dev altında tanım gerekmez.
+
+<P>Çoğunlukla çevre birimi tanımı işletim sistemindeki donanım arayüzü
+tarafından otomatik olarak yaratıldığından ve donanıma bağlanmış olduğundan
+ayrıca bir işlem yapmak gerekmez. Tabi ilk işlemde bu donanım arayüzü
+kernel (çekirdek) yazılıma eklenmiş olmalı ve arayüz çalışır durumda
+bulunmalıdır.
+
+<P> Bazı koşullarda (slip ya da ppp için geçerlidir) ağ çevre birimleri
+bir kullanıcı programı tarafından oluşturulur. Bir dizi çevre birimi
+numaralaması yapılır ancak bu çevre birimleri sistem başlarken otomatik
+olarak üretilemez.
+Bunun en büyük nedeni, sistem çalışırken, slip ve ppp çevre birimlerinin
+sayısının kullanıcı sayısına göre değişiklik göstermesidir.
+
+<P><B>BİR AĞ ARAYÜZÜNÜ HAZIRLAMA</B>
+
+<P>Burada söylemek istediğimiz, donanıma ve diğer parametrelere göre
+ağ bilgilerini sisteme tanıtma işlemidir. Bu işlem için en çok
+kullanılan komut ifconfig (interface configure) komutudur.
+
+<P>Çoğu zaman aşağıdakine benzer bir komut kullanılır :
+
+<UL>
+# ifconfig eth0 192.168.0.1 netmask 255.255.255.0 up
+</UL>
+
+<P>Burada bir ethernet arayüzü 192.168.0.1 adresi ve 255.255.255.0 ağ
+maskesi ile sisteme tanıtılmıştır. Ve bu arayüz aktif olarak
+çalışmaya başlayacaktır. Bu örnekte ağ adresi ve yayım adresi
+kullanılmamıştır. ANcak programlar ve çekirdek kod IP adresinin
+tipinden belirtilmeyen adres yerine en uygun adresi tanımlar. Bu örnekte
+ağ adresi (C sınıfı adres olarak) 192.168.0.0 biçiminde, yayım adresi ise 
+192.168.0.255 biçiminde belirlenir.
+
+<P>ifconfig komutunun bir dolu parametresi vardır. Her UNIX ortamında
+başka parametreler, kullanılan donanıma ve arayüze göre değişik işlevler
+yapabilir. Bu nedenle her UNIX ortamında bu komutun dökümanı incelenmelidir.
+Biz burada en çok kullanılan parametreleri anlatmaya çalışacağız :
+
+<UL>
+<LI><B>up</B>
+<BR> Bu seçenek bir arayüzü çalışır duruma getirir.<BR>
+
+<LI> <B>down</B>
+<BR> Bu seçenek bir ayaüzün çalışmasını durdurur.<BR>
+
+<LI> <B>-arp</B>
+<BR> Bu seçenek adres çözümleme protokolunun kullanılmasını ya da
+kullanılmamasını sağlar.<BR>
+
+<LI> <B>-allmulti</B>
+<BR>
+Bu seçenek gelen paketlerin çevre birimi tarafından algılanıp algılanmamasını
+sağladığı için önemlidir. Aslında bir çevre birimi tanımlanan adres dışındaki
+paketleri algılamaz. Ancak tcpdump ve snooper tipi programlar için
+tüm paketlerin algılanması gerekir.<BR>
+
+<LI> <B>mtu N</B>
+<BR>
+Bu seçenek bu çevre birimi için Metrik Birim tanımlamaya yarar. 
+(Metrik Birim IP paketlerinin boyu ile ilgili bir parametredir).<BR>
+
+<LI> <B>netmask addr</B>
+<BR>
+Bu seçenek ağ için maske tanımlamakta kullanılır.<BR>
+
+<LI> <B>irq addr</B>
+<BR>
+Bu parametre bazı ağ donanımları için geçerlidir ve donanımın IRQ
+adresini belirlemek için kullanılır.<BR>
+
+<LI> <B>-broadcast addr</B>
+<BR>
+Bu parametre yayım adresini tanımlamak için kullanılır.<BR>
+<LI> <B>-pointopoint addr</B>
+<BR>
+Uç uca bağlanmış bilgisayarlarda diğer uçtaki bilgisayarın adresini
+tanımlamak için kullanılır (slip ya da ppp bağlantılar için önemli
+olabilir).<BR>
+
+<LI> <B>hw &lt;type&gt; &lt;addr&gt;</B>
+<BR>
+Bazı ağ donanımlarının donanım adreslerini tanımlamak için kullanılır.<BR>
+</UL>
+
+<P>Bir ifconfig komutunu hertür ağ arayüzü tanımlamak için kullanabilirsiniz.
+Bazı programlar (pppd, dip gibi) kendi ağ arayüzlerini otomatik
+olarak tanımlayabildiklerinden ayrıca ifconfig komutu kullanmak gerekmez.
+
+<HR>
+
+<P><B>AD ÇÖZÜCÜSÜNÜ TANIMLAMA</B>
+
+<P>UNIX ortamında ad çözücü noktalı tamsayı tanıma göre hazırlanmış IP
+adresleri yerine kullanılan bilgisayar adlarını (bodrum.yore.com.tr gibi)
+bilgisayarların anladığı IP adreslerine çevirme işlemini yapan
+programlardır.
+
+<P><B>BİLGİSAYAR ADI NEDİR ?</B>
+
+<P>Bu dökümanı okumak için bu sayfaya bağlandığınıza göre bilgisayar
+adlarına alışkın olmalısınız. Ancak arkasındaki mantık ilişkisini
+bilmeyebilirsiniz. Bu isimler nasıl üretilir ve nasıl IP adresi
+haline dönüştürülür bilmiyor olabilirisin. Burada bilgisayar adlarının
+nasıl bir mantığa göre hazırlanmış olduğunu anlatmaya çalışacağız.
+
+<P>Internet yöre adları bir sınıf ya da bir aileye verilen addır. Bir
+yöre kendi içinde alt yörelere bölünebilir. En üst düzey yöre adı
+alt yörelere bölünmemiş olan addır. Türkiye için en üst düzey
+yöre adları :
+
+<LI><B>COM :</B> Ticari Kurumlar<BR>
+
+<LI><B>EDU :</B> Eğitim Kurumları<BR>
+
+<LI><B>GOV :</B> Devlet Kuruluşları<BR>
+
+<LI><B>MIL :</B> Askeri Kuruluşlar<BR>
+
+<LI><B>ORG :</B> Diğer Organizasyonlar<BR>
+
+<LI><B>Ülke Kodu :</B> İki hane ülke kodu, o ülkeyi belirtir. Türkiye için "tr"
+tanımlanmıştır.<BR>
+
+<P>Bu üst düzey yörelerin alt yöreleri vardır. Ülke adına göre düzenlenen
+yöre adları yukarıda sıralanan alt yörelere bölünür. Ülke kodu olmayan
+üst düzey yöre adları ABD kuruluşlarını belirtir.
+
+<P>Üst düzey sınıflamadan sonra gelen yöre adı genelde kuruluşun kendi
+adıdır. Bu tanımın altındaki yöre adı ayrımları kuruluşların bölümlerine
+göre düzenlenebilir.
+
+<P>En soldaki ad o bilgisayarın tekil adıdır. Bu ad genelde "hostname"
+olarak adlandırılır. Bilgisayar adının sağındaki yöre adının tamamı ise
+açıkça tanımlanmış yöre adı olarak geçer `Fully Qualified Domain Name'.
+
+<P>Bu sayfaların bulunduğu bilgisayarın adını açıkça yazınca "bodrum.yore.com.tr"
+olduğunu görürsünüz. Burada bilgisayarın adı "bodrum". Açık yöre adı
+"yore.com.tr" olarak belirtilmiştir. "yore" firmanın adı, "com.tr" ise Türkiyede
+faaliyet gösteren ticari bir kurum olduğunu belirtir.
+
+<P><B>NE TÜR BİLGİYE GEREKSİNİM VARDIR.</B>
+
+<P>Bilmeniz gerekenen önemli özellik, bilgisayarınızın bağlandığı yöre
+adının açık olarak ne olduğudur. Adres çevirim yazılımı IP adresini yöre adı
+sunucusundan (Domain Name Server) alır. Eğer varsa yerel ad sunucunun IP
+adresinin bilmeniz gerekir. Böyle bir adres yoksa en yakın ad sunucunun
+IP adresinin bilmelisiniz. Türkiye için en yakın ad sunucu adresini bulamadı
+iseniz ODTU ve TURNET tarafından tanımlanmış ad sunucuları yazabilirsiniz.
+Ancak bu adresleri kullandığınızda ilk bağlantılarınız çok yavaş olacaktır.
+Kendi yörenizdeki ad sunucunun IP adresini kullanmanız en doğrusudur.
+
+<P>Üç değişik kütükte düzeltme yapmanız gerekir. Bunlar sırası ile :
+
+<P><B>/etc/resolv.conf</B>
+
+<P>Ad çözücü kodlama için en önemli kütüktür. Yapısı oldukça basittir.
+Her satırında bir anahtar kelime olan basit bir metin kütüğüdür. En çok
+kullanılan anahtar kelimeler :
+
+<P><B>domain :</B> Bu komut yerel yöre adını belirtir.
+
+<P><B>search :</B> Bu komut bilgisayar adına eklenerek adres çözümlemesi
+yapılacak yöre adlarını belirtir.
+
+<P><B>nameserver :</B> Açık adlara ilişkin IP adreslerinin çözümünde kullanılacak
+ad sunucuların IP adreslerinin tanımlandığı satırdır.
+
+<P>Örnek bir resolv.conf aşağıdaki satırlardan oluşur :
+
+<UL>
+       domain yerel.yore.com.tr<BR>
+       search yore.com.tr yerel.yore.com.tr<BR>
+       nameserver 195.174.26.15<BR>
+       nameserver 195.174.26.1<BR>
+</UL>
+
+Bu örnekte yöre adı verilmemiş bilgisayar adlarının sonuna yöre
+adı ekleneceği belirtilmiştir. Ayrıca iki ad sunucu belirtilmiştir.
+Ad sunucular, bilgisayar adının çözümlenmesinde kullanılır.
+
+<P><B>/etc/host.conf</B>
+
+<P>Bu kütük, ad çözücü kodlamanın ad çözüm biçimini tanımlamaya yarayan
+bilgilerden oluşur. Pekçok koşul için aşağıdaki satırlar sorunlarınızı
+çözümler :
+
+<UL>
+       order hosts,bind<BR>
+       multi on<BR>
+</UL>
+
+<P>Bu tanım ad çözümleyicisine bir adı çözümlerken önce /etc/hosts
+adlı kütüğe bakmasını söyle. Buradan bilgi alınamazsa ad sunucuya
+bağlanılır. Bir bilgisayar adı için bu kütükte bulunan tüm geçerli IP
+numaralarının alınmasını sağlar.
+
+<P><B>/etc/hosts</B>
+
+<P>Bu kütüğe yerel bilgisayarın adını ve IP numarasını yazarız. Eğer
+bir bilgisayarın adını buraya yazdıysanız IP adresini almak için ad sunucuya
+sorgulama yapmaya gerek olmaz. Bunun en kötü yanı bu kütüğün her zaman
+güncel tutulmasını sağlamak gerektiğidir. İyi düzenlenmiş bir yerel ağda
+bu kütükte yalnız :
+
+<UL>
+       # /etc/hosts<BR>
+       127.0.0.1      localhost loopback<BR>
+       192.168.0.1    this.host.name<BR>
+</UL>
+
+<P>satırların bulunmalıdır.
+
+<P>İlk satırda belirtildiği gibi bir satıra birden çok bilgisayar 
+adı yazabilirsiniz.
+
+<P><B>Loopback arayüzünü tanımlama.</B>
+
+<P>Kendi bilgisayarınıza bağlantı yapabilmeniz için gereken arayüz tanımına
+"loopback" tanım denir. Kendi bilgisayarınızda kendinize bağlantı yapmak
+istediğinizde (program denemeleri gibi) yerel ağdaki başka bilgisayarları
+etkilemeden çalışmanız sağlanır. Tanım olarak bu adres 127.0.0.1 olarak
+belirtilmiştir. Diğer bir deyimle hangi bilgisayarda olursanız olun
+127.0.0.1 için telnet bağlantısı kurmak istediğinizde kendi bilgisayarınıza
+bağlantı kurarsınız.
+
+<P>"loopback" arayüzünü tanımlamak için aşağıdaki komutları kullanmak
+yeterlidir :
+
+<UL>
+       # ifconfig lo 127.0.0.1<BR>
+       # route add -host 127.0.0.1 lo<BR>
+</UL>
+
+<HR>
+
+<P><B>YÖNLENDİRME (ROUTE KOMUTU)</B>
+
+<P>Yönlendirme çok geniş bir konudur. Bu konuda sayfalarla yazı yazılabilir.
+Bir çoğunuzun basit yönlendirme komutlarına gereksinimi vardır. Bir kısmınızın
+hiçbir yönlerdirmeye gereksinimi yoktur. Biz burada oldukça basit
+yönlendirme gereksinimlerini ele alacağız.
+
+<P><B>IP yönlendirmesi nedir ? </B>
+
+<UL>
+IP yönlendirmesi bir bilgisayarın IP data gram mesajlarını çoklu bir ağda
+nereye yönlendirmesi gerektiğini belirleme işlemi olarak tanımlanabilir.
+</UL>
+
+<P>Bu tanımı bir örnekle anlatmaya çalışalım. Bir işyerindeki bir Router
+(Yönlendirici) düşünelim. Bu alete birden çok yerel ağ bağlı olsun. Bu
+alet PPP ile INTERNET ortamına bağlansın, bir başka PPP bağlantı ile
+uzakta bir yerleşime bağlantısı olsun. Bu alet bağlantılardan birinden
+bir datagram aldığında, yapacağı işlem bu mesajı hangi bağlantıya
+yönlendireceğini bulmasıdır. INTERNET bilgisayarlarının üç değişik
+bağlantısı bulunur. Biri yukarıda belirttiğimiz "loopback" bağlantı,
+ikincisi bağlı olduğu yerel ağ, sonuncusu ise PPP ya da SLIP ile bağlandığı 
+INTERNET ortamı.
+
+<P>Bu durumda yönlendirme nasıl yapılır. Her bilgisayar kendi içinde
+yönlendirme tabloları tutar. En basit koşulu ile bu tabloda üç alan
+bulunur. İlki gideceği adres, ikincisi arayüzün adı, sonuncusu ise
+datagramı başka bilgisayarlara iletecek olan bilgisayarın IP adresidir.
+
+<P>Bu tabloyu görmek için kullanılacak komut :
+
+<UL>
+       # netstat -rn
+</UL>
+olabilir.
+
+<P>Yönlendirme işlemi oldukça basittir. Bir datagram alındığında gideceği
+adres incelenir. Yönlendirme tablosunda bu adrese en uygun olan satır
+seçilir ve datagram burada belirtilen adrese, yine burada belirtilen
+arayüz üzerinden yönlendirilir. Eğer eşik (gateway) adresi tanımlı ise
+datagram bu adresin bulunduğu arayüze iletilir. Eğer eşik adresi yoksa
+iletilen arayüzde gideceği adres var olduğu kabul edilir.
+
+<P>Bu tabloda değişiklik yapmak, kernel bilgilerine değişikliği işlemek
+için özel bir komut kullanılır. Bu komuta "route" adı verilir.
+
+<P>Basit bir örnek. Ethernet yerel ağınız olsun. Ve bu ağda C sınıfı
+ağ adresi 192.168.1.0 olarak tanımlanmış olsun. Sizin kullanımınız için
+tanımlanan IP adresi 192.168.1.10 olarak verilmiş olsun ve 192.168.1.1
+adresli router INTERNET'e bağlantı ucunuz olarak size verilmiş olsun.
+Yapacağınız işlemler :
+
+<P>Önce ethernet arayüzünü tanımlamanız gerekir :
+
+<UL>
+       # ifconfig eth0 192.168.1.10 netmask 255.255.255.0 up
+</UL>
+
+<P>Yönlendirme tablosuna eklemeniz gereken bilgi ise 192.168.1.* adresi ile
+başlayan tüm data gram bilgilerinin ethernet arayüzüne yönlendirilmesi
+gerektiğidir. Bunun için aşağıdaki komutu kullanmanız gerekir :
+
+<UL>
+       # route add -net 192.168.0.0 netmask 255.255.255.0 eth0
+</UL>
+
+<P>Burada "-net" seçeneğini "route" komutu ile kullanmak gerekir. Burada
+ağ yönlendirmesi yapıldığı belirtilir. Diğer seçenek ise "host" yönlendirmesi
+olup yalnız bir IP adresine yönlendirme yaparken kullanılır.
+
+<P>Bu yönlendirme sizinle aynı ağı paylaşan tüm bilgisayarlarla
+bağlantı kurmanızı sağlar. Ancak sizin ethernet ağınızda olmayan diğer
+bilgisayarlarla bağlantı için bu komut yetersiz kalır.
+
+<P>Her tür bilgisayar ağı için bir yönlendirme komutunu tabloya eklemek
+çok zor olacağından bu işlem için bir kaçamak yöntem kullanılır. Buna
+"default" yönlendirme adı verilir. Bir adres için en zayıf uyum "default"
+yönlendirmede bulunur. Ancak bir adres için daha başka bir tanım daha
+uygun ise yönlendirme o adrese yapılır. "default" yönlendirme kısaca
+başka seçenek yoksa buraya yönlendirilecek anlamını taşır.
+<UL>
+       # route add default gw 192.168.1.1 eth0
+</UL>
+
+<P>"gw" seçeneği route komutuna bir sonraki IP adresi bu satıra uygun
+datagram bilgilerinin gönderileceği adrestir bilgisini tanıtır.
+
+<PBöylece kullandığımız yönlendirme tanımları :
+<UL>
+       # ifconfig eth0 192.168.1.10 netmask 255.255.255.0 up<BR>
+       # route add -net 192.168.0.0 netmask 255.255.255.0 eth0<BR>
+       # route add default gw 192.168.1.1 eth0<BR>
+</UL>
+olur.
+
+<P>Eğer kendi bilgisayarınızdaki ağ ile ilgili "rc" kütüklerine bakacak
+olursanız en az biri yukarıdaki tanıma uygun bir yapıdadır. Bu örnek
+çok genel bir yönlendirme kuralıdır.
+
+<P>Şimdi daha karmaşık bir yönlendirme işlemine bakalım. Şimdi Router
+birimininde yönlendirme yaptığımızı varsayalım. Router için bir PPP
+bağlantısı ve üç ethernet ağına bağlantı olsun. Bu durumda bizim
+Router tanımı aşağıdaki gibi birşey olur :
+<P>
+<UL>
+       # route add 192.168.1.0 netmask 255.255.255.0 eth0<BR>
+       # route add 192.168.2.0 netmask 255.255.255.0 eth1<BR>
+       # route add 192.168.3.0 netmask 255.255.255.0 eth2<BR>
+       # route add default ppp0<BR>
+</UL>
+
+<P>Bu ağlarda yer alan iş istasyonları yukarıda belirtilen en basit yönlendirme
+tablolarını kullanabilir. Burada mesajları ethernet ağlarına dağıtmak
+Router biriminin görevidir.
+
+<P>"default" parametresinde "gw" tanımı bulunmaması çok doğaldır. Çünkü SLIP
+ve PPP tipi seri uç bağlantılarında bu bağlantının her iki ucunda da bir
+tane bilgisayar olduğundan, hattın öteki uçundaki bilgisayarı tanımlamak
+gerekmez.
+
+<P>"ethernet", "tokenring" ve "arcnet" gibi diğer ağlardaki tanımlarda "gw"
+belirtmek zorunludur. Çünkü ağ içinde birden çok bilgisayar vardır. Mesajın
+hangisine yönlendirileceği bilinmelidir.
+
+<P><B>O HALDE ROUTE PROGRAMININ GÖREVİ NEDİR ?</B>
+
+<P>Yukarıda anlatılan ağlara ve route komutuna ilişkin örnekler eğer
+gönderilecek adrese bir çıkış varsa çok uygun bir yöntemdir.
+
+<P>Elle yapılan yönlendirme (static routing) işlemi yönlendirme yapan
+bilgisayarda sorun olduğunda datagram mesajlarının doğru yere gitmesi
+için yeniden bir dizi komut kullanmayı zorunlu kılar. Doğal olarak
+bu işlem oldukça yavaş ve pratik olmayan bir yöntemdir. Hattın düşmesi,
+bilgisayarların bozulması gibi olasılıklarda dinamik yönlendirme
+protokolları kullanılmalıdır.
+
+<P>En çok kullanılan dinamik yöntendirme protokolları RIP (Routing
+Information Protocol) ve OSPF (Open Shortest Path First Protocol)
+protokollarıdır. RIP küçük ölçekli ağlar için çok kullanışlıdır.
+OSPF ise daha büyük ve karmaşık ağlar için yeni ve kullanışlı yöntemdir.
+
+<P>Bu protokolların kullanıldığı programlar 'routed' ve 'gated' programlarıdır.
+'routed' RIP için, 'gated' ise RIP ve OSPF için kullanılır.
+
+<P>Dinamik yönlendirme işlemlerine uygun bir örnek aşağıdaki çizimde
+açıklanmıştır :
+
+<P>
+<IMG SRC="img/ag01.gif">
+
+<P>Burada üç tane Router birimi sırası A, B, C vardır. Her birine C sııfı bir
+ethernet ağı bağlanmıştır (ağ maskesi 255.255.255.0). Aynı zamanda her
+Router diğer Router birimlerine PPP ile bağlanmıştır. Bu ağ PPP bağlantılarla
+bir üçgen gibi çalışır.
+
+<P>Router A üzerindeki yönlendirme tablosu aşağıdakine benzer :
+
+<P>
+<UL>
+# route add -net 192.168.1.0 netmask 255.255.255.0 eth0<BR>
+# route add -net 192.168.2.0 netmask 255.255.255.0 ppp0<BR>
+# route add -net 192.168.3.0 netmask 255.255.255.0 ppp1<BR>
+</UL>
+
+<P>Bu yönlendirme tablosu A ile B arasındaki bağlantı kopmadığı sürece
+düzgün çalışır. Ancak bu bağlantı koptuğunda A ethernet ağındaki bilgisayarlar
+B ethernet ağındaki bilgisayarlarla bu yönlendirme tablosu yüzünden
+konuşamazlar. Ancak her iki ethernet ağı da C ethernet ağı ile hala
+konuşabilmektedir.
+
+<P>Eğer A, C ile konuşabiliyorsa, C de B ile konuşabiliyorsa neden A ile
+B konuşamasın ki. A datagramları C üzerinden B'ye gönderirse konuşabilirler.
+Yani dinamik olarak yönlendirme tablosu değişirse konuşabilirler. RIP 
+protokolu bu tür sorunları dinamik yönlendirme ile çözmek için tasarlanmıştır.
+Her Router kendi üzerinde çalışan bir "deamon" programla kendi yönlendirme
+tablolarını duruma göre değiştirebilir ve bunu diğer Router birimlerine
+iletebilir. Bu tür ağları düzenlemek için aşağıdaki komutları kullanmak
+yeterlidir (Burada Router A için gereken komut verilmiştir).
+<UL>
+       # route add -net 192.168.1.0 netmask 255.255.255.0 eth0<BR>
+       # /usr/sbin/routed<BR>
+</UL>
+
+<P>"routed" programı tüm çalışan ağ uçlarını otomatik olarak bulur ve buna
+göre kendi yönlendirme tablolarını düzenler.
+
+<P>Burada anlatılan dinamik yönlendirme işleminin en kısa ve kullanılabilir
+açıklamasıdır.
+
+<P>Dinamik yönlendirme ile ilgili önemli noktalar :
+
+<P>
+<OL>
+  <LI>Sizin yapmanız gereken yalnız dinamik yönlerdirme protokolunu kullanan
+programı çalıştırmaktır.
+
+<P>
+  <LI>Ağınızdaki değişiklikleri yönlendirme tablolarına otomatik olarak
+yansıtır.
+
+<P>
+  <LI> RIP protokolu küçük ve orta büyüklükteki ağlar için uygun bir
+çözümdür.
+</OL>
+<P>
+
+<HR>
+
+<P><B>AĞ SUNUCULARINI VE SERVİSLERİ TANIMLAMA</B>
+
+<P>Ağ sunucuları ve servisleri kısaca ağ içindeki başka bilgisayarların bu
+sunucu hizmetlerini kullanması olarak adlandırılabilir. Uzak kullanıcı
+sunucu bilgisayara bir ağ bağlantısı kurar. Servis sunucu program "port"tan
+gelen mesajı kabul eder ve mesaja ilişkin programı çalıştırır. Ağ programları
+iki biçimde çalışır :
+
+<P><B>Yalnız Başına (Standalone)</B>
+<UL>
+Bu durumda program ağ protunu dinler, bağlantı geldiğinde bağlantıyı kurar
+ve port üzerinden servisi vermeye başlar. Program bellekte sürekli
+çalışır ve portu her zaman dinler.
+</UL>
+
+<P><B>inetd sunucusu tarafından çalıştırılarak</B>
+<UL>
+"inetd" özel bir ağ programı olup tanımlanan portların tümünü dinler.
+Bağlantı isteği olduğunda bu bağlantı için çalıştırması gereken
+programı belleğe yükler ve çalıştırarak servisi sunar. Bu işlem için
+gereken tanıtım kütüğü aşağıdaki parafgarflarda anlatılmıştır.
+</UL>
+
+<P>Burada düzenleme yapmamamız gereken iki önemli kütük vardır. Bulardan 
+biri /etc/services diğeri ise /etc/inetd.conf kütükleridir. Birincisinde
+port numaralarına servis adları atanır (21 protu için ftp atamak gibi).
+İkincisinde inetd programı bir portu dinlerken bu porta gelen
+bağlantı mesajında hangi programı nasıl çalıştıracağını belirtmek içindir.
+
+<P><B>/etc/services</B>
+
+<P>/etc/services kütüğü insanların anlayacağı port adları ile bilgisayarın
+anladığı port numarası arasındaki bağı tanımlayan bir veri tabanıdır.
+Yapısı oldukça basittir. Her satır boşluklarla ayrılmış üç ana bilgiden
+oluşur. Bu bilgi alanları kısaca :
+
+<UL>
+  adı      port/protokol        eşanlamlı_ad     # açıklama
+</UL>
+
+<P>olarak tanımlanır.
+
+<P><B>Adı</B>
+
+<UL>
+Bir kelimelik port adı. Bu servisin adını belirtir.
+</UL>
+
+<P><B>port/protokol</B>
+
+<UL>
+<P>Bu alan iki parçaya ayrılır.
+
+<UL>
+        port
+<UL>
+port numarası, adlandırılan servisin numarasıdır. Pekçok ortak servis
+numarası RFC-1340 dokumanında anlatılmıştır.
+</UL>
+</UL>
+
+<UL>
+        protocol
+<UL>
+Bu parça ya "tcp" ya da "udp" olarak tanımlanır.
+</UL>
+</UL>
+
+<P>Bilinmesi gereken önemli bir özellik 18/tcp port tanımı ile 18/udp
+port tanımı tümüyle birbirinden ayrı kavramlar olduğudur. Neden aynı port
+numarası kullanıldığı ise kısca şöyle tanımlanabilir : Bu servis hem "tcp"
+hem de "udp" için geçerlidir.
+</UL>
+
+<P><B>eşanlamlı_ad (aliases)</B>
+<UL>
+Bu servis için kullanılabilecek diğer adlar
+</UL>
+
+<P><B>"#"</B>
+<UL>
+işaretinden sonra yazılan tüm bilgi açıklama olarak kabul edilir.
+</UL>
+
+<P>Örnek bir <A HREF="etcsrv.html">/etc/services</A> kütüğü
+
+<P><B>/etc/inetd.conf</B>
+
+<P>Bu kütük inetd programı için işlem tanımlama kütüğüdür. İşlevi
+inetd programına bir hizmet için bağlantı isteği geldiğinde ne 
+yapması gerektiğini belirtir. Burada ağ programlarının hangilerinin
+hangi hizmetler için çalışacağı ve nasıl çalışacağı söylenir. inetd
+programı buradaki tanıma göre programı belleğe yükler.
+
+<P>Yapısı oldukça basittir. Her atırı bir hizmet için tanımlanmış metin
+kütüğüdür. Bir satırdaki '#' işaretinden sonrası açıklama kabul edilir.
+Her satırda yedi bilgi alanı vardır. Bilgi alanları boşluklarla ayrılmıştır.
+
+<P>
+<UL>
+       hizmet socket_tipi protokol değerler kullanıcı program_yolu program_parametreleri
+</UL>
+
+<P><B>Hizmet</B>
+<UL>
+kullandığınız bilgisayar için /etc/services kütüğündeki hizmet adlarından
+bir tanesidir.
+</UL>
+
+<P><B>socket_tipi</B>
+<UL>
+Gerçekli değerler "stream", "dgram" "raw", "rdm" ya da "seqpacket" olabilir.
+Bu değerler programın kabul ettiği mesaj türüne göre tanımlanır. (Ayrıntılı
+bilgi için <A HREF="tcpprg.html">socket_tipi</A> konusuna bakın).
+</UL>
+
+<P><B>protokol</B>
+<UL>
+Burada tanımlanan protokol tipik olaak "tcp" ya da "udp" olur. Bu bilgi
+/etc/services kütüğü ile uyumlu olmalıdır.
+Sun RPC (Remote Procedure Call) tabanlı programlarda 
+        rpc/tcp or rpc/udp kullanılır.
+</UL>
+
+<P><B>değerler</B>
+<UL>
+Bu bilginin gerçekte alabileceği değer iki tanedir. Ya "inetd" program
+işi bitince socket'i boşaltacağı için hizmeti dinlemeye devam eder. Aynı
+socket'ten gelen yeni bağlantı isteklerini kabul edip yeni program
+başlatabilir ("nowait"), ya da inetd bekler ve başlattığı program yeni bağlantı
+isteklerini kendi çözümler ("wait").
+
+<P>Genelde tüm tcp programlar için bu eğer "nowait" olamalı, upd programlar için
+"wait" olmalıdır. Yapıları gereği bu programlar ancak belirtilen biçimde
+doğru çalışabilirler.
+</UL>
+
+<P><B>kullanıcı</B>
+<UL>
+Bu alan program başladığında /etc/passwd altında tanımlı hangi kullanıcı
+adına başlatıldığını belirtmek için tanımlanır. Güvenlik nedeniyle
+pekçok ağ programının kullanıcısını "nobody" yapmak gerekebilir.
+</UL>
+
+<P><B>program_yolu</B>
+<UL>
+Bu bilgi çalışacak programın tüm yolunu gösterir
+</UL>
+
+<P><B>program_parametreleri</B>
+<UL>
+Bu bilgi alanı zorunlu değildir. Başlatılan programa geçirilecek parametrik
+bilgi bu alana yazılabilir.
+</UL>
+
+<P>Örnek bir <A HREF="inetd.html">/etc/inetd.conf</A> kütüğü
+
+<HR>
+
+<P><B>AĞLAR İÇİN GEREKLİ DİĞER ÖNEMLİ TANIM KÜTÜKLERİ</B>
+
+<P>Çeşitli UNIX ortamlarında bulabileceğiniz ağ tanımlarına ilişkin kütüklerin
+içeriği hakkında kısa açıklama burada anlatılmıştır. Belki bu kütükleri
+hiç değiştirmeniz gerekmez. Ama gerektiğinde yapılarını bilmenizde yarar
+vardır.
+
+<P><B>/etc/protocols</B>
+
+<P>/etc/protocols adı kütük kullanılan protokol adları ile numaralarının
+gösterildiği bir tablo biçimindedir. Protokolları adları ile kullanan
+programlarda (tcpdump gibi) ilgili hizmeti adı ile yazmak gerektiğinde
+kullanılır. Genel yapısı :
+
+<UL>
+       Protokol_adı  numarası eşanlamlı_adı
+</UL>
+
+<P>Örnek bir /etc/protocols kütüğü :
+
+<P>
+<TABLE>
+<TR><TD COLSPAN=4>  # /etc/protocols:</TD><TR>
+<TR><TD COLSPAN=4> # $Id: protocols,v 1.1 1995/02/24 01:09:41 imurdock Exp $</TD><TR>
+<TR><TD COLSPAN=4>#</TD><TR>
+<TR><TD COLSPAN=4># Internet (IP) protocols</TD><TR>
+<TR><TD COLSPAN=4>#</TD><TR>
+<TR><TD COLSPAN=4>#       from: @(#)protocols     5.1 (Berkeley) 4/17/89</TD><TR>
+<TR><TD COLSPAN=4>#</TD><TR>
+<TR><TD COLSPAN=4># Updated for NetBSD based on RFC 1340, Assigned Numbers (July 1992).</TD><TR>
+<TR><TD>  ip      </TD><TD>0      </TD><TD> IP              </TD><TD># internet protocol, pseudo protocol number</TD></TR>
+<TR><TD>  icmp    </TD><TD>1      </TD><TD> ICMP            </TD><TD># internet control message protocol</TD></TR>
+<TR><TD>  igmp    </TD><TD>2      </TD><TD> IGMP            </TD><TD># Internet Group Management</TD></TR>
+<TR><TD>  ggp     </TD><TD>3      </TD><TD> GGP             </TD><TD># gateway-gateway protocol</TD></TR>
+<TR><TD>  ipencap </TD><TD>4      </TD><TD> IP-ENCAP        </TD><TD># IP encapsulated in IP (officially ``IP'')</TD></TR>
+<TR><TD>  st      </TD><TD>5      </TD><TD> ST              </TD><TD># ST datagram mode</TD></TR>
+<TR><TD>  tcp     </TD><TD>6      </TD><TD> TCP             </TD><TD># transmission control protocol</TD></TR>
+<TR><TD>  egp     </TD><TD>8      </TD><TD> EGP             </TD><TD># exterior gateway protocol</TD></TR>
+<TR><TD>  pup     </TD><TD>12     </TD><TD> PUP             </TD><TD># PARC universal packet protocol</TD></TR>
+<TR><TD>  udp     </TD><TD>17     </TD><TD> UDP             </TD><TD># user datagram protocol</TD></TR>
+<TR><TD>  hmp     </TD><TD>20     </TD><TD> HMP             </TD><TD># host monitoring protocol</TD></TR>
+<TR><TD>  xns-idp </TD><TD>22     </TD><TD> XNS-IDP         </TD><TD># Xerox NS IDP</TD></TR>
+<TR><TD>  rdp     </TD><TD>27     </TD><TD> RDP             </TD><TD># "reliable datagram" protocol</TD></TR>
+<TR><TD>  iso-tp4 </TD><TD>29     </TD><TD> ISO-TP4         </TD><TD># ISO Transport Protocol class 4</TD></TR>
+<TR><TD>  xtp     </TD><TD>36     </TD><TD> XTP             </TD><TD># Xpress Tranfer Protocol</TD></TR>
+<TR><TD>  ddp     </TD><TD>37     </TD><TD> DDP             </TD><TD># Datagram Delivery Protocol</TD></TR>
+<TR><TD>  idpr-cmtp      </TD><TD> 39     </TD><TD> IDPR-CMTP       </TD><TD># IDPR Control Message Transport</TD></TR>
+<TR><TD>  rspf    </TD><TD>73     </TD><TD> RSPF            </TD><TD># Radio Shortest Path First.</TD></TR>
+<TR><TD>  vmtp    </TD><TD>81      </TD><TD>VMTP            </TD><TD># Versatile Message Transport</TD></TR>
+<TR><TD>  ospf    </TD><TD>89      </TD><TD>OSPFIGP         </TD><TD># Open Shortest Path First IGP</TD></TR>
+<TR><TD>  ipip    </TD><TD>94      </TD><TD>IPIP            </TD><TD># Yet Another IP encapsulation</TD></TR>
+<TR><TD>  encap   </TD><TD>98     </TD><TD> ENCAP           </TD><TD># Yet Another IP encapsulation</TD></TR>
+</TABLE>
+
+<P><B>/etc/networks</B>
+
+<P>/etc/networks kütüğü işlevsel olarak /etc/hosts adlı kütük gibi çalışır.
+Ağ adları ve numaraları ile ilgili basit bir veri tabanı olarak kullanılır.
+Ad sunucu kullanılmadığı durumlarda önemli olabilir. Bu kütüğün her
+satırında iki bilgi alanı vardır :
+
+<UL>
+       # ağ_adı ağ_adresi
+</UL>
+
+<P>Bu konuda bir örnek şöyle tanımlanabilir :
+
+<UL>
+       loopnet    127.0.0.0<BR>
+       localnet   195.174.130.0<BR>
+       amprnet    44.0.0.0<BR>
+</UL>
+
+<P>Eğer "route" komutu gibi komutlar kullanıyorsanız ve bu komutta yer alan
+ağ bilgisi /etc/networks kütüğünde varsa, "route" komutu ağ numarası yerine ağ
+adını görüntüler.
+
+<P><B>Ağ güvenliği ve Erişim Denetimi</B>
+
+<P>Bu konuda ayrıntılı bilgi <A HREF="secur.html">UNIX Ortamında Güvenlik Önlemleri</A> adlı yazıda anlatılmıştır.
+Buarada yinelemek yerine oraya bağlantı verdim.
+
+<HR>
+
+<P><B>AĞ TEKNOLOJİSİNE İLİŞKİN BİLGİLER</B>
+
+<P>Burada yer alan ağ teknolojilerine ilişkin bilgiler LINUX için geçerlidir.
+Başka UNIX otamlarındaki ağ teknolojilerine uyumlu olmayabilir, ama
+konuya ilişkin genel bilgi amacı ile kullanılabilir (Bakınız :
+<A HREF="agteknik.html">AĞ TEKNOLOJİSİ</A>).
+
+<HR>
+
+<P><B>KABLOLAR VE KABLOLAMA</B>
+
+<P>Kablo yapabilenler ve lehimlemeyi bilenler için size yardımcı olabilecek
+bazı kablo bilgileri burada anlatılmıştır.
+
+<P><B>NULL Modem (Modemsiz) Seri uç Kablosu</B>
+
+<P>Tüm NULL modem kabloları benzer değildir. Pekçok NULL modem kablosu
+yalnız bilgisayarınızı kandırmakla kalmaz, tüm sinyallerin var olduğunu
+kabul ederek "Transmit" ve éReceive" uçlarını ters çevirir. Bunda bir
+sakınca yoktur. Ama o zaman yazılım akış kontrollu olan XON/XOFF protokolu
+kullanmanız gerekir. Bu protokol donanım akış protokoluna göre çok daha
+yavaş çalışır. Aşağıdaki kablo iki bilgisayar arasındaki en uygun ve olası
+sinyal alış verişini sağlayan RTS/CTS kontolunu kullanmanıza olanak
+veren bir örnektir.
+
+<UL>
+<P>
+<TABLE>
+<TR><TH>Pin Adı  </TH><TH>Pin </TH><TH></TH><TH> Pin</TH></TR>
+<TR><TD>Tx Data   </TD><TD> 2  </TD><TD>-----------------------------</TD><TD>  3</TD></TR>
+<TR><TD>Rx Data   </TD><TD> 3  </TD><TD>-----------------------------</TD><TD>  2</TD></TR>
+<TR><TD>RTS       </TD><TD> 4  </TD><TD>-----------------------------</TD><TD>  5</TD></TR>
+<TR><TD>CTS       </TD><TD> 5  </TD><TD>-----------------------------</TD><TD>  4</TD></TR>
+<TR><TD>Ground    </TD><TD> 7  </TD><TD>-----------------------------</TD><TD>  7</TD></TR>
+<TR><TD>DTR       </TD><TD> 20 </TD><TD>-\---------------------------</TD><TD>  8</TD></TR>
+<TR><TD>DSR       </TD><TD> 6  </TD><TD>-/</TD><TD></TD></TR>
+<TR><TD>RLSD/DCD  </TD><TD> 8  </TD><TD>---------------------------/-</TD><TD>  20</TD></TR>
+<TR><TD>                  </TD><TD>    </TD><TD ALIGN=RIGHT>                   \-</TD><TD>  6</TD></TR>
+</TABLE>
+</UL>
+
+<P><B>Paralel uç kablosu (PLIP kablosu)</B>
+
+<P>İki makine arasında PLIP protokolu kullanmak isterseniz aşağıdaki
+kablo ne tür paralel uç bağlantınız olursa olsun çalışır.
+
+<UL>
+<P>
+<TABLE>
+<TR><TH>Pin Adı     </TH><TH>pin           </TH><TH></TH><TH> pin</TH></TR>
+<TR><TD>STROBE     </TD><TD> 1*</TD><TD></TD><TD></TD></TR>
+<TR><TD>D0->ERROR  </TD><TD> 2 </TD><TD> -----------</TD><TD> 15</TD></TR>
+<TR><TD>D1->SLCT   </TD><TD> 3 </TD><TD> -----------</TD><TD> 13</TD></TR>
+<TR><TD>D2->PAPOUT </TD><TD> 4 </TD><TD> -----------</TD><TD> 12</TD></TR>
+<TR><TD>D3->ACK    </TD><TD> 5 </TD><TD> -----------</TD><TD> 10</TD></TR>
+<TR><TD>D4->BUSY   </TD><TD> 6 </TD><TD> -----------</TD><TD> 11</TD></TR>
+<TR><TD>D5         </TD><TD> 7*</TD><TD></TD><TD></TD></TR>
+<TR><TD>D6         </TD><TD> 8*</TD><TD></TD><TD></TD></TR>
+<TR><TD>D7         </TD><TD> 9*</TD><TD></TD><TD></TD></TR>
+<TR><TD>ACK->D3    </TD><TD> 10</TD><TD> -----------</TD><TD> 5</TD></TR>
+<TR><TD>BUSY->D4   </TD><TD> 11</TD><TD> -----------</TD><TD> 6</TD></TR>
+<TR><TD>PAPOUT->D2 </TD><TD> 12 </TD><TD>-----------</TD><TD> 4</TD></TR>
+<TR><TD>SLCT->D1   </TD><TD> 13 </TD><TD>-----------</TD><TD> 3</TD></TR>
+<TR><TD>FEED       </TD><TD> 14*</TD><TD></TD><TD></TD></TR>
+<TR><TD>ERROR->D0  </TD><TD> 15</TD><TD> -----------</TD><TD> 2</TD></TR>
+<TR><TD>INIT      </TD><TD>  16*</TD><TD></TD><TD></TD></TR>
+<TR><TD>SLCTIN     </TD><TD> 17*</TD></TR>
+<TR><TD>GROUND     </TD><TD> 25</TD><TD> -----------</TD><TD> 25</TD></TR>
+</TABLE>
+</UL>
+
+<P><B>Notlar :</B>
+
+  <P><LI>'*' ile işaretlenmiş uçları sakın lehimlemeyin, boş kalsın.
+
+  <P><LI>Diğer topraklar 18, 19, 20, 21, 22, 23 ve 24 nolu pin'lerdir.
+
+  <P><LI>Eğer kullandığınız kablonun metalik koruyucu kafesi varsa
+bu kafes kablonun yalnız bir ucundan DB-25 şasesine lehimlenmelidir.
+
+<P>Uyarı : Yalnış lehimlenmiş bir kablo paralel uçunuzu yakıp kartınızı
+bozabilir. Kabloyu takmadan birkaç kez kontrol edin lütfen.
+
+<P><B>10base2 (thin coax) Ethernet Kablolaması</B><P>
+
+<IMG SRC="img/ag02.gif" ALIGN=LEFT>
+<P>10base2, 52 ohm'luk 5mm çapında ince coaxial kablodur ve ethernet
+ağlarını kablolamak için kullanılır. Bilgisayarları 10base2 ile
+bağlarken dikkate alınması gereken bazı önemli noktalar vardır.
+
+<LI>Kablonun her iki ucunda terminatör (sonlandırıcı) bulunmalıdır.
+Bir sonlandırıcı 52 ohmluk resistans'dır. Böylece kablonun sonuna
+ulaşan mesaj sonlandırıcı tarafından emilir ve kablo boyunca yasıma
+yapmak. Bilgisayarları kabloya yerleştirmek için "T" tipi
+konnektör gereklidir. (Örnek kablo için çizim-2'ye bakın).
+Burada kullanılan "T" konnektör doğrudan ethernet kartına takılır
+(arada uzatma kablosu kullanılmaz).
+
+<P><B>Twisted Pair Ethernet Kablosu</B>
+
+<P>Eğer yalnız twisted pair ethernet kartlarınız varsa, onları ağa bağlamak
+için bir hup kullanmanız gerekmez. İki kartı birbirlerine doğrudan
+bağlayabilirsiniz.
+<P>
+<HR>
+<CENTER><B>SÖZLÜK</B></CENTER>
+<HR>
+
+<P>Bu belgede kullanılan terimlere ilişki küçük bir sözlük
+
+<UL>
+     ARP
+<UL>
+Adres çözümleme Protokolu (Address Resolution Protocol) için
+bir kısaltmadır. Bu yöntem donanım adresi ile ağ adresinin birbirine
+nasıl bağdaştırıldığını gösterir.
+</UL>
+</UL>
+<UL>
+     ATM (Asynchronous Transfer Mode)
+<UL>
+Asynchronous Transfer Mode için bir kısatmadır.  Bir ATM ağında
+mesajlar değişmez boydaki paketlere dönüştürülerek bir noktadan diğerine
+aktarılır. ATM devre anahtarlamalı paket ağı teknolojidir.
+</UL>
+</UL>
+
+<UL>
+     client
+<UL>
+Kullanıcının bulunduğu yerdeki bilgisayar ya da yazılım parçasının adıdır.
+Bu program ya da bilgisayar sunucudan hizmet alır. SLIP ve PPP gibi
+iki uç arasındaki bağlantılarda çağırılan tarafa verilen addır.
+</UL>
+</UL>
+
+<UL>
+     datagram
+<UL>
+Bir datagram veri ve adresleri içeren başlık bilgisi ile bir paketin
+tümüne verilen addır. IP ağının temel öğesidir. Buna yalnızca "paket" adı
+da verilebilir.
+</UL>
+</UL>
+
+<UL>
+     DLCI (Data Link Connection Identifier)
+<UL>
+Frame Relay bağlantıda iki uç arasındaki sanal bağlantıyı tanımlar. DLCI
+Frame Relay sunucusu tarafından atanır.
+</UL>
+</UL>
+
+<UL>
+     Frame Relay
+<UL>
+Bir ağ teknolojisi olarak üzerinden geçen trafik yüküne uyumlu bir yapısı
+vardır. Ağ maliyetleri ağı paylaşan müşteriler tarafından azaltılablir.
+</UL>
+</UL>
+
+<UL>
+     Hardware address
+<UL>
+Bilgisayarı fiziksel ağ içinde (media access layer) tekil olarak 
+adlandırmaya yarayan bir sayıdır.
+Ethernet adresi, AX.25 adresi örnek olarak kullanılabilir.
+</UL>
+</UL>
+
+<UL>
+     ISDN (Integrated Services Dedicated Network).
+<UL>
+Bu Inegrated Services Dedicated Network sözlerinin kısaltması olan bir deyimdir.
+Ses ve veri iletişimi için İletişim kurumu tarafından sunulan bir alt yapıdır.
+Teknik olarak ISDN, devre anahtarlamalı veri ağıdır.
+</UL>
+</UL>
+
+<UL>
+     ISP
+<UL>
+Bu INTERNET Servis Sunucusu için kullanılan bir kısaltmadır. ISP kurum ve
+insanları INTERNET ortamına bağlama görevini üstlenir.
+</UL>
+</UL>
+
+<UL>
+     IP address (IP adresi)
+<UL>
+Bu sayı bir TCP/IP bilgisayaraını ağ içinde tekil olarak tanımlanmsında
+kullanılan bir değerdir. 4 byte uzunluğundaki adres 'noktalı sayısal
+gösterim' ile yazılır. Bu gösterim biçiminde her byte 0 ile 255
+arasındaki ondalık sayılarla yazılır ve aralarında nokta bulunur.
+</UL>
+</UL>
+
+<UL>
+     MSS (Maximum Segment Size - En büyük parça boyu)
+<UL>
+Bir işlemde gönderilebilecek en büyük veri boyuna verilen addır. Yerel
+ortamda mesajların parçalanmasını istemiyorsanız MMS ile MTU-IP değerleri
+eşit olmalıdır.
+</UL>
+</UL>
+
+<UL>
+     MTU (Maximum Transmission Unit - En büyük gönderme birimi)
+<UL>
+IP arayüzü tarafından parçalanmadan taşınabilecek en büyük datagram 
+boyunu tanımlayan bir parametredir. Bu datagram gideceği yere ulaşıncaya
+kadar geçeceği yollarda değişik MTU parametre değerleri yüzünden
+parçalanabilir, ama tanımlandığı ağ arayüzünde parçalanmaz. Bu değer
+parçalanmadan taşınmasını istediğiniz en büyük datagram boyundan
+büyük olmalıdır. ethernet arayüzü için 1500, SLIP arayüzü için 576 byte
+tipik değerlerdir.
+</UL>
+</UL>
+
+<UL>
+     route (yol, yön)
+<UL>
+"route" bir datagram mesajının gideceği yere ulaşması için kullandığı yol
+ya da yön olarak adlandırılır.
+</UL>
+</UL>
+<UL>
+     server (sunucu)
+<UL>
+Bu genelde kullanıcıdan uzakta bulunan bir bilgisayar ya da yazılım
+parçasıdır. Sunucu, bir ya da daha çok isteğe hizmet verir. Sunucu
+için tipik örnekler "ftp", "NFS", "Domain Name Server". İki uç
+arasındaki bağlantılarda (slip ya da ppp bağlantıda) sunucu kendisine
+bağlantı yapılan uç olarak adlandırılır. Bağlantıyı yapana da ....
+denir.
+</UL>
+</UL>
+
+<UL>
+     window
+<UL>
+Mesaj alan tarafta, verilen bir zamanda, alınabilen en büyük mesaj boyuna
+window adı verilir.
+</UL>
+</UL>
+<HR>
+
+<P><B>INTERNET SERVİS SUNUCU olarak LINUX kullanırsanız</B>
+
+<P>ISS (Internet Servis Sağlayıcı) olarak Linux kullandığınızda
+  <A HREF=http://www.anime.net/linuxisp/">
+  &lt;http://www.anime.net/linuxisp/&gt;</A>
+WEB adresinden istediğiniz bilgiye erişebilirsiniz.
+<BR>
+</TD></TR>
+<TR>
+<TD COLSPAN=2>
+<HR>
+<A HREF="http://www.aybim.com.tr/">Ana Sayfaya</A>
+&nbsp;&nbsp;<A HREF="index.html">Teknik Bilgiler Sayfasina</A>
+</TD></TR></TABLE>
+</BODY>
+</HTML>

@@ -1,0 +1,157 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Hyperlink Preprocessor </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">31 Mart 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>Microsoft SQL SUnucu İşlevler</h2>
+
+<h3>Giriş</h3>
+
+Bu işlevler MS SQL Sunucu Veritabanına erişmenizi sağlar
+
+<h3>Win32 Ortamı için Gereksinim.</h3>
+
+Uzantı MS SQL İstemci araçlarına gerek duyar. PHP olan sistemde bunlar da
+olmalıdır. İstemci araçları MS SQL Sunucu CD'sinden indirilebilir.
+\winnt\system32 altındaki ntwdblib.dll kopyalanır. Erişim yalnız adlandırılmış
+borularla (named pipes) sağlanır. İstemcinin ayarları tüm araçların
+yüklenmesini gerektirir.
+
+<h3>Unix/Linux Ortamı için Gereksinim.</h3>
+
+Unix/Linux üzerinde MSSQL uzantısını kullanmak için FreeTDS kitaplığına gerek
+vardır. Kurulumu hakkındaki bilgi http://www.freetds.org/ adresinden sağlanır.
+
+Windows altında, Microsoft'tan alınan DBLIB kullanılır. Kolon adını döndüren işlevler DBLIB içindeki dbcolname() tabanına dayanır. DBLIB MSSQL sunucu 6.x için geliştirilmiştir. Burada en çok tanıtıcı boyu 30 olur. Bu nedenle en geniş kolon eni 30 olmaktadır. FreeTDS kullanılan ortamlarda boyle bir sorun yoktur.
+
+<h3>Kurulum</h3>
+
+pgp.ini içine extension=php_mssql.dll eklenerek MSSQL uzantısı  açılır.
+
+Bu işlevlerin çalışabilmesi için PHP "--with-mssql[=DIR]" ile derlenmelidir.
+DIR FreeTDS kurulum yoludur. FreeTDS derlenirken "--enable-msdblib" seçeneği
+kullanılmış olmalıdır.
+
+<h3>Çalışma Zamanı Ayarları</h3>
+
+Bu işlevlerin davranışı php.ini ayarlarından etkilenir.
+
+<h3>MS SQL Sunucu ayarlama seçenekler</h3>
+
+<table class="yazi">
+<tr><td>Adı</td><td>Varsayılan</td><td>DSeğişebilir</td><td>DeğişimKaydı</td></tr>
+<tr><td>mssql.allow_persistent</td><td>"1"</td><td>PHP_INI_SYSTEM</td><td></td></tr>
+<tr><td>mssql.max_persistent</td><td>"-1"</td><td>PHP_INI_SYSTEM</td><td></td></tr>
+<tr><td>mssql.max_links</td><td>"-1"</td><td>PHP_INI_SYSTEM</td><td></td></tr>
+<tr><td>mssql.min_error_severity</td><td>"10"</td><td>PHP_INI_ALL</td><td></td></tr>
+<tr><td>mssql.min_message_severity</td><td>"10"</td><td>PHP_INI_ALL</td><td></td></tr>
+<tr><td>mssql.compatability_mode</td><td>"0"</td><td>PHP_INI_ALL</td><td></td></tr>
+<tr><td>mssql.connect_timeout</td><td>"5"</td><td>PHP_INI_ALL</td><td></td></tr>
+<tr><td>mssql.timeout</td><td>"60"</td><td>PHP_INI_ALL</td><td>PHP 4.1.0. den beri var</td></tr>
+<tr><td>mssql.textsize</td><td>"-1"</td><td>PHP_INI_ALL</td><td></td></tr>
+<tr><td>mssql.textlimit</td><td>"-1"</td><td>PHP_INI_ALL</td><td></td></tr>
+<tr><td>mssql.batchsize</td><td>"0"</td><td>PHP_INI_ALL</td><td>PHP 4.0.4. den beri var</td></tr>
+<tr><td>mssql.datetimeconvert</td><td>"1"</td><td>PHP_INI_ALL</td><td>PHP 4.2.0. den beri var</td></tr>
+<tr><td>mssql.secure_connection</td><td>"0"</td><td>PHP_INI_SYSTEM</td><td>PHP 4.3.0. den beri var</td></tr>
+<tr><td>mssql.max_procs </td><td>"-1"</td><td>PHP_INI_ALL</td><td>PHP 4.3.0. den beri var</td></tr>
+</table>
+PHP_INI_* değişmezleri hakkında daha çok bilgi almak için php.ini
+yönelticilerine bakın
+
+<h3>Önceden Tanımlı Değişmezler</h3>
+
+Aşağıdaki değişmezler bu uzantı için geçerlidir. Uzantı yüklü değilse
+kullanılamaz.
+
+<pre>
+MSSQL_ASSOC (tamsayı)
+MSSQL_NUM (tamsayı)
+MSSQL_BOTH (tamsayı)
+SQLTEXT (tamsayı)
+SQLVARCHAR (tamsayı)
+SQLCHAR (tamsayı)
+SQLINT1 (tamsayı)
+SQLINT2 (tamsayı)
+SQLINT4 (tamsayı)
+SQLBIT (tamsayı)
+SQLFLT8 (tamsayı)
+</pre>
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> mssql_bind — Saklanan işleme ya da uzaktaki saklanan işleme yeni bir değişgeç ekler
+    <li> mssql_close — MS SQL Sunucu bağlantısını kapat
+    <li> mssql_connect — MS SQL Sunucu bağlantısını aç
+    <li> mssql_data_seek — İçsel satır göstergesini taşı
+    <li> mssql_execute — Saklanan bir işlemi MS SQL sunucu veritabanında çalıştırı
+    <li> mssql_fetch_array — Sonuç satırını ilişkili dizi ya da sayısal dizi ya da her ikisi biçiminde bulur
+    <li> mssql_fetch_assoc — sonuçtaki o anki satırı ilişkili dizi olarak döndürür
+    <li> mssql_fetch_batch — Bir sonraki toplu işlem kayıtlarını döndürür
+    <li> mssql_fetch_field — Alan bilgisini al
+    <li> mssql_fetch_object — Satırı nesne olarak bul
+    <li> mssql_fetch_row — Satırı sıralanmış dizi olarak al
+    <li> mssql_field_length — Alan boyunu al
+    <li> mssql_field_name — Alan adını al
+    <li> mssql_field_seek — Belirtilen alan uzaklığını ara
+    <li> mssql_field_type — Alan tipini al
+    <li> mssql_free_result — Sonuç belleğini boşalt
+    <li> mssql_free_statement — Deyim belleğini boşalt
+    <li> mssql_get_last_message — Sunucudan son mesajı döndürür
+    <li> mssql_guid_string — 16 bayt'lık ikili GUID yazı dizisine döndürürlür
+    <li> mssql_init — Saklanmış işlemi ya da uzaktaki saklanmış işlemi ilkler
+    <li> mssql_min_error_severity — Ciddi hata alt sınırını ayarlar
+    <li> mssql_min_message_severity — Ciddi mesaj alt sınırını ayarlar
+    <li> mssql_next_result — İçsel sonuç göstergesini sonraki sonuca taşı
+    <li> mssql_num_fields — Sonuçtaki alan sayısını al
+    <li> mssql_num_rows — Sonuçtaki satır sayısını al
+    <li> mssql_pconnect — Sürekli MS SQL bağlantısı aç
+    <li> mssql_query — MS SQL sorgusu gönder
+    <li> mssql_result — Sonuç verisini al
+    <li> mssql_rows_affected — Sorgudan etkilenen kayıt sayısını döndürür
+    <li> mssql_select_db — MS SQL veritabanını seç
+</ul>
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

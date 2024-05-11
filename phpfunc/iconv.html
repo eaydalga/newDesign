@@ -1,0 +1,135 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Hyperlink Preprocessor </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">16 Mart 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>iconv İşlevleri</h2>
+<h3>Giriş</h3>
+
+Bu modül iconv karakter takımı çevirme özelliğine arayüz içerir. Bu modülle
+yerel karakter takımından oluşan bir yazı dizisini bir başka karakter
+takımıyla gösterilen yazı dizisine çevirebilirsiniz. Desteklenen karakter
+takımları sisteminizin iconv uygulamasına bağldır. Bazı sistemlerde iconv
+beklediğiniz gibi çalışmayabilir. Bu gibi durumlarda GNU libiconv kitaplığını
+kurmak yararlıdır. O zaman en doğru sonucu elde edebilirsiniz.
+<br /><br />
+PHP 5.0.0 sürümünden beri, bu uzantı bir takım hazır uygulamalarla gelir. O
+zaman çok dilli kodlamalar yapabilirsiniz. Yeni özellikleri görmek için
+aşağıdaki bölümü inceleyelim.
+<h3>Gereksinim</h3>
+
+Eğer son sürüm POSIX-uyumlu sistem kullanıyorsanız, standart C kitaplığı zaten
+iconv özelliğini sağlamaktadır. Aksi halde libiconv kitaplığını sisteminize
+kurmanız gerekir.
+<h3>Kurulum</h3>
+
+Bu modül ile sağlanan işlevleri kullanmak için PHP ikilisi
+"--with-iconv[=DIR]" ile derlenmiş olmalıdır.
+<br /><br />
+    Not: Note ndows® Kullanıcılarının dikkatine<br />
+Windows ortamında bu modülü kullanabilmek için, iconv.dll ya da iconv-1.3.dll dosyasını PHP/win32 ikili pakaetleriyle birlikte paketlenmiş olarak PATH çevresel değişkeniyle tanımlanan klasöre yerleştirmelisiniz. Bu modül PHP5'de paketin bir parçası olduğundan artık iconv.dll gerekmemektedir.
+
+<h3>Çalışma zamanı ayarları</h3>
+
+Bu işlevlerin davranılı php.ini ayarlarıyla etkilenir.
+
+<h3>Iconv ayarlama seçenekleri</h3>
+<table class="yazi">
+<tr><td>Name</td><td>Varsayılan</td><td>Değişebilen</td><td>Değişme Kaydı</td></tr>
+<tr><td>iconv.input_encoding</td><td>"ISO-8859-1"</td><td>PHP_INI_ALL</td><td>PHP 4.0.5. sürümünden beri var</td></tr>
+<tr><td>iconv.output_encoding</td><td>"ISO-8859-1"</td><td>PHP_INI_ALL</td><td>PHP 4.0.5. sürümünden beri var</td></tr>
+<tr><td>iconv.internal_encoding</td><td>"ISO-8859-1"</td><td>PHP_INI_ALL</td><td>PHP 4.0.5. sürümünden beri var</td></tr>
+</table>
+PHP_INI_* değişmezleri hakkında daha geniş bilgi için php.ini ynelticilerine
+bakın.
+<h3>Uyarı</h3>
+
+Bazı sistemler (IBM AIX gibi) "ISO-8859-1" yerine "ISO8859-1" kullanırlar. Bu nedenler değer ayar seçeneklerinde ve işlev değişgeçlerinde kullanılır.
+<br /><br />
+    Not: iconv.input_encoding ayar seçeneği şu anda hiç bir şey için kullanılmamaktadır.
+
+<h3>Önceden tanımlı değişmezler</h3>
+
+PHP 4.3.0 sürümünden beri bu uzantıyla hangi iconv uygulamasının kullanıldığı çalışma zamanında belirtilebilmektedir.
+<h3>iconv değişmezleri</h3>
+<table class="yazi">
+<tr><td>Ad</td><td>Tür</td><td>Açıklama</td></tr>
+<tr><td>ICONV_IMPL</td><td>string</td><td>Uygulama adı</td></tr>
+<tr><td>ICONV_VERSION</td><td>string</td><td>Uygulama sürümü</td></tr>
+</table>
+
+    Not: Uygulama bağımlı kodlamalar yazmak (bu değişmezlerle) hiç önerilmez.
+<br /><br />
+PHP 5.0.0 sürümünden beri, aşağıdaki değişmezler de var:
+
+<h3>iconv değişmezleri PHP 5.0.0 sürümünden beri var</h3>
+
+<table class="yazi">
+<tr><td>Ad</td><td>Tür</td><td>Açıklama</td></tr>
+<tr><td>ICONV_MIME_DECODE_STRICT</td><td>tamsayı</td><td>iconv_mime_decode() için kullanılan bit maskesi</td></tr>
+<tr><td>ICONV_MIME_DECODE_CONTINUE_ON_ERROR</td><td>tamsayı</td><td>iconv_mime_decode() için kullanılan bit maskesi</td></tr>
+</table>
+
+GNU Recode işlevlerine de bakın...
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> iconv_get_encoding — iconv uzantısı için içsel ayar değişkenlerini alır
+    <li> iconv_mime_decode_headers — Çoklu MIME başlık alanlarının bir kerede kodunu açar
+    <li> iconv_mime_decode — MIME başlık alanının kodunu açar
+    <li> iconv_mime_encode — MIME başlık alanını oluşturur
+    <li> iconv_set_encoding — Karakter kodlama çevirimi için o anki ayarları kurur.
+    <li> iconv_strlen — Yazı dizisinin karakter sayısını döndürür.
+    <li> iconv_strpos — Bir saman yığınında iğnenin ilk bulunduğu yeri bulur.
+    <li> iconv_strrpos — Saman yığınında iğnenin son bulunduğu yeri bulur.
+    <li> iconv_substr — Yazı dizisinin bir bölümünü keser
+    <li> iconv — Yazı dizisini istenen karakter kodlamasına çevirme
+    <li> ob_iconv_handler — Karakter kodlamasını çıktı tampon göstergesi olarak çevir.
+</ul>
+
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

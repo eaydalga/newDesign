@@ -1,0 +1,209 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Sınıf/Nesne (Class/Object) İşlevleri</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">18 Şubat 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>Sınıf/Nesne (Class/Object) İşlevleri</h2>
+
+<h3>Giriş</h3>
+
+Bu işlev sınıflar ve nesne kopyaları hakkında bilgi toplamanızı sağlar. Bir
+nesnenin ait olduğu sınıfın adı öğrenebilirsiniz. Bu işlevleri kullanarak,
+yalnız nesnenin sınıf üyeliğini bulmaz, babalık bilgilerine de
+erişebilirsiniz.
+
+<h3>Örnekler</h3>
+
+Bu örneklerde önce temel sınıf tanımlanmış daha sonra uzantı eklenmiştir.
+Temel sınıf genel olarak vegetable (sebze) tanımını içerir (değiştirilebilir
+mi ve rengi nedir gibi). Alt sınıf Spinach (Ispanak) ona cook (pişirme) adlı
+yöntem ekler ve pişip pişmediğini belirtir.
+
+<h3>Örnek: classes.inc</h3>
+<pre>
+&lt;?php
+
+// member özellikleri ve yöntemleriyle temel sınıf
+class Vegetable {
+
+    var $edible;
+    var $color;
+
+    function Vegetable($edible, $color="green") 
+    {
+        $this->edible = $edible;
+        $this->color = $color;
+    }
+
+    function is_edible() 
+    {
+        return $this->edible;
+    }
+
+    function what_color() 
+    {
+        return $this->color;
+    }
+    
+} // Vegetable sınıfı sonu
+
+// temel sınıfın uzantısı
+class Spinach extends Vegetable {
+
+    var $cooked = false;
+
+    function Spinach() 
+    {
+        $this->Vegetable(true, "green");
+    }
+
+    function cook_it() 
+    {
+        $this->cooked = true;
+    }
+
+    function is_cooked() 
+    {
+        return $this->cooked;
+    }
+    
+} // Spinach sınıf sonu
+
+?&gt;
+</pre>
+
+We then instantiate 2 objects from these classes and print out information about them, including their class parentage. We also define some utility functions, mainly to have a nice printout of the variables.
+
+<h3>Örnek: test_script.php</h3>
+<pre>
+&lt;?php
+
+include "classes.inc";
+
+// yardımcı işlevler
+
+function print_vars($obj) 
+{
+    foreach (get_object_vars($obj) as $prop => $val) {
+        echo "\t$prop = $val\n";
+    }
+}
+
+function print_methods($obj) 
+{
+    $arr = get_class_methods(get_class($obj));
+    foreach ($arr as $method) {
+        echo "\tfunction $method()\n";
+    }
+}
+
+function class_parentage($obj, $class) 
+{
+    if (is_subclass_of($GLOBALS[$obj], $class)) {
+        echo "$obj nesnesi " . get_class($$obj). " sınıfınındır";
+        echo " $class alt sınıfıdır\n";
+    } else {
+        echo "$obj nesnesi $class alt sınıfına ait değildir\n";
+    }
+}
+
+// iki nesnenin kopyaları
+
+$veggie = new Vegetable(true, "blue");
+$leafy = new Spinach();
+
+// nesneler hakkında bilgi yazdır
+echo "veggie: CLASS " . get_class($veggie) . "\n";
+echo "leafy: CLASS " . get_class($leafy);
+echo ", PARENT " . get_parent_class($leafy) . "\n";
+
+// veggie özelliklerini göster
+echo "\nveggie: Özellikleri\n";
+print_vars($veggie);
+
+// ve leafy yöntemlerini
+echo "\nleafy: Yöntemler\n";
+print_methods($leafy);
+
+echo "\nBabalık:\n";
+class_parentage("leafy", "Spinach");
+class_parentage("leafy", "Vegetable");
+?&gt;
+</pre>
+
+One important thing to note in the example above is that the object $leafy is an instance of the class Spinach which is a subclass of Vegetable, therefore the last part of the script above will output:
+<pre>
+       [...]
+Bablık:
+leafy nesnesi Spinach alt sınıfına ait değildir
+leafy nesnesi spinach sınıfınındır Vegetable alt sınıfıdır
+</pre>
+
+       
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> call_user_method_array — artık kullanılmıyor
+    <li> call_user_method — artık kullanılmıyor
+    <li> class_exists — Sınıf tanımlandı mı diye bakar.
+    <li> get_class_methods — Sınıfın yöntemlerinin adlarını alır
+    <li> get_class_vars — Sınıfın varsayılan özelliklerini alır
+    <li> get_class — nesne sınıfının adını döndürür.
+    <li> get_declared_classes — Tanımlanan sınıfların adlarından oluşan diziyi döndürür.
+    <li> get_declared_interfaces — Tüm tanımlanan arayüzlerin dizisini döndürür
+    <li> get_object_vars — Verilen nesnenin özelliklerini alır
+    <li> get_parent_class — Nesne y ada sınıfın üst düzey (babası) sınıf adını
+    <li> döndürür
+    <li> interface_exists — Arayüz tanımlı mı ona bakar.
+    <li> is_a — Nesnenin bu sınıftan olup olmadığına bakar ya da bu sınıf üst düzeyden (babasından) biri olup olmadığına bakar.
+    <li> is_subclass_of — Nesnenin bu sınıfı ailesinden (üst düzeyinden) biri
+    <li> olup olmadığına bakar.
+    <li> method_exists — "class" yönteminin olup olmadığına bakar.
+    <li> property_exists —Nesne y ada sınıfın özelliği olup olmadığına bakar.
+</ul>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

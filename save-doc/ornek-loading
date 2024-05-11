@@ -1,0 +1,19 @@
+<html>
+<head>
+<script language="javascript" >
+function hideLoadingMessage(){
+document.getElementById('spnLoading' ).style.display = " none" ;
+}
+</script>
+</head>
+
+<body topmargin=" 0"  leftmargin=" 0"  onload="hideLoadingMessage()" >
+
+<span id="spnLoading"  style=" display:inline;" >Loading...please wait</span>
+</body>
+</html>
+
+
+image from http://www.ajaxload.info/ 
+
+ajax-loader.gif

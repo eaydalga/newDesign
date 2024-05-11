@@ -1,0 +1,544 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!-- baslik.inc basi -->
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="content-type">
+<title>deneme</title>
+<link rel="stylesheet" href="mainx.css" type="text/css">
+<script type="text/javascript" src="js/goster.js"></script>
+<script type="text/javascript" src="js/coolmenu.js"></script>
+<script type="text/javascript" src="js/browser.js"></script>
+<script type="text/javascript" src="js/baslik.js"></script>
+<script type="text/javascript" src="js/XHConn.js"></script>
+<script>
+function my_void()
+{
+}
+</script>
+</head>
+<body topmargin=0 leftmargin=0 marginheight=0 marginwidth=0>
+<script type="text/javascript">
+// Part 1 - Styles
+var STYLE = {
+    border:1,              // item's border width, pixels; zero means "none";
+    shadow:2,              // item's shadow size, pixels; zero means "none"
+    color:{
+        border:"#666666",  // color of the item border, if any;
+        shadow:"#DBD8D1",  // color of the item shadow, if any;
+        bgON:"#d4d4f4",      // background color for the items;
+        bgOVER:"#B6BDD2"   // background color for the item
+                           // which is under mouse right now;
+    },
+    css:{
+        ON:null,           // CSS class for items;
+        OVER:null          // CSS class  for item which is under mouse;
+    }
+};
+
+// Part 2 - Menu structure
+var MENU_ITEMS = [
+    {pos:[465,92], itemoff:[0,69], leveloff:[21,0], style:STYLE, size:[22,70]},
+    {code:"&nbsp;Ana Sayfa", url:"index.php"},
+    {code:"&nbsp;Yazılım", url:"",
+        sub:[
+            {itemoff:[21,0]},
+            {code:"&nbsp;Genel", "url":"progs/index.html"},
+            {code:"&nbsp;Css", "url":"progs/css.html"},
+            {code:"&nbsp;HTML", "url":"progs/html.html"},
+            {code:"&nbsp;dHTML", "url":"progs/dhtml.html"},
+            {code:"&nbsp;js", "url":"progs/js.html"},
+            {code:"&nbsp;Php", "url":"progs/php.html"}
+        ]
+    },
+    {code:"&nbsp;Belgeler", url:"",
+        sub:[
+            {itemoff:[21,0],size:[22,90]},
+            {code:"&nbsp;Genel", "url":"docs/index.html"},
+            {code:"&nbsp;Kullanıcılar", "url":"docs/kullanici.html"},
+            {code:"&nbsp;Blog", "url":"docs/blog.html"},
+            {code:"&nbsp;Filmler", "url":"docs/filmler.html"},
+            {code:"&nbsp;Internet TV", "url":"docs/webtv.html"},
+            {code:"&nbsp;Veri Değişimi", "url":"docs/bvd.html"},
+            {code:"&nbsp;Sürekli Yayım", "url":"docs/swy.html"},
+            {code:"&nbsp;Panorama", "url":"docs/pg.html"},
+        ]
+    },
+    {code:"&nbsp;Hakkımızda", url:"hakkimizda.html" },
+    {code:"&nbsp;Adres", url:"adres.html"},
+    {code:"&nbsp;Iletişim", url:"iletisim.html"},
+    {code:"&nbsp;Arşiv", url:"arşiv/index.html"}
+];
+
+// Part 3 - Initialization code
+var m1 = new COOLjsMenu("menu1", MENU_ITEMS);
+</script>
+<div id="headertop1">
+<div id="headertop">
+<!-- ust banner bolumu -->
+  <table cellpadding="0" cellspacing="0" border="0" width="960">
+  <tr>
+  <td valign="top">
+  <img src="img/bos.gif" width="15" height="63" border="0">
+  <img src="img/aybim.png" width="129" height="43" border="0"><br>
+  <img src="img/bos.gif" width="150" height="50" border="0">
+  </td><td valign="top">
+  </td></tr>
+  </table>
+  <table cellpadding="0" cellspacing="0" border="0">
+  <tr>
+  <td valign="top" width="140">
+  <!-- sol tarafin basi -->
+  <div id="soltaraf">
+      <div class="yazi">
+      </div>
+  </div>
+  </td>
+  <td valign="top" width="800">
+  <div id="header">
+<br /><br />
+<br />
+<table cellpadding="0" cellspacing="0" width="100%">
+<tr><td valign="top">
+        <br>
+        <table cellpadding="5" cellspacing="0" class="taban">
+         <tr>
+         <td><span class="syazi">Seçtiğiniz ürün çeşitlerini görmek için düğmeyi tıklayın: </span></td>
+         <td><div class="button"><a href="javascript:myvoid();" onclick="javascript:yresim(1);" title="tıklayınca temel tasarımlar görünür">Temel</a></div></td>              
+         <td><div class="button"><a href="javascript:myvoid();" onclick="javascript:yresim(2);" title="tıklayınca ortanca tasarımlar görünür">Ortanca</a></div></td>              
+         <td><div class="button"><a href="javascript:myvoid();" onclick="javascript:yresim(3);" title="tıklayınca gelişkin tasarımlar görünür">Gelişkin</a></div></td>              
+        </table>
+        <br />
+     <div id="usec-1" style="display: inline;">
+
+        <table cellpadding="10" class="taban" width="99%">
+        <tr><td valign="top">
+             <img src="img2/resim1.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim1.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+        </td><td valign="top" align="left">
+             <span class="yazi">
+             <p>Seçenek düğmeleri ve ürün sınıfları tanımlanabilen bir tasarım.
+             </p>
+             <p>Renk seçenekleri değiştirilebilir.</p>
+             <p>Her paragrafta ilk harf büyük olabilir.</p>
+             <p>Fiyatı: $10.-</p>
+             </span>
+        </td>
+        <td valign="top">
+             <img src="img2/resim2.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim2.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+        </td><td valign="top" align="left">
+             <span class="yazi">
+             <p>Değişik ana bölümlerde kullanılabilecek ürün/hizmet seçenekleri bu tasarımda yer alır.</p>
+             <p>Renkler isteğe göre değiştirilebilir.</p>
+             <p>Fiyatı: $10.-</p>
+             </span>
+        </td></tr>
+        <tr><td valign="top" colspan="2">
+             <span class="button"><a href="javascript:my_void()" onclick="ksecim(event,1,1)">istiyorum</a></span>
+             <br /><hr>
+            </td>
+            <td valign="top" colspan="2">
+             <span class="button"><a href="javascript:my_void()" onclick="ksecim(event,1,2)">istiyorum</a></span>
+
+             <br /><hr>
+            </td></tr>
+        <tr><td valign="top">
+             <img src="img2/resim3.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim3.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+        </td><td valign="top" align="left">
+             <span class="yazi">
+             <p>10-12 çeşit ürün ve her üründe değişik sınıflamalar olduğunda,
+             buradaki tasarım kullanılabilir. Bilgisayar donanımı satan firmalar için
+             çok uygun bir altyapıdır. Aynı tür özellikler taşıyan firmaların
+             değişik ürünlerinin pazarlandığı ortamlarda kolaylıkla kullanılabilir.</p>
+             <p>Renkler logo'ya ve isteğe göre değiştirilebilir.</p>
+             <p>Fiyatı: $10.-</p>
+             </span>
+        </td>
+        <td valign="top">
+             <img src="img2/resim4.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim4.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+        </td><td valign="top" align="left">
+             <span class="yazi">
+             <p>Altı seçenek düğmesi vardır. Ayrıca iki önemli haber ya da duyuru için
+             çarpıcı renkli geometrik biçimler vardır. Her sayfada istenirse güncel haber
+             girişi yapılabilecek bir köşe vardır.</p>
+             <p>Pek çok firmanın kullanabileceği kadar esnek bir tasarımdır. Kısa süreli
+             duyurularla değiştirilen web sayfalarında kullanılmasını öneririz... Özel kutular bu amaçla kullanılmalıdır.</p>
+             <p>Fiyatı: $10.-</p>
+             </span>
+        </td></tr>
+        <tr><td valign="top" colspan="2">
+             <span class="button"><a href="javascript:my_void()" onclick="ksecim(event,1,3)">istiyorum</a></span>
+             <br /><hr>
+            </td>
+            <td valign="top" colspan="2">
+             <span class="button"><a href="javascript:my_void()" onclick="ksecim(event,1,4)">istiyorum</a></span>
+             <br /><hr>
+            </td></tr>
+        <tr><td valign="top">
+             <img src="img2/resim5.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim5.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+        </td><td valign="top" align="left">
+             <span class="yazi">
+             <p>Dört temel sayfa ve altında diğer sayfaların yerleştiği bir düzen için
+             yararlı bir kullanımdır. Logo sol üst köşede bulunur. Seçeneklere göre
+             sayfa bilgileri değiştirilir. Her sayfada istenirse sol ya da sağa yanaşık resim de kullanılabilir.</p>
+             <p>Haber bülteni gibi yayınlarda kolaylıkla kullanılabilir.</p>
+             <p>Fiyatı: $10.-</p>
+             </span>
+        </td>
+        <td valign="top">
+             <img src="img2/resim6.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim6.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+        </td><td valign="top" align="left">
+             <span class="yazi">
+             <p>Sol köşede bir resim, kolaj olabilir. Sağ köşedeki logo ile uyumlu.
+             Sayfanın çerçevesi daha ince de olabilir.</p>
+             <p>Sonuçta dosya ayıracı gibi
+             kullanılan seçeneklerle bir şirketin resimli anlatımı kolaylık yapılabilir.
+             KOBI'ler için tasarlanmış bu sayfalar firmanın bilgilerini anlatmak için
+             yeterli olacak boyuttadır.</p>
+             <p>Fiyatı: $10.-</p>
+             </span>
+        </td></tr>
+        <tr><td valign="top" colspan="2">
+             <div class="button"><a onclick="ksecim(event,1,5)" href="javascript:my_void()" >istiyorum</a></div>
+             <br /><hr>
+            </td>
+            <td valign="top" colspan="2">
+             <span class="button"><a href="javascript:my_void()" onclick="ksecim(event,1,6)">istiyorum</a></span>
+             <br /><hr>
+            </td></tr>
+        <tr><td valign="top">
+             <img src="img2/resim7.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim7.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+        </td><td valign="top" align="left">
+             <span class="yazi">
+             <p>Bu sayfalara bakınca sizler de "ALTIN" diyorsunuz herhalde. Biz de öyle
+             düşündük. Herşey altın ve altın kaplama olan bir ortam için tasarlamış
+             sayfalardan söz ediyoruz.</p> 
+             <p>Firma tanıtım sayfaları için kullanılan
+             seçenekler sayfanın üst bölümünde, ürün çeşitleri ve ürün seçenekleri ise
+             sağ taraftaki seçeneklerden sağlanmaktadır. İstenilen büyüklüğe kolaylıkla
+             ulaşılabilir. Geniş bir yelpaze içindeki firma dağılımlarına uygun bir tasarımdır.</p>
+             <p>Fiyatı: $10.-</p>
+             </span>
+        </td>
+        <td valign="top">
+             <img src="img2/resim8.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim8.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+        </td><td valign="top" align="left">
+             <span class="yazi">
+             <p>Seçenekleriyle, sayfa sonundaki dip-not özellikleriyle KOBI'ler için
+             düşünülmüş bir tasarımdır.</p>
+             <p>Temel web sayfaları arayan müşterilere uygundur. Hele bir kaç ürün
+             ya da ürün türü olan firmalar için çok kullanışlı bir sayfadır.</p>
+             <p>Değişik renk seçenekleri de hazırlanabilir. Firma logo'larındaki renklere
+             uyumlu renkler seçilir.</p>
+             <p>Fiyatı: $10.-</p>
+             </span>
+        </td></tr>
+        <tr><td valign="top" colspan="2">
+             <span class="button"><a href="javascript:my_void()" onclick="ksecim(event,1,7)">istiyorum</a></span>
+             <br /><hr>
+            </td>
+            <td valign="top" colspan="2">
+             <span class="button"><a href="javascript:my_void()" onclick="ksecim(event,1,8)">istiyorum</a></span>
+             <br /><hr>
+            </td></tr>
+        </table>
+     </div>
+
+     <div id="usec-2" style="display: none;">
+
+        <table cellpadding="10" class="taban" width="99%">
+        <tr><td valign="top">
+            <img src="img2/resim9.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim9.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+        </td><td valign="top" align="left">
+            <span class="yazi">
+            <p>Altı seçenek düğmesi vardır. Ayrıca iki önemli haber ya da duyuru için çarpıcı renkli geometrik biçimler vardır. Her sayfada istenirse güncel haber
+            girişi yapılabilecek bir köşe vardır.</p> <p>Pek çok firmanın kullanabileceği kadar esnek bir tasarımdır. Kısa süreli
+            duyurularla değiştirilen web sayfalarında kullanılmasını öneririz... Özel kutular bu amaçla kullanılmalıdır.</p> 
+             <p>Fiyatı: $12.-</p>
+            </span>
+        </td>
+        <td valign="top">
+            <img src="img2/resim10.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim10.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+        </td><td valign="top" align="left">
+            <span class="yazi">
+            <p>Arama girişi, çeşitli seçenkler ve bağlantılarla bir alım satım sitesi.
+            Burada öne çıkan ürünler (üç ürün resimleri var) kullanıcıya sunulur.
+            Kullanıcı isterse promasyon seçeneklerine de bakabilir. Tasarım satış
+            altyapısı olan bir web sitesi için uygundur.</p>
+             <p>Fiyatı: $12.-</p>
+            </span>
+        </td></tr>
+        <tr><td valign="top" colspan="2">
+             <span class="button"><a href="javascript:my_void()" onclick="ksecim(event,2,9)">istiyorum</a></span>
+             <br /><hr>
+            </td>
+            <td valign="top" colspan="2">
+             <span class="button"><a href="javascript:my_void()" onclick="ksecim(event,2,10)">istiyorum</a></span>
+             <br /><hr>
+            </td></tr>
+        <tr><td valign="top">
+            <img src="img2/resim11.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim11.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+        </td><td valign="top" align="left">
+            <span class="yazi">
+            <p>Oldukça karmaşık bir tasarım. Büyük bir firmanın kullanımına uygun. Gelişmiş
+            web siteleri için sunduğumuz herşey var burada.</p>
+             <p>Fiyatı: $12.-</p>
+            </span>
+        </td>
+        <td valign="top">
+            <img src="img2/resim12.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim12.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+        </td><td valign="top" align="left">
+            <span class="yazi">
+            <p>Üyeleri ve bayileri olan bir sitede kullanmaya uygun çok gelişmiş
+            seçeneklerle süslü bir tasarım. Bir sitede olması istenebilecek herşey var.
+            Firma kullanımından kişisel sayfa kullanımına değin her tür müşteriye uygun
+            bir tasarım.</p>
+            <p>Renk seçenekleri isteğe bağımlıdır.</p>
+             <p>Fiyatı: $12.-</p>
+            </span>
+        </td></tr>
+        <tr><td valign="top" colspan="2">
+             <span class="button"><a href="javascript:my_void()" onclick="ksecim(event,2,11)">istiyorum</a></span>
+             <br /><hr>
+            </td>
+            <td valign="top" colspan="2">
+             <span class="button"><a href="javascript:my_void()" onclick="ksecim(event,2,12)">istiyorum</a></span>
+             <br /><hr>
+            </td></tr>
+        <tr><td valign="top">
+            <img src="img2/resim13.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim13.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+        </td><td valign="top" align="left">
+            <span class="yazi">
+            <p>10-12 çeşit ürün ve her üründe değişik sınıflamalar olduğunda,
+            buradaki tasarım kullanılabilir. Bilgisayar donanımı satan firmalar için
+            çok uygun bir altyapıdır. Aynı tür özellikler taşıyan firmaların
+            değişik ürünlerinin pazarlandığı ortamlarda kolaylıkla kullanılabilir.</p>
+            <p>Renkler logo'ya ve isteğe göre değiştirilebilir.</p>
+             <p>Fiyatı: $12.-</p>
+            </span>
+        </td>
+        <td valign="top">
+            <img src="img2/resim14.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim14.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+        </td><td valign="top" align="left">
+            <span class="yazi">
+            <p>Altı seçenek düğmesi, arama satırı ve her sayfada tek açıklamaya ek olarak
+            özel haber biçiminde görüntülenen açıklamadan oluşur.</p>
+            <p>Sayfanın üst kısmında firma logosu sola dayalı yerleştirilebilir.</p>
+            <p>Altı ana bölüm her web sayfası için kullanılabilir. Renkler
+            kolaylıkla isteğe göre değiştirilebilir.</p>
+             <p>Fiyatı: $12.-</p>
+            </span>
+        </td></tr>
+        <tr><td valign="top" colspan="2">
+             <span class="button"><a href="javascript:my_void()" onclick="ksecim(event,2,13)">istiyorum</a></span>
+             <br /><hr>
+            </td>
+            <td valign="top" colspan="2">
+             <span class="button"><a href="javascript:my_void()" onclick="ksecim(event,2,14)">istiyorum</a></span>
+             <br /><hr>
+            </td></tr>
+        <tr><td valign="top">
+            <img src="img2/resim15.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim15.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+        </td><td valign="top" align="left">
+            <span class="yazi">
+             <p><span class="syazi">www.youtube.com</span> gibi bir siteniz olsun istiyorsunuz... Internet kullanıcıları kendilerini göstermek istiyorlar. Resimlerini, telefonlarıyla ya da kameralarıyla çektikleri videolarını yayımlamak istiyorlar... Bazıları kendi sayfası olsun istiyor. Ürünlerini sayfalarında sergilemek onlara gurur veriyor...</p>
+            <P>İzleyenler ve bu ürünleri indirenler para ödüyor. Doğal olarak kendilerine özel olan resim ve filmleri gösterenler de para kazanıyor... Bu bir <span class="syazi">İŞ</span> dostum. Sen de katıl, size bu tür iş kuralım... İstermisiniz?</p>
+             <p>Fiyatı: $12.-</p>
+            </span>
+        </td>
+        <td valign="top">
+            <img src="img2/resim16.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim16.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+        </td><td valign="top" align="left">
+            <span class="yazi">
+            <p>Seçenekleriyle, sayfa sonundaki dip-not özellikleriyle KOBI'ler için
+            düşünülmüş bir tasarımdır.</p>
+            <p>Temel web sayfaları arayan müşterilere uygundur. Hele bir kaç ürün
+            ya da ürün türü olan firmalar için çok kullanışlı bir sayfadır.</p>
+            <p>Değişik renk seçenekleri de hazırlanabilir. Firma logo'larındaki renklere
+            uyumlu renkler seçilir.</p>
+             <p>Fiyatı: $12.-</p>
+            </span>
+        </td></tr>
+        <tr><td valign="top" colspan="2">
+             <span class="button"><a href="javascript:my_void()" onclick="ksecim(event,2,15)">istiyorum</a></span>
+             <br /><hr>
+            </td>
+            <td valign="top" colspan="2">
+             <span class="button"><a href="javascript:my_void()" onclick="ksecim(event,2,16)">istiyorum</a></span>
+             <br /><hr>
+            </td></tr>
+        </table>
+     </div>
+
+
+     <div id="usec-3" style="display: none;">
+        <div class="yazi">
+
+        <table cellpadding="10" class="taban" width="99%">
+        <tr><td  valign="top">
+            <img src="img2/resim17.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim17.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+        </td><td valign="top" align="left">
+            <span class="yazi">
+            <p>Hareketli bir resim ve solda yer alan seçeneklerle bir gemicilik
+tasarımıdır.</p>
+            <p>Renk seçenekleri isteğe bağımlıdır.</p>
+             <p>Fiyatı: $15.-</p>
+            </span>
+        </td>
+        <td  valign="top">
+            <img src="img2/resim18.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim18.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+        </td><td valign="top" align="left">
+            <span class="yazi">
+            <p>Bu örnekte yazıların taban rengi değişiktir. Yoksa diğer sanayi sitesi örneklerine benzer.</p>
+             <p>Fiyatı: $15.-</p>
+            </span>
+        </td></tr>
+        <tr><td valign="top" colspan="2">
+             <span class="button"><a href="javascript:my_void()" onclick="ksecim(event,3,17)">istiyorum</a></span>
+             <br /><hr>
+            </td>
+            <td valign="top" colspan="2">
+             <span class="button"><a href="javascript:my_void()" onclick="ksecim(event,3,18)">istiyorum</a></span>
+             <br /><hr>
+            </td></tr>
+        <tr><td  valign="top">
+            <img src="img2/resim19.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim19.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+        </td><td valign="top" align="left">
+            <span class="yazi">
+            <p>Bu örnekte seçenekler logonun altında yan yana dizilmiştir.</p>
+            <p>Renk seçenekleri isteğe bağımlıdır.</p>
+             <p>Fiyatı: $15.-</p>
+            </span>
+        </td>
+        <td  valign="top">
+            <img src="img2/resim20.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim20.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+        </td><td valign="top" align="left">
+            <span class="yazi">
+            <p>Başka bir sanayi sitesi örneğidir.
+            </p>
+            <p>Renk seçenekleri isteğe bağımlıdır.</p>
+             <p>Fiyatı: $15.-</p>
+            </span>
+        </td></tr>
+        <tr><td valign="top" colspan="2">
+             <span class="button"><a href="javascript:my_void()" onclick="ksecim(event,3,19)">istiyorum</a></span>
+             <br /><hr>
+            </td>
+            <td valign="top" colspan="2">
+             <span class="button"><a href="javascript:my_void()" onclick="ksecim(event,3,20)">istiyorum</a></span>
+             <br /><hr>
+            </td></tr>
+        <tr><td  valign="top">
+            <img src="img2/resim21.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim21.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+        </td><td valign="top" align="left">
+            <span class="yazi">
+            <p>Bir acentalık sitesi örneğidir. Bu tasarımda seçenekler sol
+tarafta bulunur. Konular ortada yer alırken, sağ tarafta acenta seçenekelerine
+yer verilir.</p>
+            <p>Renkler logo'ya ve isteğe göre değiştirilebilir.</p>
+             <p>Fiyatı: $15.-</p>
+            </span>
+        </td>
+        <td  valign="top">
+            <img src="img2/resim22.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim22.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+        </td><td valign="top" align="left">
+            <span class="yazi">
+            <p>Seçenekleriyle örnek bir sanayi sitesidir. Flash görüntüler ve
+sipariş taleplerine ilişkin iletişim sayfaları vardır.</p>
+            <p>Seçenekler sağ tarafta görüntülenir</p>
+            <p>Renkler logo'ya ve isteğe göre değiştirilebilir.</p>
+             <p>Fiyatı: $15.-</p>
+            </span>
+        </td></tr>
+        <tr><td valign="top" colspan="2">
+             <span class="button"><a href="javascript:my_void()" onclick="ksecim(event,3,21)">istiyorum</a></span>
+             <br /><hr>
+            </td>
+            <td valign="top" colspan="2">
+             <span class="button"><a href="javascript:my_void()" onclick="ksecim(event,3,22)">istiyorum</a></span>
+             <br /><hr>
+            </td></tr>
+        <tr><td  valign="top">
+        <tr><td  valign="top">
+            <img src="img2/resim23.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim23.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+        </td><td valign="top" align="left">
+            <span class="yazi">
+             <p>Emlakçı sitesi için örnek tasarımdır. Burada kiralık ve satılık emlak için hazırlanan bölümlere anında değişiklik yapılabilir.</p>
+            <p>Emlak komisyoncusu her emlak için değişik resimleri görüntüleyebilir.</p>
+             <p>Fiyatı: $15.-</p>
+            </span>
+        </td>
+        <td  valign="top">
+            <img src="img2/resim24.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim24.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+        </td><td valign="top" align="left">
+            <span class="yazi">
+            <p>Seçenekleriyle, ana sayfada değişebilen haberleriyle sık sayfa
+değiştirebilenler için güzel bir tasarımdır.</p>
+            <p>Sayfaların dinamik özelliği php kullanımından kaynaklanmaktadır.
+            </p>
+            <p>Renkler logo'ya ve isteğe göre değiştirilebilir.</p>
+             <p>Fiyatı: $15.-</p>
+            </span>
+        </td></tr>
+        <tr><td valign="top" colspan="2">
+             <span class="button"><a href="javascript:my_void()" onclick="ksecim(event,3,23)">istiyorum</a></span>
+             <br /><hr>
+            </td>
+            <td valign="top" colspan="2">
+             <span class="button"><a href="javascript:my_void()" onclick="ksecim(event,3,24)">istiyorum</a></span>
+             <br /><hr>
+            </td></tr>
+        </table>
+     </div>
+        
+<!-- eskiden alinan -->
+     </div>
+</td></tr>
+</table>
+
+
+   <br />
+   <div class="yazi">
+       <div id="altsatir">
+           <br />
+           <span class="rside">Tasarım: Aybim Bilgisayar Tic Ltd Şti&nbsp;&nbsp;</span>
+       </div>
+   </div>
+  </div>
+  </td>
+  </tr></table>
+</div>
+</div>
+<div id="sayfaac" style="display: none;">
+    <div id="contains1">
+        <div id="content2">
+            <div id="sec8" style="display: none;">
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<div id="canvas">
+</div>
+<script language="JavaScript" src="js/resimci.js"> </script>
+<script type="text/javascript">
+var myMenu = new COOLjsMenu("menu1", MENU_ITEMS);
+
+function ksecim(e,s,t)
+{
+var myConn2 = new XHConn();
+var body="s="+s+"&"+"t="+t;
+
+resim(e);
+var fnBitti = function (oXML) {
+    if(document.getElementById) {
+        target=document.getElementById('sec8');
+        if(target) {
+           target.innerHTML=oXML.responseText;
+           target.style.display = "inline";
+           }
+        }
+    };
+myConn2.connect("secim.php", "POST", body, fnBitti);
+}
+</script>
+</body></html>

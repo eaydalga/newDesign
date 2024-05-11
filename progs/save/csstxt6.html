@@ -1,0 +1,202 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+</head>
+<body>
+<div id="sag"><span class="yazi">26 Ekim 2007</span></div>
+<h2>Dışçizgi (outline)</h2>
+<span class="yazi">
+Dışçizgi özelliğii, bir öğenin sınırları dışını çizmek için kullanılır.
+</span>
+<h3>Genel</h3>
+<span class="yazi">
+Dışçizgi, öğelerin çevresine sınırların dışından çizilen ve öğeyi kendi başınaymışcasına ortaya çıkaran bir tanımlamadır.<br />
+<br />
+Bu özellik öğelerin çevresine dışçizgi çizer. Çizginin stilini, rengini ve enini tanımlayabilirsiniz.<br />
+<br />
+Not: Dışçizgi ayrıca bir alan gerektirmez ve her zaman dikdörtgen olmaları gerekmez.
+</span>
+<table class="yazi">
+<tr><td>Destekleyen Tarayıcılar:</td><td>IE: Internet Explorer, F: Firefox, N: Netscape.</td></tr>
+<tr><td></td><td>W3C: Buradaki sayısal değer CSS türünü (CSS1 ya da CSS2) gösterir.</td></tr>
+</table>
+<br />
+<table cellspacing="0" border="1" cellpadding="3" class="fyazi">
+  <tr>
+    <th width="25%" align="left">Özellik</th>
+
+    <th width="30%" align="left">Açıklama</th>
+    <th width="25%" align="left">Değerler</th>
+    <th width="5%" align="left">IE</th>
+    <th width="4%" align="left">F</th>
+    <th width="4%" align="left">N</th>
+    <th width="7%" align="left">W3C</th>
+
+  </tr>
+  <tr>
+    <td valign="top">outline </td>
+    <td valign="top">Bir tanımlamada tüm özellikleri yazabilme olanağı sağlayan kısaltılmış bir bildirimdir.</td>
+    <td valign="top"><i>dışçizgi-rengi<br />
+      dışçizgi-stili<br />
+
+      dışçizgi-eni</i></td>
+    <td valign="top">-</td>
+    <td valign="top">1.5</td>
+    <td valign="top">-</td>
+    <td valign="top">2</td>
+  </tr>
+
+  <tr>
+    <td valign="top"> outline-color </td>
+    <td valign="top">Bir öğenin çevresindeki dışçizginin rengini belirtir.</td>
+    <td valign="top"><i>renk<br />
+
+      </i>invert</td>
+    <td valign="top">-</td>
+    <td valign="top">1.5</td>
+    <td valign="top">-</td>
+    <td valign="top">2</td>
+  </tr>
+
+  <tr>
+    <td valign="top">
+      outline-style
+    </td>
+    <td valign="top">Bir öğenin çevresindeki dışçizginin stilini tanımlar.</td>
+    <td valign="top">none<br />
+
+      dotted<br />
+      dashed<br />
+      solid<br />
+      double<br />
+      groove<br />
+      ridge<br />
+
+      inset<br />
+      outset</td>
+    <td valign="top">-</td>
+    <td valign="top">1.5</td>
+    <td valign="top">-</td>
+    <td valign="top">2</td>
+
+  </tr>
+  <tr>
+    <td valign="top"> outline-width </td>
+    <td valign="top">Bir öğenin çevresindeki dışçizginin enini belirtir.</td>
+    <td valign="top">thin<br />
+
+      medium<br />
+      thick<br />
+      <i>uzunluk</i></td>
+    <td valign="top">-</td>
+    <td valign="top">1.5</td>
+    <td valign="top">-</td>
+
+    <td valign="top">2</td>
+  </tr>
+</table>
+<h3>Dışçizgi (outline) Özelliği</h3>
+<span class="yazi">
+Bir dışçizgi, öğenin çevresine çizilir. Dışçizgi sınır çizgileri dışında kalır ve öğeyi kendi başınaymış gibi gösterir. Bu özellik öğelerin çevresine dışçizgi tanımlamak için kullanılır.<br />
+<br />
+Not: Dışçizgiler alan istemez ve dikdörtgen olmaları da gerekmez.
+</span/>
+<fieldset class="fyazi">
+<pre>
+button
+{ 
+outline: red solid thin
+}
+</pre>
+</fieldset>
+<span class="yazi">
+Olası değerler:
+<br>
+dışçizgi-rengi
+dışçizgi-stili
+dışçizgi-eni: Bir tanımda tüm dışçizgi özelliklerini tanımlayabilmek için bir kısaltmadır.<br />
+<br />
+Varsayılan değer: "invert none medium" değerleridir<br />
+</span>
+<br />
+<h3>Dışçizgi renk (outline-color) Özelliği</h3>
+<span class="yazi">
+Bir dışçizgi, öğenin çevresindeki çizgidir. Bu çizgi, sınır çizgileri dışında kalır ve öğeyi kendi başınaymış gibi gösterir. Bu özellik öğelerin çevresindeki dışçizginin rengini tanımlamak için kullanılır.<br />
+<br />
+Not: Her zaman outline-style özelliğini outline-color özelliğinden önce tanımlayın. Bir öğenin dış çizgisi olmalı ki çizginin rengini değiştirebilin.<br />
+<br />
+Not: Dışçizgiler yer tutmaz ve dikdörtgen olmaları da gerekmez.<br />
+</span/>
+<fieldset class="fyazi">
+<pre>
+button
+{ 
+outline-style: solid;
+outline-color: red
+}
+</pre>
+</fieldset>
+<span class="yazi">
+Olası değerler:
+<br>
+invert: Varsayılan değer. Renk ters çevirme işlemini yapar. Bu sınırın görünmesi için bir oyundur. Art alanın rengine rağmen sınır görünebilir.<br />
+renk: Renk, renk adıdır (red), rgb değer (rgb(255,0,0)), ya da hex sayı (#ff0000)<br />
+</span>
+<br />
+<h3>Dışçizgi stil (outline-style) Özelliği</h3>
+<span class="yazi">
+Dışçizgi bir öğenin çevresine çizilen çizgidir. Bu özellik dışçizginin stilini tanımlamakta kullanılır.<br />
+<br />
+Not: Dışçizgiler yer tutmaz ve dikdörtgen olmaları da gerekmez.<br />
+</span/>
+<fieldset class="fyazi">
+<pre>
+button
+{ 
+outline-style: solid
+}
+</pre>
+</fieldset>
+<span class="yazi">
+Olası değerler:
+<br>
+none: Hiç sınır olmadığı belirtir<br />
+hidden: "none" ile aynı, yalnız tablo öğeleriyle doğacak görüntüleme sorunu doğar.<br />
+dotted: noktalı çizgiyi tanımlar ama birçok tarayıcıda düz çizgi olur.<br />
+dashed: kesik çizgili sınır çizgisini tanımlar ama birçok tarayıcıda düz çizgi olur.<br />
+solid: Düz çizgiyi tanımlar<br />
+double: İkili sınır çizgisini tanımlar. İkili dışçizginin eni outline-width tanımındaki değere eşittir.<br />
+groove: Üç boyutlu sınırı tanımlar. Etkisi dışçizgi renginin değerine bağlıdır.<br />
+ridge: Üç boyutlu çıkıntılı dışçizgiyi tanımlar. Etkisi dışçizgi renginin değerine bağlıdır.<br />
+inset: Üç boyutlu ek dışçizgiyi tanımlar. Etkisi dışçizgi rengi değerine bağlıdır.<br />
+outset: Üç boyutlu başlangıç dışçizgiyi tanımlar. Etkisi dışçizgi renginin değerine bağlıdır.<br />
+</span>
+<br />
+<h3>Dışçizgi Eni (outline-width) Özelliği</h3>
+<span class="yazi">
+Dışçizgi bir öğenin çevresine çizilen çizgidir. Bu özellik dışçizginin enini tanımlamakta kullanılır.<br />
+<br />
+Not: Her zaman dışçizgi stil özelliğini dışçizgi en özelliğinden önce tanımlamak gerekir. Bir öğenin dışçizgisi tanımlanmış olmalı ki kalınlığını değiştirebilesiniz.<br />
+<br />
+Not: Dışçizgiler yer tutmaz ve dikdörtgen olmaları da gerekmez.<br />
+</span/>
+<fieldset class="fyazi">
+<pre>
+p
+{
+outline-style: solid;
+outline-width: medium
+}
+</pre>
+</fieldset>
+<span class="yazi">
+Olası değerler:
+<br>
+thin: dışçizginin ince olduğunu tanımlar<br />
+medium: Varsayılan değer. dışçizginin değeri medium olur.<br />
+thick: dışçizgi kalındır tanımı.<br />
+uzunluk: dışçizginin kalınlığını belirlemenizi sağlar<br />
+</span>
+<br />
+</body>
+</html>

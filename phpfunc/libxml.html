@@ -1,0 +1,149 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Hyperlink Preprocessor </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">20 Mart 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>libxml İşlevleri</h2>
+<h3>Giriş</h3>
+
+Bu işlevler/değişmezler PHP 5.1.0 sürümünden beri vardır. Eğer DOM SimpleXML
+ve XSLT uzantılarını derlerseniz gereklidir.
+
+<h3>Gereksinim</h3>
+
+Bu uzantı libxml >= 2.6.0 sürümünü ister
+
+<h3>Önceden Tanımlı Sınıflar</h3>
+LibXMLError
+
+<h3>Özellikler</h3>
+<ul>
+    <li>
+
+      code - Hata'nın kodu
+    <li>
+
+      column - hata olan yerdeki kolon. Bilmelisiniz ki bu özellik tamamıyla
+uygulanmadı. Bazen 0 dönebilir.
+    <li>
+
+      file - dosya adı, ya da boş eğer XML bir yazı dizisinden yüklanmişse.
+    <li>
+</ul>
+      level - Hatanın ciddiliği (bu değişmezlerden biri: LIBXML_ERR_WARNING, LIBXML_ERR_ERROR ya da LIBXML_ERR_FATAL)
+    <li>
+
+      line - Hatanın oluştuğu yerdeki satır
+    <li>
+
+      message - Hata mesajı
+</ul>
+
+<h3>Önceden Tanımlı Değişmezler</h3>
+
+Burada belirtilen değişmezler bu uzantıyla tanımlıdır.
+<dl>
+<dt>LIBXML_COMPACT (integer)
+Küçük düğüm yeri açma işlemini etkinlerşir. Bu kodu değiştirmeden uygulamanızı hızlandırabilir.
+
+        Note: Yalnız Libxml >= 2.6.21 sürümünde geçerlidir.
+
+<dt>LIBXML_DTDATTR (integer)
+    Varsayılan DTD nitelikleri
+<dt>LIBXML_DTDLOAD (integer)
+    dışsal alt kümeyi yükleme
+<dt>LIBXML_DTDVALID (integer)
+    DTD ile denetler
+<dt>LIBXML_NOBLANKS (integer)
+    Boş düğümleri sil
+<dt>LIBXML_NOCDATA (integer)
+    CDATA bilgisini yazı düğümlerine karıştır
+<dt>LIBXML_NOEMPTYTAG (integer)
+    Boş Biçimleri genişlet (örneğin &lt;br/&gt; to &lt;br&gt;&lt;/br&gt;)
+
+        Not: Bu seçenek şu anda yalnız DOMDocument->save() ve DOMDocument->saveXML() işlevlerinde geçerlidir.
+
+<dt>LIBXML_NOENT (integer)
+    Öğeleri yerine koy
+<dt>LIBXML_NOERROR (integer)
+<dt>LIBXML_NONET (integer)
+    Belgeleri yüklerken ağ iletişimini kapat
+<dt>LIBXML_NOWARNING (integer)
+    Uyarı raporlarını kapatma (geçme)
+<dt>LIBXML_NOXMLDECL (integer)
+    Belgeyi saklarken XML tanımını düşür
+
+        Not: Yalnız Libxml >= 2.6.21 sürümünde geçerlidir.
+
+<dt>LIBXML_NSCLEAN (integer)
+    Tekrarlayan ad alanı tanımlarını kaldırma
+<dt>LIBXML_XINCLUDE (integer)
+    XInclude yerine koymasını uygulama
+<dt>LIBXML_ERR_ERROR (integer)
+    Giderilebilir hata
+<dt>LIBXML_ERR_FATAL (integer)
+    Ciddi hata
+<dt>LIBXML_ERR_NONE (integer)
+    Hata yok 
+<dt>LIBXML_ERR_WARNING (integer)
+    Basit uyarı 
+<dt>LIBXML_VERSION (integer)
+    libxml sürümü  20605 ya da 20617 gibi
+<dt>LIBXML_DOTTED_VERSION (string)
+    libxml sürümü 2.6.5 ya da 2.6.17 gibi
+</dl>
+
+İçindekiler
+<ul>
+    <li> libxml_clear_errors — libxml hata tampon alanını silme
+    <li> libxml_get_errors — Hata dizisini alma
+    <li> libxml_get_last_error — libxml'den son hatayı alma
+    <li> libxml_set_streams_context — Bir sonraki libxml belgesini yüklemek ya da yazmak için akarın içeriğini ayarla.
+    <li> libxml_use_internal_errors — libxml hatalarını kapat ve kullanıcıların gerektiğinde hata bilgisine erişmelerine izin ver
+</ul>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

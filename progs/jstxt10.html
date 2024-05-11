@@ -1,0 +1,745 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>JS - DHTML </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script language="JavaScript" src="../js/XHConn.js"> </script>
+<script language="JavaScript" src="../js/js10.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="ysoltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="js.html" class="nav">Giriş</a>
+               <a href="jstxt1.html" class="nav">Sayfada Javascript</a>
+               <a href="jstxt2.html" class="nav">Nesnel Programlama</a>
+               <a href="jstxt3.html" class="nav">JS Nesneleri</a>
+               <a href="jstxt4.html" class="nav">İşlemler</a>
+               <a href="jstxt5.html" class="nav">Değişkenler</a>
+               <a href="jstxt6.html" class="nav">Denetim Yapıları</a>
+               <a href="jstxt7.html" class="nav">Script Yazma</a>
+               <a href="jstxt8.html" class="nav">Yazma İşlevleri</a>
+               <a href="jstxt9.html" class="nav">Başvuru</a>
+               <a href="jstxt10.html" class="nav">DHTML</a>
+               <a href="jstxt11.html" class="nav">Öğe İçeriği</a>
+               <a href="jstxt12.html" class="nav">Pencereler</a>
+               <a href="jstxt13.html" class="nav">Olay Bilgisi</a>
+               <a href="jstxt14.html" class="nav">Zaman Ayarı</a>
+               <a href="jstxt15.html" class="nav">Cookie Kullanımı</a>
+               <a href="jstxt16.html" class="nav">Güvenlik</a>
+               <a href="js24.html" class="nav">Javascript Nesneler</a>
+<br />
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>Javascript Yazılım Kuralları (JS)</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">22 Aralık 2007</span></div>
+<h2>DHTML</h2>
+<div class="yazi">
+<br />
+Javascript kodlarının en çok kullanıldığı alan DHTML'dir (Dynamik Hypertext Markup Language). Dosdoğru konuşmak gerekirse DHTML Javascript kodlarını HTML öğelerinin CSS stillerini değiştirmek için kullanır. Tüm tarayıcılar burada anlatılandan çok daha fazlasını desteklerler. Bu nedenle anlatımda dördüncü kuşak tarayıcılar üzerinde odaklanılacaktır. Eski tarayıcılar DHTML olanaklarını sınırlar ve ancak temel DHTML komutlarını desteklerler. Ama hala açılan menüler, kayan mesajlar, fare izleyiciler ve düşen kar etkilerini destekleyecek esneklikleri vardır.
+<br />
+<br />
+Bu sayfanın bir parçasının görünmesini ya da saklanmasını (gizlenmesini) gerektirir. Bu, güvenilir biçimde, "div" öğesi kullanarak gerçekleştirilir. Bir çok kez "span" öğesi "position: absolute;" ya da "position: relative;" stiliyle yerleştirildiğinde (görüntüleme biçimini değiştirme dışında) kullanılır. Aslında "div" öğesini hemen herşey için kullanabilmek kolaylığı vardır. Bazı eski tarayıcıların (Netscape 4 gibi) "span" yerleşiminde "position: absolute;" ile sorunları olur.
+<br />
+<br />
+
+Bir kez HTML hazırladıktan sonra (hatalar için düzeltmeler ve olayı çevirme kodları da kullandıktan sonra) yerleşmiş bir öğeye başvurabilirsiniz. Bu başvuruyla görünebilirlilik (visibility), yerleşim (position), art alan rengi (background color), z-index, kesme (clipping) ve yerleştirilmiş öğenin boyutlarında değişiklik yapabilirsiniz. Yerleşmiş bir öğenin içeriğini değiştirebilirsiniz ya da sayfa yüklendikten sonra başka öğeler yaratabilirsiniz. DHTML tüm sayfanın art alan rengini değiştirmenizi de sağlar. Her öğenin görünme stilini değiştirme olanağı verir.
+<br />
+<br />
+
+Üzücü ama DHTML her zaman tarayıcı bağımlıdır. Diğer bir deyimle her tarayıcı değişik komutlar ister. Teknikleri kullanarak, bunları yapmak zor değildir. Tarayıcı hangi yazım kuralını kabul ederse etsin, kodlama neyi denetleyeceğini bilir ve doğru kullanır. Bir çok kodlayıcı bir tarayıcıyı yakalayınca, diğer özelliklerin çalışacağını varsayar ya da bir özelliğin çalıştığını bulunca diğerlerinin de çalışacağını varsayar. Bu tür hatalı varsayımlara burada yer verilmemiştir.
+<br />
+<h3>Dördüncü Kuşak Tarayıcılar</h3>
+<br />
+
+Bazı tarayıcılarda DHTML yapılabilir. Bunlara 'sürüm 4' ya da 'Dördüncü kuşak' denir. Kendi sürüm sayıları farklı olabilir. Aşağıdaki liste değişik tarayıcılar için özellikleri tanımlar. Bu tarayıcının yorumlayıcıları başka tarayıcılar tarafından da kullanılır.
+<br />
+<br />
+<ul class="yazi">
+    <li> Internet Explorer (Win) yorumlayıcısı Maxthon, Avant, birçok AOL sürümleri, ve diğerleri tarafından kullanılır.</li>
+    <li> Gecko yorumlayıcı Camino, K-Meleon, Flock, ve diğerlerinde kullanılır.</li>
+    <li> Opera yorumlayıcı birçok donanımda ve birçok uygulamada kullanılır.</li>
+    <li> KHTML/Webkit yorumlayıcı OmniWeb ve Shiira'da kullanılır.</li>
+</ul>
+<h3>Büyük/Bilinen/Önemli Tarayıcılar</h3>
+<dl>
+<dt>Internet Explorer 5+ (Win)</dt>
+    <dd>document.getElementById ve document.all kullanır</dd>
+<dt>Mozilla Gecko (FireFox, Netscape 6+)</dt>
+    <dd>document.getElementById (aynı zamanda  gizlice document.all kullanır)</dd>
+<dt>Opera 7+</dt>
+    <dd>document.getElementById ve document.all</dd>
+<dt>KDE KHTML/WebKit (Safari, Konqueror 3+, OmniWeb 4.5+)</dt>
+    <dd>document.getElementById (Safari 3 aynı zamanda gizlice document.all kullanır)</dd>
+</dl>
+
+<h3>Orta Ölçek tarayıcılar</h3>
+<dl>
+<dt>(Internet) Explorer 5 (Mac)</dt>
+    <dd>document.getElementById ve document.all</dd>
+<dt>iCab 3</dt>
+    <dd>document.getElementById ve document.all</dd>
+</dl>
+<h3>Küçük tarayıcılar</h3>
+
+Bu tarayıcılar çok kullanılmaz ya da tarayıcıların son sürümleri değildir. Bazılarında belirgin hatalar vardır. Kapasiteleri sınırlıdır ya da olay algılamada sınırlıdır.
+<br />
+<br />
+
+Bunların bazıları Mozilla Organizasyonunun Java tabanlı Rhino Javascript makinasını (yorumlayıcını) kullanır. Rhino Javascript makinası yalnız Javascript dili yorumlayıcısını güçlendirir, web sayfasıyla javascript arasındaki ilişkiyi yönetmez. Her tarayıcının kendi DHTML (ya da DOM) uyarlaması vardır.
+<br />
+<dl>
+<dt>Internet Explorer 4 (Win)</dt>
+    <dd>document.all kullanır</dd>
+<dt>(Internet) Explorer 4 (Mac)</dt>
+    <dd>document.all kullanır</dd>
+<dt>Opera 5-6</dt>
+    <dd>document.getElementById kullanır</dd>
+<dt>Mozilla Rhino engine (ICEbrowser)</dt>
+    <dd>document.getElementById ve document.all kullanır</dd>
+<dt>Mozilla Rhino makinası (Escape/Evo 5)</dt>
+    <dd>document.getElementById ve document.all kullanır</dd>
+<dt>Mozilla Rhino makinası (Escape 4)</dt>
+    <dd>document.layers kullanır</dd>
+<dt>Mozilla Rhino makinası (Clue browser)</dt>
+    <dd>document.getElementById ve document.all kullanır</dd>
+<dt>Tkhtml+EES (Tkhtml Hv3)</dt>
+    <dd>document.getElementById kullanır</dd>
+<dt>Netscape 4</dt>
+    <dd>document.layers kullanır</dd>
+<dt>OmniWeb 4.2-</dt>
+    <dd>document.layers (aynı zamanda seçmeli olarak document.all destekler) kullanır</dd>
+<dt>iCab 2</dt>
+    <dd>document.getElementById ve document.all kullanır</dd>
+<dt>Konqueror 2</dt>
+    <dd>document.getElementById ve document.all kullanır</dd>
+</dl>
+<h3>Televizyon ya da mobil donanım tarayıcıları</h3>
+
+Üzerinde çalıştığı donanımın sınırlamaları nedeniyle bu tarayıcıların olay algılama yetenekleri sınırlıdır.
+<br />
+<dl>
+<dt>NetFront</dt>
+    <dd>document.getElementById kullanır</dd>
+<dt>Pocket Internet Explorer</dt>
+    <dd>document.all kullanır</dd>
+<dt>Netgem 4 browser (NetBox)</dt>
+    <dd>document.getElementById kullanır</dd>
+<dt>OpenTV</dt>
+    <dd>document.getElementById kullanır</dd>
+<dt>iPanel MicroBrowser with advanced modules</dt>
+    <dd>document.getElementById kullanır</dd>
+<dt>WebTV (MSN TV) Plus and extended Classic</dt>
+    <dd>document.all (ve iç içe geçmemiş layers seçeneği) kullanır</dd>
+</dl>
+<h3>Daha fazla bilgi</h3>
+
+Bu tarayıcılar için daha çok bilgi
+<a href="http://www.howtocreate.co.uk/why.html#browsers">
+'Dördüncü Kuşak' Tarayıcılar.</a> listesinden elde edilebilir.
+<br />
+<br />
+
+(Bu siteyi de oldukça tamamlanmış <a href="http://www.upsdell.com/BrowserNews/overview.htm">listei</a> olarak kullanabilirsiniz).
+<br />
+<br />
+
+Konqueror 2'de birçok Javascript ve DHTML işlevleri çalışsa da tarayıcı olayları algılamada yetersizdi. Bu nedenle birçok DHTML sayfası çalışmaz. Konqueror 3 yeniden ele alındığı için daha iyidir. Burada Konqueror 3+ karşılaştırmalarına yer verilmiştir.
+<br />
+<br />
+
+NetBox, iPanel MicroBrowser ve OpenTV yetenekleri konusunda bir bilgi yoktur. Netboz sitesinde yarım CSS 2 desteği olduğu yazılıdır. Bu kısaca CSS yerleştirme diye varsayılabilir. Aynı sitede W3C DOM 1 olduğu yazıldığına göre DHTML varsayımı yapılabilir. OpenTV mutlak CSS ve DOM DHTML olduğunu ileri sürer. iPanel MicroBrowser için EIS ileri modüllerinin DOM kodunu algıladığını ileri sürülür. Bunlar innerHTML desteklemiyor olabilirler, çünkü bu özellik DOM standartları arasında yoktur.
+<br />
+<br />
+
+Escape 4, Netscape 4 gibi layers türü tarayıcıdır. Netscape yazım kurallarını destekler. Aynı zamanda stil nesneleriyle öğelerin stilini değiştirmeyi de yapabilir (kesme/clipping yoktur). WebTV 2.8+ her iki yazım kuralını da destekler ama özel DOM tarayıcısıdır.
+<br />
+<h3>HTML kurma/hazırlama</h3>
+
+İlgi çeken iki tür yerleştirme vardır. Mutlak (absolute) ve göreceli (relative). Mutlak yerleştirme, öğenin istenilen herhangi bir yere konumlanmasını sağlar. Göreceli yerleştirme, öğenin olması gereken yerini konumlanmasını sağlar. Ve belirlenen uzaklığa (offset) konumlanır.
+<br />
+<br />
+
+DHTML sayfalarının birçoğu mutlak yerleştirilmiş öğelerdir. Göreceli yerleştirilen öğeler 'clip' (küpüri/kesme) stilini kabul etmez. Göreceli yerleştirilen öğelerin önemi, mutlak yerleştirilen öğelere taşıyıcılık etmeleridir. Yani mutlak yerleştirilen bir öğeyi, göreceli yerleştirilen bir öğenin içinde tanımlarsanız, onun yerleşimi görecelinin yerleşimiyle bağlantılıdır. Ana sayfayla ilgisi olmaz...
+<br />
+<br />
+
+Aşağıdakini kullanarak mutlak yerleştirilen öğe yapabilirsiniz:
+<pre>
+&lt;div id="mydiv" style="position: absolute; left: 10px; top: 120px;"&gt;
+    contents
+&lt;/div&gt;
+</pre>
+Ve göreceli yerleştirilmiş bir öğeyi aşağıdaki gibi tanımlarsınız:
+<pre>
+&lt;div id="mydiv" style="position: relative; left: 10px; top: 120px;"&gt;
+    contents
+&lt;/div&gt;
+</pre>
+ID önemlidir. Yerleştirilmiş bir öğeye erişim onunla yapılır. Layers tarayıcıları bu yerleştirilmiş öğelere 'layers' adını verirler.
+<h3>Hatalar ve Hatayı Geçme</h3>
+
+'document.write' kullanarak yerleştirilmiş öğe yaratacak olunuzsa Netscape 4 sayfayı yükleyemez. Hata verir. O halde bu türün kullanımını kaldırmalısınız. Gerçekten desteklemez istiyorsanız o zaman &ltlayer ...&gt; biçimini mutlak yerleştirilen öğeler için kullanırsınız. &ltilayer ...&gt; biçimini ise göreceli yerleştirilen öğeler için kullanırsınız. Eğer kullanacaksaniz (document.layers) ile varlığını denetlemeyelibilirsiniz.
+<br />
+<br />
+
+Aynı biçimde Netscape 4'de satır içi stil nitelikleri kullanan stilleri, yerleştirilmiş öğelerde kullanmak sayfanın yüklenmesine neden olur. Bunlar yerine öğeler için 'class' tanımlamak ve onları ana stilsayfasına yerleştirmek sorunu çözer.
+<h3>Yerleştirilmiş öğeye başvuru/erişim</h3>
+<ul class="yazi">
+    <li> iCab 2- yerleştirmeyi desteklemez, ama yerleştirilmemiş öğelere başvuru yapabilir.
+</ul>
+<br />
+Yerleştirilmiş öğelere erişim için birçok yol vardır. W3C DOM standartı bu işin resmi yoludur. Var olan tarayıcılarla desteklenen bir yoldur. Eski tarayıcılar için iki seçenek daha vardır. Bu seçeneklerden birinin iki değişik sürümü vardır.
+<h3>DOM</h3>
+
+DOM tarayıcıları bir öğeye erişim için document.getElementById yöntemini kullanırlar. Bu yöntemi kullanmak için bzasit bir if deyimi yeterlidir.
+<pre>
+if( document.getElementById ){
+	var myReference = document.getElementById('divID');
+}
+</pre>
+<h3>Tescilli DOM</h3>
+
+<br />
+Tescilli DOM tarayıcıları document.all birikimini öğeye erişim için kullanırlar. Bazı tarayıcılar hem DOM hem de tescilli DOM erişim yöntemlerini birlikte kullanırlar.
+<pre>
+if( document.all ){
+	var myReference = document.all['divID'];
+}
+</pre>
+<h3>Katmanlar (Layers)</h3>
+
+Layers tarayıcıları document.layers birikimini öğelere erişimde kullanırlar. 'layers' birikimindeki katmanlara ya ID ya da sayısal dizin değeriyle erişilebilir. Bunlar document.divID (divID belirtilen 'div'in 'id' değeridir) ile de öğeye erişebilir. Netscape 4 ana 'layer' tarayıcısıdır ve ilk DHTML destekleyen tarayıcıydı. Bugünün tarayıcılarında 'layers' yaklaşımı kullanılmamaktadır.
+<pre>
+if( document.layers ){
+	var myReference = document.layers['divID'];
+}
+</pre>
+Katmanların bir başka davranışı var ki, diğer yaklaşımlardan farklı olmalarına neden olur. Eğer yerleştirilmiş bir öğe diğer yerleştirilmiş öğenin içinde olursa, içerde olan 'layers' (katmanlar) birikimin içindeymiş gibi görünmez. Aslında dış katmandaki belge nesnesinin içindeymiş gibi davranır. Bunun anlamı ID değeriyle bir katmana erişmek için belgedeki tüm katman birikimlerinin tarayıp uygun olanı bulunca durulmalıdır. ID değerleri tüm belgede tekil olmak zorunda olduğundan, bu tür taramanın gereksiz bir emek olduğu doğrudur. Zaten bu yüzden yöntem de terk edildi.
+<h3>Yaklaşımları birleştirme</h3>
+
+Üç teknik bir işlev altında toplanabilir. DOM yöntemi (eğer varsa) kullanılır. Eğer hata olursa, tescillli DOM kullanılır, o da çalışmazsa katmanlar kullanılır. Eğer belgenin katman birikimleri arasında da bulunmazsa katmanların içindeki katmanları arar ve tekrar döngüye girer.
+<pre>
+function getRefToDiv(divID,oDoc) {
+  if( document.getElementById ) {
+    return document.getElementById(divID); }
+  if( document.all ) {
+    return document.all[divID]; }
+  if( !oDoc ) { oDoc = document; }
+  if( document.layers ) {
+    if( oDoc.layers[divID] ) { return oDoc.layers[divID]; } else {
+      //tüm çocuk katmanlarda yineleyerek ara
+      for( var x = 0, y; !y && x &lt; oDoc.layers.length; x++ ) {
+        //başarıda o katmanı döndür aksi halde hiçbir şey döndürme
+        y = getRefToDiv(divID,oDoc.layers[x].document); }
+    return y;
+    }
+  }
+  return false;
+}
+</pre>
+<h3>Görünürlüğü Değiştirme</h3>
+<ol class="yazi">
+    <li> iCab 2- görünürlüğü desteklemez (visibility).</li>
+    <li> OmniWeb 4.2- görünürlülükte sıkça hata yapar.</li>
+    <li> Birçok donanım tarayıcıları görünürlülüğü küçük ekran kalıplama konumundayken dikkate almaz.</li>
+</ol>
+Görünürlülük stilini değiştirmek yerleştirilmiş öğenin görünemsine ya da kaybolmasına neden olur. 'visible' ya da 'hidden' değerini alır. Katmanlı tarayıcılar 'show! ve 'hide' kullanır. Bazı katmanlı tarayıcılar her ikisini de destekler. Buradaki kod hangisinin geçerli olduğunu bulur ve onu kullanır. Birisini bulup diğerini varsaymak yerine bu daha uygundur.
+
+<br />
+<br />
+Bir kez yerleştirme öğesine eriştiniz mi, hemen onun stiline erişmek istersiniz. katamansız tarayıcılarda erişimin sonuna '.style' eklemeniz gerekir. Katmanlı tarayıcılarda stiilleri, öğenin doğrudan özellikleri olarak yorumlamak gerekir. Hangisini kullanmak gerektiğini saptamak için stil özelliğinin varlığının denetlenmesi gerekir. Doğru değer şöyle hazırlanır:
+<br />
+<br />
+
+Bunların hepsinden sonra, yerleştirilmiş bir öğeyi görünebilir yapmak için:
+<pre>
+function showDiv(divID_as_a_string) {
+  //yukarıdaki gibi bir erişim elde et...
+  myReference = getRefToDiv(divID_as_a_string);
+  if( !myReference ) {
+    window.alert('Nothing works in this browser');
+    return; //daha ileri gitme
+  }
+  //now we have a reference to it
+  if( myReference.style ) {
+    //DOM & tescilli DOM
+    myReference.style.visibility = 'visible';
+  } else {
+    //katmanlar yazım kuralı
+    myReference.visibility = 'show';
+  }
+}
+
+showDiv('myDiv');
+
+...   ...
+
+&lt;div style="position:absolute;left:0px;top:0px;" id="myDiv"&gt;
+    içerikler
+&lt;/div&gt;
+</pre>
+<p>Denemeyi burada yap gizli öğeyi burada göster.
+
+	 <a href="javascript:doNuhn();" onclick="showDiv('myDiv');">gizli öğeyi göster</a>.</p>
+	<div id="myDiv">
+		<p>Bu yerleştirilmiş öğe saklanmıştı.
+		<a href="javascript:doNuhn();" onclick="hideDiv('myDiv');">Onu yine gizle</a>.</p>
+
+	</div>
+<br />
+
+Tabi ki uyarı mesajında 'bu tarayıcıda hiçbir şey çalışmıyor' yerine onlara daha neşeli bir kodlama önermek gerekirdi.
+<h3>Yerleşmeyi Değiştirme</h3>
+<ul class="yazi">
+    <li> iCab 2- yerleşmeyi desteklemez.</li>
+    <li> OmniWeb 4.2- göreceli yerleştirmeyi anlamaz, mutlak yerleştirmede hatalar yapar.</li>
+    <li> WebTV yalnız yatay yerleştirmeyi değiştirebilir, düşeyi değiştiremez.</li>
+    <li> Clue tarayıcı bazen yalnız yatay yerleştirmeyi değiştirebilir ve bazen yerleşimin değiştirilmesini değiştirmez.</li>
+</ul>
+Yerleştirmeyi 'left' ve 'top' değerlerini kullanarak ayarlarsınız aynı görünebilirliği belirttiğiniz gibi... (Biliniz ki buradaki 'top frameset' erişimindeki window.top ile aynı değildir). 'left' ve 'top' özelliklere erişmek için 'top' ve 'left' stil tanımı değerleri satıriçi stil yazım kurallarıyla ya da Javascript ile ilk değer vererek belirlenir.
+<br />
+<br />
+
+Eğer doğrudan "doctype" kullanılırsa, bir çok tarayıcı doğru birim (20px, 20 değil) kullanılmasını ister. Bir çok eski tarayıcı bunu anlamaz. Opera 5 gibi (yalnız top), katman tarayıcıları, WebTV vb. Tarayıcının birimleri doğru anladığını belirten hiçbir yöntem yok. Bazı değerleri kabul edebilecektir ama desteklemeyebilir. Bu nedenle DOM destekleme açısından document.childNodes temel bir gereksinimdir. DOM stillerinde birimlerin kullanılması istenir ve bu nedenle DOM anlayabilen tarayıcılar birimleri de anlayabilir.
+<br />
+<br />
+
+Bu örnekte 'left' ve 'top' başlangıçta ikiside 10px olarak atanmıştır (satıriçi stil niteliğiyle). Kodlama önce '.style' erişiminin kullanılabilirliğine bakar ve eğer öyleyse stil nesnesini değiştirebilir. Sonra o anki değerleri alır, üzerine yenilerini ekler ve bunu yeni değer olarak atar. O anki değeri alırsa, parseInt kullanarak sayı elde eder. Çünkü değerin içinde birim de bulunabilir.
+<pre>
+&lt;div style="position:absolute;left:10px;top:10px;" ...
+
+... ...
+
+var noPx = document.childNodes ? 'px' : 0;
+if( myReference.style ) { myReference = myReference.style; }
+myReference.left = ( parseInt(myReference.left) + 10 ) + noPx;
+myReference.top = ( parseInt(myReference.top) + 20 ) + noPx;
+</pre>
+'div' 10 px aşağıya ve 20 px sağa kaydırılır. Şu andali koordinatları top: 30px; left: 20px; olur.
+
+<div id="dhtmlposdemo" class="dhtmldemo">
+	<div id="myDiv2">
+		<p>Burada dene:
+		<a href="javascript:doNuhn();" onclick="mvDiv('myDiv2');">Bu öğeyi taşı</a>.</p>
+
+	</div>
+</div>
+
+<br />
+Bu zaman sayacıyla birlikte kullanılırsa, her birkaç milisaniyede bir yerleştirilmiş bir öğeyi kayma aralığıyla orantılı yeniden yerleştirebilir. Böylece ekranda durmuş gibi görünür (position: fixed; hala IE tarafından pek desteklenmemektedir).
+<h3>Art alan rengini değiştir</h3>
+<ul class="yazi">
+    <li> Eski Gecko tarayıcıların çabuk geçiştirilebilecek hataları vardır.</li>
+    <li> WebTV ve OmniWeb 4.2- art alan rengini değiştirmenize izin vermez.</li>
+</ul>
+<br />
+Yazı rengini değiştirmek de istenebilir. Ama katman tarayıcıları bunu yapamaz. Art alan rengini değiştirmenin üç yolu vardır. Katman tarayıcıları bgColor kullanır. DOM ve tescilli DOM tarayıcıları background ve backgroundColor kullanır. Opera 5.x yalnız artalan stilini değiştirebilir, diğerleri (Opera 6+ dahil) her ikisini de değiştirir. 'myReference' yukarıdaki gibi elde edilir. Not: Opera 5'in bazı sürümleri eğer açıkça belirtilmişse ve kalıtımsal değilse, yalnız art alan rengini değiştirir. 
+<br />
+<br />
+
+Eğer bgColor denemesi yaparsanız, Opera 7-7 'Warning' mesajını döndürür. Eğer hangisi diye deneme yapıyorsanız bunu en son kullanın.
+<pre>
+if( myReference.style ) { myReference = myReference.style; }
+if( myReference.background ) {
+  //tarayıcıların çoğunda desteklenir
+  //Gecko tarayıcısı gibi olanlar ve IE serisi
+  myReference.background = '#00ff00';
+} else if( myReference.backgroundColor ) {
+  //çoğu tarayıcılar destekler
+  myReference.backgroundColor = '#00ff00';
+} else if( myReference.bgColor ) {
+  //katman tarayıcıları kullanır
+  myReference.bgColor = '#00ff00';
+} else {
+  //HATA, art alan rengi değiştirme olanağı yoktur.
+}
+</pre>
+Yanlış olanı atamak sorun çıkartmadığına göre aşağıdaki gibi kısaltma yapılabilir:
+<pre>
+if( myReference.style ) { myReference = myReference.style; }
+myReference.bgColor = '#00ff00';
+myReference.background = '#00ff00';
+myReference.backgroundColor = '#00ff00';
+</pre>
+<div id="dhtmlbgcdemo" class="dhtmldemo">
+	<div id="myDiv3">
+		<p>Burada deneyin:
+		<a href="javascript:doNuhn();" onclick="clDiv('myDiv3');">change the background colour of this element</a>.</p>
+	</div>
+</div>
+<h3>z-index değiştirmek</h3>
+<ul class="yazi">
+    <li> iCab 2- yerleştirmeyi desteklemez bu nedenle z-index desteklemez.
+    <li> WebTV ve Clue tarayıcı z-index desteklemez.
+</ul>
+Yerleştirilmiş öğelerin z-index değerleri bir biri üzerine istiflenmiştir. z-index positif bir sayı olmalıdır. z-index yüksek olursa onun üzerine istiflenmiş öğe sayısı da çok olur. İki öğenin z-index değeri aynı olamaz. yerleştirilmiş bir öğenin z-index değerini okumak için daha önceden inline yazım kuralıyla tanımlanmış olması gerekir.
+<pre>
+if( myReference.style ) { myReference = myReference.style; }
+myReference.zIndex = 100;
+</pre>
+Burada deneyin: öğenin üzerindeki bağı tıklayın ki onun z-index değeri diğerinin üstüne çıksın.
+<br />
+
+<div id="dhtmlzdxdemo" class="dhtmldemo">
+	<div id="myDiv6">
+		<p><a href="javascript:upEl('myDiv6');">Element 1.<br>Increase its z-index.</a></p>
+
+	</div>
+	<div id="myDiv6_2">
+		<p><a href="javascript:upEl('myDiv6_2');">Element 2.<br>Increase its z-index.</a></p>
+	</div>
+</div>
+
+<h3>Küpür Kesme (clipping) değiştirmek</h3>
+<ul class="yazi">
+    <li> Opera 6-, Konqueror 3.0-, OmniWeb 4.2-, WebTV, NetFront 3.3-, iCab 2- ve Tkhtml Hv3 küpür kesmeyi desteklemez (iCab 2- yerleştirmeyi desteklemediğinden kesme de yapamaz).</li>
+    <li> Internet Explorer "standart rendering model" konusunda bugünkü standartları izlemez ve aşağıdaki gibi özel ilgi gerektirir.</li>
+    <li> Opera 7-7.1 (daha sonraki sürümlerde düzeltildi), art alan rengi küpür kesme (clipping) sırasında kesilen küpürde gözükür. Çözümü bir öğeyi kesince renkli bir öğeyi içinde tutmaktır.</li>
+    <li> Escape 4.x stil nesnelerini desteklese de, sytle.clip yazım kuralını desteklemez.</li>
+</ul>
+Küpür kesme yalnız mutlak yerleştirilmiş öğelerde geçerlidir.
+<br />
+<br />
+
+Bu teknik çoğunlukla mesaj kaydırmada kullanılır. Küpür kesme desteklemeyen tarayıcılarda aynısını iframe ile sağlama olanağı vardır. Böylece onun içinde kaydırma yapılabilir.
+<br />
+<br />
+
+Küpür kesme bu öğede yapılabilir mi diye denemek isteyeceksinizdir (bunu yapmaya hiç gerek yok, çünkü tarayıcılar anlamazlarsa dikkate almadan atlarlar). Bunu anlamak da hiç kolay değildir. Opera 6- gibi tarayıcılarda 'clip style' sorulduğunda 'rect()' der ama onu hiç kullanamaz. Bunu geçmenin bir yolu da yoktur. Yapılabilecek en iyi şey myReference.innerHTML ve myReference.clip destekleniyor mu onu bulmaktır. Bir tarayıcı innerHTML destekliyor ama kesmeyi desteklemiyorsa bunun sorun olması diye bir şey olmaz. Ama 'clip' stili arandığında 'rect()' yanıtı alısa bile küpür kesmeyi desteklemez. Escape stil nesnelerini destekler ama style.clip yazım kuralını desteklemez.
+<pre>
+if( myReference.clip ) {
+  myReference.clip.left = 0;
+  myReference.clip.top = 0;
+  myReference.clip.right = 10;
+  myReference.clip.bottom = 10;
+} else if( myReference.style ) {
+  //sıralama şöyledir: top right bottom left
+  myReference.style.clip = 'rect(0px,10px,10px,0px)';
+} else {
+  //HATA, hiçbir şey çalışmıyor
+}
+</pre>
+<p>Burada denetin: Aşağıdaki yerleştirilmiş öğe için küpür kesme dikdörgeni seçin. Art alan kaydırılacak yazının nereye gizlendiğini gösterecektir.</p>
+<ul>
+	<li><a href="javascript:doNuhn();" onclick="clpDiv('myDiv5',0,20);">rect(0px,250px,20px,0px)</a></li>
+	<li><a href="javascript:doNuhn();" onclick="clpDiv('myDiv5',10,30);">rect(10px,250px,30px,0px)</a></li>
+	<li><a href="javascript:doNuhn();" onclick="clpDiv('myDiv5',20,40);">rect(20px,250px,40px,0px)</a></li>
+</ul>
+
+<div id="dhtmlclpdemo" class="dhtmldemo">
+	<div id="myDiv5">
+		<p id="clpDivCol">
+		Yerleştirilmiş öğenin birinci satırı. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Tarayıcınız küpür kesmeyi desteklemiyor.<br>
+
+		Yerleştirilmiş öğenin ikinci satırı.
+		</p>
+	</div>
+	<p>Artalan Artalan Artalan<br>Artalan Artalan Artalan</p>
+</div>
+
+Her ne kadar CSS 2.1 standartları tarayıcıların 'rect()' işlevinin parametreleri arasında virgül olmasını istese de IE 6 ve 7 bu kuralı uygulamaz (CSS 2.0 tanımlarındaki bir hatadan dolayı). Hata, stiller stil sayfaları arasında olursa karıştırılırken, kodlama içinde olursa doğru yazım kuralıyla hatasız çalışır. O halde stil sayfalarında bu özellik nedeniyle bir virgülle ayrılmış parametreler kullanarak, bir de virgül kullanmadan yazmak yararlıdır. Tarayıcılar hangi yöntemi kullanacaklarını kendileri bulurlar.
+
+<h3>Boyut değiştir</h3>
+<ul class="yazi">
+    <li> WebTV öğe boyutunu değiştiremez.</li>
+    <li> Escape/Evo 5 document.childNodes için hata verir.</li>
+    <li> ICEbrowser öğe boyutlarını değiştirir ama tarayıcı penceresi boyutları değişinceye dek belli etmez.</li>
+    <li> iCab 2- tuhaf üst üste binmelere neden olur çünkü, yerleştirmeyi desteklemez.</li>
+    <li> Clue tarayıcıda öğe kaybolur.</li>
+</ul>
+Katman tarayıcıları 'resizeTo' yöntemini kullanmanızı bekler. Bazı tarayıcılar stil nesnesinin pixelWidth ve pixelHeight özelliklerinin değiştirilmesini ister. Kalan tarayıcılar stil nesnesinin height ve width özelliklerini değiştirir. 
+Nasıl olsa bu son iki özellik değiştirilir. Tarayıcı neyi anlar çok önemli değildir. Tarayıcı anlamadığını atlar. Katmanlı tarayıcılarda bu 'clip.bottom' ve 'clip.right' değerleri o anki boyutları okumak için gerekli özelliklerdir. Katman her iki kesmenin (clip) ötesine çok doğru olmasa da bu tür tarayıcıların sunabildiği en iyi değerdir. Katmanlı tarayıcılarda en ve boy değiştirilir, sağ ve alt özellikleri kesme nesnesinde değiştirilir.
+<br />
+<br />
+
+Bazı tarayıcılar bazı öğeleri içeriğinden daha çok küçültmez. Bazıları içeriği yeni boyutlara göre keser. Bazıları öğenin boyutlarını küçültür ama içeriği olduğu gibi bırakır (görüntülenmiş olarak).
+<br />
+<br />
+
+Öğe yerleşiminde olduğu gibi, bazı eski tarayıcılar boyuttan sonra ölçü birimi (px) yazılmasını istemez, ama yeni tarayıcılar 'doctypes' için zorunlu tutar. Yine küçük bir denetim, iyi ile az iyi tarayıcıları belirler. Bunlar aşağıda tanımlamıştır:
+<pre>
+if( myReference.style ) { myReference = myReference.style; }
+if( myReference.resizeTo ) {
+  myReference.resizeTo( newWidth, newHeight );
+}
+var noPx = document.childNodes ? 'px' : 0;
+myReference.width = newWidth + noPx;
+myReference.pixelWidth = newWidth;
+myReference.height = newHeight + noPx;
+myReference.pixelHeight = newHeight;
+</pre>
+<p>Burada deneyin: öğe için yeni boyut belirle:</p>
+
+<ul>
+	<li><a href="javascript:doNuhn();" onclick="rSDiv('elSiz',20,20);">20 x 20</a></li>
+
+	<li><a href="javascript:doNuhn();" onclick="rSDiv('elSiz',30,40);">30 x 40</a></li>
+	<li><a href="javascript:doNuhn();" onclick="rSDiv('elSiz',50,50);">back to 50 x 50</a></li>
+</ul>
+
+<div id="dhtmlsizdemo" class="dhtmldemo">
+	<div id="elSiz">
+		<p>Dene<br>Dene</p>
+	</div>
+
+</div>
+<h3>İçeriği yine yazmak</h3>
+<ul class="yazi">
+    <li> Opera 6- ve OmniWeb 4.2- yerleştirilmiş öğelerin içeriğini yazamaz.</li>
+    <li> WebTV program kırılır.</li>
+    <li> Katmanlı tarayıcılar mutlak yerleştirilmiş öğelerin içeriğini değiştirebilir.</li>
+    <li> Netscape 4 yerleştirilmiş öğelerde içerik yine yazıldığında stillerini kaybeder.</li>
+    <li> Clue tarayıcısında, öğe altındaki öğeyle birlikte birden yok olabilir.</li>
+</ul>
+Aşağıdaki örnekte, myReference önceki gibi elde edilir. Birçok tarayıcı innerHTML özelliğini sunar. Yeni HTML ile yine yazabilirsiniz. Katmanlı tarayıcılar document nesnesinde yöntem açma, yazma ve kapatma işlemini yapmanızı sağlar. Opera gibi tarayıcılar yerleştirilmiş öğenin document özelliğini kullanıma sunar ama erişim ana belge ile olur. Yine yazmanın sorunların bitmesini sağlamaz. Bu nedenle bunun ilk seçenek olmadığını bilmek gerek.
+<pre>
+if( typeof( myReference.innerHTML ) != 'undefined' ) {
+  //tüm tarayıcılarla kullanılır
+  myReference.innerHTML = 'bazı <b>yeni</b> içerik';
+} else if( myReference.document && myReference.document != window.document ) {
+  //katmanlı tarayıcılarla kullanılır
+  myReference.document.open();
+  myReference.document.write('bazı <b>yeni</b> içerik');
+  myReference.document.close();
+}
+</pre>
+'iframe' tanımlayarak Opera 5 ve Opera 6 destekleyecek biçimde yetenekleri genişletmek olanağı vardır (bu 'name' niteliğinde olmalıdır). Yüklendiği denenmeli sonra içeriğinin yine yazılması sağlanmalıdır:
+<pre>
+if( typeof( myReference.innerHTML ) != 'undefined' ) {
+  //şu andaki tüm tarayıcılarla kullanılır.
+  myReference.innerHTML = 'some <b>new</b> content';
+} else
+  if( myReference.document && myReference.document != window.document ) {
+  //katmanlı tarayıcılarda kullanılır
+  myReference.document.open();
+  myReference.document.write('some <b>new</b> content');
+  myReference.document.close();
+} else
+  if( window.frames && window.frames.length && window.frames['nameOfIframe'] ) {
+  //Opera 6- gibi tarayıcılarda kullanılır.
+  myReference = window.frames['nameOfIframe'].window;
+  myReference.document.open();
+  myReference.document.write('some <b>new</b> content');
+  myReference.document.close();
+}
+</pre>
+<p>Burada deneyin: <a href="javascript:doNuhn();" onclick="rwDiv('myDiv4');">aşağıdaki yerleştirilmiş öğenin içeriğinin yine yazılması</a>
+(Opera 5-6 çözümü eklenmemiştir).</p>
+
+<div id="dhtmlrwtdemo" class="dhtmldemo">
+    <div id="myDiv4">
+         <p>Bu yerleştirilmiş öğedir. İçerik daha yine yazılmış değildir.</p>
+    </div>
+</div>
+
+<h3>Yeni yerleştirilmiş öğeleri yaratma</h3>
+<ul class="yazi">
+    <li> Opera 6- ve OmniWeb 4.2-, NetFront 3.2- ve Clue tarayıcıları yerleştirilmiş öğeleri sayfa yüklenmişse yaratamaz.</li>
+    <li> WebTV innerHTML değerini her zaman yanlış algıladığı için boşluk biçiminde yorumlayarak üst öğenin tüm içeriğini değiştirir.
+    <li> iCab 2- yerleştirilmiş öğeyi yaratamaz ve onu yerleştirilmemiş öğe olarak yaratır.
+</ul>
+Sayfa yüklenirken yeni yerleştirilmiş öğe document.write ve düzgün HTML ile yaratılır. Sayfa bir kez yüklenince, 5. kuşak tarayıcılar herhangi bir yeni öğe yaratılmasını sağlar. Bazı 4. kuşak tarayıcılar sayfa yüklendikten sonra da yeni öğeler yaratılmasına olanak verir.
+<br />
+<br />
+
+Bir çok tarayıcı bir öğenin innerHTML özelliğinin değiştirilmesine olanak verir (IE serisi aynı zamanda insertAdjacentHTML işlemini sunar ama diğer DOM tarayıcıların çoğu bunu işlemler arasına eklememiştir). Katmanlı tarayıcılar (Omniweb 4.2- hriç) yeni boş katman yaratan bir yapı sağlarlar. Bu yeni katmanın içine yazılabilir. Bunu kullanmadan önce geçerliliği denenmelidir. OmniWeb 4.2- katman yapılarını sunsa da, bunu kullanmak hataya neden olur. Bu nedenle document.classes ile OmniWeb 4.2- ayrılmış ve korunmuş olur.
+<br />
+<br />
+
+Katman yazım kurallarıyla, yeni katman sayısal diziniyle katmanlar birikimine eklenmiş olur. Ama adlar birikimine eklenmez. Eğer istersek biz kendimiz onu o listeye (birikime) ekleriz. Biz bu katman için adıyla eninin büyüklüğünü tanımlamalıyız. Her katmanlı tarayıcıda başka türü görüntülenir. Gizlidir. Onun görünür olmasını sağlamalıyız. innerHTML yazım kuralıyla herhangi bir yeni içeriği yaratabiliriz. Tarayıcılar arası olması için yerleştirilmiş öğe olması gerekir.
+<br />
+<br />
+
+Opera 7-7.1 innerHTML okunurken üst düzey öğenin tüm var olan biçimleri hatalı ayıklar, tuhaf bir etki yaratmış olur. Bu sorunu gidermek için insertAdjacentHTML kullanın (eğer tarayıcı destekliyorsa).
+<br />
+<br />
+
+Aşağıdaki ilk örnekte, yerleştirilmiş öğe document (belgenin) çocuğu olarak yaratılır.
+<pre>
+if( document.layers && window.Layer && document.classes ) {
+  //350px eninde bir katman yarat
+  document.layers['newName'] = new Layer( 350 );
+  //içeriğini yaz
+  document.layers['newName'].document.open();
+  document.layers['newName'].document.write('yeni içerik');
+  document.layers['newName'].document.close();
+  //stil ver
+  document.layers['newName'].left = 0;
+  document.layers['newName'].top = 0;
+  document.layers['newName'].visibility = 'show';
+} else if( document.body ) {
+  var theString = '<div style="position:absolute;left:0px;top:0px;' +
+    'width:350px;">yeni içerik</div>';
+  if( document.body.insertAdjacentHTML ) {
+    document.body.insertAdjacentHTML( 'beforeEnd', theString );
+  } else if( typeof( document.body.innerHTML ) != 'undefined' ) {
+    document.body.innerHTML += theString;
+  } else {
+    //HATA, hiçbir şey çalışmıyor
+  }
+} else {
+  //HATA, hiçbir şey çalışmıyor
+}
+</pre>
+Aşağıdaki örnek yerleştirilmiş bir öğenin çocuğu olarak yeni yerleştirilmiş öğe yaratır (myReference yukarıdaki gibi elde edilmiştir):
+<pre>
+if( document.layers && window.Layer && document.classes ) {
+  //350px eninde katman yarat
+  document.layers['newName'] = new Layer( 350, myReference );
+  //içeriğini yaz
+  document.layers['newName'].document.open();
+  document.layers['newName'].document.write('yeni içerik');
+  document.layers['newName'].document.close();
+  //stille
+  document.layers['newName'].left = 0;
+  document.layers['newName'].top = 0;
+  document.layers['newName'].visibility = 'show';
+} else {
+  var theString = '<div style="position:absolute;left:0px;top:0px;' +
+    'width:350px;">yeni içerik</div>';
+  if( myReference.insertAdjacentHTML ) {
+    myReference.insertAdjacentHTML( 'beforeEnd', theString );
+  } else if( typeof( myReference.innerHTML ) != 'undefined' ) {
+    myReference.innerHTML += theString;
+  } else {
+    //HATA, hiçbir şey çalışmıyor
+  }
+}
+</pre>
+Burada deneyin: yeni bir öğe yarat (yeni öğe renk açısından biraz daha farklıdır ve birbirlerinden azıcık kaymıştır (ne olduğu daha kolay belli olsun diye).
+
+<p>Burada deneyin: <a href="#" onclick="createPosEl(); return false;">yeni öğe yaratın</a> (yeni öğeler renkleri açısından farklı olacaktır ve azıcık birbirlerinden kaymış olarak görüntülenir (ne olduğu kolay belli olsun diye).</p>
+
+<div id="elNew" class="dhtmldemo">
+<p>Bu yerleşirilmiş öğenin ilk içeriğidir. Bu değişmez.</p>
+</div>
+<ul class="yazi">
+    <li> Opera 5, OmniWeb 4.2- ve Escape/Evo belgenin art alan rengini değiştiremez (Escape art alan rengini değiştirir, ama yalnız belgenin en sonunda tüm içeriklerden sonra).
+    <li> Opera 6 ve Clue tarayıcıları yalnız içeriğin ardındaki rengi değiştirebilir, İlk art alan rengi orada kalır (eğer içerik pencere boyundan küçükse).
+    <li> NetFront 3.3- rengin değerini '' yapmanıza olanak verir, ama kaydırmadan hiçbir değişikliğe izin vermez.
+</ul>
+Art alan rengini değiştirmenin üç yolu vardır. Eski tarayıcılar bgColor özelliğini kullanarak tüm belgenin stilini ayarlar. Yeni tarayıcılarda, HTML öğesi ve BODY öğesi ayrı ayrı değerlendirilir. Varsayılan olarak HTML öğesi BODy öğesinin birkaç pizel dışından dolanır. Ayrı stillendirilirler. Belgenin art alanını değiştirmek için her ikisinin de değiştirilmesi gerekir. HTML öğesi bu tarayıcılarda document.documentElement ile erişilir ve BODy normal document.body ile erişilir.
+<br />
+<br />
+
+Yanlış olanı atamak hata oluşturmaz (var olduğu sürece), o halde hepsi birden aynı anda kullanılır.
+<pre>
+if( document.documentElement && document.documentElement.style ) {
+    document.documentElement.style.backgroundColor = 'red'; }
+if( document.body && document.body.style ) {
+    document.body.style.backgroundColor = 'red'; }
+document.bgColor = 'red';
+</pre>
+<p>Burada deneyin: Bu belgenin art alan rengini:</p>
+
+<ul>
+	<li><a href="javascript:chBG('#f6f6f6');">#f6f6f6</a></li>
+	<li><a href="javascript:chBG('#d2cbff');">#d2cbff</a></li>
+	<li><a href="javascript:chBG('#777777');">#777777</a></li>
+	<li><a href="javascript:chBG('');">'' (varsayılana dön)</a> - bazı eski tarayıcılarda kullanılamaz</li>
+</ul>
+
+<h3>Bir öğenin görüntülenme stilini değiştirme</h3>
+<ul class="yazi">
+    <li> WebTV display stilini desteklemez.
+    <li> Uyarı: Netscape 4, Escape 4, Opera 6-, OmniWeb 4.2-, NetFront 3.2- ve Clue tarayıcılar display: none; stilini destekelr, ama javascript kodlamasının değiştirmesine izin vermez.
+    <li> iCab 2- bazen display stilini değiştirme hata yapar ve 'block' yorumu 'varsayılana dön' (return to default) olur.
+    <li> Birçok donanıma özel tarayıcılar display stilini dikkate almaz (küçük ekran yine kalıplama konumundayken).
+    <li> Windows üzerindeki Internet Explorer 4 inline display konumunu hiç anlamaz.
+    <li> Escape 4 gerçekte display stilini değiştirmenize izin verir (ama inline, block ve none layers ve ilayers altında kabul edilir) display stilinin en iyi kullanımı yerleştirilmemiş öğelerle olduğundan, bu değişiklikler Escape altında pencere boyutları değişmeden etkili olmaz.
+</ul>
+NOT: Birçok ana tarayıcı display stilini destekler ve herhangi bir öğeyi satıriçi öğe gibi görüntülenmesine (display:inline;), blok öğe gibi olmasına (display: block;) ya da hiç görüntülenmemesine (display: none;) olanak tanır. Başkaları daha başka görüntü stillerini de destekler. Ama her tarayıcı display stilini javascript ile değiştirmenize izin vermez.
+<br />
+<br />
+
+Bu nedenle display stilini sayfa tümüyle yüklendikten sonra kodlamayla değiştirilmelidir. Bunu anlamayan tarayıcılar yapılmak isteneni dikkate almayacaktır ve kullanıcının içeriği görüntülemesine izin verecektir.
+<br />
+<br />
+
+Display stili görünebilirlik (visibility) stilinden çok farklıdır. Görünebilirliği 'hidden' yapmak, o öğenin görünmesini engellemektir ama sayfadaki yeri boş kalır. Display stilini 'none' yapmak onu görüntüden kaldırır ve boşluğu dolduracak biçimde sayfayı yeniden düzenler. Bu menü sistemleri için çok kullanışlı bir özelliktir. Çok küçük bir programlamayla tarayıcı sayfanın yeniden güzel görünmesini sağlamış olur.
+<br />
+<br />
+
+Öğelerin kendi display stilleri olmasına izin veren tarayıcıların hepsi document.getElementById ya da document.all kullanırlar (document.layer değil). Bu da işi biraz kolaylaştırmış olur. Tabi ki kullanıcıya kodlamanın onun tarayıcısında çalışmayacağını söylenebilir. Bunun için önce display stil değiştirme olanağımız olup olmadığına bakılmalıdır. O zaman varsayılan değer: 'span' gibi öğeler için 'inline', paragraf ve 'div' gibi öğeler için block olur.
+<h3>HTML</h3>
+
+Bu örnekte paragraf içinde span vardır.
+
+<p>Bu bir paragraftır.
+<span style="display:inline;" id="aUniqueId">Bu da bir paragraf
+içinde span'dır ve display stili, satıriçi stil tanımıyla 'inline'
+olarak belirtilmiştir.</span> Bu da aynı paragrafta
+bir başka satırdır. Ama span içinde değildir.</p>
+
+<h3>JavaScript</h3>
+<pre>
+function changeDisplay( elementId, setTo ) {
+  var theElement;
+  if( document.getElementById ) {
+    //DOM
+    theElement = document.getElementById( elementId );
+  } else if( document.all ) {
+    //tescilli DOM
+    theElement = document.all[ elementId ];
+  }
+  if( !theElement ) {
+    /* Yüklenmemiş sayfa, ya da tarayıcı 
+    document.getElementById ya da document.all desteklediğini
+    söylese bile, gerçekte kullanılamamaktadır */
+    return;
+  }
+  //stile erişimi sağla
+  if( theElement.style ) { theElement = theElement.style; }
+  if( typeof( theElement.display ) == 'undefined' ) {
+    //Tarayıcı display stilini değiştirmemize izin vermez
+    //Anlamlı bir mesaj ver
+    window.alert( 'Tarayıcınız bunu desteklemiyor');
+    return;
+  }
+  //display stilini değiştir
+  theElement.display = setTo;
+}
+</pre>
+<p>Burada dene: aşağıdaki paragrafta span için görüntü stili seçme</p>
+
+<ul>
+	<li><a href="javascript:doNuhn();" onclick="changeDisplay( 'aUniqueId', '' );">'' (default)</a></li>
+
+	<li><a href="javascript:doNuhn();" onclick="changeDisplay( 'aUniqueId', 'inline' );">'inline'</a></li>
+	<li><a href="javascript:doNuhn();" onclick="changeDisplay( 'aUniqueId', 'block' );">'block'</a></li>
+	<li><a href="javascript:doNuhn();" onclick="changeDisplay( 'aUniqueId', 'none' );">'none'</a></li>
+</ul>
+
+Bu paragrafta, paragraf içinde tanımlanmış span vardır ve display stili 'inline' değerine atanmıştır.
+Bu da başka bir paragraftır ama span içinde değildir.
+
+</div>
+<br />
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

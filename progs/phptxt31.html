@@ -1,0 +1,180 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP - Temel Yazım </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="javascript:myvoid();" class="nav">Başlarken</a>
+               <a href="phptxt11.html" class="sub">ilk Anlatım</a>
+               <a href="javascript:myvoid();" class="nav">Kurulumlar</a>
+               <a href="phptxt21.html" class="sub">Genel Kurulum</a><br />
+               <a href="phptxt22.html" class="sub">UNIX Kurulumu</a><br />
+               <a href="phptxt23.html" class="sub">OSX Kurulumu</a><br />
+               <a href="phptxt24.html" class="sub">Wins Kurulumu</a>
+               <a href="javascript:myvoid();" class="nav">Dil Kuralları</a>
+               <a href="phptxt31.html" class="sub">Temel yazım</a><br />
+               <a href="phptxt32.html" class="sub">Tipler</a><br />
+               <a href="phptxt33.html" class="sub">Değişkenler</a><br />
+               <a href="phptxt34.html" class="sub">Değişmezler</a><br />
+               <a href="phptxt35.html" class="sub">Deyimler</a><br />
+               <a href="phptxt36.html" class="sub">İşlemler</a><br />
+               <a href="phptxt37.html" class="sub">Kontrol Yapıları</a><br />
+               <a href="phptxt38.html" class="sub">İşlevler</a><br />
+               <a href="phptxt39.html" class="sub">Sınıflar Nesneler</a><br />
+               <a href="phptxt391.html" class="sub">Ad uzayı</a><br />
+               <a href="phptxt392.html" class="sub">İstisnalar</a>
+               <a href="javascript:myvoid();" class="nav">Güvenlik</a>
+               <a href="phptxt41.html" class="sub">Giriş</a><br />
+               <a href="phptxt42.html" class="sub">Genel bilgi</a><br />
+               <a href="phptxt43.html" class="sub">CGI iklisi</a><br />
+               <a href="phptxt44.html" class="sub">Apache modülü</a><br />
+               <a href="phptxt45.html" class="sub">Dosyadüzeni</a><br />
+               <a href="phptxt46.html" class="sub">Veritabanı</a><br />
+               <a href="phptxt47.html" class="sub">Hatalar</a><br />
+               <a href="phptxt48.html" class="sub">Diğerleri</a><br />
+               <a href="javascript:myvoid();" class="nav">Özellikler</a>
+               <a href="phptxt51.html" class="sub">HTTP Şifresi</a><br />
+               <a href="phptxt52.html" class="sub">Çerezler</a><br />
+               <a href="phptxt53.html" class="sub">Oturumlar</a><br />
+               <a href="phptxt54.html" class="sub">XForm</a><br />
+               <a href="phptxt55.html" class="sub">DosyaYükleme</a><br />
+               <a href="phptxt56.html" class="sub">UzakDosyalar</a><br />
+               <a href="phptxt57.html" class="sub">Bağlantılar</a><br />
+               <a href="phptxt58.html" class="sub">VTBağlantısı</a>
+               <font color="#8e9ccb"><h3>Gelişmiş</h3></font>
+               <a href="phptxt7.html" class="nav">Php Kökü</a>
+               <a href="phptxt8.html" class="nav">Ekler</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">14 Ocak 2008</span></div>
+<h2>Temel Yazım</h2>
+<div id="bdy" class="yazi">
+Bu konuda herşey <a href="http://us3.php.net/manual/en/language.basic-syntax.php">php manual</a> sayfalarında vardır. Kendi sözlerimizle (tam bir çeviri değildir) aslına sadık kalarak sizlere aktardık.
+
+<h3>HTML kodlamasından kaçış</h3>
+
+PHP bir dosyayı tararken özel PHP açılış ve kapanış biçimine bakar. İki biçim arasında bulunan kod PHP olarak yorumlanır. Bu özellik herhangi bir kodlama içine PHP anlamlı kodunun eklenmesini sağlar ve PHP her koşulda kendi kodunu bulup yorumlar. Söylenenlerin en güzeli HTML belgelerinde anlaşılır.
+<pre>
+&lt;p&gt;Bu satır dikkate alınmaz.&lt;/p&gt;
+&lt;?php echo 'Ama bu satır php ile taranır.'; ?&gt;
+&lt;p&gt;Bu satır da dikkate alınmaz.&lt;/p&gt;
+</pre>
+Daha gelişmiş ve karmaşık yapılar da olabilir:
+<pre>
+&lt;?php
+if ($expression) { 
+    ?&gt;
+    &lt;strong&gt;Bu doğrudur.&lt;/strong&gt;
+    &lt;?php 
+} else { 
+    ?&gt;
+    &lt;strong&gt;Bu yanlıştır.&lt;/strong&gt;
+    &lt;?php 
+}
+?&gt;
+</pre>
+PHP ilk kapanış biçimini bulduktan sonra o adıma değin herşeyi çıktıya taşır. Çıktıya taşıma işlemi ilk PHP başlama biçimine değin sürer. Böyle bir kod yakalanınca PHP yorumlayıcı hemen devreye girip kodu çalıştırır.
+<br /><br />
+Dört değişik tür PHP açılış ve kapanış biçimi vardır. Bunlardan ilk ikisi &lt;?php ?&gt; ve &lt;script language="php"&gt; &lt;/script&gt; diye tanımlanabilir. Bu türler (ilk iki tür) her zaman kullanılırlar. Diğer ikisi kısa ve ASP tipi biçimleridir ve kullanımı php.ini ayarlarından açılıp kapanmaya bağlıdır. Bu iki tür pek kullanılmaz ve tasarımcıların kullanması önerilmez.
+<br /><br />
+    Not: Standartları korumak açısından &lt?php ?&gt; biçimlerini XML ya da XHTML içinde kullanabilirsiniz.
+
+<h3>PHP açılma ve kapanma biçimleri</h3>
+<ol>
+<li>  &lt;?php echo 'Eğer XHTML ya da XML belgelerine hizmet sunulmak istendiğinde, aşağıdaki gibi yapın'; ?&gt;
+
+<li>  &lt;script language="php"&gt;
+        echo 'bazı düzenleyiciler (FrontPage gibi)
+              komutları işlemek istemez';
+    &lt;/script&gt;
+
+<li>  &lt;? echo 'bu çok sıradan SGML komutlarıdır'; ?&gt;
+    "&lt;? echo expression ?&gt;" için
+    &lt;?= expression ?&gt; kısaltılmış halidir.
+
+<li>  &lt;% echo 'İsterseniz ASP stili biçimler kullanabilirsiniz '; %&gt;
+    &lt;%= $variable; # Bu "&lt;% echo . . ." için kısaltmadır %&gt;
+</ol>
+Yukarıdaki örneklerde kullanılan biçimler her zaman kullanılabilir. Birinci örnek daha çok önerilen ve kullanılandır.
+<br /><br />
+Kısa kodlama php.ini ya da derleme sırasında PHP sistemine eklenmelidir.<br />
+<br /><br />
+ASP stili biçimler, asp_tags ile php.ini dosyasında açılırsa kullanılabilir.
+<br /><br />
+Kısa biçimler kullanarak uygulama geliştirme kitaplık kullanımında doğabilecek sorunlar yüzünden önerilen bir kullanım biçimi değildir.
+
+
+<h3>Komutları ayırma</h3>
+
+C, Perl ya da PHP her komut sonunda ; (noktalı virgül) kullanılmasını ister. PHP bloğunu kapatma biçimi noktalı virgül kullanımını otomatik olarak ima eder.
+<pre>
+&lt;?php
+    echo 'Bu bir denemedir';
+?&gt;
+
+&lt;?php echo 'Bu bir denemedir' ?&gt;
+
+&lt;?php echo 'Son kapanma biçimi unutuldu';
+</pre>
+Not: dosya sonundaki PHP kapanma biçimi seçimliktir. Bazen bunu unutmak kullanışlı da olabilir (örneğin include() ya da required() kullanıken dışarıdan alınan kod sorun çıkartmadan eklenebilir, istenmeyen boş satırlar olmaz).
+
+<h3>Açıklamalar</h3>
+
+PHP 'C', 'C++' ve Unix kabuk-stili (Perl stili) açıklamaları destekler.
+<pre>
+&lt;?php
+    echo 'Bu bir denemedir'; // Bu bir satırlık c++ stili açıklamadır
+    /* Bu çok satırlı bir açıklamadır
+       bu da açıklamanın diğer satırıdır */
+    echo 'Bu da bir başka denemedir';
+    echo 'Son deneme'; # Bu tek satırlık kabuk-stili açıklamadır
+?&gt;
+</pre>
+Bir satırlık açıklamalar genelde satırın sonundaki boş kalan bölüme yazılır. Açıklamalar yazılırken dikkat edilmesi gereken konu açıklamanın PHP tarafından doğru algılanması, HTML koduna aktarılmamasıdır. Çünkü HTML açıklamayı olduğu gibi web sayfasına yazar.
+<pre>
+Bu bir &lt;?php # echo 'basit';?&gt; örnektir.
+&lt;p&gt;Yukarıdaki başlık 'Bu bir örnektir' yazar&lt;/p&gt;
+</pre>
+'C' stili açıklamalar ilk */ görülünce biter. 'C' stili açıklamaları iç içe tanımlamamaya dikkat edin. 
+<pre>
+&lt;?php
+ /* 
+    echo 'Bu bir örnektir'; /* Bu açıklama hataya neden olur */
+ */
+?&gt;
+</pre>
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

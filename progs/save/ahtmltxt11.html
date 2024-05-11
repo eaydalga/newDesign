@@ -1,0 +1,73 @@
+<html>
+<body>
+<div id="sag"><span class="yazi">1 Aralık 2007</span></div>
+<h2>HTML Müzik Kodları</h2>
+<span class="yazi">
+WEB sayfasına müzik eklemek göreceli olarak kolaydır. Eskiden bir çok biçim kullanılmalıydı, çünkü tarayıcılar gömülmüş çoklu ortam dosyalarını değişik biçimlerde tanımlanmasını gerektiriyordu. Ama artık bu geçmişte kaldı.
+</span>
+
+<div class="yazi">
+<h3>Gömülme (embed) HTML</h3>
+Müzik web sayfasına "embed" (gömülme) biçimi kullanarak eklenir. Başka yötemlerde vardır ama "embed" artık çoklu ortam eklemek için kullanılan bir standrt olmuştur. Aşağıdaki "embed" biçimi en basit kullanımıyla çoklu ortam dosyasının yerini belirtmektedir.
+
+<pre class="fyazi">
+    &lt;embed src="beethoven.mid" /&gt;
+</pre>
+
+<p class="yazi">Yukarıdaki gömülmüş ortam dinleticisidir. Muziği durdurmak için stop/pause tuşunu tıklayın. Burada .midi uzantılı ses dosyasını firefox altında kullanmak sorun olabilmektedir. Bu nedenle uygun yazılım aşağıdaki gibi olmalıdır:</p>
+
+<pre class="fyazi">
+&lt;script&gt;
+&lt;!--
+var musicsrc="midi.mid"
+if (navigator.appName=="Microsoft Internet Explorer")
+    document.write('<bgsound src='+'"'+musicsrc+'"'+' loop="1">')
+else
+    document.write('<embed src=\"'+musicsrc+'\"
+             hidden="true" border="0" width="0" height="2"
+             autostart="true" loop="false">')
+//--&gt;
+&lt;/script&gt; 
+</pre>
+
+<p class="yazi">Hangi tür ortam yazılımı kullandığınıza bağlı olarak yukarıdaki kullanım birazcık değişir. Yukarıdaki gömülme yazılımını doğru görüntülemek için "display" niteliğini değiştirmek yararlı olur.</p>
+
+<h3>Görüntülemeye yönelik gömülme niteliği</h3>
+Gömülmüş ortak dinleticinin görünüşünü kişiselleştirmek için aşağıdaki nitelikleri atamak gerekir:
+
+    <li> width - ortam dinleticinin eni.</li>
+    <li> height - ortam dinleticinin yüksekliği</li>
+    <li> hidden - Eğer bu değer doğruysa (true), ortam dinletici görüntülenmez. Bunu kullanıcı muziği durdurmak istemez diyebildiğiniz an kullanmalısınız. Yoksa diğer değeri seçmelisiniz (false).
+
+<pre class="yazi">
+    &lt;embed src="beethoven.mid" width="360" height="165" /&gt;
+</pre>
+
+<p class="yazi">Genelde ortam dinleticisinin eni ve boyuyla oynanmak istenmez. Görüntnün bozuk olmasına neden olabilir.</p>
+
+<h3>Gömülme (Embed) Niteliği - İşlevselliğe bağlı olarak</h3>
+
+<p class="yazi">
+Gömülmüş ortam dinleticinin işlevselliğini kişiselleştirmek için aşağıdaki nitelikleri düzenlemek gerekir:</p>
+
+    <li> autostart - ortam dosyasının otomatik başlamasını tanımlar</li>
+    <li> loop - ortam dosyasının yinelenip yinelenmemesini belirtir</li>
+    <li> volume - ortam dosyasının ses ayarını belirtir. Değer 0 - 100 arasındadır</li>
+
+<pre class="fyazi">
+    &lt;embed src="beethoven.mid" autostart="false" loop="false"
+    volume="60" /&gt;
+</pre>
+
+<h3>Controls Niteliği</h3>
+
+<p class="yazi">"Controls" niteliği ortam dinleticinin hangi denetimlerinin görüntüleneceğini belirtir.</p>
+
+    <li> autostart - ortam dosyası otomatik başlatılacaksa seçilmelidir.</li>
+    <li> loop - ortam dosyasının yinelenip yinelenmemesini belirtir.</li>
+    <li> volume - ortam dosyasının ses ayarını tanımlar. (Değeri 0 - 100)
+
+</div>
+<br />
+</body>
+</html>

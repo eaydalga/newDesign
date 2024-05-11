@@ -1,0 +1,198 @@
+docs/blog.html:
+	"http://sourceforge.net/projects/odysseusblog"
+	"http://www.myspace.com"
+	"http://www.xanga.com"
+	"http://www.bBlog.com"
+docs/filmler.html:
+	"http://www.fileinfo.net/filetypes/video"
+	"http://www.indezine.com/products/video/stoikconverter.html"
+	"http://www.free-codecs.com/download/WinAVI_Video_Converter.htm"
+	"http://www.nchsoftware.com/prism/index.html"
+	"http://www.dvd-ripper-copy.com/video-converter-platinum.html"
+	"http://www.mplayerhq.hu/DOCS/man/en/mplayer.1.html"
+	"http://www.linux.com/articles/53702"
+	"http://ffmpeg.mplayerhq.hu/"
+	"http://www.theinquirer.net/en/inquirer/news/2006/07/31/dont-buy-any-video-converter-before-trying-this-freebie"
+	"http://www.erightsoft.com/SUPER.html"
+	"http://www.videohelp.com/tools/sections/linux-video-tools"
+	"http://www.zamzar.com/conversionTypes.php"
+	"http://www.dvdstyler.de/"
+	"http://flowplayer.org/"
+	"http://sswf.sourceforge.net/"
+	"http://osflash.org/"
+docs/kullanici.html:
+	"http://www.evernote.com/en/"
+docs/pg.html:
+	"http://hugin.sourceforge.net/"
+	"http://wiki.panotools.org/"
+	"http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
+	"http://panopoints.sourceforge.net/"
+	"http://360dof.com/store/cart.php?target=product&product_id=16158&category_id=250"
+	"http://www.easypano.com/"
+	"http://www.3dvista.com/"
+docs/swy.html:
+	"http://www.freeserifsoftware.com/software/WebPlus/key_features.asp"
+	"http://props.sourceforge.net/"
+	"http://www.interlogy.com/products/content/article/index.html"
+	"http://www.absolutengine.com/"
+	"http://genu.org"
+	"http://journalness.sourceforge.net/"
+	"http://www.indymedia.ie/oscailt/"
+docs/webtv.html:
+	"http://wwitv.com/portal.htm"
+	"http://maketelevision.com/log/why_ogg_theora_matters_for_internet_tv"
+	"http://makeinternettv.org/equipment/video.php"
+---------------------------------------------------------------------------
+progs/acsstxt14.html:
+	"http://www.w3schools.com"
+progs/acsstxt16.html:
+	"http://www.w3schools.com/css/tryit.asp?filename=trycss_image_gallery"
+progs/ahtmltxt10.html:
+	"http://www.w3.org/Addressing/URL/url-spec.html and http://www.w3.org/International/francois.yergeau.html."
+	"http://www.permadi.com/tutorial/urlEncoding/example.html?var=This+is+a+simple+%26+short+test."
+	"http://wp.netscape.com/eng/mozilla/3.0/handbook/javascript/ref_d-e.htm#48073" class="contentlink"
+	"http://wp.netscape.com/eng/mozilla/3.0/handbook/javascript/ref_t-z.htm#66677" class="contentlink"
+	"http://us3.php.net/urlencode"
+	"http://msdn.microsoft.com/library/default.asp?url=/library/en-us/iissdk/html/cbb19811-6ba3-46fe-b324-e0874cfc3382.asp"
+	"http://www.unix.org.ua/orelly/perl/perlnut/c17_110.htm"
+	"http://search.cpan.org/dist/CGI.pm/"
+	"http://www.unix.org.ua/orelly/perl/perlnut/c17_111.htm"
+	"http://www.w3.org/International/O-URL-code.html"
+	"http://www.w3.org/International/O-URL-code.html" class="contentlink"
+	"http://www.macromedia.com/support/flash/action_scripts/actionscript_dictionary/actionscript_dictionary199.html" class="contentlink"
+	"http://www.macromedia.com/support/flash/action_scripts/actionscript_dictionary/actionscript_dictionary812.html" class="contentlink"
+	"http://msdn.microsoft.com/library/default.asp?url=/library/en-us/script56/html/vsfctescape.asp" class="contentlink"
+	"http://msdn.microsoft.com/library/default.asp?url=/library/en-us/script56/html/vsfctunescape.asp" class="contentlink"
+	"http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpref/html/frlrfsystemwebhttputilityclassurlencodetopic.asp" class="contentlink"
+	"http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpref/html/frlrfsystemwebhttputilityclassurldecodetopic.asp" class="contentlink"
+	"href="http://www.tizag.com/pics/flash/motiontween1easy.swf"&gt;"
+progs/ahtmltxt12.html:
+	"http://video.google.com/googleplayer.swf?videoUrl=http%3A%"
+progs/ahtmltxt13.html:
+	"href="http://adamv.com/dev/articles/iis-on-xp-home"
+	"href="http://support.microsoft.com/default.aspx?scid=kb;EN-US;q304197"
+	"http://www.microsoft.com/downloads/details.aspx?FamilyID=c717d943-7e4b-4622-86eb-95a22b832caa&amp;DisplayLang=en"
+	"http://www.apache.org/"
+	"http://www.lighttpd.net/"
+progs/ahtmltxt1.html:
+	"http://www.w3.org/People/Raggett"
+progs/ahtmltxt2.html:
+	"http://www.w3.org/TR/html4/strict.dtd"
+	"http://www.w3.org/TR/html4/loose.dtd"
+	"http://www.w3.org/TR/html4/frameset.dtd"
+progs/ahtmltxt7.html:
+	"http://www.tizag.com/htmlT/script.php"
+progs/ahtmltxt8.html:
+	"http://www.tizag.com/htmlT/htmlattributes.php"
+progs/css.html:
+	"http://www.csstutorial.net/introductionCSS.php"
+	"http://www.w3schools.com/css/default.asp"
+	"http://www.w3.org/2002/03/tutorials"
+	"http://www.w3.org/TR/REC-CSS1"
+progs/dhtml.html:
+	"http://www.pageresource.com/html/index.html"
+	"http://www.webmasterbase.com/article.php/309"
+	"http://www.pageresource.com/dhtml/indexcss.htm"
+	"http://www.pageresource.com/jscript/index.html"
+	"http://hotwired.lycos.com/webmonkey/programming/javascript/index.html"
+	"http://www.pageresource.com/dhtml/ryan/part1-1.html"
+	"http://www.pageresource.com/dhtml/ryan/part1-1.html"
+	"http://www.howtocreate.co.uk/tutorials/javascript/domevents"
+	"http://www.w3schools.com/dhtml/default.asp"
+progs/dhtmltxt4.html:
+	"http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-core.html"
+	"http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-html.html"
+progs/dhtmltxt5.html:
+	"http://www.w3.org/TR/2000/REC-DOM-Level-2-Events-20001113/events.html"
+	"http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-html.html"
+progs/html.html:
+	"http://www.w3schools.com/html/default.asp"
+	"http://www.w3schools.com/about/about_helping.asp"
+	"http://www.tizag.com/htmlT/index.php"
+	"http://www.java2s.com/Code/ASP/Request/URLEncodingVBnet.htm"
+	"http://www.permadi.com/tutorial/"
+progs/htmltxt10.html:
+	"http://www.w3schools.com/images/boat.gif.
+progs/htmltxt11.html:
+	"http://www.w3schools.com/clouds.gif"
+progs/htmltxt14.html:
+	"http://tr.wikipedia.org/wiki/Web_renkleri"
+progs/htmltxt4.html:
+	"http://www.w3.org/People/Raggett"
+	"href="http://www.w3.org/MarkUp/Guide/Style.html"
+progs/htmltxt5.html:
+	"http://www.w3schools.com/"
+	"http://www.w3schools.com/html_links.asp#tips"
+	"http://www.w3schools.com/html"
+	"href="http://www.w3schools.com/html/"
+	"href="http://www.microsoft.com/"
+progs/js.html:
+	"http://www.howtocreate.co.uk/tutorials/javascript/objectoriented"
+	"http://www.w3schools.com/js/default.asp"
+	"http://www.quirksmode.org/js/doctypes.html"
+	"http://www.howtocreate.co.uk/tutorials/javascript/"
+	"http://www.javascriptkit.com/dhtmltutors/index.shtml"
+	"http://www.dyn-web.com/dhtml/scroll/"
+	"http://radio.javaranch.com/pascarello/2006/08/17/1155837038219.html"
+	"http://www.webdeveloper.com/forum/archive/index.php/f-3.html"
+	"http://adomas.org/javascript-mouse-wheel/"
+	"http://www.rgagnon.com/jsdetails/js-0035.html"
+	"http://www.web-source.net/javascript_tutorial/"
+	"http://www.web-source.net/javascript_codes.htm"
+progs/jstxt10.html:
+	"http://www.howtocreate.co.uk/why.html#browsers"
+	"http://www.upsdell.com/BrowserNews/overview.htm"
+progs/jstxt16.html:
+	"http://en.wikipedia.org/wiki/Diffie-Hellman"
+	"http://en.wikipedia.org/wiki/SSL"
+progs/jstxt.html:
+	"http://www.howtocreate.co.uk/tutorials/javascript/objectoriented"
+	"http://www.w3schools.com/js/default.asp"
+	"http://www.quirksmode.org/js/doctypes.html"
+	"http://www.howtocreate.co.uk/tutorials/javascript/"
+	"http://www.javascriptkit.com/dhtmltutors/index.shtml"
+	"http://www.dyn-web.com/dhtml/scroll/"
+	"http://radio.javaranch.com/pascarello/2006/08/17/1155837038219.html"
+	"http://www.webdeveloper.com/forum/archive/index.php/f-3.html"
+	"http://adomas.org/javascript-mouse-wheel/"
+	"http://www.rgagnon.com/jsdetails/js-0035.html"
+	"http://www.web-source.net/javascript_tutorial/"
+	"http://www.web-source.net/javascript_codes.htm"
+progs/kopca.html:
+	"http://www.white-hat-web-design.co.uk/articles/php-captcha.php"
+	"http://www.white-hat-web-design.co.uk/articles/php-captcha.php"
+	"http://www.gnu.org/licenses/gpl.html"
+	"http://www.captcha.net/"
+	"http://en.wikipedia.org/wiki/Captcha"
+	"http://www.devtrolls.com/gdf_fonts/fonts.html"
+	"http://www.hirfal.hu/fonts/?C=S;O=D"
+	"http://www.phpmix.org/how_to_create_a_dynamic_signature/resources"
+progs/ornek5.html:
+	"http://hotwired.lycos.com/webmonkey/97/33/index1a.html?tw=authoring"
+	"http://msdn.microsoft.com/workshop/author/filter/reference/reference.asp"
+progs/php.html:
+	"http://us3.php.net/manual/en/index.php"
+progs/phptxt11.html:
+	"http://alan_adi/birsey.php?id=1"
+progs/phptxt22.html:
+	"http://benoit.noss.free.fr/php/install-php4.html"
+	"http://benoit.noss.free.fr/php/install-php4.html"
+	"http://www.sunfreeware.com/"
+	"http://software.hp.com/"
+	"http://www.apt-get.org/"
+	"http://packages.dotdeb.org"
+progs/phptxt23.html:
+	"http://darwinports.opendarwin.org/"
+	"http://www.entropy.ch/software/macosx/php/"
+	"http://fink.sourceforge.net/"
+	"http://www.diax.ch/users/liyanage/software/macosx/libphp4.so.gz,"
+progs/phptxt24.html:
+	"http://www.php.net/extra/bindlib_w32.zip"
+	"http://www.php.net/extra/win32build.zip"
+	"http://www.microsoft.com/msdownload/platformsdk/sdkupdate/"
+progs/phptxt31.html:
+	"http://us3.php.net/manual/en/language.basic-syntax.php""
+progs/phptxt54.html:
+	"http://www.w3.org/1999/xhtml"
+	"http://www.w3.org/2002/xforms"
+	"http://www.w3.org/1999/xhtml"

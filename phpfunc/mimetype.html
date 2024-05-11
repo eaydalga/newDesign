@@ -1,0 +1,107 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Hyperlink Preprocessor </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">29 Mart 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>Mimetype İşlevleri</h2>
+
+<h3>Giriş</h3>
+
+<h3>Uyarı</h3>
+
+Bu uzantı PECL uzantısı olarak eskimiştir. Fileinfo daha açık bir yolla, aynı işlevselliği (ve daha çoğunu) sağlar.
+<br /><br />
+Bu modüldeki işlevler bir dosyanın içeriğindeki belirli yerdeki sihirli bayt sıralamasına bakarak öngörümde bulunmaya çalışırlar. Bunlar çok doğru sonuçlar olmasa da çok iyi sonuçlar verirler.
+<br /><br />
+Bu uzantı Apache mod_mime_magic tarafından türetilir. O da aslında "file"
+komutuna dayanır (bakımı Ian F. Darwin tarafından yapılmaktadır).
+
+<h3>Kurulum</h3>
+
+PHP "--with-mime-magic" ile derlenmelidir. Uzantı Apache ile dağıtılan "magic"
+dosyanın kopyasına gerek duyar.
+<br /><br />
+    Not: The PHP 4.3.2'den beri ayar seçeneğin "--enable-mime-magic" yerine "--with-mime-magic" olmuştur.
+<br /><br />
+    Not: Bu uzantı tümüyle donatılmış magic dosyasını ele almaya yetekli değildir.
+<br /><br />
+    Not: Win32 Kullanıcıları için <br />
+Bu modülü windows ortamında kullanabilmek için yolu php.ini içinde 
+magic.mime dosyasının yoluna ayarlamalısınız.
+<br /><br />
+    Örnek-1 Yolu magic.mime dosaysına ayarlamak
+<pre>
+    mime_magic.magicfile = "$PHP_INSTALL_DIR\magic.mime"
+</pre>
+
+    $PHP_INSTALL_DIR için gerçek PHP yolunu girmeyi unutmayın (örneğin c:\php gibi)
+
+<h3>Çalışma Zamanı Ayarları</h3>
+
+php.ini ayarları bu işlevlerin davaranışını değiştirir.
+
+<h3>Mimetype ayar seçenekler</h3>
+<table class="yazi">
+<tr><td>Adı</td><td>Varsayılan</td><td>Değişebilir</td><td>DeğişimKaydı</td></tr>
+<tr><td>mime_magic.debug</td><td>"0"</td><td>PHP_INI_SYSTEM</td><td>PHP 5.0.0. den beri var</td></tr>
+<tr><td>mime_magic.magicfile</td><td>"/path/to/php/magic.mime"</td><td>PHP_INI_SYSTEM</td><td>PHP 4.3.0. den beri var</td></tr>
+</table>
+
+PHP_INI_* değişmezleri için daha çok bilgi ve ayrıntılar php.ini yönelticilerinde bulunur.
+<br /><br />
+Burada ayar yönelticilerinin kısa açıklamaları vardır.
+<dl>
+<dt>mime_magic.debug mantıksal
+
+    <dd>Hata yazmayı açma/kapama
+</dd></dt>
+<dt>mime_magic.magicfile yazı dizisi
+
+    <dd>magic.mime dosyasına yol
+</dd></dt>
+</dl>
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

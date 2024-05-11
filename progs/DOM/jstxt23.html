@@ -1,0 +1,446 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Aybim </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script language="JavaScript" src="../js/XHConn.js"> </script>
+<script language="JavaScript" src="../js/js10.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="ysoltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="js.html" class="nav">Giriş</a>
+               <a href="jstxt1.html" class="nav">Sayfada Javascript</a>
+               <a href="jstxt2.html" class="nav">Nesnel Programlama</a>
+               <a href="jstxt3.html" class="nav">JS Nesneleri</a>
+               <a href="jstxt4.html" class="nav">İşlemler</a>
+               <a href="jstxt5.html" class="nav">Değişkenler</a>
+               <a href="jstxt6.html" class="nav">Denetim Yapıları</a>
+               <a href="jstxt7.html" class="nav">Script Yazma</a>
+               <a href="jstxt8.html" class="nav">Yazma İşlevleri</a>
+               <a href="jstxt9.html" class="nav">Başvuru</a>
+               <a href="jstxt10.html" class="nav">DHTML</a>
+               <a href="jstxt11.html" class="nav">Öğe İçeriği</a>
+               <a href="jstxt12.html" class="nav">Pencereler</a>
+               <a href="jstxt13.html" class="nav">Olay Bilgisi</a>
+               <a href="jstxt14.html" class="nav">Zaman Ayarı</a>
+               <a href="jstxt15.html" class="nav">Cookie Kullanımı</a>
+               <a href="jstxt16.html" class="nav">Güvenlik</a>
+               <a href="jstxt17.html" class="nav">W3C DOM</a>
+               <a href="jstxt18.html" class="nav">DOM Düğümü</a>
+               <a href="jstxt19.html" class="nav">DOM Tablolar</a>
+               <a href="jstxt20.html" class="nav">DOM CSS</a>
+               <a href="jstxt21.html" class="nav">DOM Stiller</a>
+               <a href="jstxt22.html" class="nav">DOM Events</a>
+               <a href="jstxt23.html" class="nav">DOM Nesneleri</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>Javascript Yazılım Kuralları (JS)</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+-------------------------------------------------------------
+<div id="content">
+
+<h2>DOM objects and methods</h2><p>This gives all properties, collections and methods of the W3C DOM that can be reliably used in all major DOM browsers,
+as well as <var>document.styleSheets</var>, which is much less reliable, but useful if it is available.</p>
+
+<script type="text/javascript" src="/styles/givedfns.js"></script>
+<h3>Key</h3>
+<ul class="treeview">
+	<li><dfn class="o">Parent object</dfn><ul>
+		<li><dfn class="o">Child object</dfn></li>
+
+		<li><dfn class="p">Child property</dfn></li>
+		<li><dfn class="c">Child object being accessed through a collection[]</dfn></li>
+		<li><dfn class="e">Event</dfn></li>
+		<li class="last"><dfn class="m">Method()</dfn></li>
+	</ul></li>
+</ul>
+
+<p>Each can be clicked for more information.</p>
+
+<p>Collections will also have the <var>length</var> property, giving the number of entries in that collection.</p>
+
+<h3>The document node</h3>
+
+<h4>Creating nodes</h4>
+
+<ul class="treeview">
+	<li><a href="#"><dfn class="o">document</dfn></a> <span>The document object for the current document - - read-only</span><ul>
+
+		<li><a href="#"><dfn class="m">createDocumentFragment()</dfn></a> <span>Returns a document fragment that can be used to add multiple nodes to the document</span></li>
+		<li><a href="#"><dfn class="m">createElement('element_name')</dfn></a> <span>Returns a new element of type element_name</span></li>
+		<li class="last"><a href="#"><dfn class="m">createTextNode('text content')</dfn></a> <span>Returns a text node with a string value matching the text content</span></li>
+	</ul></li>
+
+</ul>
+
+<h4>To walk the DOM tree</h4>
+
+<ul class="treeview">
+	<li><a href="#"><dfn class="o">document</dfn></a> <span>The document object for the current document - - read-only</span><ul>
+		<li><a href="#"><dfn class="o">body</dfn></a> <span>The BODY element node - - read-only</span></li>
+		<li><a href="#"><dfn class="o">documentElement</dfn></a> <span>The HTML element node - - read-only</span></li>
+
+		<li><a href="#"><dfn class="m">getElementById('element id')</dfn></a> <span>Returns a reference to the element with the specified id</span></li>
+		<li class="last"><a href="#"><dfn class="m">getElementsByTagName('element_name')</dfn></a> <span>Returns a collection of all elements with the specified element name - NOTE: does not return a true collection; - returns an object with .0 ... .n and .length properties</span></li>
+	</ul></li>
+</ul>
+
+<h4>DOM support</h4>
+
+<ul class="treeview">
+	<li><a href="#"><dfn class="o">document</dfn></a> <span>The document object for the current document - - read-only</span><ul>
+		<li class="last"><a href="#"><dfn class="o">implementation</dfn></a> <span>An object giving information about the DOM implementation - (Also has other methods in good browsers [not covered here]) - - read-only</span><ul>
+			<li class="last"><a href="#"><dfn class="m">hasFeature(string: feature,string: domVersion)</dfn></a> <span>Returns true if the browser supports that feature of the DOM specification - Do not rely on browsers to accurately represent their support for features</span></li>
+		</ul></li>
+
+	</ul></li>
+</ul>
+
+<h3>All nodes</h3>
+
+<h4>To walk the DOM tree</h4>
+
+<ul class="treeview">
+	<li><a href="#"><dfn class="o">node</dfn></a> <span>An element or text node - - read-only</span><ul>
+		<li><a href="#"><dfn class="c">childNodes[]</dfn></a> <span>A collection of all text nodes and element nodes the node contains directly if node is an element node - - read-only</span></li>
+
+		<li><a href="#"><dfn class="o">parentNode</dfn></a> <span>A reference to the containing node - - read-only</span></li>
+		<li><a href="#"><dfn class="o">firstChild</dfn></a> <span>The first entry in the childNodes collection if node is an element node - - read-only</span></li>
+		<li><a href="#"><dfn class="m">getElementsByTagName('element_name')</dfn></a> <span>Returns a collection of all elements inside the current element, with the specified element name - NOTE: does not return a true collection; - returns an object with .0 ... .n and .length properties</span></li>
+		<li><a href="#"><dfn class="o">lastChild</dfn></a> <span>The last entry in the childNodes collection if node is an element node - - read-only</span></li>
+
+		<li><a href="#"><dfn class="o">nextSibling</dfn></a> <span>The next entry in the childNodes collection of the parent node - - read-only</span></li>
+		<li><a href="#"><dfn class="o">offsetParent</dfn></a> <span>The node that the element's offset can be calculated from - - read-only</span></li>
+		<li class="last"><a href="#"><dfn class="o">previousSibling</dfn></a> <span>The previous entry in the childNodes collection of the parent node - - read-only</span></li>
+	</ul></li>
+
+</ul>
+
+<h4>Attaching, copying or removing nodes</h4>
+
+<ul class="treeview">
+	<li><a href="#"><dfn class="o">node</dfn></a> <span>An element, text or attribute node - - read-only</span><ul>
+		<li><a href="#"><dfn class="m">appendChild(nodeReference)</dfn></a> <span>Appends the referenced node to the end of the childNodes collection, and displays it on the page - If it is already attached to the document, it will be moved to this new location</span></li>
+		<li><a href="#"><dfn class="m">cloneNode(bool: copyChildrenToo)</dfn></a> <span>Returns a clone of a node or branch of the DOM tree, event handlers may or may not be cloned</span></li>
+
+		<li><a href="#"><dfn class="p">innerHTML</dfn></a> <span>The HTML contained by the element - Small amounts of HTML will be inserted into the DOM tree immediately - Large amounts of HTML may take as much as 1/2 second to be inserted into the DOM tree - Does not work with XHTML in some browsers - - read/write</span></li>
+		<li><a href="#"><dfn class="m">insertBefore(nodeReferenceX,nodeReferenceY)</dfn></a> <span>Inserts or moves node nodeReferenceX as a childNode of the element before nodeReferenceY</span></li>
+		<li><a href="#"><dfn class="m">removeChild(nodeReference)</dfn></a> <span>Removes the specified child from the childNodes collection (deletes it) - If childNodes.length becomes 0, the parentNode is also deleted</span></li>
+		<li><a href="#"><dfn class="m">replaceChild(nodeReferenceX,nodeReferenceY)</dfn></a> <span>Replaces child nodeReferenceY with node nodeReferenceX - Returns nodeReferenceY</span></li>
+
+		<li class="last"><a href="#"><dfn class="m">splitText(index)</dfn></a> <span>Splits a text node into two at the specified index creating a new entry in the childNodes collection</span></li>
+	</ul></li>
+</ul>
+
+<h4>Node information</h4>
+
+<ul class="treeview">
+	<li><a href="#"><dfn class="o">node</dfn></a> <span>An element, text or attribute node - - read-only</span><ul>
+
+		<li><a href="#"><dfn class="p">data</dfn></a> <span>Equivalent to nodeValue where node is a text node - - read/write</span></li>
+		<li><a href="#"><dfn class="m">hasChildNodes()</dfn></a> <span>Returns boolean if the node has child nodes</span></li>
+		<li><a href="#"><dfn class="p">id</dfn></a> <span>The id of the element - - read/write</span></li>
+		<li><a href="#"><dfn class="p">nodeName</dfn></a> <span>Name of the node (tag name, attribute name or '#text') - - read-only</span></li>
+
+		<li><a href="#"><dfn class="p">nodeType</dfn></a> <span>1 for an element/tag, 2 or undefined for an attribute or 3 for a text node - - read-only</span></li>
+		<li><a href="#"><dfn class="p">nodeValue</dfn></a> <span>The string of a text node or attribute node - - read/write</span></li>
+		<li><a href="#"><dfn class="p">specified</dfn></a> <span>Boolean: says if the node has a value - - read-only</span></li>
+		<li><a href="#"><dfn class="p">tagName</dfn></a> <span>An uppercase representation of the tag name if node is an element node - - In theory, this should be lower case for XHTML (when served as XHTML, not HTML), but some browsers will still use upper case - - read-only</span></li>
+
+		<li class="last"><a href="#"><dfn class="p">title</dfn></a> <span>The title attribute of the element - - read/write</span></li>
+	</ul></li>
+</ul>
+
+<h4>Element node attributes</h4>
+
+<ul class="treeview">
+	<li><a href="#"><dfn class="o">node</dfn></a> <span>An element node - - read-only</span><ul>
+
+		<li><a href="#"><dfn class="c">attributes[]</dfn></a> <span>A numerical collection of all attributes defined or that could be defined for the element - Difficult to use because of browser incompatibilities - - read/write</span></li>
+		<li><a href="#"><dfn class="m">getAttribute('attributeName')</dfn></a> <span>Returns the value of the specified attribute [not class, style or event handler]</span></li>
+		<li><a href="#"><dfn class="m">removeAttribute('attributeName')</dfn></a> <span>Removes the specified attribute [not align, class, style or event handler]</span></li>
+		<li class="last"><a href="#"><dfn class="m">setAttribute('attribute_name','attribute_value')</dfn></a> <span>Sets the name=value pair for the specified attribute of the element [not name, class, style or event handler] - Use along with style.textAlign to make align work in Opera 7.0-7.1</span></li>
+
+	</ul></li>
+</ul>
+
+<h4>Element node style</h4>
+
+<ul class="treeview">
+	<li><a href="#"><dfn class="o">node</dfn></a> <span>An element node - - read-only</span><ul>
+		<li><a href="#"><dfn class="p">className</dfn></a> <span>The class name of the element - - read/write</span></li>
+
+		<li><a href="#"><dfn class="o">currentStyle</dfn></a> <span>A style object that gives the cascaded and inherited styles applied to the element - - read-only - - IE compatible browsers only - For cross-browser scripting, see also - window.getComputedStyle</span><ul>
+			<li class="last"><a href="#"><dfn class="p">styleName</dfn></a> <span>Text representation of the named style value - - read/only</span></li>
+		</ul></li>
+		<li class="last"><a href="#"><dfn class="o">style</dfn></a> <span>An object containing all inline styles of the element - - read-only</span><ul>
+
+			<li class="last"><a href="#"><dfn class="p">styleName</dfn></a> <span>Text representation of the named style value - - read/write</span></li>
+		</ul></li>
+	</ul></li>
+</ul>
+
+<ul class="treeview">
+	<li><a href="#"><dfn class="o">window</dfn></a> <span>The window object for the current document - - read-only</span><ul>
+
+		<li class="last"><a href="#"><dfn class="m">getComputedStyle(nodeReference,string: pseudoElement)</dfn></a> <span>Returns a style object that gives the cascaded and inherited styles applied to the element - - pseudoElement parameter is either a pseudo element name, or null - - Standards compliant browsers only - For cross-browser scripting, see also - elementNode.currentStyle</span><ul>
+			<li class="last"><a href="#"><dfn class="p">styleName</dfn></a> <span>Text representation of the named style value - - read/only</span></li>
+		</ul></li>
+	</ul></li>
+</ul>
+
+<h4>Element node size and position (not standardised)</h4>
+
+<ul class="treeview">
+	<li><a href="#"><dfn class="o">node</dfn></a> <span>An element node - - read-only</span><ul>
+		<li><a href="#"><dfn class="p">clientHeight</dfn></a> <span>The height of the element inside its border, minus any scrollbar height - - read-only</span></li>
+		<li><a href="#"><dfn class="p">clientWidth</dfn></a> <span>The width of the element inside its border, minus any scrollbar width - - read-only</span></li>
+
+		<li><a href="#"><dfn class="p">offsetHeight</dfn></a> <span>The height of the element outside its border - - read-only</span></li>
+		<li><a href="#"><dfn class="p">offsetLeft</dfn></a> <span>The distance between the left edge of the node and the left edge of the offsetParent node - - read-only</span></li>
+		<li><a href="#"><dfn class="p">offsetParent</dfn></a> <span>The parent element that the browser has chosen to be the offsetParent - Only reliable cross-browser if all chained offsets are added together - - read-only</span></li>
+		<li><a href="#"><dfn class="p">offsetTop</dfn></a> <span>The distance between the top edge of the node and the top edge of the offsetParent node - - read-only</span></li>
+
+		<li><a href="#"><dfn class="p">offsetWidth</dfn></a> <span>The width of the element outside its border - - read-only</span></li>
+		<li><a href="#"><dfn class="p">scrollHeight</dfn></a> <span>The height of the element's contents and padding - Only reliable if it has a horizontal scrollbar - - read-only</span></li>
+		<li><a href="#"><dfn class="p">scrollLeft</dfn></a> <span>The horizontal distance that the element has been scrolled - - read-write</span></li>
+		<li><a href="#"><dfn class="p">scrollTop</dfn></a> <span>The vertical distance that the element has been scrolled - - read-write</span></li>
+
+		<li class="last"><a href="#"><dfn class="p">scrollWidth</dfn></a> <span>The width of the element's contents and padding - Only reliable if it has a vertical scrollbar - - read-only</span></li>
+	</ul></li>
+</ul>
+
+<h3>Table and associated nodes</h3>
+
+<p>In addition to the normal node functionality, nodes belonging to tables have extra functionality, specially designed to
+work with the layouts of tables.</p>
+
+<h4>To walk the DOM tree</h4>
+
+<ul class="treeview">
+	<li><a href="#"><dfn class="o">node</dfn></a> <span>A table (or related) node - - read-only</span><ul>
+		<li><a href="#"><dfn class="o">caption</dfn></a> <span>The caption of the table if element is a table - - read-only</span></li>
+		<li><a href="#"><dfn class="c">cells[]</dfn></a> <span>A collection of all cells in the element if the element is a tr - - read-only</span></li>
+
+		<li><a href="#"><dfn class="c">rows[]</dfn></a> <span>A collection of all rows in the element if the element is a thead, tbody or tfoot - - read-only</span></li>
+		<li><a href="#"><dfn class="c">tBodies[]</dfn></a> <span>A collection of all tbodies in the table if element is a table - - read-only</span></li>
+		<li><a href="#"><dfn class="o">tfoot</dfn></a> <span>The tfoot element of the table if element is a table - - read-only</span></li>
+		<li class="last"><a href="#"><dfn class="o">thead</dfn></a> <span>The thead element of the table if element is a table - - read-only</span></li>
+
+	</ul></li>
+</ul>
+
+<h4>Attaching, copying or removing nodes</h4>
+
+<ul class="treeview">
+	<li><a href="#"><dfn class="o">node</dfn></a> <span>A table (or related) node - - read-only</span><ul>
+		<li><a href="#"><dfn class="m">deleteCell(cellIndex)</dfn></a> <span>Deletes the cell at the specified index if the element is a tr</span></li>
+
+		<li><a href="#"><dfn class="m">deleteRow(rowIndex)</dfn></a> <span>Deletes the row at the specified index if the element is a thead, tbody or tfoot</span></li>
+		<li><a href="#"><dfn class="m">deleteTFoot()</dfn></a> <span>Deletes the tfoot element if the element is a table</span></li>
+		<li class="last"><a href="#"><dfn class="m">deleteTHead()</dfn></a> <span>Deletes the tfoot element if the element is a table</span></li>
+	</ul></li>
+
+</ul>
+
+<h4>Node information</h4>
+
+<ul class="treeview">
+	<li><a href="#"><dfn class="o">node</dfn></a> <span>A table (or related) node - - read-only</span><ul>
+		<li><a href="#"><dfn class="p">cellIndex</dfn></a> <span>The index of the cell within the row, if element is a td or th - - read-only</span></li>
+		<li class="last"><a href="#"><dfn class="p">rowIndex</dfn></a> <span>The index of the row within the tbody, thead or tfoot (only reliable if there is no thead or tfoot) - - read-only</span></li>
+
+	</ul></li>
+</ul>
+
+<h3>Stylesheets (if supported)</h3>
+
+<ul class="treeview">
+	<li><a href="#"><dfn class="o">document</dfn></a> <span>The document object for the current document - - read-only</span><ul>
+		<li class="last"><a href="#"><dfn class="c">styleSheets[]</dfn></a> <span>Collection of all stylesheets in the document - - read-only</span><ul>
+
+			<li><a href="#"><dfn class="m">addRule(string selectors,string styles)</dfn></a> <span>Adds a new rule to the end of the stylesheet - - Internet Explorer only - For cross-browser scripting, see also - document.styleSheets[i].insertRule</span></li>
+			<li><a href="#"><dfn class="c">cssRules[]</dfn></a> <span>Collection of all CSS rules in the stylesheet, that are not inside a @media block - includes normal style rules, @charset rules, @import rules, @font-face rules, @media blocks, @page rules - - read/only - - Standards compliant browsers only - For cross-browser scripting, see also - document.styleSheets[i].rules</span><ul>
+				<li><a href="#"><dfn class="c">cssRules[]</dfn></a> <span>Gives all child rules, if the rule is a @media rule - Children as document.styleSheets[int numberOfStyleSheet].cssRules - - read/only - - Standards compliant browsers only - For cross-browser scripting, see also - document.styleSheets[i].rules</span></li>
+				<li><a href="#"><dfn class="p">cssText</dfn></a> <span>The textual representation of the rule, including the selector and styles - - read/write (read-only in Mozilla) - - Standards compliant browsers only</span></li>
+
+				<li><a href="#"><dfn class="m">deleteRule(int index)</dfn></a> <span>Deletes the CSS rule at the specified index within the media block, - if the parent rule is a @media rule - - Standards compliant browsers only</span></li>
+				<li><a href="#"><dfn class="p">encoding</dfn></a> <span>The encoding specified by the rule if the rule is a @charset rule - - read/write - - Standards compliant browsers only</span></li>
+				<li><a href="#"><dfn class="p">href</dfn></a> <span>The URL specified by the rule if the rule is an @import rule - - read/only - - Standards compliant browsers only - For cross-browser scripting, see also - document.styleSheets[i].imports[j].href</span></li>
+				<li><a href="#"><dfn class="m">insertRule(string rule,int index)</dfn></a> <span>Inserts a new rule at the specified index within the media block, - if the parent rule is a @media rule - If the index is the same as the cssRules.length, the new rule will be added at the end - - Standards compliant browsers only</span></li>
+
+				<li><a href="#"><dfn class="o">media</dfn></a> <span>Provides information about what media types the rule applies to, - if the rule is a @media or @import rule - Children as document.styleSheets[int numberOfStyleSheet].media - - read/only - - Standards compliant browsers only - For cross-browser scripting, see also - document.styleSheets[i].imports[j].media</span></li>
+				<li><a href="#"><dfn class="o">parentRule</dfn></a> <span>Refers to the @media rule that the current rule is contained inside (if there is one) - - read/only - - Standards compliant browsers only</span></li>
+				<li><a href="#"><dfn class="o">parentStyleSheet</dfn></a> <span>Refers to the styleSheet that the rule is inside - - read/only</span></li>
+				<li><a href="#"><dfn class="p">selectorText</dfn></a> <span>The selector part of the rule, if it is a normal style rule or a @page rule - - read/write</span></li>
+
+				<li><a href="#"><dfn class="o">style</dfn></a> <span>Refers to the styles in the CSS rule, if the rule is a normal - style rule, @font-face rule or @page rule - - read/only</span><ul>
+					<li><a href="#"><dfn class="p">cssText</dfn></a> <span>The textual representation of the style part of the rule - - read/write</span></li>
+					<li><a href="#"><dfn class="m">item(int index)</dfn></a> <span>Returns the style at the specified index within the rule - - Standards compliant browsers only</span></li>
+					<li><a href="#"><dfn class="p">length</dfn></a> <span>Gives the number of styles that the browser sees inside the rule - - read/only - - Standards compliant browsers only</span></li>
+
+					<li><a href="#"><dfn class="m">getPropertyValue(string style-name)</dfn></a> <span>Returns the value of the named style - - Standards compliant browsers only - For cross-browser scripting, see also - document.styleSheets[i].rules[j].style.nameOfStyle</span></li>
+					<li><a href="#"><dfn class="m">setProperty(string style-name,string styleValue,string priority)</dfn></a> <span>Creates or replaces the named style inside the rule, assigning it the specified value - The priority is typically an empty string or 'important' - - Standards compliant browsers only - For cross-browser scripting, see also - document.styleSheets[i].rules[j].style.nameOfStyle</span></li>
+					<li><a href="#"><dfn class="m">getPropertyPriority(string style-name)</dfn></a> <span>Returns the priority of the named style - Typically an empty string or 'important' - - Standards compliant browsers only - For cross-browser scripting, see also - document.styleSheets[i].rules[j].style.nameOfStyle</span></li>
+					<li><a href="#"><dfn class="m">removeProperty(string style-name)</dfn></a> <span>Removes the specified style from the rule - - Standards compliant browsers only - For cross-browser scripting, see also - document.styleSheets[i].rules[j].style.nameOfStyle</span></li>
+
+					<li class="last"><a href="#"><dfn class="p">nameOfStyle</dfn></a> <span>Text representation of the named style value - - read/write</span></li>
+				</ul></li>
+				<li><a href="#"><dfn class="o">styleSheet</dfn></a> <span>The stylesheet object of the stylesheet imported by the rule, if the rule is an @import rule - Children as document.styleSheets[int numberOfStyleSheet] - - read/only - - Standards compliant browsers only - For cross-browser scripting, see also - document.styleSheets[i].imports[j]</span></li>
+				<li class="last"><a href="#"><dfn class="p">type</dfn></a> <span>Number that says what type of rule this is: - 0: unknown @ rule - 1: normal style rule - 2: @charset rule - 3: @import rule - 4: @media rule - 5: @font-face rule - 6: @page rule - - read/only - For cross-browser scripting, see also - document.styleSheets[i].insertRule</span></li>
+
+			</ul></li>
+			<li><a href="#"><dfn class="m">deleteRule(int index)</dfn></a> <span>Deletes the CSS rule at the specified index - - Standards compliant browsers only - For cross-browser scripting, see also - document.styleSheets[i].removeRule</span></li>
+			<li><a href="#"><dfn class="p">disabled</dfn></a> <span>Says if the stylesheet is disabled - - read/write</span></li>
+			<li><a href="#"><dfn class="p">href</dfn></a> <span>The href of the stylesheet - - read-only</span></li>
+
+			<li><a href="#"><dfn class="c">imports[]</dfn></a> <span>The stylesheet object of the stylesheet imported by an @import rule - Children as document.styleSheets[int numberOfStyleSheet] - - read/only - - Internet Explorer only - For cross-browser scripting, see also - document.styleSheets[i].cssRules[j].styleSheet</span></li>
+			<li><a href="#"><dfn class="m">insertRule(string rule,int index)</dfn></a> <span>Inserts a new rule at the specified index within the stylesheet - If the index is the same as the cssRules.length, the new rule will be added at the end - - Standards compliant browsers only - For cross-browser scripting, see also - document.styleSheets[i].addRule</span></li>
+			<li><a href="#"><dfn class="p">media</dfn></a> <span>Says what media types the stylesheet applies to - - read/write - - Internet Explorer only - For cross-browser scripting, see also - document.styleSheets[i].media.mediaText</span></li>
+			<li><a href="#"><dfn class="o">media</dfn></a> <span>Provides information about what media types the stylesheet applies to - - read/only - - Standards compliant browsers only - For cross-browser scripting, see also - document.styleSheets[i].media as property</span><ul>
+
+				<li><a href="#"><dfn class="m">appendMedium(string mediaType)</dfn></a> <span>Adds the new media type to the list of media types that the stylesheet applies to - - Standards compliant browsers only - For cross-browser scripting, see also - document.styleSheets[i].media as property</span></li>
+				<li><a href="#"><dfn class="m">deleteMedium(string mediaType)</dfn></a> <span>Removes the new media type from the list of media types that the stylesheet applies to - - Standards compliant browsers only - For cross-browser scripting, see also - document.styleSheets[i].media as property</span></li>
+				<li><a href="#"><dfn class="m">item(int index)</dfn></a> <span>Returns the name of the media type at the specified index - - Standards compliant browsers only</span></li>
+				<li><a href="#"><dfn class="p">length</dfn></a> <span>Gives the number of media types that the stylesheet applies to - (As interpreted by the browser) - - read/only - - Standards compliant browsers only</span></li>
+
+				<li class="last"><a href="#"><dfn class="p">mediaText</dfn></a> <span>String representation of what media types the stylesheet applies to - - read/write - - Standards compliant browsers only - For cross-browser scripting, see also - document.styleSheets[i].media as property</span></li>
+			</ul></li>
+			<li><a href="#"><dfn class="o">ownerNode</dfn></a> <span>A reference to the STYLE or LINK element that creates the stylesheet - - read/only - - Standards compliant browsers only - For cross-browser scripting, see also - document.styleSheets[i].owningElement</span><ul>
+				<li class="last"><a href="#"><dfn class="o">sheet</dfn></a> <span>References the StyleSheet object created by the STYLE or LINK element - - read/only - - Standards compliant browsers only - For cross-browser scripting, see also - document.styleSheets[i].owningElement.styleSheet</span></li>
+
+			</ul></li>
+			<li><a href="#"><dfn class="o">ownerRule</dfn></a> <span>A reference to the @import rule that imported this stylesheet - - read/only - - Standards compliant browsers only</span></li>
+			<li><a href="#"><dfn class="o">owningElement</dfn></a> <span>A reference to the STYLE or LINK element that creates the stylesheet - - read/only - - Internet Explorer only - For cross-browser scripting, see also - document.styleSheets[i].ownerNode</span><ul>
+				<li class="last"><a href="#"><dfn class="o">styleSheet</dfn></a> <span>References the StyleSheet object created by the STYLE or LINK element - - read/only - - Internet Explorer only - For cross-browser scripting, see also - document.styleSheets[i].ownerNode.sheet</span></li>
+
+			</ul></li>
+			<li><a href="#"><dfn class="m">removeRule(int index)</dfn></a> <span>Deletes the CSS rule at the specified index - - Internet Explorer only - For cross-browser scripting, see also - document.styleSheets[i].deleteRule</span></li>
+			<li><a href="#"><dfn class="c">rules[]</dfn></a> <span>Collection of all CSS normal style rules in the stylesheet - - read/only - - Internet Explorer only - For cross-browser scripting, see also - document.styleSheets[i].cssRules</span><ul>
+				<li><a href="#"><dfn class="o">parentStyleSheet</dfn></a> <span>Refers to the styleSheet that the rule is inside - - read/only</span></li>
+
+				<li><a href="#"><dfn class="p">selectorText</dfn></a> <span>The selector part of the rule - - read/write</span></li>
+				<li class="last"><a href="#"><dfn class="o">style</dfn></a> <span>Refers to the styles in the CSS rule - - read/only</span><ul>
+					<li><a href="#"><dfn class="p">cssText</dfn></a> <span>The textual representation of the style part of the rule - - read/write</span></li>
+					<li class="last"><a href="#"><dfn class="p">nameOfStyle</dfn></a> <span>Text representation of the named style value - - read/write</span></li>
+
+				</ul></li>
+			</ul></li>
+			<li><a href="#"><dfn class="p">title</dfn></a> <span>Reflects the TITLE attribute of the STYLE or LINK element that creates the stylesheet - - read/only</span></li>
+			<li class="last"><a href="#"><dfn class="p">type</dfn></a> <span>Reflects the TYPE attribute of the STYLE or LINK element that creates the stylesheet - (Typically 'text/css') - - read/only</span></li>
+		</ul></li>
+	</ul></li>
+
+</ul>
+
+<h3>Events</h3>
+
+<h4>Adding and removing event listeners</h4>
+
+<ul class="treeview">
+	<li><a href="#"><dfn class="o">node</dfn></a> <span>An element node, the document node, or the window object - - read-only</span><ul>
+		<li><a href="#"><dfn class="m">addEventListener(string: event,function,bool: phase)</dfn></a> <span>Adds the specified function as a handler for the named event - Phase can be true for capture, or false for bubble - - Standards compliant browsers only - For cross-browser scripting, see also - node.attachEvent</span></li>
+
+		<li><a href="#"><dfn class="m">attachEvent(string: onevent,function)</dfn></a> <span>Adds the specified function as a handler for the named event - - IE compatible browsers only - For cross-browser scripting, see also - node.addEventListener</span></li>
+		<li><a href="#"><dfn class="m">detachEvent(string: onevent,function)</dfn></a> <span>Removes the specified function as a handler for the named event - - IE compatible browsers only - For cross-browser scripting, see also - node.removeEventListener</span></li>
+		<li class="last"><a href="#"><dfn class="m">removeEventListener(string: event,function,bool: phase)</dfn></a> <span>Removes the specified function as a handler for the named event - Phase can be true for capture, or false for bubble - - Standards compliant browsers only - For cross-browser scripting, see also - node.detachEvent</span></li>
+	</ul></li>
+
+</ul>
+
+<h4>Creating event objects</h4>
+
+<ul class="treeview">
+	<li><a href="#"><dfn class="o">document</dfn></a> <span>The document object for the current document - - read-only</span><ul>
+		<li><a href="#"><dfn class="m">createEvent(string: EventModule)</dfn></a> <span>Creates an uninitialised event from the specified event module - Event modules are: - - Events: non-standard events that do not fit into other categories - - HTMLEvents: 'abort', 'blur', 'change', 'error', 'focus', 'load', 'reset', 'resize', 'scroll', 'select', 'submit', 'unload' - - KeyEvents: 'keydown', 'keypress', and 'keyup' (Mozilla only, for cross browser scripting see UIEvents) - - MouseEvents: 'click', 'mousedown', 'mousemove', 'mouseout', 'mouseover', and 'mouseup' - - MutationEvents: 'DOMAttrModified', 'DOMNodeInserted', 'DOMNodeRemoved', 'DOMCharacterDataModified', 'DOMNodeInsertedIntoDocument', 'DOMNodeRemovedFromDocument', and 'DOMSubtreeModified' - - UIEvents: 'DOMActivate', 'DOMFocusIn', 'DOMFocusOut', also in non-Mozilla 'keydown', 'keypress', and 'keyup' (for cross browser scripting see KeyEvents) - - Standards compliant browsers only - For cross-browser scripting, see also - document.createEventObject</span></li>
+		<li class="last"><a href="#"><dfn class="m">createEventObject(optional templateObject)</dfn></a> <span>Creates an uninitialised event - If an existing event object is passed as a parameter, - it will be used as a template to create the new object - - IE compatible browsers only - For cross-browser scripting, see also - document.createEvent</span></li>
+
+	</ul></li>
+</ul>
+
+<h4>Preparing event objects</h4>
+
+<ul class="treeview">
+	<li><a href="#"><dfn class="o">eventObject</dfn></a> <span>The event object created by document.createEvent - - read-only - - Standards compliant browsers only</span><ul>
+		<li><a href="#"><dfn class="m">initEvent('type', bubbles, cancelable)</dfn></a> <span>Initialises the event as a generic event, without defining additional properties - Available for all event types - - Standards compliant browsers only</span></li>
+
+		<li><a href="#"><dfn class="m">initKeyEvent('type', bubbles, cancelable, window, ctrlKey, altKey, shiftKey, metaKey, keyCode, charCode)</dfn></a> <span>Initialises the event as a key event - Available for 'KeyEvents' event types - - Mozilla only</span></li>
+		<li><a href="#"><dfn class="m">initMouseEvent('type', bubbles, cancelable, window, detail, screenX, screenY, clientX, clientY, ctrlKey, altKey, shiftKey, metaKey, button, relatedTarget)</dfn></a> <span>Initialises the event as a mouse event - Available for 'MouseEvents' event types - - Standards compliant browsers only</span></li>
+		<li><a href="#"><dfn class="m">initMutationEvent('type', bubbles, cancelable, relatedNode, prevValue, newValue, attrName, attrChange)</dfn></a> <span>Initialises the event as a mutation event - Available for 'MutationEvents' event types - - Standards compliant browsers only</span></li>
+		<li class="last"><a href="#"><dfn class="m">initUIEvent('type', bubbles, cancelable, window, detail)</dfn></a> <span>Initialises the event as a generic UI event, without defining additional properties - Available for 'MouseEvents', 'UIEvents', and Mozilla's 'KeyEvents' event types - - Standards compliant browsers only</span></li>
+
+	</ul></li>
+</ul>
+
+<h4>Firing events</h4>
+
+<ul class="treeview">
+	<li><a href="#"><dfn class="o">node</dfn></a> <span>An element node - - read-only</span><ul>
+		<li><a href="#"><dfn class="m">dispatchEvent(eventObject)</dfn></a> <span>Fires the event, with the element node as the target - - Standards compliant browsers only - For cross-browser scripting, see also - node.fireEvent</span></li>
+
+		<li class="last"><a href="#"><dfn class="m">fireEvent('ontype',eventObject)</dfn></a> <span>Fires the specified event, with the element node as the srcElement - - IE compatible browsers only - For cross-browser scripting, see also - node.dispatchEvent</span></li>
+	</ul></li>
+</ul>
+
+<h4>Additional event object methods and properties</h4>
+
+<p>As well as the <a href="javascriptobject#eo">traditional event object properties</a>,
+some more are provided by DOM events (or IE events) capable browsers.</p>
+	
+
+<ul class="treeview">
+	<li><a href="#"><dfn class="o">eventObject</dfn></a> <span>The event object - - read-only - - Standards compliant browsers only</span><ul>
+		<li><a href="#"><dfn class="p">attrChange</dfn></a> <span>Says the type of change for DOMAttrModified mutation events - 1: modification - 2: addition - 3: removal - - read-only - - Standards compliant browsers only</span></li>
+		<li><a href="#"><dfn class="p">attrName</dfn></a> <span>The name of the attribute for DOMAttrModified mutation events - - read-only - - Standards compliant browsers only</span></li>
+		<li><a href="#"><dfn class="p">bubbles</dfn></a> <span>Boolean value says if the event is a type that can bubble - - read-only - - Standards compliant browsers only</span></li>
+
+		<li><a href="#"><dfn class="p">cancelable</dfn></a> <span>Boolean value says if the event can be cancelled - - read-only - - Standards compliant browsers only</span></li>
+		<li><a href="#"><dfn class="p">cancelBubble</dfn></a> <span>Set to true to prevent the event from being processed by any more event hanler stages - - read-write - - IE compatible browsers only - For cross-browser scripting, see also - eventObject.stopPropagation</span></li>
+		<li><a href="#"><dfn class="p">charCode</dfn></a> <span>The value of the Unicode character associated with key events - - read-only - - Mozilla compatible browsers only</span></li>
+		<li><a href="#"><dfn class="o">currentTarget</dfn></a> <span>A reference to the element that is currently processing the event - - read-only - - Standards compliant browsers only</span></li>
+
+		<li><a href="#"><dfn class="p">detail</dfn></a> <span>Extra information depending on the event - for example a click event may give the number of consecutive clicks - - read-only - - Standards compliant browsers only</span></li>
+		<li><a href="#"><dfn class="p">eventPhase</dfn></a> <span>Says what phase of the event is currently being processed - 1: capture phase - 2: bubble phase on the target element itself - 3: during the bubbling phase on the target's ancestors - 0: for a manually created event object that has not yet been fired - - read-only - - Standards compliant browsers only</span></li>
+		<li><a href="#"><dfn class="o">fromElement</dfn></a> <span>Gives the previous element the mouse was over for mouseover events - - read-only - - IE compatible browsers only - For cross-browser scripting, see also - eventObject.relatedTarget</span></li>
+		<li><a href="#"><dfn class="p">metaKey</dfn></a> <span>Boolean value says if the system meta key is pressed - For Windows this is the window key - For Mac this is the apple/command key - Other systems may have their own meta keys - - read-only - - Standards compliant browsers only</span></li>
+
+		<li><a href="#"><dfn class="p">newValue</dfn></a> <span>The new nodeValue after a mutation event - - read-only - - Standards compliant browsers only</span></li>
+		<li><a href="#"><dfn class="m">preventDefault()</dfn></a> <span>Prevents the default action from occuring after event processing is complete - - Standards compliant browsers only - For cross-browser scripting, see also - eventObject.returnValue</span></li>
+		<li><a href="#"><dfn class="p">prevValue</dfn></a> <span>The previous nodeValue before a mutation event - - read-only - - Standards compliant browsers only</span></li>
+		<li><a href="#"><dfn class="o">relatedNode</dfn></a> <span>Performs a similar function to relatedTarget, for mutation events - - read-only - - Standards compliant browsers only</span></li>
+
+		<li><a href="#"><dfn class="o">relatedTarget</dfn></a> <span>A reference to the related element for relevant events - such as the element the mouse used to be over before a mouseover event - - read-only - - Standards compliant browsers only - For cross-browser scripting, see also - eventObject.fromElement - eventObject.toElement</span></li>
+		<li><a href="#"><dfn class="p">returnValue</dfn></a> <span>Set to false to prevent the default action from occuring after event processing is complete - - read-write - - IE compatible browsers only - For cross-browser scripting, see also - eventObject.preventDefault</span></li>
+		<li><a href="#"><dfn class="m">stopPropagation()</dfn></a> <span>Prevents the event being processed by any - more handlers at further stages in the event flow - - read-only - - Standards compliant browsers only - For cross-browser scripting, see also - eventObject.cancelBubble</span></li>
+		<li class="last"><a href="#"><dfn class="o">toElement</dfn></a> <span>Gives the element the mouse is about to move over for mouseout events - - read-only - - IE compatible browsers only - For cross-browser scripting, see also - eventObject.relatedTarget</span></li>
+
+	</ul></li>
+</ul>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

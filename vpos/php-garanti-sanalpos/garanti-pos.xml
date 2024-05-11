@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<CC5Request>
+	<Name>[:Username:]</Name>
+	<Password>[:Password:]</Password>
+	<ClientId>[:ClientID:]</ClientId>
+	<IPAddress></IPAddress>
+
+	<Email></Email>
+	<Mode>P</Mode>
+	<OrderId></OrderId>
+	<GroupId></GroupId>
+	<TransId></TransId>
+
+	<UserId></UserId>
+	<Type>Auth</Type>
+	<Number>{:CreditCard:}</Number>
+	<Expires>{:Expires:}</Expires>
+	<Cvv2Val>{:CVV2:}</Cvv2Val>
+	<Total>{:Total:}</Total>
+	<Currency>{:CurrencyCode:}</Currency>
+	<Taksit>{:Installment:}</Taksit>
+
+	<BillTo>
+		<Name></Name>
+		<Street1></Street1>
+		<Street2></Street2>
+		<Street3></Street3>
+		<City></City>
+		<StateProv></StateProv>
+		<PostalCode></PostalCode>
+		<Country></Country>
+		<Company></Company>
+		<TelVoice></TelVoice>
+	</BillTo>
+
+	<ShipTo>
+		<Name></Name>
+		<Street1></Street1>
+		<Street2></Street2>
+		<Street3></Street3>
+		<City></City>
+		<StateProv></StateProv>
+		<PostalCode></PostalCode>
+		<Country></Country>
+	</ShipTo>
+
+	<Extra></Extra>
+</CC5Request>

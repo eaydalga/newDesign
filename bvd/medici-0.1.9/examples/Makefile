@@ -1,0 +1,22 @@
+CC        = gcc
+CFLAGS    = -g -O2 -I.. -I../src -DHAVE_CONFIG_H
+LDFLAGS   = -lexpat  -L../src -lmedici
+LIBS      = ../src/libmedici.a
+BINARIES  = elements editoxml telesmart describe
+
+all: $(BINARIES)
+
+elements: elements.o $(LIBS)
+	$(CC) $(CFLAGS) -o $@ elements.o $(LDFLAGS)
+	
+telesmart: telesmart.o $(LIBS)
+	$(CC) $(CFLAGS) -o $@ telesmart.o $(LDFLAGS)
+
+describe: describe.o xmltsg.o txttsg.o $(LIBS)
+	$(CC) $(CFLAGS) -o $@ describe.o xmltsg.o txttsg.o $(LDFLAGS)
+
+editoxml: editoxml.o xmlout.o xmltsg.o $(LIBS)
+	$(CC) $(CFLAGS) -o $@ editoxml.o xmlout.o xmltsg.o $(LDFLAGS)
+
+clean:
+	rm -- $(BINARIES) *.o 2>/dev/null || true

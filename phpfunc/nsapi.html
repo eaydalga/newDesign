@@ -1,0 +1,103 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Hyperlink Preprocessor </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">15 Nisan 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>NSAPI-özel işlevleri</h2>
+
+<h3>Giriş</h3>
+
+Bu işlevler PHP NSAPI modülü olarak
+Netscape/iPlanet/Sun web sunucularında çalıştığında geçerlidir.
+
+<h3>Kurulum</h3>
+
+PHP kurulumunun Netscape/iPlanet/Sun web sunucularındaki işlemleri için NSAPI bölümüne bakın (UNIX, Windows).
+
+<h3>Çalışma Zamanı Ayarları</h3>
+
+Bu PHP modulünün davranışı php.ini ayaralrından etkilenir. php.ini içindeki
+Seçenek ayarları obj.conf içindeki php4_execute çalıştırılarak da değiştirilebilir.
+
+<h3>NSAPI Ayarlama seçenekleri</h3>
+<table class="yazi">
+<tr><td>Adı</td><td>Varsayılan</td><td>Değişebilir</td><td>DeğişimKaydı</td></tr>
+<tr><td>nsapi.read_timeout</td><td>"60"</td><td>PHP_INI_ALL</td><td>PHP 4.3.3. sürümden beri var</td></tr>
+</table>
+
+Daha başka ayrıntı ve PHP_INI_* bilgisi almak için php.ini yönelticilerine
+bakın
+<br /><br />
+Burada kısa ayarlama yönelticisi bilgisi vardır.
+<dl>
+<dt>nsapi.read_timeout tamsayı
+
+    <dd>Zamanı saniye olarak ayarlar eklenebilir program POST için istemciden veri bekler
+</dd></dt>
+</dl>
+
+<h3>Ayrıca şunlara bakın</h3>
+
+NSAPI Apache modülünden işlevlerin alt kümenin uygulanması ve en yüksek uyumun sağlanmasına çalışılır.
+
+<h3>Apache işlevlerinin NSAPI tarafından uygulanması</h3>
+
+<table class="yazi">
+<tr><td>Apache işlevi (yalnız eşdeğer olarak)</td><td>NSAPI İşlevi</td><td>Açıklama</td></tr>
+<tr><td>apache_request_headers()</td><td>nsapi_request_headers()</td><td>HTTP istek başlıklarının hepsini bulur</td></tr>
+<tr><td>apache_response_headers()</td><td>nsapi_response_headers()</td><td>HTTP yanıt başlıklarının tümünü bulur</td></tr>
+<tr><td>getallheaders()</td><td>nsapi_request_headers()</td><td>HTTP istek başlıklarının hepsini bulur</td></tr>
+<tr><td>virtual()</td><td>nsapi_virtual()</td><td>NSAPI alt-isteği oluşturma</td></tr>
+</table>
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> nsapi_request_headers — HTTP istek başlıklarının hepsini bulur
+    <li> nsapi_response_headers — HTTP yanıt başlıklarının hepsini bulur
+    <li> nsapi_virtual — bir NSAPI alt-isteği yapar
+</ul>
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

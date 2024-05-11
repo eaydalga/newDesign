@@ -1,0 +1,477 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>CSS - Yazı-tipi (Font) Özelliği </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="csstxt1.html" class="nav">Dil-Kuralı</a>
+               <a href="csstxt2.html" class="nav">Art-Alan</a>
+               <a href="csstxt3.html" class="nav">Yazı</a>
+               <a href="csstxt4.html" class="nav">Yazı-tipi</a>
+               <a href="csstxt5.html" class="nav">Sınır</a>
+               <a href="csstxt6.html" class="nav">Dışçizgi</a>
+               <a href="csstxt7.html" class="nav">Kenarlar</a>
+               <a href="csstxt8.html" class="nav">Dolgu</a>
+               <a href="csstxt9.html" class="nav">Liste</a>
+               <a href="csstxt10.html" class="nav">Tablo</a>
+               <font color="#8e9ccb"><h3>Gelişmiş</h3></font>
+               <a href="acsstxt11.html" class="nav">Boyut</a>
+               <a href="acsstxt12.html" class="nav">Sınıflandırma</a>
+               <a href="acsstxt13.html" class="nav">Konumlama</a>
+               <a href="acsstxt14.html" class="nav">Sözde-Sınıf</a>
+               <a href="acsstxt15.html" class="nav">Sözde-Öğe</a>
+               <a href="acsstxt16.html" class="nav">Galeri</a>
+               <a href="acsstxt17.html" class="nav">Donukluk</a>
+               <a href="acsstxt18.html" class="nav">Ortam-Türü</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>Ardaşık Stil Sayfaları (CSS)</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">26 Ekim 2007</span></div>
+<h2>Yazı-tipi (Font) Özelliği</h2>
+<span class="yazi">CSS Yazı-tipi özelliği, yazının yazı-tipi ailesini, koyuluğunu, boyunu ve stilini değiştirmemize olanak verir.</span>
+
+<span class="yazi">
+Not: CSS1'de yazı-tipleri "yazı-tipi" adıyla tanımlanır. Eğer bir taracıyı belirtilen yazı-tipini desteklemiyorsa, varsayılan yazı-tipini kullanır.<br />
+</span>
+<ol class="yazi">
+   <li> Tarayıcı bir yazı-tipini ya yerel olduğu ya da WEB'den indirildiği için tanır. Eğer aynı özellikleri olan iki yazı-tipi varsa tarayıcı birini tümüyle dikkate almaz.</li>
+   <li> Bir öğede, içindeki her karakterde tarayıcı yazı-tipinin tüm özelliklerini uygular. Yazı-tipinin tüm özellikleri yazı-tipi-ailesi ile kullanılır. Yazı-tipi özelliklerinin bu yazı ailesi kurallarına uygunluğu belirlenir. Uyumlu olan özellikler öğede uygulanır.</li>
+   <li> yazı-tipi ailesi içinde yazı-tipi yoksa, yazı-tipi kümesindeki alternatif yazı-tipi ve bunun yazı-tipi-ailesi kullanılır.</li>
+   <li> Bulanan yazı-tipi geçerli ama ilgili karakter için grafik gösterim yoksa, bu durumda alternatif yazı-tipi kullanılır.</li>
+   <li> Eğer yazı-tipi tümüyle yoksa tarayıcı varsayılan yazı-tipini kullanır.</li>
+</ol>
+<span class="yazi">
+Her özelliğin aranıp bulunması kuralları aşağıdaki gibidir:
+</span>
+<br />
+<ol class="yazi">
+
+   <li> Yazı-tipi stili (font-style) ilk denenen olur. Eğik (italic) yazı için yazı-tipinde (italic) ya da (oblique) sözcükleri varsa geçerlidir. Eğer doğru tanım bulunamazsa yazı-tipi stili hatalı olur.</li>
+   <li> Daha sonra yazı-tipi- değiştirma (font-variant) denenir. "normal" "küçük-büyük harfler" (small-caps"; tanımının aranmasını gerektirir. Aranan bulunursa tüm küçük harfler küçük büyük harflere çevrilir.</li>
+   <li> yazı-ağırlığı (font-weight) daha sonra aranan özelliktir. Bu özellik hiç hataya düşmez.</li>
+   <li> yazı-tipi-boyu (font-size) tarayıcı bağımlı sınırlamalara bağlı bir değerdir. Örneğin değiştirilebilen yazı-tip boyu tarayıcının kayıtlarındaki en yakın yazı-tipi boyuna yuvarlanarak görüntülenir</li>
+</ol>
+<br />
+<table cellspacing="0" border="1" cellpadding="3" class="fyazi">
+  <tr>
+    <th width="25%" align="left">Özellik</th>
+    <th width="30%" align="left">Açıklama</th>
+    <th width="25%" align="left">Değerler</th>
+    <th width="5%" align="left">IE</th>
+    <th width="4%" align="left">F</th>
+    <th width="4%" align="left">N</th>
+    <th width="7%" align="left">W3C</th>
+  </tr>
+  <tr>
+    <td valign="top">font </td>
+    <td valign="top">Bir yazı tipinin tüm tanımlarını bir komutta yazabilmek için kullanılan kısaltmadır.</td>
+    <td valign="top"><i>yazı-tipi stili<br />
+      başka yazı-tipi biçimi<br />
+      yazı-tipi koyuluğu<br />
+      yazı-tipi boyu/satır yüksekliği<br />
+      yazı-tipi ailesi<br />
+      </i>caption<br />
+      icon<br />
+      menu<br />
+      message-box<br />
+      small-caption<br />
+      status-bar</td>
+    <td valign="top">4</td> <td valign="top">1</td> <td valign="top">4</td> <td valign="top">1</td>
+  </tr>
+
+  <tr>
+    <td valign="top">font-family </td>
+    <td valign="top">Öncelikli yapılmış yazı-tipi ailesi adları ve/ya da bir öğe için aile adı </td>
+    <td valign="top"><i>aile adı<br />
+      soysal aile</i></td>
+    <td valign="top">3</td> <td valign="top">1</td> <td valign="top">4</td> <td valign="top">1</td>
+  </tr>
+  <tr>
+    <td valign="top">font-size </td>
+    <td valign="top">yazı-tipi boyutunu belirtir</td>
+    <td valign="top">xx-small<br />
+      x-small<br />
+      small<br />
+      medium<br />
+      large<br />
+      x-large<br />
+      xx-large<br />
+      smaller<br />
+      larger<i><br />
+      uzunluk<br />
+      %</i></td>
+    <td valign="top">3</td> <td valign="top">1</td> <td valign="top">4</td> <td valign="top">1</td>
+  </tr>
+  <tr>
+    <td valign="top">font-size-adjust </td>
+    <td valign="top">Bir ögenin görünen değerinin ilk seçilen yazı-tipi için x-height olmasına denir </td>
+    <td valign="top">none<br />
+      <i>sayı</i></td>
+    <td valign="top">-</td> <td valign="top">-</td> <td valign="top">-</td> <td valign="top">2</td>
+  </tr>
+  <tr>
+    <td valign="top">font-stretch </td>
+    <td valign="top">Seçilmiş yazı-tipi ailesini daraltır ya da genişletir</td>
+    <td valign="top">normal<br />
+      wider<br />
+      narrower<br />
+      ultra-condensed<br />
+      extra-condensed<br />
+      condensed<br />
+      semi-condensed<br />
+      semi-expanded<br />
+      expanded<br />
+      extra-expanded<br />
+      ultra-expanded</td>
+    <td valign="top">-</td> <td valign="top">-</td> <td valign="top">-</td> <td valign="top">2</td>
+  </tr>
+  <tr>
+    <td valign="top">font-style </td>
+    <td valign="top">yazı-tipi stilini atar</td>
+    <td valign="top">normal<br />
+      italic<br />
+      oblique</td>
+    <td valign="top">4</td> <td valign="top">1</td> <td valign="top">4</td> <td valign="top">1</td>
+  </tr>
+  <tr>
+    <td valign="top">font-variant </td>
+    <td valign="top">Yazının küçültülmüş büyük harflerle ya da normal yazı-tipi ile görüntülenmesi için kullanılır</td>
+    <td valign="top">normal<br />
+      small-caps</td>
+    <td valign="top">4</td> <td valign="top">1</td> <td valign="top">6</td> <td valign="top">1</td>
+  </tr>
+  <tr>
+    <td valign="top">font-weight </td>
+    <td valign="top">Yazı-tipi için koyuluk ataması yapar</td>
+    <td valign="top">normal<br />
+      bold<br />
+      bolder<br />
+      lighter<br />
+      100<br />
+      200<br />
+      300<br />
+      400<br />
+      500<br />
+      600<br />
+      700<br />
+      800<br />
+      900</td>
+    <td valign="top">4</td> <td valign="top">1</td> <td valign="top">4</td> <td valign="top">1</td>
+  </tr>
+</table>
+<br />
+<h3>Yazı-tipi (Font) Özelliği</h3>
+<span class="yazi">
+Yazı-tipi özelliği, bazı sistem yazı-tipleri dışında, bir yazı-tipi tanımının tüm ayarlarını değiştirebilmek için kullanılan kısa tanımlamadır.
+</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+p
+{
+font: 12px arial
+}
+
+p
+{
+font: italic small-caps bold 12px arial
+}
+p
+{
+font: oblique small-caps 900 12px/14px arial
+}
+
+p
+{
+font: menu
+}
+</pre>
+</fieldset>
+<span class="yazi">Olası değerler:</span>
+<table cellspacing="0" border="1" cellpadding="3" class="fyazi">
+<tr><td valign="top">
+font-style<br />
+font-variant<br />
+font-weight<br />
+font-size/line-height<br />
+font-family</td><td valign="top">Yazı-tipi için özellikleri belirtir. line-height değeri satırlar arasındaki boşluğu tanımlar. Değer bir sayı, %, ya da bir yazı-tipi boyudur.<br />
+Varsayılan değer: Tarayıcı bağımlıdır</td></tr>
+<tr><td valign="top">
+caption</td><td valign="top">Başlık denetiminde kullanılan yazı-tiplerini belirtir. (düğmeler, açılanlar (drop-downs), vb.)</td></tr>
+<tr><td>icon</td><td>Ikon biçimleri tarafından kullanılan yazı-tipleirni belirtir</td></tr>
+<tr><td>menu</td><td>Açılan menülerde kullanılan yazı-tiplerini tanımlar</td></tr>
+<tr><td>message-box</td><td>İletişim kutularında kullanılan yazı-tiplerini tanımlar</td></tr>
+<tr><td>small-caption</td><td></td></tr>
+<tr><td>status-bar</td><td>Pencerenin durum çubuklarında  kullanılan yazı-tiplerini belirtir</td></tr>
+</table>
+<br>
+<h3>Yazı-tipi (Font) Ailesi Özelliği</h3>
+<span class="yazi">Yazı-tipi Ailesi (font-family) özelliği önceliğe göre dizilmiş yazı-tipi ailesi listesi ve/ya da bir öğe için soysal aile adıdır. Tarayıcı bulduğu ilk değeri kullanır.</span>
+
+<span class="yazi">Yazı-tipi ailesi değerleri iki tanedir:</span>
+<ul class="yazi">
+    <li> Aile-adi (family-name): Yazı-tipi ailesinin adı "times", "courier", "arial", gibi.
+    <li> soysal-aile (generic-family): soysal-ailenin adı "serif", "sans-serif", "cursive", "fantasy", "monospace" gibi.
+</ul>
+<span class="yazi">Not: Her değeri virgülle ayırın, ve soysal adı her zaman son seçenek olarak yerleştirin.</span>
+
+<span class="yazi">
+Not: Eğer aile adının içinde boşluk varsa, tırnak işaretleri arasında yer almalıdır. HTML içinde "style" niteliğiyle tanımlanacak olursa tek tırnak içinde yazılmalıdır.
+<br />
+<br />
+&lt;font-family&gt;
+    "gill" ve "helvetica" yazı-tipi aileleridir.<br/>
+&lt;generic-family&gt;
+<ul>
+        <li> 'serif' (örneğin Times)</li>
+        <li> 'sans-serif' (örneğin Helvetica)</li>
+        <li> 'cursive' (örneğin Zapf-Chancery)</li>
+        <li> 'fantasy' (örneğin Western)</li>
+        <li> 'monospace' (örneğin Courier) </li>
+</ul>
+</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+body
+{
+font-family: courier, serif
+}
+
+p
+{
+font-family: arial, "lucida console", sans-serif
+}
+
+&lt;p style="font-family: arial, 'lucida console', sans-serif"&gt;
+</pre>
+</fieldset>
+<span class="yazi">Olası değerler:</span>
+<br>
+<table class="fyazi">
+<tr><td>
+Aile-adı<br />
+soysal-aile</td><td>
+Öncelik tanınmış yazı-tipi ailesi listesi ve/ya da bir öğe için soysal aile adı</td></tr>
+<tr><td></td><td>Varsayılan değer: Tarayıcı bağımlı</td></tr>
+</table>
+<br />
+<h3>Yazı-tipi boyu (font-size) özelliği</h3>
+<span class="yazi">
+Yazı-tipi boyu özelliği, yazı-tipinin boyunu belirler.<br />
+<br />
+mutlak-boy: 
+    &lt;absolute-size&gt; sözcüğü tarayıcıda yazı-tipi boylarının saklandığı bir değerdir. Uygun değerler: [ xx-small | x-small | small | medium | large | x-large | xx-large ] olur. Bir bilgisayar ekranında 1.5 ayarlama oranı iki komşu yazı-tipi boyuna göre düzenlenir. Örneğin 'medium' 10pt ise 'large' yazı-boyu 15pt olabilir.<br />
+göreceli-boy: &lt;relative-size&gt; sözcüğün yorumlanması yazı-tipi boyları tablosundaki değerler göre belirlenir. Olası değerler: [ larger | smaller ] olur. Örneğin eğer önceki öğenin yazı-tipi boyu "medium" olmuşsa, "larger" değeri yazı-tipi boyunu büyük yapar. Eğer önceki öğe değeri tablodaki değerlere uygun değilse, tarayıcı istediği biçimde yorumlayabilir.<br />
+</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+body
+{
+font-size: x-large
+}
+
+p
+{
+font-size: 10px
+}
+</pre>
+</fieldset>
+<span class="yazi">Olası değerler:</span>
+<br>
+<table cellspacing="0" border="1" cellpadding="3" class="fyazi">
+<tr><td>
+xx-small<br />
+x-small<br />
+small<br />
+medium<br />
+large<br />
+x-large<br />
+xx-large</td><td>Yazı-tipi boyunu değişik yazı-tipi boylarına ayarlar.<br />
+Varsayılan değer: medium
+</td></tr>
+
+<tr><td>smaller</td><td>Aile öğesinin boyundan daha küçük bir boy tanımlamak için kullanılır.</td><tr>
+<tr><td>larger</td><td>Aile öğesinden daha büyük bir yazı-tipi tanımlamak için kullanılır</td></tr>
+<tr><td>uzunluk</td><td>Yazı-tipi boyunu değişmez bir uzunluğa ayarlar</td></tr>
+</table>
+<br />
+<h3>Yazı-tipi Boyu ayarlama (font-size-adjust) Özelliği</h3>
+<span class="yazi">
+Bir yazı-tipinin küçük "x" harfinin yüksekliğiyle yazı-tipi yüksekliği arasındaki orana görünüş değeri (aspect value) denir.
+Eğer görünüş değeri yüksekse yazı-tipi küçük değerlere indirildiğinde daha okunaklı olur. Örneğin: Verdana için görünüş değeri 0.58 ise (Bu yazı-tipinin yüksekliği 100px'dir ve x-yüksekliği ise 58px'dir). "Times New Roman" yazı-tipi için görünüş değeri 0.46'dır. Buna göre Verdana Times New Roman yazı-tipine göre küçük boyutlarda daha okunaklıdır.
+</span>
+<br />
+<span class="yazi">
+Yazı-tipi boy ayarlama özelliği, ilk seçilen yazı-tipindeki x-yüksekliğinin korunduğu görünüş değerini belirler.
+</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+h2
+{
+font-size-adjust: 0.58
+}
+</pre>
+</fieldset>
+<span class="yazi">Olası değerler:
+<br>
+<table class="fyazi">
+<tr><td valign="top">none</td><td> Varsayılan değer. Eğer yazı-tipi bulunamıyorsa, yazı-tipi için x-yüksekliği niteliğini korumaya kalkmayın.
+
+<tr><td valign="top">sayı</td><td>Yazı-tipi için görüntü oranını tanımlar. Bunu için kullanılacak formül şöyledir:<br />
+<br />
+ilk seçenekteki yazı-tipinin-boyu * (yazı-tipi-boyu-ayarlaması / var-olan-yazı-tipinin-görünen-boyu) = var-olan-yazı-tipie-uygulanacak-yazı-tipi-boyu'dur.
+<br />
+Örnek:<br />
+<br />
+Eğer 14px Verdana (görünen değeri 0.58 olan) varsa, ama başka bir yazı-tipi için görünen oran 0.46 olarak tanımlıysa, yerine konan yazı-tipi boyu:
+<br />
+14 * (0.58/0.46) = 17.65px olur.</td></tr>
+</table>
+<br />
+<h3>Yazı-tipi germe (font-stretch) Özelliği</h3>
+<span class="yazi">Yazı-tipi germe özelliği, bir yazı-tipi ailesini daraltır ya da genişletir.</span>
+<br />
+<span class="yazi">Not: Yazı-tipi ailelerinin daraltılması ya da genişletilmesi ancak yatay olarak gerçekleşir.</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+h2
+{
+font-stretch: ultra-condensed
+}
+</pre>
+</fieldset>
+Olası değerler:
+<br>
+<table class="fyazi">
+<tr><td valign="top">normal</td><td valign="top">Varsayılan değer. Daralma ya da genişleme parametresini normal değere atar.</td></tr>
+<tr><td valign="top">wider</td><td valign="top">Genişleme değerini bir sonraki genişleme parametresine taşır</td></tr>
+<tr><td valign="top">narrower</td><td valign="top">Daralma değerini bir önceki daralma parametresine indirger</td></tr>
+<tr><td valign="top">ultra-condensed<br />
+extra-condensed<br />
+condensed<br />
+semi-condensed<br />
+semi-expanded<br />
+expanded<br />
+extra-expanded<br />
+ultra-expanded</td><td valign="top">Yazı-tipi ailesinin daralma ya da genişleme değerlerini ayarlar. "ultra-condensed" en daraltılmış halidir. "ultra-expanded" ise en geniş biçimidir</td></tr>
+</table>
+<br />
+<h3>Yazı-tipi Stil (font-style) Özelliği</h3>
+<span class="yazi">Yazı-tipi stil özelliği, yazı-tipinin stilini ayarlamakta kullanılır.<br />
+<br />
+Yazi-tipi Stili yazı-tipi ailesindeki normal, eğik ve kalın arasından bir değeri alabilir.<br />
+</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+body
+{
+font-style: italic
+}
+</pre>
+</fieldset>
+<span class="yazi">Olası değerler:</span>
+<br>
+<span class="yazi">normal: Varsayılan değer. Tarayıcı normal yazı-tipini görüntüler.</span>
+<span class="yazi">italic: Tarayıcı yatık yazı-tipi görüntüler.</span>
+<span class="yazi">obliquei: Tarayıcı kalın yazı-tipi görüntüler.</span>
+<br />
+<h3>Yazı-tipi Değiştirme (fonr-variant) Özelliği</h3>
+<span class="yazi">
+Yazı-tipi değiştirme (font-variant) özelliği yazıyı küçültülmüş büyük harflerle göstermek için kullanılır. Bunu anlamı tüm küçük harflerin büyük harfe çevrilmiş olmasıdır. Fakat küçültülmüş büyük harflerin yazı-tipi boyu diğer harflere göre daha küçüktür.<br />
+</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+p
+{
+font-variant: small-caps
+}
+</pre>
+</fieldset>
+<span class="yazi">Olası değerler:</span>
+<br>
+<span class="yazi">normal: Varsayılan değer. Tarayıcı normal yazı-tipi görüntüler.</span>
+<span class="yazi">small-caps: Tarayıcı küçültülmüş büyük harfleri görüntüler.</span>
+<br />
+<h3>Yazı-tipi Kalınlığı (font-weight) Özelliği</h3>
+<span class="yazi">
+Yazı-tipi kalınlığı özelliği görüntülenen karakterlerin ne kadar kalın ya da ince olacağını tanımlar.
+</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+p
+{
+font-weight: bold
+}
+</pre>
+</fieldset>
+Olası değerler:
+<br>
+<table cellspacing="0" border="1" cellpadding="3" class="fyazi">
+<tr><td valign="top">normal</td><td valign="top">Varsayılan değer. Normal karakterleri tanımlar</td></tr>
+<tr><td valign="top">bold</td><td valign="top">Kalın karakterleri tanımlar</td></tr>
+<tr><td valign="top">bolder</td><td valign="top">Daha kalın karakterleri tanımlar</td></tr>
+<tr><td valign="top">lighter</td><td valign="top">Daha ince karakterleri tanımlar</td></tr>
+<tr><td valign="top">100<br />
+200<br />
+300<br />
+400<br />
+500<br />
+600<br />
+700<br />
+800<br />
+900</td><td valign="top">İnceden kalına doğru karakterleri tanımlar. Burada 400 normal ile aynıdır. 700 ise bold ile aynı anlama gelir.</td></tr>
+</table>
+<br />
+<span class="yazi">
+Sayısal değerlerin dışında kalan değerler yazı-tipi ailesindeki yazının koyuluğunu belirten değerlerdir. Aşağıdaki kurallar bu tür atamaların nasıl yapıldığını gösterir:<br />
+</span>
+<ul class="yazi">
+    <li> Eğer bir yazı-tipi ailesi dokuz sayısal değerden oluşuyorsa yazı-tipi ağırlıkları doğrudan bu değerleri kullanır.</li>
+    <li> Eğer "medium" (orta) varsa sayısal değeri 500 olur.</li>
+    <li> Eğer "bold" (koyu) varsa bunun değeri 700 olur.</li>
+    <li> Eğer yazı-tipi ailesinde dokuzdan az ağırlık varsa, aralardaki boşlukları dolduracak varsayılan algoritma şöyledir:<br />
+<br />
+Eğer 500 sayısının karşılığı yoksa, 400 sayısının yazı-tipi ağırlığıyla aynı olur. Eğer 600, 700, 800 ya da 900 sayılarından birinin karşılığı yoksa, bir sonraki daha koyu yazı-tipi ağırlığıyla aynı değeri taşır. Eğer 300, 200, 100 sayısal değerleri atanmamışsa, bir önceki daha açık yazı-tipi ağırlığına atanır (Bu tür yazı ağırlığı bulunamiyorsa daha koyusu kullanılır).
+</li>
+</ul>
+<br />
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

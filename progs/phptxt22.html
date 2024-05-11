@@ -1,0 +1,649 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP - UNIX Kurulumu </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="javascript:myvoid();" class="nav">Başlarken</a>
+               <a href="phptxt11.html" class="sub">ilk Anlatım</a>
+               <a href="javascript:myvoid();" class="nav">Kurulumlar</a>
+               <a href="phptxt21.html" class="sub">Genel Kurulum</a><br />
+               <a href="phptxt22.html" class="sub">UNIX Kurulumu</a><br />
+               <a href="phptxt23.html" class="sub">OSX Kurulumu</a><br />
+               <a href="phptxt24.html" class="sub">Wins Kurulumu</a>
+               <a href="javascript:myvoid();" class="nav">Dil Kuralları</a>
+               <a href="phptxt31.html" class="sub">Temel yazım</a><br />
+               <a href="phptxt32.html" class="sub">Tipler</a><br />
+               <a href="phptxt33.html" class="sub">Değişkenler</a><br />
+               <a href="phptxt34.html" class="sub">Değişmezler</a><br />
+               <a href="phptxt35.html" class="sub">Deyimler</a><br />
+               <a href="phptxt36.html" class="sub">İşlemler</a><br />
+               <a href="phptxt37.html" class="sub">Kontrol Yapıları</a><br />
+               <a href="phptxt38.html" class="sub">İşlevler</a><br />
+               <a href="phptxt39.html" class="sub">Sınıflar Nesneler</a><br />
+               <a href="phptxt391.html" class="sub">Ad uzayı</a><br />
+               <a href="phptxt392.html" class="sub">İstisnalar</a>
+               <a href="javascript:myvoid();" class="nav">Güvenlik</a>
+               <a href="phptxt41.html" class="sub">Giriş</a><br />
+               <a href="phptxt42.html" class="sub">Genel bilgi</a><br />
+               <a href="phptxt43.html" class="sub">CGI iklisi</a><br />
+               <a href="phptxt44.html" class="sub">Apache modülü</a><br />
+               <a href="phptxt45.html" class="sub">Dosyadüzeni</a><br />
+               <a href="phptxt46.html" class="sub">Veritabanı</a><br />
+               <a href="phptxt47.html" class="sub">Hatalar</a><br />
+               <a href="phptxt48.html" class="sub">Diğerleri</a><br />
+               <a href="javascript:myvoid();" class="nav">Özellikler</a>
+               <a href="phptxt51.html" class="sub">HTTP Şifresi</a><br />
+               <a href="phptxt52.html" class="sub">Çerezler</a><br />
+               <a href="phptxt53.html" class="sub">Oturumlar</a><br />
+               <a href="phptxt54.html" class="sub">XForm</a><br />
+               <a href="phptxt55.html" class="sub">DosyaYükleme</a><br />
+               <a href="phptxt56.html" class="sub">UzakDosyalar</a><br />
+               <a href="phptxt57.html" class="sub">Bağlantılar</a><br />
+               <a href="phptxt58.html" class="sub">VTBağlantısı</a>
+               <font color="#8e9ccb"><h3>Gelişmiş</h3></font>
+               <a href="phptxt7.html" class="nav">Php Kökü</a>
+               <a href="phptxt8.html" class="nav">Ekler</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">11 Ocak 2008</span></div>
+<div id="bdy" class="yazi">
+<h2>UNIX Kurulumu</h2>
+Belgenin içeriği php-5.2.5 kaynak kod dağıtımındaki INSTALL dosyasından alınmıştır. Yeni sürümlerle ilgili değişiklikler zaman oldukça buraya eklenecektir ama resmi php sitesinden bu bilgiye erişmenizde her zaman yarar vardır.
+
+<h3>UNIX Sistemlerine Kurulum</h3>
+Kendi ortamınıza özgü konuları işleme başlamadan önce bilip kendiniz için not etmenizde yarar vardır. Bu belge kişiye özel konuları içermez. 
+<br /><br />
+UNIX ortamlarına PHP birkaç yolla eklenebilir. Ya otomatik ayarlama ve derlene ile ya da önceden derlenip paketlenmiş tar topları kullanılarak. Burada derlenip ayarlamayla ilgili kurulum biçimi anlatılacaktır.
+<br /><br />
+PHP açık kaynak yazılım olduğu için kaynak kodların bulunduğu tar topu açıldıktan sonra ilgili klasöre geçilir (Bu örnekte php-5.2.5.tar.gz açılır ve php-5.2.5 klasörüne geçilir).
+Burada "./configure" kullanılarak otomatik derleme ve ayarlama adımı başlatılır. Ayarlamalarda kullanılabilecek seçenekler "./configure --help" komutuyla girilir. Bir kez ayarlama yapıldı mı artık modül ve çalışabilir programlar derlenip kuruluma hazır biçime gelir. 
+<br /><br />
+<h3>Apache paylaşımlı modül sürümü</h3>
+Burada Apache ve PHP kaynak kodlarının indirilmiş olduğu varsayılmıştır. Kurulumda işlem adımları şöyledir (Not bu bilgi PHP kaynak kodlarındaki KURULUM dosyasından alınmıştır).
+<ol>
+<li> gunzip apache_xxx.tar.gz</li>
+<li> tar -xvf apache_xxx.tar</li>
+<li> gunzip php-xxx.tar.gz</li>
+<li> tar -xvf php-xxx.tar</li>
+<li> cd apache_xxx</li>
+<li> ./configure --prefix=/www --enable-module=so</li>
+<li> make</li>
+<li> make install</li>
+<li> cd ../php-xxx</li>
+<li> Şimdi, PHP ayarı 'configure' ile yapılır.  Burada PHP seçeneklerinin hangi eklentilerle ayarlandığı gösterilmektedir. 
+    ./configure --help ile var olan seçenekler görüntülenebilir. Burada Apache ve MySQL ile basit bir ayar yapılır.
+<pre>
+      ./configure --with-mysql --with-apxs=/www/bin/apxs
+</pre></li>
+<li> make</li>
+<li> make install
+<br /><br />
+Eğer ileride seçenekleri değiştirmek gerekirse Apache yeniden derlenmeden değişen seçeneklerle yalnız son üç adım işleme alınır.
+<br /><br />
+Ayrıca belirtilmezse 'make install' PEAR, phpsize ve PHP CLI ve başkalarının da kurulmasını sağlar.</li>
+<li> php.ini dosyasının kurulumu:
+<pre>
+      cp php.ini-dist /usr/local/lib/php.ini
+</pre>
+PHP seçeneklerini ayarlamak için .ini dosyasını düzenleyebilirsiniz. Eğer .ini dosyanızın yerini değiştirmek isterseniz adım 10 komutunda 
+<code> --with-config-file-path=/bir_baska/yol</code>
+kullanın.
+<br /><br />
+PHP değişikliklerini anlamak için lüften herşeyi okuyun.
+</li>
+<li> PHP modülünü de yükleyebilmek için "httpd.conf" dosyasını değiştirin.
+LoadModule deyimindeki dosya yolu PHP modülünün bulunduğu yolu göstermelidir.
+make install komutu bunu sizin için yapmış bile olabilir. Emin olmak için kontrol edin.
+<br /><br />
+PHP 4 için:
+<pre>
+      LoadModule php4_module libexec/libphp4.so
+</pre>
+PHP 5 için:
+<pre>
+      LoadModule php5_module libexec/libphp5.so
+</pre>
+</li>
+<li> Ve httpd.conf dosyasının AddModule bölümünde ClearModuleList altında bir yere şu eklenir:
+<br /><br />
+PHP 4 için:
+<pre>
+      AddModule mod_php4.c
+</pre>
+PHP 5 için:
+<pre>
+      AddModule mod_php5.c
+</pre>
+</li>
+<li> Apache sunucuya hangi uzantıların PHP olduğu bildirilir. Örneğin:
+<pre>
+      AddType application/x-httpd-php .php .phtml
+</pre>
+PHP kaynak kodları için .phps kullanılabilir:
+<pre>
+      AddType application/x-httpd-php-source .phps
+</pre>
+</li>
+
+<li> Kurulum tamamlanınca Apache sunucuyu durdurup yeniden başlatmak gerekir. </li>
+</ol>
+
+
+<h3>Apache için statik modül kurulumu</h3>
+<ol>
+<li> gunzip -c apache_1.3.x.tar.gz | tar xf - </li>
+<li> cd apache_1.3.x </li>
+<li> ./configure </li>
+<li> cd ..  </li>
+<li> gunzip -c php-5.x.y.tar.gz | tar xf - </li>
+<li> cd php-5.x.y </li>
+<li> ./configure --with-mysql --with-apache=../apache_1.3.x </li>
+<li> make </li>
+<li> make install </li>
+<li> cd ../apache_1.3.x </li>
+<li> ./configure --prefix=/www --activate-module=src/modules/php5/libphp5.a
+    (Yukarıdaki satır doğrudur! Evet, şu anda libphp5.a yok ama yaratılacak)
+</li>
+<li> make
+    (httpd ikiliniz var Apache bin yoluna taşıyabilirsiniz. Eğer ilk kurulumunuzsa "make install" da kullanmalısınız)
+</li>
+<li> cd ../php-5.x.y </li>
+<li> cp php.ini-dist /usr/local/lib/php.ini </li>
+<li> /usr/local/lib/php.ini dosyasını PHP işlemleri için değiştirebilirsiniz.
+    httpd.conf ya da srm.conf dosyalarını değiştirin ve aşağıdakini akleyin:<br />
+    AddType application/x-httpd-php .php<br />
+</li>
+</ol>
+
+<h3>Yeniden Apache başlatmak için komutlar</h3>
+<ol>
+<li> Birçok Linux ve SysV türlerinde:<br>
+<code>/etc/rc.d/init.d/httpd restart</code>
+</li>
+<li> apachectl kodlamasını kullanarak:<br />
+<code>/path/to/apachectl stop</code><br>
+<code>/path/to/apachectl start</code><br>
+</li>
+<li> httpdctl ve httpsdctl (OpenSSLkullanarak), apachectl benzeridir:<br />
+<code>/path/to/httpsdctl stop</code><br>
+<code>/path/to/httpsdctl start</code><br>
+</li>
+<li> mod_ssl, ya da başka SSL sunucu kullanarak, elle durdurup başlatmak isteyebilirsiniz:<br>
+<code>/path/to/apachectl stop</code><br>
+<code>/path/to/apachectl startssl</code><br>
+</li>
+</ol>
+
+<h3>Apache için değişik biçimlerde PHP derleme</h3>
+<pre>
+   ./configure --with-apxs --with-pgsql
+</pre>
+libphp5.so (PHP4 için libphp4.so) paylaşımlı kitaplık yaratır. Apache httpd.conf dosyasının LoadModule satırından yüklenir. Kitaplığa PostgreSQL desteği eklenmiştir.
+<pre>
+   ./configure --with-apxs --with-pgsql=shared
+</pre>
+Apache için yaratılan 'libphp4.so' paylaşımlı kitaplıktır. Aynı zamanda 'pgsql.so' paylaşımlı kitaplığını da yaratılır. PHP yüklemesine uzatma olarak php.ini dosyasından yüklenir ya da kodlama içinden dl() işleviyle yüklenir.
+<pre>
+   ./configure --with-apache=/path/to/apache_source --with-pgsql
+</pre>
+libmodphp5.a kitaplığını yaratır. mod_php5.c ve ek dosyaları bunu Apache kaynak ağacında src/modules/php5 yoluna kopyalar. Daha sonra Apache  --activate-module=src/modules/php5/libphp5.a ile derlenir. Apache sistemi libphp5.a yaratır ve statik olarak httpd ikilisine eklenir (PHP4 için php5 yerine php4 yazılır). PostgreSQL desteği httpd ikilisinde doğrudan vardır. Sonuçta tek httpd ikilisi Apache ve tüm PHP kitaplıklarıyla birlikte yaratılır.
+<pre>
+   ./configure --with-apache=/path/to/apache_source --with-pgsql=shared
+</pre>
+Aynı önceki gibi, PostgreSQL doğrudan desteği sonuç httpd ikilisine pgsql.so paylaşımlı kitaplığı yükleme olanağını getirir. Yükleme ya php.ini dosyasıyla ya da doğrudan dl() kullanılarak yapılır.
+<br /><br />
+Değişik yollarda PHP kurmak istediğinizde, her yöntemin yararlarını ve zorluklarını düşünmelisiniz. Paylaşımlı nesne olarak yaratmanın anlamı Apache ayrıca derlenebilir demektir. Bu durumda değişikliklerde herşey yeniden derlenmez. Apache içine PHP gömülünce (statik yöntem) PHP daha hızlı yüklenir ve hızlı çalışır.
+<br /><br />
+     Not: Apache varsayılan httpd.conf parametre dosyası içindeki bir bölümünün aşağıda gösterildiği gibi olan satırları vardır:
+<pre>
+User nobody
+Group "#-1"
+</pre>
+Buradaki satır "Group nogroup" olarak değişmeden (ya da Group daemon) PHP dosyaları açamaz.
+<br /><br />
+     Not: --with-apxs=/apxs_icin/yol/apxs kullanımında apxs sürümünü doğru belirttiğinizde emin olun. 
+
+
+<h3>Apache 2 Paylaşımlı Modül Sürümü</h3>
+
+<ol>
+<li> gzip -d httpd-2_0_NN.tar.gz</li>
+<li> tar xvf httpd-2_0_NN.tar</li>
+<li> gunzip php-NN.tar.gz</li>
+<li> tar -xvf php-NN.tar</li>
+<li> cd httpd-2_0_NN</li>
+<li> ./configure --enable-so</li>
+<li> make</li>
+<li> make install
+<br/><br />
+    Şimdi  /usr/local/apache2 altında Apache 2.0.NN var. MPM önceden çatallama ve yüklenebilir modüllere donatılmıştır. Apache denemek için:<br />
+    /usr/local/apache2/bin/apachectl start<br />
+PHP ayarlarını tamamlamak için sunucu durdurulur:<br />
+    /usr/local/apache2/bin/apachectl stop.
+</li>
+<li> cd ../php-NN
+</li>
+
+<li> Şimdi PHP ayarlarını yapın. Burada PHP çeşitli seçeneklerle ayarlanır ./configure --help var olan seçenekleri belirtir. Örnek aşağıda verilmiştir:
+<pre>
+      ./configure --with-apxs2=/usr/local/apache2/bin/apxs --with-mysql
+</pre>
+</li>
+<li> make</li>
+<li> make install<br />
+Eğer ayarları değiştirmek gerekirse yalnız son üç adım tekrarlanır.
+</li>
+
+<li> php.ini ayarlarını yapmak
+<pre>
+    cp php.ini-dist /usr/local/lib/php.ini
+</pre>
+    PHP seçenekleri için .ini dosyası değiştirilir.
+    php.ini dosyasının yerini değiştirmek için 10. adımda --with-config-file-path=/some/path kullanılır
+<br /><br />
+Eğer önerilen php.ini dosyasını kullanacaksanız nelerin değiştiğini okuyun.
+</li>
+<li> httpd.conf dosyasını php modülü için değiştirin. LoadModule komutunun sağ tarafındaki yol php modulünün yerini gösterir.
+<br /><br />
+    PHP 4 için:
+<pre>
+      LoadModule php4_module modules/libphp4.so
+</pre>
+    PHP 5 için:
+<pre>
+      LoadModule php5_module modules/libphp5.so
+</pre>
+</li>
+<li> Apache bazı uzantıları PHP olarak anlasın diye gereken değişiklikler yapılmalıdır.
+<pre>
+      AddType application/x-httpd-php .php .phtml
+</pre>
+    PHP kaynaklarını göstermek için de .phps uzantısı kullanılır.
+<pre>
+      AddType application/x-httpd-php-source .phps
+</pre>
+</li>
+<li> Apache sunucuyu normal yollardan başlat
+<pre>
+      /usr/local/apache2/bin/apachectl start
+</pre>
+Apache SAPI modülü biçimindeki PHP desteğiyle çalıştırılır. Her ikisi için de bir çok ayar seçeneği vardır. Kaynak kod ağacı altında ./configure --help yazarak seçenekler gösterilir. "Multithread" sürümü yapmak için  --with-mpm=worker ya da --with-mpm=perchild seçenekleriyle ayar yapılır.
+<br /><br />
+     Not: "multithreaded" Apache sürümü için sisteminizin "thread" özelliğini desteklemesi gerekir. Ayrıca PHP "Zend Thread Safety" (ZTS) seçeneğiyle kurulmalıdır.
+</ol>
+
+
+<h3>Caudium</h3>
+
+   PHP 4 Caudium web sunucusu için Pike modülü olarak kurulur.
+<br /><br />
+   Caudium Kurulum komutları şöyledir:
+<ol>
+<li> PHP 4 kurulumuna başlamadan önce Caudium kurulu olmalıdır. PHP 4 düzgün çalışması için Pike 7.0.268 ya da daha yenisi olmalıdır. Kolaylık olsun diye Caudium /opt/caudium/server/ altına kurulmuş olsun.
+</li>
+<li> dosya yolunu php-x.y.z  olarak değiştirin (burada x.y.z sürüm numaralarıdır).  </li>
+<li> ./configure --with-caudium=/opt/caudium/server </li>
+<li> make </li>
+<li> make install </li>
+<li> Hala çalışıyorsa Caudium yeniden başlatılsın.  </li>
+<li> Grafiksel ayar arayüzüne giriş yapın ve PHP 4 desteğinin ekleneceği sanal sunucuya gidin.
+</li>
+<li> Modül eklemeyi tıklayın ve PHP 4 kodlama desteği modülünü ekleyin.
+</li>
+<li> Eğer belge "PHP 4 yorumlayıcı yoktur" derse sunucuyu yeniden başlatmış olduğunuzu kontrol edin. 
+    /opt/caudium/logs/debug/default.1
+    <filename>PHP4.so</filename> hataları için denetlendiğinde
+    <filename>caudium/server/lib/[pike-version]/PHP4.so</filename>
+    varlığı incelenmelidir.
+</li>
+<li> Eğer gerek varsa PHP 4 kodlama desteği modülünü ayarlayın
+<br /><br />
+   Caudium modülünü PHP 4 için var olan uzantılarla derleyebilirsiniz.
+<br /><br />
+Not: Eğer PHP 4 MySQL desteğiyle derlenirse normal MySQL istemci kodu kullanıldığına dikkat edin. Aksi halde Pike, MySQL desteği olduğundan hata verir. --with-mysql seçeneğiyle elde edersiniz.
+</li>
+</ol>
+<h3>fhttpd related notes</h3>
+
+PHP yaratırken "fhttpd modülü olarak yaratılacak mı?" sorusuna "yes" denirse (ayarlamada --with-fhttpd=DIR seçeneği) ve fhttpd kaynak yolunu belirtilirse PHP fhttpd modülü olur. Varsayılan veri yolu /usr/local/src/fhttpd.
+
+     Not: fhttpd için PHP 4.3.0 için destek vermez.
+
+<h3>Sun Solaris üzerinde Sun, iPlanet ve Netscape sunucular</h3>
+
+Buradakiler Sun Java System Web Sunucusuna ait Sun ONE Web Server, iPlanet ve Netscape sunucuya kurulacak PHP içindir. 
+<br /><br />
+PHP 4.3.3 ile PHP kodlama kullanarak NSAPI modülü yaratılır.
+<br /><br />
+<a href="http://benoit.noss.free.fr/php/install-php4.html">
+http://benoit.noss.free.fr/php/install-php4.html</a> sayfasına bakılabilir.
+<br /><br />
+Sun JSWS/Sun ONE WS/iPlanet/Netscape web sunucularıyla PHP kurmak için,
+--with-nsapi=[DIR] seçeneği ile kurulum yolu girilir.
+/opt/netscape/suitespot/ varsayılan yoldur. Lütfen
+   /php-xxx-version/sapi/nsapi/nsapi-readme.txt dosyasını okuyun.
+<ol>
+    <li> Aşağıdaki paketleri yükleyin siteden
+<a href="http://www.sunfreeware.com/">
+http://www.sunfreeware.com/</a> yükleyin:
+<br />
+<pre>
+       autoconf-2.13
+       automake-1.4
+       bison-1_25-sol26-sparc-local
+       flex-2_5_4a-sol26-sparc-local
+       gcc-2_95_2-sol26-sparc-local
+       gzip-1.2.4-sol26-sparc-local
+       m4-1_4-sol26-sparc-local
+       make-3_76_1-sol26-sparc-local
+       mysql-3.23.24-beta (if you want mysql support)
+       perl-5_005_03-sol26-sparc-local
+       tar-1.13 (GNU tar)
+</pre>
+    <li> 
+       PATH=.:/usr/local/bin:/usr/sbin:/usr/bin:/usr/ccs/bin olmalı ve sistemde PATH bu bilgileri içermelidir.
+    <li> gunzip php-x.x.x.tar.gz (.gz dağılımınız varsa yoksa 4. adıma gidin).
+    <li> tar xvf php-x.x.x.tar
+    <li> açılan PHP yoluna gidin: cd ../php-x.x.x
+    <li> Sonraki adımlar için Netscape /opt/netscape/suitespot/ iyolunda kurulmuş olsun. Yoksa yolu değiştirin.
+<pre>
+./configure --with-mysql=/usr/local/mysql \
+--with-nsapi=/opt/netscape/suitespot/ \
+--enable-libgcc
+</pre>
+    <li> make ve make install.
+<br /><br />
+İlk kurulumdan sonra ayarları yapabilirsiniz.
+<br /><br />
+Sun/iPlanet/Netscape için ayar komutları şöyledir.
+Önce LD_LIBRARY_PATH çevre değişkenine bazı yollar eklenir.
+Başlama kodlaması çoğu kez
+   /path/to/server/https-servername/start
+yolunda olur.
+Ayarlama dosyalarını değiştirebilirsiniz
+   /path/to/server/https-servername/config/.
+</ol>
+<ol>
+    <li> 
+Aşağıdaki satırı mime.types dosyasına eklenmelidir.
+<pre>
+type=magnus-internal/x-httpd-php exts=php
+</pre>
+    <li> magnus.conf dosyasını (sunucular &lt;= 6 için) ya da obj.conf (sunucular &lt; 6) dosaysını değiştirin.
+sisteminize göre 
+shlib
+/opt/netscape/suitespot/bin/libphp4.so içerecek biçimde olur.
+Aşağıdaki mime tipleri ilklemesinden sonra şunlar eklenir:
+<pre>
+Init fn="load-modules" funcs="php4_init,php4_execute,php4_auth_trans" shlib="/op
+t/netscape/suitespot/bin/libphp4.so"
+Init fn="php4_init" LateInit="yes" errorString="Failed to initialize PHP!" [php_
+ini="/path/to/php.ini"]
+</pre>
+       (PHP &lt;= 4.3.3) php_ini parameterleri zorunlu değildir ama onunla web sunucu ayar yolundaki php.ini dosyasını değiştirirsiniz.
+    <li> obj.conf dosyasındaki varsayılan nesneleri değiştirilebilir. (sanal sunucularda dosya  vserver.obj.conf olur):
+<pre>
+&lt;Object name="default"&gt;
+.
+.
+.
+.#NOT sonraki satır 'ObjectType' sonrasında ve 'AddLog' öncesinde olmalıdır.
+Service fn="php4_execute"
+        type="magnus-internal/x-httpd-php"
+        [inikey=value inikey=value ...]
+.
+.
+&lt;/Object&gt;
+</pre>
+       (PHP &lt;= 4.3.3) ek parametreler olarak bazı özel 
+       php.ini-values ekleyebilirsiniz, Örneğin 
+       docroot="/path/to/docroot" php4_execute çalıştırabilirsiniz.
+       Mantıksa ini-keys (ilkleme anahtarları) için 0/1 kullanın.
+       "On","Off",... (BU doğru çalışmaya bilir), örneğin
+       zlib.output_compression=1 yazılmalı
+    <li> Bir yolu ayarlamak isterseniz yalnız buna gerek vardır.
+<pre>
+&lt;Object name="x-httpd-php"&lt;
+ObjectType fn="force-type" type="magnus-internal/x-httpd-php"
+Service fn=php4_execute [inikey=value inikey=value ...]
+&lt;/Object&lt;
+</pre>
+Daha sonra yönetim sunucusunda bir yolu ayarlayarak ve bunu x-httpd-php stiline eşleyerek tüm dosyaların PHP ile çalışması sağlanmış olur. PHP kullanımını gizleyerek .html biçiminde dosyaları belirtmek güzel görülebilir.
+    <li> Güvenlik ayarları: PHP güvenliği diğer güvenliklerle birlikte kullanılabilir. Tüm güvenlik PHP kodlamasına geçer. Varsayılan nesnenize aşağıdakileri eklemeniz gerekir:
+<pre>
+&lt;Object name="default"&lt;
+AuthTrans fn=php4_auth_trans
+.
+.
+.
+&lt;/Object&lt;
+</pre>
+    <li> PHP güvenliğinin bir yolda olması için aşağıdaki eklenir:
+<pre>
+&lt;Object ppath="d:\path\to\authenticated\dir\*"&gt;
+AuthTrans fn=php4_auth_trans
+&lt;/Object&gt;
+</pre>
+     Not: PHP için kullanılan tampon boyutu (stacksize) web sunucu ayarlarına bağlıdır. Büyük PHP kdlamalarında kırılım olursa bu değerin değişmesi gerekebilir.
+</ol>
+
+<h3>CGI çevresi ve php.ini içinde yapılması gereken değişiklikler</h3>
+
+PHP kodlaması yaparken dikkat edilmesi gereken
+Sun JSWS/Sun ONE WS/iPlanet/Netscape "multithread" web sunucudur
+Bu nedenle tüm istekler aynı işlem uzayında (web sunucunun kendi uzayı) çalışır. Eğer PATH_INFO, HTTP_HOST gibi CGI değişkenlere erişmek isterseniz bu uzay tek çevre ortamındadır ve eskiden olduğu gibi getenv() kullanmak gerekebilir. Ya da $_ENV evrensel değişken kullanılır.
+<br /><br />
+     Not: Çevrede neden geçersiz CGI değişkenleri vardır?
+<br /><br />
+     Yanıt: Çünkü web sunucu işlemi admin sunucusu olarak başlar (bir CGI kodlama - admin sunucusundaki CGI kodlamasıdır - çevre değişkenlerini içerebilir. Admin sunucusundan başlatmazsanız bu çevre değişkenlerine erişemezsiniz.
+<br /><br />
+Kodlamasınız CGI değişkenlerine erişmesi için $_SERVER super evrensel değişken kullanılır.
+<pre>
+variables_order = "GPCS"
+register_globals = On
+</pre>
+
+<h3>Hatalı sayfalar için özel kullanım ya da<br />
+kendi kendine yapılan klasör listesi (PHP &gt;= 4.3.3)</h3>
+
+PHP "404 Not Found" (404 Bulunamadı) türü hata sayfaları yapmak için de kullanılır. Değiştirmek istediğiniz her sayfa için aşağıdaki kodlamayı obj.conf dosyasına ekleyin.
+<pre>
+Error fn="php4_execute"
+         code=XXX script="/path/to/script.php"
+         [inikey=value inik ey=value...]
+</pre>
+Burada XXX HTTP hata kodudur. Lütfen başka hata kodu yönlendiricisi varsa sorun olmaması için silin. Sizin kodlamanız $_SERVER['ERROR_TYPE'] ile HTTP durum koduna erişebilir.
+<br /><br />
+Bir diğer özellik ise kendi kendine üretilen klasör listesidir. Klasör listesi üreten PHP kodlaması yaratılır ve varsayılan servis satırını type="magnus-internal/directory" iken aşağıdakiyle değiştirilir (obj.conf):
+<br /><br />
+Service fn="php4_execute" type="magnus-internal/directory"
+        script="/path/to/script.php" [inikey=value inikey=value...]
+<br /><br />
+Hata ve klasör listesi sayfaları için URL adresleri  $_SERVER['PATH_INFO'] ve $_SERVER['PATH_TRANSLATED'] değişkenlerindedir.
+
+<h3>nsapi_virtual() ve alt istekler için notlar (PHP &gt;= 4.3.3)</h3>
+
+   NSAPI modülü şimdi nsapi_virtual() işlevini destekler (eşdeğeri: virtual()).
+Web sunucu için alt istekler yapar ve sonuçları web sayfasına ekler. Bu özellik belgelenmemiş NSAPI kitaplığı yeteneklerini içerir. Unix ortamında modül otomatik olarak istenen işlevlere bakar ve varsa onları kullanır. Yoksa nsapi_virtual() kapatılır.
+<br /><br />
+     Not: nsapi_virtual() desteği hala deneyseldir.
+
+<h3>CGI ve komut satırı ayarları</h3>
+
+Varsayılanlarla PHP, CGI programı olarak kurulur. Böylece PHP CGI işlemi olarak kullanılabilir ya da web-ilişkili olmayan PHP kodlaması olarak kullanılabilir.
+Eğer Web sunucu çalışıyorsa ve PHP modül desteği veriyorsa, siz daha çok bu çözümü kullanırsınız. Ama CGI sürümü kullanıcıların açılmış değişik PHP sayfaları değişik kullanıcı kimlikleriyle kullanmalarını sağlar.
+<br /><br />
+   Uyarı
+<br /><br />
+CGI ayarı kullanarak, sunucunuz çeşitli saldırılara açık olur.
+<br /><br />
+PHP 4.3.0 sürümünden bu yana PHP koşullarında önemli değişiklikler oldu. CLI adlı yeni SAPI vardır ve aynı CGI ikilileri gibidir. {PREFIX}/bin/php yoluna neyin kurulduğu ayar satırınıza bağlıdır.
+
+<h3>HP-UX için özel kurulum notları</h3>
+
+   Bu bölüm HP-UX sistemleri üzerine kurulacak PHP için ip uçlarını içerir.
+<br /><br />
+HP-UX sistemleri konusunda iki ana kural var. Ya derlersiniz ya da önceden derlenmiş ikiliyi kurarsınız.
+<br /><br />
+Resmi önceden derlenmiş paketler
+   <a href="http://software.hp.com/">
+   http://software.hp.com/</a> URL adresindedir.
+   HP-UX Sistemlerinde kayank kod üzerinden Apache ve PHP kurulumu başka bir kaynaktadır bu bölümden kaldırılmıştır.
+
+<h3>OpenBSD kurulum notları</h3>
+
+   OpenBSD 3.6 üzerine kurulacak PHP ile ilgili notları içerir.
+
+<h3>İkili pakaetleri kullanmak</h3>
+
+İkili paket kullanarak OpenBSD hem önerilendir hem de en kolay kurulumdur.
+Çekirdek paket birçok modüle bölünmüştür ve her biri bağımsız olarak kurulabilir ya da kaldırılabilir. Gereken dosyalar ya OpenBSD CD dağılımında ya da Ftp sitelerinde vardır.
+<br /><br />
+Kurulmak istenecek ana paket php4-core-4.3.8.tgz tar topudur ve temel makineyi içerir (artı gettxt ve iconv). Daha sonra modül paketlerine geçilir. Örneğin: php4-mysql-4.3.8.tgz ya da php4-imap-4.3.8.tgz. php.ini dosyasından bu modüller phpxs komutuyla etkinleştirilir ya da kaldırılır.
+<br /><br />
+OpenBSD paket kurulumu:
+<pre>
+# pkg_add php4-core-4.3.8.tgz
+# /usr/local/sbin/phpxs -s
+# cp /usr/local/share/doc/php4/php.ini-recommended /var/www/conf/php.ini
+  (mysql ekleme)
+# pkg_add php4-mysql-4.3.8.tgz
+# /usr/local/sbin/phpxs -a mysql
+  (imap ekleme)
+# pkg_add php4-imap-4.3.8.tgz
+# /usr/local/sbin/phpxs -a imap
+  (test için mysql kaldır)
+# pkg_delete php4-mysql-4.3.8
+# /usr/local/sbin/phpxs -r mysql
+  (PEAR kitaplıklarını kur)
+# pkg_add php4-pear-4.3.8.tgz
+</pre>
+OpenBSD ikili paketleri konusunda packages(7) kitapcığına bakınız.
+
+<h3>Portların kullanımı</h3>
+
+OpenBSD kullanmayı iyi bilen kişilere önerilecek bir başka yöntem port ağacını kullanarak PHP kaynak kodlarından derleme yapılmasıdır. PHP 4 port, iki alt klasöre bölünür: çekirdek (core) ve uzantılar (extensions). Uzantılan klasörü, desteklenen tüm PHP modülleri için alt paketler üretir. Eğer bu modüllerin bazılarını kullanmak istemezseniz no_* FLAVOR ile belirtirsiniz. Örneğin imap modülünü atlamak için FLAVOR değeri no_imap yapılır.
+
+<h3>Solaris için özel kurulum ipuçları</h3>
+
+Bu bölüm Solaris Sistemlerine kurulacak PHP için özel notları içerir.
+
+<h3>Gerekli yazılım</h3>
+
+Solaris çoğunlukla "lack C" derleyicisi ve onun ilişkili araçlarını kullanır. Halbuki bu araçların bazıları için GNU sürümlerine gereksinim vardır. Gerekli yazılımlar şöyledir:
+<pre>
+     * gcc (recommended, other C compilers may work)
+     * make
+     * flex
+     * bison
+     * m4
+     * autoconf
+     * automake
+     * perl
+     * gzip
+     * tar
+     * GNU sed
+</pre>
+Bunlara ek olarak ayarlarınıza uygun başka ek yazılımlar da kurmak (ve derlemek) istersiniz (Oracle ya da MySQL gibi).
+
+<h3>Paketlerin kullanımı</h3>
+
+Solaris kurulum işlemlerini pkgadd kullanarak kolaylaştırabilirsiniz. Bu araç gerekli parçaların da kurulumunu yapar.
+
+<h3>Debian GNU/Linux kurulum notları</h3>
+
+   Bu bölüm Debian GNU/Linux üzerine PHP kurmaya özel ip uclarını ve notları içerir.
+
+<h3>APT Kullanımı</h3>
+
+Yalnız PHP kaynağını indirip derleyebilirsiniz. Debian paketleme sistemi en temiz PHP kurulum biçimidir. Eğer Linux üzerinde yazılım kurmayı bilmiyorsanız bu yolu deneyebilirsiniz.
+<br /><br />
+İlk verilecek karar hangi Apache sürümünün kullanılacağıdır: Apache 1.3.x ya da Apache 2.x. Bunlarla ilintili PHP paketleri sırasıyla libapache-mod-php* ve libapache2-mod-php* olarak adlandırılmıştır. Debian üzerinde PHP 5 için resmi kurulum adımı yoktur. Bunlar hep PHP 4 içindir.
+<br /><br />
+Debian için CGI ve CLI biçiminde PHP vardır. Sırasıyla php4-cgi ve php4-cli diye adlandırılır. Kurulacak başka bir özel paket, php4-pear olur. En küçük PEAR kurulumunu ve pear komut satırı hazır programarını içerir.
+<br /><br />
+PHP için durağan ve daha yeni paketleri kurmak isterseniz  http://www.apt-get.org/ URL adresine bakmalısınız. Bu resmi olmayan site, Debian paketlerinin bakımını yapar. Bunun için /etc/apt/sources.lists dosyasına aşağıdaki satırları ekleyin ve apt-get çalıştırarak güncellemelere erişin:
+<br /><br />
+   İki Dotdeb ilişkili satırlar
+<pre>
+deb http://packages.dotdeb.org stable all
+deb-src http://packages.dotdeb.org stable all
+</pre>
+En son düşünülecek şey, listelediğiniz paketler güncel mi? Son zamanlarda güncellemediyseniz apt-get çalıştırarak herşeyden önce güncelleme yapabilirsiniz. Bu biçimiyle en son sürüm Apache ve PHP kullanıyor olursunuz.
+<br /><br />
+Herşey yerli yerinde olunca, aşağıdaki örneği Apache ve PHP kurulumu için kullanabilirsiniz.
+<br /><br />
+  Apache 1.3 ile Debian kurulum örneği
+<pre>
+   # apt-get install libapache-mod-php4
+</pre>
+APT otomatik olarak Apache 1.3 için PHP 4 modülünü ve bağlı olduklarını kurar ve etkinleştirir. Eğer kurulumda Apache yeniden başlasın demediyseniz bunu elinizle yapmalısınız:
+<br /><br />
+PHP kurulduktan sonra Apache durdurup başlatmak.
+<pre>
+# /etc/init.d/apache stop
+# /etc/init.d/apache start
+</pre>
+
+<h3>Ayarlarda daha iyi denetim </h3>
+
+Son bölümde PHP yalnız çekirdek modüllerle kurulmuştur. Bu sizin istediğiniz olmayabilir ve MySQL, cURL, GD vb modülleri de istiyor olabilirsiniz.
+<br /><br />
+Eğer kaynak kodlardan PHP derliyorsanız seçimlerinizi komut satırında "configure" komutuyla yaparsınız. APT ile yeni paketler eklenir 'php4-*' gibi (ya da 'php5-*' eğer PHP 5 kuruyorsanız).
+<br /><br />
+   PHP ek paketlerinin listesini almak
+<pre>
+   # dpkg -l 'php4-*'
+</pre>
+Son çıktıdan da görebildiğiniz gibi, kurulabilecek çok fazla PHP modülü vardır. Aralarından seçim yaparak kurabilirsiniz. APT bağlantıları otomatik bulur ve gerekenleri kurar.
+<br /><br />
+Eğer MySQL, cURL ve GD desteği eklemeyi seçerseniz, komut şöyle olur:
+<br /><br />
+   MySQL, cURL ve GDA ile PHP kurma
+<pre>
+   # apt-get install php4-mysql php4-curl php4-gd
+</pre>
+APT otomatik olarak php.ini dosyanıza gereken satırları ekler (/etc/php4/apache/php.ini, /etc/php4/cgi/php.ini,vb).
+   Bu satırlar iPHP içinde MySQL, cURL ve GD ietkinleştirir
+<pre>
+extension=mysql.so
+extension=curl.so
+extension=gd.so
+</pre>
+Artık yapılacak şey modülleri etkinleştirmek için Apache durdurup başlatmaktır.
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

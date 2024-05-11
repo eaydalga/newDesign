@@ -1,0 +1,82 @@
+<HTML>
+<head>
+<title>Ornek 2</title></head>
+<BODY>
+
+<style>
+.body{
+font-family:Arial;
+line-height:140%;
+}
+.span{
+font-family:Georgia, Times New Roman, Times, serif;
+color:#006666;
+font-size:12px;
+line-height:140%;
+}
+</style>
+
+<script language="javascript" type="text/javascript">
+function moveLayerLR(layerID,how){ //move layer Left or Right
+	if(document.getElementById){
+		document.getElementById(layerID).style.left = parseInt(document.getElementById(layerID).style.left) + how;
+	}else if(document.all){
+		document.all[layerID].style.left = parseInt(document.all[layerID].style.left) + how;
+	}else if(document.layers){
+		document.layers[layerID].left = parseInt(document.layers[layerID].left) + how;
+	}
+}
+
+function moveLayerUD(layerID,how){ //move layer Up or Down
+	if(document.getElementById){
+		document.getElementById(layerID).style.top = parseInt(document.getElementById(layerID).style.top) + how;
+	}else if(document.all){
+		document.all[layerID].style.top = parseInt(document.all[layerID].style.top) + how;
+	}else if(document.layers){
+		document.layers[layerID].top = parseInt(document.layers[layerID].top) + how;
+	}
+}
+</script>
+
+<div id="moveableLayer" style="position:absolute;left:150px;top:10px;font-family:Verdana;font-size:18px">Bu 
+  hareketli katmandır!</div>
+
+<DIV style="position:absolute; left:150px; top:50px">
+<form>
+    <table width="4%" border="0" cellspacing="4" cellpadding="0">
+      <tr> 
+        <td align="center" width="9%">&nbsp;</td>
+        <td align="center" width="57%"> 
+          <input type="button" value="Yukarı" onclick="moveLayerUD('moveableLayer',-5)">
+        </td>
+        <td align="center" width="34%">&nbsp;</td>
+      </tr>
+      <tr> 
+        <td align="center" width="9%"> 
+          <input type="button" value="Sola" onclick="moveLayerLR('moveableLayer',-5)">
+        </td>
+        <td align="center" width="57%">&nbsp;</td>
+        <td align="center" width="34%"> 
+          <input type="button" value="Sağa" onclick="moveLayerLR('moveableLayer',5)">
+        </td>
+      </tr>
+      <tr> 
+        <td width="9%">&nbsp;</td>
+        <td align="center" width="57%"> 
+          <input type="button" value="Aşağı" onclick="moveLayerUD('moveableLayer',5)">
+        </td>
+        <td width="34%">&nbsp;</td>
+      </tr>
+    </table>
+</form>
+</DIV>
+
+<P>&nbsp;
+<P>&nbsp;
+<P>&nbsp;
+<P>&nbsp;
+<P>
+<B><A HREF="javascript:history.back()">Dönüş</A></B>
+
+</BODY>
+</HTML>

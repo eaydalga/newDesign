@@ -1,0 +1,185 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP - Win32 Kurulumu </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="javascript:myvoid();" class="nav">Başlarken</a>
+               <a href="phptxt11.html" class="sub">ilk Anlatım</a>
+               <a href="javascript:myvoid();" class="nav">Kurulumlar</a>
+               <a href="phptxt21.html" class="sub">Genel Kurulum</a><br />
+               <a href="phptxt22.html" class="sub">UNIX Kurulumu</a><br />
+               <a href="phptxt23.html" class="sub">OSX Kurulumu</a><br />
+               <a href="phptxt24.html" class="sub">Wins Kurulumu</a>
+               <a href="javascript:myvoid();" class="nav">Dil Kuralları</a>
+               <a href="phptxt31.html" class="sub">Temel yazım</a><br />
+               <a href="phptxt32.html" class="sub">Tipler</a><br />
+               <a href="phptxt33.html" class="sub">Değişkenler</a><br />
+               <a href="phptxt34.html" class="sub">Değişmezler</a><br />
+               <a href="phptxt35.html" class="sub">Deyimler</a><br />
+               <a href="phptxt36.html" class="sub">İşlemler</a><br />
+               <a href="phptxt37.html" class="sub">Kontrol Yapıları</a><br />
+               <a href="phptxt38.html" class="sub">İşlevler</a><br />
+               <a href="phptxt39.html" class="sub">Sınıflar Nesneler</a><br />
+               <a href="phptxt391.html" class="sub">Ad uzayı</a><br />
+               <a href="phptxt392.html" class="sub">İstisnalar</a>
+               <a href="javascript:myvoid();" class="nav">Güvenlik</a>
+               <a href="phptxt41.html" class="sub">Giriş</a><br />
+               <a href="phptxt42.html" class="sub">Genel bilgi</a><br />
+               <a href="phptxt43.html" class="sub">CGI iklisi</a><br />
+               <a href="phptxt44.html" class="sub">Apache modülü</a><br />
+               <a href="phptxt45.html" class="sub">Dosyadüzeni</a><br />
+               <a href="phptxt46.html" class="sub">Veritabanı</a><br />
+               <a href="phptxt47.html" class="sub">Hatalar</a><br />
+               <a href="phptxt48.html" class="sub">Diğerleri</a><br />
+               <a href="javascript:myvoid();" class="nav">Özellikler</a>
+               <a href="phptxt51.html" class="sub">HTTP Şifresi</a><br />
+               <a href="phptxt52.html" class="sub">Çerezler</a><br />
+               <a href="phptxt53.html" class="sub">Oturumlar</a><br />
+               <a href="phptxt54.html" class="sub">XForm</a><br />
+               <a href="phptxt55.html" class="sub">DosyaYükleme</a><br />
+               <a href="phptxt56.html" class="sub">UzakDosyalar</a><br />
+               <a href="phptxt57.html" class="sub">Bağlantılar</a><br />
+               <a href="phptxt58.html" class="sub">VTBağlantısı</a>
+               <font color="#8e9ccb"><h3>Gelişmiş</h3></font>
+               <a href="phptxt7.html" class="nav">Php Kökü</a>
+               <a href="phptxt8.html" class="nav">Ekler</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">15 Ocak 2008</span></div>
+<h2>Win32 Kurulumu</h2>
+<div id="bdy" class="yazi">
+<h3> Windows altında PHP nasıl kurulur</h3>
+Bu bölüm php-5.2.5 kaynak kod dağıtımı altındaki README.WIN32-BUID-SYSTEM dosyasından çevrilmiştir.
+<h3> Gereksinimler</h3>
+
+Sizin Gereksinimleriniz:</br>
+  - Windows Kodlama Sunucusu (cscript.exe)</br>
+  - Microsoft Kurulum Araçları:</br>
+     Microsoft Visual Studio (VC6) ya da sonraki</br>
+</br>
+Ayrıca diğer gereksinimleriniz:</br>
+  - bindlib_w32 [http://www.php.net/extra/bindlib_w32.zip]</br>
+  - win32build  [http://www.php.net/extra/win32build.zip]</br>
+
+ <h3> Kurulum ortamı komut satırı:</h3>
+  - Visual Studio (VC6) Kullanarak
+<ol>
+    <li> Onu Kurun
+    <li> Eğer başlangıç menusünde VC++ komut satırı ikonu varsa, doğru çevresel değişkenleri ayarlanmış komut penceresi için onu tıklayan
+
+Eğer yoksa yeni bir kısayol yaratın ve hedefi
+<pre>
+  %comspec% /k 
+  "C:\Program Files\Microsoft Visual Studio\VC98\Bin\vcvars32.bat"
+</pre>
+yapın. Belki komut penceresinin PHP kaynaklarının bulunduğu klasörden başlamasını da isteyebilirsiniz.
+</ol>
+<br />
+  - Visual Studio .Net Kullanarak<br />
+<ol>
+    <li> Onu Kurun.
+    <li> the Visual Studio .Net araçları altında başlangıç menünüzün alt menüsü olarak Visual Studio .Net Komut satırı ikonu bulunmalıdır. Eğer yoksa hemen bir kısayol yaratp hedef dosya olarak aşağıdaki komutu kullanın.
+<pre>
+  %comspec% /k
+  "C:\Program Files\Microsoft Visual Studio .NET 2003\Common7\
+          Tools\vsvars32.bat"
+</pre>
+Pencerenin doğru yerden başlamasını da isteyebilirsiniz (örneğin PHP kaynaklarının bulunduğu klasörden olabilir)
+</ol>
+  - Platform SDK araçlarını kullanarak<br />
+<ol>
+    <li> Platform SDK indirin:<br />
+       http://www.microsoft.com/msdownload/platformsdk/sdkupdate/<br />
+<br />
+       - Çekirdek SDk gereklidir (200MB uzunluğunda)<br />
+         ve yaklaşık 500MB disk alanı ister<br />
+       - Diğer SDK parçaları PHP tarafından istenmez.<br />
+       - Kurulum kontrol öğesini indirip sonra Build Environment (30MB boyutlarında) seçerek indirilecek program boyutlarını azaltabilirsiniz.
+<br />
+         ** Not: Anlaşılan MS 32 bitlik kurulum araçlarını platform SDK içine eklemiyor. Bu nedenle VC++ ya da VS.Net olmadan çok az şansınız vardır.<br />
+
+    <li> Bir kez kuruldu mu başlangıç menüsünde kurulum ortamını başlatacak ikon oluşur. Son SDK ürünleri bunun değişik sürümlerini kurar. Büyük bir olasalıkla Windows 2000 Retail kurulum ortamını seçersiniz. Bunu tıklayınca komut satırı olan pencere yoluyla birlikte açılır. Include ve lib çevresel değişkenleri bu yolu göre ayarlanmıştır ve kurulum araçlarıyla başlık dosyaları kullanıma hazırdır.
+</ol>
+
+<h3> Ayarları yaratma</h3>
+
+PHP 5 kaynaklarının olduğu yere klasörü değiştirin. Sonra buildconf.bat çalıştırın.
+
+<h3> Ayarlama</h3>
+<pre> 
+ cscript /nologo configure.js --help
+</pre> 
+ Will give you a list of configuration options; these will
+ have the form:
+ayarlama seçenekleri listesi sunar. Bunlar: 
+<br /><br />
+ --enable-foo ya da --disable-foo ya da --with-foo ya da --without-foo.
+<br /> 
+ --enable-foo birşeyleri 'on' yapar ve --enable-foo=yes ile eşdeğerdir
+<br /> 
+ --disable-foo birşeyleri 'off' yapar, --enable-foo=no ile aynıdır
+<br />
+ --enable-foo=shared hangi özelliklerin paylaşılır dinamik yüklenebilen modül olduğunu belirtir ve kurar
+<br /><br />
+Bazen ayarlama seçeneği başlıkları ve kitaplıkları aramak için ek bilgiye gereksinim duyar. Çoğu zaman bunları --enable-foo=option ile belirtebilirsiniz. Bir parametre belirtmek ve paylaşılan olan kurmak isterseniz --enable-foo=sahed,option kullanabilirsiniz.
+<br /><br />
+Aynı kurallar --with-foo ve --without-foo için de uygulanabilir. Tek fark seçeneklerin adlandırılış biçimidir. Genelde yaklaşım --enable-foo kullandığınızda PHP ile gelen birşeyleri kullanıma alıyorsunuz demektir. Ama --with-foo PHP dışındaki birşeyi PHP ile birleştireceksiniz demektir.
+
+<h3> Yaratma/Kurulum</h3>
+
+Bir kez kurulumunuzu ayarlayınca (komut çıkışını okuyup doğru çalışmış olduğunu görün), kodlamayı kurabilirsiniz. Temel olarak:
+<br /><br />
+komut satırına  "nmake" yazarak herşey kurulmaya başlar.
+<br /><br />
+Kurulum tamamlandığında ikilileri kurulum yapılan klasörde bulursunuz (ayarlarla yeri belirlenmiştir). Eğer threat olmayan güvenli model kurduysanız, dosyaları saklamak için sürüm (release) ya da kontrol (debug) kullanacaktır. Burada PHP kurulumuna eklenmiş her modül için bir alt klasörler bulunacaktır. Burada saklamak isteyeceğiniz dosyalar .exe ve .dll uzantılı olanlardır.
+
+<h3> Temizleme</h3>
+ 
+Kurulum sonrasında "nmake clean" ile herşeyi silebilirsiniz (.exe ve .dll dahil).
+
+<h3> Denemeleri çalıştırma</h3>
+
+Kurulumunuzun doğru çalışıp çalışmadığını anlamak için denemeleri çalıştırırsınız. Bunun için "nmake test" komutu kullanılır. TESTS değişkenini tanımlayarak hangi denemelerin yapılacağı belirtilebilir. Örneğin yalnız sqlite testini yapacaksanız "nmake /D TESTS=ext/sqlite/tests test" komutu yazılır.
+
+
+<h3> Anlık duraklamayla kurma</h3>
+
+Otomatik kurulumu ayarlarsanız, aralarda duraklamalara olanak vermek için --enable-snapshot-build ayarını kullanırsınız. Bu amaçla hazırlanan kurulum dosyasında (makefile) ayar anahtarlarının varsayılan değerleri hep "shared" (paylaşımlı) olur. Etkiyi siz ayrıca durdurmazsanız her seçenekte ayarı belirtilen biçimde kullanılır. Ayarlarınızı anlık duraklamalarla (snapshot) yapmak "nmake build-snap" komutuyla olur. Burada uzantılardaki ya da SAPI ortamındaki  kurulum hataları dikkate alınmaz.
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+<br />
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

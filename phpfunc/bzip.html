@@ -1,0 +1,121 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Bzip2 Sıkıştırma İşlevleri</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">18 Şubat 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>Bzip2 Sıkıştırma İşlevleri</h2>
+
+<h3>Giriş</h3>
+
+bzip2 işlveleri bzip2 (.bz2) dosyalarını saydam olarak okumak ve yazmak için
+kullanılır.
+
+<h3>Gereksinimler</h3>
+
+Bu modüldeki işlevler Julian Seward  bzip2 kitaplığını kullanır. Modul için
+bzip2/libbzip2 version >= 1.0.x gerekir.
+
+<h3>Kurulum</h3>
+
+PHP içinde bzip2 desteği varsayılan olarak açık değildir. "--with-bz2[=DIR]"
+ayar seçeneğini PHP derlerken kullanmak gerekir.
+
+<h3>Kaynak Türleri</h3>
+
+Bu uzantının bir kaynak türü tanımlıdır: bz2-file için çalışılacak dosya göstergesi olmalıdır.
+<br /><br />
+<b>Örnekler</b>
+<br /><br />
+Bu örnek gecici bir dosya açar ve deneme yazı dizisini içine yazar. Sonra
+dosyanın içeriğini yazdırır.
+<br /><br />
+<b>Küçük bzip2 Örneği</b>
+<pre>
+&lt;?php
+
+$filename = "/tmp/testfile.bz2";
+$str = "Bu deneme yazı dizisidir.\n";
+
+// yazmak için dosyayı açın
+$bz = bzopen($filename, "w");
+
+// yazı dizisini dosyaya yazın
+bzwrite($bz, $str);
+
+// dosyayı kapatın
+bzclose($bz);
+
+// dosyayı okumak için açın
+$bz = bzopen($filename, "r");
+
+// 10 karakter okuyun
+echo bzread($bz, 10);
+
+// dosya sonuna gelinceye dek (ya da sonraki 1024 karaktere kadar)
+// yazdırın ve kapatın
+echo bzread($bz);
+
+bzclose($bz);
+
+?&gt;
+</pre>
+</pre>
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> bzclose — bzip2 dosayasını kapatma
+    <li> bzcompress — Bir yazı dizisini bzip2 biçiminde sıkıştırma.
+    <li> bzdecompress — bzip2 ile kodlanmış verileri açma
+    <li> bzerrno — bzip2 hata kodunu döndürür
+    <li> bzerror — bzip2 hata numarasını ve hata yazısını bir dizide döndürür
+    <li> bzerrstr — bzip2 hata yazısını döndürür
+    <li> bzflush — Tamponlanan tüm verilerin yazılmasını zorlar
+    <li> bzopen — bzip2 ile sıkıştırılmış dosyayı açar
+    <li> bzread — İkili korunmuş bzip2 dosya okuma
+    <li> bzwrite — İkili korunmuş bzip2 dosya yazma
+</ul>
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

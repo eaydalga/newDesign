@@ -1,0 +1,233 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>HTML Bilgi Girişi (Forms) ve Girişler (Input) </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="htmltxt1.html" class="nav">Öğeler</a>
+               <a href="htmltxt2.html" class="nav">Biçimler</a>
+               <a href="htmltxt3.html" class="nav">Kalıplama</a>
+               <a href="htmltxt4.html" class="nav">Varlıklar</a>
+               <a href="htmltxt5.html" class="nav">Bağlar</a>
+               <a href="htmltxt6.html" class="nav">Çerçeveler</a>
+               <a href="htmltxt7.html" class="nav">Tablolar</a>
+               <a href="htmltxt8.html" class="nav">Listeler</a>
+               <a href="htmltxt9.html" class="nav">Formlar</a>
+               <a href="htmltxt10.html" class="nav">Resimler</a>
+               <a href="htmltxt11.html" class="nav">Art-Alan</a>
+               <a href="htmltxt12.html" class="nav">Renkler</a>
+               <a href="htmltxt13.html" class="nav">RenkDeğerleri</a>
+               <a href="htmltxt14.html" class="nav">RenkAdları</a>
+               <font color="#8e9ccb"><h3>Gelişmiş</h3></font>
+               <a href="ahtmltxt1.html" class="nav">Yerleşim</a>
+               <a href="ahtmltxt2.html" class="nav">YazıTipleri</a>
+               <a href="ahtmltxt3.html" class="nav">Stiller</a>
+               <a href="ahtmltxt4.html" class="nav">Başlık</a>
+               <a href="ahtmltxt6.html" class="nav">URL-Adresleri</a>
+               <a href="ahtmltxt7.html" class="nav">YazıDüzeni</a>
+               <a href="ahtmltxt8.html" class="nav">Nitelikler</a>
+               <a href="ahtmltxt9.html" class="nav">Olaylar</a>
+               <a href="ahtmltxt10.html" class="nav">URL-Kodlama</a>
+               <a href="ahtmltxt11.html" class="nav">Muzik-Kodu</a>
+               <a href="ahtmltxt12.html" class="nav">Video-Kodu</a>
+               <a href="ahtmltxt13.html" class="nav">WEB-Sunucu</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>HTML</h2></center>
+       <div id="ortataraf">
+<!-- html sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">30 Kasım 2007</span></div>
+<h2>HTML Bilgi Girişi (Forms) ve Girişler (Input)</h2>
+<br />
+<h3>Doldurulacak Belgeler</h3>
+
+<span class="yazi">
+Bir doldurulacak belge, belge öğelerini içeren bir alandır.<br />
+</span>
+
+<span class="yazi">
+Doldurulacak belge öğeleri, kullanıcıya bilgi girmesini sağlayan bilgi giriş alanlarıdır (yazı alanları, açılabilen menüler, radyo düğmeleri, seçme kutusu vb).<br />
+</span>
+<br />
+<span class="yazi">
+Doldurulacak belge &lt;form&gt; biçimiyle tanımlanır.<br />
+</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+&lt;form&gt;
+  &lt;input&gt;
+  &lt;input&gt;
+&lt;/form&gt;
+</pre>
+</fieldset>
+
+<h3>Giriş Alanı (Input)</h3>
+
+<span class="yazi">
+Doldurulacak belge alanında en çok kullanılan biçim &lt;input&gt; olarak belirtilebilir.<br />
+</span>
+
+<h3>Yazı Alanları (Text Fields) </h3>
+
+<span class="yazi">
+Yazı alanları, kullanıcıların harfler, sayılar vb bilgiler yazmaları için kullanılır.<br />
+</span>
+<br />
+
+<fieldset class="fyazi">
+<pre>
+&lt;form&gt;
+Ad: 
+&lt;input type="text" name="firstname"&gt;
+&lt;br&gt;
+Soyad: 
+&lt;input type="text" name="lastname"&gt;
+&lt;/form&gt;
+</pre>
+</fieldset>
+<br />
+<span class="yazi">
+Bir tarayıcıda şöyle görünür:<br />
+</span>
+<form>
+Ad: 
+<input type="text" name="firstname">
+<br>
+Soyad: 
+<input type="text" name="lastname">
+</form>
+<br />
+<span class="yazi">
+Dikkat ettiyseniz "form" kendisi görünmez. Bir çok tarayıcıda, yazı alanının varsayılan eni 20 karakter olur.<br />
+</span>
+<br />
+<h3>Radyo Düğmesi (Radio Buttons)</h3>
+
+<span class="yazi">
+Bir kullanıcının sınırlı sayıda seçeneklerden birini işaretlemek gerektiğinde kullanılır<br />
+</span>
+
+<fieldset class="fyazi">
+<pre>
+&lt;form&gt;
+&lt;input type="radio" name="sex" value="male"&gt; Erkek
+&lt;br&gt;
+&lt;input type="radio" name="sex" value="female"&gt; Kadın
+&lt;/form&gt;
+</pre>
+</fieldset>
+
+<span class="yazi">
+Tarayıcıda nasıl göründüğünü anlamak için:<br />
+</span>
+<br />
+<form>
+<input type="radio" name="sex" value="male"> Erkek
+<br>
+<input type="radio" name="sex" value="female"> Kadın
+</form>
+<br />
+<span class="yazi">
+Burada yalnız bir seçenek işaretlenebilir.<br />
+</span>
+
+<h3>Seçme kutusu (Checkboxes)</h3>
+
+<span class="yazi">
+Seçme kutusu, kullanıcının bir ya da daha çok sınırlı sayıdaki seçenek arasından birini seçmesini istendiğinde kullanılır.
+</span>
+
+<fieldset class="fyazi">
+<pre>
+&lt;form&gt;
+Bisikletim var:
+&lt;input type="checkbox" name="vehicle" value="Bisiklet" /&gt;
+&lt;br /&gt;
+Arabam var:
+&lt;input type="checkbox" name="vehicle" value="Araba" /&gt;
+&lt;br /&gt;
+Uçağım var:
+&lt;input type="checkbox" name="vehicle" value="Uçak" /&gt;
+&lt;/form&gt;
+</pre>
+</fieldset>
+
+Tarayıcıda nasıl göründüğü aşağıda gösterilmiştir.<br />
+<br />
+<form>
+Bisikletim var:
+<input type="checkbox" name="vehicle" value="Bisiklet" />
+<br />
+Arabam var:
+<input type="checkbox" name="vehicle" value="Araba" />
+<br />
+Uçağım var:
+<input type="checkbox" name="vehicle" value="Uçak" />
+</form>
+
+<h3>Dordurulacak belgede işlem (action) niteliği ve Gönder (Submit) düğmesi</h3>
+
+<span class="yazi">
+Kullanıcı "Gönder" düğmesini tıkladığında, doldurulacak belge alanındaki bilgi alanları başka bir dosyaya iletilir. Doldurulacak belgenin işlem niteliği, içeriğin gönderileceği dosyanın adını taşır. Bu dosya gelen giriş bilgisiyle işlem yapacak biçimde düzenlenmiştir.<br />
+<br />
+</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+&lt;form name="input" action="html_form_action.asp"
+method="get"&gt;
+Kullanıcı Adı: 
+&lt;input type="text" name="user"&gt;
+&lt;input type="submit" value="Gönder"&gt;
+&lt;/form&gt;
+</pre>
+</fieldset>
+
+<span class="yazi">
+Tarayıcıda bu kodun nasıl göründüğü aşağıda belirtilmiştir.<br />
+</span>
+<br />
+<form name="input" action="#"
+method="get">
+Kullanıcı Adı: 
+<input type="text" name="user">
+<input type="submit" value="Gönder">
+</form>
+<br />
+<span class="yazi">
+Eğer yukarıdaki yazı alanına bazı karakterler yazarsanız ve "Gönder" düğmesini tıklarsanız, giriş bilgilerini "html_form_action.asp" dosyasına iletirsiniz. O dosya gelen bilgileri WEB sayfasına yazar. (Bilgi için: Bu örnekte işlem tamamlanmaz).<br />
+</span>
+<br />
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,187 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Hyperlink Preprocessor </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">20 Mart 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>KADM5</h2>
+<h3>Giriş</h3>
+
+Bu paket Kerberos V yönetim sunucusuna erişimi sağlar. Kerberos V
+ana konuyu ve politikalarını yaratır, değiştirir ve silebilirsiniz.
+<br /><br />
+Daha çok bilgi için http://web.mit.edu/kerberos/www/ adresine bakın.
+<br /><br />
+Kerberos ve KADM5 belgeleri için http://web.mit.edu/kerberos/www/krb5-1.2/krb5-1.2.8/doc/admin_toc.html sayfasına bakın.
+
+<h3>Kaynak Türleri</h3>
+
+Bu uzantı kadm5_init_with_password() ile dönen göstergeyi tanımlar.
+
+<h3>Önceden Tanımlanan Değişmezler</h3>
+
+Aşağıda tanımlanan değişmezler yalnız bu uzantıyla kullanılabilir.
+
+<h3>Nitelik durum kodları için değişmezler</h3>
+
+kadm5_create_principal(), kadm5_modify_principal(), ve kadm5_modify_principal() işlevleri bir alanlı özel nitelikler tanımlamanızı sağlar. Simgeler aşağıda belirtilmiştir.
+
+KDC değişmezleriyle kullanılan nitelikler
+
+KRB5_KDB_DISALLOW_POSTDATED
+KRB5_KDB_DISALLOW_FORWARDABLE
+KRB5_KDB_DISALLOW_TGT_BASED
+KRB5_KDB_DISALLOW_RENEWABLE
+KRB5_KDB_DISALLOW_PROXIABLE
+KRB5_KDB_DISALLOW_DUP_SKEY
+KRB5_KDB_DISALLOW_ALL_TIX
+KRB5_KDB_REQUIRES_PRE_AUTH
+KRB5_KDB_REQUIRES_HW_AUTH
+KRB5_KDB_REQUIRES_PWCHANGE
+KRB5_KDB_DISALLOW_SVR
+KRB5_KDB_PWCHANGE_SERVER
+KRB5_KDB_SUPPORT_DESMD5
+KRB5_KDB_NEW_PRINC
+
+<h3>Seçenekler için değişmezler</h3>
+
+kadm5_create_principal(), kadm5_modify_principal(), ve kadm5_get_principal() işlevleri ana konunun seçeneklerini belirtmeye izin verir. Seçenekler ilgili dizi biçiminde olur. Anahtarlar ve ilgili diziler aşağıdaki gibi yazı dizisi değişmezleridirler:
+
+<h3>Ana konu yaratma/değiştirme/erişme işlemleri için Seçenekler</h3>
+
+<table class="yazi">
+<tr><td>Değişmez</td><td>işlev tanımı</td><td>Açıklama</td></tr>
+<tr><td>KADM5_PRINCIPAL</td><td>uzun-long</td><td>ana konunun zaman aşımı (Kerberos zaman damgasıyla).</td></tr>
+<tr><td>KADM5_PRINC_EXPIRE_TIME</td><td>uzun-long</td><td>ana konunun zaman aşımı (Kerberos zaman damgasıyla).</td></tr>
+<tr><td>KADM5_LAST_PW_CHANGE</td><td>uzun-long</td><td>Bu ana konunun şifresinin son değiştiği zaman.</td></tr>
+<tr><td>KADM5_PW_EXPIRATION</td><td>uzun-long</td><td>ana konunun o anki şifresinin zaman aşımı (Kerberos zaman damgası olarak).</td></tr>
+<tr><td>KADM5_MAX_LIFE</td><td>uzun-long</td><td>Bu ana konuyla kullanılan biletin (sorgunun) en uzun yaşam zamanı</td></tr>
+<tr><td>KADM5_MAX_RLIFE</td><td>uzun-long</td><td>Kerberos biletin(sorgunun) en geç yenilenebilir yaşam süresidir. Bu ana konu için açılmış olmalıdır</td></tr>
+<tr><td>KADM5_MOD_NAME</td><td>yazı dizisi-string</td><td>
+Bu konuyu son değiştiren Kerberos ana konusunun adı </td></tr>
+<tr><td>KADM5_MOD_TIME</td><td>uzun-long</td><td>
+Bu ana konunun Kerberos zaman damgası olarak son değiştirildiği
+zaman.</td></tr>
+<tr><td>KADM5_KVNO</td><td>uzun-long</td><td>
+Ana konunun ao anki anahtarının sürüm bilgisi</td></tr>
+<tr><td>KADM5_POLICY</td><td>yazı dizisi-string</td><td>
+Bu ana konuyu denetleyen politikanın adı</td></tr>
+<tr><td>KADM5_CLEARPOLICY</td><td>uzun-long</td><td>
+Standart yöntem, yeni ana konular için varsayılan politikaları uygulamaktır.
+KADM5_CLEARPOLICY bu davranışı değiştirir.</td></tr>
+<tr><td>KADM5_LAST_SUCCESS</td><td>uzun-long</td><td>
+Son başarılı AS_REQ için KDC zamanı</td></tr>
+<tr><td>KADM5_LAST_FAILED</td><td>uzun-long</td><td>
+Son hatalı AS_REQ için KDC zamanı</td></tr>
+<tr><td>KADM5_FAIL_AUTH_COUNT</td><td>uzun-long</td><td>
+Ardaşık hatalı AS_REQ'lerin sayısı</td></tr>
+<tr><td>KADM5_RANDKEY</td><td>uzun-long</td><td>
+Ana konu için rastgele şifre üretir. Değişgeç olan şifre dikkate alınmaz.</td></tr>
+<tr><td>KADM5_ATTRIBUTES</td><td>uzun-long</td><td>
+KDC için kullanılan bir alan nitelikleri</td></tr>
+</table>
+
+<h3>Örnekler</h3>
+
+Bu basit örnek, KADM5 veritabanına nasıl bağlanılır, sorgulama nasıl yapılır,
+ana konu sonuçları nasıl yazdırılırve veritabanından nasıl ayrılınır onu
+gösterir.
+
+Örnek-1 KADM5 uzantısı genel görünüm örneği
+<pre>
+&lt;?php
+
+  $handle = kadm5_init_with_password("afs-1", "GONICUS.LOCAL",
+                                     "admin/admin", "password");
+
+  print "&lt;h1&gt;get_principals&lt;/h1&gt;\n";
+  $principals = kadm5_get_principals($handle);
+  for( $i=0; $i&lt;count($principals); $i++)
+      print "$principals[$i]&lt;br&gt;\n";
+
+  print "&lt;h1&gt;get_policies&lt;/h1&gt;\n";
+  $policies = kadm5_get_policies($handle);
+  for( $i=0; $i&lt;count($policies); $i++)
+      print "$policies[$i]&lt;br&gt;\n";
+
+  print "&lt;h1&gt;get_principal burbach@GONICUS.LOCAL&lt;/h1&gt;\n";
+
+  $options = kadm5_get_principal($handle, "burbach@GONICUS.LOCAL" );
+  $keys = array_keys($options);
+  for( $i=0; $i&lt;count($keys); $i++) {
+    $value = $options[$keys[$i]];
+    print "$keys[$i]: $value&lt;br&gt;\n";
+  }
+
+  $options = array(KADM5_PRINC_EXPIRE_TIME =&gt; 0);
+  kadm5_modify_principal($handle, "burbach@GONICUS.LOCAL", $options);
+
+  kadm5_destroy($handle);
+?&gt;
+</pre>
+
+<h3>İletişim bilgisi</h3>
+
+Bu projeye katkıda bulunmak isterseniz proje ana sayfası
+http://oss.gonicus.de/project/?group_id=7 adresindedir.
+
+<h3>İçindekiler</h3>
+
+<ul>
+    <li> kadm5_chpass_principal — Ana konunun şifresini değiştirir
+    <li> kadm5_create_principal — kerberos ana konusunu verilen değişgeçlerle
+yaratır
+    <li> kadm5_delete_principal — kerberos ana konusunu siler
+    <li> kadm5_destroy — admin sunucusuna bağlantı kurar ve diğerlerini boşlartır.
+    <li> kadm5_flush — Tüm değişiklikleri Kerberos veritabanına aktarır. Kerberos admin bağlantısını açık bırakır.
+    <li> kadm5_get_policies — Kerberos veritabanından tüm politikaları alır.
+    <li> kadm5_get_principal — Kerberos veritabanından ana konunun tüm giriş noktalarını alır.
+    <li> kadm5_get_principals — Kerberos veritabanından tüm ana konuları alır.
+    <li> kadm5_init_with_password — KADM5 kitaplığına bağlantı kurar ve gerekli olan herhangi durum kodunu ilkler.
+    <li> kadm5_modify_principal — kerberos ana konusunu verilen değişgeçlerle değiştirir.
+</ul>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

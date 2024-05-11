@@ -1,0 +1,410 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Hyperlink Preprocessor </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">18 Nisan 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>Ncurses Terminal Ekran Kontrol İşlevleri</h2>
+
+<h3>Giriş</h3>
+
+ncurses (new curses) System V Rel 4.0 (ve üzerinde) kullanılan curses yerine ücretsiz yazılmış benzetim yazılımıdır. terminfo kalıbını kullanır, pad'ları, renkleri, çoklu parlaklıkları, giriş bilgisi karakterlerini ve işlev anahtarlarının çevirilmesini sağlar. Bu kitaplığın etkileşimli davranışı yüzünden web uygulamalarında kullanımı pek azdır. Ama komut satırından yazılan php kodlamalarında anlamlı kullanımı olabilir.
+
+<h3>Uyarı</h3>
+
+Bu uzantı deneyseldir. Bu uzantının davranışı ve işlevlerin adları her an
+değişebilir.
+
+Ncurses aşağıdaki ortamlarda geçerlidir:
+
+<ul>
+    <li> AIX
+    <li> BeOS
+    <li> Cygwin
+    <li> Digital Unix (aka OSF1)
+    <li> FreeBSD
+    <li> GNU/Linux
+    <li> HPUX
+    <li> IRIX
+    <li> OS/2
+    <li> SCO OpenServer
+    <li> Solaris
+    <li> SunOS
+</ul>
+    Not: Bu uzantı PECL havuzuna taşındı ve artık PHP ile paketlenmemektedir.
+
+<h3>Gereksinim</h3>
+
+ncurses kitaplığına ve başlık dosyalarına gerek vardır. 
+ftp://ftp.gnu.org/pub/gnu/ncurses/ adresinden son sürüm indirilebilir.
+
+<h3>Kurulum</h3>
+
+PHP'nin CGI ya da CLI sürümlerinde --with-ncurses[=DIR]  ile derleme yapılırsa
+işlevler çalışabilir.
+
+
+<h3>Kaynak Türleri</h3>
+
+Bu uzantı pencere, panel ve pad kaynaklarını tanımlar
+
+<h3>Önceden Tanımlı Değişmezler</h3>
+
+Aşağıdaki değişmezler bu uzantıyla tanımlanır ve yalnız uzantı PHP ile
+derlendiğinde ya da çalışma zamanında yüklendiğinde anlamlıdır.
+
+<h3>Hata Kodları</h3>
+
+Hata olduğunda ncurses işlevleri NCURSES_ERR döndürürler.
+
+<h3>Renkler (color)</h3>
+
+ncurses renk değişmezleri
+
+<table class="yazi">
+<tr><td>Değişmez</td><td>Anlamı </td></tr>
+<tr><td>NCURSES_COLOR_BLACK</td><td>renksiz (siyah) </td></tr>
+<tr><td>NCURSES_COLOR_WHITE</td><td>beyaz </td></tr>
+<tr><td>NCURSES_COLOR_RED</td><td>kırmızı - terminal renkli konumdaysa
+</td></tr>
+<tr><td>NCURSES_COLOR_GREEN</td><td>yeşil - terminal renkli konumdaysa
+</td></tr>
+<tr><td>NCURSES_COLOR_YELLOW</td><td>sarı - terminal renkli konumdaysa
+</td></tr>
+<tr><td>NCURSES_COLOR_BLUE</td><td>mavi - terminal renkli konumdaysa
+</td></tr>
+<tr><td>NCURSES_COLOR_CYAN</td><td>cyan - terminal renkli konumdaysa
+</td></tr>
+<tr><td>NCURSES_COLOR_MAGENTA</td><td>mor - terminal renkli konumdaysa
+</td></tr>
+</table>
+
+<h3>Tuşlar (Keys)</h3>
+ncurses tuş değişmezleri
+
+<table class="yazi">
+<tr><td>Değişmez</td><td>Anlamı</td></tr>
+<tr><td>NCURSES_KEY_F0 - NCURSES_KEY_F64</td><td>İşlev tuşları F1 - F64
+<tr><td>NCURSES_KEY_DOWN</td><td>aşağı ok
+<tr><td>NCURSES_KEY_UP</td><td>yukarı ok
+<tr><td>NCURSES_KEY_LEFT</td><td>sol ok
+<tr><td>NCURSES_KEY_RIGHT</td><td>sağ ok
+<tr><td>NCURSES_KEY_HOME</td><td>Ev tuşu (yukarı+sol ok)
+<tr><td>NCURSES_KEY_BACKSPACE</td><td>geri bosluk
+<tr><td>NCURSES_KEY_DL</td><td>satır sil
+<tr><td>NCURSES_KEY_IL</td><td>satır ekle
+<tr><td>NCURSES_KEY_DC</td><td>Karakter sil
+<tr><td>NCURSES_KEY_IC</td><td>Karakter ekle ya da ekleme konumuna gir
+<tr><td>NCURSES_KEY_EIC</td><td>karakter ekleme konumundan çık
+<tr><td>NCURSES_KEY_CLEAR</td><td>ekranı temizle
+<tr><td>NCURSES_KEY_EOS</td><td>ekranın sonuna kadar temizle
+<tr><td>NCURSES_KEY_EOL</td><td>satırın sonuna kadar temizle
+<tr><td>NCURSES_KEY_SF</td><td>Bir satır öne kaydır
+<tr><td>NCURSES_KEY_SR</td><td>bir satır geriye kaydır
+<tr><td>NCURSES_KEY_NPAGE</td><td>sonraki sayfa
+<tr><td>NCURSES_KEY_PPAGE</td><td>önceki sayfa
+<tr><td>NCURSES_KEY_STAB</td><td>tab ayarla
+<tr><td>NCURSES_KEY_CTAB</td><td>tab temizle
+<tr><td>NCURSES_KEY_CATAB</td><td>Tüm tabları temizle
+<tr><td>NCURSES_KEY_SRESET</td><td>yumuşak (bölünmüş) yenileme
+<tr><td>NCURSES_KEY_RESET</td><td>yenileme ya da katı yenileme
+<tr><td>NCURSES_KEY_PRINT</td><td>yaz
+<tr><td>NCURSES_KEY_LL</td><td>aşağı sol
+<tr><td>NCURSES_KEY_A1</td><td>yukarı sol numerik tuşlar
+<tr><td>NCURSES_KEY_A3</td><td>yukarı sağ numerik tuşlar
+<tr><td>NCURSES_KEY_B2</td><td>orta numerik tuşlar
+<tr><td>NCURSES_KEY_C1</td><td>aşağı sol numerik tuşlar
+<tr><td>NCURSES_KEY_C3</td><td>aşağı sağ numerik tuşlar
+<tr><td>NCURSES_KEY_BTAB</td><td>ters tab
+<tr><td>NCURSES_KEY_BEG</td><td>başlangıç
+<tr><td>NCURSES_KEY_CANCEL</td><td>kes
+<tr><td>NCURSES_KEY_CLOSE</td><td>kapat
+<tr><td>NCURSES_KEY_COMMAND</td><td>cmd (komut)
+<tr><td>NCURSES_KEY_COPY</td><td>kopyala
+<tr><td>NCURSES_KEY_CREATE</td><td>yarat
+<tr><td>NCURSES_KEY_END</td><td>son
+<tr><td>NCURSES_KEY_EXIT</td><td>çık
+<tr><td>NCURSES_KEY_FIND</td><td>bul
+<tr><td>NCURSES_KEY_HELP</td><td>yardım
+<tr><td>NCURSES_KEY_MARK</td><td>işaretle
+<tr><td>NCURSES_KEY_MESSAGE</td><td>mesaj
+<tr><td>NCURSES_KEY_MOVE</td><td>taşı
+<tr><td>NCURSES_KEY_NEXT</td><td>sonra
+<tr><td>NCURSES_KEY_OPEN</td><td>aç
+<tr><td>NCURSES_KEY_OPTIONS</td><td>seçenekler
+<tr><td>NCURSES_KEY_PREVIOUS</td><td>önceki
+<tr><td>NCURSES_KEY_REDO</td><td>yeniden yap
+<tr><td>NCURSES_KEY_REFERENCE</td><td>göster
+<tr><td>NCURSES_KEY_REFRESH</td><td>yenile
+<tr><td>NCURSES_KEY_REPLACE</td><td>değiştir
+<tr><td>NCURSES_KEY_RESTART</td><td>yeniden başla
+<tr><td>NCURSES_KEY_RESUME</td><td>devam et
+<tr><td>NCURSES_KEY_SAVE</td><td>sakla
+<tr><td>NCURSES_KEY_SBEG</td><td>Şiftli başlangıç
+<tr><td>NCURSES_KEY_SCANCEL</td><td>Şiftli kes
+<tr><td>NCURSES_KEY_SCOMMAND</td><td>Şifli komut
+<tr><td>NCURSES_KEY_SCOPY</td><td>Şiftli kopya
+<tr><td>NCURSES_KEY_SCREATE</td><td>Şiftli yarat
+<tr><td>NCURSES_KEY_SDC</td><td>Şiftli karakter sil
+<tr><td>NCURSES_KEY_SDL</td><td>Şiftli satır sil
+<tr><td>NCURSES_KEY_SELECT</td><td>seç
+<tr><td>NCURSES_KEY_SEND</td><td>Şiftli end tuşu
+<tr><td>NCURSES_KEY_SEOL</td><td>Şiftli satır sonu
+<tr><td>NCURSES_KEY_SEXIT</td><td>Şiftli çık
+<tr><td>NCURSES_KEY_SFIND</td><td>Şiftli bul
+<tr><td>NCURSES_KEY_SHELP</td><td>Şiftli yardım
+<tr><td>NCURSES_KEY_SHOME</td><td>Şiftli home tışu
+<tr><td>NCURSES_KEY_SIC</td><td>Şiftli giriş
+<tr><td>NCURSES_KEY_SLEFT</td><td>Şiftli sol ok
+<tr><td>NCURSES_KEY_SMESSAGE</td><td>Şiftli mesaj
+<tr><td>NCURSES_KEY_SMOVE</td><td>Şiftli taşı
+<tr><td>NCURSES_KEY_SNEXT</td><td>Şiftli sonraki
+<tr><td>NCURSES_KEY_SOPTIONS</td><td>Şiftli seçenekler
+<tr><td>NCURSES_KEY_SPREVIOUS</td><td>Şiftli önceki
+<tr><td>NCURSES_KEY_SPRINT</td><td>Şiftli yaz
+<tr><td>NCURSES_KEY_SREDO</td><td>Şiftli yeniden yap
+<tr><td>NCURSES_KEY_SREPLACE</td><td>Şiftli değiştir
+<tr><td>NCURSES_KEY_SRIGHT</td><td>Şiftli sağ ok
+<tr><td>NCURSES_KEY_SRSUME</td><td>Şiftli devam et
+<tr><td>NCURSES_KEY_SSAVE</td><td>Şiftli sakla
+<tr><td>NCURSES_KEY_SSUSPEND</td><td>Şiftli beklet
+<tr><td>NCURSES_KEY_UNDO</td><td>geri al
+<tr><td>NCURSES_KEY_MOUSE</td><td>fare olayı oldu
+<tr><td>NCURSES_KEY_MAX</td><td>En boyok tuş değeri
+</table>
+
+<h3>Fare (Mouse)</h3>
+Fare değişmezleri
+
+<table class="yazi">
+<tr><td>Değişmez</td><td>Anlamı</td></tr>
+<tr><td>NCURSES_BUTTON1_RELEASED - NCURSES_BUTTON4_RELEASED</td><td>düğme (1-4)
+bırakıldı</td></tr>
+<tr><td>NCURSES_BUTTON1_PRESSED - NCURSES_BUTTON4_PRESSED</td><td>düğme (1-4)
+basıldı</td></tr>
+<tr><td>NCURSES_BUTTON1_CLICKED - NCURSES_BUTTON4_CLICKED</td><td>düğme (1-4)
+tıklandı</td></tr>
+<tr><td>NCURSES_BUTTON1_DOUBLE_CLICKED - NCURSES_BUTTON4_DOUBLE_CLICKED</td><td>düğme (1-4) çift tıklandı</td></tr>
+<tr><td>NCURSES_BUTTON1_TRIPLE_CLICKED - NCURSES_BUTTON4_TRIPLE_CLICKED</td><td>düğme (1-4) üç kez tıklandı</td></tr>
+<tr><td>NCURSES_BUTTON_CTRL</td><td>tıklanırken Cntl tuşuna basıldı</td></tr>
+<tr><td>NCURSES_BUTTON_SHIFT</td><td>tıklanırken Şift tuşuna basıldı</td></tr>
+<tr><td>NCURSES_BUTTON_ALT</td><td>tıklanırken alt tuşuna basıldı</td></tr>
+<tr><td>NCURSES_ALL_MOUSE_EVENTS</td><td>tüm fare olaylarını
+raporlar</td></tr>
+<tr><td>NCURSES_REPORT_MOUSE_POSITION</td><td>fare yerini raporlar</td></tr>
+</table>
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> ncurses_addch — O anki noktaya bir karakter ekle ve imleçi bir kaydır
+    <li> ncurses_addchnstr —Nitelikli yazı dizisini belirtilen uzunlukta o anki yerden başlayarak ekle
+    <li> ncurses_addchstr — Nitleikli yazı dizisi o anki yerden ekle
+    <li> ncurses_addnstr — O anki yerden belirtilen uzunlukta yazı dizisini ekle
+    <li> ncurses_addstr — O anki yere yazıyı çıkart
+    <li> ncurses_assume_default_colors — "color" sıfır için varsayılan
+renkleri tanımla
+    <li> ncurses_attroff — Verilen nitelikleri kapat
+    <li> ncurses_attron — Verilen nitelikleri aç
+    <li> ncurses_attrset — Verilen nitelikleri ayarla
+    <li> ncurses_baudrate — terminalin baud hızını döndürür
+    <li> ncurses_beep — Terminalin biplemesine izin ver
+    <li> ncurses_bkgd — Terminal ekranı için art alan özelliklerini ayarla
+    <li> ncurses_bkgdset — Ekranın arka alanını kontrol et
+    <li> ncurses_border — Ekranın çevresine nitelikli karakter kullanarak sınır çiz
+    <li> ncurses_bottom_panel — görünen bir paneli "stack" sonuna taşı
+    <li> ncurses_can_change_color — Terminal renklerini değiştirebilir miyiz
+bak
+    <li> ncurses_cbreak — Giriş tamponunun değiştirilmesi
+    <li> ncurses_clear — Ekranı temizle
+    <li> ncurses_clrtobot — o anki yerden sonuna değin ekranı temizle
+    <li> ncurses_clrtoeol — o anki yerden satır sonuna değin ekranı temizle
+    <li> ncurses_color_content — Renkler için RGB değerlerini al
+    <li> ncurses_color_set — Ön ve art alan renklerini ayarla
+    <li> ncurses_curs_set — İmleç durumunu ayarla
+    <li> ncurses_def_prog_mode — Terminalin program konumunu sakla
+    <li> ncurses_def_shell_mode — Terminalin kabuk konumunu sakla
+    <li> ncurses_define_key — tuş kodunu tanımla
+    <li> ncurses_del_panel — panel "stack"tan çıkart ve sil (ama ilgili pencereyi silme)
+    <li> ncurses_delay_output — doldurma karakterleri kullanarak terminaldeki çıktıyı geciktir.
+    <li> ncurses_delch — O andaki karakteri sil ve satırın kalanını taşı
+    <li> ncurses_deleteln — O anki satırı sil ve kalanı ekranda yukarı taşı
+    <li> ncurses_delwin — ncurses penceresini sil
+    <li> ncurses_doupdate — Hazırlanan tüm yenilemeleri terminala yaz.
+    <li> ncurses_echo — tuş takımı giriş yansımasını etkinleştir
+    <li> ncurses_echochar — Tek karakter çıktıya yenileme ekle
+    <li> ncurses_end — ncurses kullanmayı durdur, ekranı temizle
+    <li> ncurses_erase — Terminal ekranını sil
+    <li> ncurses_erasechar — o anki silme karakterini döndür
+    <li> ncurses_filter — iniscr() için LINES ayarla ve newterm() için 1 ata.
+    <li> ncurses_flash — Terminal ekranını akıt (sanal zil)
+    <li> ncurses_flushinp — Tuş takımı giriş tamponunu akıt
+    <li> ncurses_getch — Tuş takımından bir karakter oku
+    <li> ncurses_getmaxyx — pencerenin boyunu ayarla
+    <li> ncurses_getmouse — Fare olayını oku
+    <li> ncurses_getyx — Bir pencere için o anki imleç yerini döndürür
+    <li> ncurses_halfdelay — Terminali yarı gecikme konumuna sokar
+    <li> ncurses_has_colors — Terminalde renkler var mı bak
+    <li> ncurses_has_ic — eklene ve silme yeteneği var mı bak
+    <li> ncurses_has_il — Satır ekleme ve silme yeteneği var mı bak
+    <li> ncurses_has_key — Terminal tuş takımında işlev tuşları var mı bak
+    <li> ncurses_hide_panel — "stack" tan paneli çıkart ve onu görünmez yap
+    <li> ncurses_hline — o anki yerden yatay bir çizgi çiz (niteliklendirilmiş karakter kullanırken uzunluk en çok n karakter olsun)
+    <li> ncurses_inch — O anki yerden karakter ve niteliğini al
+    <li> ncurses_init_color — Renk için yeni RGB değerini ayarla
+    <li> ncurses_init_pair — renk çiftine yer aç
+    <li> ncurses_init — ncurses ilkle
+    <li> ncurses_insch — o anki yerden karakteri satırın kalanını kaydır ve oraya karakter ekle
+    <li> ncurses_insdelln — o anki satır önüne bir satır ekle diğerlerini aşağıya kaydır (eksi sayılar siler ve yukarı kaydırır)
+    <li> ncurses_insertln — Bir satır ekle ve ekranın kalanını aşağıya kaydır
+    <li> ncurses_insstr — o anki yere yazı dizisi ekle, kalanını sağa taşı
+    <li> ncurses_instr — Terminal ekranından yazı dizisini oku
+    <li> ncurses_isendwin — Ncurses endwin konumundadır, normal ekran çıktısı yapılır
+    <li> ncurses_keyok — tuş kodunu aç ya da yapa
+    <li> ncurses_keypad — sayısal tuşları aç ya da kapa
+    <li> ncurses_killchar — O anki satırın öldürme karakterini döndür
+    <li> ncurses_longname — Terminal tanımını döndürür
+    <li> ncurses_meta — meta tuş bilgisini Aç/Kapa
+    <li> ncurses_mouse_trafo — Koordinatları çevirir
+    <li> ncurses_mouseinterval — fare düğmei tıklama zaman aşımını ayarlar
+    <li> ncurses_mousemask — Fare seçeneklerini ayarlar
+    <li> ncurses_move_panel — Bir paneli sol üst köşesi [startx,starty] olan yere taşı
+    <li> ncurses_move — çıktı yerini taşı
+    <li> ncurses_mvaddch — o anki yeri taşı ve bir karakter ekle
+    <li> ncurses_mvaddchnstr — o anki yeri taşı ve niteliklendirilmiş yazı dizisini belirtilen uzunlukta ekle
+    <li> ncurses_mvaddchstr — o anki yeri taşı ve niteliklendirilmiş yazı dizisini ekle
+    <li> ncurses_mvaddnstr — imleçi taşı ve belirtilen uzunluktaki yazı dizisini ekle
+    <li> ncurses_mvaddstr — Yeri taşı ve yazı dizisi ekle
+    <li> ncurses_mvcur — İmleçi hemen taşı
+    <li> ncurses_mvdelch — o anki yeri taşı ve karakteri sil
+    <li> ncurses_mvgetch — o anki yeri taşı ve yeni yerdeki karakteri al
+    <li> ncurses_mvhline — yeni yer ayarla ve niteliklenmiş karakter kullanarak belirtilen uzunlukta yatay çizgi çizme
+    <li> ncurses_mvinch — o anki yeri taşı ve yeni yerden niteliklendirilmiş karakterleri al
+    <li> ncurses_mvvline — yeni yer ayarla ve düşey çizgiyi niteliklendirilmiş karakterin belirtilen uzunluğu kadar çiz
+    <li> ncurses_mvwaddstr — pencerede yeni yer ve yazı dizisi ayarla
+    <li> ncurses_napms — Uyu
+    <li> ncurses_new_panel — Yeni panel yarat ve bunu bir pencereye
+ilişkilendir.
+    <li> ncurses_newpad — Yeni pad (pencere yaratır)
+    <li> ncurses_newwin — Yeni pencere yaratır
+    <li> ncurses_nl — yeni satırı başa al ve satır besle olarak çevir
+    <li> ncurses_nocbreak — Terminali pişmiş (cooked) konuma al
+    <li> ncurses_noecho — Tuş takımı girişinin yankılanmasını kapa
+    <li> ncurses_nonl — yeni satırı başa al ve satır besleye çevirme
+    <li> ncurses_noqiflush — Sinyal karakterlerinde akıtma
+    <li> ncurses_noraw — Terminali ham konumdan çevir
+    <li> ncurses_pair_content — rengin RGB değerini al
+    <li> ncurses_panel_above — paneli panel üstünde döner
+    <li> ncurses_panel_below — paneli panel altında döner
+    <li> ncurses_panel_window — panel ile ilişkili pencereyi döndürür
+    <li> ncurses_pnoutrefresh — pad içinde bir bölümü sanal ekrana taşır
+    <li> ncurses_prefresh —pad içinde bir bölümü sanal ekrana taşır
+    <li> ncurses_putp — yazı dizisine padding uygular ve çıkışını yapar
+    <li> ncurses_qiflush — Karakterlerin sinyalinde akıtır
+    <li> ncurses_raw — Terminali ham konuma alır
+    <li> ncurses_refresh — Ekranı yeniler
+    <li> ncurses_replace_panel — panelle ilgili pencereyi değiştirir
+    <li> ncurses_reset_prog_mode — saklanmış program konumunu varsayılan
+program konumuyla değiştirir
+    <li> ncurses_reset_shell_mode — saklanmış kabuk konumunu varsayılan kabuk konumuyla değiştirir
+    <li> ncurses_resetty — Saklanmış terminal konumunu geri yükler
+    <li> ncurses_savetty — terminal konumunu saklar
+    <li> ncurses_scr_dump — ekran içeriğini dosyaya döker
+    <li> ncurses_scr_init — dosya dökümünden ekranı ilkler
+    <li> ncurses_scr_restore — dosya dökğmünden ekranı yeniler
+    <li> ncurses_scr_set — dosya dökümünden ekranı ayırır
+    <li> ncurses_scrl — o anki yeri bozmadan ekranı yukarı aşağı kaydırır
+    <li> ncurses_show_panel — görünmeyen bir paneli stack üzerine yerleştirip onu görünür yapar
+    <li> ncurses_slk_attr — yazılım etiketli tuş niteliğini döndürür
+    <li> ncurses_slk_attroff — Verilen niteliği yazılım işlev tuşu etiketleri için kapar
+    <li> ncurses_slk_attron — Verilen niteliği yazılım işlev tuşu etiketleri için açar
+    <li> ncurses_slk_attrset — Verilen nitelikleri yazılım işlev tuşlarının etiketleri olarak ayarla
+    <li> ncurses_slk_clear — Ekrandan yazılım etiketleri temizle
+    <li> ncurses_slk_color — Yazılım etiket tuşlarının renk ayarlaması
+    <li> ncurses_slk_init — Yazılım etiketi tuş işlevleri ilklemesi
+    <li> ncurses_slk_noutrefresh — Yazılım etiketli tuşları sanal ekrana
+kopyalar
+    <li> ncurses_slk_refresh — Yazılım etiketli tuşları ekrana kopyalar
+    <li> ncurses_slk_restore — Yazılım etiketli tuşları yeniden yükler
+    <li> ncurses_slk_set — İşlev tuşları etiketlerini ayarlar
+    <li> ncurses_slk_touch — ncurses_slk_noutrefresh yapılırken çıktıyı zorlar
+    <li> ncurses_standend — 'standout' niteliğini kullanmayı durdur
+    <li> ncurses_standout — 'standout' niteliğini kullanmayı başlat
+    <li> ncurses_start_color — Renkleri kullanmaya başla
+    <li> ncurses_termattrs — Terminal tarafından desteklenen tüm niteliklerin durum kodunun mantıksal VEYA işlemi sonucunu döndürür
+    <li> ncurses_termname — Terminalin kısa adını döndürür
+    <li> ncurses_timeout — Belirtilen özel tuş sıralaması için zaman aşımını
+ayarlar
+    <li> ncurses_top_panel — stack tepesine görünen bir panel taşır
+    <li> ncurses_typeahead — typehead kontrolu için değişik dosya tanıtıcısı belirtir.
+    <li> ncurses_ungetch — Bir karakteri giriş akarına geri yazar
+    <li> ncurses_ungetmouse — fare olayını kuyruğa geri iter
+    <li> ncurses_update_panels — Sanal ekranı yenile panel ve stack arasındaki ilişkiyi yansıtsın.
+    <li> ncurses_use_default_colors — Varsayılan terminal renklerini renk tanıtıcısına ata (color id -1)
+    <li> ncurses_use_env — terminal boyutları hakkında çevresel bilgi için kontrollu kullanım yap
+    <li> ncurses_use_extended_names — terminfo açıklamalarında uzatılmış adların kontrollu kullanımını yap
+    <li> ncurses_vidattr — video nitelikleri konumunda yazı dizisini terminalde göster
+    <li> ncurses_vline — o anki yerden nitelikli karakter kullanarak ve belirtilen en çok karakter sayısı kadar düzey çizgi çiz.
+    <li> ncurses_waddch — o anki yere pencereye ve imleçin yerine göre karakter ekler ve imleçi taşır.
+    <li> ncurses_waddstr — penceredeki o anki yere yazıyı çıkartır
+    <li> ncurses_wattroff — Bir pencere için nitelikleri kapatır.
+    <li> ncurses_wattron — Bir pencere için nitelikleri açar
+    <li> ncurses_wattrset — Bir pencere için nitelikleri ayarlar
+    <li> ncurses_wborder — pencere çevresine nitelikli karakter kullanarak çerçeve çizer
+    <li> ncurses_wclear — Pencereyi temizler
+    <li> ncurses_wcolor_set — pencerenin ikili rengini ayarlar
+    <li> ncurses_werase — pencere içeriğini siler
+    <li> ncurses_wgetch — tuş takımından (pencerede) bir karakter okur
+    <li> ncurses_whline — o anki yeri kullanarak ve nitelikli karakterle en
+çok n karakter uzunluğunda pencerenin içine yatay çizgi çizer 
+    <li> ncurses_wmouse_trafo — pencere/stdscr koordinatlarını çevirir
+    <li> ncurses_wmove — pencerenin çıkış yerine taşır
+    <li> ncurses_wnoutrefresh — pencereyi sanal ekrana taşır
+    <li> ncurses_wrefresh — terminal ekranında pencereyi yeniler
+    <li> ncurses_wstandend — bir pencere için standout konumunu bitirir
+    <li> ncurses_wstandout — bir pencere için standout konumuna gir
+    <li> ncurses_wvline — o anki yere nitelikli karakter kullanarak en çok n karakter uzunluğunda pencereye düşey çizgi çizer
+</ul>
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

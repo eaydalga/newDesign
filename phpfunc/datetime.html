@@ -1,0 +1,180 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Tarih ve zaman işlevleri</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">18 Şubat 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>Tarih ve zaman işlevleri</h2>
+
+<h3>Giriş</h3>
+
+Bu işlevler sunucudan PHP kodlamanız çalışırken tarih ve zaman almak için
+kullanılır. Bu işlevleri birçok biçimde tarih ve zaman kodlamanızı yapmanızı
+sağlar.
+<br /><br />
+    Not: Unutmayın ki bu işlevler sunucunun yerel kurulumuyla ilişkilidir.
+Gün aydınlığını tasarruf değeri ( $date = strtotime('+7 days',$date) olur
+$date &= 7*24*60*60 olamaz) ve bu işlevlerle artık yıllar da dikkate alınır.
+<br /><br />
+    Not: Bu bölümde kullanılan zaman dilimi desteklenen zaman dilimleri listesinde bulunur.
+
+<h3>Kurulum</h3>
+
+Ayrıca kurulum gerekmez çekirdek kod içinde yer alır.
+<br /><br />
+    Not: Zaman dilimi veri tabanı PECL'nin timezonedb uzantısıyla yüklenebilir. Wİndows kullanıcıları için DLL PECL4Win sitesinden yüklenebilir (php_timezonedb.dll).
+
+<h3>Çalışma Zamanı Ayarları</h3>
+
+Bu işlevlerin davranışları php.ini kurulumlarından etkilenir.
+
+<h3>Tarih/Zaman Ayar seçenekleri</h3>
+<table class="yazi">
+<tr><td>Name</td><td>Default</td><td>Changeable</td><td>Changelog
+<tr><td>date.default_latitude</td><td>"31.7667"</td><td>PHP_INI_ALL</td><td>PHP 5.0.0. sürümünden beri var</td></tr>
+<tr><td>date.default_longitude</td><td>"35.2333"</td><td>PHP_INI_ALL</td><td>PHP 5.0.0. sürümünden beri var</td></tr>
+<tr><td>date.sunrise_zenith</td><td>"90.583333"</td><td>PHP_INI_ALL</td><td>PHP 5.0.0. sürümünden beri var</td></tr>
+<tr><td>date.sunset_zenith</td><td>"90.583333"</td><td>PHP_INI_ALL</td><td>PHP 5.0.0. sürümünden beri var</td></tr>
+<tr><td>date.timezone</td><td>""</td><td>PHP_INI_ALL</td><td>PHP 5.1.0. sürümünden beri var</td></tr>
+</table>
+Daha ayrıntılı bilgi için php.ini yönelticilerine bakın.
+<br /><br />
+Ayar yönelticilerinin kısa açıklaması
+<dl>
+<dt>date.default_latitude float
+    <dd>Varsayılan enlem</dd></dl>
+<dt>date.default_longitude float
+    <dd>Varsayılan boylam</dd></dl>
+<dt>date.sunrise_zenith float
+    <dd>Varsayılan Güneş doğuş noktası</dd></dl>
+<dt>date.sunset_zenith float
+    <dd>Varsayılan Güneş batış noktası</dd></dl>
+<dt>date.timezone string
+    <dd>Tüm tarih/zaman işlevleriyle kullanılan varsayılan zaman dilimi (Eğer TZ
+çevresel değişken kurulmamışsa). Öncelik sırası date_default_timezone_get()
+içinde anlatılmıştır.</dd></dl>
+</dl>
+    Not: İlk dört ayar seçenekleri şu anda yalnız date_sunrise() ve date_sunset() tarafından kullanılmaktadır. 
+
+<h3>Önceden Tanımlı Değişmezler</h3>
+
+Aşağıdaki değişmezler PHP 5.1.1 sürümünden beri tanımlanmıştır. Tarih
+kalıplamasında kullanılan standart tarih gösterimini sağlarlar.
+<dl>
+<dt>DATE_ATOM (string)
+    <dd>Atom (örnek: 2005-08-15T15:52:01+00:00) </dd></dt>
+<dt>DATE_COOKIE (string)
+    <dd>HTTP Çerezleri (örnek: Monday, 15-Aug-05 15:52:01 UTC) </dd></dt>
+<dt>DATE_ISO8601 (string)
+    <dd>ISO-8601 (örnek: 2005-08-15T15:52:01+0000) </dd></dt>
+<dt>DATE_RFC822 (string)
+    <dd>RFC 822 (örnek: Mon, 15 Aug 05 15:52:01 +0000) </dd></dt>
+<dt>DATE_RFC850 (string)
+    <dd>RFC 850 (örnek: Monday, 15-Aug-05 15:52:01 UTC) </dd></dt>
+<dt>DATE_RFC1036 (string)
+    <dd>RFC 1036 (örnek: Mon, 15 Aug 05 15:52:01 +0000) </dd></dt>
+<dt>DATE_RFC1123 (string)
+    <dd>RFC 1123 (örnek: Mon, 15 Aug 2005 15:52:01 +0000) </dd></dt>
+<dt>DATE_RFC2822 (string)
+    <dd>RFC 2822 (Mon, 15 Aug 2005 15:52:01 +0000) </dd></dt>
+<dt>DATE_RFC3339 (string)
+    <dd>DATE_ATOM ile aynı (PHP 5.1.3 sürümünden beri) </dd></dt>
+<dt>DATE_RSS (string)
+    <dd>RSS (Mon, 15 Aug 2005 15:52:01 +0000) </dd></dt>
+<dt>DATE_W3C (string)
+    <dd>W3C (World Wide Web Consortium) (örnek: 2005-08-15T15:52:01+00:00) </dd></dt>
+</dl>
+Aşağıdaki değişmezler PHP 5.1.2 sürümünden beri vardır. date_sunrise() ve
+date_sunset() işlevlerinin döndürdüğü kalıbı belirtir.
+<dl>
+<dt>SUNFUNCS_RET_TIMESTAMP (integer)
+    <dd>Zaman damgası </dd></dt>
+<dt>SUNFUNCS_RET_STRING (integer)
+    <dd>Saat:dakika (örnek: 08:02) </dd></dt>
+<dt>SUNFUNCS_RET_DOUBLE (integer)
+    <dd>Kayan noktalı sayı biçiminde saatler (örnek 8.75) </dd></dt>
+</dl>
+<h3>İçindekiler</h3>
+<ul>
+    <li> checkdate — Gregorian tarihi kontrol et
+    <li> date_create — yeni DateTime nesnesi döndürür
+    <li> date_date_set — Tarihi kurar
+    <li> date_default_timezone_get — Kodlamada kullanılan tarih/zaman işlevinin varsayılan zaman dilimini verir
+    <li> date_default_timezone_set — Kodlamada kullanılan tarih/zaman işlevlerinin yümünde kullanılan zaman dilimini verir
+    <li> date_format — Verilen kalıba göre kalıplanmış tarihi döndürür
+    <li> date_isodate_set — ISO tarihi kurar
+    <li> date_modify — Zaman damgasını değiştirir
+    <li> date_offset_get — Gün ışığı tasarrufunun zaman farkını döndürür
+    <li> date_parse — Verilen tarihe ait ayrıntılı bilgiyi dizi biçiminde verir.
+    <li> date_sun_info — Güneş batışı/doğuşu ve alacakaranlık başlama/bitişini bir dizi olarak göndürür
+    <li> date_sunrise — Verilen bir gün ve yer için güneş doğuşunu döndürür
+    <li> date_sunset — Verilen bir gün ve yer olarak güneş batışını döndürür
+    <li> date_time_set — Zamanı kurar
+    <li> date_timezone_get — Verilen DateTime değerine göreceli zaman dilimini döndürür
+    <li> date_timezone_set — DateTime nesnesinin zaman dilimini kurar
+    <li> date — Yerel zaman/tarihi kalıplar
+    <li> getdate — Zaman/tarih bilgisini alır
+    <li> gettimeofday — O anki zamanı alır
+    <li> gmdate — GMT/UTC zaman/tarihi kalıplar
+    <li> gmmktime — GMT tarihi için UNIX zaman damgasını al
+    <li> gmstrftime — GMT/UTC zaman/tarihi yerel ayarlara göre kalıplama
+    <li> idate — Yerel zaman/tarihi tamsayı olarak kalıplar
+    <li> localtime — Get the local time
+    <li> microtime — O anki Unix zaman damgasını mikrosaniye olarak döndürme
+    <li> mktime — Bir tarih için Unix zaman damgasını al
+    <li> strftime — Yerel zaman/tarihi yerel ayarlara göre kalıplama
+    <li> strptime — strftime ile üretilen zaman/tarihi tarama
+    <li> strtotime — İngilizce yazılmış herhangi bir tarih-zaman yazısını tarayıp Unix zaman damgasına çevirme
+    <li> time — O anki Unix zaman damgasını döndürme
+    <li> timezone_abbreviations_list — dst, offset ve timezone ile ilgili diziyi döndürme
+    <li> timezone_identifiers_list — tüm zaman dilimi tanımları olan sayısal dizinli diziyi döndürür
+    <li> timezone_name_from_abbr — Kısaltmalardan oluşan zaman dilimini döndürür
+    <li> timezone_name_get — Zaman diliminin adını döndürür
+    <li> timezone_offset_get — GMT'den zaman dilimi uzaklığını döndürür
+    <li> timezone_open — Yeni DateTimeZone nesnesi döndürür
+    <li> timezone_transitions_get — Zaman dilimi için tüm seçenekleri döndürür
+</ul>
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

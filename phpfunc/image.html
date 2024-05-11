@@ -1,0 +1,510 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Hyperlink Preprocessor </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">19 Mart 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>Image İşlevleri</h2>
+<h3>Giriş</h3>
+
+PHP yalnız HTML çıktı vermekle sınırlı değildir. Değişik kalıplardaki resim dosyalarını oynamak ve yaratmak için de kullanılabilir (bu kalıplara gif, png, jpg, wbmp ve xpm de dahildir). Daha uygun olanı, PHP doğrudan tarayıcıya çıkarılan resim akarlarını kullanır. PHP, resim işlevlerinin çalışması için GD kitaplığıyla derlenmelidir. GD ve PHP çalışmak için başka kitaplıklar da isteyebilir. Çalışmak istediğiniz resim kalıbına göre de başka kitaplıklar isteyeblir.
+<br /><br />
+PHP içinde  JPEG, GIF, PNG, SWF, TIFF ve JPEG2000 boyutlarını öğrenmek için resim işlevlerini kullanabilirsiniz.
+<br /><br />
+exif uzantısıyla jpeg ve tiff resimlerin bilgilerine de erişebilirsiniz. Bu
+yöntemle dijital kameralarda bulunan meta veriye de ulaşabilirsiniz. exif
+işlevleri GD kitaplığını istemez.
+<br /><br />
+    Not: Resim olanaklarını okuma, yazma ve değişiklik açısından geliştirmek için gereksinim bölümünü okuyun. Resimlerin meta verilerini okumak için exif uzantısı kullanmak uygun olur.
+
+<h3>Gereksinim</h3>
+
+Eğer GD kitaplığınız varsa (http://www.libgd.org/ adresine bakın) resimleri
+yaratır ve üzerinde oynama yapabilirsiniz.
+<br /><br />
+Oynayabileceğiniz resimlerin kalıpları kurduğunuz GD sürümüne ve GD'nin bu
+kalıplara erişmesi için gereken diğer yazılımlara bağlıdır. gd-1.6 öncesi
+sürümler GIF destekler ama png desteklemez. gd-2.0.28 sürümü PNG destekler,
+ama GIF desteklemez. Daha sonra (gd-2.0.28 sürümden sonra) GIF desteği yeniden
+başlamıştır.
+<br /><br />
+    Not: PHP 4.3 sürümü GD kitaplığının pakete dahil edildiği sürüm olduğu
+için, bu paketin ek bir özelliği vardır ve uzantılardaki kitaplıklara göre bir
+ayrıcalık olarak kullanılmalıdır. Kodlaması daha iyi bakılmış ve daha durağan
+olmuştur.
+<br /><br />
+    Not: PHP 6.0.0 sürümüyle GD 1.x desteği kaldırılmıştır. Bu sürüm GD 2.0.33 ya da
+daha sonrasını ister.
+<br /><br />
+GD kullanımını daha çok resim kalıpları için kullanmak ve geliştirmek istersiniz.
+<h3>Desteklenen Resim Kalıpları</h3>
+<table class="yazi">
+<tr><td>Resim Kalıbı</td><td></td><td>Indirilecek Kitaplık</td><td>Açıklamalar</td></tr>
+<tr><td>gif</td><td>Yalnız gd-1.6 sürümünden öncekilerde desteklenir. Daha sonra gd-2.0.28 sürümünden sonrakilerde yeniden desteklenmiştir. Yalnız okuma desteği PHP 4.3 sürümünde ve paketli GD-kitaplığında vardır. Yazma desteği PHP 4.3.9 ve PHP 5.0.1 den beri vardır.</td></tr>
+<tr><td>jpeg-6b</td><td> ftp://ftp.uu.net/graphics/jpeg/</td><td>jpeg-v6b kitaplığını hazırlarken (PHP hazırlamadan önce) "--enable-shared" seçeneğini ayar adımında kullanmalısınız. Eğer kullanmazsanız, PHP hazırlanırken libjpeg.(a|so) bulunamadı hatası alırsınız.</td></tr>
+<tr><td>png</td><td> http://www.libpng.org/pub/png/libpng.html</td><td>yalnız gd-1.6 sürümünden sonra desteklenmiştir.</td></tr>
+<tr><td>xpm</td><td> ftp://metalab.unc.edu/pub/Linux/libs/X/!INDEX.html</td><td>Bu kitaplığınızın olması çok büyük bir olasılıktır (X-Environment yğklenmişse)</td></tr>
+</table>
+
+GD'nin başka yazı tipleriyle de uğraşmasını istersiniz. Aşağıdaki yazı tipi
+kitaplıkları desteklenmektedir.
+
+<h3>desteklenen yazı tipi kitaplıkları</h3>
+<table class="yazi">
+<tr><td>Yazı tipi kitaplığı</td><td>Indirilecek adres</td><td>Açıklamalar</td></tr>
+<tr><td>FreeType 1.x</td><td>http://www.freetype.org/</td><td>PHP 6.0.0 sürümünde destek kaldırıldı</td></tr>
+<tr><td>FreeType 2</td><td> http://www.freetype.org/</td><td></td></tr>
+<tr><td>T1lib</td><td> ftp://sunsite.unc.edu/pub/Linux/libs/graphics/</td><td>Postscript Type 1 yazı tipi için destektir.</td></tr>
+</table>
+
+<h3>Kurulum</h3>
+
+GD-desteğini açmak için PHP ayarlarında "--with-gd[=DIR]" seçeneğiyle derleme yapın. GD kitaplığının paketlenmiş biçimini kullanmak için "--with-gd" kullanın. GD kitaplığı libpng ve libjpeg kitaplıklarının da derlenmesini ister.
+<br /><br />
+Windows'da php.ini'ye uzantı olarak GD2 DLL php_gd2.dll eklemeniz gereklidir.
+Unutmayın ki imagecreatetruecolor() gibi gerçek renkli resimler için GD2
+gereklidir.
+<br /><br />
+PHP 3'de GD desteğini kapatmak için "--without-gd" kullanın.
+<br /><br />
+GD'nin daha çok resim kalıbıyla çalışması için GD genişletme çalışmasını
+"--with-XXXX" ayar anahtarlarıyla yapabilirsiniz.
+<br /><br />
+<h3>Desteklenen resim kalıpları</h3>
+<table class="yazi">
+<tr><td>Resim Kalıbı</td><td>Ayar Anahtarı</td></tr>
+<tr><td>jpeg-6b</td><td>jpeg-6b için desteği açmak için "--with-jpeg-dir=DIR"
+kullanın</td></tr>
+<tr><td>png</td><td>png desteğini açmak için "--with-png-dir=DIR" kullanın. libpng aynı zamanda zlib kitaplığını da ister. O halde "--with-zlib-dir[=DIR]" seçeneği de komut satırına eklemelisiniz.</td></tr>
+<tr><td>xpm</td><td>xpm desteğini açmak için "--with-xpm-dir=DIR" ekleyin. Eğer "configure" gerekli kitaplıkları bulamazsa, X11 kitaplıklarının yolunu da aramaya ekletin.</td></tr>
+</table>
+    Not: libpng ile PHP derlerken, iGD kitaplığıyla bağlanmış sürümü kullanmasısınız.
+<br /><br />
+GD'nin değişik yazı tipleriyle yeteneklerini geliştirmek için "--with-XXXX"
+"configure" anahtarıyla PHP ayarlama satırından derleme yapın.
+
+<h3>Yazı tipi kitaplıkları için Destek</h3>
+
+<table class="yazi">
+<tr><td>Yazı tipi kitaplığı</td><td>Ayar anahtarı</td></tr>
+<tr><td>FreeType 1.x</td><td>FreeType 1.x desteğini açmak için "--with-ttf[=DIR]" ile ekleyin.</td></tr>
+<tr><td>FreeType 2</td><td>FreeType 2 için "--with-freetype-dir=DIR" ile ekleyin.</td></tr>
+<tr><td>T1lib</td><td>T1lib (Postscript Type 1 yazı tipleri) için "--with-t1lib[=DIR]" ile ekleyin.</td></tr>
+<tr><td>Native TrueType yazı dizisi işlevleri</td><td>TrueType yazı dizisi işlevleri için "--enable-gd-native-ttf" ile ekleyin.</td></tr>
+
+<h3>Çalışma Zamanı Ayarları</h3>
+
+php.ini içindeki kurulumdan bu işlevler etkilenir.
+
+<h3>Resim Ayarlama Seçenekleri</h3>
+<table class="yazi">
+<tr><td>Adı</td><td>Varsayılan</td><td>Değişebilir</td><td>Değişim
+Kaydı</td></tr>
+<tr><td>gd.jpeg_ignore_warning</td><td>"0"</td><td>PHP_INI_ALL</td><td>PHP 5.1.3. sürümünden beri var</td></tr>
+</table>
+Daha başka PHP_INI_* değişkenleri için php.ini yönelticilerine bakın.
+<br /><br />
+Ayar yönelticilerinin kısa açıklaması aşağıdadır:
+<dl>
+<dt>gd.jpeg_ignore_warning mantıksal
+
+    <dd>jpeg2wbmp() ve imagecreatefromjpeg() ile üretilen uyarıları atla
+</dd></dl>
+</dl>
+exif ayar yönelticilerine bak.
+
+<h3>Uyarı</h3>
+
+Resim işlevleri çok bellek gerektirir. Bu nedenle bellek sınırını yüksek
+tutun.
+
+<h3>Kaynak tipleri</h3>
+
+Bu uzantı iki kaynak türünü belirtir. Resim tanımlayıcısı ve yazı dizisi
+tanımlayıcısı.
+
+<h3>Önceden Tanımlı Değişmezler</h3>
+
+Aşağıdaki değişmezler bu uzantı için tanımlanmıştır. Uzantı yüklendiğinde
+kullanılabilirler.
+<dl>
+<dt>GD_VERSION (yazı dizisi)
+    <dd>PHP'nin derlenmiş GD sürümü. (PHP 5.2.4 sürümünde var) 
+</dd></dt>
+<dt>GD_MAJOR_VERSION (tamsayı)
+    <dd>PHP'nin derlenmiş ana GD sürümü. (PHP 5.2.4 sürümünde var) 
+</dd></dt>
+<dt>GD_MINOR_VERSION (tamsayı)
+    <dd>PHP'nin derlenmiş en az sürümü. (PHP 5.2.4 sürümünde var) 
+</dd></dt>
+<dt>GD_RELEASE_VERSION (tamsayı)
+    <dd>PHP'nin derlenirken kullandığı GD yayımını. (PHP 5.2.4 sürümünde var) 
+</dd></dt>
+<dt>GD_EXTRA_VERSION (string)
+    <dd>PHP'nin derlenirken kullandığı GD "ekstra" sürümü (beta/rc..) (PHP 5.2.4 sürümünde var) 
+</dd></dt>
+<dt>IMG_GIF (tamsayı)
+    <dd>imagetypes() işlevinden dönen değer.
+</dd></dt>
+<dt>IMG_JPG (tamsayı)
+    <dd>imagetypes() işlevinden dönen değer.
+</dd></dt>
+<dt>IMG_JPEG (tamsayı)
+    <dd>imagetypes() işlevinden dönen değer.
+<br /><br />
+        Not: Bu değişmezin değeri IMAGE_JPG ile aynıdır.
+
+</dd></dt>
+<dt>IMG_PNG (tamsayı)
+    <dd>imagetypes() işlevinden dönen değer
+</dd></dt>
+<dt>IMG_WBMP (tamsayı)
+    <dd>imagetypes() işlevinden dönen değer
+</dd></dt>
+<dt>IMG_XPM (tamsayı)
+    <dd>imagetypes() işlevinden dönen değer
+</dd></dt>
+<dt>IMG_COLOR_TILED (tamsayı)
+    <dd>Special color option which can be used in stead of color allocated with imagecolorallocate() or imagecolorallocatealpha() 
+</dd></dt>
+<dt>IMG_COLOR_STYLED (tamsayı)
+    <dd>Special color option which can be used in stead of color allocated with imagecolorallocate() or imagecolorallocatealpha() 
+</dd></dt>
+<dt>IMG_COLOR_BRUSHED (tamsayı)
+    <dd>Special color option which can be used in stead of color allocated with imagecolorallocate() or imagecolorallocatealpha() 
+</dd></dt>
+<dt>IMG_COLOR_STYLEDBRUSHED (tamsayı)
+    <dd>Special color option which can be used in stead of color allocated with imagecolorallocate() or imagecolorallocatealpha() 
+</dd></dt>
+<dt>IMG_COLOR_TRANSPARENT (tamsayı)
+    <dd>Special color option which can be used in stead of color allocated with imagecolorallocate() or imagecolorallocatealpha() 
+</dd></dt>
+<dt>IMG_ARC_ROUNDED (tamsayı)
+    <dd>imagefilledarc() işleviyle kullanılan stil değişmezi.
+<br /><br />
+        Not: Bu değişmez IMG_ARC_PIE ile aynı değerdedir
+
+</dd></dt>
+<dt>IMG_ARC_PIE (tamsayı)
+    <dd>imagefilledarc() işleviyle kullanılan stil değişmezi. 
+</dd></dt>
+<dt>IMG_ARC_CHORD (tamsayı)
+    <dd>imagefilledarc() işleviyle kullanılan stil değişmezi. 
+</dd></dt>
+<dt>IMG_ARC_NOFILL (tamsayı)
+    <dd>imagefilledarc() işleviyle kullanılan stil değişmezi. 
+</dd></dt>
+<dt>IMG_ARC_EDGED (tamsayı)
+    <dd>imagefilledarc() işleviyle kullanılan stil değişmezi. 
+</dd></dt>
+<dt>IMG_GD2_RAW (tamsayı)
+    <dd>imagegd2() işleviyle kullanılan tür değişmezi. 
+</dd></dt>
+<dt>IMG_GD2_COMPRESSED (tamsayı)
+    <dd>imagegd2() işleviyle kullanılan tür değişmezi. 
+</dd></dt>
+<dt>IMG_EFFECT_REPLACE (tamsayı)
+    <dd>imagelayereffect() işleviyle kullanılan Alfa karışım etkisi. 
+</dd></dt>
+<dt>IMG_EFFECT_ALPHABLEND (tamsayı)
+    <dd>imagelayereffect() işleviyle kullanılan Alfa karışım etkisi. 
+</dd></dt>
+<dt>IMG_EFFECT_NORMAL (tamsayı)
+    <dd>imagelayereffect() işleviyle kullanılan alfa karışım etkisi. 
+</dd></dt>
+<dt>IMG_EFFECT_OVERLAY (tamsayı)
+    <dd>imagelayereffect() işleviyle kullanılan alfa karışım etkisi. 
+</dd></dt>
+<dt>IMG_FILTER_NEGATE (tamsayı)
+    <dd>imagefilter() işleviyle kullanılan özel GD filitresi. 
+</dd></dt>
+<dt>IMG_FILTER_GRAYSCALE (tamsayı)
+    <dd>imagefilter() işleviyle kullanılan özel GD filitresi. 
+</dd></dt>
+<dt>IMG_FILTER_BRIGHTNESS (tamsayı)
+    <dd>imagefilter() işleviyle kullanılan özel GD filitresi. 
+</dd></dt>
+<dt>IMG_FILTER_CONTRAST (tamsayı)
+    <dd>imagefilter() işleviyle kullanılan özel GD filitresi. 
+</dd></dt>
+<dt>IMG_FILTER_COLORIZE (tamsayı)
+    <dd>imagefilter() işleviyle kullanılan özel GD filitresi. 
+</dd></dt>
+<dt>IMG_FILTER_EDGEDETECT (tamsayı)
+    <dd>imagefilter() işleviyle kullanılan özel GD filitresi. 
+</dd></dt>
+<dt>IMG_FILTER_GAUSSIAN_BLUR (tamsayı)
+    <dd>imagefilter() işleviyle kullanılan özel GD filitresi. 
+</dd></dt>
+<dt>IMG_FILTER_SELECTIVE_BLUR (tamsayı)
+    <dd>imagefilter() işleviyle kullanılan özel GD filitresi. 
+</dd></dt>
+<dt>IMG_FILTER_EMBOSS (tamsayı)
+    <dd>imagefilter() işleviyle kullanılan özel GD filitresi. 
+</dd></dt>
+<dt>IMG_FILTER_MEAN_REMOVAL (tamsayı)
+    <dd>imagefilter() işleviyle kullanılan özel GD filitresi. 
+</dd></dt>
+<dt>IMG_FILTER_SMOOTH (tamsayı)
+    <dd>imagefilter() işleviyle kullanılan özel GD filitresi. 
+</dd></dt>
+<dt>IMAGETYPE_GIF (tamsayı)
+    <dd>image_type_to_mime_type() ve image_type_to_extension() işlevlerinde kullanılan resim tipi değişmez. 
+</dd></dt>
+<dt>IMAGETYPE_JPEG (tamsayı)
+    <dd>image_type_to_mime_type() ve image_type_to_extension() işlevlerinde kullanılan resim tipi değişmez. 
+</dd></dt>
+<dt>IMAGETYPE_PNG (tamsayı)
+    <dd>image_type_to_mime_type() ve image_type_to_extension() işlevlerinde kullanılan resim tipi değişmez. 
+</dd></dt>
+<dt>IMAGETYPE_SWF (tamsayı)
+    <dd>image_type_to_mime_type() ve image_type_to_extension() işlevlerinde kullanılan resim tipi değişmez. 
+</dd></dt>
+<dt>IMAGETYPE_PSD (tamsayı)
+    <dd>image_type_to_mime_type() ve image_type_to_extension() işlevlerinde kullanılan resim tipi değişmez. 
+</dd></dt>
+<dt>IMAGETYPE_BMP (tamsayı)
+    <dd>image_type_to_mime_type() ve image_type_to_extension() işlevlerinde kullanılan resim tipi değişmez. 
+</dd></dt>
+<dt>IMAGETYPE_WBMP (tamsayı)
+    <dd>image_type_to_mime_type() ve image_type_to_extension() işlevlerinde kullanılan resim tipi değişmez. 
+</dd></dt>
+<dt>IMAGETYPE_XBM (tamsayı)
+    <dd>image_type_to_mime_type() ve image_type_to_extension() işlevlerinde kullanılan resim tipi değişmez. 
+</dd></dt>
+<dt>IMAGETYPE_TIFF_II (tamsayı)
+    <dd>image_type_to_mime_type() ve image_type_to_extension() işlevlerinde kullanılan resim tipi değişmez. 
+</dd></dt>
+<dt>IMAGETYPE_TIFF_MM (tamsayı)
+    <dd>image_type_to_mime_type() ve image_type_to_extension() işlevlerinde kullanılan resim tipi değişmez. 
+</dd></dt>
+<dt>IMAGETYPE_IFF (tamsayı)
+    <dd>image_type_to_mime_type() ve image_type_to_extension() işlevlerinde kullanılan resim tipi değişmez. 
+</dd></dt>
+<dt>IMAGETYPE_JB2 (tamsayı)
+    <dd>image_type_to_mime_type() ve image_type_to_extension() işlevlerinde kullanılan resim tipi değişmez. 
+</dd></dt>
+<dt>IMAGETYPE_JPC (tamsayı)
+    <dd>image_type_to_mime_type() ve image_type_to_extension() işlevlerinde kullanılan resim tipi değişmez. 
+</dd></dt>
+<dt>IMAGETYPE_JP2 (tamsayı)
+    <dd>image_type_to_mime_type() ve image_type_to_extension() işlevlerinde kullanılan resim tipi değişmez. 
+</dd></dt>
+<dt>IMAGETYPE_JPX (tamsayı)
+    <dd>image_type_to_mime_type() ve image_type_to_extension() işlevlerinde kullanılan resim tipi değişmez. 
+</dd></dt>
+<dt>IMAGETYPE_SWC (tamsayı)
+    <dd>image_type_to_mime_type() ve image_type_to_extension() işlevlerinde kullanılan resim tipi değişmez. 
+</dd></dt>
+<dt>IMAGETYPE_ICO (tamsayı)
+    <dd>image_type_to_mime_type() ve image_type_to_extension() işlevleriyle kullanılan resim tipi değişmez. (PHP 5.3.0 sürümden sonra var) 
+</dd></dt>
+<dt>PNG_NO_FILTER (tamsayı)
+    <dd>imagepng() işleviyle kullanılan özel PNG filitresi. 
+</dd></dt>
+<dt>PNG_FILTER_NONE (tamsayı)
+    <dd>imagepng() işleviyle kullanılan özel PNG filitresi. 
+</dd></dt>
+<dt>PNG_FILTER_SUB (tamsayı)
+    <dd>imagepng() işleviyle kullanılan özel PNG filitresi. 
+</dd></dt>
+<dt>PNG_FILTER_UP (tamsayı)
+    <dd>imagepng() işleviyle kullanılan özel PNG filitresi. 
+</dd></dt>
+<dt>PNG_FILTER_AVG (tamsayı)
+    <dd>imagepng() işleviyle kullanılan özel PNG filitresi. 
+</dd></dt>
+<dt>PNG_FILTER_PAETH (tamsayı)
+    <dd>imagepng() işleviyle kullanılan özel PNG filitresi. 
+</dd></dt>
+<dt>PNG_ALL_FILTERS (tamsayı)
+    <dd>imagepng() işleviyle kullanılan özel PNG filitresi. 
+</dd></dt>
+</dl>
+<h3>Örnek</h3>
+
+Örnek-1 PHP ile PNG yaratma
+<pre>
+&lt;?php
+
+header("Content-type: image/png");
+$string = $_GET['text'];
+$im     = imagecreatefrompng("images/button1.png");
+$orange = imagecolorallocate($im, 220, 210, 60);
+$px     = (imagesx($im) - 7.5 * strlen($string)) / 2;
+imagestring($im, 3, $px, 9, $string, $orange);
+imagepng($im);
+imagedestroy($im);
+
+?&gt;
+</pre>
+Bu örnek, biçimi &lt;img src="button.php?text=text"&gt; gibi olan sayfalarda
+çağrılır. Yukarıdaki düğme (button.php) kodlaması yazı dizisini alır ve onu
+ana resmin üzerine yerleştirir. Bu durumda "images/button.png" olur ve sonuç
+resmi oluşturur. Bu her düğme yazısını değiştirirken düğme resmini değiştirme
+yerine kullanılabilecek oldukça uygun bir yöntemdir. Bu yöntemle düğme
+resimleri dinamik üretilir.
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> gd_info — O anda kurulmuş GD kitaplığı hakkında bilgi verir.
+    <li> getimagesize — Bir resmin boyutlarını al.
+    <li> image_type_to_extension — resim tipinin dosya uzantısını al
+    <li> image_type_to_mime_type — getimagesize, exif_read_data, exif_thumbnail, exif_imagetype ile dönen image-type için Mime-Type al.
+    <li> image2wbmp — resmi tarayıcıya ya da dosyaya çık.
+    <li> imagealphablending — resim için karıştırma konumunu belirle.
+    <li> imageantialias — Benzer olmayan işlevler kullanılsın mı yoksa
+kullanılmasın mı.
+    <li> imagearc — Yay çizer.
+    <li> imagechar — Bir karakteri yatay çiz
+    <li> imagecharup — Bir karakteri düşey çiz
+    <li> imagecolorallocate — Resim için bir renk ata
+    <li> imagecolorallocatealpha — Bir resim için renk ata
+    <li> imagecolorat — bir birimin (piksel) renginin dizinini almak
+    <li> imagecolorclosest — Belirtilen renge en yakın olan rengin dizinini almak
+    <li> imagecolorclosestalpha — Belirtilen renk + alfa için en yakın renk dizini almak
+    <li> imagecolorclosesthwb — Renk özü, beyazlığı ve koyuluğu verilen renge en çok uyan rengin dizinini ayarlar.
+    <li> imagecolordeallocate — Bir resim için rengi kaldırmak.
+    <li> imagecolorexact — Belirtilen rengin dizinini almak
+    <li> imagecolorexactalpha — Belirtilen renk + alfa dizinini almak
+    <li> imagecolormatch — Resmin palet sürümü renklerini gerçek renk sürüm renklerine uydurmak.
+    <li> imagecolorresolve — belirtilen rengin dizinini alın ya da en yakın diğer seçeneği belirleyin.
+    <li> imagecolorresolvealpha — Belirtilen renk ve alfa için dizini almak ya da en yakın seçeneği belirlemek.
+    <li> imagecolorset — Belirtilen palet dizini için renk ayarlamak.
+    <li> imagecolorsforindex — Dizin için renk almak
+    <li> imagecolorstotal — Bir resmin paletindeki renkleri almak.
+    <li> imagecolortransparent — Bir rengi saydam belirtmek.
+    <li> imageconvolution — katsayılar ve uzaklıklarla 3x3 büklüm matriksini uygulamak.
+    <li> imagecopy — Bir resmin bir parçasını kopyalama.
+    <li> imagecopymerge — Bir resmin parçasını kopyalamak ve birleştirmek.
+    <li> imagecopymergegray — Bir resmin parçasını gri ölçüyle kopyala ve birleştir.
+    <li> imagecopyresampled — Resmin bir parçasını yeniden örnekleyerek kopyalamak ve yeniden boyutlandırmak
+    <li> imagecopyresized — Bir resmin bir parçasını kopyalar ve yeniden
+boyutlandırır.
+    <li> imagecreate — Yeni bir palate dayalı resim yarat.
+    <li> imagecreatefromgd2 — GD2 dosyasından ya da URL adresinden yeni resim
+yarat.
+    <li> imagecreatefromgd2part — GD2'nin ya da URL adresinin verilen bir parçasından yeni resim yaratma
+    <li> imagecreatefromgd — GD dosyası ve URL adresinden yeni resim yarat.
+    <li> imagecreatefromgif — Bir dosyadan ya da URL adresinden yeni bir resim
+yaratma
+    <li> imagecreatefromjpeg — Bir dosyadan ya da URL adresinden yeni bir resim 
+yaratma
+    <li> imagecreatefrompng — Bir dosyadan ya da URL adresinden yeni bir resim 
+yaratma
+    <li> imagecreatefromstring — Yazı dizisindeki resim akarından yeni bir resim yaratma
+    <li> imagecreatefromwbmp — Bir dosyadan ya da URL adresinden yeni bir
+resim yaratma
+    <li> imagecreatefromxbm — Bir dosyadan ya da URL adresinden yeni bir resim 
+yaratma
+    <li> imagecreatefromxpm — Bir dosyadan ya da URL adresinden yeni bir resim 
+yaratma
+    <li> imagecreatetruecolor — Gerçek renkli bir resim yaratma
+    <li> imagedashedline — kesikli çizgi çiz
+    <li> imagedestroy — Bir resmi yoket.
+    <li> imageellipse — Elips çiz
+    <li> imagefill — Resmi doldur.
+    <li> imagefilledarc — Yarım elips çiz ve içini doldur.
+    <li> imagefilledellipse — İçi dolu elips çiz
+    <li> imagefilledpolygon — İçi dolu bir çokgen çiz
+    <li> imagefilledrectangle — İçi dolu dikdörtgen çiz
+    <li> imagefilltoborder — Belirtilen renkle doldur.
+    <li> imagefilter — Bir resme filitre uygula.
+    <li> imagefontheight — Yazı tipi yüksekliğini al
+    <li> imagefontwidth — Yazı tipi enini al
+    <li> imageftbbox — freetype2 yazı tipini kullanan yazı dizisinin çevresindeki kutuyu al
+    <li> imagefttext — FreeType 2 yazı tipini kullanarak resme yazı yaz.
+    <li> imagegammacorrect — GD resme gamma düzeltmesi uygula.
+    <li> imagegd2 — GD2 resmini tarayıcıya ya da dosyaya çık
+    <li> imagegd — GD resmini tarayıcıya ya da dosyaya çık.
+    <li> imagegif — Resmi tarayıcıya ya da dosyaya çık
+    <li> imagegrabscreen — Tüm ekranı yakalar.
+    <li> imagegrabwindow — Bir pencereyi yakalar.
+    <li> imageinterlace — iBirbirine dolanmayı kapatmak ya da açmak
+    <li> imageistruecolor — Resmin gerçek renkli resim mi olduğuna bakar.
+    <li> imagejpeg — Resmi tarayıcıya ya da dosyaya çık
+    <li> imagelayereffect — libgd katman etkisiyle kullanılacak alfa kıvrımlarını ayarlamak.
+    <li> imageline — Bir çizgi çiz
+    <li> imageloadfont — Yeni bir yazı tipi yükle.
+    <li> imagepalettecopy — Paleti bir resimden diğerine kopyala.
+    <li> imagepng — PNG resmini tarayıcıya ya da dosyaya çık
+    <li> imagepolygon — Bir çokgen çiz
+    <li> imagepsbbox — Yazı dikdörtgeninin PostScript Type1 yazı tipiyle çizilmiş çerçevesini al
+    <li> imagepsencodefont — Bir yazı tipinin karakter kodlama vektörünü
+değiştir.
+    <li> imagepsextendfont — Bir yazı tipini sıkıştır ya da geniştir.
+    <li> imagepsfreefont — PostScript Type 1 yazı tipi için kullanılan serbest
+bellek
+    <li> imagepsloadfont — Dosyadan PostScript Type 1 yazı tipini yükle.
+    <li> imagepsslantfont — Yazı tipini yatır.
+    <li> imagepstext — PostScript Type 1 yazı tipi kullanarak bir resim
+üzerine yazı dizisini çizer.
+    <li> imagerectangle — Dikdörtgen çiz.
+    <li> imagerotate — Verilen açıyla resmi döndür.
+    <li> imagesavealpha — iPNG resimleri saklarken tüm alfa kanalı bilgiyi saklamak için durum kodunu ayarla (tek renk saydamlığa karşıt olarak).
+    <li> imagesetbrush — Fırça ayarlarını çizgi için düzenle.
+    <li> imagesetpixel — Bir pikseli ayarla.
+    <li> imagesetstyle — Satır çizmek için stili ayarla
+    <li> imagesetthickness — Çizgi kalınlığını ayarla.
+    <li> imagesettile — Döşenecek görüntünün içini doldur.
+    <li> imagestring — Yatay çigi çiz.
+    <li> imagestringup — Düşey çizgi çiz
+    <li> imagesx — Görüntünün enini al
+    <li> imagesy — Resmin boyunu al.
+    <li> imagetruecolortopalette — Gerçek renkli resmi palet resmine çevir.
+    <li> imagettfbbox — TrueType yazı tipi kullanarak çerçeveyi çiz
+    <li> imagettftext — TrueType yazı tipi kullanarak resme yazı ekle
+    <li> imagetypes — Bu PHP hazırlığıyla desteklenen resim türlerini döndür.
+    <li> imagewbmp — Resmi tarayıcıya ya da dosyaya çıkar.
+    <li> imagexbm — XBM resmini tarayıcıya ya da dosyaya çıkar.
+    <li> iptcembed — ikili IPTC veriyi JPEG resim içine göm.
+    <li> iptcparse — İkili IPTC bloğunu tek biçimle tara
+    <li> jpeg2wbmp — JPEG resmi dosyasını WBMP resim dosyasına çevirme
+    <li> png2wbmp — PNG görüntü dosyasını WBMP resim dosyasına çevirme
+</ul>
+
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

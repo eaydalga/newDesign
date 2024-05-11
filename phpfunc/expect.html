@@ -1,0 +1,264 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Expect İşlevleri</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">21 Şubat 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>Expect İşlevleri</h2>
+
+<h3>Giriş</h3>
+
+Bu uzantı PTY aracılığıyla işlemlerle etkileşim kurmanızı sağlar. "expect://"
+dosya düzeni işleviyle kolaylıkla kullanılır. Kolay bir arayüz oluşturur.
+
+<h3>Gereksinim</h3>
+
+Modül expect kitaplığı işlevlerini kullanır. libexpect 5.43.0 sürümüne ya da
+üstüne gereksinim duyarsınız.
+
+<h3>Kurulum</h3>
+
+Bu PECL uzantısı PHP ile paketlenmemiştir. Bu konuda bilgiyi PECL uzantıları
+sayfalarında bulabilirsiniz. Ek bilgi için http://pecl.php.net/package/expect
+URL adresini kullanabilirsiniz.
+<br /><br />
+PHP 4 içinde bu PECL uzantısı kaybak kodları "ext/" altında bulunabilir. Bu
+işlevleri kullanmak için PHP "--with-expect[=DIR] yara seçeneğiyle
+derlenmelidir.
+<br /><br />
+Windows kullanıcıları php_expect.dll kitaplığını php.ini içinden açarlar. PHP
+4 içinde bunlar extensions/ dosya yolunda bulunurlar. Bu uzantı için gereken
+DLL http://pecl4win.php.net/ URL adresinden sağlanabilir.
+
+<h3>Çalışma Zamanı Ayarları</h3>
+
+php.ini ayarlarıyla bu işlevlerin davranışları değişir.
+<br /><br />
+expect uzantısını ayarlamak için php.ini ayarlama seçeneklerini kullanmak
+gerekir.
+
+<h3>Expect Ayar Seçenekleri</h3>
+
+<table class="yazi" width0"100%">
+<tr><td>Ad</td><td>varsayısal</td><td>Değişebilir</td><td>Değişme
+Kaydı</td><tr>
+<tr><td>expect.timeout</td><td>"10"</td><td>PHP_INI_ALL</td><td></td><tr>
+<tr><td>expect.loguser</td><td>"1"</td><td>PHP_INI_ALL</td><td></td><tr>
+<tr><td>expect.logfile</td><td>""</td><td>PHP_INI_ALL</td><td></td><tr>
+</table>
+
+PHP_INI_* ile ilgili ayrıntılı bilgi için php.ini yönelticilerine bakın
+<br /><br />
+Burada ayar yönelticileri için kısa açıklama vardır.
+
+<dl>
+<dt>expect.timeout tamsayı
+
+<dd>expect_expectl() işlevini kullanırken, veri  beklemede dolan zaman aşımı süresidir.
+<br /><br />
+    A value of "-1" disables a timeout from occurring.
+<br /><br />
+        Note: A value of "0" causes the expect_expectl() function to return immediately.
+</dd></dt>
+
+<dt>expect.loguser mantıksal
+
+    <dd>expect yavru işlemden çıktı gönderecek mi bakar. Etkileşimli programlar çoğu zaman girişlerini çıktıya yansıttıklarından, bu karşılıklı görüşmenin her iki tarafı için de önemli olur.
+</dd></dt>
+<dt>expect.logfile yazı dizisi
+<br /><br />
+    Dosyanın adı, buraya yavru işlemin sonuçları yazılır. Dosya yoksa yenisi yaratılır.
+<br /><br />
+        Not: Eğer ayarlar boş değilse, expect.loguser değerine bakmaksızın çıktıya yazılır.
+</dd></dt>
+</dl>
+<h3>Kaynak türleri</h3>
+
+expect_popen() iexpect_expectl() işlevinden gelen açık PTY akarını döndürür.
+
+<h3>Önceden Tanımlı Değişmezler</h3>
+
+Bu uzantıyla tanımlanan aşağıdaki değişmezler , uzantı PHP ile derlendiğinde
+ya da modül olarak yüklendiğinde anlamlıdır.
+<dl>
+<dt>EXP_GLOB (integer)
+    <dd>yazı dizisinin "glob-style" (küresel tür) desen olduğunu belirtir.
+    </dd></dt>
+<dt>EXP_EXACT (integer)
+    <dd>Desenin tam yazı dizisi olduğunu belirtir.
+    </dd></dt>
+<dt>EXP_REGEXP (integer)
+    <dd>Desenin "regexp-style" (kurallı deyim türü) yazı dizisi olduğunu belirtir
+    </dd></dt>
+<dt>EXP_EOF (integer)
+    <dd>Değer, expect_expectl() işlevinden EOF (dosya sonu) olduğunda dönendir.
+    </dd></dt>
+<dt>EXP_TIMEOUT (integer)
+    <dd>Değer, expect_expectl() işlevinden expect.timeout ile belirtilen zaman aşımı süresi geçtikten sonra dönendir
+    </dd></dt>
+<dt>EXP_FULLBUFFER (integer)
+    <dd>Değer, expect_expectl() işlevinden desenin bulunmaması durumunda dönen
+değerdir.
+    </dd></dt>
+</dl>
+
+<h3>Örnekler</h3>
+
+
+Bu örnek uzaktaki bilgisayara SSH ile bağlanır ve uzaktaki bilgisayarın
+çalıştığı süreyi yazar.
+<br /><br />
+Örnek-1 Expect Kullanım Örneği
+<pre>
+&lt;?php
+ini_set ("expect.loguser", "Off");
+
+$stream = fopen ("expect://ssh root@remotehost uptime", "r");
+
+$cases = array (
+  array (0 => "password:", 1 => PASSWORD)
+);
+
+switch (expect_expectl ($stream, $cases)) {
+ case PASSWORD:
+  fwrite ($stream, "password\n");
+  break;
+ 
+ default:
+  die ("Uzaktaki sunucuya bağlanırken hata oluştu!\n");
+}
+
+while ($line = fgets ($stream)) {
+  print $line;
+}
+fclose ($stream);
+?&gt;
+</pre>
+
+Aşağıdaki örnek uzaktaki bilgisayara bağlanır, İşlemin sisteminin türünü 32
+bitlik ya da 64 bitlik olarak belirler ve belirtilen paket için güncellemeyi
+çalıştırır.
+<br /><br />
+Örnek2 Bir başka Expect Kullanım örneği
+<pre>
+&lt;?php
+ini_set ("expect.timeout", -1);
+ini_set ("expect.loguser", "Off");
+
+$stream = expect_popen ("ssh root@remotehost");
+
+while (true) {
+    switch (expect_expectl ($stream, array (
+        // SSH şifre istemektedir
+        array ("password:", PASSWORD),
+        // SSH sunucu girişini saklamayı istemektedir
+        array ("yes/no)?", YESNO),
+        // Şimdi kabuğumuz var!
+        array ("~$ ", SHELL, EXP_EXACT),
+    ))) {
+    case PASSWORD:
+        fwrite ($stream, "secret\n");
+        break;
+
+    case YESNO:
+        fwrite ($stream, "yes\n");
+        break;
+
+    case SHELL:
+        fwrite ($stream, "uname -a\n");
+        while (true) {
+            switch (expect_expectl ($stream, array (
+                // Kabuğumuz oldu
+                array ("~$ ", SHELL, EXP_EXACT),
+                // uname -a çıktısı
+                array ("^Linux.*$", UNAME, EXP_REGEXP),
+            ), $match)) {
+            case UNAME:
+                $uname .= $match[0];
+                break;
+                    
+            case SHELL:
+                // Güncellemeyi çalıştır:
+                if (strstr ($uname, "x86_64")) {
+                    fwrite ($stream,
+                    "rpm -Uhv http://mirrorsite/somepath/some_64bit.rpm\n");
+                } else {
+                    fwrite ($stream,
+                    "rpm -Uhv http://mirrorsite/somepath/some_32bit.rpm\n");
+                }
+                fwrite ($stream, "exit\n");
+                break 2;
+            
+            case EXP_TIMEOUT:
+            case EXP_EOF:
+                break 2;
+
+            default:
+                die ("Bir hata oluştu!\n");
+            }
+        }
+        break 2;
+
+    case EXP_TIMEOUT:
+    case EXP_EOF:
+        break 2;
+
+    default:
+        die ("Bir hata oluştu!\n");
+    }
+}
+
+fclose ($stream);
+?&gt;
+</pre>
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> expect_expectl — İşlemin çıktısı desenlerden birine uyuncaya kadar bekler. Uymazsa belirtilen zaman aşımı ya da dosya sonu (EOF) ile bekleme biter.
+    <li> expect_popen — Komutu Bourne kabuğuyla çalıştırır ve PTY akarı açarak onu işler.
+</ul>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

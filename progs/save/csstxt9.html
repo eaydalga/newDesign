@@ -1,0 +1,219 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+</head>
+<body>
+<div id="sag"><span class="yazi">26 Ekim 2007</span></div>
+<h2>Liste (list)</h2>
+<span class="yazi">
+Liste özelliği listenin madde işaretini değiştirmeye, ya da bir resmi bu işaret yerine kullanmaya yarar.
+</span>
+<h3>Genel</h3>
+<span class="yazi">
+Liste özelliği listenin madde işaretini değiştirmeye, ya da bir resmi bu işaret yerine kullanmaya yarar.
+</span>
+<br />
+<table class="yazi">
+<tr><td>Destekleyen Tarayıcılar:</td><td>IE: Internet Explorer, F: Firefox, N: Netscape.</td></tr>
+<tr><td></td><td>W3C: Buradaki sayısal değer CSS türünü (CSS1 ya da CSS2) gösterir.</td></tr>
+</table>
+<br />
+<table cellspacing="0" border="1" cellpadding="3" class="fyazi">
+  <tr>
+    <th width="25%" align="left">Özellik</th>
+    <th width="30%" align="left">Açıklama</th>
+    <th width="25%" align="left">Değerler</th>
+    <th width="5%" align="left">IE</th>
+    <th width="4%" align="left">F</th>
+
+    <th width="4%" align="left">N</th>
+    <th width="7%" align="left">W3C</th>
+  </tr>
+  <tr>
+    <td valign="top">list-style</td>
+    <td valign="top">Bir tanımda liste özelliğinin tüm değerlerini belirlemeye yarayan kısaltılmış işlemdir.</td>
+    <td valign="top"><i>liste-stil-tipi<br />
+
+      liste-stil-yeri<br />
+      liste-stil-resmi</i></td>
+    <td valign="top">4</td>
+    <td valign="top">1</td>
+    <td valign="top">6</td>
+    <td valign="top">1</td>
+
+  </tr>
+  <tr>
+    <td valign="top">list-style-image</td>
+    <td valign="top">Liste madde işareti olarak resim kullanıldığını gösterir</td>
+    <td valign="top">none<br />
+      <i>url</i></td>
+    <td valign="top">4</td>
+
+    <td valign="top">1</td>
+    <td valign="top">6</td>
+    <td valign="top">1</td>
+  </tr>
+  <tr>
+    <td valign="top">list-style-position</td>
+    <td valign="top">Madde işaretinin yerini belirtir</td>
+
+    <td valign="top">inside<br />
+      outside</td>
+    <td valign="top">4</td>
+    <td valign="top">1</td>
+    <td valign="top">6</td>
+    <td valign="top">1</td>
+
+  </tr>
+  <tr>
+    <td valign="top">list-style-type</td>
+    <td valign="top">Madde işaretinin tipini belirtir</td>
+    <td valign="top">none<br />
+      disc<br />
+      circle<br />
+
+      square<br />
+      decimal<br />
+      decimal-leading-zero<br />
+      lower-roman<br />
+      upper-roman<br />
+      lower-alpha<br />
+
+      upper-alpha<br />
+      lower-greek<br />
+      lower-latin<br />
+      upper-latin<br />
+      hebrew<br />
+      armenian<br />
+
+      georgian<br />
+      cjk-ideographic<br />
+      hiragana<br />
+      katakana<br />
+      hiragana-iroha<br />
+      katakana-iroha&nbsp;</td>
+
+    <td valign="top">4</td>
+    <td valign="top">1</td>
+    <td valign="top">4</td>
+    <td valign="top">1</td>
+  </tr>
+  <tr>
+    <td valign="top">marker-offset</td>
+
+    <td valign="top">&nbsp;</td>
+    <td valign="top">auto<br />
+      <i>uzunluk</i></td>
+    <td valign="top">&nbsp;</td>
+    <td valign="top">1</td>
+    <td valign="top">7</td>
+    <td valign="top">2</td>
+
+  </tr>
+</table>
+<br />
+<h3>Liste Stil (list-style) Özelliği</h3>
+<span class="yazi">
+Bir tanımda tüm özellikleri belirtmek için kısaltılmış tanımdır.
+</span>
+<fieldset class="fyazi">
+<pre>
+ul
+{
+list-style: disc outside
+}
+
+ol
+{
+list-style: decimal inside
+}
+</pre>
+</fieldset>
+<span class="yazi">
+Olası değerler:
+<br>
+liste-stil-tipi
+liste-stil-yeri
+liste-stil-resmi: Bu özellikleri liste için tanımlar.<br />
+<br />
+Varsayılan değer yoktur<br />
+</span>
+<br />
+<h3>Liste Resim (list-image) Özelliği</h3>
+<span class="yazi">
+Madde işaretini bir resimle değiştirmeye yarar.<br />
+<br />
+Not: Resmin olmaması olasılığına karşın list-style-type özelliğini mutlaka tanımlayın.<br />
+</span>
+<fieldset class="fyazi">
+<pre>
+ol
+{
+list-style-image: url(blueball.gif);
+list-style-type: circle
+}
+</pre>
+</fieldset>
+<span class="yazi">
+Olası değerler:
+<br>
+url-adresi: Resmin Internet adresi<br />
+none: Varsayılan değer. Resim görüntülenmez<br />
+</span>
+<br />
+<h3>Liste Stil Yeri (list-style-position) Özelliği</h3>
+<span class="yazi">
+Liste stil yeri madde işaretini listedeki yerini gösterir.
+</span>
+<fieldset class="fyazi">
+<pre>
+ol
+{
+list-style-position: inside
+}
+</pre>
+</fieldset>
+<span class="yazi">
+Olası değerler:
+<br>
+inside: İşareti ve yazıyı içeri alır.<br />
+outside: Varsayılan değer. İşareti yazının soluna alır.<br />
+</span>
+<br />
+<h3>Liste Stil Tipi (list-style-type) Özelliği</h3>
+<fieldset class="fyazi">
+<pre>
+ul
+{
+list-style-type: disc
+}
+</pre>
+</fieldset>
+<span class="yazi">
+Olası değerler:
+<br>
+none: İşaret yok<br />
+disc: Varsayılan değer. İşaret içi dolu çemberdir.<br />
+circle: İşaret çemberdir<br />
+square: İşaret karedir<be />
+decimal: İşaret sayıdır<br />
+decimal-leading-zero: İşaret soldaki sıfırlarıyla sayıdır (01, 02, 03, vb.)<br />
+lower-roman: İşaret küçük harf roman rakamlarıdır (i, ii, iii, iv, v, vb.)<br />
+upper-roman: İşaret büyük harf Roman rakamlarıdır (I, II, III, IV, V, vb.)<br />
+lower-alpha: İşaret küçük harflerdir (a, b, c, d, e, vb.)<br />
+upper-alpha: İşaret büyük harflerdir (A, B, C, D, E, vb.) <br />
+lower-greek: İşaret küçük yunan harfleridir (alpha, beta, gamma, vb.)<br />
+lower-latin: İşaret küçük latin harflerdir (a, b, c, d, e, vb.)<br />
+upper-latin: İşaret büyük latin harflerdir (A, B, C, D, E, vb.)<br />
+hebrew: İşaret geleneksel Hebrew sayılarıdır<br />
+armenian: İşaret geleneksel ermeni sayılarıdır<br />
+georgian: İşaret geleneksel gürcü sayılarıdır<br />
+cjk-ideographic: İşaret düz ideografik sayılardır<br />
+hiragana: İşaret a, i, u, e, o, ka, ki, vb.<br />
+katakana: İşaret: A, I, U, E, O, KA, KI, vb.<br />
+hiragana-iroha: İşaret: i, ro, ha, ni, ho, he, to, vb.<br />
+katakana-iroha: İşaret: I, RO, HA, NI, HO, HE, TO, vb.<br />
+</span>
+<br />
+</body>
+</html>

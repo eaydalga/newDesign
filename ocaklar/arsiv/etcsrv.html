@@ -1,0 +1,287 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<TITLE>AYBIM - ETC/SERVICES</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onload="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+          <a href="../index.php" class="box"><img src="../img/aybim.png" border="0"></a><br /><br />
+          <a href="aglar.html" class="nav">Aglar</a>
+          <a href="aglink.html" class="nav">Aglink</a>
+          <a href="agteknik.html" class="nav">Agteknik</a>
+          <a href="ccode.html" class="nav">C-Kodlama</a>
+          <a href="cprep.html" class="nav">C-Önişleme</a>
+          <a href="crclrc.html" class="nav">CRC/LRC</a>
+          <a href="dea.html" class="nav">DEA</a>
+          <a href="etcsrv.html" class="nav">etcsrv</a>
+          <a href="fork.html" class="nav">Çatal (fork)</a>
+          <a href="ilet.html" class="nav">ilet</a>
+          <a href="inetd.html" class="nav">inetd</a>
+          <a href="make.html" class="nav">Make</a>
+          <a href="msgauth.html" class="nav">Msg Auth</a>
+          <a href="recur.html" class="nav">Özyinelemeli</a>
+          <a href="robots.html" class="nav">Robotlar için</a>
+          <a href="sdlc.html" class="nav">SDLC</a>
+          <a href="secure.html" class="nav">Güvenlik</a>
+          <a href="seri.html" class="nav">Seri uçlar</a>
+          <a href="snalu0.html" class="nav">SNA LU0</a>
+          <a href="snalu62.html" class="nav">SNA LU6.2</a>
+          <a href="tcpip.html" class="nav">tcp/ip</a>
+          <a href="tcpprg.html" class="nav">tcp Programı</a>
+          <a href="unix.html" class="nav">Unix</a>
+          <a href="vi.html" class="nav">vi Editör</a>
+       </div>
+        </td>
+    <td valign="top">
+       <div id="ortataraf">
+           <span><img src="../img/transparent.gif" width="1" height="50">
+           <img src="../img/transparent.gif" width="780" height="1"></span>
+           <div id="banner">
+             <img src="img/baslik.gif"><br />
+             <div id="mycontainer">
+               <div id="content">
+<div id="bdy" class="yazi">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8541306787668208";
+//728x90, created 1/16/08
+google_ad_slot = "7459135715";
+google_ad_width = 728;
+google_ad_height = 90;
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<br>
+<br>
+<div id="sag"><span class="yazi">24 Ocak 2008</span></div>
+<H3>TCP/UDP HİZMET TANIMLARI</H3>
+<P>
+<UL>
+<TABLE class="yazi">
+<TR><TH>Adı</TH><TH>Post/Protokol</TH><TH>Eşanlamlı</TH><TH>Açıklama</TH></TR>
+<TR><TD COLSPAN=4>  # /etc/services:</TD></TR>
+<TR><TD COLSPAN=4>  # Buraya yalnız çok genel olanlar eklenmiştir</TD></TR>
+<TR><TD>tcpmux      </TD><TD>1/tcp   </TD><TD></TD><TD># TCP port multiplexer hizmeti</TD></TR>
+<TR><TD>echo        </TD><TD>7/tcp</TD><TD></TD><TD></TD></TR>
+<TR><TD>echo        </TD><TD>7/udp</TD><TD></TD><TD></TD></TR>
+<TR><TD>discard     </TD><TD>9/tcp   </TD><TD>sink null</TD><TD></TD></TR>
+<TR><TD>discard     </TD><TD>9/udp   </TD><TD>sink null</TD><TD></TD></TR>
+<TR><TD>systat      </TD><TD>11/tcp  </TD><TD>users</TD><TD></TD></TR>
+<TR><TD>daytime     </TD><TD>13/tcp</TD><TD></TD><TD></TD></TR>
+<TR><TD>daytime     </TD><TD>13/udp</TD><TD></TD><TD></TD></TR>
+<TR><TD>netstat     </TD><TD>15/tcp</TD><TD></TD><TD></TD></TR>
+<TR><TD>qotd        </TD><TD>17/tcp  </TD><TD>quote</TD><TD></TD></TR>
+<TR><TD>msp         </TD><TD>18/tcp  </TD><TD></TD><TD># mesaj gönderme protokolu</TD></TR>
+<TR><TD>msp         </TD><TD>18/udp  </TD><TD></TD><TD># mesaj gönderme protokolu</TD></TR>
+<TR><TD>chargen     </TD><TD>19/tcp  </TD><TD>ttytst source</TD><TD></TD></TR>
+<TR><TD>chargen     </TD><TD>19/udp  </TD><TD>ttytst source</TD><TD></TD></TR>
+<TR><TD>ftp-data    </TD><TD>20/tcp</TD><TD></TD><TD></TD></TR>
+<TR><TD>ftp         </TD><TD>21/tcp</TD><TD></TD><TD></TD></TR>
+<TR><TD>ssh         </TD><TD>22/tcp  </TD><TD></TD><TD># SSH Uzaktan login olma protokolu</TD></TR>
+<TR><TD>ssh         </TD><TD>22/udp  </TD><TD></TD><TD># SSH Uzaktan login olma protokolu</TD></TR>
+<TR><TD>telnet      </TD><TD>23/tcp</TD><TD></TD><TD></TD></TR>
+<TR><TD># 24 - özel</TD></TR>
+<TR><TD>smtp        </TD><TD>    25/tcp  </TD><TD>mail</TD><TD></TD></TR>
+<TR><TD># 26 - atanmamış</TD></TR>
+<TR><TD>time        </TD><TD>37/tcp  </TD><TD>timserver</TD><TD></TD></TR>
+<TR><TD>time        </TD><TD>37/udp  </TD><TD>timserver</TD><TD></TD></TR>
+<TR><TD>rlp         </TD><TD>39/udp  </TD><TD>resource  </TD><TD># kaynak yeri</TD></TR>
+<TR><TD>nameserver  </TD><TD>42/tcp  </TD><TD>name      </TD><TD># IEN 116</TD></TR>
+<TR><TD>whois       </TD><TD>43/tcp  </TD><TD>nicname</TD><TD></TD></TR>
+<TR><TD>re-mail-ck  </TD><TD>50/tcp  </TD><TD></TD><TD># Uzaktan ileti kontrol protokolu</TD></TR>
+<TR><TD>re-mail-ck  </TD><TD>50/udp  </TD><TD></TD><TD># Uzaktan ileti kontrol protokolu</TD></TR>
+<TR><TD>domain      </TD><TD>53/tcp  </TD><TD>nameserver   </TD><TD>   # yöre adı tanımlama hizmeti</TD></TR>
+<TR><TD>domain      </TD><TD>53/udp  </TD><TD>nameserver</TD><TD></TD></TR>
+<TR><TD>mtp         </TD><TD>57/tcp  </TD><TD></TD><TD># deprecated</TD></TR>
+<TR><TD>bootps      </TD><TD>67/tcp  </TD><TD></TD><TD># BOOTP sunuxu</TD></TR>
+<TR><TD>bootps      </TD><TD>67/udp</TD><TD></TD><TD></TD></TR>
+<TR><TD>bootpc      </TD><TD>68/tcp  </TD><TD></TD><TD># BOOTP client</TD></TR>
+<TR><TD>bootpc      </TD><TD>68/udp</TD><TD></TD><TD></TD></TR>
+<TR><TD>tftp        </TD><TD>69/udp</TD><TD></TD><TD></TD></TR>
+<TR><TD>gopher      </TD><TD>70/tcp  </TD><TD></TD><TD># Internet Gopher</TD></TR>
+<TR><TD>gopher      </TD><TD>70/udp</TD><TD></TD><TD></TD></TR>
+<TR><TD>rje         </TD><TD>77/tcp  </TD><TD>netrjs</TD><TD></TD></TR>
+<TR><TD>finger      </TD><TD>79/tcp</TD><TD></TD><TD></TD></TR>
+<TR><TD>www         </TD><TD>80/tcp  </TD><TD>http     </TD><TD>       # www HTTPi sunucu</TD></TR>
+<TR><TD>www         </TD><TD>80/udp  </TD><TD></TD><TD># HyperText Transfer Protocol</TD></TR>
+<TR><TD>link        </TD><TD>87/tcp  </TD><TD>ttylink</TD><TD></TD></TR>
+<TR><TD>kerberos    </TD><TD>88/tcp  </TD><TD>kerberos5 krb5 </TD><TD> # Kerberos v5</TD></TR>
+<TR><TD>kerberos    </TD><TD>88/udp  </TD><TD>kerberos5 krb5 </TD><TD> # Kerberos v5</TD></TR>
+<TR><TD>supdup      </TD><TD>95/tcp</TD><TD></TD><TD></TD></TR>
+<TR><TD COLSPAN=4>  # 100 - ayrılmış</TD></TR>
+<TR><TD>hostnames    </TD><TD>101/tcp </TD><TD>hostname   </TD><TD>     # usually from sri-nic</TD></TR>
+<TR><TD>iso-tsap    </TD><TD>102/tcp </TD><TD>tsap       </TD><TD>     # part of ISODE.</TD></TR>
+<TR><TD>csnet-ns    </TD><TD>105/tcp </TD><TD>cso-ns     </TD><TD>     # also used by CSO name server</TD></TR>
+<TR><TD>csnet-ns    </TD><TD>105/udp </TD><TD>cso-ns</TD><TD></TD></TR>
+<TR><TD>rtelnet     </TD><TD>107/tcp </TD><TD></TD><TD># Uzaktan Telnet</TD></TR>
+<TR><TD>rtelnet     </TD><TD>107/udp</TD><TD></TD><TD></TD></TR>
+<TR><TD>pop-2       </TD><TD>109/tcp </TD><TD>postoffice </TD><TD># POP sürüm 2</TD></TR>
+<TR><TD>pop-2       </TD><TD>109/udp</TD><TD></TD><TD></TD></TR>
+<TR><TD>pop-3       </TD><TD>110/tcp </TD><TD></TD><TD># POP sürüm 3</TD></TR>
+<TR><TD>pop-3       </TD><TD>110/udp</TD><TD></TD><TD></TD></TR>
+<TR><TD>sunrpc      </TD><TD>111/tcp </TD><TD>portmapper </TD><TD># RPC 4.0 portmapper TCP</TD></TR>
+<TR><TD>sunrpc      </TD><TD>111/udp </TD><TD>portmapper </TD><TD># RPC 4.0 portmapper UDP</TD></TR>
+<TR><TD>auth        </TD><TD>113/tcp </TD><TD>authentication tap ident</TD><TD></TD></TR>
+<TR><TD>sftp        </TD><TD>115/tcp</TD><TD></TD><TD></TD></TR>
+<TR><TD>uucp-path   </TD><TD>117/tcp</TD><TD></TD><TD></TD></TR>
+<TR><TD>nntp        </TD><TD>119/tcp </TD><TD>readnews untp </TD><TD>  # USENET News Transfer Protocol</TD></TR>
+<TR><TD>ntp         </TD><TD>123/tcp</TD><TD></TD><TD></TD></TR>
+<TR><TD>ntp         </TD><TD>123/udp </TD><TD></TD><TD># Network Time Protocol</TD></TR>
+<TR><TD>netbios-ns  </TD><TD>137/tcp </TD><TD></TD><TD># NETBIOS Ad sunucu hizmeti</TD></TR>
+<TR><TD>netbios-ns  </TD><TD>137/udp</TD><TD></TD><TD></TD></TR>
+<TR><TD>netbios-dgm </TD><TD>138/tcp </TD><TD></TD><TD># NETBIOS Datagram Hizmeti</TD></TR>
+<TR><TD>netbios-dgm </TD><TD>138/udp</TD><TD></TD><TD></TD></TR>
+<TR><TD>netbios-ssn </TD><TD>139/tcp </TD><TD></TD><TD># NETBIOS oturum hizmeti</TD></TR>
+<TR><TD>netbios-ssn </TD><TD>139/udp</TD><TD></TD><TD></TD></TR>
+<TR><TD>imap2       </TD><TD>143/tcp </TD><TD></TD><TD># Interim Mail Access Proto v2</TD></TR>
+<TR><TD>imap2       </TD><TD>143/udp</TD><TD></TD><TD></TD></TR>
+<TR><TD>snmp        </TD><TD>161/udp </TD><TD></TD><TD># Basit Ağ Yönetim Protokolu</TD></TR>
+<TR><TD>snmp-trap   </TD><TD>162/udp </TD><TD>snmptrap    </TD><TD>    # SNMP için trap'lar</TD></TR>
+<TR><TD>cmip-man    </TD><TD>163/tcp </TD><TD></TD><TD># IP üzerinden ISO yönetimi (CMOT)</TD></TR>
+<TR><TD>cmip-man    </TD><TD>163/udp</TD><TD></TD><TD></TD></TR>
+<TR><TD>cmip-agent  </TD><TD>164/tcp</TD><TD></TD><TD></TD></TR>
+<TR><TD>cmip-agent  </TD><TD>164/udp</TD><TD></TD><TD></TD></TR>
+<TR><TD>xdmcp       </TD><TD>177/tcp </TD><TD></TD><TD># X Ekranı Yönetimi, Denetim Protokolu</TD></TR>
+<TR><TD>xdmcp       </TD><TD>177/udp</TD><TD></TD><TD></TD></TR>
+<TR><TD>nextstep    </TD><TD>178/tcp </TD><TD>NeXTStep NextStep   </TD><TD># NeXTStep penceresi</TD></TR>
+<TR><TD>nextstep    </TD><TD>178/udp </TD><TD>NeXTStep NextStep   </TD><TD># Sunucu</TD></TR>
+<TR><TD>bgp         </TD><TD>179/tcp </TD><TD></TD><TD># Border Gateway Proto.</TD></TR>
+<TR><TD>bgp         </TD><TD>179/udp</TD><TD></TD><TD></TD></TR>
+<TR><TD>prospero    </TD><TD>191/tcp </TD><TD></TD><TD># Cliff Neuman's Prospero</TD></TR>
+<TR><TD>prospero    </TD><TD>191/udp</TD><TD></TD><TD></TD></TR>
+<TR><TD>irc         </TD><TD>194/tcp </TD><TD></TD><TD># Internet Relay Chat</TD></TR>
+<TR><TD>irc         </TD><TD>194/udp</TD><TD></TD></TR>
+<TR><TD>smux        </TD><TD>199/tcp </TD><TD></TD><TD># SNMP Unix Multiplexer</TD></TR>
+<TR><TD>smux        </TD><TD>199/udp</TD><TD></TD><TD></TD></TR>
+<TR><TD>at-rtmp     </TD><TD>201/tcp </TD><TD></TD><TD># AppleTalk yölendirme</TD></TR>
+<TR><TD>at-rtmp     </TD><TD>201/udp</TD><TD></TD><TD></TD></TR>
+<TR><TD>at-nbp      </TD><TD>202/tcp </TD><TD></TD><TD># AppleTalk Ad bağlantısı</TD></TR>
+<TR><TD>at-nbp      </TD><TD>202/udp</TD><TD></TD><TD></TD></TR>
+<TR><TD>at-echo     </TD><TD>204/tcp </TD><TD></TD><TD># AppleTalk yankı</TD></TR>
+<TR><TD>at-echo     </TD><TD>204/udp</TD><TD></TD><TD></TD></TR>
+<TR><TD>at-zis      </TD><TD>206/tcp </TD><TD></TD><TD># AppleTalk zone bilgisi</TD></TR>
+<TR><TD>at-zis      </TD><TD>206/udp</TD><TD></TD><TD></TD></TR>
+<TR><TD>z3950       </TD><TD>210/tcp </TD><TD>wais</TD><TD># NISO Z39.50 veri tabanı</TD></TR>
+<TR><TD>z3950       </TD><TD>210/udp </TD><TD>wais</TD><TD></TD></TR>
+<TR><TD>ipx         </TD><TD>213/tcp </TD><TD></TD><TD># IPX</TD></TR>
+<TR><TD>ipx         </TD><TD>213/udp</TD><TD></TD><TD></TD></TR>
+<TR><TD>imap3       </TD><TD>220/tcp </TD><TD></TD><TD># Interactive Mail Access</TD></TR>
+<TR><TD>imap3       </TD><TD>220/udp </TD><TD></TD><TD># Protocol v3</TD></TR>
+<TR><TD>ulistserv   </TD><TD>372/tcp </TD><TD></TD><TD># UNIX Listserv</TD></TR>
+<TR><TD>ulistserv   </TD><TD>372/udp</TD><TD></TD><TD></TD></TR>
+<TR><TD COLSPAN=4>  #</TD></TR>
+<TR><TD COLSPAN=4>  # UNIX için tanımlanmış hizmetler</TD></TR>
+<TR><TD COLSPAN=4>  #</TD></TR>
+<TR><TD>exec        </TD><TD>512/tcp</TD><TD></TD><TD></TD></TR>
+<TR><TD>biff        </TD><TD>512/udp </TD><TD>comsat</TD><TD></TD></TR>
+<TR><TD>login       </TD><TD>513/tcp</TD><TD></TD><TD></TD></TR>
+<TR><TD>who         </TD><TD>513/udp </TD><TD>whod</TD><TD></TD></TR>
+<TR><TD>shell       </TD><TD>514/tcp </TD><TD>cmd</TD><TD># şifreler kullanılmıyor</TD></TR>
+<TR><TD>syslog      </TD><TD>514/udp</TD><TD></TD><TD></TD></TR>
+<TR><TD>printer     </TD><TD>515/tcp </TD><TD>spooler</TD><TD># Satır yazıcı için spooler</TD></TR>
+<TR><TD>talk        </TD><TD>517/udp</TD><TD></TD><TD></TD></TR>
+<TR><TD>ntalk       </TD><TD>518/udp</TD><TD></TD><TD></TD></TR>
+<TR><TD>route       </TD><TD>520/udp </TD><TD>router routed   </TD><TD># RIP</TD></TR>
+<TR><TD>timed       </TD><TD>525/udp </TD><TD>timeserver</TD><TD></TD></TR>
+<TR><TD>tempo       </TD><TD>526/tcp </TD><TD>newdate</TD><TD></TD></TR>
+<TR><TD>courier     </TD><TD>530/tcp </TD><TD>rpc</TD><TD></TD></TR>
+<TR><TD>conference  </TD><TD>531/tcp </TD><TD>chat</TD><TD></TD></TR>
+<TR><TD>netnews     </TD><TD>532/tcp </TD><TD>readnews</TD><TD></TD></TR>
+<TR><TD>netwall     </TD><TD>533/udp </TD><TD></TD><TD># -Acil durum için yayım</TD></TR>
+<TR><TD>uucp        </TD><TD>540/tcp </TD><TD>uucpd</TD><TD># uucp daemon</TD></TR>
+<TR><TD>remotefs    </TD><TD>556/tcp </TD><TD>rfs_server rfs  </TD><TD># Brunhoff remote filesystem</TD></TR>
+<TR><TD>klogin      </TD><TD>543/tcp </TD><TD></TD><TD># Kerberized `rlogin' (v5)</TD></TR>
+<TR><TD>kshell      </TD><TD>544/tcp </TD><TD>krcmd</TD><TD># Kerberized `rsh' (v5)</TD></TR>
+<TR><TD>kerberos-adm</TD><TD>749/tcp </TD><TD></TD><TD># Kerberos `kadmin' (v5)</TD></TR>
+<TR><TD COLSPAN=4>  #</TD></TR>
+<TR><TD>webster     </TD><TD>765/tcp </TD><TD></TD><TD># Ağ sözlüğü</TD></TR>
+<TR><TD>webster     </TD><TD>765/udp</TD><TD></TD><TD></TD></TR>
+<TR><TD COLSPAN=4>#</TD></TR>
+<TR><TD COLSPAN=4># From ``Assigned Numbers'':</TD><TD></TD><TD></TD></TR>
+<TR><TD COLSPAN=4>#</TD></TR>
+<TR><TD COLSPAN=4>#&gt; The Registered Ports are not controlled by the IANA and on most systems</TD></TR>
+<TR><TD COLSPAN=4>#&gt; can be used by ordinary user processes or programs executed by ordinary</TD></TR>
+<TR><TD COLSPAN=4>#&gt; users.</TD></TR>
+<TR><TD COLSPAN=4>#</TD></TR>
+<TR><TD COLSPAN=4>#&gt; Ports are used in the TCP [45,106] to name the ends of logical</TD></TR>
+<TR><TD COLSPAN=4>#&gt; connections which carry long term conversations.  For the purpose of</TD></TR>
+<TR><TD COLSPAN=4>#&gt; providing services to unknown callers, a service contact port is</TD></TR>
+<TR><TD COLSPAN=4>#&gt; defined.  This list specifies the port used by the server process as its</TD></TR>
+<TR><TD COLSPAN=4>#&gt; contact port.  While the IANA can not control uses of these ports it</TD></TR>
+<TR><TD COLSPAN=4>#&gt; does register or list uses of these ports as a convienence to the</TD></TR>
+<TR><TD COLSPAN=4>#&gt; community.</TD></TR>
+<TR><TD COLSPAN=4>#</TD></TR>
+<TR><TD>ingreslock   </TD><TD>1524/tcp</TD><TD></TD><TD></TD></TR>
+<TR><TD>ingreslock   </TD><TD>1524/udp</TD><TD></TD><TD></TD></TR>
+<TR><TD>prospero-np  </TD><TD>1525/tcp </TD><TD></TD><TD># Prospero non-privileged</TD></TR>
+<TR><TD>prospero-np  </TD><TD>1525/udp</TD><TD></TD><TD></TD></TR>
+<TR><TD>rfe          </TD><TD>5002/tcp </TD><TD></TD><TD># Radio Free Ethernet</TD></TR>
+<TR><TD>rfe          </TD><TD>5002/udp </TD><TD></TD><TD># Actually uses UDP only</TD></TR>
+<TR><TD>bbs          </TD><TD>7000/tcp </TD><TD></TD><TD># BBS service</TD></TR>
+<TR><TD COLSPAN=4>  #</TD></TR>
+<TR><TD COLSPAN=4>  #</TD></TR>
+<TR><TD COLSPAN=4>  # Kerberos (Athena Projesi/MIT) hizmetleri</TD></TR>
+<TR><TD COLSPAN=4>  # Not : Bunlar Kerberos v4 içindir. v4 kullanan siteler </TD></TR>
+<TR><TD COLSPAN=4>  # v5 hizmetlerini # kullanarak tanımlardan çıkarmalıdır.</TD></TR>
+<TR><TD COLSPAN=4>  #</TD></TR>
+<TR><TD>kerberos4    </TD><TD>750/udp </TD><TD>kdc</TD><TD># Kerberos (server) udp</TD></TR>
+<TR><TD>kerberos4    </TD><TD>750/tcp </TD><TD>kdc</TD><TD># Kerberos (server) tcp</TD></TR>
+<TR><TD>kerberos_master</TD><TD>751/udp </TD><TD></TD><TD># Kerberos authentication</TD></TR>
+<TR><TD>kerberos_master</TD><TD>751/tcp </TD><TD></TD><TD># Kerberos authentication</TD></TR>
+<TR><TD>passwd_server</TD><TD>752/udp </TD><TD></TD><TD># Kerberos passwd server</TD></TR>
+<TR><TD>krb_prop     </TD><TD>754/tcp </TD><TD></TD><TD># Kerberos slave propagation</TD></TR>
+<TR><TD>krbupdate    </TD><TD>760/tcp </TD><TD>kreg</TD><TD># Kerberos registration</TD></TR>
+<TR><TD>kpasswd      </TD><TD>761/tcp </TD><TD>kpwd</TD><TD># Kerberos "passwd"</TD></TR>
+<TR><TD>kpop         </TD><TD>1109/tcp</TD><TD></TD><TD># Pop with Kerberos</TD></TR>
+<TR><TD>knetd        </TD><TD>2053/tcp</TD><TD></TD><TD># Kerberos de-multiplexor</TD></TR>
+<TR><TD>zephyr-srv   </TD><TD>2102/udp</TD><TD></TD><TD># Zephyr server</TD></TR>
+<TR><TD>zephyr-clt   </TD><TD>2103/udp</TD><TD></TD><TD># Zephyr serv-hm connection</TD></TR>
+<TR><TD>zephyr-hm    </TD><TD>2104/udp</TD><TD></TD><TD># Zephyr hostmanager</TD></TR>
+<TR><TD>eklogin      </TD><TD>2105/tcp</TD><TD></TD><TD># Kerberos encrypted rlogin</TD></TR>
+<TR><TD COLSPAN=4>  #</TD></TR>
+<TR><TD COLSPAN=4>  # NetBSD hizmetleri için gereklidir</TD></TR>
+<TR><TD COLSPAN=4>  #</TD></TR>
+<TR><TD>supfilesrv   </TD><TD>871/tcp  </TD><TD></TD><TD># SUP server</TD></TR>
+<TR><TD>supfiledbg   </TD><TD>1127/tcp </TD><TD></TD><TD># SUP debugging</TD></TR>
+<TR><TD COLSPAN=4>  #</TD></TR>
+<TR><TD COLSPAN=4>  # Datagram Gönderme Protokolu hizmetleri</TD></TR>
+<TR><TD COLSPAN=4>  #</TD></TR>
+<TR><TD>rtmp         </TD><TD>1/ddp  </TD><TD></TD><TD># Routing Table Maintenance Protocol</TD></TR>
+<TR><TD>nbp          </TD><TD>2/ddp  </TD><TD></TD><TD># Name Binding Protocol</TD></TR>
+<TR><TD>echo         </TD><TD>4/ddp  </TD><TD></TD><TD># AppleTalk Echo Protocol</TD></TR>
+<TR><TD>zip          </TD><TD>6/ddp  </TD><TD></TD><TD># Zone Information Protocol</TD></TR>
+<TR><TD COLSPAN=4>  #</TD></TR>
+<TR><TD COLSPAN=4>  # Debian GNU/Linux hizmetleri</TD></TR>
+<TR><TD>rmtcfg       </TD><TD>1236/tcp  </TD><TD></TD><TD># Gracilis Packeten remote config server</TD></TR>
+<TR><TD>xtel         </TD><TD>1313/tcp  </TD><TD></TD><TD># french minitel</TD></TR>
+<TR><TD>cfinger      </TD><TD>2003/tcp  </TD><TD></TD><TD># GNU Finger</TD></TR>
+<TR><TD>postgres     </TD><TD>4321/tcp  </TD><TD></TD><TD># POSTGRES</TD></TR>
+<TR><TD>mandelspawn  </TD><TD>9359/udp  </TD><TD>mandelbrot</TD><TD># network mandelbrot</TD></TR>
+</TABLE>
+</UL>
+<HR>
+<br />
+</div>
+               </div>
+             </div>
+           </div>
+
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,397 @@
+<html>
+<head>
+<style type="text/css">
+</style>
+</head>
+<body>
+<div id="sag"><span class="yazi">26 Ekim 2007</span></div>
+<h2>Temel Kavramlar</h2>
+
+<h3>Dil Kuralları (CSS Syntax)</h3>
+<span class="yazi">CSS dil kuralları iki bölümden oluşur. Bunlar sırasıyla seçici, tanımlamadır. Daha sonra tanımlama en az bir özellik ve değer ikilisiyle kullanılır.<br />
+</span>
+<br />
+<fieldset class="fyazi">
+seçici {özellik: değer}
+</fieldset>
+
+<span class="yazi">"seçici" genelde tanımlayacağınız bir HTML öğesidir (&lt;p&gt; gibi). "Özellik" değiştireceğiniz niteliktir ve her özellik en az bir değer alır. Özellik ve değer birbirinden iki nokta üstüste (:) ile ayrılır ve kıvrımlı parantez {} çiftiyle çevrelenir.<br />
+<br />
+Seçici bir HTML sayfasıyla Stil sayfaları arasındaki bağı oluşturur. Hemen her HTML öğesi olası seçici tanımlanabilir.
+</span>
+<br />
+<span class="yazi">örnek:</span>
+<br />
+<fieldset class="fyazi">
+   h1 {color: black}
+</fieldset>
+
+<br />
+<span class="yazi">eğer değer birkaç kelimeden oluşuyorsa çift tırnak (") içinde tanımlanır.</span>
+<br />
+
+<fieldset class="fyazi">
+p {font-family: "sans serif"}
+</fieldset>
+
+<br />
+<span class="yazi">eğer birden çok özellik tanımlanacaksa özellik ve değer ikilisi diğerlerinden ; ile ayrılır.</span>
+<br />
+
+<fieldset class="fyazi">
+p { text-align:center; color:red }
+</fieldset>
+
+<br />
+<span class="yazi">
+Stillerin daha okunaklı olması için her özelliği ayrı satırda yazmak iyidir. Örneğin:
+</span>
+<br />
+
+<fieldset class="fyazi">
+<pre>
+p
+{
+text-align: center;
+color: black;
+font-family: arial
+}
+</pre>
+</fieldset>
+<br />
+<span class="yazi">
+Stil tanımlarında özelliklerin değerleri girilirken değer birimleri arasında boşluk bırakmayın. Örneğin, "margin-left: 20px" yerine "margin-left: 20 px" yazarsanız IE6'da çalışabilir ama Mozilla/Firefox ya da Netscape altında çalışmaz.
+</span>
+<br />
+<h3>Kalıplama modeli</h3>
+<span class="yazi">
+Kutu yapısında kalıplama modeli, her öğenin bir ya da daha çok kutulardan oluşur. (öğelerin görüntelenme komunu 'none' olanlar kutularda yer almaz). Her kutu çekirdek içerik alanının çevresel dolgu alanı vardır bunlara sınır ve kenar alanları denir.<br />
+</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+|                                       |
+|           kenar  (renksiz)            |
+|   _________________________________   |
+|  |                                 |  |
+|  |        border(sınır)            |  |
+|  |   ___________________________   |  |
+|  |  |                           |  |  |
+|  |  |     padding(dolgu)        |  |  |
+|  |  |   _____________________   |  |  |
+|  |  |  |                     |  |  |  |
+|  |  |  |  content(içerik)    |  |  |  |
+|  |  |  |_____________________|  |  |  |
+|  |  |___________________________|  |  |
+|  |_________________________________|  |
+|_______________________________________|
+
+          |     ö ğ e  eni      |
+|              kutu   eni               |
+</pre>
+</fieldset>
+
+
+<h3>Gruplama</h3>
+<span class="yazi">
+seçicileri gruplama olanağı vardır. Bunun nedeni stil sayfalarının uzunluğunu kısaltmaktır. Seçiciler virgül ile birbirinden ayrılır. Örneğin:
+</span>
+<br />
+
+<fieldset class="fyazi">
+<pre>
+h1,h2,h3,h4,h5,h6 
+{
+color: green
+}
+</pre>
+</fieldset>
+
+<span class="yazi">
+Bazı özelliklerde gruplama kalıbı farklı olabilir ve bunlar kendilerine özü bir dil kuralıyla gruplanırlar:
+</span>
+
+<fieldset class="fyazi">
+<pre>
+h1 { font: bold 12pt/14pt helvetica }
+</pre>
+</fieldset>
+<br />
+<h3>Kalıtım/Geçiş</h3>
+<span class="yazi">
+Bir öğeden altındaki öğelere stilin geçmesi konusu önemlidir. Çünkü tüm stiller bir öğeden altındaki öğeler geçmez. Örneğin 'background' özelliği geçmez ama önceki öğenin art alanı içinde tanımlanmış öğede de kullanılır<br />
+</span>
+
+<h3>Sınıf (class) seçicileri</h3>
+<span class="yazi">
+Aynı HTML öğesine birden çok seçici tanımlamak Sınıf (class) ile sağlanır.<br />
+<br />
+Ama
+her seçici için bir sınıf tanımlanabilir. Bu durumda 'p.pastoral.marine' gibi tanımlama hatalı olur. Stil sayfalarında sınıf tanımları çok etkilidir. Hemen her öğe ile kullanılılabilir.
+<br />
+Örneğin paragraf tanımında iki değişik seçici tanımı aşağıdaki gibi olsun:
+</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+p.right {text-align: right}
+p.center {text-align: center}
+</pre>
+</fieldset>
+
+<span class="yazi">HTML içinde bu seçiciler şöyle kullanılır:</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+&lt;p class="right"&gt;
+Bu paragraf sağa yanaşıktır.
+&lt;/p&gt;
+</pre>
+</fieldset>
+<br />
+<fieldset class="fyazi">
+<pre>
+&lt;p class="center"&gt;
+Bu paragraf ortalanmıştır.
+&lt;/p&gt;
+</pre>
+</fieldset>
+
+<span class="yazi">Bir öğeye birden çok seçici tanımlamak isterseniz kullanım:</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+&lt;p class="center bold"&gt;
+Bu bir paragraftır.
+&lt;/p&gt;
+</pre>
+</fieldset>
+
+<span class="yazi">biçimindedir.</span>
+<br />
+ <span class="yazi">HTML öğesi tanımlamadan seçici tanımlayıp o seçiciyi tüm HTML öğelerinde kullanmak isterseniz:</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+.center {text-align: center}
+</pre>
+</fieldset>
+
+<span class="yazi">
+biçimde tanım yaparsınız...<br />
+<br />
+Not: sınıf (class) adını numarayla başlamayın Mozilla/Firefox'da çalışmaz.
+</span>
+
+<h3>İçerik Seçicileri</h3>
+<span class="yazi">
+Kalıtım (ya da geçiş) stil yazanlara kolaylıklar sağlar. Tüm stil özelliklerini uzun uzun yazmak yerine kullanıcı önce varsayılanları tanımlar, varsa ayrıcalıkları ekler.<br />
+Örneğin &lt;h1&gt; içinde &lt;em&gt; biçimine kırmızı renk verdirmek istediğimizde:
+</span>
+<fieldset class="fyazi">
+<pre>
+h1 { color: blue }
+em { color: red }
+</pre>
+</fieldset>
+
+<span class="yazi">
+tanımı yerine<br />
+</span>
+<fieldset class="fyazi">
+<pre>
+h1 em { color: red }
+</pre>
+</fieldset>
+
+<span class="yazi">
+kullanılır. Büyük bir olasalıkla yalnız "h1" içindeki "em" tanımları kırmızı olacaktır.<br />
+<br />
+Bu tür seçicilere içerik seçicileri denir.<br />
+</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+ul li    { font-size: small }    
+ul ul li { font-size: x-small }
+</pre>
+</fieldset>
+<br />
+<span class="yazi">
+Yukarıdaki örnekte "li" "ul" altında kullanılırsa yazı-tipi boyu küçük olacaktır. Buna göre "ol" altındaki "li" tanımlarının yazı-tipi boyları değişmemiş olur. İkinci satırda bir önceki satırla çelişki olmaması için iç içe tanımlanmış iki tane "ul" olunca yazı-tipi boyu iyice küçük olacaktır.<br />
+<br >
+İçerik seçicileri öğe tipleriyle, sınıf (class) ve kimlik (id) niteliğiyle ya da bunların karışımıyla tanımlanabilir. Örneğin:<br />
+</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+div p           { font: small sans-serif }
+.reddish h1     { color: red }
+#x78y code      { background: blue }
+div.sidenote h1 { font-size: large }
+</pre>
+</fieldset>
+<br />
+
+<h3>Özel nitelikleri olan öğelere (elemanlara) stil eklemek</h3>
+<span class="yazi">Yalnız belirli nitelik değerleri için stil tanımı yapabilirsiniz. Örneğin aşağıdaki tanım "input" html öğesinde tipi "text" olanlar için geçerlidir.</span>
+<br />
+<fieldset class="fyazi">
+input[type="text"] {background-color: blue}
+</fieldset>
+
+<h3>Kimlik (Id) Seçici</h3>
+<span class="yazi">Kimlik (Id) seçicileriyle HTML öğeleri için stil tanımı yapılır. Kimlik (Id) seçicilerinin başında # işareti bulunur.</span>
+<br />
+<span class="yazi">Aşağıdaki stil tanımı html öğelerinden kimlik (id) tanımı "yesil" olanlar için geçerlidir.</span>
+<br />
+<fieldset class="fyazi">
+#yesil {color: green}
+</fieldset>
+<br />
+<span class="yazi">Aşağıdaki stil tanımı &lt;p&gt; HTML öğesinde kimlik (id) türü "para1" olanlar için geçerlidir.</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+p#para1
+{
+text-align: center;
+color: red
+}
+</pre>
+</fieldset>
+<span class="yazi">Not: KIMLIK (ID) adı sayıyla başlamamalıdır. Mozilla/Firefox bu tanımları anlamaz.</span>
+
+<br />
+<h3>CSS Açıklamaları</h3>
+<span class="yazi">Açıklamalar CSS kodlarınızı anlatmak için kullanılır. Belki daha sonra kaynak kodlarınızı incelerken unuttuklarınızı anımsatmak için gerekli olabilir. Tarayıcı (ya da gezgin) açıklamayı önemsemez. Bir CSS açıklaması "/*" ile başlar ve "*/" ile son bulur. Örnek:</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+/* Bu bir açıklama */
+p
+{
+text-align: center;
+/* Bir bir başka açıklama */
+color: black;
+font-family: arial
+}
+</pre>
+</fieldset>
+<br />
+<h3>HTML içinde Stillerin gösterilişi</h3>
+<span class="yazi">
+Stil sayfalarının etkin olabilmesi için tarayıcının bu stil sayfalarını okumuş
+olması gereklidir. HTML tanımlarında stil sayfalarının HTML belgelerine 
+nasıl bağlanacağı aşağıdaki örnekte gösterilmiştir:<br />
+</span>
+
+<fieldset class="fyazi">
+<pre>
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;title&lt;/title&gt;
+    &lt;link rel=stylesheet type="text/css" 
+      HREF="http://style.com/cool" title="Cool"&gt;
+    &lt;style type="text/css"&gt;
+      @import url(http://style.com/basic);
+      H1 { color: blue }
+    &lt;/style&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Headline is blue&lt;/h1&gt;
+    &lt;p style="color: green"&gt;While the paragraph is green.
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+</fieldset>
+<br />
+<span class="yazi">
+Bu örnekte stilleri HTML'e bağlamanın dört yöntemi belirtilmiştir. LINK öğesi kullanılarak bir dosyada bulunan stil sayfaları HTML içine taşınmış olur. &lt;head&gt; altında 'stil' öğesi kullanılarak yalnız o HTML için gereken stiller tanımlanabilir. 'body' öğesi içinde 'style' niteliği kullanılarak tanımlama yapılabilir. Ya da '@import' tanımıyla stiller HTML sayfasına eklenebilir.<br />
+</span>
+<br />
+<h3>Dışsal Stil Tanımları</h3>
+<span class="yazi">Birçok sayfada aynı stil tanımları kullanılacaksa dosyadan stilleri okumak en iyisidir. Bir sayfada değişiklik yaparak tüm web sitesinin görünüşünü değiştirebilirsiniz. Bunun için her html sayfası &lt;link&gt; komutuyla stil sayfalarını okuyabilmelidir (Yukarıdaki örneğe bakın)</span>
+<br />
+<h3>İçsel Stil Tanımları</h3>
+<span class="yazi">Tek sayfada özel bir stiller kullanıldığında HTML kodu içinde stil tanımı yapılabilir.</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+&lt;head&gt;
+&lt;style type="text/css"&gt;
+hr {color: sienna}
+p {margin-left: 20px}
+body {background-image: url("images/back40.gif")}
+&lt;/style&gt;
+&lt;/head&gt;
+</pre>
+</fieldset>
+<span class="yazi">Not: Bir tarayıcı bilinmeyen tanımları önemsemez, atlar. Yani stil komutlarını tanımayan eski bir tarayıcı &lt;style&gt; komutunu atlar ama içeriğini web sayfasına yazar. Eski tarayıcının böyle bir şey yapmaması için stil komutlarını açıklama içinde tanımlamak yararlıdır. Aşağıdaki örnek bu amaçla gösterilmiştir:</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+&lt;head&gt;
+&lt;style type="text/css"&gt;
+&lt;!--
+hr {color: sienna}
+p {margin-left: 20px}
+body {background-image: url("images/back40.gif")}
+--&gt;
+&lt;/style&gt;
+&lt;/head&gt;
+</pre>
+</fieldset>
+<h3>Kod içi Stiller</h3>
+<span class="yazi">Kod içi stil tanımı, "style" komutunun pekçok özelliklerini anlatımla karıştığı için pek verimli kullanamaz. Bu komutu ayrıcalıklı olarak tek başına kullanılan bir öğe olduğunda tanımlamak daha doğrudur.</span>
+
+<span class="yazi">Kod içi stillerde komut içinde "style" niteliği ile tanım yapılır. "Style" niteliği CSS özelliklerinden oluşur. Aşağıdaki örnek bu tür tanımı gösterir.</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+&lt;p style="color: sienna; margin-left: 20px"&gt;
+Bu bir paragraftır
+&lt;/p&gt;
+</pre>
+</fieldset>
+<h3>Çoklu Stil Tanımları</h3>
+<span class="yazi">Eğer aynı seçici için değişik stiller tanımlanmışsa, değerler en belirgin olandan alınır.</span>
+
+<span class="yazi">Örneğin dışsal stil tanımı aşağıdaki gibiyse:</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+h3 
+{
+color: red;
+text-align: left;
+font-size: 8pt
+}
+</pre>
+</fieldset>
+<span class="yazi">ve içsel stil tanımı aşağıdaki özelliklerle tanımlanmışsa:</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+h3 
+{
+text-align: right; 
+font-size: 20pt
+}
+</pre>
+</fieldset>
+
+<span class="yazi">Bu sayfada &lt;h3&gt; öğenin stil değerleri:</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+color: red; 
+text-align: right; 
+font-size: 20pt
+</pre>
+</fieldset>
+<span class="yazi">biçimindedir. Burada renk dışsal stil tanımından alınırken, metin-yaslanma ve yazı-tipi-boyu özellikleri içsel stil tanımından alınmıştır.</span>
+<br />
+<br />
+</body>
+</html>

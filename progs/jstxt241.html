@@ -1,0 +1,429 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Aybim </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script language="JavaScript" src="../js/XHConn.js"> </script>
+<script language="JavaScript" src="../js/js10.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+function itikla(bolum)
+{
+   if(document.getElementById) {
+      target=document.getElementById(bolum);
+      if(target.style.display == "inline") {
+            target.style.display = "none";
+      } else {
+            target.style.display = "inline";
+      }
+   }
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="ysoltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="js.html" class="nav">Giriş</a>
+               <a href="jstxt1.html" class="nav">Sayfada Javascript</a>
+               <a href="jstxt2.html" class="nav">Nesnel Programlama</a>
+               <a href="jstxt3.html" class="nav">JS Nesneleri</a>
+               <a href="jstxt4.html" class="nav">İşlemler</a>
+               <a href="jstxt5.html" class="nav">Değişkenler</a>
+               <a href="jstxt6.html" class="nav">Denetim Yapıları</a>
+               <a href="jstxt7.html" class="nav">Script Yazma</a>
+               <a href="jstxt8.html" class="nav">Yazma İşlevleri</a>
+               <a href="jstxt9.html" class="nav">Başvuru</a>
+               <a href="jstxt10.html" class="nav">DHTML</a>
+               <a href="jstxt11.html" class="nav">Öğe İçeriği</a>
+               <a href="jstxt12.html" class="nav">Pencereler</a>
+               <a href="jstxt13.html" class="nav">Olay Bilgisi</a>
+               <a href="jstxt14.html" class="nav">Zaman Ayarı</a>
+               <a href="jstxt15.html" class="nav">Cookie Kullanımı</a>
+               <a href="jstxt16.html" class="nav">Güvenlik</a>
+               <a href="js24.html" class="nav">Javascript Nesneleri</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>Javascript Yazılım Kuralları (JS)</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">17 Şubat 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h3>Anahtar</h3>
+Burada Javascript Nesnelerini açıklarken kullanılan anahtarı açıklanmıştır. Eğer bir başlık altında başka nitelikler ya da açıklamalar varsa o başlık "mavi" renklidir. Fareyi üzerine götürüp tıklayınca alt başlıklar açılır. Aynı özellik alt başlıklarda da gösterilir. Eğer alt başlıklar yoksa, başlık koyu renkte gösterilir.
+<ul>
+        <li><a href="#"><b class="o">Baba (üst) nesne</b></a>
+        <ul>
+                <li><b class="o">Çocuk (alt) nesne</b></li>
+                <li><b class="p">Çocuk (alt) özellik</b></li>
+                <li><b class="c">Çocuk (alt) nesne topluluk[] aracılıyla erişilen </b></li>
+                <li><b class="e">Olay (Event)</b></li>
+                <li class="last"><b class="m">Method()</b></li>
+        </ul></li>
+        <li><b class="o">Yalnız nesne</b></li>
+</ul>
+<hr>
+
+<h3 id="pe">Yerleştirilmiş öğeler</h3>
+
+<br /><br />
+DOM ve tescilli DOM tarayıcılarında, bu herhangi bir öğe olabilir, yerleştirilmiş olan olmayabilir. Ama burada 4. kuşak DHTML özellikleri tartışıldığından, burada yerleştirilmiş öğeden söz edilmektedir.
+
+<ul>
+	<li><a href="javascript:itikla('pos1')"><b class="o">PositionedElement</b></a> <span>div (ya da span) öğesi stil sayfaları kullanılarak mutlak yerleştirimiştir - document.getElementById  - document.IdOfElement - document.all - document.layers - ile herhangi birini gösterilir - Yalnız okuma</span>
+                <div id="pos1" style="display: none;">
+                <ul>
+		<li><b class="p">bgColor</b> <span>Öğenin art alan rengini gösterir - okuma yazma - Yalnız katmanlı tarayıcılar için geçerlidir - Tarayıcılar arası kodlama için - positionedElement.style.background - positionedElement.style.backgroundColor</span></li>
+		<li><a href="javascript:itikla('pos11')"><b class="o">clip</b></a> <span>Eğer varsa, öğenin görünen alanını belirtir - Yalnız okuma - Yalnız katmanlı tarayıcılar için - Tarayıcılar arası kodlama için - positionedElement.style.clip</span>
+                        <div id="pos11" style="display: none;">
+                        <ul>
+			<li><b class="p">bottom</b> <span>Öğenin üst kenarıyla başlangıç arasındaki uzaklık - öğenin altındaki görünmeyen bölümüne göre - pixel (tamsayı) türünden - okuma yazma - Yalnız katmanlı tarayıcılar için - Tarayıcılar arası kodlama için - positionedElement.style.clip</span></li>
+			<li><b class="p">left</b> <span>Öğenin sol tarafında görünmeyen bölümündeki boyut - pixel (tamsayı) türünden - okuma yazma - Yalnız katmanlı tarayıcılar için - Tarayıcılar arası kodlama için - positionedElement.style.clip</span></li>
+
+			<li><b class="p">right</b> <span>Öğenin sol kenarıyla başlangıç arasındaki uzaklık - öğenin sağ tarafında görünmeyen bölümüne göre - pixel (tamsayı) türünden - okuma yazma - Yalnız katmanlı tarayıcılar için - Tarayıcılar arası kodlama için - positionedElement.style.clip</span></li>
+			<li class="last"><b class="p">top</b> <span>Öğenin görünmeyen üst bölümünün büyüklüğünü verir - pixel (tamsayı) türünden - okuma yazma - Yalnız katmanlı tarayıcılar için - Tarayıcılar arası kodlama için - positionedElement.style.clip</span></li>
+		</ul></div></li>
+		<li><b class="p">document</b> <span>Katmanlı taryıcılarda, tümüyle yeni belgeye eşdeğer olan öğenin içeriğini gösterir. - (window.document hangi özelliklerin sunulduğuna bakın) - Birçok başka tarayıcı (Opera gibi), için window.document belirtir - Yalnız okuma</span></li>
+
+		<li><b class="p">id</b> <span>Öğenin id (kimliğin) bilgisini gösterir - Katmanlı tarayıcılarda, eğer 'name' niteliği kurulmuşsa ve 'name' niteliği öğeyi göstermek yerine kullanılmışsa name niteliği kurulur - okuma yazma</span></li>
+		<li><b class="p">innerHTML</b> <span>Öğenin içeriğini gösterir - ana belgenin parçası olarak - okuma yazma - Yalnız katmansız tarayıcılar için - Tarayıcılar arası kodlama için - positionedElement.document.open, write, writeln and close - window.frames[nameOfIframe].window.document</span></li>
+		<li><b class="p">left</b> <span>Eğer varsa, bu öğenin sol koordinatını belirten bir tamsayıdır - okuma yazma - Yalnız katmanlı tarayıcılar için - Tarayıcılar arası kodlama için - positionedElement.style.left - positionedElement.style.pixelLeft (not required)</span></li>
+		<li><b class="p">name</b> <span>Öğenin adını gösterir - Katmanlı tarayıcılarda, eğer name niteliği atanmışsa, positionedElement.id  name niteliği olur. Bu nedenle öğeyi belirtirken name niteliği kullanılmalı - Bu nedenle name niteliği hiç değer almamalıdır - Yalnız okuma</span></li>
+
+		<li><a href="javascript:itikla('pos12')"><b class="o">style</b></a> <span>Eğer varsa, öğenin stilini gösterir - Yalnız okuma</span>
+                        <div id="pos12" style="display: none;">
+                        <ul>
+			<li><b class="p">background</b> <span>Öğenin varsayılan art alan rengini gösterir - Opera 5.x tarayıcısından başkaları diğer bilgileri de belirlebilir, Örneğin: art alan resimler gibi - okuma yazma - Yalnız katmansız tarayıcılar için - Tarayıcılar arası kodlama için - positionedElement.bgColor - positionedElement.style.backgroundColor</span></li>
+			<li><b class="p">backgroundColor</b> <span>Öğenin art alan rengini belirtir - okuma yazma - Yalnız katmansız tarayıcılar için (not available in Opera 5.x) - Tarayıcılar arası kodlama için - positionedElement.bgColor - positionedElement.style.background</span></li>
+			<li><b class="p">clip</b> <span>Öğenin görünen bölümlerinin koordinatlarını gösterir - yazı dizisi kalıbında: - rect(topPos, rightPos, bottomPos, leftPos) - All values should be in pixels (for compatibility reasons) - okuma yazma - Yalnız katmansız tarayıcılar için - Tarayıcılar arası kodlama için - children of positionedElement.clip</span></li>
+
+			<li><b class="p">color</b> <span>Öğe içindeki yazının rengini gösterir - okuma yazma - Yalnız katmansız tarayıcılar için - Tarayıcılar arası kodlama için - positionedElement.document.fgColor</span></li>
+			<li><b class="p">height</b> <span>Öğe yüksekliğini gösterir - In the format '100px' - okuma yazma - Yalnız katmansız tarayıcılar için - Tarayıcılar arası kodlama için - positionedElement.resizeTo - positionedElement.pixelHeight</span></li>
+			<li><b class="p">left</b> <span>Öğenin sol koordinatını verir - In the format '100px' - okuma yazma - Yalnız katmansız tarayıcılar için - Tarayıcılar arası kodlama için - positionedElement.left - positionedElement.style.pixelLeft (not required)</span></li>
+			<li><b class="p">pixelHeight</b> <span>Öğenin yüksekliğini verir - In pixels as an integer - okuma yazma - Internet Explorer compatible only - Tarayıcılar arası kodlama için - positionedElement.resizeTo - positionedElement.height</span></li>
+
+			<li><b class="p">pixelLeft</b> <span>Öğenin sol koordinatını gösterir - In pixels as an integer - okuma yazma - Internet Explorer compatible only - Tarayıcılar arası kodlama için - positionedElement.left - positionedElement.style.left</span></li>
+			<li><b class="p">pixelTop</b> <span>Öğenin üst koordinatını gösterir - In pixels as an integer - okuma yazma - Internet Explorer compatible only - Tarayıcılar arası kodlama için - positionedElement.top - positionedElement.style.top</span></li>
+			<li><b class="p">pixelWidth</b> <span>Öğenin enin gösterir - In pixels as an integer - okuma yazma - Internet Explorer compatible only - Tarayıcılar arası kodlama için - positionedElement.resizeTo - positionedElement.width</span></li>
+			<li><b class="p">top</b> <span>Öğenin üst koordinatını gösterir - In the format '100px' - okuma yazma - Yalnız katmansız tarayıcılar için - Tarayıcılar arası kodlama için - positionedElement.top - positionedElement.style.pixelTop (not required)</span></li>
+
+			<li><b class="p">visibility</b> <span>Öğenin görünebilirliğini belirtir - Available values are 'visible' and 'hidden' - okuma yazma - Yalnız katmansız tarayıcılar için - Tarayıcılar arası kodlama için - positionedElement.visibility</span></li>
+			<li><b class="p">width</b> <span>Öğenin enini gösterir - In the format '100px' - okuma yazma - Yalnız katmansız tarayıcılar için - Tarayıcılar arası kodlama için - positionedElement.resizeTo - positionedElement.pixelWidth</span></li>
+			<li class="last"><b class="p">zIndex</b> <span>Öğede z-index (depolama sırası) gösterilir - positif tam sayıdır - okuma yazma - Yalnız katmansız tarayıcılar için - Tarayıcılar arası kodlama için - positionedElement.zIndex</span></li>
+		</ul></div></li>
+
+		<li><b class="p">top</b> <span>Eğer varsa, öğenin üst koordinatını tamsayı olarak gösterir - okuma yazma - Yalnız katmanlı tarayıcılar için - Tarayıcılar arası kodlama için - positionedElement.style.top - positionedElement.style.pixelTop (not required)</span></li>
+		<li><b class="p">visibility</b> <span>Öğenin görünürlüğünü verir - Var olana değerler 'show' ve 'hide' - okuma yazma - tarayıcılar arası kodlama için - positionedElement.style.visibility</span></li>
+		<li><b class="p">zIndex</b> <span>Öğenin z-index (depolama sırası) değerini gösterir - Pozitif tam sayıdır - okuma yazma - Yalnız katmanlı tarayıcılar için - Tarayıcılar arası kodlama için - positionedElement.style.zIndex</span></li>
+		<li><b class="e">onclick</b> <span>Yerleştirilmiş bir öğenin üzerinde farenin düğmesinin bastırılıp bırakılmasıyla tetiklenir - positionedElement.onclick = functionName; - Katmanlı tarayıcılar önce  captureEvents ister - okuma yazma</span></li>
+
+		<li><b class="e">ondblclick</b> <span>Farenin düğmesinin iki kez bastırılıp bırakılmasıyla tetiklenir - in quick succession over the positioned element - positionedElement.ondblclick = functionName; - Mac işletim sistemindeki tarayıcılar (bir kaç tanesi daha) genelde bu olayı yakalayamazlar - Bu nedenle bu olayı çift tıklamayı tek tıklama gibi algılanmaması için kullanmakta yarar vardır - Kombinasyon kullanarak bu olayın tepkisi benzetilebilir - onclick ve window.setTimeout - Katmanlı tarayıcılar önce captureEvents kullanılmasını ister - okuma yazma</span></li>
+		<li><b class="e">onkeydown</b> <span>Yerleştirilmiş öğeye odaklandığında (giriş alanı değilse) bir tuşa basıldığında tetiklenir - positionedElement.onkeydown = functionName; - Katmanlı tarayıcılar önce captureEvents kullanılmasını ister - okuma yazma</span></li>
+		<li><b class="e">onkeypress</b> <span>Öğe (giriş alanı değilse) odaklandığında bir tuşa basılıp bırakılınca tetiklenir - positionedElement.onkeypress = functionName; - Katmanlı tarayıcılar önce captureEvents kullanılmasını ister - okuma yazma</span></li>
+		<li><b class="e">onkeyup</b> <span>Yerleştirilmiş bir öğe (giriş alanı değilse) odaklanmışken bir tuş bırakıldığında tetiklenir - positionedElement.onkeyup = functionName; - Katmanlı tarayıcılar önce captureEvents kullanılmasını ister - okuma yazma</span></li>
+
+		<li><b class="e">onmousedown</b> <span>Yerleştirilmiş bir öğe üzerinde kullanıcı farenin düğmesine basıldığında tetiklenir - positionedElement.onmousedown = functionName; - Katmanlı tarayıcılar will require you to use captureEvents first - okuma yazma - Farenin sağ düğmesi basılıyken dönen yanlış birçok tarayıcıda sağ tıklama menüsünü engeller - Bazıları oncontextmenu olayından yanlış dönülmesini ister ve sağ tıklamaları anlamaz</span></li>
+		<li><b class="e">onmousemove</b> <span>Yerleştirilmiş öğenin üzerine fareyi götürdüğünde tetiklenir - positionedElement.onmousemove = functionName; - Katmanlı tarayıcılar önce captureEvents kullanılmasını ister - okuma yazma</span></li>
+		<li><b class="e">onmouseout</b> <span>Yerleştirilmiş öğenin üzeriinden fareyi dışarıya taşındığında tetiklenir - positionedElement.onmouseout = functionName; - Katmanlı tarayıcılar önce captureEvents kullanılmasını ister - okuma yazma</span></li>
+		<li><b class="e">onmouseover</b> <span>Yerleştirilmiş öğenin üzerine fareyi götürünce tetiklenir - positionedElement.onmouseover = functionName; - Katmanlı tarayıcılar önce captureEvents kullanılmasını ister - okuma yazma</span></li>
+
+		<li><b class="e">onmouseup</b> <span>Yerleştirilmiş öğenin üzerindeyken farenin düğmesi bırakılınca tetiklenir - positionedElement.onmouseup = functionName; - Katmanlı tarayıcılar önce captureEvents kullanılmasını ister - okuma yazma</span></li>
+		<li><b class="m">captureEvents(Event.EventType)</b> <span>Katmanlı tarayıcıların olaylara yanıt vermesini sağlar - Hangi olayların yakalanabileciğini öğrenmek için  window.Event incelenmelidir</span></li>
+		<li class="last"><b class="m">resizeTo(int width,int height)</b> <span>clip.bottom ve clip.right değerlerini değiştirerek katmanın boyutlarını değiştirir - Yalnız katmanlı tarayıcılar için - Tarayıcılar arası kodlama için - positionedElement.style.width ve positionedElement.style.height - positionedElement.style.pixelWidth ve positionedElement.style.pixelHeight</span></li>
+	</ul></div></li>
+</ul>
+
+<h3 id="eo">Olay Nesneleri (Event objects)</h3>
+
+<ul>
+	<li><a href="javascript:itikla('event1')"><b class="o">window.event</b></a> <span> ya da  ele alınan işleve geçirilen ilk parametre. Fare tuşlarının kayıtlarını saklar ya da olayları tetikleyen tuşları saklar - Eğer  object.onEventName = handlerFunctionName; ile tetiklenirse sunulur - &lt;element onEventName=&quot;thisIsEquivalentToAHandlerFunction;&quot;&gt; - okuma yazma</span>
+                <div id="event1" style="display: none;">
+                <ul>
+		<li><b class="p">altKey</b> <span>Mantıksal: Olay sırasında Alt tuşuna basılıp basılmadığını söyler - Not: bazı tarayıcılar bunu sunmazlar - katmanlılara benzerlerde tuşları test etme yöntemidir - Yalnız okuma - Yalnız katmansız tarayıcılar için - Tarayıcılar arası kodlama için - eventObject.modifiers</span></li>
+
+		<li><b class="p">button</b> <span>Eğer sol fare düğmesine tıklanınca değeri 0 ya da 1 olur - Eğer sağ fare düğmesi tetiklendiğinde değeri 2 olur - Bazı tarayıcılar sağ tıklamayı anlamaz - Yalnız okuma - Yalnız katmansız tarayıcılar için - Tarayıcılar arası kodlama için - eventObject.which</span></li>
+		<li><b class="p">clientX</b> <span>Eğer fare olayı tetiklerse, farenin yatay yerini belirtir - Değer sayfanın görünen yerine görecelidir - Üç eski tarayıcı bunu tüm sayfaya göreceli olarak sağlar - Yeni sürümleri doğru destekler - Yalnız okuma - Yalnız katmansız tarayıcılar için - Tarayıcılar arası kodlama için - eventObject.pageX</span></li>
+		<li><b class="p">clientY</b> <span>Eğer fare olayı tetiklemişse burada farenin dikey yerleşimi vardır - Yerleşim sayfanın görüntülenen bölümüne görecelidir - Üç eski tarayıcı bunu tüm sayfaya göreceli verir - Bu tarayıcıların yeni sürümlerinde değer doğrudur - Yalnız okuma - Yalnız katmansız tarayıcılar için - Tarayıcılar arası kodlama için - eventObject.pageY</span></li>
+		<li><b class="p">ctrlKey</b> <span>Mantıksal: Olay sırasında Ctrl tuşuna basılıp basılmadığını söyler - Not: Bazı tarayıcılar ne bunu sunarlar ne de katmalıların bu tuşları kontrol etme yöntemlerini - Yalnız okuma - Yalnız katmansız tarayıcılar için - Tarayıcılar arası kodlama için - eventObject.modifiers</span></li>
+
+		<li><b class="p">keyCode</b> <span>Tuşun basıldığını gösteren bir sayıdır - Tuş değerleri farklı olabilir - Yalnız okuma - Yalnız katmansız tarayıcılar için - Tarayıcılar arası kodlama için - eventObject.which</span></li>
+		<li><b class="p">modifiers</b> <span>Olay sırasında özel tuşların kombinasyonunu veren bir sayıdır - 1 = Alt, 2 = Ctrl, 4 = Shift, 8 = Command (MAC) - Eğer kombinasyon kullanılmışsa birbirlerine eklenebilirler - Not: bazı tarayıcılar bu tuşları test edecek bu ya da başka bir seçenek yönetimini sunmazlar - Yalnız okuma - Yalnız katmanlı tarayıcılar için - Tarayıcılar arası kodlama için - eventObject.altKey - eventObject.ctrlKey - eventObject.shiftKey</span></li>
+		<li><b class="p">pageX</b> <span>eğer fare bu olayı tetiklemişse, farenin tüm sayfaya göreceli yatay yerleşimini verir - Yalnız okuma - Yalnız katmansız tarayıcılar için - Tarayıcılar arası kodlama için - eventObject.clientX</span></li>
+		<li><b class="p">pageY</b> <span>eğer fare bu olayı tetiklemişse, farenin tüm sayfaya göreceli düşey yerleşimini verir - Yalnız okuma - Yalnız katmansız tarayıcılar için - Tarayıcılar arası kodlama için - eventObject.clientY</span></li>
+
+		<li><b class="p">screenX</b> <span>eğer fare bu olayı tetiklemişse, farenin ekrana göreceli yatay yerleşimini verir - Yalnız okuma</span></li>
+		<li><b class="p">screenY</b> <span>eğer fare bu olayı tetiklemişse, farenin ekrana göreceli düşey yerleşimini verir - Yalnız okuma</span></li>
+		<li><b class="p">shiftKey</b> <span>Mantıksal: olay sırasında Shift tuşana basılıp basılmadığını söyler - Not: bazı tarayıcılar bu tuşları test için bunu ya da katmanlı uyumlu yöntemleri sunmazlar - Yalnız okuma - Yalnız katmansız tarayıcılar için - Tarayıcılar arası kodlama için - eventObject.modifiers</span></li>
+		<li><b class="o">target</b> <span>yakalamaya ya da kabarcıklanmaya bağımlı olmadan olayı tetikleyen nesneyi gösterir - Yalnız okuma - Yalnız katmansız tarayıcılar için - Tarayıcılar arası kodlama için - eventObject.srcElement</span></li>
+
+		<li><b class="o">this</b> <span>işlev kodunun bir parçası olarak 'this' olayı tetikleyen nesneyi gösterir - Yakalayarak ya da kabarcıklanmayla 'this' her kez bir öğeyi gösterir - Yalnız katmansız tarayıcılar için - Yalnız okuma</span></li>
+		<li><b class="p">type</b> <span>Tetiklenen olayın tipini gösteren yazı dizisidir - bu başında 'on' olmadan küçük harflerle yazılır - örneğin. mouseover - KHTML 2 tarayıcılarında, tuş olaylarında bunun başına 'khtml_' gelir - Yalnız okuma</span></li>
+		<li><b class="o">srcElement</b> <span>Olayı tetikleyen nesneyi gösterir - yakalamayı ya da kabarcıklamayı hesaba katmadan - Yalnız okuma - Yalnız Internet Explorer uyumlu tarayıcılar için - Tarayıcılar arası kodlama için - eventObject.target</span></li>
+		<li class="last"><b class="p">which</b> <span>Olayı sol fare düğmesi tetiklerse, bunun değeri 1 olur - Eğer sağ fare düğmesi tetiklerse değer 3 olur - Bazı tarayıcılar sağ tıklamayı yakalayamaz - Olayı tuş tetiklerse, tuşun değerini alır (tuş değerleri farklı olabilir) - Yalnız okuma - Yalnız Netscape benzeri tarayıcılar için - Tarayıcılar arası kodlama için - eventObject.keyCode - eventObject.button</span></li>
+
+	</ul></div></li>
+</ul>
+
+<h3 id="io">Yapılandırmaları gösteren yerleşik nesneler </h3>
+
+windows nesnesinin tüm özellikleri yapılandırmalardır, ama çoğunlukla 'windows...' biçiminde kullanılmazlar. Yazım kuralı:
+
+<pre>var variableName = new intrinsicObjectConstructor(options);</pre>
+
+Örneğin:
+
+<pre>var myArray = new Array('here','there','everywhere');</pre>
+
+<h3>Dizi (Array)</h3>
+
+<ul>
+	<li><a href="javascript:itikla('array1')"><b class="o">Array([int uzunluk])</b></a> <span>(JavaScript 1.2'de yok) Array([element 0[, element 1[, element ... n]]]) [element 0, element 1, element ... n]. Bir değişken içindeki birçok değişkenle - sayısal dizinli dizileri ters sıralar - okuma yazma</span>
+                <div id="array1" style="display: none;">
+                <ul>
+		<li><b class="p">length</b> <span>Sayısal dizinli dizilerde hücre sayısı - okuma yazma</span></li>
+
+		<li><b class="m">concat(elementToAdd[,elementToAdd[,elementToAdd[,etc.]]])</b> <span>Belitilen değeri içeren hücreleri dizinin sonuna ekler - Eğer elementToAdd bir dizi ise, onun hücreleri bir dizinin hücreleri olarak ayrıca birleştirilir - Sonuna eklenmiş yeni hücrelerden oluşan bir dizi döndürür </span></li>
+		<li><b class="m">join([string separatorToReplaceComma])</b> <span>Bir dizinin yazı dizisi biçimini belirli bir ayıraçla ayrılmış olarak döndürür - Varsayılan ayıraç virgüldür </span></li>
+		<li><b class="m">pop()</b> <span>dizinin sonundaki hücrenin içeriğini döndürür - Sonra dizi o hücreyi içermeyecek biçimde kısaltılır - IE 5.2- Win/Mac bunu desteklemez</span></li>
+		<li><b class="m">push(elementToAppend)</b> <span>dizinin sonuna elementToAppend çindekini ekler (hücre olarak) - IE 5.2- Win/Mac desteklemez - daha verimli ve daha uyumlu olanı kullanılmalı: - Array[Array.length] = elementToAppend</span></li>
+
+		<li><b class="m">reverse()</b> <span>Bir dizideki hücrelerin sıralını ters çevirme </span></li>
+		<li><b class="m">shift(elementToAppend)</b> <span>dizinin başına elementToAppend içindekini hücre olarak ekler, ve diğer hücrelerin dizinini buna göre arttırır - IE 5.2- Win/Mac desteklemez</span></li>
+		<li><b class="m">slice(int offsetFromStart[,int offsetToEnd])</b> <span>Bir dizinin bir parçasınından yeni biri döndürür - Eğer indexToEnd eksi olursa, uzaklık sondan başa doğru olur - Eğer kullanılmazsa, o zaman bu değer Array.length olur.</span></li>
+		<li><b class="m">sort([function sortFunction])</b> <span>bir dizinin hücreleri sıralanır (eğer sortFunction tanımlanmamışsa) - sortFunction iki parametresi olmalıdır - Eğer işlevin dönen değeri &gt; 0, ikinci parametre sıralamada birinciden büyük olmalıdır - Eğer  işlevin dönen değeri &lt; 0, ikinci parametre ilkinden daha küçük olmalıdır - Eğer işlev 0 döndürürse, hücreler diğerleri göre olduğu yerde kalır</span></li>
+
+		<li><b class="m">splice(int offsetFromStart,int numberToRemove[,elementToAdd[,elementToAdd[,etc.]]])</b> <span>Belirtilen sayıda hücreyi diziden çıkarır (siler). - İsteline başlangıç noktasından - Seçenek olarak yeni öğeleri yerleşimi silinen hücrelerin yerinden olur - Eklenen hücreler silinen hücrelerin sayısına eşit olmak zorunda değildir - (Ama eşit olması daha verimli sonuç verebilir) - Silinen hücrelerden sonra dizinin son halini döndürür - IE 5.2- Win/Mac bunu desteklemez</span></li>
+		<li><b class="m">toString() ya da valueOf()</b> <span>Dizinin yazı biçimini döndürür</span></li>
+		<li class="last"><b class="m">unshift()</b> <span>Dizideki ilk hücrenin içeriğini döndürür - Dizi daha sonra kısalır ve o hücreyi içermez - Diğer hücrelerin dizinleri küçültülür - IE 5.2- Win/Mac bunu desteklemez</span></li>
+	</ul></div></li>
+
+</ul>
+
+<h3>Mantıksal (Boolean)</h3>
+
+<ul>
+	<li><a href="javascript:itikla('bool1')"><b class="o">Boolean([bool değer])</b></a> <span>"true" ya da "false" - okuma yazma</span>
+                <div id="bool1" style="display: none;">
+                <ul>
+		<li><b class="m">toString()</b> <span>"true" ya da "false" kelimelerini döndürür</span></li>
+
+		<li class="last"><b class="m">valueOf()</b> <span>Mantıksal değeri döndürür</span></li>
+	</ul></div></li>
+</ul>
+
+<h3>Tarih (Date)</h3>
+
+Not, UNIX zaman damgası 
+00:00:00.000 01/01/1970 tarihinden beri milisaniye olarak bugüne değin süredir,
+<script type="text/javascript">
+var myDat = new Date(); myDat = myDat.getTime();
+document.write(' şu andaki değeri ' + myDat);
+</script>.
+<br /><br />
+Not: UTC ve GMT eşdeğer zamanlardır.
+
+<ul>
+	<li><a href="javascript:itikla('date1')"><b class="o">Date() Date(int UNIXZamanDamgasi)</b></a> Date(yıl, ay, tarih[, saat[, dakika[, saniye[,ms]]]])</b></a> <span>Tarihin birçok değişik biçimlerde gösterildiği değişken - okuma yazma</span>
+                <div id="date1" style="display: none;">
+                <ul>
+		<li><b class="m">getDate()</b> <span>"date" nesnesindeki ayın gününü döndürür Returns the day of the month represented by the date object</span></li>
+		<li><b class="m">getDay()</b> <span>"date" nesnesindeki haftanın gününü döndürür  Returns the day of the week represented by the date object</span></li>
+
+		<li><b class="m">getFullYear()</b> <span>"date" nesnesindeki yılı 4 rakamlı olarak döndürür - Eski tarayıcılarda desteklenmez - getYear()</span></li>
+		<li><b class="m">getHours()</b> <span>"date" nesnesindeki saati 24 saat kalıbı döndürür </span></li>
+		<li><b class="m">getMilliseconds()</b> <span>"date" nesnesindeki milisaniyeyi döndürür </span></li>
+		<li><b class="m">getMinutes()</b> <span>"date" nesnesindeki dakikayı döndürür </span></li>
+
+		<li><b class="m">getMonth</b> <span>"date" nesnesindeki ayı döndürür </span></li>
+		<li><b class="m">getSeconds()</b> <span>"date" nesnesindeki saniyeyi döndürür </span></li>
+		<li><b class="m">getTime()</b> <span>"date" nesnesindeki UNIX zaman damgasını (milisaniye olarak) ayın gününü döndürür </span></li>
+		<li><b class="m">getTimezoneOffset()</b> <span>"date" nesnesindeki bilgisayarın GMT zamanından uzaklığı (saat olarak) döndürür </span></li>
+
+		<li><b class="m">getUTCDate()</b> <span>GMT zamanına çevrilmiş date nesnesindeki ayın gününü döndürür </span></li>
+		<li><b class="m">getUTCDay()</b> <span>GTM zamanına çevrilmiş date nesnesindeki haftanın gününü döndürür </span></li>
+		<li><b class="m">getUTCFullYear()</b> <span>GTM zamanına çevrilmiş date nesnesindeki 4 rakamlı yılı döndürür </span></li>
+		<li><b class="m">getUTCHours()</b> <span>GTM zamanına çevrilmiş date nesnesindeki saati 24 saatlik kalıpta döndürür </span></li>
+
+		<li><b class="m">getUTCMilliseconds()</b> <span>GTM zamanına çevrilmiş date nesnesindeki milisaniyeyi döndürür </span></li>
+		<li><b class="m">getUTCMinutes()</b> <span>GTM zamanına çevrilmiş date nesnesindeki dakikayı döndürür </span></li>
+		<li><b class="m">getUTCMonth()</b> <span>GTM zamanına çevrilmiş date nesnesindeki ayı döndürür </span></li>
+		<li><b class="m">getUTCSeconds()</b> <span>GTM zamanına çevrilmiş date nesnesindeki saniyeyi döndürür </span></li>
+
+		<li><b class="m">getYear()</b> <span>"date" nesnesindeki yılı döndürür - Tarayıcıya bağımlı olarak kalıp değişir - Javascript 1970 öncesini ya da 2038 sonrasını desteklemediğinen, aşağıdaki algoritma sorunu çözer: - theYear = dateObject.getYear() % 100; //0-38 or 70-99 - theYear += ( theYear &lt; 39 ) ? 2000 : 1900; //1970-2038 - ya da - theYear = ( dateObject.getYear() % 100 ) + ( ( ( dateObject.getYear() % 100 ) &lt; 39 ) ? 2000 : 1900 );</span></li>
+		<li><b class="m">setDate(int dayOfMonth)</b> <span>"date" nesnesindeki ayın gününü değiştirir </span></li>
+		<li><b class="m">setFullYear(int yearIn4DigitFormat[,int month[,int dayOfMonth]])</b> <span>"date" nesnesindeki 4 rakamlı yılı değiştirir </span></li>
+
+		<li><b class="m">setHours(int hours[,int minutes[,int seconds[,int milliseconds]]])</b> <span>"date" nesnesindeki 24 saatlik kalıpta saati değiştirir </span></li>
+		<li><b class="m">setMilliseconds(int milliseconds)</b> <span>"date" nesnesindeki milisaniyeyi değiştirir </span></li>
+		<li><b class="m">setMinutes(int minutes[,int seconds[,int milliseconds]])</b> <span>"date" nesnesindeki dakikayı değiştirir </span></li>
+		<li><b class="m">setMonth(int month[,int dayOfMonth])</b> <span>"date" nesnesindeki ayı değiştiirir</span></li>
+
+		<li><b class="m">setSeconds(int seconds[,int milliseconds])</b> <span>"date" nesnesindeki saniye değiştirir </span></li>
+		<li><b class="m">setTime(int UNITXTimestampMilli)</b> <span>"date" nesnesindeki UNIX zaman damgasını (milisaniye olarak) değiştirir </span></li>
+		<li><b class="m">setUTCDate(int UNITXTimestampMilli)</b> <span>GTM zamanına çevrilmiş date nesnesindeki ayı değiştirir </span></li>
+		<li><b class="m">setUTCFullYear(int yearIn4DigitFormat[,int month[,int dayOfMonth]])</b> <span>GTM zamanına çevrilmiş date nesnesindeki 4 rakamlı yılı değiştirir </span></li>
+
+		<li><b class="m">setUTCHours(int hours[,int minutes[,int seconds[,int milliseconds]]])</b> <span>GTM zamanına çevrilmiş date nesnesindeki 24 saatlik kalıpla saati değiştirir </span></li>
+		<li><b class="m">setUTCMilliseconds(int milliseconds)</b> <span>GMT zamanına çevrilmiş date nesnesindeki milisaniyeyi değiştirir </span></li>
+		<li><b class="m">setUTCMinutes(int minutes[,int seconds[,int milliseconds]])</b> <span>GTM zamanına çevrilmiş date nesnesindeki dakikayı değiştirir </span></li>
+		<li><b class="m">setUTCMonth(int month[,int dayOfMonth])</b> <span>GTM zamanına çevrilmiş date nesnesindeki ayı değiştirir </span></li>
+
+		<li><b class="m">setUTCSeconds(int seconds[,int milliseconds])</b> <span>GTM zamanına çevrilmiş date nesnesindeki dakikayı değiştirir </span></li>
+		<li><b class="m">setYear(int numberOfYearsSince1900)</b> <span>"date" nesnesindeki yılla 1900 yılı arasındaki farkı gösterir </span></li>
+		<li><b class="m">toUTCString or toGMTString()</b> <span>GTM zamanına çevrilmiş date nesnesindeki tarihi yazı dizisi olarak döndürür</span></li>
+		<li><b class="m">toString or toLocaleString()</b> <span>Tarihi yazı dizisi olarak döndürür</span></li>
+
+		<li class="last"><b class="m">valueOf()</b> <span>"date" nesnesindeki UNIX zaman damgasını (milisaniye olarak) döndürür </span></li>
+	</ul></div></li>
+</ul>
+
+<h3>İşlev (Function)</h3>
+
+<ul>
+	<li><a href="javascript:itikla('func1')"><b class="o">Function([string değişken,[string değişken,[vb.]]]string HesaplanacakKod)</b></a>
+<span> function functionName(listOfVariables) { function code } functionName = function (listOfVariables) { function code }<br /> Gerek olduğunda çalıştırılan bir dizi komutttur - Değerler döndürür- okuma yazma</span>
+                <div id="func1" style="display: none;">
+                <ul>
+
+		<li><b class="o">caller</b> <span>Bu ibir işlevi çağıran işlevdir (yoksa null olur) - Not: herbir işlevin özelliğidir ve - functionObject.caller - biçiminde yazılmalıdır - Uyarı: bu özellik standrt değildir ve birçok tarayıcıda sunulmaz - Opera, Safari 2-, Konqueror 3.5.6-, NetFront, ICEbrowser, Escape ve Clue tarayıcıların dahildir- Bunu pek kullanmayın - okuma yazma but unusable if written to</span></li>
+		<li><b class="o">prototype</b> <span>Eğer işlev nesne yapılandırıcısı olarak kullanılırsa - functionObject.prototype.newPropertyName - o sınıfın tüm nesneleri için yeni özellikler yaratır - okuma yazma fakat yazıldıysa kullanılamaz </span></li>
+		<li><b class="o">this</b> <span>'this' işlev kodlamasının bir parçasıdır ve o anki nesneyi gösterir - Eğer bir olayla ateşlendiyse, this olayı tetikleyen nesne olur - bir nesnenin yapılandırılmasında kullanılıyorsa, this yapılanan nesneyi gösterir - (yani geçici olarak bellekte saklanan ve o anda yapılandırılan nesnedir) - Eğer bunların hiçbiri değilse 'this', 'window' demektir - 'this' anlık değişkendir ve bir işlevin özelliği değildir - Yalnız okuma</span></li>
+		<li><a href="javascript:itikla('func11')"><b class="c">arguments[]</b></a> <span>işlev kodlamasının bir parçası olunca işleve geçecek parametreler birikimidir - Not: o anki işlevin bir özelliğidir fakat başka bir şekillerde de yazılabilir: functionObject.arguments ya da just arguments - okuma yazma fakat üzerine yazılırsa kullanılamaz</span>
+                        <div id="func11" style="display: none;">
+                        <ul>
+			<li class="last"><b class="o">callee</b> <span>Bu işlevin çalıştığı kodu döndürür - WebTV/MSNTV tarafından desteklenmez- okuma yazma yazma fakat üzerine yazılırsa kullanılamaz</span></li>
+		</ul></div></li>
+		<li><b class="m">apply(object: thisObject[,array: arguments])</b> <span>thisObject nesnesinin yöntemi olarak bu işlev çalışır - işleve parametreler geçirilir - IE 5.2- Win/Mac, WebTV/MSNTV, ya da early Netscape 4 ilk sürümleri desteklenmez</span></li>
+		<li><b class="m">call(object: thisObject[,argument[,argument[,etc.]]])</b> <span>thisObject nesnesinin bir yöntemiymiş gibi çalışır - passing it the separate arguments from the subsequent parameters - Not supported in IE 5.2- Win/Mac, WebTV/MSNTV, or early Netscape 4 versions</span></li>
+
+		<li><b class="m">toString()</b> <span>işlevin yazı dizisi biçimindeki gösterimi döner - Kuramsal olarak, kullanıcının tanımladığı işlevlerde, yazı dizisi geçerli işlev kodu (anonim parantezlerle) - Birçok tarayıcıda bazı özel yapılandırmaların sorunları vardır, bu sorun belleği sınırlı donanımlardaki tarayıcılarda da bulunur ve hiçbir şey üretmeyebilir</span></li>
+		<li class="last"><b class="m">valueOf()</b> <span>işlevi döndürür </span></li>
+	</ul></div></li>
+</ul>
+
+<h3>Resimler</h3>
+
+<ul>
+	<li><b class="o">Image([int width,int height])</b> <span>görüntülenmeyen ama tampon bellekte tutulan bir resim yaratır - window.document.nameOfImage için çocuklar - Resim 'src' atanmadan yüklenemez - okuma yazma</span></li>
+</ul>
+
+<h3>Sayılar</h3>
+
+<ul>
+	<li><a href="javascript:itikla('no1')"><b class="o">Number(numberOrString value) hex, oktal ya da desimal sayı</b></a> <span>sayısal değeri olan bir değişken - eski ya da artı olabilir. NaN ya da Infinity (sonsuz) ve E+ E- olabilir - okuma yazma</span>
+                <div id="no1" style="display: none;">
+                <ul>
+		<li><b class="m">toString()</b> <span>sayıyı yazı dizisine çevirir </span></li>
+		<li class="last"><b class="m">valueOf()</b> <span>sayıyı döndürür </span></li>
+	</ul></div></li>
+</ul>
+
+<h3>Nesneler</h3>
+
+<ul>
+	<li><a href="javascript:itikla('obj1')"><b class="o">Object() { propertyName1: value1[, propertyName2: value2[, etc.]] }</b></a> <span>özellikleri ya da çocuk nesneleri olan bir değişken yaratır - okuma yazma</span>
+                <div id="obj1" style="display: none;">
+                <ul>
+		<li><b class="o">constructor</b> <span>Bu sınıf ya da nesne için yapılandırma olarak kullanılan işlevi gösterir </span></li>
+		<li><b class="m">toString()</b> <span>Nesnenin yazı dizisi gösterimini döndürür - (tipik olarak [object Object])</span></li>
+
+		<li class="last"><b class="m">valueOf()</b> <span>Nesnenin yazı dizisi gösterimini döndürür - (tipik olarak [object Object])</span></li>
+	</ul></div></li>
+</ul>
+
+<h3>Seçenekler</h3>
+
+<ul>
+	<li><b class="o">Option([string yazi, string değer[,bool selected]])</b> <span>Aşağıdakilerle seçilebilir giriş seçeneğine ekleninceye kadar seçilebilir giriş seçeneği yaratır: - window.document.nameOfForm.nameOfSelect.options[int optionNum] = optionObject - window.document.nameOfForm.nameOfSelect.options[int optionNum] çocuğu olur - okuma yazma</span></li>
+
+</ul>
+
+<h3>Kurallı Deyimler</h3>
+
+<ul>
+	<li><a href="javascript:itikla('rexp1')"><b class="o">RegExp(string desen,string seçenek) /desen/seçenekler</b></a> <span>Bir dizi meta ve normal karaktere uyan yazı deseni - Bazı eski tarayıcılar bunu doğru uygulayamaz (örneğin. Opera 6- ve iCab 2-) - okuma yazma</span>
+                <div id="rexp1" style="display: none;">
+                <ul>
+		<li><b class="m">compile(string pattern,string options)</b> <span>Kurallı deyimi geliştirir ve daha hızlı kullanım için derler - aynı kurallı deyim birçok kez kullanıldığında yararlıdır </span></li>
+
+		<li><b class="m">exec(string stringToMatch)</b> <span>yazı dizisine karşı kurallı deyimin uygunluğunu deneme - son uygunluğun ayrıntıları bir dizi olarak döner, eğer uyum yoksa null döner - [ -   kurallı deyime uyan son alt yazı dizisi, -   ilk yakalanmanın son anı , -   ..., -   dokuzuncu yakalanmanın son anı - ] - Dönen dizinin iki özelliği daha vardır: - dizin - yazı dizisinde desenin uyuşmaya başladığı yer (Yalnız okuma) - input ya da $_ - başlangıçtaki yazı dizisi (Yalnız okuma)</span></li>
+		<li><b class="p">global</b> <span>Mantıksal: Eğer 'g' seçeneği evrensel uygunluk için kullanıldıysa söyler - Yalnız okuma</span></li>
+		<li><b class="p">ignoreCase</b> <span>Mantıksal: eğer 'i' seçeneği büyük küçük harfe duyarlı olma derse söylenir - Yalnız okuma</span></li>
+		<li><b class="p">lastIndex</b> <span>exec ya da test sırasında bulunan son uyumun dizini verir (okuma) - ya da  - Bir sonraki uyumun başlayacağı dizini verir (yazma)</span></li>
+
+		<li><b class="p">source</b> <span>Desnin yazısıdır - Yalnız okuma</span></li>
+		<li class="last"><b class="m">test(string stringToMatch)</b> <span>yazı dizisine karşı kurallı deyimin uygunluğunu deneme - Mantıksal değer döner uyum varsa </span></li>
+	</ul></div></li>
+</ul>
+
+<h3>Yazı dizisi</h3>
+
+<ul>
+	<li><a href="javascript:itikla('str1')"><b class="o">String([iYaziDizisi]) 'content' &quot;content&quot;</b></a> <span>karakterlerden oluşan değişkendir - O anki belgenin desteklediği karakter takımlarından  birinden gelebilir - okuma yazma</span>
+                <div id="str1" style="display: none;">
+                <ul>
+		<li><b class="p">length</b> <span>Yazı dizisindeki karakter sayısı - okuma yazma</span></li>
+		<li><b class="m">anchor(string nameOfAnchor)</b> <span>yazı dizisini &lt;a name=&quot;nameOfAnchor&quot;&gt; biçimiyle sarar - sayfa içeriğini dinamik kullanır - yerine ID niteliği </span></li>
+
+		<li><b class="m">big()</b> <span>yazı dizisini &lt;big&gt; biçimiyle çevrilir - Dinamik yaratılan sayfalarda kullanılır - Her zaman daha uygun bir öğe vardır </span></li>
+		<li><b class="m">blink()</b> <span>yazı dizisini &lt;blink&gt; biçimiyle çevrilir - Dinamik yaratılan sayfalarda kullanılır - Bu öğe standart değildir (ve rahatsız edici). Bunu kullanmayın </span></li>
+		<li><b class="m">bold()</b> <span>yazı dizisini &lt;b&gt; biçimiyle çevrilir - Dinamik yaratılan sayfalarda kullanılır - Yerine &lt;strong&gt; kullanmak istersiniz</span></li>
+
+		<li><b class="m">charAt(int index)</b> <span>Belitirlen dizindeki karakteri döndürür </span></li>
+		<li><b class="m">charCodeAt(int index)</b> <span>belirtilen dizindeki karakterin sayısal değeri döner </span></li>
+		<li><b class="m">concat(string stringToAppend[,string stringToAppend[,string stringToAppend etc.]])</b> <span>yazı nesnesi ve birbirlerine eklenmiş yazı dizilerini döndürür </span></li>
+		<li><b class="m">fixed()</b> <span>Yazı dizisini &lt;tt&gt; biçimiyle çevirir - Dinamik yaratılan sayfalarda kullanılır - Her zaman daha uygun bir öğe vardır, olabilir - (&lt;code&gt;, &lt;samp&gt; or &lt;var&gt;)</span></li>
+
+		<li><b class="m">fontcolor(string colorValue)</b> <span>Yazı dizisini &lt;font color=&quot;colorValue&quot;&gt; biçimiyle çevirir - Dinamik yaratılan sayfalarda kullanılır - Bu öğe artık kullanılmaz oldu</span></li>
+		<li><b class="m">fontsize(int size)</b> <span>yazı dizisini &lt;font size=&quot;size&quot;&gt; biçimiyle çevirir - Dinamik yaratılan sayfalarda kullanılır - Bu öğe artık kullanılmaz oldu </span></li>
+
+		<li><b class="m">indexOf(string searchString[,int offset])</b> <span>yazı dizisi içinde aranan dizinin ilk yerleşimini döndürür - Eğer hata varsa -1 döner</span></li>
+		<li><b class="m">italics()</b> <span>yazı dizisini &lt;i&gt; biçimiyle çevirir - Dinamik yaratılan sayfalarda kullanılır - Yerine &lt;em&gt; kullanmak isteyebilirsiniz</span></li>
+		<li><b class="m">lastIndexOf(string searchString[,int offset])</b> <span>searchString yazı dizisinin yazı nesnesindeki son yerini verir - Eğer arama sonucu olumsuz ise -1 döner</span></li>
+
+		<li><b class="m">link(string hrefToLinkTo)</b> <span>yazı dizisini &lt;a href=&quot;hrefToLinkTo&quot;&gt; biçimiyle çevirir - Dinamik yaratılan sayfalarda kullanılır </span></li>
+		<li><b class="m">match(RegExp searchExpression)</b> <span>kurallı deyimin ilk dokuz uyanını dizide bulur - RegExp nesnesinde saklar - deyimle uyarlı olan dizinin bir parçasını döndürür </span></li>
+		<li><b class="m">replace(RegExp searchExpression,string replacementText)</b> <span>kurallı deyiminin dizi içindeki ilk bulunduğu yeri yazı dizisiyle değiştirir </span></li>
+
+		<li><b class="m">search(RegExp searchExpression)</b> <span>dizi nesnesinde kurallı deyimin bulunduğu ilk yeri döndürür - Uygununu bulamazsa -1 döner</span></li>
+		<li><b class="m">slice(int offsetFromStart[,int offsetFromEnd])</b> <span>bir dizinin belirtilen başlangıçtan belirtilen bitiş noktasıne kadar olan yazı dizisini döndürür - Eğer uzaklık (offset) verilmemişsei, sıfır olarak ele alınır</span></li>
+		<li><b class="m">small()</b> <span>yazı dizisini &lt;small&gt; biçimiyle çevirir - Dinamik yaratılan sayfalarda kullanılır - Her zaman kullanabileceğiniz bundan daha uygun bir öğe vardır </span></li>
+
+		<li><b class="m">split(RegExp separator[,int maxArrayLength])</b> <span>Bir diziyi belirtilen alt dizinin her uyanında parçalar - Sonuçlar bir dizi olarak döner - Eğer en büyük uzunluk belirtilmişse, dizinin son hücresi kalan herşeyi içerir (bu noktadan sonrası parçalara bölünmez) </span></li>
+		<li><b class="m">strike()</b> <span>yazı dizisi &lt;sub&gt; biçimiyle çevrilir - sayfa içeriğinin dinamik kullanımında olur - bu artık kullanılmıyor - genelde, &lt;del&gt; öğesi kullanılır </span></li>
+		<li><b class="m">sub()</b> <span>yazı dizisi &lt;sub&gt; biçimiyle çevrilir - sayfa içeriğinin dinamik kullanımında olur </span></li>
+
+		<li><b class="m">substr(int startIndex[,int length])</b> <span>belirtilen dizinden başlayarak ve belirtilen boy uzunluğunda yazı dizisi döndürür - eğer uzunluk belirtilmezse dönen dizi yazı dizisinin sonuna kadar uzar </span></li>
+		<li><b class="m">substring(int startIndex,int endIndex)</b> <span>belirtilen dizinden başlayarak bir alt yazı dizisi döndürür (belirtilen dizinde biten) </span></li>
+		<li><b class="m">sup()</b> <span>yazının çevresini &lt;sup&gt; biçimiyle çevirir - dinamik yaratılan sayfa içeriğinde kullanılır </span></li>
+
+		<li><b class="m">toLowerCase()</b> <span>Yazıyı küçük harf döndürür </span></li>
+		<li><b class="m">toUpperCase()</b> <span>Yazıyı büyük harf döndürür </span></li>
+		<li class="last"><b class="m">valueOf()</b> <span>Yazı döndürür </span></li>
+	</ul></div></li>
+
+</ul>
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

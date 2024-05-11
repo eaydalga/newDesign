@@ -1,0 +1,341 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<TITLE>AYBIM - TCP/IP</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onload="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="ortataraf">
+           <span><img src="../img/transparent.gif" width="1" height="50">
+           <img src="../img/transparent.gif" width="780" height="1"></span>
+           <div id="banner">
+             <img src="img/baslik.gif"><br />
+             <div id="mycontainer">
+               <div id="content">
+<div id="bdy" class="yazi">
+<br>
+<br>
+<div id="sag"><span class="yazi">24 Ocak 2008</span></div>
+<H2>TCP/IP İLE PROGRAMLAMA </H2>
+<P>TCP/IP iletişimi hakkında kısa bir açıklamayı <A HREF="ilet.html">iletişim</A>
+bölümünde daha önce anlatmıştım. Ayrıca dileyenler, INTERNET bağlantıları ve
+bilgisayarlar arasındaki mesaj trafiği hakkında bilgi edinmek için
+<A HREF="aglar.html">INTERNET ağları</A> konulu dökümanı da inceleyebilirler.
+
+<P>Burada TCP/IP iletişimi için C programlarında nasıl bir yöntem 
+izlendiğine ve programlarda kullanılan komutların özelliklerine değineceğiz. 
+Sonra <A HREF="tcpip.html">örnek programlarla</A> bu bilgileri nasıl 
+kullandığımızı göstereceğiz.
+
+<P><B>KISA ÖN BİLGİ</B>
+
+<P>TCP/IP genelde bir bilgisayar ortamında iki program arasında iletişim
+kurulması için kullanılan bir protokoldur. Burada programlar İşgören (sunucu) 
+ve İşveren olarak iki ayrı konumda çalışır. Kısaca söylemek gerekirse
+programlardan biri gelen bilgiyi işleyip diğer programa
+göndermeyi gerçekleştirirken, bilgiyi alan program, işlenmiş bilgiyi görüntüleri
+ya da kullanır.  Bu kavram bize iki değişik ortamda çalışan programlar yazma 
+olanağı getirir.
+
+<P>Genelde kullanıcıların hepsinde yalnız kullanıcı arayüzü olan programlar
+çalışırken, merkezde veri tabanı erişimi, yazici paylaşımı ve dış dünya
+ile bağlantı için gereken programlar bulunur. Kullanıcı bilgilerinin
+ekrandan alınması sırasında kullanıcı bilgisayarında çalışan program
+merkezdeki programla bağlantı olmadığından
+tüm işlem yükü yalnız kullanıcı bilgisayarında kalır. Bu işlemler için
+merkez bilgisayar bir emek harcamaz. Bilgi tamamlanıp merkeze gönderildiğinde
+ilgili program, gelen bilgi üzerinde gereken işlemleri yapıp sonuçları 
+kullanıcının bilgisayarına iletir. Aradaki iletişim sürekli değildir.
+İletişim yalnız mesaj alış verişi sırasında kurulur. Ancak aynı anda birden
+çok kullanıcı bir merkeze bağlantı kurabildiğinden
+merkezdeki bilgisayar yüksek işlem gücü ile donatılır.
+Kullanıcı bilgisayarları ise herkesin kullandığı PC'ler olabilir.
+
+<P>Bazı koşullarda tüm kullanıcılara her işi yapan yetki verilmez. Ancak
+kullandıkları programın veri tabanına ekler yapması, ya da verilerin
+bazılarını değiştirmesi gerekebilir. Bu durumda İşgören (Sunucu) tüm yetkilerle
+ile donatılır ve işveren program gerekli mesajı göndererek işlemin yapılmasını
+ister. Burada işgören ve işveren programlar aynı bilgisayarda çalışabilir.
+Örneğin bir java applet ile ekrandan girilen bilginin diske yazılması hakkı
+bir işgören programa mesaj gönderilerek yapılabilir. Burada java applet, 
+bilgiyi
+alırken kullanıcının yetkisi olup olmadığını, güvenlik kuralları
+çerçevesinde kontrol eder (kullanıcı adı ve şifresi almak gibi) ve uygun
+güvenlik bilgilerini mesajla birlikte işgörene gönderir.
+
+<P>Bu nedenle TCP/IP iletişim programları kullanıcılara işveren ve işgören
+programlar yazarak uygulama alanlarını genişletme olanağı getirir.
+
+<P>Anlattığım ya da anlatacağım bazı temel kavramlar, TCP/IP hakkında 
+teknik bilgileri
+içermektedir. Amaç, çeşitli uygulamalarda bu kavramları kullanarak iletişim
+programları yazılımını kolaylaştırmaktır.
+
+<P><B>Tanımlanmış IP protokolları </B>
+
+<P>Bu tabloda yer alan IP protokollarının kullanım biçimleri TCP/IP
+iletişimi için önemlidir. Örneğin, programlarda kullanılan 
+socket açma komutunun
+son parametresi aşağıdaki IP protokollarından biri olmalıdır.
+<P>
+<CENTER>
+<TABLE BORDER>
+<TR><TH>IP Protokolları</TH><TH>Değeri</TH><TH>Açıklama</TH></TR>
+<TR><TD>IPPROTO_IP </TD><TD ALIGN=RIGHT> 0</TD><TD> TCP için standart protokol</TD></TR>
+<TR><TD>IPPROTO_ICMP </TD><TD ALIGN=RIGHT> 1</TD><TD> Internet Kontrol Mesajları Protokolu</TD></TR>
+<TR><TD>IPPROTO_IGMP </TD><TD ALIGN=RIGHT> 2</TD><TD> Internet Grup Yönetim Protokolu</TD></TR>
+<TR><TD>IPPROTO_IPIP </TD><TD ALIGN=RIGHT> 4</TD><TD> IPIP tünelleri</TD></TR>
+<TR><TD>IPPROTO_TCP </TD><TD ALIGN=RIGHT> 6</TD><TD> (TCP) Transmission Control Protocol</TD></TR>
+<TR><TD>IPPROTO_EGP </TD><TD ALIGN=RIGHT> 8</TD><TD> Başka bir bilgisayardaki eşik protokolu</TD></TR>
+<TR><TD>IPPROTO_PUP </TD><TD ALIGN=RIGHT> 12</TD><TD> PUP protokolu</TD></TR>
+<TR><TD>IPPROTO_UDP </TD><TD ALIGN=RIGHT> 17</TD><TD> Kullanıcının tanımladığı Datagram Prtokolu</TD></TR>
+<TR><TD>IPPROTO_IDP </TD><TD ALIGN=RIGHT> 22</TD><TD> XNS IDP Protokolu</TD></TR>
+<TR><TD>IPPROTO_RAW </TD><TD ALIGN=RIGHT> 255</TD><TD> Ham IP paketleri</TD></TR>
+</TABLE>
+</CENTER>
+
+<P><B>TCP socket protokolları</B>
+
+<P>TCP socket'lerinde bağlantılı türleri socketin özelliğine göre
+değişir. TCP
+iletişiminde iki ana kavram vardır. Biri bağlantılı, diğeri bağlantısız
+iletişim. Bağlantılı iletişimde socket'ten mesaj bekleyen (<A HREF="#listen">listen</A> 
+komutu ile socketi dinleyen) 
+programa bağlantı, <A HREF="#connect">connect</A> komutu ile yapılır. Bağlantı
+sağlandıktan sonra mesaj gönderme ve alma işlemi read ve write komutları ile
+gerçekleşir. Bağlantılı
+iletişimde kullanılan socket türü SOCK_STREAM olmalıdır. TCP/IP
+üzerinden iletişimde, hattın yoğunluğu ve kalitesine bağımlı olarak
+parçalanan TCP paketleri bu socket türü kullanıldığında alıcı socket
+altında sıralanır ve birleşirilerek TCP katmanına ulaştırılır. Bu durumda
+uygulama programı, bir read komutu ile tüm mesajı bir seferde okuyabilir.
+
+<P>Kısa mesajlar SOCK_DGRAM socket üzerinden iletilebilir.
+Bu tür mesajların parçalanması söz konusu olmadığından yukarıdaki sorun
+yaşanmaz. Bu tür mesajlarda mesaj boyu 256 byte ya da daha kısa olmalıdır.
+Ve mesajlar hep aynı uzunlukta olmalıdır.
+Bağlantısız iletişim ortamında kullanılır. Yani socket dinleyen program
+<A HREF="#accept">accept</A> komutu kullanmaz, sockete bilgi gönderen de <A HREF="#connect">connect</A> komutunu
+kullanmaz. Burada yalnız <A HREF="#listen">listen</A> komutu vardır. Programlar karşılıklı
+"read" ve "write" komutu ile haberleşir. İletişim açısından çok güvenli
+bir socket haberleşmesi değildir. Daha güvenli ve bağlantılı iletişimde
+(connected) DATA GRAM mesajları, SOCK_SEQPACKET tipi socket'ler 
+üzerinde iletilmelidir.
+
+<P>Bir bilgisayar içindeki programlar arası iletişim SOCK_RAW tipi
+socket ile kurulabilir. Bu tür socket'lerde Data Gram tipi mesajlar
+iletilir.
+
+<P>
+<IMG SRC="img/tcppic.gif" ALIGN=left BORDER=2 HSPACE=10 VSPACE=10>
+<B>TCP/IP İletişim Programları Mantığı</B>
+
+<P>Bir sistemde TCP/IP program geliştirme modülleri varsa, programcının
+bu modülleri nasıl kullanacağı, kullanılmak istenilen socket türüne
+göre farklıdır. Eğer bağlantılı ve güvenli iletişimi içeren SOCK_STREAM
+kullanılıyorsa, yazılacak programın görevine göre iletişim komutları şöyle
+özetlenebilir :
+
+<P>İşveren (Client) Programı :
+
+<P>Bu program hangi bilgisayar ile bağlantı kuracağını belirledikten sonra
+<B>socket</B> komutu ile socket açar. Socket açıldıktan sonra ilk iş
+karşı taraftaki programla bağlantı kurmaktır. Bağlantı <A HREF="#connect"><B>connect</B></A>
+komutu ile kurulur. Bundan sonra işlem, mesaj gönderme ve cevap alma
+olarak devam eder. İşlem bittiğinde <B>close</B> komutu ile bağlantı
+kesilir.
+
+<P>İşgören Programı :
+
+<P>İşgören programı hangi bilgisayara hangi TCP portundan bilgi geleceğini
+bilmelidir. İşgören program her zaman bir TCP protunu dinler. İşgören programın
+dinlediği port birden çok IP adresi bulunan bir bilgisayarda bulunabilir.
+Bu durumda sunucu program
+yalnız bir bilgisayara gelen mesajları dinleyebilir. İstenirse sunucu
+program o bilgisayar gelen tüm mesajları da dinleyebilir.
+
+<P>İşgören program once <B>socket</B> komutu ile kullanacağı socket'i açmalıdır.
+İşgören programın bir porttan gelen mesajları dinlemesi icin <A HREF="#bind"><B>bind</B></A>
+komutunu başlatmış olması gerekir. <A HREF="#listen"><B>listen</B></A> komutuyla sunucu program, 
+ilgili
+portu dinleyeceğini söyler. Bundan sonraki adım porttan bağlantı beklemektir.
+Porttan <A HREF="#accept"><B>accept</B></A> komutu ile bağlantı beklenir.
+
+<P>Porttan bağlantı mesajı geldiğinde sunucu program hemen kendini kopyalamalı,
+kopyalardan biri bağlantı kuran programla bilgi alış verişine başlarken diğer
+kopya yeni gelecek bağlantılar için portu dinlemeye devam etmelidir.
+
+<P>Mesaj alış verişi biten kopya bağlantı kapandığında çalışmasına son
+verir. Port dinleyen program bağlantı talebinin sayısına ve belleğin
+büyüklüğüne bağımlı olarak aynı anda birden çok kopya üretebilir ve
+aynı anda birden çok bağlantıya hizmet verebilir.
+
+<P><B>TCP/IP Komutları</B>
+
+<P><B>gethostbyname :</B> Bu komut verilen bir bilgisayar adına ilişkin yapı
+tanımını döndürür. Bu yapı tanımında bilgisayarın adresi ve TCP için
+kullanılan protokolun tanımı vardır. Bu komut kullanıldığında yazılan
+program INTRANET ya da INTERNET ortamında sorunsuz çalışır. Çünkü
+kullanılacak bilgisayar ilişkin yapı sistemdeki diğer programlar ve varsa
+name server tarafından hazırlanır.
+
+<P><B>socket :</B> Bu komut iletişim için gerekli uç noktayı programa 
+tanıtmak için
+kullanılır. Çeşitli socket kavramları aşağıda kısaca acıklanmıştır :
+
+<UL>
+<P><LI><B>SOCK_STREAM :</B> Sıralanmış ve iki yönlü bağlantı sonrası kullanılabilecek
+güvenli byte dizileri için geçerli bir socket türüdür.
+
+<P><LI><B>SOCK_DGRAM :</B> Kısa ve Sabit uzunluklu bağlantısız mesaj trafiğine elverişli,
+datagram tipi, çok güvenli olmayan bir socket türüdür.
+
+<P><LI><B>SOCK_RAW :</B> Bir bilgisayar içindeki iletişim için kullanılır. 
+Belitilen
+(ya da adlandırılmış) <B>send</B> komutları için DATAGRAM göndermekte kullanılır.
+UNIZ ortamında yalnız super-kullanıcı (root) bu tür socket'leri kullanabilir.
+
+<P><LI><B>SOCK_SEQPACKET :</B> Bu tür socket datagram tipi kısa ve değişmez boylu mesajları
+bağlantıdan sonra kullanmaya yarar. Güvenli iletişim için gereklidir.
+</UL>
+
+<A NAME=bind>
+<P><B>bind :</B> Bu komut bir socket'i bir adrese bağlamak için kullanılır. Bu adres
+ya yerel bilgisayar adresi, ya da sıfır (0.0.0.0) adresi'dir. Bind komutu
+öncesinde socket komutu ile socket tanımlanmış olmalıdır.
+
+<A NAME=listen>
+<P><B>listen :</B> Bu komut gelen bağlantıları beklemek ve aynı anda gelen bağlantı
+isteklerini kuyruklamak için kullanılır. Bu komutta kaç tane isteğin kuruklanacağı da
+belirtilir. Bind komutundan sonra kullanılır.
+
+<A NAME=accept>
+<P><B>accept :</B> Bu komut ile socket'e gelecek bağlantı isteği beklenir. Bu komuttan önce
+socket komutu ile tanım yapılmış olmalı, <B>bind</B> komutu ile socket bir adrese
+bağlanmış olmalı ve listen komutu ile kuyruk boyu tanımlanmış olmalıdır. Bind,
+listen ve accept komutları hep bağlantı bekleyen program tarafından
+kullanılır. Diğer bir deyimle sunucu (iş gören) programı bu komutları kullanır.
+
+<A NAME="connect">
+<P><B>connect :</B> Bu komut, işveren programın socket tanımından sonra kullandığı
+komut olup, karşı tarafta bağlantı bekleyen programa, bağlantı isteğini
+iletmek için kullanılır. Eğer bağlantı bekleyen program çalışmıyorsa connect
+komutu hatalı bir biçimde sonlanır. Connect komutu ile accept komutu
+karşılıklı çalışan komutlardır.
+
+<P><B>write :</B> Bağlantı kurulduktan sonra uygulama protokolu içinde hangi program
+bilgi gönderecekse "write" komutunu kullanırken karşı program "read"
+komutu ile gelecek bilgiyi bekler. Tüm iletişim programlarındaki genel
+kural ışığında "write" komutunu kullanan program mesajın gidip gitmediğini
+ancak karşı taraftan bir cevap aldığında anlar. Bu cevaba biz uygulama
+adımında "acknowledge" deriz. Yani, "write" komutunu kullanan bir program
+bu komutun peşinden "read" komutunu kullanarak karşı taraftaki programdan
+cevap bekler. Cevap alındıktan sonra yeni bir "write" komutu gönderilir.
+Ancak listen komutunda mesaj kuyruklama olanağı olduğundan uygulama
+sırasında her write komutundan sonra read beklemek aradaki iletişim hızını
+yavaşlatacağından, belirli sayıda "write" komutundan sonra bir kez "read"
+kullanmak iletişimi hızlandırır. Bu tür uygulamaya "windowing" adı
+verilmektedir.
+
+<P>Örneğin her yedi "write" komutundan sonra bir kez "read"
+komutu ile cevap beklemek, cevap geldiğinde yedi mesajın da karşı taraftaki
+program tarafından doğru alındığını belirttiği varsayılırsa gönderen
+program mesaj alındı yanıtını gönderilen her mesajdan sonra değil de
+yedi mesajdan sonra alması işlemi hızlandırır. Ancak cevap gelmemiş
+ise gönderen program aynı mesajları tekrar göndermek durumundadır. Çünkü
+karşı tarafın ne kadar mesajı aldığı bilinmemektedir. Bu nedenle "windowing"
+karvarı bozuk hatlarda iletişimi hızlandıracağına yavaşlatabilir. Dinamik
+"windowing" kullanmak, tekrarların sayısına göre "windowing" katsayısını
+değiştirmek iletişim programları açısından en olumlu ve verimli kullanım
+biçimidir.
+
+<P><B>select :</B> read komutu karşı taraftan cevap gelinceye kadar sonsuz
+bu komutta bekleyen bir yapıya sahiptir. Bu ise iletişim açısından
+sakıncalıdır. En uygun yöntem belirli bir sürede karşı taraftan
+cevap gelmeyince "zaman aşımı" olduğunu varsaymak ve iletişimin aksadığına
+karar vermiş olmaktır. Zaman aşımını sağlamanın bir yöntemi select
+komutunu kullanmaktır. Select komutu yalnız zaman aşımını belirlemek
+için kullanılmaz. Aynı anda birden çok socket ya da seri uçtan hangisinden
+mesaj geldi ise onu algılamaya da yarar. 
+
+<P> Bu özelliği ile select komutu, UNIX ortamında
+"Interrupt" bekleme işlemi gibi kullanılmış olur. Select komutu ile
+beraber kullanılan macro'lar aracılığı ile mesaj beklenecek socket ve seri
+uçlar önce bu komutun "Interrupt" vektörüne tanıtılır. Daha sonra 
+bekleme süresi
+saptanır. Komut çalışmaya başladığında bekleme süresi içinde hangi
+socketten cevap geldi ise onun bilgisini programa iletir. Eğer hiç cevap
+gelmemiş ise komut programa "zaman aşımını" döndürür. Böylece select 
+komutu ile bir
+program, birden çok socketten mesaj bekleyebilir ve bunun için socketler
+arasında "poll" işlemi yapmamış olur. Bilindiği gibi "polling" işletim
+sistemine ve işlemciye gereksiz işlem yükü getirmektedir. Sistemin
+verimliliği "poll" yapan programlar yüzünden azalabilir.
+
+<P><B>read :</B> Select komutundan hemen sonra kullanılırsa sockette bekleyen
+mesajın okunması için gerekli olan komuttur. Bu biçimi ile kullanılınca
+iletişimin aksaması durumunda bile programın asılı kalması önlenmiş olur.
+Select kullanılmadan doğrudan "read" komutu kullanılmış ise program
+karşı taraftan mesaj gelmeden bir sonraki konuma geçemez. Bu şekilde
+read komutuna asılı kalan programlar ancak "kill" komutu ile dışarıdan
+yapılacak girişimle durdurulabilir.
+
+<P><B>close :</B> Bu komut açılmış bir socket'i kapatmak icin kullanılır.
+Eğer program son bulmazsa ve close komutu kullanılmazsa, karsi taraf
+bağlantıyı kesse bile, socket kullanımda kalır, ancak program son bulunca
+serbest bırakılır.
+<HR>
+<a href="../index.html">Ana Sayfaya</a>
+&nbsp;&nbsp;<A HREF="index.html">Teknik Bilgiler Sayfasina</A>
+<br />
+</div>
+               </div>
+             </div>
+           </div>
+
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+          <a href="../index.html" class="box"><img src="../img/aybim.png"></a><br /><br />
+          <a href="aglar.html" class="nav">Aglar</a>
+          <a href="aglink.html" class="nav">Aglink</a>
+          <a href="agteknik.html" class="nav">Agteknik</a>
+          <a href="ccode.html" class="nav">C-Kodlama</a>
+          <a href="cprep.html" class="nav">C-Önişleme</a>
+          <a href="crclrc.html" class="nav">CRC/LRC</a>
+          <a href="dea.html" class="nav">DEA</a>
+          <a href="etcsrv.html" class="nav">etcsrv</a>
+          <a href="fork.html" class="nav">Çatal (fork)</a>
+          <a href="ilet.html" class="nav">ilet</a>
+          <a href="inetd.html" class="nav">inetd</a>
+          <a href="make.html" class="nav">Make</a>
+          <a href="msgauth.html" class="nav">Msg Auth</a>
+          <a href="recur.html" class="nav">Özyinelemeli</a>
+          <a href="robots.html" class="nav">Robotlar için</a>
+          <a href="sdlc.html" class="nav">SDLC</a>
+          <a href="secure.html" class="nav">Güvenlik</a>
+          <a href="seri.html" class="nav">Seri uçlar</a>
+          <a href="snalu0.html" class="nav">SNA LU0</a>
+          <a href="snalu62.html" class="nav">SNA LU6.2</a>
+          <a href="tcpip.html" class="nav">tcp/ip</a>
+          <a href="tcpprg.html" class="nav">tcp Programı</a>
+          <a href="unix.html" class="nav">Unix</a>
+          <a href="vi.html" class="nav">vi Editör</a>
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

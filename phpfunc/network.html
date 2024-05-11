@@ -1,0 +1,182 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Hyperlink Preprocessor </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">15 Nisan 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>Ağ (Network) İşlevleri</h2>
+
+<h3>Çalışma zamanı Ayarlamaları</h3>
+
+Bu işlevlerin davranışı php.ini içeriğini ayarlarından etkilenir.
+
+<h3>Ağ Ayarlama Seçenekleri</h3>
+
+<table class="yazi">
+<tr><td>Adı</td><td>Varsayılan</td><td>Değişim</td><td>DeğişmeKaydı</td></tr>
+<tr><td>define_syslog_variables</td><td>"0"</td><td>PHP_INI_ALL</td><td></td></tr>
+</table>
+
+PHP_INI_* değişmezleri için php.ini yönelticilerine bakın.
+<br /><br />
+Burada ayarlama yönelticilerinin kısa açıklaması vardır.
+<dl>
+<dt>define_syslog_variables mantıksal
+
+    <dd>Whether or not to define the various syslog variables (e.g. $LOG_PID, $LOG_CRON, etc.). Turning it off is a good idea performance-wise. At runtime, you can define these variables by calling define_syslog_variables().
+</dd></dt>
+</dl>
+
+<h3>Kaynak türleri</h3>
+
+Bu uzantı bir dosya göstergesi tanımlar. fsockopen() ve pfsockopen()
+işlevlerden üretilir.
+
+<h3>Önceden Tanımlanmış Değişmezler</h3>
+
+Aşağıdaki değişmezler PHP çekirdeğinin bir parçası olarak her zaman
+kullanılabilir.
+
+<h3>openlog() Seçenekler</h3>
+
+<table class="yazi">
+<tr><td>Değişmezler</td><td>Açıklama
+<tr><td>LOG_CONS</td><td>if there is an error while sending data to the system logger, write directly to the system console
+<tr><td>LOG_NDELAY</td><td>open the connection to the logger immediately
+<tr><td>LOG_ODELAY</td><td>(default) delay opening the connection until the first message is logged
+<tr><td>LOG_NOWAIT</td><td>
+<tr><td>LOG_PERROR</td><td>print log message also to standard error
+<tr><td>LOG_PID</td><td>include PID with each message
+</table>
+
+<h3>openlog() Nitelikler</h3>
+
+<table class="yazi">
+<tr><td>Değişmezler</td><td>Açıklama</td></tr>
+<tr><td>LOG_AUTH</td><td>güvenlik/kullanıcı denetimi mesajları (kullanın bu değişmezin tanımlandığı sistemlerde onun yerine LOG_AUTHPRIV kullanın)</td></tr>
+<tr><td>LOG_AUTHPRIV</td><td>güvenlik/kullanıcı denetim mesajları
+(özel)</td></tr>
+<tr><td>LOG_CRON</td><td>saat sunucu programı (cron ve at)</td></tr>
+<tr><td>LOG_DAEMON</td><td>diğer sistem sunucuları</td></tr>
+<tr><td>LOG_KERN</td><td>çekirdek mesajları</td></tr>
+<tr><td>LOG_LOCAL0... LOG_LOCAL7</td><td>yerel kullanım için saklandı, Windows ortamında bulunmaz</td></tr>
+<tr><td>LOG_LPR</td><td>satır yazıcı alt sistemi</td></tr>
+<tr><td>LOG_MAIL</td><td>ileti alt sistemi</td></tr>
+<tr><td>LOG_NEWS</td><td>USENET haber alt sistemi</td></tr>
+<tr><td>LOG_SYSLOG</td><td>syslogd tarafından üretilen içsel
+mesajlar</td></tr>
+<tr><td>LOG_USER</td><td>Kullanıcı düzeyi soysal mesajları</td></tr>
+<tr><td>LOG_UUCP</td><td>UUCP alt sistemi</td></tr>
+</table>
+
+<h3>syslog() Özellikler (azalan sırada)</h3>
+
+<table class="yazi">
+<tr><td>Değişmezler</td><td>Açıklama</td></tr>
+<tr><td>LOG_EMERG</td><td>sistem kullanılamaz</td></tr>
+<tr><td>LOG_ALERT</td><td>işlem hemen ele alınmalı</td></tr>
+<tr><td>LOG_CRIT</td><td>kritik koşullar</td></tr>
+<tr><td>LOG_ERR</td><td>hata koşulları</td></tr>
+<tr><td>LOG_WARNING</td><td>uyarı koşulları</td></tr>
+<tr><td>LOG_NOTICE</td><td>normal, fakat belirgin, koşullar</td></tr>
+<tr><td>LOG_INFO</td><td>Bilgisel mesajlar</td></tr>
+<tr><td>LOG_DEBUG</td><td>hata-düzeyi mesajlar</td></tr>
+</table>
+
+<h3>dns_get_record() Seçenekleri</h3>
+
+<table class="yazi">
+<tr><td>Değişmezler</td><td>Açıklama</td></tr>
+<tr><td>DNS_A</td><td>IPv4 Adres Kaynağı</td></tr>
+<tr><td>DNS_MX</td><td>İleti değiştirme kaynağı</td></tr>
+<tr><td>DNS_CNAME</td><td>Eşdeğer (Kanonik Adı) kaynağı</td></tr>
+<tr><td>DNS_NS</td><td>Kullanıcı denetimli Ad sunucu kaynağı</td></tr>
+<tr><td>DNS_PTR</td><td>Gösterge Kaynağı</td></tr>
+<tr><td>DNS_HINFO</td><td>Sunucu Bilgisi Kaynağı
+(IANA'nın işletim sistemi adları bu değerin anlamı çin kullanılan)</td></tr>
+<tr><td>DNS_SOA</td><td>Kulalnıcı denetiminin başlangıcı</td></tr>
+<tr><td>DNS_TXT</td><td>Metin Kaynağı</td></tr>
+<tr><td>DNS_ANY</td><td>Herhagi bir kaynak kaydı. Bir çok sistemde tüm kaynak kayıtları döndürür. Ama yalnız kritik kullanıcıların bilgisini içermez. Yerine DNS ALL kullanın</td></tr>
+<tr><td>DNS_AAAA</td><td>IPv6 Adres Kaynağı</td></tr>
+<tr><td>DNS_ALL</td><td>İçsel olarak ad sunucusunu var olan her kayıt türü için sorgular</td></tr>
+</table>
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> checkdnsrr — Verilen Internet host adı ya da IP adresine göre ilgili DNS kayıtlarını kontrol et
+    <li> closelog — Sistem kaydının bağlantısını kapat
+    <li> debugger_off — PHP hata yazma (debugger) olanağını kapat
+    <li> debugger_on — PHP hata yazma (debugger) olanağını aç
+    <li> define_syslog_variables — Syslog ile ilişkili değişmezlerin tümünü ilkler
+    <li> dns_check_record — checkdnsrr eşdeğeri
+    <li> dns_get_mx — getmxrr eşdeğeri
+    <li> dns_get_record — Sunucu adıyla DNS kaynak kayıtlarını bulma
+    <li> fsockopen — Internet ya da Unix alan socket bağlantısını aç
+    <li> gethostbyaddr — Internet IP adresinden Internet sunucu adını alma
+    <li> gethostbyname — Internet sunucu adından IP numarasını almak
+    <li> gethostbynamel — Verilen sunucu adıyla ilişkili IP adreslerinin listesini alır
+    <li> getmxrr — verilen Internet sunucu adının ilişik MX kaydını alma
+    <li> getprotobyname — Protokol adıyla ilişkili protokol sayısı
+    <li> getprotobynumber — Protokol sayısının ilişkili protokol adı
+    <li> getservbyname — Internet servis ve protokolüyle ilişkili port numarasını al
+    <li> getservbyport — Port ve protokolle ilişkili Internet servisini al
+    <li> header — ham HTTP başlığını gönder
+    <li> headers_list — gönderilen yanıt başlıklarının listesini döndürür (ya da göndermeye hazır)
+    <li> headers_sent — başlıkların gönderilmesinin kontrol edilmesidir.
+    <li> inet_ntop — Paketli Internet adresini okunabilir gösterime çevirir
+    <li> inet_pton — Okunabilir IP adresini paketli adrese çevirir
+    <li> ip2long — Yazı dizisi içerinde bulunan noktalı Internet Protokolu adresinin 8IPv4) düzgün adrese çevrilmesidir.
+    <li> long2ip — IPv4 Internet adresinin noktalı kalıptaki yazı dizisi içeriğine çevrilmesi
+    <li> openlog — Sistem kayıdına bağlantı aç
+    <li> pfsockopen — Sürekli Internet ya da Unix socket bağlantısını aç
+    <li> setcookie — Bir cookie gönder
+    <li> setrawcookie — cookie değerinde url kodlaması yapmadan bir cookie gönder
+    <li> socket_get_status — stream_get_meta_data eşdeğeri
+    <li> socket_set_blocking — stream_set_blocking eşdeğeri
+    <li> socket_set_timeout — stream_set_timeout eşdeğeri
+    <li> syslog — Sistem kayıt mesajı üretir.
+</ul>
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

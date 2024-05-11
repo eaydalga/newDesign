@@ -1,0 +1,19 @@
+
+dotnet_load
+
+(No version information available, might be only in CVS)
+
+dotnet_load — Loads a DOTNET module
+Description
+int dotnet_load ( string $assembly_name [, string $datatype_name [, int $codepage ]] )
+Warning
+
+This function is EXPERIMENTAL. The behaviour of this function, the name of this function, and anything else documented about this function may change without notice in a future release of PHP. Use this function at your own risk.
+Warning
+
+This function is currently not documented; only the argument list is available.
+ChangeLog
+
+Version 	Description
+4.1.0 	The codepage parameter was added
+

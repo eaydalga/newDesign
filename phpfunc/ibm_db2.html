@@ -1,0 +1,296 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Hyperlink Preprocessor </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">16 Mart 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>IBM DB2, Cloudscape ve Apache Derby İşlevleri</h2>
+<h3>Giriş</h3>
+
+Bu işlevler IBM DB2 Evrensel Veritabanına, IBM Cloudspace ve Apache Derby
+veritabanına DB2 çağırma düzeyi arayüzle (DB2 CLI) erişmenizi sağlar.
+<h3>Gereksinim</h3>
+
+Linux, UNIX ve Windows ya da IBM Cloudspace ya da Apache Derby için IBM DB2 evrensel veritabanına bağlanmak için IBM DB2 evrensel veritabanı istemcisini PHP çalıştırılan bilgisayarda kurmalısınız. Bu uzantı DB2 Sürüm 8.2 ile denemiştir.
+
+z/OS ya da iSeries için IBM DB2 evrensel Veritabanına bağlanmak için IBM DB2
+Connect ya da eşdeğeri DRDA eşik yazılımına gereksiniminiz vardır.
+
+<h3>Linux ya da UNIX üzerinde gereksinim</h3>
+
+PHP çalışırını çağıran ya da SAPI DB2 kopyasını bu işlevlere erişmeden
+belirtmelidir. DB2 kopyasının adını php.ini altındai ibm_db2.instance_name
+ayar seçeneği ile belirtebilirsiniz. Ya da DB2 kopya profilini PHP çalışanını
+çağırmadan alabilirsiniz.
+<br /><br />
+Eğer DB2 kopyasını /home/db2instl/ yolunda yaratırsınız. Örneğin php.ini içine
+aşağıdaki satır eklenebilir:
+<pre>
+ibm_db2.instance_name=db2inst1
+</pre>
+
+     
+
+php.ini içinde bu ayarları kullanmazsanız, aşağıdaki komutu kullanarak
+çevresel değişkenleri DB2 erişimi için değiştirebilirsiniz:
+<pre>
+bash$ source /home/db2inst1/sqllib/db2profile
+</pre>
+
+     
+
+Sizin PHP açılmış web sunucunuzda bu işlevleri kullanabilmek için, ya php.ini
+içinde ibm_db2.instance_name ayar seçeneğini açacaksınız ya da Web sunucu
+başlama koduna DB2 kaynak olacak biçimde değiştirilir (tipik olarak
+/etc/init.d/httpd ya da /etc/init.d/apache).
+
+<h3>Kurulum</h3>
+
+ibm_db2 uzantısını hazırlamak için DB2 uygulama geliştirme başlık dosyaları ve
+kitaplıklar sisteminiz üzerinde kurulu olmalıdır. DB2 bunları varsayılan
+olarak yüklemez. Bun nedenle DB2 kurucusuna dönmek ve bu seçenekleri eklemek
+durumunda kalabilirsiniz. Başlık dosyaları DB2 Uygulama Geliştirme İstemcisi
+ile ücretsiz indirmek için IBM DB2 Evrensel Veritabanı destek sitesi
+kullanılır.
+<br /><br />
+Eğer DB2 uygulama geliştirme başlık dosyalarını ve kitaplıklarını DB2
+yüklenmiş Linux ya da Unix işletim sistemine eklerseniz, "db2iupdt -e"
+komutunu DB2 kopyasındaki simgesel bağlar için kullanmalısınız.
+<br /><br />
+ibm_db2 PECL uzantısıdır. PHP üzerine ibm_db2 uzantısını kurmak için PECL
+kurulumundaki komutları izleyin. Ayar komutunu başlık dosyaları ve
+kitaplıkları ayarlamak için aşağıdaki gibi kullanın:
+<pre>
+bash$ ./configure --with-IBM_DB2=/path/to/DB2
+</pre>
+
+  
+
+ayar komutunda varsayılan dosya yolu /opt/IBM/db2/V8.1 olur.
+
+    Not: IIS kullanıcıları için not:<br />
+Eğer db2 sürücüsünü IIS ile kullanırsanız aşağıdakileri yapmalısınız:
+<ul>
+        <li> Geliştirilmiş işletim sistemi güvenliği ile DB2 kurulur.
+        <li> PHP ikili yolunu genel sistem çevresel değişkenine eklenir (C:\php\).
+        <li> Diğer sistem çevresel değişkeni yarat. Bu değer PHP.INI dosyasının yolunu belirtir (PHPRC = C:\php\ gibi).
+        <li>  DB2USERS sınıfına IUSR_COMPUTERNAME ekle.
+</ul>
+
+<h3>Çalışma Zamanı Ayarları</h3>
+
+Bu işlevlerin davranışı php.ini ayarlarıyla etkilenir.
+
+<h3>ibm_db2 Ayar Seçenekleri</h3>
+<table class="yazi">
+<tr><td>Ad</td><td>Varsayılan</td><td>Değişebilen</td><td>Değişme
+Kaydı</td></tr>
+<tr><td>ibm_db2.binmode</td><td>"1" </td><td>PHP_INI_ALL</td><td></td></tr>
+<tr><td>ibm_db2.i5_allow_commit</td><td>"0"</td><td>PHP_INI_SYSTEM</td><td>ibm_db2 1.4.9. sürümünden beri var</td></tr>
+<tr><td>ibm_db2.i5_dbcs_alloc</td><td>"0"</td><td>PHP_INI_SYSTEM</td><td>ibm_db2 1.5.0. sürümünden beri var</td></tr>
+<tr><td>ibm_db2.instance_name</td><td>NULL</td><td>PHP_INI_SYSTEM</td><td>ibm_db2 1.0.2. sürümünden beri var</td></tr>
+</table>
+Burada ayar yönelticilerinin kısa açıklaması vardır:
+<dl>
+<dt>ibm_db2.binmode tamsayı
+
+    <dd>Bu seçenek PHP uygulamasında ikili veriye ya da veriden çevirme konumunu denetler.
+<ul>
+        <li> 1 (DB2_BINARY)
+        <li> 2 (DB2_CONVERT)
+        <li> 3 (DB2_PASSTHRU)
+</ul>
+</dd></dt>
+<dt>ibm_db2.i5_allow_commit tamsayı
+
+    <dd>Bu seçenek PHP uygulamalarında i5 çizelge birikimleri için kullanılan onat konumunu denetler.
+<ul>
+        <li> 0 onay yokt (değiştirmek için i5_commit konusuna bak)
+        <li> 1 onaya izin verme (değiştirmek için i5_commit konusuna bak)
+</ul>
+</dd></dt>
+<dt>ibm_db2.i5_dbcs_alloc tamsayı
+
+    <dd>Bu seçenek büyük DBCS kolonlarının tamponunu içsel ibm_db2 bellek yerleştirme çizelgesinyle denetler.
+<ul>
+        <li> 0 gelişmiş yer açma yok (değiştirmek için i5_dbcs_alloc değerine bakın)
+        <li> 1 gelişmiş yer aç (değiştirmek için i5_dbcs_alloc değerine bakın)
+</ul>
+</dd></dt>
+<dt>ibm_db2.instance_name string
+
+    <dd>Linux ve UNIX işletim sistemlerinde, bu seçenek kataloglanmış veritabanı bağlantılarında tanımlanan kopyaların adları için kullanılır. Eğer bu seçenek ayarlanırsa, değeri DB2INSTANCE çevresel değişkenini değiştirmiş olur.
+<br /><br />
+    Bu seçenek Windows işletim sisteminde dikkate alınmaz.
+</dd></dt>
+</dl>
+<h3>Önceden Tanımlanmış Değişmezler</h3>
+
+Aşağıdaki değişmezler bu uzantı için geçerlidir. Dışında kullanılmaz.
+<dl>
+<dt>DB2_BINARY (tamsayı)
+    <dd>Specifies that binary data shall be returned as is. This is the default mode. 
+</dd></dt>
+<dt>DB2_CONVERT (tamsayı)
+    <dd>İkili verinin onaltılığa çevrilmesi ve sonucun ASCII yazı dizisi olarak döndürülmesini belirtir.
+</dd></dt>
+<dt>DB2_PASSTHRU (tamsayı)
+    <dd>İkili verinin NULL olarak geçrilmesini belirtir.
+</dd></dt>
+<dt>DB2_SCROLLABLE (tamsayı)
+    <dd>Bir deyim kaynağı olan kaydırılabilir imleç (cursor) belirtir. Bu konum sonuç kümesindekilere rastgele erişim hakkı sağlar ama şu anda yalnız IBM DB2 Evrensel veritabanı tarafından desteklenir.
+</dd></dt>
+<dt>DB2_FORWARD_ONLY (tamsayı)
+    <dd>Bir deyim kaynağı olan yalnız ileri giden imleç belirtir. Bu
+varsayılan imleç türüdür ve tüm veritabanı sunucularınce desteklenir.
+</dd></dt>
+<dt>DB2_PARAM_IN (tamsayı)
+    <dd>Saklanmış işlemde (procedure) PHP değişkeni deyimin IN değişgeçi
+olarak kullanılır.
+</dd></dt>
+<dt>DB2_PARAM_OUT (tamsayı)
+    <dd>Saklanmış işlemde PHP değişkeni deyimin OUT değişgeçi olarak
+kullanılır.
+</dd></dt>
+<dt>DB2_PARAM_INOUT (tamsayı)
+    <dd>Saklanmış işlemde PHP değişkeni deyimin INOUT değişgeçi olarak
+kullanılır.
+</dd></dt>
+<dt>DB2_PARAM_FILE (tamsayı)
+    <dd>Kolonun doğrudan giriş için bir dosyaya bağlanmasını belirtir.
+</dd></dt>
+<dt>DB2_AUTOCOMMIT_ON (tamsayı)
+    <dd>otomatik onayın (autocommit) açılmasını belirtir.
+</dd></dt>
+<dt>DB2_AUTOCOMMIT_OFF (tamsayı)
+    <dd>otomatik onayın (autocommit) kapanmasını belirtir.
+</dd></dt>
+<dt>DB2_DOUBLE (tamsayı)
+    <dd>Değişkenin DOUBLE, FLOAT ya da REAL veri türüne bağlandığını belirtir.
+</dd></dt>
+<dt>DB2_LONG (tamsayı)
+    <dd>Değişkenin SMALLINT, INTEGER ya da BIGINT veri türüne bağlandığını belirtir.
+</dd></dt>
+<dt>DB2_CHAR (tamsayı)
+    <dd>Değişkenin CHAR ya da VARCHAR veri türüne bağlandığını belirtir.
+</dd></dt>
+<dt>DB2_CASE_NATURAL (tamsayı)
+    <dd>Kolon adlarının doğal biçimde dönmelerini belirtir (küçükse küçük,
+büyükse büyük).
+</dd></dt>
+<dt>DB2_CASE_LOWER (tamsayı)
+    <dd>Kolon adlarının küçük dönmesini sağlar.
+</dd></dt>
+<dt>DB2_CASE_UPPER (tamsayı)
+    <dd>Kolon adlarının büyük dönmesini sağlar.
+</dd></dt>
+<dt>DB2_DEFERRED_PREPARE_ON (tamsayı)
+    <dd>
+Deyim kaynağında atlama hazırlığının açık olmasını belirtir.
+</dd></dt>
+<dt>DB2_DEFERRED_PREPARE_OFF (tamsayı)
+    <dd>
+Deyim kaynağında atlama hazırlığının kapalı olmasını belirtir.
+</dd></dt>
+</dl>
+<h3>Kaynak Türleri</h3>
+
+ibm_db2 uzantısı bağlantı kaynaklarını, deyim kaynaklarını ve sonuç kümesi kaynaklarını döndürür.
+<h3>İçindekiler</h3>
+<ul>
+    <li> db2_autocommit — Veritabanı bağlantısı için AUTOCOMIT konumunu ayarlar ya da döndürür.
+    <li> db2_bind_param — Bir PHP değişkenini SQL deyimi değişgeçine bağlar.
+    <li> db2_client_info — DB2 veritabanı istemcisini tanımlayan özellikleriyle bir nesneyi döndürür.
+    <li> db2_close — Veritabanı bağlantısını kapatır.
+    <li> db2_column_privileges — bir tablonun yetkileriyle ilgili kolon listesini sonuç kümesinde döndürür.
+    <li> db2_columns — Bir tabloyla ilintili veri gibi bilgisinin (metadata) kolon biçiminde sonuç kümesinde dönmesini sağlar.
+    <li> db2_commit — Bir işlemi onaylar.
+    <li> db2_conn_error — Son bağlantı girişiminden dönen SQLSTATE değerinin yazı dizisi olarak değerini döndürür
+    <li> db2_conn_errormsg — Son bağlantı hatasını ve SQLCODe değerini döndürür.
+    <li> db2_connect — Veritabanına son bağlantıyı döndürür
+    <li> db2_cursor_type — Deyim kaynağında kullanılan imleç türünü döndürür.
+    <li> db2_escape_string — Bazı karakterleri atlatmak için kullanılır.
+    <li> db2_exec — Bir SQL deyimini doğrudan çalıştırır.
+    <li> db2_execute — Hazırlanana bir SQL deyimini çalıştırır.
+    <li> db2_fetch_array — Bir dizi döndürür. Kolon sırası dizin olur ve sonucun her satırı dizin öğesidir.
+    <li> db2_fetch_assoc — Bir dizi döndürür. Kolon adı dizin olur ve her satır dizin öğesidir.
+    <li> db2_fetch_both — Bir dizi döndürür. Dizin kolon adı ve sırası olur. Sonuç satırını gösterir.
+    <li> db2_fetch_object — Bir nesne döndürür. Özellikleri alma satırlarının kolonlarını gösterir.
+    <li> db2_fetch_row — Sonuç kümesi göstergesini bir sonraki satıra ya da istenen satıra ayarlar.
+    <li> db2_field_display_size — Bir kolonu göstermek için gereken en çok bayt sayınını verir.
+    <li> db2_field_name — Sonuç kümesindeki kolonun adını döndürür.
+    <li> db2_field_num — Sonuç kümesindeki adlandırılan kolonun sırasını döndürür.
+    <li> db2_field_precision — Sonuç kümesinde belirtilen kolonun duyarlılığını döndürür.
+    <li> db2_field_scale — Sonuç kümesinde belirtilen kolonun ölçüsünü döndürür.
+    <li> db2_field_type — Sonuç kümesinde belirtilen kolonun veri tipini döndürür.
+    <li> db2_field_width — Sonuç kümesinde belirtilen kolonun eninin o anki
+değerini döndürür.
+    <li> db2_foreign_keys — Bir tablo için yabancı anahtarların sonuç kümesinin listesini döndürür.
+    <li> db2_free_result — Sonuç kümesindeki kaynakları boşaltır.
+    <li> db2_free_stmt — İlintili deyimin kaynaklarının boşaltılmasıdır.
+    <li> db2_get_option — Bağlantı kaynağı ya da deyim kaynağı için seçenek değerini alır.
+    <li> db2_lob_read — Her çağrıldığında kullanıcının tanımladığı LOB dosyaların boyutlarını tanımlar.
+    <li> db2_next_result — Bir sonraki sonuç kümesini saklanan işlemlerden ister.
+    <li> db2_num_fields — Sonuç kümesindeki bilgi alanlarının sayısını döndürür.
+    <li> db2_num_rows — SQL deyiminden etkilenen satır sayısını döndürür.
+    <li> db2_pconnect — Veritabanına kurulan sürekli bağlantıyı döndürür.
+    <li> db2_prepare — Hazırlanan SQL deyimini çalıştırır.
+    <li> db2_primary_keys — Bir tablo için birincil anahtarların listesini sonuç olarak döndürür.
+    <li> db2_procedure_columns — Saklanan işlemlerin değişgeç listesini sonuç olarak döndürür.
+    <li> db2_procedures — Veritabanına kaydedilen saklanmış işlemlerin listesini sonuç olarak döndürür.
+    <li> db2_result — Sonuç kümesinden bir kolonu döndürür
+    <li> db2_rollback — Bir işlemi geri alır.
+    <li> db2_server_info — DB2 veritabanı sunucusunun özelliklerini gösteren bir nesne döndürür.
+    <li> db2_set_option — Bağlantı ya da kaynaklar için seçenekler ayarlar.
+    <li> db2_special_columns — Bir tablo için tekil satır belirleme kolonunun listesini sonuç olarak döndürür.
+    <li> db2_statistics — Tablo için istatistik ve dizin listesini sonuç olarak döndürür.
+    <li> db2_stmt_error — SQL deyiminden dönen SQLSTATE yazı dizisini döndürür.
+    <li> db2_stmt_errormsg — Son SQL deyimi hata mesajının yazı dizisini döndürür.
+    <li> db2_table_privileges — Bir veritabanındaki tabloları ve ilgili yetkileri listeleyen sonucu döndürür.
+    <li> db2_tables — Veritabanında tabloların listesi ve ilgili metadata sonucunu döndürür.
+</ul>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

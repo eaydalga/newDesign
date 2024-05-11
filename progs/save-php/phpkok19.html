@@ -1,0 +1,2005 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP kökler - Programlama</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+function ackapa(no)
+{
+var bolum="secim"+no;
+    target=document.getElementById(bolum);
+    if(target.style.display == "inline") {
+         target.style.display = "none";
+    } else {
+         target.style.display = "inline";
+    }
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <a href="phptxt7.html" class="nav">Php Kök</a>
+               <a href="phpkok1.html" class="sub">ext_skel</a><br 7>
+               <a href="phpkok2.html" class="sub">UNIX:config.m4</a><br 7>
+               <a href="phpkok3.html" class="sub">Win:config.w32</a><br 7>
+               <a href="phpkok4.html" class="sub">zend_module</a><br 7>
+               <a href="phpkok8.html" class="sub">Zorunluluklar</a><br 7>
+               <a href="phpkok9.html" class="sub">Hazırlama</a><br 7>
+               <a href="phpkok10.html" class="sub">İskelet doldurma</a><br 7>
+               <a href="phpkok11.html" class="sub">Hazılama</a><br 7>
+               <a href="phpkok12.html" class="sub">Denemeler</a><br 7>
+               <a href="phpkok13.html" class="sub">Paket Yaratma</a><br 7>
+               <a href="phpkok14.html" class="sub">pdo_dbh_t</a><br 7>
+               <a href="phpkok15.html" class="sub">pdo_stmt_t</a><br 7>
+               <a href="phpkok16.html" class="sub">Değişmezler</a><br 7>
+               <a href="phpkok17.html" class="sub">Hatalar</a><br 7>
+               <a href="phpkok18.html" class="sub">PHP uzantı API</a><br 7>
+               <a href="phpkok19.html" class="sub">Zend API: </a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">10 Mart 2008</span></div>
+<div id="bdy" class="yazi">
+<h3>Zend API: PHP çekirdeğini kırmak (hacking)</h3>
+<h3>Giriş</h3>
+
+Konuşmayanlar için
+<br /><br />
+Konuştuğunu bilmeyen için
+<br /><br />
+Bazen, PHP olduğu gibi yeterli değildir. Bu durum sıradan kullanıcılar için çok az da olsa, profesyonel uygulamalar php kullanımını hemen köşelere sıkıştırır. Hız ve işlevsellik açısından sorunlar olabilir. Yeni özellikler her zaman yerel olarak eklenemiyebilir (dil sınırlamalarından). Her kısa kodun peşine kocaman bir kitaplığı ekleyerek iş yapmak doğru olmayabilir. Bunları çözmek için başka bir yötem bulunmalıdır.
+<br /><br />
+İşte tam bu noktada, PHP'nin kalbine dokunmanın zamanı gelmiş demektir. Burada çekirdekteki C koduna bakmakta yarar vardır.
+<h3>UYARI</h3>
+
+Bu bilgi halen eskimiştir. Bazı bölümleri Zend makinesinin 1.0 API bilgilerini içerir. Bu da PHP 4'ün ilk sürümlerinde kullanılmıştır.
+<br /><br />
+Daha yeni bilgi PHP kaynak kodlarıyla gelen README dosyalarında bulunabilir. Ayrıca Zend web sayfalarındaki "Internals" başlığında da vardır.
+<h3>Özet</h3>
+
+PHP genişletmek, yapılmasından söylenmesi daha kolay olan birşeydir. PHP birkaç megabayt kaynak koddan oluşur. Böyle bir sistemi kırmak için bayağı birşeyler bilmek gerekir. Bu bölüm "yaparken öğren" yöntemiyle hazırlanmıştır. Bu çok profesyonel ya da bilimsel yöntem olmayabilir ama en iyi sonuç verendir. Aşağıdaki bölümlerde, en temel uzantıları nasıl hemen bulabileceğiniz anlatılır. Ondan sonra, Zend'in gelişmiş API işlevselliğini öğrenebilirsiniz. Bir başka seçenek işlevselliğin, tasarımın, ipuçlarının, oyunların bir bütün olarak gösterilmesi ve büyük resmi göstermektir. Böylece pratik olarak herhangi birşey yapmadan genel görünüm kuşbakışı tanımlanmış olur. Bu daha iyi bir yöntem olsa da, kirli kırılmaları kurmaya gerek olmaz. Çok zaman ve emek yoğun olabilir. Bu nednele doğrudan yaklaşım seçilmiştir.
+
+<br /><br />
+Bu bölüm olabildiğince çok PHP içindeki bilgiyi açmak istese de gerçekten PHP genişletmek için tam bir klavuz sunmak olanaksızdır. Bunlar her zaman yüzde yüz doğru çalışmayabilir. PHP o kadar büyük ve karmaşık bir pakettir ki, içinde olanları anlamak ancak deneme yaparak onuları öğrenebilirsiniz. Bu nednele kaynak kodla çalışmanızı öneririz.
+<h3>Zend Nedir? ve PHP Nedir?</h3>
+
+Zend adı, dil makinesini anlatır ve PHP çekirdeğidir. PHP dışından bakıldığında tüm sistemi tanımlar. Bu ilk başta karışık gelebilir. Ama o kadar karmaşık değildir. Web kodlaması yorumlayıcısının uygulamasında üç bölüm vardır:
+<ol>
+   <li> Yorumlama bölümü giriş kodunu analiz eder, çevirir ve çalıştırır.
+   <li> İşlevsellik bölümü dilin işlevselliğini uygular (onun işlevleri vb).
+   <li> Arayüz bölümü Web sunucuyla vb konuşur.
+</ol>
+Zend birinci bölümün tamamını ve biraz da ikinci bölümü alır. PHP bölüm 2 ve bölüm 3 alır. İkisi bir arada PHP paketini oluşturur. Zend kendisi yalnız dil çekirdeğini oluşturur. PHP uygulamasınıin en temel hazır işlevlerinden oluşur. PHP aslında dilin becerilerini tüm modüllerde içerir. 
+<h3>PHP'nin işsel yapısı</h3>
+
+Aşağıdaki bölüm PHP nerede denişletilebiliri tartışır ve nasıl yapıldığını söyler.
+<h3>Uzantı Olasıklığı (Extension Possibilities)</h3>
+
+Yukarıda belirtildiği gibi, PHP ilk olarak üç noktadan geliştirilebilir: dışsal modüller, hazırlanmış modüller ve Zend makinesi. Aşağıdaki bölümler bu seçimlikleri tartışır.
+<h3>Dışsal Modüller (External Modules)</h3>
+
+Dışsal modüller kodlama çalışma zamanında dl() işleviyle yüklenir. Bu işlev diskten paylaşılan nesneyi yükler ve sınırlandırıldığı kodlamanın kullanımında olur. Kodlama bitince, dışsal modül bellekten silinir. Bu yöntemin aşağıdaki tabloda belirtildiği gibi yararları ve sakıncaları vardır.
+<table class="yazi">
+<tr><td>Yararları </td><td>Sakıncaları</td><td></td></tr>
+<tr><td>Dışsal modüller PHP'nin yeniden derlenmesini gerektirmez. </td><td>Kodlama her çalıştırıldığında dışsal modül yeniden yüklenir (her erişimde), bu nedenle çok yavaştır.</td><td></td></tr>
+<tr><td>Bazı işlevleri dışarıda tutarak PHP boyu küçültülebilir. </td><td>Dışsal ek dosyalar düzensizce diske yayılır.</td><td></td></tr>
+<tr><td></td><td></td><td>Dışsal modüllerin işlevselliğini kullanmak isteyen her kodlama dl(9 işlevini özellikle çağırmalıdır. Ya da php.ini içinde uzantı biçimi değiştirilmelidir (her zaman uygun olabilen bir çözüm değildir).</td></tr>
+</table>
+Toparlamak için, dışsal modüller üçüncü parti çözümleri için çok uygundur. Ek işlevselliği hızla geliştirmek için dışsal modüller en uygun sonucu verir. Sık kullanılan, daha geniş uygulama alanı olan ve karmaşık kodlamalarda sakıncası yararlardan üstün olur.
+<br /><br />
+Üçüncü partiler uzantı biçimlerini php.ini içinde kullanmayı düşünebilirler. Böylece PHP için ek dışsal modüller yaratır. Bunlar ana paketten tümüyle ayrıdır. Ticari ortamlarda oldukça kullanışlı bir yöntemdir. Ticari dağıtıcılar yalnız kendi ek modüllerini içeren diskleri ya da arşivlerini gönderip kurdurabilirler. Böylece PHP yeniden derlenmeden bu modüller kullanılabilir.
+<h3>Hazır (Built-in) Modüller</h3>
+
+Hazır modüller PHP içinde derlenirler ve her PHP işlemiyle taşınırlar. İşlevsellikleri her çalışan kodlamaya anında hazırdır. hazır modüllerin yararları ve sakıncaları aşağıda anlatılmıştır.
+<table class="yazi">
+<tr><td>Yaraları</td><td>Sakıncaları</td></tr>
+<tr><td valign="top">Özellikle modülü yüklemek gerekmez; işlevsellik anında hazırdır.</td><td>Hazır modüllerde değişiklik PHP derlenmesi gerektirir.</td></tr>
+<tr><td valign="top">Dışsal dosyalar diski dağıtmaz; Herşey PHP ikilisinde bulunur.</td><td>PHP ikilisi büyür ve daha çok bellek ister.</td></tr>
+</table>
+Hazır modüller katı kitaplık işlevleriniz varsa ve çok az değişiyorlarsa anlamlıdır. Bunlar kodlamalarda daha çok kullanılırlar. PHP derleme sakıncası hızlı ve kolay kullanımla kapatılır. Ama küçük ve hızlı yapılması gereken eklerde hazır modüller en iyi değildir.
+<h3>The Zend Engine</h3>
+
+Tabi ki Zend makinesinde uzantılar doğrudan uygulanır. Bu yöntem dil kuralalrında hızlı değişiklik isterseniz iyidir. Ya da dilin çekirdeğine davranışı etkileyecek özel işlevler eklemede yararlı olur. Genelde Zend makinesine yapılacak değişiklikler atlanmalıdır. Buradaki değişiklikler Dünyanın kalanıyla farklı ve uyumsuz bir makeneye neden olabilir. Çok az kimse bu yamayı kendi makinelerine ekler. PHP kaynak kodlarında yapılacak değişiklikler bir sonraki resmi dağıtımda kaybolur. Bu nedenle bu konu hem kullanışlı değildir hem de çok az kullanılabildiğinden burada anlatılmamıştır.
+<h3>Kaynak Yayılımı</h3>
+
+    Not: Bölümün kalanıyla çalışmadan önce, Web sunuculardan temiz  bir kopya kaynak kod indirmelisiniz. Apache ile çalıştığınızda (http://www.apache.org/ adresinde vardır) ve tabi ki PHP (http://www.php.net/ adresinde vardır) kullanılacak kaynak kodlardır.
+<br /><br />
+Çalışan PHP ortamını kendi başınıza derleyebileceğinize emin olmalısınız. Bu konu daha önce incelenmiş olduğundan burada işlenmez.
+<br /><br />
+Kodlamaları tartışmadan önce kendinizi PHP kaynak kodlarına alıştırmalısınız. Bunun zorunlu olduğunu bilmek önemlidir.
+<br /><br />
+Aşağıdaki tablo ana dosya yollarını açıklar:
+<table class="yazi">
+<tr><td>Dosya Yolu </td><td>İçerik</td></tr>
+<tr><td>php-src </td><td>PHP ana kaynak dosyaları ve ana başlık dosyaları; Burada PHP API bilgilerini, makroları vb (önemli) bulabilirsiniz. Diğerleri bu yolun altındadır.</td></tr>
+<tr><td>php-src/ext </td><td>hazır ve dinamik modüller havuzu; varsayılan olarak bunların hepsi "resmi" PHP modülleridir. Hepsi ana kaynak kod ağacına bütünleştirilmiştir. PHP 4.0'dan bu yana, bu standart uzantıları dinamik modüller olarak derlemek mümkündür (en azından bunu destekleyenler için geçerlidir).</td></tr>
+<tr><td>php-src/main </td><td>Bu dosya yolu ana PHP makrolarını ve tanımlarını içerir (önemli).</td></tr>
+<tr><td>php-src/pear </td><td>PHP uzantıları ve uygulama havuzu için dosya yolu. Bu yol kök PEAR dosyalarını içerir.</td></tr>
+<tr><td>php-src/sapi </td><td>Diğer sunucu özet katmaları için kodlama içerir.</td></tr>
+<tr><td>TSRM </td><td>Zend ve PHP için parçacık-güvenli kaynak yönetimi "Thread Safe Resource Manager" (TSRM) yeri.</td></tr>
+<tr><td>ZendEngine2 </td><td>Zend makinesi dosyalarının yeri; Burada tüm Zend API tanımlarını, makroları vb (önemli) bulursunuz.</td></tr>
+</table>
+
+PHP paketindeki dosyaları tartışmaz buradaki konuların dışında kalır. Ama aşağıdakiler hakkında biraz bilgi edinmek iyidir:
+<ul>
+    <li> php-src/main/php.h, ana PHP yolunda yer alır. Bu dosya PHP makrolarını ve API tanımlarının pekçoğunu içerir.
+    <li> php-src/Zend/zend.h, Ana Zend yolunda bulunur. Bu dosya pekçok makro ve tanımı içerir.
+    <li> php-src/Zend/zend_API.h, bu da Zend yolunda bulunur ve Zend API bilgilerini tanımlar.
+</ul>
+Bu dosyalardan yapılan alt eklemeleri de izlemek gerekir. Örneğin Zend çalıştırıcısıyla ilgili olanlar ele alınabilir. PHP ilkleme dosya desteği ve benzerleri. Bu dosyaları okuduktan sonra, biraz paket içinde gezinmek için zaman harcayın. Tüm dosyaların ve modüllerin ne kadar bağımsız olduklarını göreceksiniz. Birbirlerine ilişkileri nasıldır ve birbirlerini nasıl kullanacaklarını bilmektir. Bu sizin PHP kodlamasını öğrenmenizi ve PHP yazarı gibi kodlama yapmanızı sağlar. Kısa sürede bu stile alışırsınız.
+<h3>Uzantı Kuralları</h3>
+
+Zend bazı kuralları kullanarak hazırlanır; standartları kırmayı unutun ve aşağıda belirtilen kuralları izlemeyi sürdürün.
+<h3>Makrolar</h3>
+
+Hemen her önemli işte, Zend önceden tanımlanmış makrolar yollar. Bunlar oldukça yardımcı olur ve kullanışlıdırlar. Aşağıdaki bölümde yer alan tablolar ve çizimler birçok temel işlevi, yapıları ve makroları anlatır. Makro tanımları genelde zend.h ve zend_API.h içinde bulunur. Önerilen, bu dosyaları yakından incelemenizdir.
+<h3>Bellek Yönetimi</h3>
+
+Resource management is a crucial issue, especially in server software. One of the most valuable resources is memory, and memory management should be handled with extreme care. Memory management has been partially abstracted in Zend, and you should stick to this abstraction for obvious reasons: Due to the abstraction, Zend gets full control over all memory allocations. Zend is able to determine whether a block is in use, automatically freeing unused blocks and blocks with lost references, and thus prevent memory leaks. The functions to be used are described in the following table:
+<table class="yazi">
+<tr><td>İşlev </td><td>Açıklama</td></tr>
+<tr><td>emalloc() </td><td>malloc() yerine kullanılır.</td></tr>
+<tr><td>efree() </td><td>free() yerine kullanılır.</td></tr>
+<tr><td>estrdup() </td><td>strdup() yerine kullanılır.</td></tr>
+<tr><td>estrndup() </td><td>strndup() yerine kullanılır. estrdup() işlevinden hızlıdır ve ikili güvenliği vardır (binary-safe). Eğer yazı dizisinin kopyalanmadan önce uzunluğu biliniyorsa bu işlevin kullanılması önerilir.</td></tr>
+<tr><td>ecalloc() </td><td>calloc() yerine kullanılır.</td></tr>
+<tr><td>erealloc() </td><td>realloc() yerine kullanılır.</td></tr>
+</table>
+emalloc(), estrdup(), estrndup(), ecalloc(), ve erealloc() içsel bellek alanı açar; efree() önceden açılan blokları boşaltır. e*() ile ele alınan bellek işlevleri o anki işleme göre yereldir ve bu kodlamanın çalışması biçince hemen boşaltılır.
+<br /><br />
+<b>Uyarı</b>
+<br /><br />
+O anki kodlamanın bitiminden sonra da sürmesi için duran bellek alanı açmak içim malloc() ve free() kullanılır. Bu çok dikkatele kullanılmalıdır. Yalnız Zend API'den gelen isteklerle kullanılmalıdır. Aksi halde bellek boşluklarına neden olabilirsiniz.
+<br /><br />
+Daha iyi yerel destek sağlamak amacıyla Zend çok parçacıklı (thread) Web sunucularda, parçacık-güvenli kaynak yönetimi özelliği gösterir. Bu sizin evrensel değişkenleriniz için yerel yapılarla alan açmanızı ve birçok parçacığın aynı anda çalışmasını sağlar. Zend'in parçacık-güvenli konumu bunlar yazılırken daha bitmemişti bu nedenle ayrıntılı anlatılmamıştır.
+<h3>Dosya Yolu ve Dosya İşlevleri</h3>
+
+Aşağıdaki yollar ve dosya işlevleri Zend modüllerinde kullanılmalıdır. Aynı C benzerleri gibi davranırlar ama parçacık düzeyinde sanal çalışma yolu sağlarlar.
+<table class="yazi">
+<tr><td>Zend İşlevleri </td><td>Kurallı C İşlevleri</td></tr>
+<tr><td>V_GETCWD() </td><td>getcwd()</td></tr>
+<tr><td>V_FOPEN() </td><td>fopen()</td></tr>
+<tr><td>V_OPEN() </td><td>open()</td></tr>
+<tr><td>V_CHDIR() </td><td>chdir()</td></tr>
+<tr><td>V_GETWD() </td><td>getwd()</td></tr>
+<tr><td>V_CHDIR_FILE() </td><td>bir dosya yolunu bağımsız değişken olarak alır ve o anki çalışan yolu dosyanın yoluna değiştirir.</td></tr>
+<tr><td>V_STAT() </td><td>stat()</td></tr>
+<tr><td>V_LSTAT() </td><td>lstat()</td></tr>
+</table>
+<h3>Yazı dizisi Ele alma</h3>
+
+Yazı dizileri Zend makinesinse tamsayılara, mantıksallara vb'lere oranla biraz daha farklı ele alınır. Diğerleri değeri saklamak için ek bellek alanı açılmasını istemez. Bir işlevden yazı dizisi döndürmek isterseniz, Simge tablosuna yeni bir yazı dizisi değişkeni eklenir ya da benzeri bir şey yapılır. yazı dizisinin kapsanacağı bellek alanı daha önce e*() işlevleriyle açılmış olmalıdır.
+<h3>Karmaşık Türler</h3>
+
+Diziler ve nesneler gibi karmaşık türler değişiklik ele alınırlar. Zend bunlar için tek API hazırlar. Bunlar hash (karışık dizi) tablolarında saklanır.
+<br /><br />
+    Not: 
+Aşağıdaki kaynak kod örneğinde karmaşıklığı azaltmak için başlangıçta yalnız tamsayılarla çalışılmıştır. Daha karmaşık türleri yaratma tartışması daha sonra anlatılmıştır.
+
+<h3>PHP'nin Otomatik Hazırlama Sistemi</h3>
+
+PHP 4 otomatik hazırlama sistemi çok esnektir. Tüm modüller ext adlı alt dosya yolunda bulunur. Onun kendi kaynaklarına ek olarak, her modülün uzantı ayarları için config.m4 dosyası vardır (bakınız  http://www.gnu.org/software/m4/manual/m4.html).
+<br /><br />
+ext_skel adlı küçük bir kabuk program tarafından tüm bu dosyalar ve .cvsignore otomatik yaratılır. Bağımsız değişken olarak yaratmak istediğiniz modülün adını alır. Aynı adla bir dosya yolu ve içinde gerekli dosyaları yaratır.
+<br /><br />
+Adım adım işlem aşağıdaki gibidir:
+<pre>
+:~/cvs/php4/ext:> ./ext_skel --extname=my_module
+Creating directory my_module
+Creating basic files: config.m4 .cvsignore my_module.c php_my_module.h
+                      CREDITS EXPERIMENTAL tests/001.phpt my_module.php [done].
+</pre>
+Yeni uzantınızı kullanmak için aşağıdakileri çalıştırmanız gerekir:
+<pre>
+1.  $ cd ..
+2.  $ vi ext/my_module/config.m4
+3.  $ ./buildconf
+4.  $ ./configure --[with|enable]-my_module
+5.  $ make
+6.  $ ./php -f ext/my_module/my_module.php
+7.  $ vi ext/my_module/my_module.c
+8.  $ make
+</pre>
+ext/my_module/config.m4 ile iş bitinceye dek 3-6 adımları yinelenir. Adım 6 modülünüzün PHP içine derlendiğini onaylar. Bundan sonra kodu yazın ve son iki adımı gerek olduğu kadar yineleyin.
+<br /><br />
+Bu komut önceden sözü edilen dosyaları yaratır. Yeni modülü otomatik ayarlama ve hazırlama işlemine eklemeden, önce "buildconf" çalıştırılmalıdır. Bununla ayar kodları yeniden yaratılır (ext dosya yolu incelenerek) ve config.m4 içinde bulunanların hepsi eklenir.
+<br /><br />
+Zend API içinde gösterilen varsayılan config.m4 dosyası: PHP çekirdeğini kırmak ise biraz daha karmaşık birşeydir:
+
+<h3>Örnek-1: Varsayılan config.m4.</h3>
+<pre>
+dnl $Id: build.xml,v 1.3 2007/11/01 16:40:36 rquadling Exp $
+dnl config.m4 for extension my_module
+
+dnl Comments in this file start with the string 'dnl'.
+dnl Remove where necessary. This file will not work
+dnl without editing.
+
+dnl If your extension references something external, use with:
+
+dnl PHP_ARG_WITH(my_module, for my_module support,
+dnl Make sure that the comment is aligned:
+dnl [  --with-my_module             Include my_module support])
+
+dnl Otherwise use enable:
+
+dnl PHP_ARG_ENABLE(my_module, whether to enable my_module support,
+dnl Make sure that the comment is aligned:
+dnl [  --enable-my_module           Enable my_module support])
+
+if test "$PHP_MY_MODULE" != "no"; then
+  dnl Write more examples of tests here...
+
+  dnl # --with-my_module -> check with-path
+  dnl SEARCH_PATH="/usr/local /usr"     # you might want to change this
+  dnl SEARCH_FOR="/include/my_module.h"  # you most likely want to change this
+  dnl if test -r $PHP_MY_MODULE/; then # path given as parameter
+  dnl   MY_MODULE_DIR=$PHP_MY_MODULE
+  dnl else # search default path list
+  dnl   AC_MSG_CHECKING([for my_module files in default path])
+  dnl   for i in $SEARCH_PATH ; do
+  dnl     if test -r $i/$SEARCH_FOR; then
+  dnl       MY_MODULE_DIR=$i
+  dnl       AC_MSG_RESULT(found in $i)
+  dnl     fi
+  dnl   done
+  dnl fi
+  dnl
+  dnl if test -z "$MY_MODULE_DIR"; then
+  dnl   AC_MSG_RESULT([not found])
+  dnl   AC_MSG_ERROR([Please reinstall the my_module distribution])
+  dnl fi
+
+  dnl # --with-my_module -> add include path
+  dnl PHP_ADD_INCLUDE($MY_MODULE_DIR/include)
+
+  dnl # --with-my_module -> chech for lib and symbol presence
+  dnl LIBNAME=my_module # you may want to change this
+  dnl LIBSYMBOL=my_module # you most likely want to change this 
+
+  dnl PHP_CHECK_LIBRARY($LIBNAME,$LIBSYMBOL,
+  dnl [
+  dnl   PHP_ADD_LIBRARY_WITH_PATH($LIBNAME, $MY_MODULE_DIR/lib,
+                                  MY_MODULE_SHARED_LIBADD)
+  dnl   AC_DEFINE(HAVE_MY_MODULELIB,1,[ ])
+  dnl ],[
+  dnl   AC_MSG_ERROR([wrong my_module lib version or lib not found])
+  dnl ],[
+  dnl   -L$MY_MODULE_DIR/lib -lm -ldl
+  dnl ])
+  dnl
+  dnl PHP_SUBST(MY_MODULE_SHARED_LIBADD)
+
+  PHP_NEW_EXTENSION(my_module, my_module.c, $ext_shared)
+fi
+</pre>
+Eğer M4 dosyalarına alışık değilseniz tam öğrenmenin zamanıdır. Başlangıçta karışık görünse de aslında oldukça kolaydır.
+<br /><br />
+Not: Başında dnl olan herşey açıklama kabul edilir ve tarama işlemi uygulanmaz.
+<br /><br />
+config.m4 dosyası komut satırı seçimliklerini taramadan sorumludur. Bunun anlamı, dışsal dosyaların varlığının araştırılması ve aynı ayarlama ve kurma işlerini yapmaktır.
+<br /><br />
+Varsayılan dosya ayar kodlamasında iki ayar yönelticisi yaratır: "--with-my-module" ve "--enable-my-module". Dışsal dosyalar için ilkini kullanmak daha iyidir. İkincisini kullanıcı sizin uzantınızı açacaksa kullanın. Hangisini seçerseniz seçin diğerini açıklamaya çevirmelisiniz. Eğer "--enable-my-module" kullanıyorsanız "--with-my-module" desteğini kaldırmalısınız.
+<br /><br />
+ext_skel tarafından yaratılan config.m4 dosyası varsayılan olarak her yönelticiyi kabul eder ve otomatik olarak sizin uzantınızı açar. Bir uzantıyı açmak PHP_EXTENSION makrosunu kullanarak olur. Sizin modülünüzü içerecek biçimde varsayılan PHP ikilisini değiştirmek için "--enable-my-module" ya da "--with-my_module" kullanılmalıdır. Daha sonra denemeyi $PHP_MY_MODULE == "yes" yapın.
+<pre>
+if test "$PHP_MY_MODULE" == "yes"; then dnl
+    Action.. PHP_EXTENSION(my_module, $ext_shared)
+    fi
+</pre>
+Bu "--enable-my_module" ayarı her seferinde PHP derlemesi yapmak için gereklidir.
+<br /><br />
+Not: Her config.m4 değiştiğinde "buildconf" çalıştırmayı unutmayın.
+<br /><br />
+M4 makroları konusunda daha da ayrıntıya gidilir. Şimdilik yalnız varsayılan dosyalar ele alınmıştır.
+<h3>Uzantıları yaratmak</h3>
+
+İlk başta çok basit uzantıyı yaratarak işe başlarız. Bu da bağımsız değişken olarak verilen tam sayıyı döndüren bir işlevden başkası değildir. Zend API: PHP çekirdeğine eklenecek kaynağı gösterir.
+<h3>Örnek-2: Basit bir uzantı</h3>
+<pre>
+/* standart başlık ekle */
+#include "php.h"
+
+/* dışa taşınacak işlevlerin tanımı */
+ZEND_FUNCTION(first_module);
+
+/* Zend'in bildiği modül içinde olanlar: derlenmiş işlevler listesi */
+zend_function_entry firstmod_functions[] =
+{
+    ZEND_FE(first_module, NULL)
+    {NULL, NULL, NULL}
+};
+
+/* derlenmiş modül bilgileri */
+zend_module_entry firstmod_module_entry =
+{
+    STANDARD_MODULE_HEADER,
+    "First Module",
+    firstmod_functions,
+    NULL, 
+    NULL, 
+    NULL, 
+    NULL, 
+    NULL,
+    NO_VERSION_YET,
+    STANDARD_MODULE_PROPERTIES
+};
+
+/* standart kütük ("stub") bilgisini uygulama. Zend'e kendimizi 
+ * tanıştırmak için gereklidir */
+#if COMPILE_DL_FIRST_MODULE
+ZEND_GET_MODULE(firstmod)
+#endif
+
+/* uygulama işlevi PHP'ye açılmış olduğu bildirilmiş */
+ZEND_FUNCTION(first_module)
+{
+    long parameter;
+
+    if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, 
+                              "l", &amp;parameter) == FAILURE) {
+        return;
+    }
+
+    RETURN_LONG(parameter);
+}
+</pre>
+Bu kod tam bir PHP modülü içerir. Kodu birazdan açıklayacağız. Ama ilk olarak hazırlama işlemini tartışmak isteriz (Bu sabırsızı API tartışmasına girmeden denemeye hazırlar).
+<br /><br />
+    Not: 
+Örnek kaynak kod bazı özelliklerin Zend sürümüyle tanıtılmasında kullanılır. PHP 4.0 ve üzerinde bu geçerlidir daha eski sürümlerde derlenmez.
+
+<h3>Modülleri Derleme</h3>
+
+Modülleri derleme için temelde iki yol vardır:
+<ul>
+    <li> ext yolunda sağlanan "make" mekanizmasını kullanarak dinamik yüklenebilen modüller yaratılır.
+    <li> Kaynakları elle derleyin.
+</ul>
+İlk yöntem tercih edilendir. PHP 4.0 sürümünde abartılmış hazırlama işlemiyle standart biçime döndürülmüştür. Bu kadar abartılmış olması gerçeği onun sorunudur. Başlangıçta anlamak zordur. Bu konuda daha ayrıntılı giriş sunulur. Ama önce varsayılan dosyalarla çalışalım.
+<br /><br />
+İkinci yöntem tüm PHP kaynak kod ağacı olmayanlara uygundur. Her dosyaya erişim hakkı olmalabilir. Bunlar çok az rastlanan durumlardır ama tamamlamak amacıyla bu yöntem de anlatılır.
+
+<h3>Make kullanarak derleme</h3>
+
+Standart mekanizmayla örnek kaynak kodları derlemek için tüm alt dosya yollarını ext yoluna taşınır. Sonra "buildconf" çalıştırılır. O da güncellenmiş "configure" kodu yaratır. Varsayılan olarak tüm örnek kaynak kodlar kapalıdır. hazırlama işlemini kıracak olmanız hiçbir şeyi bozmaz.
+<br /><br />
+"buildconf" çalıştırdıktan sonra "configure --help" şu ek modülleri de gösterir:
+<pre>
+  --enable-array_experiments   BOOK: dizi deneylerini açar
+  --enable-call_userland       BOOK: kullanıcı modülünü açar
+  --enable-cross_conversion    BOOK: çapraz çevirim modülünü açar
+  --enable-first_module        BOOK: ilk modülü açar
+  --enable-infoprint           BOOK: infoprint modülünü açar
+  --enable-reference_test      BOOK: Gösterilen deneme modülünü açar
+  --enable-resource_test       BOOK: kaynak deneme modülünü açar
+  --enable-variable_creation   BOOK: değişiklik yaratma modülünü açar
+</pre>
+
+Zend API'de daha önce gösterilen modül: PHP çekirdeğine girme (kırma) "--enable-first_module" ya da "--enable-first_module=yes" ile açılabilir.
+
+<h3>Elle derlemek</h3>
+
+Modüllerinizi elle derlemek için aşağıdaki komutlara gereksiniminiz vardır.
+<table class="yazi">
+<tr><td>İşlem </td><td>Komut</td></tr>
+<tr><td>Derleme </td><td>cc -fpic -DCOMPILE_DL_FIRST_MODULE=1 -I/usr/local/include -I. -I.. -I../Zend -c -o &lt;your_object_file&gt; &lt;your_c_file&gt;</td></tr>
+<tr><td>Bağlama </td><td>cc -shared -L/usr/local/lib -rdynamic -o &lt;your_module_file&gt; &lt;your_object_file(s)&gt;</td></tr>
+</table>
+Modülü derlemek için kullanılan komut derleyiciye, yeri belirtilmiş bağımsız (position-independent) kod (-fpic atlanmamalı) üretilmesini bildirir. Ek olarak modül koduna dinamik yüklenebilen modül olarak derlendiğini COMPILE_DL_FIRST_MODULE değişmezini tanımlayarak bildirir (yukarıdaki test modülü bunu denemek içindir). Bu seçeneklerden sonra, bir sıra standart ekleme yolları belirtir. Buradan derlemede kullanılacak en küçük küme elde edilmiş olur.
+<br /><br />
+Not: Örnekteki tüm ekleme yolları ext dosya yoluna görecelidir. Eğer bir başka yoldan derleme yapıyorsanız dosya yollarını ona göre değiştirin. Gerekli öğeler, PHP yolu, Zend yolu ve (eğer gerekliyse) sizin modülün bulunduğu yoldur.
+<br /><br />
+Bağ komutu (link) bağlanmaya dinamik modül olduğunu söyleyen sıradan komuttur.
+<br /><br />
+Verimlilik seçimlerini derleme komutlarına ekleyebilirsiniz. Bunlar örnekte unutulmuş olsa da (bazıları önceki bölümlerde "makefile" şablonunda anlatılmıştır).
+<br /><br />
+Not: 
+PHP ikilisiyle birlikte statik modül olarak derlemek çok uzun bir işlem olduğundan burada anlatılmamıştır (O komutların hepsini yazmak da çok iyi bir yöntem de değildir).
+<h3>Uzantıları kullanma</h3>
+
+Seçtiğiniz hazırlama işlemine bağımlı olarak, ya Web sunucunuza bağlanabilecek yeni bir PHP kitaplığına ulaşırsınız, ya da .so ile biten paylaşımlı dosyayına erişirsiniz. Örnek dosyayı (first_module.c) paylaşıyan nesne derlerseniz, sonuç dosyanız first_module.so olur. Kullanabilmek için önce bu modülü PHP ile erişilebiecek bir dosya yoluna taşımalısınız. Basit bir test işlemi için onu kendi htdocs yoluna taşıyabilir ve Zend API: PHP çekirdeğini kırma içindeki kaynak kodla deneyebilirsiniz. Eğer bunu PHP kitaplığı içine derlerseniz, dl() çağırma işlemini kaldırın. Bu tür modüller doğrudan kodlamanız için hazır olur.
+<h3>UYARI</h3>
+
+Güvenlik nedeniyle, kendi dinamik modüllerinizi halka açık bir yere taşımayın. Yapılabildiği ve testleri kolaylaştırdığı halde onları üretim ortamında ayrı bir yola yerleştirmelisiniz.
+
+<h3>Örnek-3 first_module.so için test dosyası.</h3>
+<pre>
+&lt;?php
+    
+// gerekliyse aşağıdaki açıklama işaretlerin kaldırın
+// dl("first_module.so"); 
+
+$param = 2;
+$return = first_module($param);
+
+print("'$param' gönderdik ve '$return' aldık");
+
+?&gt;
+</pre>
+Bu PHP dosyasını çağırınca aşağıdaki çıktı olur:
+<pre>
+'2' gönderdik ve '2' aldık
+</pre>
+
+Eğer gerekliyse dinamik erişilebilen modüller dl() işlevini yükleyerek çağrılır. Bu işlev belirtilen paylaşılacak nesneyi arar, yükler ve işlevlerini PHP kullanımına sunar. Modül "first_module()" işlevini dışa verir. Bu işlev tek bağımsız değişken alır, onu tamsayıya çevirir ve çevirim sonucunu döndürür.
+<br /><br />
+Eğer buraya kadar geldinizse tebrikler... PHP'ye ilk uzantınızı derlemiş oldunuz.
+<h3>Hata arama (Troubleshooting)</h3>
+
+Aslında, statik ya da dinamik modülleri derlerken fazla hata ayıklama işlemi yapılamaz. Doğabilecek tek sorun derleyicinin tanımlanmamış tanımları ya da benzerlerini göstermesidir. Bu durumda başlık dosyalarının hepsinin olduğunu ve yollarını derleme sırasında doğru belirttiğinize emin olmalısınız. Herşeyin doğru yerleştirildiğini belirlemek için temiz bir PHP kaynak ağacını açın ve ext yolundaki otomatik hazırlamayı taze dosyalarla çalıştırın. Bu size güvenli bir derleme ortamı olduğunu garanti etmiş olur. Eğer hata olursa, elle derlemeyi deneyin.
+<br /><br />
+PHP sizin modulünüzdeki eksik işlevleri de sorun eder (örnek kaynak kodlarda değişiklik yapmadıysanız hata olmaması gerekir). Eğer erişmek istediğiniz dışsal işlevlerin adları modülünüzde doğru yazılmamışsa, "bağlanmamış simgeler" olarak açık kalırlar. Dinamik yüklemelerde ve PHP ile bağlamada, yazım hatalarından çözümlenmezler. Unutmayın ki bu sorun dinamik modüllere özgüdür. Statik modüllerde olmaz. Statik modüllerde hata derleme zamanında ortaya çıkar.
+<h3>Kaynak kod Tartışması</h3>
+
+Bilin ki güvenli hazırlama ortamı vardır. PHP dosyalarına modüller ekleyebilirsiniz. Burada herşeyin nasıl çalışacağının tartışılma zamanıdır.
+<h3>Modül Yapısı</h3>
+
+Tüm PHP modülleri ortak bir yapıdır:
+<ul>
+    <li> Başlık dosyası eklenmesi (Tüm gereken makroları, API tanımlarını vb)
+    <li> dişa verilen işlevlerin C tanımları (Zend işlev bloğunu tanımlamak için gereklidir).
+    <li> Zend işlev bloğunun tanımlanması
+    <li> Zend modül bloğunun tanımlanması
+    <li> get_module() işlevinin uygulanması
+    <li> Tüm dışa verilen işlevlerin uygulaması.
+</ul>
+
+<h3>Başlık Dosyası Eklemeleri</h3>
+
+Modülünüz için eklemek isteyeceğiniz tek başlık dosyası php.h olur. PHP yolundadır. Kodunuza yeni modüller hazırlanması için gerekli tüm makro ve API tanımlarını içerir.
+<br /><br />
+İp ucu: 
+Modülünüze özgü tanımlar için ayrı bir başlık dosyası yaratmak iyi bir alışkanlıktır. Burada tüm öncül işlev tanımları, php.h eklentisi ve diğer değişmez tanımları yer alır. Eğer modülünüzü ext_skel ile yaratmışsanız zaten böyle bir başlık dosyanız vardır.
+<h3>Dışa açılan (Exported) işlevleri tanımlama</h3>
+
+Dışa verilen işlevleri tanımlar (yani PHP ye açık olan yeni yerel işlevleri). Zend bir sıra makro sunar. Örnek bir tanım aşağıdakine benzer:
+<pre>
+     ZEND_FUNCTION ( my_function );
+</pre>
+ZEND_FUNCTION yeni bir C işlevi tanımlar. Bu da Zend'in işsel API bilgileriyle derlenir. Bunun anlamı, işlevin türü void (boş) olması ve INTERNAL_FUNCTION_PARAMETERS değerini bağımsız değişken olarak kabul etmesidir. Ek olarak işlev adlarının öneki zif adını alır. Yukarıdaki tanımlamanın hemen açılmış biçimi şöyledir:
+<pre>
+     void zif_my_function ( INTERNAL_FUNCTION_PARAMETERS );
+</pre>
+INTERNAL_FUNCTION_PARAMETERS genişletilmesi aşağıdaki sonuçları verir:
+<pre>
+  void zif_my_function( int ht
+                      , zval * return_value
+                      , zval * this_ptr
+                      , int return_value_used
+                      , zend_executor_globals * executor_globals
+                      );
+</pre>
+Since the interpreter and executor core have been separated from the main PHP package, a second API defining macros and function sets has evolved: the Zend API. As the Zend API now handles quite a few of the responsibilities that previously belonged to PHP, a lot of PHP functions have been reduced to macros aliasing to calls into the Zend API. The recommended practice is to use the Zend API wherever possible, as the old API is only preserved for compatibility reasons. For example, the types zval and pval are identical. zval is Zend's definition; pval is PHP's definition (actually, pval is an alias for zval now). As the macro INTERNAL_FUNCTION_PARAMETERS is a Zend macro, the above declaration contains zval. When writing code, you should always use zval to conform to the new Zend API.
+<br /><br />
+Tanımların bağımsız değişken listeleri çok önemlidir. Bunları akılda tutmalısınız (Zend API: PHP çekirdeğinin kırılması bölümüne bakın).
+<h3>PHP'den çağrılan işlevlere Zend'in Bağımsız değişkenleri</h3>
+<table class="yazi">
+<tr><td>bağımsız değişken </td><td>Açıklama</td></tr>
+<tr><td>ht </td><td>Zend işlevine geçen bağımsız değişken sayısı. Buna doğrudan dokunmamalısınız, yerine değeri almak için ZEND_NUM_ARGS() kullanın.</td></tr>
+<tr><td>return_value </td><td>Bu değişken işlevinizin PHP'ye dönen değerleri için kullanılır. Bu değişkene erişim önceden tanımlanmış makrolarla en iyi biçimde yapılır. Ayrıntılı anlatım için aşağıdakilere bakın.</td></tr>
+<tr><td>this_ptr </td><td>bu değişkeni kullanarak, işlevinizin içinde bulunduğu nesneye erişebilirsiniz. Eğer bir nesnenin içindeyse. getThis() kullanarak bu göstergeyi alabilirsiniz.</td></tr>
+<tr><td>return_value_used </td><td>Bu durum kodu bu işlevden sonunda dönen değer gerçekten çağıral kodlama tarafından kullanılacak olup olmadığını gösterir. 0 dönen değerin kullanılmayacağını belirtir. 1 çağıranın bir dönen değer beklediğini belirtir. Bu durum kodunun çözümlenmesi işlevin doğru kullanılmasını onaylar. Aynı zamanda hızla ilgili verimlilik arttırılmasını da sağlar (dönen değerin her zaman sisteme yükü vardır).</td></tr>
+<tr><td>executor_globals </td><td>Bu değişken Zend makinesinin evrensel ayarlarını gösterir. Bunu yeni değişken yaratırken kullanışlı bulursunuz. Evrensel işleyici TSRMLS_FETCH() makrosuyla sizin işlevinize tanıştırılır.</td></tr>
+</table>
+<h3>Zend İşlev Bloğunun Tanımlanması</h3>
+
+Dışa verilecek işlevi tanımladığınız. Bunu Zend'le de tanıştırmalısınız. işlevler listesini tanıştırmak  zend_function_entry dizisiyle olur. Dışa verilen işlevlerin listesi dizide bulunur. dizideki adlar PHP'de kullanılacak biçimde olur. İçsel olarak "zend_function_entry" Zend API: PHP çekirdeğini kırma bölümünde gösterildiği gibidir.
+<h3>Örnek-4 zend_function_entry içsel tanımı.</h3>
+<pre>
+typedef struct _zend_function_entry {
+    char *fname;
+    void (*handler)(INTERNAL_FUNCTION_PARAMETERS);
+    unsigned char *func_arg_types;
+} zend_function_entry;
+</pre>
+<table class="yazi">
+<tr><td>Giriş Noktası </td><td>Açıklama</td></tr>
+<tr><td>fname </td><td>PHP'de gösterilen işlev adını belirtir (örneğin, fopen, mysql_connect ya da bu örnekteki gibi first_module).</td></tr>
+<tr><td>handler </td><td>C işlevlerine gösterge (çağırmalardan sorumlu)i. Daha önce tartışılan INTERNAL_FUNCTION_PARAMETERS standart makroya bakın.</td></tr>
+<tr><td>func_arg_types </td><td>Bazı bağımsız değişkenleri işaretlemenize izin verir. Böyle bunlar adres olarak geçebilirler. Ama genelde değeri NULL olur</td></tr>
+</table>
+Yukarıdaki örnekte, tanımlama şöyle olur:
+<pre>
+zend_function_entry firstmod_functions[] =
+{
+    ZEND_FE(first_module, NULL)
+    {NULL, NULL, NULL}
+};
+</pre>
+Göründüğü gibi listenin son öğesinde her zaman {NULL, NULL, NULL} olmalıdır. Bu işaret Zend için atanmıştır. Zend dışa verilen işlevlerin bittiğini buradan anlar.
+<br /><br />
+    Not: önceden tanımlanmış makrolar bitiş işaretinde kullanılmaz. Çünkü onlar adı "NULL" olan bir işlevi çağırmak isterler.
+<br /><br />
+ZEND_FE (Zend Function Entry kısaltılmışıdır) makrosu basit anlamda zend_function_entry içindeki yapıyı genişletir. Bu makroların sizin işlevlerinizde özel anlamı vardır. Sizin C işlevlerinizin öneki zif_ olur. Bunun anlamı; ZEND_FE(first_module) ile sizin zif_first_module() işlevinizi göstermektir. Eğer makro kullanımını elle kodlanan giriş noktalarıyla birleştirirseniz, bunu aklınızda bulundurun.
+<br /><br />
+İp ucu: Derleme hataları zif_*() adlı işlevleri gösterir. Onlar da ZEND_FE ile tanımlanan işlevlere ilişkilendirilir.
+<br /><br />
+Zend API: PHP çekirdeği kırma bölümü tüm makroların listesini gösterir. Bunları işlev tanımlamak için kullanabilirsiniz.
+<h3>İşlevler Tanımlamak için Makro</h3>
+<table class="yazi">
+<tr><td>Makro Adı </td><td>Açıklama</td></tr>
+<tr><td>ZEND_FE(name, arg_types) </td><td>
+zend_function_entry içinde adı "name" olan işlev tanımını belirtir. Bunun karşıtı olan C işlevini ister. "arg_types" değeri NULL olmalıdır. Bu işlev otomatik C işlev adı yaratılışında kullanılan zif_ önekiyle belirtilir. Örneğin ZEND_FE("first_module", NULL), first_module() adlı işlevi PHP'ye tanıtır ve bunu adı zif_first_module() olan C işlevine bağlar. ZEND_FUNCTION ile beraber kullanılır</td></tr>
+<tr><td>ZEND_NAMED_FE(php_name, name, arg_types) </td><td>PHP'ye "php_name" adıyla açık olan ve karşılığı olan C işlevine bağlanan bir işlev tanımlar. Bağımsız değişken türleri (arg_types) NULL yapılmalıdır. Eğer ZEND_FE ile otomatik adlandırma yapılmasını istemiyorsanız bu işlevi kullanın. ZEND_NAMED_FUNCTION ile beraber kullanın.</td></tr>
+<tr><td>ZEND_FALIAS(name, alias, arg_types) </td><td>
+Bir a d için adı "alias" olan bir eşad tanımlar. Burada arg_types NULL olmalıdır. Karşılığı olan bir C işlevi gerekmez. eşad hedefine gerek duyar</td></tr>
+<tr><td>PHP_FE(name, arg_types) </td><td>ZEND_FE yerine eski PHP API eşdeğeridir</td></tr>
+<tr><td>PHP_NAMED_FE(runtime_name, name, arg_types) </td><td>ZEND_NAMED_FE yerine eski PHP API eşdeğeridir.</td></tr>
+</table>
+
+Not: 
+ZEND_FE'yi PHP_FUNCTION ile beraber kullanamazsınız ya da PHP_FE'yi ZEND_FUNCTION ile birlikte kullanamazsınız. Ama ZEND_FE ve ZEND_FUNCTION, PHP_FE ve PHP_FUNCTION ile birleştirilerek kullanılır. Burada tanımlanacak her işlev için aynı makro takımı kullanılmalıdır. Ama karıştırmak pek önerilmez. Yerine ZEND_* kullanılması sağlıklı olur.
+<h3>Zend Modül Bloğu Tanımı</h3>
+
+Bu blok zend_module_entry yapısında saklanır ve bu modülü Zend'e tanımlamak için gereken tüm içeriği belirtir. Bu modülün içsel tanımını Zend API: PHP çekirdeğini kırma altında görebilirsiniz.
+
+<h3>Örnek-5: zend_module_entry işlevinin içsel tanımı.</h3>
+<pre>
+typedef struct _zend_module_entry zend_module_entry;
+     
+    struct _zend_module_entry {
+    unsigned short size;
+    unsigned int zend_api;
+    unsigned char zend_debug;
+    unsigned char zts;
+    char *name;
+    zend_function_entry *functions;
+    int (*module_startup_func)(INIT_FUNC_ARGS);
+    int (*module_shutdown_func)(SHUTDOWN_FUNC_ARGS);
+    int (*request_startup_func)(INIT_FUNC_ARGS);
+    int (*request_shutdown_func)(SHUTDOWN_FUNC_ARGS);
+    void (*info_func)(ZEND_MODULE_INFO_FUNC_ARGS);
+    char *version;
+
+[ yapının kalanı burayla ilgili değildir ]
+
+};
+</pre>
+<table class="yazi">
+<tr><td>Giriş Noktası </td><td>Açıklama</td></tr>
+<tr><td valign="top">size, zend_api, zend_debug and zts </td><td>
+Genelde "STANDARD_MODULE_HEADER" ile doldurulur. O da bu dört üyeyi zend_module_entry değerinin tam boyuyla doldurur. ZEND_MODULE_API_NO normal ya da hata ayıklama konumunda hazırlanmış olsun ve ZTS değeri açılmış olsun (USING_ZTS) fark etmez.</td></tr>
+<tr><td valign="top">name </td><td>
+"File functions", "Socket functions", "Crypt", vb. modül adlarını içerir. Bu ad i"Ek modüller" bölümündeki phpinfo() işlevinde gözükür.</td></tr>
+<tr><td valign="top">functions </td><td>
+Zend işlev bloğunu gösterir (Önceki bölümde tartışıldı).</td></tr>
+<tr><td valign="top">module_startup_func </td><td>
+Modül ilklemede bu işlev bir kez çağrılır ve bir kerelik ilkleme adımlarında kullanılır (ilk bellek yerleşimi gibi). İlklemede hatayı belirtmek için FAILURE döner, yoksa SUCCESS. Bu alanı kullanılmadı diye işaretlemek için NULL kullanın. İşlevi tanımlamak için ZEND_MINIT kullanın.</td></tr>
+<tr><td valign="top">module_shutdown_func </td><td>
+Bu işlev bir kez kapanışta çağrılır. Bir kerelik kapamış adımlarını yapmakta kullanılır (bellek boşaltmak gibi). module_startup_func() işlevinin tersidir. Kapanışta hatayı belirtmek için FAILURE döndürülür. Aksi halde SUCCESS dönen değerdir. Bu alan kullanılmadıysa NULL yazın. İşlevi tanımlamak için ZEND_MSHUTDOWN kullanın.</td></tr>
+<tr><td valign="top">request_startup_func </td><td>This function is called once upon every page request and can be used to do one-time initialization steps that are required to process a request. To indicate a failure here, return FAILURE; otherwise, SUCCESS. Note: As dynamic loadable modules are loaded only on page requests, the request startup function is called right after the module startup function (both initialization events happen at the same time). To mark this field as unused, use NULL. To declare a function, use the macro ZEND_RINIT.</td></tr>
+<tr><td valign="top">request_shutdown_func </td><td>
+Bu işlev her sayfa isteğinden sonra bir kez çağrılır ve request_startup_func() tersidir. Burada hatayı belirtmek için FAILURE döner. Aksi halde SUCCESS dönen değerdir. Not: Dinamik yüklenebilen modüller yalnız sayfa isteminde yüklenirler. Kapanış isteği işlevi çağırmadan hemen sonra modül kapanış göstericisine iletilir (her iki kapanış aynı anda olur). Bu alanı kullanmadığında NULL yazın. ZEND_RSHUTDOWN makrosuyla kullanın.</td></tr>
+<tr><td valign="top">info_func </td><td>
+pjpinfo() kodlamada kullanılırsa, Zend tüm yüklenen modüller arasında döner ve bu işlevi çağırır. Her modül kendi "footprint" (ayak izi) değerini yazdırma fırsatına sahip olur. Genelde çevresel ve istatistiksel bilgileri dökmek için kullanılır. NULL kullanılırsa bu alan kullanılmadı diye işaretlenir. İşlevi tanımlamak için ZEND_MINFO kullanın.</td></tr>
+<tr><td valign="top">version </td><td>
+Modülün sürümü. Eğer modüle bir sürüm numarası atamak istemezseniz NO_VERSION_YET (Henüz sürüm yok) de kullanabilirsiniz. Ama biz hala bir sürüm numarasını tanımlamanızı öneririz. Bu tür bir sürüm yazı dizisi şöyle olabilir: "2.5RC1", "2.5"</td></tr>
+<tr><td valign="top">Remaining structure elements </td><td>
+Bunlar içsel olarak kullanılır ve STANDARD_MODULE_PROPERTIES_EX makrosuyla önden yüklenir. Buna herhangi bir değer atamazsınız. Yalnız evrensel açılış ve kapanış işlevlerini kullanırsanız STANDARD_MODULE_PROPERTIES_EX kullanın, aksi halde doğrudan STANDARD_MODULE_PROPERTIES kullanın<7td></tr>
+</table>
+Örneğimizde bu yapı şöyle uygulanmıştır:
+<pre>
+zend_module_entry firstmod_module_entry =
+{
+    STANDARD_MODULE_HEADER,
+    "First Module",
+    firstmod_functions,
+    NULL, NULL, NULL, NULL, NULL,
+    NO_VERSION_YET,
+    STANDARD_MODULE_PROPERTIES,
+};
+</pre>
+Bu temelde kullanabileceğiniz ilk ve en küçük değer takımındır. Modül adı ilk modüle (First Module) atanır. Daha sonra işlevler listesi gösterilir. Daha sonra tüm başlama ve kapanma işlevleri kullanılmadı diye işaretlenir.
+<br /><br />
+Zend API: PHP çekirdeğini kırma içinde başlangıç ve kapanış işlevlerindeki makroların listesi bulunur. Bunlar basit örneğimizde henüz kullanılmamıştır. Ama sonra nasılları gösterilecektir. Kendi başlama ve kapanma işlevlerinizi tanımlamada bu makroları kullanabilirsiniz. Bunlar için özel bağımsız değişken geçirilmesi gerekir (INIT_FUNC_ARGS and SHUTDOWN_FUNC_ARGS), önceden tanımlanmış makrolar kullanıldığında işlev tanımına ootmatik olarak eklenir. Eğer işlevlerinizi elle tanımlarsanız ve PHP geliştiriciler bağımsız değişken listesinde değişiklik yapılması gerektiğine karar verirlerse, modül kaynak kodunuzu uyumlu kalabilmek için değiştirmelisiniz.
+<h3>Başlama ve Kapanma İşlevlerini tanımlama Makroları</h3>
+<table class="yazi">
+<tr><td valign="top">Makro </td><td>Açıklama</td></tr>
+<tr><td valign="top">ZEND_MINIT(module) </td><td>Modül başlangıcı için bir işlev tanımlar. Yaratılan ad zend_minit_&lt;module&gt; biçimdedir (örneğin, zend_minit_first_module). ZEND_MINIT_FUNCTION ile birlikte kullanılır.</td></tr>
+<tr><td valign="top">ZEND_MSHUTDOWN(module) </td><td>Modül kapanışıyla ilgili bir işlev tanımlar. Yaratılan ad zend_mshutdown_&lt;module&gt; biçimindedir (örneğin, zend_mshutdown_first_module). ZEND_MSHUTDOWN_FUNCTION ile birlikte kullanılır.</td></tr>
+<tr><td valign="top">ZEND_RINIT(module) </td><td>İstek başlangıcı için bir işlev tanımlar. Yaratılan ad zend_rinit_&lt;module&gt; (örnek, zend_rinit_first_module). ZEND_RINIT_FUNCTION ile birlikte kullanılır.</td></tr>
+<tr><td valign="top">ZEND_RSHUTDOWN(module) </td><td>İstek kapanışı için bir işlev tanımlar. Yaratılan ad zend_rshutdown_&lt;module&gt; (örnek, zend_rshutdown_first_module). ZEND_RSHUTDOWN_FUNCTION ile birlikte kullanılır.</td></tr>
+<tr><td valign="top">ZEND_MINFO(module) </td><td>yazdırma modülü bilgisi için bir işlev tanımlar. phpinfo() çağırıldığında kullanılır. Yaratılan ad zend_info_&lt;module&gt; biçimindedir (örneğin, zend_info_first_module). ZEND_MINFO_FUNCTION ile birlikte kullanılır.</td></tr>
+</table>
+<h3>get_module() Yaratma</h3>
+
+Bu işlev tüm dinamik yüklenebilir modüllere özeldir. Önce ZEND_GET_MODULE makrosuyla firstmod yaratılışına bir bakalım:
+<pre>
+#if COMPILE_DL_FIRSTMOD
+     ZEND_GET_MODULE(firstmod) 
+#endif
+</pre>
+İşlev uygulaması koşullu derleme deyimiyle çevrilmiştir. Eğer modülünüz dinamik uzantı olarak hazırlanıryorsa get_module() işlevi gerekir. Derleyici komutunda COMPILE_DL_FIRSTMOD tanımını belirterek (Yukarıdaki dinamik modüllerde  derleme tartışmasına bakın), modülünüzün dinamik uzantı mı yoksa hazır modül mü olacağını belirleyebilirsiniz. Eğer hazır modül isterseniz, o zaman get_module uygulamasına gerek yoktur.
+<br /><br />
+Modülün yükleme zamanında get_module() Zend tarafından çağrılır. Onu kodlamanızda dl() ile çağrılmış gibi düşünebilirsiniz. Amacı modül bilgi bloğunu Zend'e geri göndermektir. Böylece Zend makinesine modül içeriği bildirilmiş olur.
+<br /><br />
+Eğer If you don't implement a get_module() işlevi uygulamazsanız, Zend erişmek istediğinde modüle ilişkin hata mesajı verir.
+<h3>Dışa Verilen işlevlerin uygulanması</h3>
+
+Dışa taşınan işlevi uygulamak son adımdır. first_module içindeki örnek işlev aşağıdaki gibidir:
+<pre>
+ZEND_FUNCTION(first_module)
+{
+    long parameter;
+
+    if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, 
+                              "l", &amp;parameter) == FAILURE) {
+        return;
+    }
+
+    RETURN_LONG(parameter);
+}
+</pre>
+İşlev tanımı ZEND_FUNCTION kullanılarak yapılır. O da işlev giriş noktası tablosundaki ZEND_FE karşılığıdır (sonra tartışılacak).
+<br /><br />
+Tanımdan sonra, işlevin bağımsız değişkenlerini alma, bağımsız değişken çevirimi, dönen değer ve kontrol etme kodu aşağıdadır:
+<h3>Özet</h3>
+
+Hepsi bu kadar. PHP modüllerinde daha fazla bir şey yok. Yapısal olarak dinamik ve hazır modüller aynıdır. Önceki bölümlerde sunulan bilgilerle donanmıştır. PHP modüllerinin kaynak dosyalarının sorunlarıyla boğuşlur.
+<br /><br />
+Şimdi aşağıdaki bölümlerde, PHP içindekileri okumak ve nasıl kullanılacağını öğrenmek güçlü uzantılar hazırlayabilmeyi sağlar.
+<h3>Bağımsız değişken almak</h3>
+
+Dil uzantılarında en önemli konulardan birisi bağımsız değişkenlerle geçen verilerle uğraşmak ve kabul etmektir. Pek çok uzantı belirli giriş verisiyle uğraşacak biçimde hazırlanmıştır (ya da kendi özel işlemlerini yapabilmek için bağımsız değişken isterler) ve işlevsel bağımsız değişkenler PHP katmanıyla C katmanı arasındaki bilgi alışverişi için en uygun yoldur. Tabi ki önceden tanımlanmış evrensel değişkenlerle de bilgi alış verişi yapılabilir (daha sonra tartışılacaktır) ama tümüyle unutulmadır. Çünkü iyi bir uygulama değildir.
+<br /><br />
+PHP önceden tanımlanmış işlevleri kullanmaz. Bu nedenle çağırma yazımı dinamiktir ve hatalar aranmaz. Doğru çağırma yapmak tümüyle kullanıcıya bırakılmıştır. Örneğin bir işlevi bir yerde tek bağımsız değişkenyle, başka bir yerde dört bağımsız değişkenyle çağırma olanağı vardır. her iki çağırma işlemi de yazım açısından doğrudur.
+<h3>Bağımsız değişken sayısını belirlemek</h3>
+
+PHP önceden tanımlanmış işlevlerle yazım kontrolu yapılmadığından çağrılan işleve kaç bağımsız değişken gönderildiğini bilmek gerekir.
+Bu durumda ZEND_NUM_ARGS makrosu kullanabilirsiniz. Bu makro eski PHP sürümlerinde kaç bağımsız değişken olduğunu döndürürdü. işlevin karışık (hash) tablosundaki (ht) bilgilerine dayanarak işlem yapılırdı. INTERNAL_FUNCTION_PARAMETERS listesiyle bu bilgi geçerdi.
+ht kendisi işleve geçen bağımsız değişken sayısını içerdiğinden, ZEND_NUM_ARGS tampon makroya değin soyulur (zend_API.h içindeki tanımına bakın). Bunu hala kullanmakta yarar vardır. Böylece çağırma arayüzünde yapılacak değişikliklere de uyum sağlanmış olur. Bunun eski PHP eşdeğeri ARG_COUNT makrosudur.
+<br /><br />
+Aşağıdaki kod bağımsız değişken sayısının denetlenmesini sağlar.
+<pre>
+if(ZEND_NUM_ARGS() != 2) WRONG_PARAM_COUNT;
+    
+</pre>
+Eğer işlev iki bağımsız değişkeniyle çağrılmazsa işlem hata mesajıyla kesilir. Yukarıdaki kodlama WRONG_PARAM_COUNT araç makrosunu kullanır. O da standart hata mesajları üretebilir:
+<pre>
+"Warning: Wrong parameter count for firstmodule()
+                in /home/www/htdocs/firstmod.php on line 5"
+</pre>
+Bu makro varsayılan hata mesajını yazdırır ve çağırana döner. Tanımı zend_API.h içinde de bulunur ve şuna benzer:
+<pre>
+ZEND_API void wrong_param_count(void);
+
+#define WRONG_PARAM_COUNT { wrong_param_count(); return; }
+</pre>
+Görüldüğü gibi işsel bir işlev çağırır adı da wrong_param_count() olur. Bu işlev uyarıyı yazdırmadan sorumludur. Ayrıntılar için kişiselleştirilmiş hata mesajları için sonraki bölüme (Printing Information, Yazdırma bilgisi) bakın.
+<h3>Bağımsız değişkenlere Erişmek</h3>
+
+    Not: Yeni bağımsız değişken tarama API bilgisi.<br />
+Bu bölüm yeni Zend bağımsız değişken tarama API bilgisini belgeler. İlk kez PHP 4.0.6 ile 4.1.0 arasında sunulmuştur.
+<br /><br />
+Bağımsız değişkenleri taramak çok yaygın bir işlemdir ve biraz da titiz olabilir. Standart hata kontrolu ve standart hata mesajları kullanılması da iyi bir görüntü verir. PHP 4.1.0'dan beri bunu yapmanın yeni bir yolu vardır. Yeni bağımsız değişken tarama API bilgisi. Alınan bağımsız değişken sorunu böylece çok kolaylaşmış olur. Ama değişik sayıda bağımsız değişkeni olan işlevlerde kullanılamaz. Yeni bağımsız değişken tarama yöntemiyle bu işlevin kullanılmasını isteriz.
+<br /><br />
+Bağımsız değişken tarama işlevinin prototipi aşağıdakine benzer:
+<pre>
+int zend_parse_parameters(int num_args TSRMLS_DC, char *type_spec, ...);
+</pre>
+Bu işlevin ilk bağımsız değişkeni sizin işleve ne kadar bağımsız değişken geçirildiği sayısıdır. Böylece ZEND_NUM_ARGS() bunun için kullanılabilir. İkinci bağımsız değişken her zaman TSRMLS_CC makrosudur. Üçüncü bağımsız değişken bir yazı dizisidir. Yazı dizisi işlevinizin beklediği bağımsız değişkenlerin sayı ve tipini belirtir. Sizin printf kalıbında belirttiğinize benzer bir tanımla bağımsız değişkenlerin sayı ve tipleri belirlenir. Ve son olarak kalan bağımsız değişkenlerin değerleri göstergelerle belirtilen değişkenlere taşınır.
+<br /><br />
+zend_parse_parameters() olanak varsa tür çevirimi de yapar. Böylece veriyi istediğiniz kalıpta almış olursunuz. Herhangi bir ölçülebilir değer diğerine çevrilir ama karmaşık türler arasında çevirime izin verilmez (diziler, nesneler ve kaynaklar).
+<br /><br />
+Eğer bağımsız değişkenler başarıyla alınabilirse ve çevirme sırasında hata olmazsa, işlev SUCCESS döndürür. Aksi halde FAILURE döndürür. İşlev bilgisel hata mesajı çıkartır. Eğer bağımsız değişken sayısı beklenenden farklıysa ya da çevirimde sorun olmuşsa hata oluşur.
+<br /><br />
+Burada bazı örnek hata mesajlarına yer verilmiştir:
+<pre>
+     Warning - ini_get_all() requires at most 1 parameter, 2 given
+     Warning - wddx_deserialize() expects parameter 1 to be string, array given
+    
+</pre>
+Tabi ki her hata mesajı hatanın olduğu dosya adı ve satır numarasıyla belirtilir.
+<br /><br />
+Aşağıda tip belirticilerinin listesi vardır:
+<ul>
+    <li>
+
+      l - uzun (long)
+    <li>
+
+      d - çift duyarlı (double)
+    <li>
+
+      s - yazı dizisi (string) (iboş baytlarıyla) ve uzunluğu
+    <li>
+
+      b - mantıksal (boolean)
+    <li>
+
+      r - kaynak (resource), zval* içinde saklanır
+    <li>
+
+      a - dizi (array), zval* içinde saklanır
+    <li>
+
+      o - nesne (object) (herhangi bir sınıftan), zval* içinde saklanır
+    <li>
+
+      O - nesne (object) (sınıfı sınıf giriş noktasıyla tanımlanır), zval* içinde saklanır.
+    <li>
+
+      z - gerçek zval*
+</ul>
+Aşağıdaki karakterlerin belirtici yazı dizisinde bir anlamı vardır:
+<ul>
+    <li>
+
+      | - daha sonraki bağımsız değişkenlerin seçimlik olduğunu bildirir. Uzantı tarafından daha sonraki bağımsız değişkenler varsayılan değere ilklenir. Eğer bağımsız değişkenler geçirilmezde tarama işleminde bunların değerleri de değişmez.
+    <li>
+
+      / - Tarama işlemi izlediği bağımsız değişken için SEPARATE_ZVAL_IF_NOT_REF() çağırır. Böylece bağımsız değişkenin bir kopyasını işleve taşır (eğer göstergeyle belirtilmişse bunu yapamaz).
+    <li>
+
+      ! - İzlenen bağımsız değişken belirtilen türdendir ya da NULL olur (yalnız a, o, O, r, ve z için kullanılabilir). Eğer NULL göstergesi kullanıcı tarafından geçirilirse bellek göstergesi NULL olur.
+</ul>
+Bu işlevi anlatmanın en iyi yolu örneklerdir.
+<pre>
+/* Bir uzun, bir yazı dizisi ve uzunluğu ve zval alır */
+long l;
+char *s;
+int s_len;
+zval *param;
+if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC,
+                          "lsz", &l, &s, &s_len, &param) == FAILURE) {
+    return;
+}
+
+/* my_ce ile belirtilen bir sınıf türünden bir nesne ve
+                                 seçimlik çift duyarlık */
+zval *obj;
+double d = 0.5;
+if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC,
+                          "O|d", &obj, my_ce, &d) == FAILURE) {
+    return;
+}
+
+/* Bir nesne ya da NULL ve bir dizi,
+   nesne için NULL geçirilirse, obj değeri NULL olur */
+zval *obj;
+zval *arr;
+if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC,
+                          "O!a", &obj, &arr) == FAILURE) {
+    return;
+}
+
+/* Ayrı bir dizi alır */
+zval *arr;
+if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC,
+                          "a/", &arr) == FAILURE) {
+    return;
+}
+
+/* yalnız ilk üç bağımsız değişkeni alır (varatgs için kullanışlıdır) */
+zval *z;
+zend_bool b;
+zval *r;
+if (zend_parse_parameters(3, "zbr!", &z, &b, &r) == FAILURE) {
+    return;
+}
+</pre>
+Son örnekte alınan bağımsız değişkenlerin sayısı olarak ZEND_NUM_ARGS() yerine 3 geçirdik. Bunun bize yaptırmak istediği eğer değişken sayıda bağımsız değişken varsa en az olması gereken sayıyı belirtmemizdir. Tabi ki diğer bağımsız değişkenler üzerinde de çalışmak isterseniz değerlerini almak için  zend_get_parameters_array_ex() kullanmalısınız. 
+<br /><br />
+Tarama işlevinin geliştirilmiş sürümü ek durum kodu bağımsız değişkenine izin verir. Bununla işlem denetimi yapılır.
+<pre>
+int zend_parse_parameters_ex(int flags, int num_args TSRMLS_DC,
+                             char *type_spec, ...);
+</pre>
+Şu anda geçirebileceğiniz tek durum kodu ZEND_PARSE_PARAMS_QUIET olur. Bu da işlem sırasında hata mesajı verilmemesini sağlamak içindir. Bu bazı işlevlerde kullanışlı olabilir. Değişik kümelerden oluşan bağımsız değişkenleri beklerken kendi hata mesajlarınızı vermek istediğinizde çok kullanışlıdır.
+<br /><br />
+Örneğin, burada üç tane uzunu ya da bir yazı dizisini nasıl alacağınız vardır.
+<pre>
+long l1, l2, l3;
+char *s;
+if (zend_parse_parameters_ex(ZEND_PARSE_PARAMS_QUIET,
+               ZEND_NUM_ARGS() TSRMLS_CC, "lll", &l1, &l2, &l3) == SUCCESS) {
+    /* uzunları değiştir */
+} else if (zend_parse_parameters_ex(ZEND_PARSE_PARAMS_QUIET,
+               ZEND_NUM_ARGS(), "s", &s, &s_len) == SUCCESS) {
+    /* yazı dizisini değiştir */
+} else {
+    php_error(E_WARNING,
+        "%s() takes either three long values or a string as argument",
+        get_active_function_name(TSRMLS_C));
+    return;
+}
+</pre>
+Tüm yukarıda anlatılan işlev bağımsız değişkenlerine değer alma işleminden oldukça iyi yararlanmış olmalısınız. Daha çok örnek için PHP ile dağıtılan uzantıların kaynak kodlarına bakın. Size çok uygun durumları yansıtırlar.
+<h3>Bağımsız değişkenlere erişimin eski yolu (kaldırıldı)</h3>
+
+    Not: Eskimiş bağımsız değişken tarama API bilgisi<br />
+Bu API artık kullanılmamaktadır ve yerine ZEND bağımsız değişken tarama API bilgisi çıkmıştır.
+<br /><br />
+Bağımsız değişkenlerin sayısını denetledikten sonra bağımsız değişkenlerin kendilerine erişmek isteyeceksiniz. Bu işlem zend_get_parameters_ex() yardımıyla gerçekleşir.
+<pre>
+zval **parameter;
+
+if(zend_get_parameters_ex(1, &parameter) != SUCCESS)
+  WRONG_PARAM_COUNT;
+</pre>
+Tüm bağımsız değişkenler zval taşıyıcısı içinde saklanır. Yukarıdaki kodlama bir bağımsız değişkeni alır onu bağımsız değişken göstergesiyle kullanıma sunar.
+<br /><br />
+zend_get_parameters_ex() en az iki bağımsız değişken kabul eder. İlki kaç tane bağımsız değişken alınacağını bildirir (o da işlevi çağırırken kullanılan bağımsız değişkenlerin sayısına uymalıdır. Bu da doğru yazım denetiminin neden çok önemli olduğunu belirtir). İkinci bağımsız değişken (ve diğer izleyen bağımsız değişkenler) zval'a göstergenin göstergenin göstergesidir (Akıl karıştırıcı değil mi?). Tüm bu bağımsız değişkenler gereklidir. Çünkü zval içsel olarak **zval ile çalışır. İşlevinizde yerel bir **zval ayarlamak için zend_get_parameters_ex() ona bir gösterge kullanılmasını ister.
+<br /><br />
+zend_get_parameters_ex() işlevinden dönen değer SUCCESS ya da FAILURE olabilir.  FAILURE büyük bir olasılıkla uyumsuz bağımsız değişken sayısından dmndürülür. Bu durumda  WRONG_PARAM_COUNT ile çıkmanız gerekir.
+<br /><br />
+Birden çok bağımsız değişken almak için benzer kodlama kullanabilirsiniz:
+<pre>
+zval **param1, **param2, **param3, **param4;
+     
+if(zend_get_parameters_ex(4, &param1, &param2, &param3, &param4) != SUCCESS)
+    WRONG_PARAM_COUNT;
+</pre>
+zend_get_parameters_ex() yalnız çok sayıda bağımsız değişken almak isteyip istemediğinize bakar. Eğer işlev beş bağımsız değişkenyle çağrılırsa, siz zend_get_parameters_ex() ile yalnız üçüne erişiyorsanız hata almazsınız ama yalnız ilk üç bağımsız değişkenyi alırsınız. Diğer zend_get_parameters_ex() çağırma işlemi, kalan bağımsız değişkenlerin alınmasını sağlamaz. Aynı bağımsız değişkenleri yeniden size verir.
+<h3>Değişken sayıdan bağımsız değişkenle uğraşmak/Seçimlik bağımsız değişkenler</h3>
+
+Eğer işleviniz değişken sayıdan bağımsız değişken alacak biçimde yazılmışsa, yukarıdaki kodlamalar bazen yarı uygun çözümlerdir. Bu çözümde her olası bağımsız değişken için  zend_get_parameters_ex() satırı oluşturmanız gerekir. Bunu da çoğu zaman sağlayamazsınız.
+<br /><br />
+Bu durumda  zend_get_parameters_array_ex() işlevi kullanabilirsiniz. Burada alınacak bağımsız değişkenleri bir diziye yerleştirir.
+<pre>
+zval **parameter_array[4];
+
+/* bağımsız değişkenlerin sayısını al */
+argument_count = ZEND_NUM_ARGS();
+
+/* en az gereksinimi karşılıyor mu (2 bağımsız değişken) */
+/* ve en çok kabul edebileceğimizi (4 bağımsız değişken) */
+if(argument_count &lt; 2 || argument_count &gt; 4)
+    WRONG_PARAM_COUNT;
+
+/* bağımsız değişken sayısı doğru şimdi bağımsız değişkenleri alalım */
+if(zend_get_parameters_array_ex(argument_count, parameter_array) != SUCCESS)
+    WRONG_PARAM_COUNT;
+</pre>
+Önce bağımsız değişken sayıları denetlendi ve kabul edilebilir sınırlar içinde bulundu. Sonra zend_get_parameters_array_ex() kullanılarak bağımsız değişken dizisinin içi dolduruldu.
+<br /><br />
+Bunun çok güzel bir uyarlaması PHP fsockopen() ele alındığı kodlamada bulunur. Dosya ext/standart/fsock.c yolundadır (Zend API: PHP çekirdeğini kırma bölümünde söylendiği gibi). Kaynak kodda kullanılan tüm işlevleri bilmiyorsanız sonur etmeyin.
+
+<h3>Örnek-6 PHP'nin fsockopen() içinde değişken bağımsız değişken uyarlaması</h3>
+<pre>
+pval **args[5];
+int *sock=emalloc(sizeof(int));
+int *sockp;
+int arg_count=ARG_COUNT(ht);
+int socketd = -1;
+unsigned char udp = 0;
+struct timeval timeout = { 60, 0 };
+unsigned short portno;
+unsigned long conv;
+char *key = NULL;
+FLS_FETCH();
+
+if (arg_count &gt; 5 || arg_count &lt; 2 ||
+    zend_get_parameters_array_ex(arg_count,args)==FAILURE) {
+    CLOSE_SOCK(1);
+    WRONG_PARAM_COUNT;
+}
+
+switch(arg_count) {
+    case 5:
+        convert_to_double_ex(args[4]);
+        conv = (unsigned long) (Z_DVAL_PP(args[4]) * 1000000.0);
+        timeout.tv_sec = conv / 1000000;
+        timeout.tv_usec = conv % 1000000;
+        /* fall-through */
+    case 4:
+        if (!PZVAL_IS_REF(*args[3])) {
+            php_error(E_WARNING,
+            "error string argument to fsockopen not passed by reference");
+        }
+        pval_copy_constructor(*args[3]);
+        ZVAL_EMPTY_STRING(*args[3]);
+        /* fall-through */
+    case 3:
+        if (!PZVAL_IS_REF(*args[2])) {
+            php_error(E_WARNING,
+            "error argument to fsockopen not passed by reference");
+            return;
+        }
+        ZVAL_LONG(*args[2], 0);
+        break;
+}
+
+convert_to_string_ex(args[0]);
+convert_to_long_ex(args[1]);
+portno = (unsigned short) Z_LVAL_P(args[1]);
+
+key = emalloc(Z_STRLEN_P(args[0]) + 10);
+</pre>
+fsockopen() iki, üç, dört ya da beş bağımsız değişken kabul eder. Gerekli değişken tanımlarından sonra işlev, doğru bağımsız değişken sayısını denetler. Daha sonra "switch" deyimindeki aşağıya düşme tekniğini kullanarak tüm bağımsız değişkenlerle ilgilenir. "Switch" deyimi en çok geçirilecek bağımsız değişken sayısından başlar. Sonra dört bağımsız değişken geçirildiğindekini işleme alır. Sonra üç. Burada adımlar arasında olması gereken "break" deyimleri yoktur. Sonuncusu da işlendikten sonra "switch" deyiminden çıkılır ve en az bağımsız değişken gereksinimi olan iki bağımsız değişkenli bölüme gelinir. 
+<br /><br />
+Bu çoklu adım türü işlem (merdivene benzer) değişken sayıda bağımsız değişken işlemenin uygun bir yoludur.
+<h3>Bağımsız değişkenlere erişim</h3>
+
+Bağımsız değişkenlere erişmek için, her bir değişkenin açıkça belirtilmiş türü vardır. Yine PHP'nin dinamik yapısı bazı gariplikler içerir. PHP tür denetimini hiç yapmaz. Çağıran sizin işlevinize isteseniz de istemeseniz de, her tür veri geçirir. Örneğin eğer siz tamsayı beklerseniz, çağıran bir dizi geçirmek ister ya da tersi olursa, PHP bunu anlayamaz.
+<br /><br />
+Bunu geçmenin bir yolu bir takım API işlevleri kullanmanızdır. Böylece her bağımsız değişkende tür değişikliği zorlanmış olur (Zend API: PHP çekirdeğini kırma bölümüne bakın).
+<br /><br />
+Not: Tüm çevirme işlevleri **zval değerini bağımsız değişken olarak alır.
+<h3>Argument Conversion Functions </h3>
+<table class="yazi">
+<tr><td>İşlev</td><td>Açıklama</td></tr>
+<tr><td valign="top">convert_to_boolean_ex()</td><td>Mantıksal (boolean) türe çevirmeye zorlar. Mantıksal değerlere dokunulmaz. Uzunlar, çift duyarlılar ve yazı dizileri içinde 0 ve NULL varsa, sonuç mantıksal 0 (FALSE) olur. Diziler ve nesneler dizin sayısına ve özelliklerine göre çevrilirler. Boş dizi ve nesneler FALSE aksi halde TRUE olur. Diğer değerlerin hepsi mantıksal 1 (TRUE) olur.</td></tr>
+<tr><td valign="top">convert_to_long_ex()</td><td>Uzuna çevirmeyi zorlar. Bu varsayılan tamsayı türüdür. NULL değerlerine, mantıksallara, kaynaklara ve uzunlara dokunulmaz. Çift duyarlılar kesilir. Yazı dizisinde sayı varsa çevirme karşılığı olan tam sayıya olur. Aksi halde 0 olur. Diziler ve nesneler içleri boşsa 0 aksi halde 1 olur.</td><7tr>
+<tr><td valign="top">convert_to_double_ex()</td><td>Çift duyarlıya çevirmeyi zorlar. Varsayılan kayan noktalı sayı türüdür. NULL değerleri, mantıksallar, kaynaklar ve çift duyarlılar değişmez. Yazı dizisinde eğer sayı varsa karşılığı olan sayısal gösterime çevrilir. Aksi halde sonuç 0.0 olur. Diziler ve nesneler boşsa 0.0 olur, aksi halde 1.0 olur.</td></tr>
+<tr><td valign="top">convert_to_string_ex()</td><td>
+Yazı dizisine çevirimi zorlar. yazı dizileri değişmez. NULL değerler boş yazı dizisine çevrilir. Mantıksal değer TRUE ise değeri "1" olur aksi halde boş yazı dizisine dönüştürülür. Uzunlar ve çift duyarlılar karşılığı olan yazı dizisine dönüştürülür. Diziler "Array" biçiminde yazı dizisine dönerken nesneler için yazı dizisi "Öbject" olur.</td></tr>
+<tr><td valign="top">convert_to_array_ex(value)</td><td>
+Diziye çevirmeyi zorlar. Diziler olduğu gibi kalır. Nesneler diziye dönüştürülürken tüm özellikleri bir diziye aktarılır. Tüm özellik adları anahtar olur. Özellikler de değerleri oluşturur. NULL değer boş dizi olur. Tüm diğer değerler bir diziye çevrilirken kaynak değer 0 numaralı anahtarda yer alır.</td></tr>
+<tr><td valign="top">convert_to_object_ex(value)</td><td>
+Nesneye çevirmeyi zorlar. Nesnelere dokunulmaz. NULL değerler boş nesneye döner. Dizilerde anahtar nesnenin özelliklerini, değeriyse özelliklerin içeriği olur. Diğer değerler nesneye "ölçülü" özellikle ve içeriği de kaynak değer olarak geçer.</td></tr>
+<tr><td valign="top">convert_to_null_ex(value)</td><td>Türü NULL yapmaya çalışır. Anlamı boş demektir</td></tr>
+</table>
+    Not: Bu davranışın gösterilişini cross_conversion.php içinde bulabilirsiniz.
+
+<h3>PHP'nin çapraz çevirim (Cross-conversion) davranışı </h3>
+
+Bu işlevleri bağımsız değişkenler üzerinde kullanırsanız, sizin işlevinize geçen verinin türünün doğruluğunu söyleyebilirsiniz. Eğer verilen tür istenen türe benzemezse tampon içerik kullanılarak istenen tür sağlanmış olur (dizi ya da nesne için boş yazı dizisi, sayılar için 0 ve mantıksal için FALSE).
+<br /><br />
+Aşağıdaki önceden tartışılan örnek modülün çevirme işlevlerini kullanan sürümüdür:
+<pre>
+zval **parameter;
+
+if((ZEND_NUM_ARGS() != 1) ||
+   (zend_get_parameters_ex(1, &parameter) != SUCCESS))
+{
+    WRONG_PARAM_COUNT;
+}
+
+convert_to_long_ex(parameter);
+
+RETURN_LONG(Z_LVAL_P(parameter));
+</pre>
+Bağımsız değişken göstergesini alınca, parametre değeri uzun tam sayıya çevrilir. Bu aynı zamanda işlevin dönen değeridir. Gereken değerlere erişimi anlamak için zval türünün kısa bir tartışması yapılmalıdır. Bu tanımlar Zend API: PHP çekirdeği kırma bölümünde anlatılmıştır.
+
+<h3>Örnek-7 PHP/Zend zval tür tanımı</h3>
+<pre>
+typedef pval zval;
+     
+typedef struct _zval_struct zval;
+
+typedef union _zvalue_value {
+    long lval;                 /* uzun değer */
+    double dval;               /* çift duyarlı değer */
+    struct {
+        char *val;
+        int len;
+    } str;
+    HashTable *ht;             /* karışık tablo değeri */
+    struct {
+        zend_class_entry *ce;
+        HashTable *properties;
+    } obj;
+} zvalue_value;
+
+struct _zval_struct {
+    /* Değişken bilgisi */
+    zvalue_value value;        /* değer */
+    unsigned char type;        /* etkin tür */
+    unsigned char is_ref;
+    short refcount;
+};
+</pre>
+Aslında, pval (php.h içinde tanımlı) zval (zend.h içinde tanımlı) eşdeğeridir. Bunlar da _zval_struct yapısını gösterirler. Bu en ilginç yapıdır. _zval_struct "ana" yapıdır. Değer yapısını, türünü ve gösterge bilgisini içerir. zvalue_value yapısı değişkenlerin içeriğini belirten bir birleşim (union) olur. Değişkenin türüne göre bu bileşimin değişik öğesini kullanırsınız. Her iki yapının tanımı için, Zend API: PHP çekirdeğini kırma bölümüne bakın.
+<h3>Zend zval Yapısı </h3>
+<table class="yazi">
+<tr><td valign="top">Giriş Noktası</td><td>Açıklama</td></tr>
+<tr><td valign="top">value</td><td>Bileşim (Union) bu değişkenin içeriğini belirtir. Bir açıklama için Zend API: PHP çekirdeğini kırma bölümüne bakın.</td></tr>
+<tr><td valign="top">type</td><td>Contains this variable's type. For a list of available types, Zend API: PHP çekideğini kırma bölümüne bakın.</td></tr>
+<tr><td valign="top">is_ref</td><td>0 bu değişkenin bir gösterge olmadığını; 1 bu değişkenin bir başka değişkene gösterge olduğunu belirtir.</td></tr>
+<tr><td valign="top">refcount</td><td>Bu değişken için kullanılan göstergelerin sayısını verir. Bu sayaç bir artarak kullanılır. Her kaybedilen göstergede değer bir eksiltilir. Sayaç sıfır olduğunda bu değere hiç bağ olmalıdığı için değer otomatik olarak boşaltılır.</td></tr>
+</table>
+<h3>Zend zvalue_value Yapısı </h3>
+<table class="yazi">
+<tr><td>Giriş Noktası</td><td>Açıklama</td></tr>
+<tr><td>lval</td><td>Eğer değişken türü IS_LONG, IS_BOOLEAN ya da IS_RESOURCE ise bu özellik kullanılır.</td></tr>
+<tr><td>dval</td><td>Değişkenin türür IS_DOUBLE ise bu değişken kullanılır</td></tr>
+<tr><td>str</td><td>IS_STRING adlı değişkenlerde bu yapı kullanılır. Öğe boyu (member len) yazı dizisinin boyunu, öğe değeri (member val) dizinin kendisini gösterir. Zend C yazı dizileri kullanır. Bunun anlamı, yazı dizisi sonunda 0x00 sonlandırması vardır.</td></tr>
+<tr><td>ht</td><td>Bu giriş noktası değişkenin karışık tablo giriş noktasını gösterir (Eğer değişken dizi ise)</td></tr>
+<tr><td>obj</td><td>Bu özellik değişkenin türü IS_OBECT olursa kullanılır</td></tr>
+</table>
+<h3>Zend değişken türü değişmezler </h3>
+<table class="yazi">
+<tr><td>Değişmez</td><td>Açıklama</td></tr>
+<tr><td>IS_NULL</td><td>NULL (boş) değeri belirtir.</td></tr>
+<tr><td>IS_LONG</td><td>Uzun (tam sayı) değerdir.</td></tr>
+<tr><td>IS_DOUBLE</td><td>Çift duyarlı (kayan noktalı) değerdir.</td></tr>
+<tr><td>IS_STRING</td><td>Bir yazı dizisidir.</td></tr>
+<tr><td>IS_ARRAY</td><td>Bir diziyi belirtir.</td></tr>
+<tr><td>IS_OBJECT</td><td>Bir nesneyi belirtir.</td></tr>
+<tr><td>IS_BOOL</td><td>Bir mantıksalı belirtir.</td></tr>
+<tr><td>IS_RESOURCE</td><td>Bir kaynağı belirtir (bir kaynak tartışması için aşağıdaki ilgili bölüme bakın)</td></tr>
+<tr><td>IS_CONSTANT</td><td>(tanımlı) değişmez değeridir.</td></tr>
+</table>
+
+Uzuna erişmek için zval.value.lval değerine erişirsiniz. Çift duyarlıya erişmek için zval.value.dval ve diğerleri... Tüm değerler bir bileşimin altında olduğundan uygun olmayan bir bileşim veriyi kullanmak anlamsız sonuçlar doğurabilir.
+<br /><br />
+Dizilere ve nesnelere erişmek biraz daha karmaşıktır ve sonra tartışılacaktır.
+<h3>Adres olarak geçirilen bağımsız değişkenlerle uğraşmak</h3>
+
+Eğer sizin işleviniz bağımsız değişkenleri adres olarak geçmelerini kabul ederse, bazı güvenlik önlemleri almanız gerekir.
+<br /><br />
+What we didn't say yet is that under the circumstances presented so far, you don't have write access to any zval containers designating function parameters that have been passed to you. Of course, you can change any zval containers that you created within your function, but you mustn't change any zvals that refer to Zend-internal data!
+<br /><br />
+We've only discussed the so-called *_ex() API so far. You may have noticed that the API functions we've used are called zend_get_parameters_ex() instead of zend_get_parameters(), convert_to_long_ex() instead of convert_to_long(), etc. The *_ex() functions form the so-called new "extended" Zend API. They give a minor speed increase over the old API, but as a tradeoff are only meant for providing read-only access.
+<br /><br />
+Because Zend works internally with references, different variables may reference the same value. Write access to a zval container requires this container to contain an isolated value, meaning a value that's not referenced by any other containers. If a zval container were referenced by other containers and you changed the referenced zval, you would automatically change the contents of the other containers referencing this zval (because they'd simply point to the changed value and thus change their own value as well).
+<br /><br />
+zend_get_parameters_ex() doesn't care about this situation, but simply returns a pointer to the desired zval containers, whether they consist of references or not. Its corresponding function in the traditional API, zend_get_parameters(), immediately checks for referenced values. If it finds a reference, it creates a new, isolated zval container; copies the referenced data into this newly allocated space; and then returns a pointer to the new, isolated value.
+<br /><br />
+This action is called zval separation (or pval separation). Because the *_ex() API doesn't perform zval separation, it's considerably faster, while at the same time disabling write access.
+<br /><br />
+To change parameters, however, write access is required. Zend deals with this situation in a special way: Whenever a parameter to a function is passed by reference, it performs automatic zval separation. This means that whenever you're calling a function like this in PHP, Zend will automatically ensure that $parameter is being passed as an isolated value, rendering it to a write-safe state:
+<pre>
+    my_function(&amp;$parameter);
+</pre>
+Ama bu kurallı bağımsız değişkenlerle olan bir olay değildir. Adres olarak geçmeyen tüm diğer bağımsız değişkenler hep yalnız okuma durumundadır.
+<br /><br />
+Bir adresle çalıştığınızı bilmeniz için gereklidir. Aksi halde istenmeyen sonuçlar elde edersiniz. adres olarak geçen bağımsız değişkeni denetlemek için PZVAL_IS_REF makrosu kullanabilirsiniz. Bu makro zval* değerini alıp adres olup olmadığına bakar. Örneklaer Zend API: PHP çekirdeğini kırma bölümünde anlatılmıştır.
+
+<h3>Örnek-8 Gösterilmiş bağımsız değişken geçirmeyi deneme </h3>
+<pre>
+zval *parameter;
+
+if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC,
+                          "z", &parameter) == FAILURE)
+    return;
+
+/* bağımsız değişkeni adres olarak geçti mi bak */
+if (!PZVAL_IS_REF(parameter)) {
+{
+    zend_error(E_WARNING, "Bağımsız değişken adres olarak geçmedi");
+    RETURN_NULL();
+}
+
+/* bağımsız değişken için değişiklikleri yap */
+ZVAL_LONG(parameter, 10);
+</pre>
+<h3>Diğer Parametreler için Yazma Güvenliği</h3>
+
+Alınan bağımsız değişkene zend_get_parameters_ex() yazma izni gereken bir durum olabilir. Ama bağımsız değişken adres olarak geçmemiştir. Bu durumda SEPARATE_ZVAL makrosunu kullanabilirsiniz. O da toplanma yerinde zval parçalanması yapar. Yeni yaratılan zval işsel verilerden ayrılır ve yalnız yerel kapsamı vardır. Anlamı, kodlamada evrensel değişikliklere gerek olmadan değiştirilebilir ya da boşulabilir olmasıdır.
+<pre>
+zval **parameter;
+     
+/* bağımsız değişkeni al*/
+zend_get_parameters_ex(1, &parameter);
+
+/* Bu anda &lt;parameter&gt; hala bağlıdır */
+/* Zend'in içsel veri tamponudur */
+
+/* &lt;parameter&gt; yazma-güvenli yap */
+SEPARATE_ZVAL(parameter);
+
+/* şimdi evrensel değişkenleri kaynak göstermeden */
+/* güvenle &lt;parameter&gt; değiştirilebilir */
+</pre>
+SEPARATE_ZVAL, yeni zval taşıyıcısı alanı açmak için emalloc() kullanır. Bu alanı kendiniz boşaltmasanız da, kodlama bitiminde otomatik olarak bozulur. Ama boşaltmadan bu makroyu çok kullanmak bellek sorunu yaşamanıza neden olabilir.
+<br /><br />
+Not: Yazma erişimindeki sıkıntıyı "geleneksel" API bilgilerinden kolaylıkla aşabildiğinize göre bu API gereksizdir ve bundan sonra da anlatılmayacaktır.
+<h3>Değişkenleri Yaratma</h3>
+
+Sizin uzantınızdan PHP kodlamasıyla veri değişimi yaparken, en önemli kurallardan biri değişkenlerin yaratılmasıdır. Burada PHP tarafından desteklenen değişken türleriyle nasıl uğraşacağınız anlatılır.
+<h3>Özet</h3>
+<br /><br />
+Çalışan kodlamayla "dışarıdan" görünebilecek yeni değişkenler yaratmak için yeni zval taşıyıcısı alanı açmalısınız. Bu taşıyıcı anlamlı değerlerle doldurulur ve Zend'in işsel simge tablosuna tanıtılır. Bu temel işlem tüm değişken yaratılışları için geçerlidir.
+<pre>
+zval *new_variable; 
+
+/* Yeni taşıyıcı alanı aç ve ilkle */
+MAKE_STD_ZVAL(new_variable); 
+
+/* Burada değişken içeriği ve tür ayarla. */
+/* sonraki bölüme bak */
+
+/* Simge tablosuna bu değişkeni "new_variable_name" olarak tanıt */
+ZEND_SET_SYMBOL(EG(active_symbol_table), "new_variable_name", new_variable); 
+
+/* $new_variable_name ile değişken kodlama tarafından kullanılır olur */
+</pre>
+MAKE_STD_ZVAL makrosu yeni zval taşıyıcısı için ALLOC_ZVAL kullanarak alan açar ve INIT_ZVAL kullanarak onu ilkler. Zend'de belirtildiği gibi bunu yazarken ilklemek gösterge sayısını 1 yapmak ve is_ref durum kodunu temizlemektir. Ama daha sonra bu işlem geliştirilebilir. Bu nedenle ALLOC_ZVAL yerine MAKE_STD_ZVAL kullanmanın nedeni de burada yatmaktadır. Hız konusunda verimli geliştirmek için (zval taşıyıcısını burada dışarıdan ilklememelisiniz) ALLOC_ZVAL kullanabilirsiniz. Ama önerilmez çünkü veri tutarlığı garanti edilemez.
+<br /><br />
+ZEND_SET_SYMBOL Zend simge tablosuna yeni değişken tanıtılmasını denetimine alır. Bu makro değerin halen simge tablosunda olup olmadığına bakar. Öyleyse yeni simgeyi göstergeye çevirir (eski zval taşıyıcısını otomatik boşaltır). Eğer hız sorun olmayacaksa bu tercih edilen işlemdir. Ayrıca kullanılan belleğin az olmasına özen göstermelisiniz.
+<br /><br />
+Bilinmeli ki ZEND_SET_SYMBOL Zend çalıştırıcısının evrensellerini EG makrosuyla kullanır. EG(ective_symbol_table) diyerek o anda etkin olan simge tablosuna erişebilirsiniz. Burada yerel kapsam ve etkinlikle uğraşılır. Yerel kapsam işlevin bir başka işlev içinden çağrılmasına bağımlı olarak değişik anlamda olabilir.
+<br /><br />
+Eğer hızı geliştirmek isterseniz ve en uygun bellek kullanımı sizi ilgilendirmiyorsa, var olan bir değişkenin aynı değerle denetimini atlayabilirsiniz ve değişkeni doğrudan zend_hash_update() kullanarak simge tablosuna ekleyebilirsiniz.
+
+<pre>
+zval *new_variable;
+
+/* yeni taşıyıcıye alan açma ve ilkleme */
+MAKE_STD_ZVAL(new_variable);
+
+/* değişken içeriğini ve türünü ayarlama. Sonraki bölüme bakın */
+
+/* "new_variable_name" adıyla simge tablosuna tanıtılır */
+zend_hash_update(
+    EG(active_symbol_table),
+    "new_variable_name",
+    strlen("new_variable_name") + 1,
+    &amp;new_variable,
+    sizeof(zval *),
+    NULL
+);
+</pre>
+
+Bu aslında birçok modülde kullanılan standart yöntemdir.
+<br /><br />
+Yukarıdaki kodlama parçasıyla yaratılan değişkenler her zaman yerel kapsam içindedir. İşlevin çağrıldığı içerikte anlamları vardır. Evrensel kapsamda değişken yaratmak için aynı yöntem kullanılır ama başka bir simge tablosu kullanılır:
+<pre>
+zval *new_variable;
+     
+// yeni taşıyıcı için alan açma ve ilkleme
+MAKE_STD_ZVAL(new_variable);
+
+//
+// değişken içeriğini ve türünü burada ayarla
+//
+
+// bu değişkeni "new_variable_name" adıyla evrensel simge tablosuna tanıt
+ZEND_SET_SYMBOL(&amp;EG(symbol_table), "new_variable_name", new_variable);
+</pre>
+ZEND_SET_SYMBOL makrosu ana, evrensel simge tablosunu bir EG(symbol_table) ile gösterilen göstergeyle çağırır.
+<br /><br />
+Not: 
+Etkin simge tablosu (active_symbol_table) değişkeni bir göstergedir ama simge tablosu değildir. Bu nedenle ZEND_SET_SYMBOL için EG(active_symbol_table) ve &EG(symbol_table) biçiminde kullanım gerekmiştir. Burada gösterge olması gerekir.
+<br /><br />
+Aynı biçimde, daha verimli bir sürüm için simge tablosu güncellemeyi yazabilirsiniz:
+
+<pre>
+zval *new_variable;
+
+// yeni taşıyıcıya alan aç ve ilkle
+MAKE_STD_ZVAL(new_variable);
+
+//
+// değişken içeriğini ve türünü ayarla
+//
+
+// bu değişkeni "new_variable_name" adıyla evrensel simge tablosuna tanıt
+zend_hash_update(
+    &amp;EG(symbol_table),
+    "new_variable_name",
+    strlen("new_variable_name") + 1,
+    &amp;new_variable,
+    sizeof(zval *),
+    NULL
+);
+</pre>
+Zend API: PHP çekirdeğini kırma bölümü örnek bir kaynak kod gösterir. Burada iki değiken yaratılır (yerel değişken yerel kapsamla, evrensel değişken evrensel kapsamla).
+<br /><br />
+Not: Gördüğünüz gibi evrensel değişken aslında işlevin içinden erişilemez durumdadır. Bunun nedeni yerel kapsam içine alınmamıştır (imported). PHP kaynağında $global_variable ile kullanılır.
+
+<h3>Örnek-9 Değişik kapsamlarla değişken yaratma</h3>
+<pre>
+ZEND_FUNCTION(variable_creation)
+{
+    zval *new_var1, *new_var2;
+
+    MAKE_STD_ZVAL(new_var1);
+    MAKE_STD_ZVAL(new_var2);
+
+    ZVAL_LONG(new_var1, 10);
+    ZVAL_LONG(new_var2, 5);
+
+    ZEND_SET_SYMBOL(EG(active_symbol_table), "local_variable", new_var1);
+    ZEND_SET_SYMBOL(&amp;EG(symbol_table), "global_variable", new_var2);
+
+    RETURN_NULL();
+
+}
+</pre>
+<h3>Uzunlar (Tamsayı)</h3>
+
+Şimdi değişkenlere veri atamaya gelelim. Önce uzunlarla başlayalım. PHP'nin tamsayısıdır ve saklanması çok kolaydır. zval.value taşıyıcı yapısına bakıldığında bileşim içinde uzun verisine doğrudan lval alan adıyla erişilir. Bu değerin karşılığı olan tür IS_LONG olur.
+
+<h3>Örnek-10 bir uzun yaratma</h3>
+<pre>
+zval *new_long;
+
+MAKE_STD_ZVAL(new_long);
+
+new_long-&gt;type = IS_LONG;
+new_long-&gt;value.lval = 10;
+</pre>
+Diğer bir yol olarak ZVAL_LONG makrosunu kullanabilirsiniz.
+<pre>
+zval *new_long;
+
+MAKE_STD_ZVAL(new_long);
+ZVAL_LONG(new_long, 10);
+</pre>
+
+<h3>Çift Duyarlı (Kayan Noktalı)</h3>
+PHP'nin kayan noktalı değerleri çift duyatlılardır. Uzunlar gibi atanması kolaydır. bileşimde değerine doğrudan ulaşılır. Bu iş için zval.value taşıyıcısında dval kullanılır. Türün karşılığı IS_DOUBLE olur.
+<pre>
+zval *new_double;
+
+MAKE_STD_ZVAL(new_double);
+
+new_double-&gt;type = IS_DOUBLE;
+new_double-&gt;value.dval = 3.45;
+</pre>
+Diğer bir yol olarak ZVAL_DOUBLE makrosunu kullanabilirsiniz.
+<pre>
+zval *new_double;
+
+MAKE_STD_ZVAL(new_double);
+ZVAL_DOUBLE(new_double, 3.45);
+</pre>
+<h3>Yazi dizisi</h3>
+
+Yazı dizileri için biraz daha emek harcanmalıdır. Daha önce de belirtildiği gibi, Zend'in içsel veri yapılarıyla ilintili tüm yazı dizileri için alan açılmalıdır. Alan açmada Zend bellek yönetim işlevi kullanılır. Durağan yazı dizilerine adresle erişmeye izin verilmez. Ayrıca standart programlarla alan açılan yazı dizilerine göstergeyle erişilmesine izin verilmez.
+<pre>
+zval *new_string;
+char *string_contents = "This is a new string variable";
+
+MAKE_STD_ZVAL(new_string);
+
+new_string-&gt;type = IS_STRING;
+new_string-&gt;value.str.len = strlen(string_contents);
+new_string-&gt;value.str.val = estrdup(string_contents);
+    &lt;/programlisting&gt;
+    Note the usage of Zend's <function>estrdup</function> here.
+    Of course, you can also use the predefined macro
+    &lt;literal&gt;ZVAL_STRING</literal>:
+    &lt;programlisting&gt;
+zval *new_string;
+char *string_contents = "This is a new string variable";
+
+MAKE_STD_ZVAL(new_string);
+ZVAL_STRING(new_string, string_contents, 1);
+</pre>
+ZVAL_STRING accepts a third parameter that indicates whether the supplied string contents should be duplicated (using estrdup()). Setting this parameter to 1 causes the string to be duplicated; 0 simply uses the supplied pointer for the variable contents. This is most useful if you want to create a new variable referring to a string that's already allocated in Zend internal memory.
+<br /><br />
+Eğer yazı dizisini belli bir yerden kesmek isterseniz ya da uzunluğunu zaten biliyorsanız,  ZVAL_STRINGL(zval, string, length, duplicate) kullanabilirsiniz. Bu dışsal bir yazı dizisi boyunu yeni yazı dizisi için kabul eder. Bu makro  ZVAL_STRING daha hızlıdır ve ikili-güvenliği fazladır.
+<br /><br />
+Boş yazı dizisi yaratırken, yazı dizisi boyunu 0 yapın ve boş yazı dizisini içerik yapın:
+<pre>
+new_string-&gt;type = IS_STRING;
+new_string-&gt;value.str.len = 0;
+new_string-&gt;value.str.val = empty_string;
+</pre>
+Tabi ki bunu için de bir makro var (ZVAL_EMPTY_STRING):
+<pre>
+MAKE_STD_ZVAL(new_string);
+ZVAL_EMPTY_STRING(new_string);
+</pre>
+<h3>Mantıksallar</h3>
+
+Mantıksallar aynı uzunlar gibi yaratılır, ama türleri IS_BOOL olur. lval içindeki değerleri 0 ya da 1 olur.
+<pre>
+zval *new_bool;
+
+MAKE_STD_ZVAL(new_bool);
+
+new_bool-&gt;type = IS_BOOL;
+new_bool-&gt;value.lval = 1;
+</pre>
+Bu tür için karşılık olan makrolar ZVAL_BOOL (değerin özelliğine izin verir), ZVAL_TRUE ve ZVAL_FALSE (dıştan TRUE ve FALSE değerlerine ayarlıdır) .
+<h3>Diziler</h3>
+
+Diziler Zend'in içsel karışık tablosuna saklanır. Erişimde zend_hash_*() API bilgisi kullanılır. Yaratılan her dizi için, karışık tabloya yeni bir gösterge gerekir. O da zval.value taşıyıcısının ht öğesinde bulunur.
+<br /><br />
+Tüm API bilgisi dizilerin yaratılışında kullanılır. Oldukça kullanışlıdır da. Yeni bir dizi yaratırken array_init() kullanabilirsiniz.
+<pre>
+zval *new_array;
+
+MAKE_STD_ZVAL(new_array);
+
+array_init(new_array);
+
+array_init() always returns SUCCESS.
+</pre>
+Diziye yeni öğeler eklemek için birçok işlev kullanabilirsiniz (ne yapmak istediğinize bağımlı olarak). Bu işlevler çeşitli PHP bölümlerinde anlatılır. Tüm işlevler hata olduğunda FAILURE, başarıda da SUCCESS döndürür.
+<h3>İlişkileri olan Diziler için Zend'in API bilgisi</h3>
+<table class="yazi">
+<tr><td>İşlev</td><td>Açıklama</td></tr>
+<tr><td valign="yazi">add_assoc_long(zval *array, char *key, long n);()</td><td>Uzun türünde bir öğe ekler.</td></tr>
+<tr><td valign="yazi">add_assoc_unset(zval *array, char *key);()</td><td>ayarlanmamış bir öğe ekler</td></tr>
+<tr><td valign="yazi">add_assoc_bool(zval *array, char *key, int b);()</td><td>Bir mantıksal öğe ekler</td></tr>
+<tr><td valign="yazi">add_assoc_resource(zval *array, char *key, int r);()</td><td>diziye bir kaynak ekler</td></tr>
+<tr><td valign="yazi">add_assoc_double(zval *array, char *key, double d);()</td><td>Kayan noktalı bir değer ekler</td></tr>
+<tr><td valign="yazi">add_assoc_string(zval *array, char *key, char *str, int duplicate);()</td><td>Diziye bir yazı dizisi ekler. çoğalt (duplicate) durum kodu yazı dizisinin Zend içsel belleğine kopyalanıp kopyalanmayacağını belirtir</td></tr>
+<tr><td valign="yazi">add_assoc_stringl(zval *array, char *key, char *str, uint length, int duplicate); ()</td><td>Bir diziye yazı dizisinin istenilen uzunluktaki bölümü taşınır. Aksi halde add_assoc_string() gibi davranır</td></tr>
+<tr><td valign="yazi">add_assoc_zval(zval *array, char *key, zval *value);()</td><td>Bir diziye zval ekler. Diğer dizileri, nesneleri, akarları vb eklemek için kullanışlıdır</td></tr>
+</table>
+<br />
+Dizinli Diziler için Zend'in API bilgisi (Bölüm 1)
+<table class="yazi">
+<tr><td>İşlev</td><td>Açıklama</td></tr>
+<tr><td valign="top">add_index_long(zval *array, uint idx, long n);()</td><td>türü uzun olan bir öğe ekler</td></tr>
+<tr><td valign="top">add_index_unset(zval *array, uint idx);()</td><td>ayarlanmamış bir öğe ekler</td></tr>
+<tr><td valign="top">add_index_bool(zval *array, uint idx, int b);()</td><td>Mantıksal öğe ekler</td></tr>
+<tr><td valign="top">add_index_resource(zval *array, uint idx, int r);()</td><td>Diziye kaynak ekler</td></tr>
+<tr><td valign="top">add_index_double(zval *array, uint idx, double d);()</td><td>Kayan noktalı değer ekler</td></tr>
+<tr><td valign="top">add_index_string(zval *array, uint idx, char *str, int duplicate);()</td><td>Diziye bir yazı dizisi ekler.  çoğalt (duplicate) durum kodu yazı dizisinin Zend içsel belleğine kopyalanıp kopyalanmayacağını belirtir</td></tr>
+<tr><td valign="top">add_index_stringl(zval *array, uint idx, char *str, uint length, int duplicate);()</td><td>Bir diziye yazı dizisinin istenilen uzunluktaki bölümü taşınır. Aksi halde add_index_string() gibi davranır</td></tr>
+<tr><td valign="top">add_index_zval(zval *array, uint idx, zval *value);()</td><td>Bir diziye zval ekler. Diğer dizileri, nesneleri, akarları vb eklemek için kullanışlıdır</td></tr>
+</table>
+<br />
+Dizinli Diziler için Zend'in API bilgisi (Bölüm 2)
+<table class="yazi">
+<tr><td valign="top">İşlev</td><td>Açıklama</td></tr>
+<tr><td valign="top">add_next_index_long(zval *array, long n);()</td><td>Türü uzun olan bir öğe ekler</td></tr>
+<tr><td valign="top">add_next_index_unset(zval *array);()</td><td>Ayarlanmamış bir öğe ekler</td></tr>
+<tr><td valign="top">add_next_index_bool(zval *array, int b);()</td><td>Mantıksal öğe ekler</td></tr>
+<tr><td valign="top">add_next_index_resource(zval *array, int r);()</td><td>>Diziye kaynak ekler</td></tr>
+<tr><td valign="top">add_next_index_double(zval *array, double d);()</td><td>Kayan noktalı değer ekler</td></tr>
+<tr><td valign="top">add_next_index_string(zval *array, char *str, int duplicate);()</td><td>Diziye bir yazı dizisi ekler.  çoğalt (duplicate) durum kodu yazı dizisinin Zend içsel belleğine kopyalanıp kopyalanmayacağını belirtir</td></tr>
+<tr><td valign="top">add_next_index_zval(zval *array, zval *value);()</td><td>Bir diziye zval ekler. Diğer dizileri, nesneleri, akarları vb eklemek için kullanışlıdır</td></tr>
+</table>
+Tüm bu işlevler kullanışlı Zend'in içsel karışık API bilgisine özet oluşturur. Tabi ki, karışık (hash) işlevler doğrudan da kullanılabilir. Örneğin gerçekten diziye eklemek istediğiniz zval taşıyıcısı alanı açılmışsa bu işlevleri kullanırsınız. Bu ilişkileri olan diziler için  zend_hash_update() ile yapılır. Dizinli diziler için zend_hash_index_update() ile yapılır.
+
+<h3>Örnek-11 İlişkileri olan diziye öğe eklemek</h3>
+
+<pre>
+zval *new_array, *new_element;
+char *key = "element_key";
+      
+MAKE_STD_ZVAL(new_array);
+MAKE_STD_ZVAL(new_element);
+
+array_init(new_array);
+
+ZVAL_LONG(new_element, 10);
+
+if(zend_hash_update(new_array-&gt;value.ht, key,
+                    strlen(key) + 1, (void *)&amp;new_element,
+                    sizeof(zval *), NULL) == FAILURE)
+{
+    // hatayı ele alma burada olur
+}
+</pre>
+
+<h3>Örnek-12 Dizinli diziye bir öğe eklemek</h3>
+<pre>
+zval *new_array, *new_element;
+int key = 2;
+
+MAKE_STD_ZVAL(new_array);
+MAKE_STD_ZVAL(new_element);
+
+array_init(new_array);
+
+ZVAL_LONG(new_element, 10);
+
+if(zend_hash_index_update(new_array-&gt;value.ht,
+                    key, (void *)&amp;new_element,
+                    sizeof(zval *), NULL) == FAILURE)
+{
+    // hatayı ele alma burada olur
+}
+</pre>
+add_next_index_*() işlevselliğini benzetmek için şunu kullanabilirsiniz:
+<br />
+<pre>
+   zend_hash_next_index_insert(ht, zval **new_element, sizeof(zval *), NULL)
+</pre>
+<br />
+Not: 
+Bir işlevden dizi döndürmek için, array_init() kullanın ve önceden tanımlanmış değişkenin döndürdüğü değer üzerine tüm diğer işlemleri kullanır (dışa taşınan işleviniz bağımsız değişken olarak verilir). Burada MAKE_STD_ZVAL kullanmanız gerekmez.
+<br /><br />
+İp ucu: 
+Her zaman  new_array->value.ht yazmaktan kurtulmak için HASH_OF(new_array) kullanabilirsiniz. Uyum ve stil nedeniyle de önerilen bir yoldur.
+<h3>Nesneler</h3>
+
+Nesneler dizilere çevrilebildiğinden (tersi de geçerlidir), PHP içinde dizilerle nesneler arasında çok benzerlikler olduğunu fark edebilirsiniz. Nesneler de aynı karışık (hash) işlevle düzenlenir ama yaratırken farklı bir API kullanılır.
+<br /><br />
+Bir nesneyi ilklemek için object_init() işlevini kullanabilirsiniz:
+<pre>
+zval *new_object;
+
+MAKE_STD_ZVAL(new_object);
+
+if(object_init(new_object) != SUCCESS)
+{
+    // hatayı ele alma burada olur
+}
+</pre>
+Zend API: PHP çekirdeğini kırma bölümündeki işlevleri kullanabilirsiniz.
+<h3>Nesne Yaratmak için Zend'in API Bilgisi</h3>
+<table class="yazi">
+<tr><td>İşlev</td><td>Açıklama</td></tr>
+<tr><td valign="top">add_property_long(zval *object, char *key, long l);()</td><td>Nesneye türü uzun olan bir öğe ekler </td></tr>
+<tr><td valign="top">add_property_unset(zval *object, char *key);()</td><td>Ayarlanmamış bir öğe ekler </td></tr>
+<tr><td valign="top">add_property_bool(zval *object, char *key, int b);()</td><td>Nesneye Mantıksal öğe ekler.</td></tr>
+<tr><td valign="top">add_property_resource(zval *object, char *key, long r);()</td><td>Nesneye kaynak ekler</td></tr>
+<tr><td valign="top">add_property_double(zval *object, char *key, double d);()</td><td>Nesneye çift duyarlık ekle</td></tr>
+<tr><td valign="top">add_property_string(zval *object, char *key, char *str, int duplicate);()</td><td>Nesneye yazı dizisi eklemek</td></tr>
+<tr><td valign="top">add_property_stringl(zval *object, char *key, char *str, uint length, int duplicate);()</td><td>Nesneye bir yazı dizisi ekler.  çoğalt (duplicate) durum kodu yazı dizisinin Zend içsel belleğine kopyalanıp kopyalanmayacağını belirtir </td></tr>
+<tr><td valign="top">add_property_zval(zval *obect, char *key, zval *container):()</td><td>Bir nesneye zval ekler. Diğer dizileri, nesneleri, akarları vb eklemek için kullanışlıdır</td></tr>
+</table>
+<h3>Kaynaklar</h3>
+
+PHP içinde kaynaklar özel tür veri tipleridir. Kaynak özel anlamlı bir tür veri anlamına gelmez ama herhangi bir bilgiyi belirten soyut bir yöntemi belirtir. Kaynaklar Zend içinde özel kaynak listelerinde saklanır. Listedeki her giriş noktasının karşılığı olan bir tür tanımı vardır. Bunlar gösterdiği kaynağın türünü belirtir. Zend işsel olarak bu kaynaklarla ilgili göstergeleri yönetir. Doğrudan kaynağa erişim olmaz. API bilgileri kullanılır. Bir kaynağa ilişkin tüm göstergeler kaybolduğunda karşıtı olan kapanış işlevi çalıştırılır.
+<br /><br />
+Örneğin, kaynaklar veri tabanı bağlantılarını ve dosya tanımlayıcılarını saklamakta kullanılır. Bu standart hakkında bilgi MySql modülünde bulunabilir. Diğer modüller (Oracle gibi) kaynakları kullanırlar.
+<br /><br />
+    Not: Aslında kaynak işlevinizde ele almak istediğiniz herhangi birşeye gösterge olabilir (örneğin bir yapıya gösterge) ve kullanıcı işlevinize yalnız kaynak değişkenini geçirir.
+<br /><br />
+Yeni bir kaynak yaratmak için önce kaynak bozma göstergesini kaydetmelisiniz. Herhangi bir veriyi kaynak olarak saklayabildiğinizden, Zend bunu nasıl boşaltacağını bilmelidir. Bu da sizin kendi kaynak bozma işlevinizi Zend içine kaydettirmenizle sağlanır. Böylece kaynağınız gerekmediğinde Zend bu işlevi kullanarak kaynağı boşaltır (elle ya da otomatik). Kaynak göstergesini Zend içine kaydedince, size kaynak türünden gösterge döner. Bunu kaynak türüne erişmek istediğinizde kullanırsınız. Bu da sizin uzantının evrensel statik değişkenler bölümünde yer alır. Burada güvenlik sorununu düşünmeye gerek yoktur. Çünkü kayıt işlemi modülü ilklerken gerekir.
+<br /><br />
+Kaynak göstergesini Zend işlevine kaydetmek şöyle tanımlanır:
+<pre>
+ZEND_API int zend_register_list_destructors_ex(rsrc_dtor_func_t ld,
+                  rsrc_dtor_func_t pld, char *type_name, int module_number);
+</pre>
+Bu işleve geçirebileceğiniz iki değişik tür kaynak bozma göstergesi olabilir. Normal kaynaklar için bir gösterge, sürekli kaynaklar için bir gösterge. Sürekli kaynaklar örnek vermek gerekirse veri tabanı bağlantılarıdır. Bir kaynağı kaydederken bu göstergelerde her ikisi de verilmelidir. Diğer gösterge için NULL geçirilir.
+<br /><br />
+zend_register_list_destructors_ex() aşağıdaki bağımsız değişkenleri kabul eder:
+<table class="yazi">
+<tr><td valign="top">ld</td><td>Normal kaynak bozma göstergesi (geri besleme)</td></tr>
+<tr><td valign="top">pld</td><td>Sürekli kaynak göstergesi (geri basleme)</td></tr>
+<tr><td valign="top">type_name</td><td>Kaynağınızı belirten bir yazı dizisi. PHP içinde tekil ad vermek iyidir. Kullanıcı var_dump($resource) çağırdığında kaynağın adını da alabilir</td></tr>
+<tr><td valign="top">module_number</td><td>Modül numarası otomatik olarak PHP_MINIT_FUNCTION içinde vardır ve siz onu geçirirsiniz</td></tr>
+</table>
+Sizin kaynak türünüze göre dönen değer tekil kimlik (ID) değeridir.
+<br /><br />
+Kaynak bozma göstergesi (normal ya da sürekli kaynak olabilir) aşağıdaki prototipi vardır:
+<pre>
+    void resource_destruction_handler(zend_rsrc_list_entry *rsrc TSRMLS_DC);
+</pre>
+<br />
+Aşağıdaki yapıya geçirilen rsrc bir göstergedir:
+
+<pre>
+typedef struct _zend_rsrc_list_entry {
+     
+    void *ptr;
+    int type;
+    int refcount;
+
+} zend_rsrc_list_entry;
+</pre>
+
+Sizin kaynağınıza gerçek gösterge void *ptr üyesidir.
+<br /><br />
+Şimdi işlere nasıl başlayacağımızı biliyoruz. Biz kendi kaynaklarımızı tanımlarız. Zend içinde kayıt olmasını isteriz. Bu basit yapı iki tamsayılı üyedir:
+
+<pre>
+typedef struct {
+     
+    int resource_link;
+    int resource_type;
+
+} my_resource;
+</pre>
+Bizim kaynak bozucu göstergemiz büyük olasılıkla aşağıdaki gibi birşeydir:
+<pre>
+void my_destruction_handler(zend_rsrc_list_entry *rsrc TSRMLS_DC) {
+
+    // Büyük bir olasılıkla boş (void) göstergeyi kendi yapınıza çevirirsiniz
+
+    my_resource *my_rsrc = (my_resource *) rsrc->ptr;
+
+    // Kaynaklarınızla ne yapılacaksa yapın. Kapatma,
+    // Dosyalar, Socket, ek belleğin boşaltılması vb.
+    // Aynı zamanda, gerçekten kaynaklarınız için
+    // bellek böşaltmayı da unutmayın!
+
+    do_whatever_needs_to_be_done_with_the_resource(my_rsrc);
+}
+</pre>
+    Not: 
+Belirtilmesi gereken bir önemli şey: Eğer kaynağınız gerçekten karmaşık bir yapısya, çalışma zamanında alınan belleği gösteren göstergeleri varsa, kaynağı boşaltmadan onları boşaltmalısınız.
+<br /><br />
+Şimdi tanımladıklarımız:
+<ol>
+   <li> Bizim kaynaklarımız nedir ve
+   <li> kaynak bozma göstergemiz nedir
+</ol>
+Şimdi devam edip adımların diğerlerini yapabiliriz:
+<ol>
+   <li> Kaynağın kimliğini (ID) bulunduran uzantı içinde evrensel bir değişken yarat. Öyle ki ona gerek duyan her işlevden erişilebilsin.
+   <li> Kaynağın adını tanımla
+   <li> Kaynak bozma göstergesini yazma
+   <li> ve son olarak göstergeyi yazdır
+</ol>
+<pre>
+    // Uzantının içinde bir yerde kayıt edilen kaynağınız için
+    // bir değişken tanımla.
+    // Eğer 'le' ne içindir diye merak ediyorsanız:
+    // onun anlamı 'giriş noktasını listele' demektir.
+    static int le_myresource;
+
+    // Kaynağınızın adını bir yerde tanımlamak güzeldir.
+    #define le_myresource_name  "My type of resource"
+
+    [...]
+
+    // Şimdi kaynak bozma göstergesini gerçekten tanımlama
+    void my_destruction_handler(zend_rsrc_list_entry *rsrc TSRMLS_DC) {
+
+        my_resource *my_rsrc = (my_resource *) rsrc->ptr;
+        do_whatever_needs_to_be_done_with_the_resource(my_rsrc);
+    }
+
+    [...]
+
+    PHP_MINIT_FUNCTION(my_extension) {
+
+       // Modül sayısı zaten 
+       // PHP_MINIT_FUNCTION() işlev tanımıyla sağlanmıştır.
+
+       le_myresource =zend_register_list_destructors_ex(my_destruction_handler,
+                      NULL, le_myresource_name, module_number);
+
+       // Başka ek kaynakları kaydedebilirsiniz, değişkenlerinizi
+       // değişmezlerinizi, başka ne varsa ilkleyebilirsiniz
+    }
+</pre>
+Yeni bir kaynağı gerçekten kaydedebilmek için zend_register_resource() işlevi kullanırsınız ya da ZEND_REGISTER_RESOURE() makrosu. Her ikisi de zend_list.h içinde tanımlanmıştır. Her ikisi için bağımsız değişkenler bire bir örtüşse de, ileriye doğru uyumlu olmak açısından makro kullanmak iyidir.
+<pre>
+int ZEND_REGISTER_RESOURCE(zval *rsrc_result,
+                           void *rsrc_pointer, int rsrc_type);
+</pre>
+<table class="yazi">
+<tr><td valign="top">rsrc_result</td><td>Bu halen ilklenmiş zval * taşıyıcısıdır.</td></tr>
+<tr><td valign="top">rsrc_pointer</td><td>Saklamak istediğiniz kaynak göstergenizdir.</td></tr>
+<tr><td valign="top">rsrc_type</td><td>Kaynak bozma göstergesini kaydedince aldığınız tür. Eğer adlandırma çizelgesini izlerseniz adı le_myresource olmalıdır.</td></tr>
+</table>
+O kaynak için dönen değer tekil tamsayı belirticidir.
+<br /><br />
+Yeni bir kaynağı kaydettiğinizde gerçekte neyin yapıldığı şöyle söylenebilir: Zend içindeki bir listeye eklenir sonuç da o anda verilen zval * taşıyıcısına saklanır.
+<pre>
+    rsrc_id = zend_list_insert(rsrc_pointer, rsrc_type);
+     
+    if (rsrc_result) {
+        rsrc_result->value.lval = rsrc_id;
+        rsrc_result->type = IS_RESOURCE;
+    }
+
+    return rsrc_id;
+</pre>
+Dönen rsrc_id tekil olarak yeni kaydedilen kaynağı belirtir. Kullanıcıya döndürmek için RETURN_RESOURE makrosu kullanabilirsiniz.
+<pre>
+    RETURN_RESOURCE(rsrc_id)
+</pre>
+    Not: Eğer kaynağı hemen kullanıcıya döndürmek isterseniz zval * taşıyıcısı olarak return_value belirtirsiniz.
+<br /><br />
+Zend now keeps track of all references to this resource. As soon as all references to the resource are lost, the destructor that you previously registered for this resource is called. The nice thing about this setup is that you don't have to worry about memory leakages introduced by allocations in your module - just register all memory allocations that your calling script will refer to as resources. As soon as the script decides it doesn't need them anymore, Zend will find out and tell you.
+<br /><br />
+Now that the user got his resource, at some point he is passing it back to one of your functions. The value.lval inside the zval * container contains the key to your resource and thus can be used to fetch the resource with the following macro: ZEND_FETCH_RESOURCE:
+<pre>
+ZEND_FETCH_RESOURCE(rsrc, rsrc_type, rsrc_id,
+                    default_rsrc_id, resource_type_name, resource_type)
+</pre>
+<table class="yazi">
+<tr><td valign="top">rsrc</td><td>Bu sizin göstergenizdir ve önceden kaydedilen kaynağınızı gösterir.</td></tr>
+<tr><td valign="top">rsrc_type</td><td>Bu göstergeniz için tür değiştirme bağımsız değikenidir, örneğin. myresource *.</td></tr>
+<tr><td valign="top">rsrc_id</td><td>Kullanıcının sizin işlevinize geçirdiği zval * taşıyıcısının adresidir, örneğin &z_resource eğer zval *z_resource verilmişse.</td></tr>
+<tr><td valign="top">default_rsrc_id</td><td>Bu tamsayı eğer kaynak bulunamazsa varsayılan kaynak kimliğini belirtir ya da -1. </td></tr>
+<tr><td valign="top">resource_type_name</td><td>İstenen kaynağın adıdır. Bu bir yazı dizisidir ve kaynak bulunamadığında kullanılır ya da geçersiz olduğunda anlamlı bir hata mesajı vermeye yarar.</td></tr>
+<tr><td valign="top">resource_type</td><td>The resource_type you got back when registering the resource destruction handler. In our example this was le_myresource.</td></tr>
+</table>
+Bu makronun dönüş değeri yoktur. Geliştiricinin kolaylığı için gereklidir. TSRMLS bağımsız değişkenlerinin geçirilmesini kontrol eder. Aynı zamanda kaynakların aranabilmesine bakar. Eğer kaynağın erişilmesinde sorun varsa bir uyarı mesajı üretir ve PHP işlevini NULL ile döndürür.
+<br /><br />
+Kaynakların listeden kaldırılmasını zorlamak açısından, zend_list_delete() işlevi kullanılır. Eğer daha önceden alan açılmış bir değere (örneğin otomatik olarak bir veri tabanı bağını yeniden kullanıyorsanız) yeni bir gösterge yaratılacağını biliyorsanız, gösterge sayacını bir arttırmayı da zorlayabilirsiniz. Bu durumda zend_list_addref() işlevi kullanılır. Daha önce alan açılmış kaynak giriş noktalarını aramak için zend_list_find() kullanılır. Tüm API zend_list.h içinde vardır.
+<h3>Otomatik Evrensel Değişken Yaratmak için Makrolar</h3>
+
+Daha önce tartışılan makrolara ek olarak, basit evrensel değişkenlerin yaratılışını birkaç makro sağlar. Bunları evrensel durum kodu eklemekte kullanmanız için bilinmesi gerekenlerdir. Kötü bir deney olsa da Zend API: PHP çekirdeğini kırma tablosundaki makrolar bu işi yaparlar. Bunlar için zval alanı açılması gerekmez. Basit değişken adı ve değerini tanımlamanız yeterlidir.
+<h3>Evrensel Değişken Yaratmak için Makrolar</h3>
+<table class="yazi">
+<tr><td>Makro</td><td>Açıklama</td></tr>
+<tr><td>SET_VAR_STRING(name, value)</td><td>Yeni yazı dizisi yaratır</td></tr>
+<tr><td>SET_VAR_STRINGL(name, value, length)</td><td>Belirtilen uzunlukta yeni yazı dizisi yaratır. Bu makro SET_VAR_STRING den daha hızlıdır ve ikili güvenlidir</td></tr>
+<tr><td>SET_VAR_LONG(name, value)</td><td>Yeni uzun yaratır</td></tr>
+<tr><td>SET_VAR_DOUBLE(name, value)</td><td>Yeni çift duyarlı yaratır</td></tr>
+</table>
+<h3>Değişmezler Yaratma</h3>
+
+Zend gerçek değişmezler yaratılmasını destekler (kuralı değişkenlere karşıt olarak). Değişmezlere başında tipik ($) işareti olmadan erişilir ve tüm kapsamlarda kullanılabilirler. Örnekler TRUE ve FALSE değerlerini içerir.
+<br /><br />
+Kendi değişmezlerinizi yaratmak için Zend API: PHP çekirdeğinin kırımlası bölümünde belirtilen makroları kullanabilirsiniz. Tüm makrolar belirli bir ad ve değerler değişmez yaratırlar.
+<br /><br />
+Her değişmez için durum kodu da tanımlayabilirsiniz:
+<ul>
+    <li> CONST_CS - Bu değişmezin adı küçük büyük harf duyarlı kabul edilmelidir.
+    <li> CONST_PERSISTENT - Bu değişmez süreklidir ve o anki işlem değişmezlerin kapatırken "unutulmaz".
+</ul>
+Durum kodlarını kullanmak için bunları OR (veya işlemi) ile birleştirin:
+<pre>
+ // Yeni değişmezi kaydedin. Türü "long" olur
+     REGISTER_LONG_CONSTANT("NEW_MEANINGFUL_CONSTANT", 324,
+              CONST_CS | CONST_PERSISTENT); 
+</pre>
+İki tür makro vardır -  REGISTER_*_CONSTANT ve REGISTER_MAIN_*_CONSTANT. İlki o anki modüle bağlı değişmezler yaratır. Modül bellekten çıkınca, bu değişmezler de simge tablosundan dökülürler. İkinci tür modüle bağımlı olmadan simge tablosunda kalan deüişmezler yaratır.
+<h3>Değişmez Tanımlamak için Makrolar</h3>
+<table class="yazi">
+<tr><td>Makro </td><td>Açıklama</td></tr>
+<tr><td>REGISTER_LONG_CONSTANT(ad, değer, durum_kodu) REGISTER_MAIN_LONG_CONSTANT(name, value, flags) </td><td>Türü uzun olan yeni değişmezi kaydeder</td></tr>
+<tr><td>REGISTER_DOUBLE_CONSTANT(ad, değer, durum_kodu) REGISTER_MAIN_DOUBLE_CONSTANT(name, value, flags) </td><td>Türü çift duyarlı olan değişmezi kaydeder.</td></tr>
+<tr><td>REGISTER_STRING_CONSTANT(ad, değer, durum_kodu) REGISTER_MAIN_STRING_CONSTANT(name, value, flags) </td><td>Türü yazı dizisi olan yeni değişmezi kaydeder. Bu yazı dizisi Zend'in iç belleğinde olmalıdır</td></tr>
+<tr><td>REGISTER_STRINGL_CONSTANT(ad, değer, uzunluk, durum_kodu) REGISTER_MAIN_STRINGL_CONSTANT(ad, değer, uzunluk, durum kodu) </td><td>Türü yazı dizisi olan yeni değişmezi kaydeder. Belirtilen yazı dizisi Zend iç belleğinde olmalıdır</td></tr>
+</table>
+<h3>Değişken içeriğini Çoklama: Yapıcıyı kopyalama</h3>
+
+Şimdi ya da sonra bir zval taşıyıcısının içeriğini diğerine atamanız gerekecektir. Bu yapımından daha çok söylemesi kolay bir iştir. Çünkü zval taşıyıcı yalnız tür bilgilerini içermez, aynı zamanda Zend'in içsel verilerine göstergeleri de içerir. Örneğin boyutlarına göre diziler ve nesneler bir çok kaşırık tablo giriş noktasını iç içe bulundurabilir. Bir zval değerlerinin diğerine atanmasında karışık tablo girişlerini kopyalamayı atlarsınız. Bunlar yerine yalnız göstergeleri çoklanır.
+<br /><br />
+Bu karmaşık veri tipini kopyalamak için kopya yapıcısını kullanır. Kopyalama yapıcısı işlem bindirmenin desteklendiği dillerde tanımlanır. Karmaşık türlerin kopyalanması açık amaç olur. Bu tür dillerde bir nesne tanımlarsanız, atama işlemini ("=") yükleme olasılığınız vardır. Bu işlem eşitliğin sağındaki hesaplanmış bilginin sol tarafa taşınmasından sorumludur.
+<br /><br />
+Yüklemenin anlamı bu işleme değişik anlamlar atanmasına neden olur. Bu nedenle işlem için bir işlev çağrılması söz konusu olur. Bu işlem programda böyle bir nesne üzerinde kullanılınca, bu işlev sol değer ve sağ değer bilgilerini bağımsız değişken olarak kabul eder. Bu bilgiyle donatılınca, "=" işleminin beklenen biçimde çalışması sağlanmış olur.
+<br /><br />
+Bu bir çeşit geliştirilmiş kopyala PHP'nin zval taşıyıcılarında da gereklidir. Yeniden bakarsak bir dizide, bu gelişmiş kopyalama bu diziyle ilişkili tüm karışık tablo öğelerinin yeniden yaratılmasını belirtse de, yazı dizilerinde bellek alanı açıp kopyalama yeterlidir. Bu işlem sürer gider...
+<br /><br />
+Zend böyle bir işlevle dağıtılır. Adı zend_copy_ctor() olur (önceki PHP eşdeğeri pval_copy_constructor() idi).
+<br /><br />
+En kullanışlı örnek bir işlevin karmaşık türü bağımsız değişken olarak alması ve değiştirip bu değişkeni geri döndürmesidir.
+<pre>
+zval *parameter;
+   
+if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC,
+                          "z", &amp;parameter) == FAILURE)
+   return;
+}
+   
+// bağımsız değişkene değişikliği burada yap
+
+// değiştirilmiş taşıyıcıyı döndürmek isteriz
+*return_value = *parameter;
+zval_copy_ctor(return_value);
+</pre>
+Bu işlevin ilk bölümü düz bağımsız değişken alma işlemidir. Değişikliklerden sonra (burası kodlanmamıştır) iş biraz ilginç olur. Değiştirge (parameter) taşıyıcısı, önceden tanımlanmış return_value taşıyıcısına atanır. Şimdi verimli biçimde bu kopyalamayı yapmak için kopyalama yapıcısı çağrılır. Kopyalama yapıcısı doğrudan verilen bağımsız değişkenle çalışır ve standart dönen değerler hata olduğunda FAILURE  ve başarıda SUCCESS olur.
+<br /><br />
+Bu örnekte eğer kopyalama yapıcısını çağırmayı atlarsanız, hem parametre ve hem de return_value aynı içsel veriyi gösterebilir. Bunun anlamı return_value göstergesinin kuralsız ek bağlantı olmasıdır. Göstergelerin gösterdiği yerdeki veride olacak bir değişiklikte return_value da etkilenecektir. Bu ndenle ayrı kopyalar yaratabilmek için kopyalama yapıcısı kullanılmalıdır.
+<br /><br />
+Zend API içinde kopyalama yapıcıları da bulunur. Bozucu zval_dtor() bunun tersini yaparlar.
+<h3>Değerleri Döndürme</h3>
+
+İşlevlerinizden PHP'ye değer döndürmek daha önceki bölümlerde kısaca anlatılmıştır. Burada daha ayrıntılı anlatılmıştır. Dönen değerler return_value değişkeniyle taşınır. Bu da işleve bağımsız değişken olarak taşınır. return_value değeri özegürce değiştirebileceğiniz zval taşıyıcısından oluşur (daha önceki çağırma arayüzü üzerine açılan tartışmaya bakın) Taşıyıcı için zaten alan açılmıştır. Bu nedenle MAKE_STD_ZVAL çalıştımak gerekmez. Bunun yerine öğelerine doğrudan erişebilirsiniz.
+<br /><br />
+İşlevlerden dönen değerleri kolaylaştırmak için zval taşıyıcısına ve içsel yapılara erişim tartışmasını önleyerek bir dizi önceden tanımlanmış makrolar kullanılır. Bu makrolar karşıt tür ve değeri otomatik olarak ayarlar Zend API: PHP çekirdeğini kırma bölümünde anlatılır.
+<br /><br />
+    Not: Zend API: PHP çekirdeğini kırma makroları:<br />
+Makrolar otomatik olarak işlevinizden döner. Bunlar yalnız dönen değeri ayarlar. İşlevden dönmezler.
+<br /><br />
+Bir işlevden değer döndüren önceden tanımlı makrolar:
+<table class="yazi" width="100%">
+<tr><td>Makro</td><td>Açıklama</td></tr>
+<tr><td>RETURN_RESOURCE(resource)</td><td>Bir kaynağı döndürür</td></tr>
+<tr><td>RETURN_BOOL(bool)</td><td>Mantıksal döndürür</td></tr>
+<tr><td>RETURN_NULL()</td><td>Hiçbir şey döndürmez (NULL değer).</td></tr>
+<tr><td>RETURN_LONG(long)</td><td>Uzun döndürür.</td></tr>
+<tr><td>RETURN_DOUBLE(double)</td><td>Çift duyarlı döndürür.</td></tr>
+<tr><td>RETURN_STRING(string, duplicate)</td><td>Yazı dizisi döndürür. Çokalam durum kodu yazı dizisinin estrdup() kullanarak kopyalanıp kopyalanmayacağını belirtir.</td></tr>
+<tr><td>RETURN_STRINGL(string, length, duplicate)</td><td>Returns a string of the specified length; otherwise, behaves like RETURN_STRING. This macro is faster and binary-safe, however.</td></tr>
+<tr><td>RETURN_EMPTY_STRING()</td><td>Boş yazı dizisi döndürür.</td></tr>
+<tr><td>RETURN_FALSE</td><td>Mantıksal yanlış döndürür (false).</td></tr>
+<tr><td>RETURN_TRUE</td><td>Mantıksal doğru döndürür (true).</td></tr>
+</table>
+<h3>Bir işlevin dönen değerlerini ayarlayan öntanımlı makrolar</h3>
+<table class="yazi" width="100%">
+<tr><td>Makro</td><td>Açıklama</td></tr>
+<tr><td>RETVAL_RESOURCE(resource)</td><td>Belirtilen kaynağa dönen değeri ayarlar</td></tr>
+<tr><td>RETVAL_BOOL(bool)</td><td>Dönen değeri mantıksal değere ayarlar</td></tr>
+<tr><td>RETVAL_NULL</td><td>Dönen değeri NULL yapar</td></tr>
+<tr><td>RETVAL_LONG(long)</td><td>Dönen değeri belirtilen uzuna ayarlar</td></tr>
+<tr><td>RETVAL_DOUBLE(double)</td><td>Dönen değeri belirtilen çift duyarlıya ayarlar</td></tr>
+<tr><td>RETVAL_STRING(string, duplicate)</td><td>Dönen değeri belirtilen yazı dizisine ayarlar ve istenirse Zend içsel belleğine çoklanmasını sağlar (RETURN_STRING e bakın)</td></tr>
+<tr><td>RETVAL_STRINGL(string, length, duplicate)</td><td>Dönen değeri belirtilen yazı dizisine ayarlar ve uzunluğun istenilen uzunluk olmasını zorlar (bak RETVAL_STRING). Bu makro daha hızlı ve ikili-güvenlidir ve yazı dizisi boyu bilinen her yerde kullanılmalıdır</td></tr>
+<tr><td>RETVAL_EMPTY_STRING</td><td>Dönen değeri boş yazı dizisine ayarlar.</td></tr>
+<tr><td>RETVAL_FALSE</td><td>Dönen değeri mantıksal yanlış yapar (false).</td></tr>
+<tr><td>RETVAL_TRUE</td><td>Dönen değeri mantıksal doğru yapar (true).</td></tr>
+</table>
+Diziler ve nesneler gibi karmaşık türler aray_init() ve object_init() kullanarak döndürülür. Dönen değerde karşılığı olan karışık işlevler olur. Sıradan bilgilerle bu değerler oluşturulamadığından bunlar için önceden tanımlanmış makrolar yoktur.
+<h3>Yazma Bilgisi</h3>
+
+Sizin modülünüzden mesajlar sıkça çıkış akarına yazdırılmak istenebilir. Kodlamada print() gibi kullanabilirsiniz. PHP birçok suysal işlem için işlevler sağlar. Bunlar mesajşarı yazdırmak, phpinfo(9 için çıktı hazırlamak vb. olabilir. Aşağıdaki bölüm daha çok ayrıntı sunar. 
+<dl>
+<dt>zend_printf()
+
+<dd>zend_printf() sıradan printf() gibi çalışır, Zend'in çıkış akarına yazar.
+</dd></dt>
+<dt>zend_error()
+
+<dd>zend_error() hata mesajları üretmek için kullanılır. Bu işlev iki bağımsız değişken alır. Birincisi hata türüdür (zend_errors.h dosyasına bakın) ve ikincisi ise hata mesajıdır.
+</dd></dt>
+</dl>
+<pre>
+zend_error(E_WARNING, "Bu işlev boş bağımsız değişkenlerle çağrılır");
+</pre>
+Zend API: PHP çekirdeğini kırma bölümü olası değerlerin listesini sunar. Bu değerler php.ini içinde de bulunur. Ne tür hata kodunu seçerseniz seçin mesajınız kaydedilir.
+<h3>Zend'in Önceden Tanımlı Hata Mesajları</h3>
+<table class="yazi">
+<tr><td>Hata</td><td>Açıklama</td></tr>
+<tr><td>E_ERROR</td><td>Hatayı tetikler ve kodlamanın çalışmasını keser.</td></tr>
+<tr><td>E_WARNING</td><td>Soysal uyarı üretir ve işlem devam eder.</td></tr>
+<tr><td>E_PARSE</td><td>Tarama hatası belirtir. İşlem devam eder.</td></tr>
+<tr><td>E_NOTICE</td><td>Duyuru üretir. İşlem devam eder. Unutmayın ki bu tür mesajlar varsayılan olarak php.ini dosyasında kapatılmıştır.</td></tr>
+<tr><td>E_CORE_ERROR</td><td>Çekirdekle içsel hata; kullanıcının yazdığı modüllerde kullanılmamalıdır.</td></tr>
+<tr><td>E_COMPILE_ERROR</td><td>Derleyici tarafından içsel hata; Kullanıcı modüllerinde kullanılmamalıdır.</td></tr>
+<tr><td>E_COMPILE_WARNING</td><td>Derleyicinin içsel uyarı mesajı; Kullanıcı modüllerinde kullanılmamalıdır.</td></tr>
+</table>
+<h3>Tarayıcıda uyarı mesajlarının görüntülenmesi</h3>
+<h3>phpinfo() içindeki Çıktı Dahil</h3>
+
+Gerçek bir modül yarattıktan sonra, bu modüle ilişkin bilginin phpinfo() altında görünmesi yararlı olur (modül adına ek olarak, modül listesinde varsayılan olarak yer alır). PHP kendi bölümünüzü yaratmanıza izin verir. ZEND_MINFO() işlevi ile çıktı yaratabilir. Bu işlev modül açıklama bloğunda yer alır (daha önce tartışıldı) ve phpinfo(9 çağrıldığında  her zaman bu da  çağrılır.
+<br /><br />
+PHP otomatik olarak phpinfo() içinde bir bölümü eğer siz ZEND_MINFO işlevini kullanırsanız yazdırır. Modül adı başlıkta bulunur. Kalan herşey sizin tarafınızdan kalıplanıp yazdırılır.
+<br /><br />
+Tipik olarak, HTML tablo başlığını  php_info_print_table_start() kullanarak yazdırırsınız. Sonra  php_info_print_table_header() ve php_info_print_table_row() standart işlevleri kullanılır. Bağımsız değişkenler olarak kolon sayısı (tamsayı olarak) ve kolon içerikleri (yazı dizisi olarak) belirtilir. ZEND API: PHP Çekirdeğini kırma bölümü kaynak kod örneği ve onun çıktısı ile gösterilir. Tablo altını yazdırmak için  php_info_print_table_end() kullanılır.
+
+<h3>Örnek-13 Kaynak kod ve phpinfo() daki çıktı için ekran görüntüsü</h3>
+<pre>
+php_info_print_table_start();
+php_info_print_table_header(2, "İlk kolon", "İkinci kolo");
+php_info_print_table_row(2, "İlk satırdaki giriş noktası", "Başka giriş noktası");
+php_info_print_table_row(2, "Yalnız doldurmak için", "Burada başka satır");
+php_info_print_table_end();
+</pre>
+<h3>Çalıştırma Bilgisi</h3>
+
+You can also print execution information, such as the current file being executed. The name of the function currently being executed can be retrieved using the function get_active_function_name(). This function returns a pointer to the function name and doesn't accept any arguments. To retrieve the name of the file currently being executed, use zend_get_executed_filename(). This function accesses the executor globals, which are passed to it using the TSRMLS_C macro. The executor globals are automatically available to every function that's called directly by Zend (they're part of the INTERNAL_FUNCTION_PARAMETERS described earlier in this chapter). If you want to access the executor globals in another function that doesn't have them available automatically, call the macro TSRMLS_FETCH() once in that function; this will introduce them to your local scope.
+<br /><br />
+Sonunda, o anda çalıştırılan satır no zend_get_executed_lineno() işlevini kullanarak alınır. Bu işlev aynı zamanda çalıştırıcı evrenselleri bağımsız değişken yapar. Bu işlevlerin örnekleri için Zend API: PHP çekirdeğini kırma bölümüne bakın.
+
+<h3>Örnek-14 Çalışma bilgisinin yazdırılması</h3>
+<pre>
+zend_printf("The name of the current function is %s&lt;br&gt;",
+             get_active_function_name(TSRMLS_C));
+zend_printf("The file currently executed is %s&lt;br&gt;",
+             zend_get_executed_filename(TSRMLS_C));
+zend_printf("The current line being executed is %i&lt;br&gt;",
+             zend_get_executed_lineno(TSRMLS_C));
+</pre>
+<h3>Başlama ve Kapanma İşlevleri</h3>
+
+Başlama ve kapanma işlevleri modülünüzün bir kerelik ilkleme ve kapanma işlemleri için kullanılabilir. Daha önce tartışıldığı gibi modüllerde başlama isteği ve kapanış olayları vardır.
+<br /><br />
+Modül başlama ve kapanma işlevleri modül yüklendiğinde ve ilkleme gerektiğinde çağrılır. Başlama ve kapanma işlevleri isteği ise istek işlendiğinde çağrılır (anlamı dosya çalıştırıldığında demektir).
+<br /><br />
+Dinamik uzantılar için, modül ve istek başlama/kapanma olayları aynı zamanda olur.
+<br /><br />
+Bu işlevlerin uygulaması ve tanımı makrolarla yapılabili. Ayrıntılar için "Zend Modül bloğu tanımlarına" bakın.
+<h3>Kullanıcı işlevlerini çağırma</h3>
+
+Kullanıcı işlevlerini kendi modülünüzden çağırabilirsiniz. Geri dönüşleri de uyguladığınızda oldukça kolaydır. Örneğin dizi içinde gezerken, arama yaparken ya da olay tabanlı programlamada...
+<br /><br />
+Kullanıcı işlevleri call_user_function_ex() kullanarak çağrılır. Bu işlem için karışık işlev tanlosu için bir değer gerekir. O da erişilecek nesneye göstergedir (eğer bir yöntem çağıracaksanız), bir işlev adı, dönen değer, bağımsız değişken sayısı, bağımsız değişken dizisi ve zval işlemi yapmak isteyip istemediğinizi belirten bir durum kodu diğer değişgeçlerdir (parametreler).
+<pre>
+ZEND_API int call_user_function_ex(HashTable *function_table, zval *object,
+                       zval *function_name, zval **retval_ptr_ptr,
+                       int param_count, zval **params[],
+                       int no_separation);
+</pre>
+Bilin ki Function_table (işlev tablosu) ve nesne belirtmek zorunda değilsiniz. İkisinden bir yeterlidir. Bir yöntem çağıracaksanız, bu yöntemi içeren nesneyi sunmalısınız.  Bu durumda  call_user_function() otomatik olarak işlev tablosunu bu nesnenin işlev tablosuna göre ayarlar. Aksi halde function_table belirtmeniz gerekir ve nesneyi de NULL yapmalısınız.
+<br /><br />
+Genelde varsayılan işlev tablosu "root" işlev tablosudur. Burada tüm işlevlerin giriş noktaları bulunur. Bu işlev tablosu derleme evrensellerinin bir parçasıdır ve CG makrosunu kullanarak buna erişilebilir. Derleme evrensellerini sizin işlevinize tanıtmak için TSRMLS_FETCH makrosunu bir kez çağırın.
+<br /><br />
+İşlev adı zval taşıyıcısında belirtilir. Başlangıçta şaşırtıcı gelebilir ama oldukça mantıklı bir adımdır. Kodlamanızda çağıran işlevlerde başka işlev adlarının bağımsız değişken olarak alınması çoğu zaman olabilmektedir. Bunlar da aynı zamanda zval taşıyıcısı içinde olurlar. O halde siz bağımsız değişkenlerinizi bu işlev aracılığıyla geçirirsiniz. Bu zval değeri IS_STRING olmalıdır.
+<br /><br />
+Sonraki bağımsız değişken dönen değerde bir göstergedir. Bu taşıyıcı için bir alan açmanız gerekmez. İşlev bunu kendisi yapar. Ama bu taşıyıcıyı daha sonra sizin bozmanız gerekir (zval_dtor() kullanarak).
+<br /><br />
+Sonraki tamsayı olarak değişgeç sayısıdır. Ardından tüm değişgeçlerin yer aldığı bir dizi gelir. Son bağımsız değişmez zval parçalaması yapacak mı ona bakar. Bu her zaman 0 olmalıdır. Eğer 1 olursa bellek daha az bellek kullanır ama değişgeçlerden herhangi biri parçalanma isterse hata verir.
+<br /><br />
+Zend API: PHP çekirdeğini kırma bölümünde kullanıcı işlevinin nasıl çağrılacağının küçük bir gösterisini sunar. Kodlama kendisine bağımsız değişken olarak sunulan bir işlevi çağırır ve bu işlevin dönen değerini doğrudan kendi dönen değeri gibi geçirir. Burada sondaki yapıcı ve kaldırıcı kodlarına bakın. Bu biçimde yapmak zorunluluğu yoktur (onlar ayrı değerler olmalı, atama yapmak daha güvenlidir) ama bu da çalışır.
+<br />
+<h3>Örnek-15 Kullanıcı işlevlerini çağırma</h3>
+<pre>
+zval **function_name;
+zval *retval;
+
+if((ZEND_NUM_ARGS() != 1) ||
+   (zend_get_parameters_ex(1, &function_name) != SUCCESS))
+{
+    WRONG_PARAM_COUNT;
+}
+
+if((*function_name)->type != IS_STRING)
+{
+    zend_error(E_ERROR, "Function requires string argument");
+}
+
+TSRMSLS_FETCH();
+
+if(call_user_function_ex(CG(function_table), NULL,
+                         *function_name, &retval, 0, NULL, 0) != SUCCESS)
+{
+    zend_error(E_ERROR, "Function call failed");
+}
+
+zend_printf("Bizde tür olarak %i var\n", retval->type);
+
+*return_value = *retval;
+zval_copy_ctor(return_value);
+zval_ptr_dtor(&retval);
+
+&lt;?php
+
+dl("call_userland.so");
+
+function test_function()
+{
+    echo "Biz test işlevi içindeyiz!\n";
+    return 'merhaba';
+}
+
+$return_value = call_userland("test_function");
+
+echo "Return value: '$return_value'";
+?&gt;
+</pre> 
+
+Yukarıdaki örneğin çıktısı:
+<pre>
+Biz test işlevi içindeyiz!
+Bizde tür olarak 3 var
+Return value: 'merhaba'
+</pre>
+
+  
+
+<h3>İlkleme Dosya Desteği</h3>
+
+PHP 4 yeniden tasarlanmış ilkleme dosyası sunar. Artık varsalıyan ilkleme giriş noktalarını doğrudan kodlamanızda yapabilirsiniz. Çalışma zamanında bu değerleri okuyup değitirebilirsiniz ve mesaj el alma göstergelerini değişiklik bildirmek için kullanabilirsiniz.
+<br /><br />
+Kendi modülünüzde bir .ini bölümü yaratmak için  PHP_INI_BEGIN() makrosunu kullanın. Böylece bölümün başını işaretlemiş olursunuz ve PHP_INI_END() ile de bölümün sonunu işaretlersiniz. Bunların arasında  PHP_INI_ENTRY() kullanarak giriş noktası yaratabilirsiniz.
+<pre>
+PHP_INI_BEGIN()
+PHP_INI_ENTRY("first_ini_entry",
+              "has_string_value", PHP_INI_ALL, NULL)
+PHP_INI_ENTRY("second_ini_entry",
+              "2",                PHP_INI_SYSTEM, OnChangeSecond)
+PHP_INI_ENTRY("third_ini_entry",
+              "xyz",              PHP_INI_USER, NULL)
+PHP_INI_END()
+</pre>
+ PHP_INI_ENTRY() makrosu dört değişgeç kabul eder: giriş noktası adı, giriş noktası değeri, onun değiştirme yetkileri ve değişiklik uyarılarını ele almaya bir gösterge. Giriş noktası adı ve değeri yazı dizisi olmalıdır. Onların gerçekten yazı dizileri ya da tamsayı olmalarına bakmaksızın böyle olmalıdır.
+<br /><br />
+Yetkiler üç sınıfta toplanmıştır:PHP_INI_SYSTEM php.ini içinde değişiklik yapmanıza izin verir. PHP_INI_USER kullanıcının çalışma zamanında yetkiyi ek ayar dosyalarıyla değiştirebileceğini belirtir (.htaccess gibi). PHP_INI_ALL ile değişiklik hiç bir sınırlamaya gerek olmadan yapılır. Bir başka düzey daha vardır. Buna PHP_INI_PERDIR denir ve onun hakkında henüz birşey söyleyemeyiz.
+<br /><br />
+Dördüncü değişgeç, değişiklik uyarılarını ele almaya bir göstergedir. Bu ilkleme giriş noktalarından biri değişti mi bu ele alış göstergesi çağrılır. Bu tür ele alış göstergesi PHP_INI_MH makrosu kullanılarak tanımlanabilir.
+<pre>
+// ini-giriş-noktası için gösterge "second_ini_entry"
+PHP_INI_MH(OnChangeSecond);
+
+// ini-giriş-noktalarını burada belirtin
+
+PHP_INI_MH(OnChangeSecond)
+{
+
+  zend_printf("Mesaj yakalama, bizim ini giriş noktası değişimi %s&lt;br&gt;",
+              new_value);
+  return(SUCCESS);
+}
+</pre>
+Yeni değer ele alma göstergesini new_value değişkeni içinde yazı dizisine çevirmek için verilir. PHP_INI_MH makrosundaki tanıma bakınca, aslında kullanabileceğiniz birkaç değişgeçiniz olduğunu görürsünüz:
+<pre>
+#define PHP_INI_MH(name) int name(php_ini_entry *entry, char *new_value,
+                                  uint new_value_length, void *mh_arg1,
+                                  void *mh_arg2, void *mh_arg3)
+</pre>
+Tüm bu tanımlar php_ini.h içinde bulunur. Sizin mesaj göstergenizin tüm giriş, yeni değer, uzunluğu ve üç seçimlik bağımsız değişken içeren bir yapıya erişimi hakkı vardır. Bu seçimlik bağımsız değişkenler ek makrolarla belirtilebilir. Bunlar  PHP_INI_ENTRY1 (bir ek bağımsız değişkene izin verir),  PHP_INI_ENTRY2 (iki ek bağımsız değişkene izin verir) ve  PHP_INI_ENTRY3 (üç ek bağımsız değişkene izin verir).
+<br /><br />
+Değişikli uyarı göstergeleri ilkleme giriş noktalarını yerel olarak bellekte saklamak için kullanılmalıdır. O zaman daha hızlı erişim olur ya da değer değiştiğinde yalıpması gereken bazı işlemler yapılabilir. Eğer bazı bilgisayarlara bir modül aracılığıyla sürekli bağlantı söz konusu olursa, eski bağlantı otomatik olarak kesilir ve yenisi kurulur.
+<br /><br />
+İlkleme giriş noktalarına erişim makrolarla ele alınabilir. Zend API: PHP çekirdeğini kısma bölümünde anlatılmıştır.
+<h3>PHP'de İlkleme Giriş Noktalarına Erişmek için Makrolar</h3>
+
+<table class="yazi">
+<tr><td>Makro </td><td>Açıklama</td></tr>
+<tr><td>INI_INT(name) </td><td>Giriş noktasının o anki değerini tamsayı olarak döndürür</td></tr>
+<tr><td>INI_FLT(name) </td><td>Giriş noktasının o anki değerini çift duyarlı kayan nokta olarak döndürür</td></tr>
+<tr><td>INI_STR(name) </td><td>Giriş noktasının o anki değerini yazı dizisi olarak döndürür. Not: Bu yazı dizisi çoklanmaz, ama içsel veriyi gösterir. İleri erişim yerel belleğe çoklamayı zorlar.</td></tr>
+<tr><td>INI_BOOL(name) </td><td>Giriş noktasının o anki değerini mantıksal olarak döndürür (zend_bool olarak tanınır, o anda unsigned char anlamına gelir).</td></tr>
+<tr><td>INI_ORIG_INT(name) </td><td>Giriş noktasının o anki değerini tamsayı (uzun) olarak döndürür.</td></tr>
+<tr><td>INI_ORIG_FLT(name) </td><td>Giriş noktasının o anki değerini kayan noktalı (çift duyarlı) olarak döndürür.</td></tr>
+<tr><td>INI_ORIG_STR(name) </td><td>Giriş noktasının o anki değerini yazı dizisi olarak döndürür. Not: Bu yazı dizisi çoğaltılmadı. Ama içsel veriyi gösterir. İleriki erişimler yerel belleğin çoğaltılmasını gerektirir.</td><7tr>
+<tr><td>INI_ORIG_BOOL(name) </td><td>Giriş noktasının o anki değerini mantıksal olarak döndürür (zend_bool olarak tanımlanır, şu anda unsigned char anlamına gelir).</td></tr>
+</table>
+
+Son olarak sizin ilkleme giriş noktalarını PHP'ye tanıtmalısınız. Bu modül başlama ve kapatma işlevlerinde yapılabilir. REGISTER_INI_ENTRIES() ve UNREGISTER_INI_ENTRIES() macroları bu amaçla kullanılır.
+<pre>
+ZEND_MINIT_FUNCTION(mymodule)
+{
+    REGISTER_INI_ENTRIES();
+}
+
+ZEND_MSHUTDOWN_FUNCTION(mymodule)
+{
+    UNREGISTER_INI_ENTRIES();
+}
+</pre>
+<h3>Buradan nereye gidilmelidir</h3>
+
+PHP hakkında çok şey öğrendiniz. Dinamik modül yaratmayı öğrendini ve statik olarak bağlanan uzantıları da öğrendiniz. PHP ve Zend'in değişkenlerin içsel belleğiyle nasıl ilgilendiklerini öğrendiniz. Şimdi bu değişkenleri yaratır ve onlara erişebilirsiniz. Bir çok araç işlevi öğrendiniz. Bunlar birçok sıradan işlemi yaparlar. Örneğin bilgi içeren yazıları yazdırmak, değişkenleri simge tablosuna otomatik tanıtmak ve daha bir çok özellik...
+<br /><br />
+Buradaki bilgiler çoğunlukla göstergelerden oluşsa da kendi uzantınızı yazmak için bir başlangıç olabilecek bilgiyi size vermiştir. Bir çok şey dışarıda bırakılmıştır. Önerimiz başlık dosyalarını ve bazı modülleri incelemenizdir. Bu size başkalarının API işlevlerini nasıl kullandıkları konusunda bilgi verebilir.
+<h3>Gösterge: Bazı Ayarlama Makroları</h3>
+<h3>config.m4</h3>
+
+config.m4 "buildconf" tarafından işlenir ve ayarlama sırasında çalışacak tüm komutları içermelidir. Örneğin bunlar gerekli ek dosyaların (başlık dosyaları, kitaplıklar gibi) aranma testlerini içerir. PHP bu işlemde kullanılabilecek bir dizi makro tanımlamıştır. En çok kullanılanlar Zend API: PHP çekirdeğini kırma bölümünde anlatılmıştır.
+<h3>M4 Macros for config.m4</h3>
+<table class="yazi">
+<tr><td>Makro</td><td>Açıklama</td></tr>
+<tr><td>AC_MSG_CHECKING(message)</td><td>"configure" sırasında "checking &lt;message&gt;" yazar.</td></tr>
+<tr><td>AC_MSG_RESULT(value)</td><td>Sonucu AC_MSG_CHECKING verir; ideğer olarak yes ya da no belirtir.</td></tr>
+<tr><td>AC_MSG_ERROR(message)</td><td>"configure" sırasında mesajı hata mesajı olarak yazar sonra kodlamayı keser.</td></tr>
+<tr><td>AC_DEFINE(name,value,description)</td><td>php_config.h içine "#define" ekler. Açıklama olduğunu söyleyen değer ve açıklama ekler olarak (Bu koşullu derlemede kullanışlıdır).</td></tr>
+<tr><td>AC_ADD_INCLUDE(path)</td><td>Derleyici arama yolunu ekler. Örneğin başlık dosyaları için arama yolu gerektiğinde kullanılmalıdır.</td></tr>
+<tr><td>AC_ADD_LIBRARY_WITH_PATH<br />
+        (libraryname,librarypath)</td><td>Specifies an additional library to link.</td></tr>
+<tr><td>AC_ARG_WITH(modulename,description,<br />
+        unconditionaltest,conditionaltest)</td><td>
+Oldukça güçlü bir makrodur. Modülü açıklamasıya "configure --help" çıktısına ekler. PHP "--with-&lt;modulename&gt;" kodlamayı ayarlamak için mi verildiğini denetler. Eğer öyleyse, kodlamayı koşulsuz çalıştırır (örneğin --with-myext=yes). Bu durumda seçeneğin değeri $withval değişkeninin içinde olur. Aksi halde çalıştırma koşullu olur</td></tr>
+<tr><td>PHP_EXTENSION(modulename, [shared])</td><td>
+Bu makro PHP tarafından sizin uzantınızı ayarlamak için bir zorunluluktur. Modül adınıza ek olarak ikinci bir bağımsız değişken belirtebilirsiniz. Kaynak kodlarınız için COMPILE_DL_&lt;modüladı&gt; gibi derleme zamanında tanımlanan bir sonuç olur.</td></tr>
+</table>
+<h3>API Makroları</h3>
+
+Zend'in API bilgileri arasına bir takım makrolar tanıtılmıştır. Onlar zval taşıyıcıya erişimi kolaylaştırır.
+<h3>zval Taşıyıcılarına Erişim için API Makroları</h3>
+<table class="yazi">
+<tr><td>Makro</td><td>Gösterdiği</td></tr>
+<tr><td>Z_LVAL(zval)</td><td>(zval).value.lval</td></tr>
+<tr><td>Z_DVAL(zval)</td><td>(zval).value.dval</td></tr>
+<tr><td>Z_STRVAL(zval)</td><td>(zval).value.str.val</td></tr>
+<tr><td>Z_STRLEN(zval)</td><td>(zval).value.str.len</td></tr>
+<tr><td>Z_ARRVAL(zval)</td><td>(zval).value.ht</td></tr>
+<tr><td>Z_LVAL_P(zval)</td><td>(*zval).value.lval</td></tr>
+<tr><td>Z_DVAL_P(zval)</td><td>(*zval).value.dval</td></tr>
+<tr><td>Z_STRVAL_P(zval_p)</td><td>(*zval).value.str.val</td></tr>
+<tr><td>Z_STRLEN_P(zval_p)</td><td>(*zval).value.str.len</td></tr>
+<tr><td>Z_ARRVAL_P(zval_p)</td><td>(*zval).value.ht</td></tr>
+<tr><td>Z_LVAL_PP(zval_pp)</td><td>(**zval).value.lval</td></tr>
+<tr><td>Z_DVAL_PP(zval_pp)</td><td>(**zval).value.dval</td></tr>
+<tr><td>Z_STRVAL_PP(zval_pp)</td><td>(**zval).value.str.val</td></tr>
+<tr><td>Z_STRLEN_PP(zval_pp)</td><td>(**zval).value.str.len</td></tr>
+<tr><td>Z_ARRVAL_PP(zval_pp)</td><td>(**zval).value.ht</td></tr>
+</table>
+         </div>
+<div id="sag"> <B><A HREF="javascript:history.back()">Dönüş</A></B> </div>
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8541306787668208";
+//120x600, created 1/16/08
+google_ad_slot = "7007060807";
+google_ad_width = 120;
+google_ad_height = 600;
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<br />
+<script type="text/javascript"><!--
+google_ad_client = "pub-8541306787668208";
+//120x240, created 1/25/08
+google_ad_slot = "8433790203";
+google_ad_width = 120;
+google_ad_height = 240;
+google_cpa_choice = ""; // on file
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

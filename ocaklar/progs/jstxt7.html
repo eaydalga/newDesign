@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>JS - Kodlamayla Yazma </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script language="JavaScript" src="../js/XHConn.js"> </script>
+<script language="JavaScript" src="../js/js10.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="ysoltaraf">
+           <a href="../index.php"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="js.html" class="nav">Giriş</a>
+               <a href="jstxt1.html" class="nav">Sayfada Javascript</a>
+               <a href="jstxt2.html" class="nav">Nesnel Programlama</a>
+               <a href="jstxt3.html" class="nav">JS Nesneleri</a>
+               <a href="jstxt4.html" class="nav">İşlemler</a>
+               <a href="jstxt5.html" class="nav">Değişkenler</a>
+               <a href="jstxt6.html" class="nav">Denetim Yapıları</a>
+               <a href="jstxt7.html" class="nav">Script Yazma</a>
+               <a href="jstxt8.html" class="nav">Yazma İşlevleri</a>
+               <a href="jstxt9.html" class="nav">Başvuru</a>
+               <a href="jstxt10.html" class="nav">DHTML</a>
+               <a href="jstxt11.html" class="nav">Öğe İçeriği</a>
+               <a href="jstxt12.html" class="nav">Pencereler</a>
+               <a href="jstxt13.html" class="nav">Olay Bilgisi</a>
+               <a href="jstxt14.html" class="nav">Zaman Ayarı</a>
+               <a href="jstxt15.html" class="nav">Cookie Kullanımı</a>
+               <a href="jstxt16.html" class="nav">Güvenlik</a>
+               <a href="js24.html" class="nav">Javascript Nesneler</a>
+<br />
+<script type="text/javascript"><!--
+google_ad_client = "pub-8541306787668208";
+//120x600, created 1/16/08
+google_ad_slot = "7007060807";
+google_ad_width = 120;
+google_ad_height = 600;
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<br />
+<script type="text/javascript"><!--
+google_ad_client = "pub-8541306787668208";
+//120x240, created 1/25/08
+google_ad_slot = "8433790203";
+google_ad_width = 120;
+google_ad_height = 240;
+google_cpa_choice = ""; // on file
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>Javascript Yazılım Kuralları (JS)</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">22 Aralık 2007</span></div>
+<h2>Kodlamayla Yazma</h2>
+<div class="yazi">
+Kodlamayla yazarken özen gösterilmelidir. Eğer tarayıcı kodlamayı desteklemezse (Javascript kapalıysa) yazılanlar sayfada gözükmez. Bu işlem, sayfa içeriğinin görüntülenmesini etkilemeyecek biçimde kullanmalıdır. Eğer kodlamayla yazılamayan bölümler varsa &lt;noscript&gt; biçimiyle kullanıcı uyarılmalıdır.
+<br />
+<h3>Sayfa yüklenirken yazma</h3>
+Sayfa yüklenmekteyken kodlama çalışırsa aşağıdakine benzer bir kodlama kullanın:
+<br />
+<pre>
+<script type="text/javascript">
+document.write('<p>Ne yazmak isterseniz<\/p>');
+document.writeln('<p>Ne yazmak isterseniz<\/p>');
+//writeln yazdıktan sonra satır kırılımı ekler
+//Bu parçacık HTML kaynak kodunda bir satır kırılımıdır.
+//Sayfa görüntüsünde fark olmaz.
+</script>
+</pre>
+<br />
+Kodlamanın hangi sayfanın neresinde çalıştığına bağımlı olarak ne yazmak gerekirse onu yazar. Doğal olarak buralara HTML biçimleri ya da program parçaları yerleştirebilirsiniz.
+<br />
+<br />
+
+Eğer Olay yakalayıcısı kullanarak yazarsanız (bir resmin "onload" olayı gibi), tüm sayfa yüklenmiş gibi yorumlanabilir ama öyle değildir (yalnız resim yüklenmiştir).
+<h3>Sayfa yüklendikten sonra yazma</h3>
+
+<br />
+Tüm sayfa yüklendikten sonra kurallar değişir. Sayfanın içeriğine eklemeden, sayfa değiştirilir. Bunu yapabilmek için belge akarını açmak gerekir (eğer doğrudan yazmaya başlarsanız birçok tarayıcı bunu size hazır eder). Ne yazmak isterseniz onu yazıp belge akarını kapatmanız gerekir. Yine bir çok tarayıcı akarı, sizin için kapatır. Mozilla/Firefox tarayıcılar, akarı kapatmazsanız grafikler yükleniyor gibi gösterir. Güvenli olması için her zaman akarı kapatınız.
+<br />
+
+<pre>
+<script type="text/javascript">
+document.open();
+document.write('<p>Ne yazmak isterseniz yazın<\/p>');
+document.write('<p>Yazmak istediğiniz başka şeyler<\/p>');
+document.close();
+</script>
+</pre>
+
+<br />
+Buradaki gösterilmiş olan örnek daha önceki herşeyi siler ve hepsini yazmak istenilenle değiştirir. Bu yöntemi kullanırken &lt;html&gt; biçimlerini ve benzeri şeyleri de kullanmanız gerekir.
+<br />
+<br />
+
+HTML biçimlerini kullanırken kapanış biçimlerinde kesmenin önünde ters kesme olduğu kolaylıkla görülebilir. Bu HTML yazma standartıydı. Gerçi tarayıcılar kapanışı ters kesme kullanmadan da anlayabilir.
+<br />
+<br />
+
+Kodlamayla HTML yazılabildiğine göre, stil hatta başka kodlamalar da yazabilirsiniz. Eğer &lt;/script&gt; yazarken ters kesme yazmayı unutursanız, tarayıcı bunu var olan kodlamanın kapanması anlar ve yazmaya çalışılan kodlama bitmez. hata oluşur.
+
+<br />
+<br />
+Aynı şeyler açılan ve kapanan açıklamalar için de geçerlidir (kodlama yazarken neden açıklama yazmak isteneceğini pek anlaşılmasa da kural kuraldır). Bunlar '<'+'!--' ve '-'+'->' biçimde yazılır. Kodlama çalıştığında geçerli HTML açıklaması yaratılır.
+<h3>Eski tarayıcılarla problemler</h3>
+
+<br />
+Artık gerçek olarak pek kullanılmıyor olsa da, Netscape 4 gibi eski tarayıcılara nazik olmak gerekir. Eğer document.write dinamik olarak div öğesi yazmak için kullanılırsa, div için satır içi stil kullanırken left: ya da top: belirtmemek gerekir. Bu Netscape 4'ü tümüyle çuvallatır ve çok beklenmedik hata oluşur.
+<br />
+<br />
+
+Eğer bu yöntem &lt;div style="position:absolute"&gt; yaratırsa daha yüklenirken Netscape 4 tümüyle hata verir. Halbuki yerine kurallara uymasa da &lt;layer&gt; kullanılmalıdır.
+</div>
+<br />
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

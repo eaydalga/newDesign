@@ -1,0 +1,382 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Aybim </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script language="JavaScript" src="../js/XHConn.js"> </script>
+<script language="JavaScript" src="../js/js10.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="ysoltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="js.html" class="nav">Giriş</a>
+               <a href="jstxt1.html" class="nav">Sayfada Javascript</a>
+               <a href="jstxt2.html" class="nav">Nesnel Programlama</a>
+               <a href="jstxt3.html" class="nav">JS Nesneleri</a>
+               <a href="jstxt4.html" class="nav">İşlemler</a>
+               <a href="jstxt5.html" class="nav">Değişkenler</a>
+               <a href="jstxt6.html" class="nav">Denetim Yapıları</a>
+               <a href="jstxt7.html" class="nav">Script Yazma</a>
+               <a href="jstxt8.html" class="nav">Yazma İşlevleri</a>
+               <a href="jstxt9.html" class="nav">Başvuru</a>
+               <a href="jstxt10.html" class="nav">DHTML</a>
+               <a href="jstxt11.html" class="nav">Öğe İçeriği</a>
+               <a href="jstxt12.html" class="nav">Pencereler</a>
+               <a href="jstxt13.html" class="nav">Olay Bilgisi</a>
+               <a href="jstxt14.html" class="nav">Zaman Ayarı</a>
+               <a href="jstxt15.html" class="nav">Cookie Kullanımı</a>
+               <a href="jstxt16.html" class="nav">Güvenlik</a>
+               <a href="jstxt17.html" class="nav">W3C DOM</a>
+               <a href="jstxt18.html" class="nav">DOM Düğümü</a>
+               <a href="jstxt19.html" class="nav">DOM Tablolar</a>
+               <a href="jstxt20.html" class="nav">DOM CSS</a>
+               <a href="jstxt21.html" class="nav">DOM Stiller</a>
+               <a href="jstxt22.html" class="nav">DOM Events</a>
+               <a href="jstxt23.html" class="nav">DOM Nesneleri</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>Javascript Yazılım Kuralları (JS)</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<h2>DOM düğümü ve ağacı</h2>
+<h3>DOM ağacı</h3>
+
+Aşağıdaki yazı normal bir HTML belgesinden alınmış ufak bir HTML parçasıdır.
+<pre>
+&lt;p title="Test paragrafı"&gt;HTML Belgeniz içinde &lt;b&gt;sizin olmasını&lt;br&gt;istediğiniz örneklerden&lt;/b&gt; bir kaçıdır&lt;/p&gt;
+</pre>
+<br /><br />
+HTML Belgeniz içinde sizin olmasını
+istediğiniz örneklerden bir kaçıdır
+<p title="Test paragrafı">HTML Belgeniz içinde <b>sizin olmasını<br>istediğiniz örneklerden</b> bir kaçıdır</p>;
+<br /><br />
+Basitleştirilmiş olarak DOM ağacı bunu aşağıdaki gibi görüntüler:
+<pre>
+                                              P
+                               _______________|______________
+                              |                              |
+                          altdüğümler                    nitelikler
+                ______________|___________                   |
+               |              |           |            title = 'Test paragrafı'
+'HTML Belgeniz içinde '       B   ' örneklerden bir kaçıdır'
+                              |
+                          altdüğümler
+                    __________|_______
+                   |          |       |
+           'sizin olmasını'   BR   'isdiğiniz'
+</pre>
+Tabi ki, ağaç yukarıda windows.document ile başlar. 
+<br /><br />
+DOM ağacının parçaları düğümler olarak bilinir. 'P', 'B' ve 'BR' düğümleri öğe düğümleridir. altdüğümler ve nitelikler toplama düğümleridir ve title='The test paragraph' nitelikler düğümündeki bir ikilidir. Yazılarsa, yazı düğümlerini oluşturur.
+<h3>Öğe düğümlerine erişim</h3>
+<ul>
+    <li> Konqueror, XHTML doğrudan belge tipini kullanırken getElementsByTagName parametresini doğru olmayarak küçük harflerle ister ama 'text/html' olarak kullanır.
+    <li> iCab 3 getElementsByTagName güncellemesinden sonra nesneyi saklamakta hata yapar.
+    <li> Tkhtml Hv3 &lt;body&gt; biçiminden önceki tüm yazı düğümlerini ayrı birer yazı düğümleri gibi saklar gövdenin altdüğümleri (childNodes) birikimi olarak kullanmaz.
+    <li> Escape/Evo 5 altdüğümler birikimini kullanırken hata yapar. Bu tarayıcıyı dikkate almamak gerekir.
+    <li> Early IE5 Mac altdüğüm uzunlukları (childNodes.length) özelliğini sunmaz. Bu otomatik olarak düzeltilmiştir. Eğer endişe duyarsanız şöyle birşey kullanın: <code>for( var x = 0; node.childNodes[x]; x++ )</code>
+</ul>
+DOM kullanırken bazı koşullarda paragrafa erişilemez. getElementsByTagName kullanarak tüm paragraflara erişim sağlanır ve aralarından gereken seçilir. Eğer paragraflara bir 'id' (kimlik verilmişse, erişim için getElementById de kullanılabilir.
+<pre>
+document.getElementById('id of paragraph')
+document.getElementsByTagName('p')[indexOfParagraph]
+</pre>
+Eğer paragrafa bir 'id' atanmışsa, o zaman  getElementById kullanılabilir ve id='öğeKIMLIGI' ikilisi nitelik birikiminde, title='Test paragrafı' yanında yer alır. Eğer belge XML tabanlı içerik tipi başlığıyla sunulmuşsa, getElementsByTagName küçük ve büyük harf duyarlı olur.
+<br /><br />
+NOT: getElementsByTagName doğru bir birikim listesi döndürmez. Dönen nesne öğe dizini (index) ve uzunluk (length) özelliği taşır. Bu nesne kendisini güncel tutar, yani bir öğe eklendiğinde ya da silindiğinde öğelerin erişimini aynı anda değiştirerek güncellemeyi yansıtmış olur.
+<br /><br />
+Belge nesnesinden (document) başlayarak tüm DOM ağacı dolaşılabilir.
+<pre>
+window.document.childNodes[0].childNodes[1].childNodes[4]
+</pre>
+Burada window.document.childNodes[0], belgedeki ilk biçim olduğu için HTML öğesi olur. Başka bir yazışla, HTML öğesine kısa yazım biçimi vardır ve  document.documentElement aynı anlama gelir. O zaman aşağıdakini kullanabiliriz:
+<pre>
+window.document.documentElement.childNodes[1].childNodes[4]
+</pre>
+
+BODY öğesine de bir kısayol vardır. document.body bu amaç için kullanılır. O zaman yukarıdaki satır şöyle olur:
+<pre>
+window.document.body.childNodes[4]
+</pre>
+Bu son üç örnek, sayfa yapısına dayanmaktadır. Burada paragraf gövdenin doğrudan çocuğu (altdüğümü) olmaktadır. Bunların hiçbiri daha karmaşık bir belge yapısında doğru olmazdır. Ya da paragrafların üst düğümü olarak DIV deyimleri kullanılmış olsaydı.
+<br /><br />
+Burada kullanılan teknikler güvenilir olmayabilir. Bir çok tarayıcı, biçimler arasında boşluğu yazı düğümü olarak görüntüler (boşluk olan yazı düğümü). Bırakılmamış olsa da &lt;tr&gt; ve &lt;td&gt; arasında boşluk varmış ya da &lt;p&gt; biçiminin çevresinde boşluk varmış gibi görütülenebilir. Bazı tarayıcılar (özellikle IE) bu boşluğu yazı düğümü olarak görüntülemez.
+<br /><br />
+Bunun anlamı değişik tarayıcılarda düğüm boyları farklı uzunluklarda olur. DOM ağacında dolaşmak için bir sonraki düğüme geçerseniz childNodes birikimindeki noktanın 'nodeType' değerinin 1 olmasını denemekte yarar vardır. Yoksa node.getElementsByTagName kullanılmalıdır.
+<br /><br />
+Bu nedenle, DOM ağaçlarının yapısı öğeler eklendikçe, taşındıkça ya da silindikçe değiştiği için öğelere erişimde en güvenilir yöntem, onlara 'ID' kimlikleriyle erişmektir.
+<pre>
+var theParagraph = document.getElementById('öğenin_kimliği')
+</pre>
+childNodes (altdüğümler) birikim ilk kısayol olan firstChild (ilk alt düğüm) ile sonuncusuna da lastChild (son alt düğüm) ile erişilebilir. Üst düğümün alt düğümlerinde node.nextSibling kullanarak birikimdeki sonraki düğümlere geçiş yapılır ve  node.previousSibling ile önceki düğümlere geçilebilir. Üst düğüme gitmek için node.parentNode kullanılır. Tüm öğelerin düğümleri için getElementsByTagName yöntemi kullanılabilir. Bunun anlamı, bir düğümden çevresindeki diğer düğümlere her zaman erişim olduğudur.
+<h3>Nitelik (attribute) düğümüne erişim</h3>
+<ul>
+    <li> Tkhtml Hv3 nitelik birikimini desteklemez.
+</ul>
+title='Test paragrafıdır' ikilisine erişmek için nitelik birikimi kullanılır. Tarayıcıya bağlı olarak, bu birikim birçok değişik yollarla doldurulabilir ve birçok boş nitelik ikilileri bu zincirde bulunabilir. Doğru niteliğe ulaşmak için nitelikler arasında düğüm adı (nodeName) arandığında uyan çıkınca, doğru niteliğe ulaşıldığı anlaşılmış olur. düğüm adı HTML belgesi içinde her biçimde olabilir (büyük bir olasılıkla büyük harftir). XHTML ve XML altında (eğer XML temel mime tipleri kullanılıyorsa) büyük küçük harf duyarlıdır.
+<pre>
+for( var x = 0; x &lt; theParagraph.attributes.length; x++ ) {
+  if( theParagraph.attributes[x].nodeName.toLowerCase() == 'title' ) {
+    window.alert( 'The value of the \'title\' attribute is: ' +
+      theParagraph.attributes[x].nodeValue );
+  }
+}
+</pre>
+<h3>Nitelik düğümünü kontrol etmenin kolay yolu</h3>
+<ul>
+    <li> NetFront nitelik değerlerine erişilirken küçük büyük harfleri ters alır (align değeri 'center' yerine 'Center' döner).
+    <li> Opera 7-8 'href' ve 'src' gibi niteliklerde belirtilen değerler yerine çözülen değerleri döndürür.
+    <li> Birçok tarayıcı (özellikle Internet Explorer) 'style' ve 'class' değerlerini alırken sorunları vardır.
+</ul>
+Eğer yapmak istediğiniz bir niteliğin değerini incelemekse, elle değerini değiştirmeyin. getAttribute kullanmak daha kolaydır.
+<pre>
+window.alert( 'The value of the \'title\' attribute is: ' +
+  theParagraph.getAttribute('title') );
+</pre>
+Nitelik adları küçük büyük harf duyarlıdır. Örneğin bgcolor aslında bgColor biçiminde yazılmalıdır.
+
+<br /><br />
+Tanımlamalara göre getAttribute her zaman yazı dizisi döndürür. Ama bu onun boş niteliklerden ve tanımsız olanlardan ayrılmasına olanak tanımaz. Bu nedenle tarayıcılar belirsiz nitelikler için yanlış dahi olsa 'null' döndürür.  Opera 7-8 boş yazı dizisi döndürür. Bu Opera 9'da 'null' yapıldı. Sonuç olarak niteliklerin test edilmesinde kullanılan 'null' Opera 7 ve Opera 9'de doğru çalışmaz. Çünkü yazı dizisi hiç bir zaman 'null' anlamına gelmez. Aslında null aramanın anlamı yoktur, niteliğin değeri olup olmadığının anlaşılması yeterlidir.
+<pre>
+if(!element.getAttribute('attribute_name'))
+</pre>
+<h3>Niteliği değiştirme</h3>
+<ul>
+    <li> Internet Explorer (ve bazı küçük tarayıcılar) style, class ya da event denetimci (handler) değerlerini değiştiremez.
+    <li> Opera 7.0-7.1, align niteliğine değer atayamaz.
+</ul>
+setAttribuye kullanılarak niteliğin değerleri değiştirilir.
+<pre>
+element.setAttribute('attributeName','attributeValue')
+theParagraph.setAttribute('align','center')
+</pre>
+Nitelik adları küçük büyük harf duyarlıdır. Örneğin bgcolor bgColor olarak yazılmalıdır.
+<br /><br />
+Bazı ayrıcalıklar dışında nitelikleri silebilirsiniz (renoveAttribute kullanarak).
+<pre>
+theParagraph.removeAttribute('attributeName')
+</pre>
+<ul>
+    <li> NetFront 3.2- var olan bir paragrafı başka bir yere taşıyamaz (sürüm 3.3 bellek yeterli değilse ayrıca hata da verir), ama kalanını doğru yapar.
+</ul>
+<h3>Sorunlu nitelikleri okuyup yazmak</h3>
+setAttribute kullanarak Internet Explorer (ve bazı küçük tarayıcılar) style, class ya da olay denetimcileri (handler) değeri atayamaz. Bir kısmı daha getAttribute ile bunları okurken de sorun yaşar. Internet Explorer genelde getAttribute kullanırken hatalı bir değer döndürür. Örneğin yazı dizisi yerine nesne. Bu tarayıcılardaki işlevselliği tahmin etmek için DOM birkaç seçenek daha sunar.
+<br /><br />
+Sınıf (class) okunabilir/yazılabilir yazı dizisi biçimindeki className ile kullanılabilir durumdadır.
+<br /><br />
+Olay denetimci nitelikleri (event handler attributes) erişilebilen işlevler olarak kullanıma açıktır (bu DOM olayları eklenmiş denetimciler için geçerli değildir). Adları nitelik adlarıyla uygun olmalıdır: element.onclick gibi. Bunlar bir işleve erişim için oldukları halde okunabilir/yazılabilirdir. Bunlar işlev yapısını kullanan yazı dizileri olarak da yazdırılabilirler:
+<pre>
+element.onclick = new Function(codeAsAString);
+</pre>
+Bir işlevi toString yöntemini kullanarak yazı dizisi gibi de okunabilirler. Ama normalde içeriği bir işlevdir. Sınırlı özellikleri olan cep telefonu gibi donanımlardaki tarayıcılarda yoktur. Unutmayın ki eğer nitelikler yoksa bu da yoktur.
+<pre>
+var functioncode = element.onclick.toString();
+</pre>
+'style' niteliğinin yazı dizisi değerii 'cssText' adıyla okunabilir/yazılabilir biçimde kullanıma açıktır. Ama çok iyi desteklenmemektedir. Safari 1.1 sürüme değin desteklemez (okumaya kalkıldığında null değer üretir), Mozilla sürüm 1.0'dan öncekiler üzerine yazamaz ve iCab 3-, NetFront ve Escape/Evo hiç desteklemezler. Kullanımıyla ilgili sorunları gidermek için cssText ve getAttribute/setAttribute kombinasyonu kullanılır:
+<pre>
+var cssString;
+cssString = element.style.cssText;
+if( typeof(cssString) != 'string' ) {
+  cssString = element.getAttribute('style');
+}
+</pre>
+Yazmak için her iki sürümü de kullanmak gerekir ve tarayıcı hangisi çalışırsa onu kullanır:
+<pre>
+var cssString = 'color:lime;font-weight:bold;';
+element.style.cssText = cssString;
+element.setAttribute('style',cssString);
+</pre>
+Aynı anda diğer stiller de değiştirilirse, diğerleri doğru okunmasını engeller. Bir sorun çıkaracaksa, cssText önce sunulur:
+<pre>
+var cssString = 'color:lime;font-weight:bold;';
+if( typeof(element.style.cssText) == 'string' ) {
+  element.style.cssText = cssString;
+}
+element.setAttribute('style',cssString);
+</pre>
+<h3>Yazı düğümlerine erişim</h3>
+<ul>
+    <li> Mozilla/Firefox/Netscape 6+ ve Opera 9.2x- çok uzun yazı düğümlerini küçük yazı düğümlerine parçalar.
+</ul>
+Örnek:
+<pre>
+window.alert( 'The value of the text node is:\n' +
+  theParagraph.childNodes[1].firstChild.nodeValue );
+</pre>
+Biçimler arasında ne kadar yazı olursa olsun, hepsinin de aynı yazı düğümünde olması gerektiği özelliklerde yazılır ama her zaman öyle değildir. Opera 7-9.2x ve Mozilla/Netscape 6+ tarayıcılarında eğer yazı belirtilen en fazla değerden daha büyükse, birkaç tane yazı düğümüne parçalanır.
+<br /><br />
+Opera 7-9.2x tarayıcısında, bu en büyük yazı düğümü değeri 32 KB olur. Mozilla/Firefox/Netscape 6+ tarayıcılarında, bu değer 4 KB olur. normalize() yöntemi üst düğümden kullanıldığında parçalanmış yazı düğümlerini birleştirse de bu yalnız Mozilla/Firefox/Netscape 6+ tarayıcılarında çalışır. Opera 7-9.2x tarayıcısında hepsini bir düğümde toplar ama daha sonra 32 KB dan sonrakileri keser atar. Bu da ilk düğüm hariç diğerlerinin içeriğinin kaybolması demektir. Internet Explorer 6 taryıcısında bu yöntem kullanılırsa tarayıcı kırılır (crash) ve Windows altındaki Internet Explorer 5 ile hiç çalışmaz (yoktur).
+<br /><br />
+Bu nedenle düzgelenmesi (normalize) önerilmez. Yazı düğümleriyle ayrı ayrı uğraşmak daha iyidir. Aslında kendi yazı düğümlerinizi yaratıp childNodes birikimine ekleyebilirsiniz de. DOM için onlar ayrı birer düğüm gibi gözükse de belge içinde tek bir yazı gibi görünecektir. Temelde yazınızın birden çok düğüme dağılmış olabileceğini düşünmeniz gerekir. Eğer 4 KB ya da daha çoksa, ya da siz daha sonra yazı düğümleri eklemişseniz, tüm alt düğümlere bakmak durumunda kalırsınız. Eğer peş peşe yerleşen yazı düğümleriyse, onları birleştirip tek yazı düğümü olarak kullanabilirsiniz.
+<h3>Yazı düğümlerinin içeriğini değiştirme</h3>
+<ul>
+    <li> KHTML/WebKit Konqueror, Safari ve OmniWeb 4.5+ yazı düğümlerinde değişiklik olduğunda her zaman sayfayı yenilemezler.
+    <li> Tkhtml Hv3 tarayıcısının Eylül 2007'den önceki sürümleri yazı düğümlerinin değerini değiştiremez.
+</ul>
+Bir kez yazı düğümüne eriştiniz mi, nodeValue kullanarak içeriği okuyup/yazabilirsiniz.
+<pre>
+theParagraph.childNodes[1].lastChild.nodeValue = 'want to change';
+</pre>
+<ul>
+    <li> NetFront 3.2- Var olan bir paragrafı bir başka yere taşıyamaz (sürüm 3.3 fazla bellek yoksa hata verir) ama örneğin kalanını düzgün yorumlar.
+</ul>
+<h3>Yeni düğüm yaratma ve eskisini silme</h3>
+<ul>
+    <li> NetFront 3.2- yeni düğüm ekleyemez ya da silemez (az bellek olunca sürüm 3.3 hep kırılmaktadır).
+</ul>
+DOM gerçek amacı budur. Yeni düğümler yaratmak için belge nesnesinde bir kaç yöntem kullanmak gerekir. Bundan sonra DOM ağacına tarayıcının görüntüleyeceği yerden ekleme yapılır. Var olan düğümlerin yerini değiştirme olanağı da vardır. Onları DOM ağacında başka bir yere eklemek bu işi görür.
+<br /><br />
+Öğe düğümlerini yaratırken, öğe adları küçük harf olmalıdır. Kurama göre HTML içinde büyük küçük harf ayrımı olmamasına karşın, Konqueror büyük harf kullanıldığında bazı sorunlar yaşatmaktadır. XHTML'de büyük küçük harf duyarlıdır ve küçük harf olmalıdır.
+<pre>
+var theNewParagraph = document.createElement('p');
+var theTextOfTheParagraph = document.createTextNode('Some content.');
+theNewParagraph.appendChild(theTextOfTheParagraph);
+document.getElementById('someElementId').appendChild(theNewParagraph);
+</pre>
+'appendChild' yerine 'insertBefore' da kullanılabilir. Ya da elle altdüğüm toluluğunun sonra ekleme yapılabilir. replaceChild ile var olan düğümün üzerine yazılabilir. cloneNode(true) kullanarak kopyası alınabilir ama kopya birikime otomatik eklenmez. element.removeChild(altdüğümerişimi) ile var olan düğüm silinir.
+<br /><br />
+Daha karmaşık bir konuyu ele alalım. Bir HTML öğesi içine yeni bir öğe eklensin ama yeni öğe yazı olmasın. Burada herşey yeniden yaratılmıştır:
+<pre>
+//three elements are required: p, b, br
+var theNewParagraph = document.createElement('p');
+var theBoldBit = document.createElement('b');
+var theBR = document.createElement('br');
+
+//Yeni paragraf kurma
+theNewParagraph.setAttribute('title','Test paragraf');
+
+//Yazı düğümlerini hazırlama
+var theText1 = document.createTextNode('HTML Belgeniz içinde ');
+var theText2 = document.createTextNode('sizin olmasını ');
+var theText3 = document.createTextNode('istediğiniz örneklerden');
+var theText4 = document.createTextNode(' bir kaçıdır');
+
+//koyu kısmı oluştur
+theBoldBit.appendChild(theText2);
+theBoldBit.appendChild(theBR);
+theBoldBit.appendChild(theText3);
+
+//tüm paragrafı birleştir
+theNewParagraph.appendChild(theText1);
+theNewParagraph.appendChild(theBoldBit);
+theNewParagraph.appendChild(theText4);
+
+//belgede bir yere ekle
+document.getElementById('someElementId').appendChild(theNewParagraph);
+</pre>
+<p>Burada deneyin: <a href="#" onclick="
+if( !document.createElement || !document.childNodes ) {
+	window.alert('Tarayıcınız DOM uyumlu değil');
+} else {
+	//üç öğe gereklidir bunlar: p, b, br
+	var theNewParagraph = document.createElement('p');
+	var theBoldBit = document.createElement('b');
+	var theBR = document.createElement('br');
+	
+	//theNewParagraph kurma
+	theNewParagraph.setAttribute('title','Test paragrafı');
+	
+	//yazı düğümlerini hazırlama
+	var theText1 = document.createTextNode('HTML Belgeniz içinde ');
+	var theText2 = document.createTextNode('sizin olmasını ');
+	var theText3 = document.createTextNode('istediğiniz örneklerden');
+	var theText4 = document.createTextNode(' bir kaçıdır');
+	
+	//koyu bölümü birleştirme
+	theBoldBit.appendChild(theText2);
+	theBoldBit.appendChild(theBR);
+	theBoldBit.appendChild(theText3);
+	
+	//tüm paragrafı birleştirme
+	theNewParagraph.appendChild(theText1);
+	theNewParagraph.appendChild(theBoldBit);
+	theNewParagraph.appendChild(theText4);
+	
+	//belgenin herhangi bir yerine yerleştirme
+	this.parentNode.parentNode.insertBefore(theNewParagraph,this.parentNode);
+
+	//paragrafın üzerine gelinip tıklanınca kendisini silmesini sağla
+	theNewParagraph.onclick = function () { this.parentNode.removeChild(this); };
+	window.alert('Yeni paragrafın üzerine gidip tıklayınca, kendisini siler');
+}
+return false;
+">test paragrafını yeniden yarat</a>.</p>
+Yeni paragrafın nereye yerleştirildiğini anlamakta sorun oluyorsa, konu aşağıda anlatılmıştır.
+<br /><br />
+Paragraf bir 'div' biçimi içindedir. O zaman 'this' bağı gösterir. Bu paragrafın üst düğümü this.parentNode paragrafıdır. this.parentNode.parentNode değeri ise 'div' olur.
+<pre>
+theDIV.insertBefore(theNewParagraph,theCurrentParagraph);
+</pre>
+Javascript içinde bu şöyle olur:
+<pre>
+this.parentNode.parentNode.insertBefore(theNewParagraph,this.parentNode);
+</pre>
+Yeni yaratılan paragrafın bulunduğu 'div' için this.parentNode kullanıldır. Üzerine gidip tıkladığınızda yazılan paragrafın yok olması için removeChild kullanıldı.
+<pre>
+theNewParagraph.onclick = function () { this.parentNode.removeChild(this); };
+</pre>
+Unutmayın ki bunlar yaratıldıkları belgeye ait düğümlerdir. Bir çerçevede yaratılan düğüm bir başka çerçeve içindeki belgeye taşınamaz. Kuram olarak document.importNode yöntemiyle yeni belgede düğümün bir kopyasını yaratabilirsiniz ama o yöntem IE tarayıcısında bulunmaz.
+<pre>
+var newP = parent.frames['leftfr'].document.createElement('p');
+parent.frames['leftfr'].document.body.appendChild(newP);
+</pre>
+<h3>Belge parçalarını (document fragments) kullanma</h3>
+<ul>
+    <li> Windows'daki Internet Explorer 5.x, NetFront 3.3- ve Tkhtml Hv3 belge parçalarını desteklemez.
+    <li> Mac üzerindeki Internet Explorer 5 belge parçalarına yazı düğümlerini ekleyemez, ve parçaların içeriğini belgeye ekleyemez.
+</ul>
+Birden çok düğümle aynı anda uğraşmak olasılığı vardır. Örneğin 10 paragraf yaratmak isterseniz hepsini aynı anda belgeye eklersiniz. Bu işlem belge parçalamayla yapılır.
+<br /><br />
+Belge parçası (document fragment) div gibi normal bir öğedir. Tek farkı belgenin kendisi olamaz. Eğer belge parçasını belgenin herhangi bir yerine eklemeye kalkarsanız tarayıcı bu 'fragment' altındaki düğümleri ekler.
+<pre>
+var frag = document.createDocumentFragment();
+for( var i = 0, p; i &lt; 10; i++ ) {
+  p = document.createElement('p');
+  p.appendChild(document.createTextNode('Paragraf '+(i+1)));
+  frag.appendChild(p);
+}
+document.body.appendChild(frag);
+</pre>
+
+<p>Burada deneyin: <a href="#" onclick="
+if( !document.createElement || !document.childNodes ) {
+	window.alert('Tarayıcınız DOM uyumlu değil');
+} else if( !document.createDocumentFragment ) {
+	window.alert('Tarayıcınız belge parçalarını desteklemiyor');
+} else {
+	var frag = document.createDocumentFragment();
+	for( var i = 0, p; i &lt; 10; i++ ) {
+		p = document.createElement('p');
+		p.appendChild(document.createTextNode('Paragraf '+(i+1)));
+		frag.appendChild(p);
+	}
+	this.parentNode.parentNode.insertBefore(frag,this.parentNode.nextSibling);
+}
+return false;
+">yeni belge parçası yarat ve ekle</a>.</p>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

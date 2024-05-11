@@ -1,0 +1,14 @@
+<div id="mybanner">
+   <div class="ul">
+       <table cellpadding="0" cellspacing="0" class="yyazi">
+           <tr>
+               <td><div class="li"><a href="javascript:sayfa('1');">Üye Sayfası</a></div></td>
+               <td><div class="li"><a href="javascript:sayfa('2');">Yakın Arkadaş</a></div></td>
+               <td><div class="li"><a href="javascript:sayfa('3');">Kişisel Bilgiler</a></div></td>
+               <td><div class="li"><a href="javascript:sayfa('4');">Düzenleme</a></td>
+               <td><div class="li"><a href="javascript:sayfa('5');">Mesajlar</a></div>
+               <td><div class="li"><a href="javascript:logout();">Çıkış</a></div>
+           </td></tr>
+       </table>
+   </div>
+</div>

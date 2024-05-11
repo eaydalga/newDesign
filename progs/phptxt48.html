@@ -1,0 +1,322 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP - Güvenlik Kayıtlı Evrenselleri Kullanma </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="javascript:myvoid();" class="nav">Başlarken</a>
+               <a href="phptxt11.html" class="sub">ilk Anlatım</a>
+               <a href="javascript:myvoid();" class="nav">Kurulumlar</a>
+               <a href="phptxt21.html" class="sub">Genel Kurulum</a><br />
+               <a href="phptxt22.html" class="sub">UNIX Kurulumu</a><br />
+               <a href="phptxt23.html" class="sub">OSX Kurulumu</a><br />
+               <a href="phptxt24.html" class="sub">Wins Kurulumu</a>
+               <a href="javascript:myvoid();" class="nav">Dil Kuralları</a>
+               <a href="phptxt31.html" class="sub">Temel yazım</a><br />
+               <a href="phptxt32.html" class="sub">Tipler</a><br />
+               <a href="phptxt33.html" class="sub">Değişkenler</a><br />
+               <a href="phptxt34.html" class="sub">Değişmezler</a><br />
+               <a href="phptxt35.html" class="sub">Deyimler</a><br />
+               <a href="phptxt36.html" class="sub">İşlemler</a><br />
+               <a href="phptxt37.html" class="sub">Kontrol Yapıları</a><br />
+               <a href="phptxt38.html" class="sub">İşlevler</a><br />
+               <a href="phptxt39.html" class="sub">Sınıflar Nesneler</a><br />
+               <a href="phptxt391.html" class="sub">Ad uzayı</a><br />
+               <a href="phptxt392.html" class="sub">İstisnalar</a>
+               <a href="javascript:myvoid();" class="nav">Güvenlik</a>
+               <a href="phptxt41.html" class="sub">Giriş</a><br />
+               <a href="phptxt42.html" class="sub">Genel bilgi</a><br />
+               <a href="phptxt43.html" class="sub">CGI iklisi</a><br />
+               <a href="phptxt44.html" class="sub">Apache modülü</a><br />
+               <a href="phptxt45.html" class="sub">Dosyadüzeni</a><br />
+               <a href="phptxt46.html" class="sub">Veritabanı</a><br />
+               <a href="phptxt47.html" class="sub">Hatalar</a><br />
+               <a href="phptxt48.html" class="sub">Diğerleri</a><br />
+               <a href="javascript:myvoid();" class="nav">Özellikler</a>
+               <a href="phptxt51.html" class="sub">HTTP Şifresi</a><br />
+               <a href="phptxt52.html" class="sub">Çerezler</a><br />
+               <a href="phptxt53.html" class="sub">Oturumlar</a><br />
+               <a href="phptxt54.html" class="sub">XForm</a><br />
+               <a href="phptxt55.html" class="sub">DosyaYükleme</a><br />
+               <a href="phptxt56.html" class="sub">UzakDosyalar</a><br />
+               <a href="phptxt57.html" class="sub">Bağlantılar</a><br />
+               <a href="phptxt58.html" class="sub">VTBağlantısı</a>
+               <font color="#8e9ccb"><h3>Gelişmiş</h3></font>
+               <a href="phptxt7.html" class="nav">Php Kökü</a>
+               <a href="phptxt8.html" class="nav">Ekler</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">2 Şubat 2008</span></div>
+<div id="bdy" class="yazi">
+<h2>Kayıtlı Evrenselleri Kullanma</h2>
+<h3>UYARI</h3>
+
+Bu özellik PHP 6.0.0 sürümünde kullanılmayacaktır. Bu nedenle ilgili konuya ilişkin kodlama ilerisi için sorunlar yaratabilir.
+<br /><br />
+PHP içinde en önemli ters değişiklik kayıtlı evrensel değişken kullanımına ilişkin registeglobals yönelticisinin ON durumundan OFF duruma döndüğü andır. Buna bağımlı kod yazmak çok sıradandı ve herkes bu değişkene bakmadan PHP böyle çalışır derdi. Bu sayfada geliştiricilerin nasıl güvenli olmayan kod yazdıklarını göreceğiz. Aslında bu deşiklen güvensiz değildir. Onun kullanımında nasıl hata yapıldığı burada anlatılır.
+<br /><br />
+Değeri açık olduğundan register_globals tüm değişkenleri kodlamanıza ekler. Sanki HTML form'larından gelen istek değişkenleri gibi... PHP içinde değişken ilklemesi olmamasının anlamı güvensiz kod yazmanın daha kolay olduğunu anlatır. Bu zor bir karadı. Ama PHP komitesi bu değişkeni varsayılan olarak kapattı. Bu değer açık olduğunda geliştiriciler kodlarında nereden geldiklerini bilmeden bunları kullanıyordu. Bir kodlama içindeki içsel değişkenlerle evrensel değişkenlerin karıştığı anlar da oluyordu. Örneklemek gerekirse:
+<br /><br />
+"register_globals = on" ile hatalı kullanım
+<pre>
+&lt;?php
+// $authorized = true tanımlayın eğer kullanıcı yetkiliyse
+if (authenticated_user()) {
+    $authorized = true;
+}
+
+// Because we didn't first initialize $authorized as false, this might be
+// defined through register_globals, like from GET auth.php?authorized=1
+// baştan $authorized yanlış olarak ilklenmediğinden, bu kayıtlı
+// evrensel değişkenler aracılıyla yapılabilir. Aynı
+// GET auth.php?authorized=1 komuyunda olduğu gibi.
+// Böylece herkes yetkili olarak görünebilir.
+if ($authorized) {
+    include "/highly/sensitive/data.php";
+}
+?&gt;
+</pre>
+
+register_globals = on olduğunda, bizim yukarıdaki mantığımız uyuşur. Ama kapalı olduğunda, $authorized istek aracılığıyla değer alamaz. Ama her zaman değişkene ilk değer atamak iyi bir programlama alışkanlığı olmalıdır. Yukarıdaki örnekte başlarken $authorize=false yazılarak ilkleme yapılabilir. Böyle yapınca register_globals "on" ya da "off" da olsa kodlama doğru çalışır.
+<br /><br />
+Diğer bir örnek oturumla ilgilidir. register_globals = on olduğunda, aşağıdaki örnekte $username de kullanabiliriz. Ama bildiğiniz gibi $username başka kaynaklardan da değer alabilir (URL adresinden GET ile)
+<br /><br />
+register_globals on ya da off olsa da oturum kullanımı
+<pre>
+&lt;?php
+// $username nerden geldi bilmiyoruz ama $_SESSION biliniyor
+// oturum verisi olarak
+if (isset($_SESSION['username'])) {
+
+    echo "Merhaba <b>{$_SESSION['username']}</b>";
+
+} else {
+
+    echo "Merhaba <b>misafir</b><br />";
+    echo "Giriş yapmak ister misiniz?";
+
+}
+?&gt;
+</pre>
+Önde gitmeye kalkınca, uyarıyı engelleyici ölçülerde önlem almak söz konusu olabilir. Zamanın önünde giderek tam anlamıyla değişkenin nereden geldiğini bilirseniz, gönderilen verinin usulsüz olup olmadığını da bilirsiniz. Verinin önden gittiği garanti edilmese de kaynağını bilmek istemeden $_REQUEST kullanarak veriye erişebilirsiniz. Bu da GET, POST ve COOKIE verilerinin karışımıdır. PHP dışından değişkenlerin kullanımıyla ilgili sayfalara bakmanız önerilir.
+<br /><br />
+Basit değişken zehirlenmesi
+<pre>
+&lt;?php
+if (isset($_COOKIE['MAGIC_COOKIE'])) {
+
+    // MAGIC_COOKIE çerexden gelir
+    // çerez verisini denetleyin
+
+} elseif (isset($_GET['MAGIC_COOKIE']) || isset($_POST['MAGIC_COOKIE'])) {
+
+   mail("admin@example.com",
+        "Possible breakin attempt", $_SERVER['REMOTE_ADDR']);
+   echo "Güvenlik sorunu, admin değiştirildi.";
+   exit;
+
+} else {
+
+   // MAGIC_COOKIE bu REQUEST ile atanmamıştır
+
+}
+?&gt;
+</pre>
+Tabi ki register_globals değerini kapatınca kodlamanız güvenli olacak demek değildir. Gönderilen her veri parçası için diğer yönden de denetlenmesi gerekir. Her zaman kullanıcı verilerini denetleyin ve değişkenlerinizi ilkleyin. İlklenmemiş değişkenler için rerror_reporting() kullanabilirsiniz. Buradaki E_NOTICE düzeyi hataları inceleyin.
+<br /><br />
+    Not: Süper evrenseller (Superglobals): PHP 4.1.0 sürümden beri vardır. Süper evrensel diziler $_GET, $_POST ve $_SERVER vb. kullanıma hazırdır. Daha çok bilgi için süper evrenseller hakkındaki sayfaları okuyun.
+<br />
+<hr>
+
+<h3>Kullanıcının gönderdiği veri</h3>
+
+The greatest weakness in many PHP programs is not inherent in the language itself, but merely an issue of code not being written with security in mind. For this reason, you should always take the time to consider the implications of a given piece of code, to ascertain the possible damage if an unexpected variable is submitted to it.
+<br /><br />
+Tehlikeli değişken kullanımı
+<php>
+&lt;?php
+// kullanıcının evinden bir dosyayı sil
+// bir başkasından da silinebilir mi?
+unlink ($evil_var);
+
+// erişimleri için loga yaz... ya da /etc/passwd satırını (belki de)?
+fwrite ($fp, $evil_var);
+
+// Doğru birşeyleri çalıştır... ya da  rm -rf *?
+system ($evil_var);
+exec ($evil_var);
+
+?&gt;
+</pre>
+Kodlamanızı her zaman çok dikkatli denetleyin. Kullanıcıdan gönderilen her değişkenin doğru denetlendiğine bakın ve kendinize şu soruları sorun:
+<ul>
+    <li> Bu kodlama yalnız belirtilen dosyaları mı etkiler?
+    <li> istenmeyen ya da uygunsuz veri iş görebilir mi?
+    <li> Bu kodlama beklenmedik istenmedik bir biçim alabilir mi?
+    <li> Bu kodlama başkalarıyla birlikte ters yönde kullanılabilir mi?
+    <li> Her işlem istenen açıklıkla kaydedilmekte midir?
+</ul>
+Daha sonra değil de kodlamayı yazarken bu soruları sıklıkla sorarsanız, gereksiz yeniden yazmayı önlemiş olursunuz. Bu biçimiyle başladığınızda güvenliği garanti edemeyebilirsiniz ama ileride geliştirebilirsiniz.
+<br /><br />
+register_globals, magic_quotes ya da başka uygun kurulum değeri denetleme açısından sizi güç durumda bırakabilir. Bu daha çok değişkenin kaynağını ya da değerini belirlemekte yaşanan güçlüktendir. PHP error_reporting(E_ALL) kullanımıyla değişkenlerin kullanmadan önce denetlenmesini sağlar (böylece gereksiz verinin işlenmesini önleyebilirsiniz).
+<br />
+<hr>
+
+<h3>Tılsımlı tırnaklar (Magic Quotes)</h3>
+<h3>UYARI</h3>
+
+Bu özellik PHP 6.0.0 sürümünde kalkacaktır. Buna dayanan bir kodlama yazmamanız önerilir.
+<br /><br />
+Tılsımlı tırnaklar gelen veriyi otomatik olarak PHP kodlamasına aktaran işlemdir. tılsımlı tırnağı kapatmak ve veriyi çalışma zamanında atlatmak istenebilir.
+<b>Tılsımlı tırnaklar nedir?</b>
+
+Açıksa tüm ' (tek-tırnak), " (çift tırnak), \ (ters-kesme) ve NULL karakterleri ters kesmeyle otomatik olarak atlatılır. Bu addslashes() işlevinin yaptığının aynısıdır.
+<br /><br />
+Üç tane tılsımlı tırnak yönelticisi vardır:
+<ul>
+    <li> magic_quotes_gpc HTTP istek verisini etkiler (GET, POST, ve COOKIE). Çalışma zamanında atama yapılamaz ve varsayılanı açık olur.
+    <li> magic_quotes_runtime kullanıma açıksa, birçok işlev dışsal bir kaynaktan, veri tabanından ve yazı dosyalarından gelen verileri ters kesmeyle tırnaklar atlatılır. Çalışma zamanında kapatılabilir ama PHP varsayılanı açıktır.
+    <li> magic_quotes_sybase açılırsa, tek-tırnak ters kesme yerine yine tek-tırnakla atlatılır. Eğer açıksa, magic_quotes_gpc değişkenini kaldırıp yerine geçer. Her ikisinin açık olası demek tek tırnağın yalnız tek tırnakla atlatılacağıdır. Diğerler (çift-tırnak, ters kesme ve NULL değişmez ve atlatılmaz).
+</ul>
+<hr>
+
+<b>Niye tılsımlı tırnak kullanılır</b>
+<ul>
+    <li> İlk başlayanlar için kullanışlıdır. Tılsımlı tırnaklar PHP içinde yeni başlayanlara kodlamada yardımcı olması için yaratılmıştır. SQL enjeksiyonunda hala tılsımlı tırnak kullanımı vardır ve risk azaltılmıştır.
+    <li> Veri tabanına veri eklerken tılsımlı tırnak tüm Get, Post ve Cookie verilerinde otomatik olarak addslashes() çalıştırır.
+</ul>
+<hr>
+
+<b>Tılsımlı Tırnak neden kullanılmamalıdır</b>
+<ul>
+    <li> Taşınabilirlik: açık ya da kapalı olması taşınabilirliği etkiler. get_magic_quotes_gpc() kullanın ve buna göre kodlama yapın.
+    <li> Verimlilik: Her atlatılan veri, veritabanına eklemekte kullanılmaz bu nedenle verim kaybı vardır. çalışma zamanında addslashes() kullanmak daha verimlidir. Varsayılan olarak php.ini-dist bu değeri kapatmışsa da, açık olma durumunda kapatılması sağlanmalıdır.
+    <li> Güçlük: tüm veri atlatılmak istemese de, atlatılmaması gereken yerlerde de verilerin atlatılmış olması doğru olmayabilir. Örneğin bir form'dan e-posta gönderilecekse, e-posta içinde birçok ters kesmeyle karşılaşılabilir. Bunu düzeltmek için ayrıca splitslashes() kullanmak gerekebilir.
+</ul>
+<hr>
+
+<b>Tılsımlı tırnakları kapatma</b>
+
+The magic_quotes_gpc directive may only be disabled at the system level, and not at runtime. In otherwords, use of ini_set() is not an option.
+<br /><br />
+Tılsımlı tırnağı sunucu tarafında kapatma
+<br /><br />
+An example that sets the value of these directives to Off in php.ini. For additional details, read the manual section titled How to change configuration settings.
+<pre>
+; Tılsımlı tırnak
+;
+
+; Tılsımlı tırnak GET/POST/Cookie ortamından gelen verilerde.
+magic_quotes_gpc = Off
+
+; Tılsımlı tırnak çalışma zamanında oluşan verilerde
+; örneğin exec() işlevinden gelen SQL verisi vb.
+magic_quotes_runtime = Off
+
+; Sybase stili tılsımlı tırnak kullanımı ( ' \' yerine '' ile atlatılır)
+magic_quotes_sybase = Off
+
+</pre>
+      
+Eğer sunucu ayarlarına erişim yoksa, .htaccess kullanmak bir seçenektir. Örneğin:
+<pre>
+php_flag magic_quotes_gpc Off
+</pre>
+
+Bu ilgiye göre taşınabilir kod yazmak, sunucu düzeyinde atama yapmak olanaksızsa, çalışma zamanında magic_quotes_gpc kapatmak için örnek verilmiştir. Bu yöntem verimsizdir, bu nednele uygun yönelticinin düzeltilmesi önerilir.
+<br /><br />
+Tılsımlı tırnağı çalışma zamanında kapatmak
+<pre>
+&lt;?php
+if (get_magic_quotes_gpc()) {
+    function stripslashes_deep($value)
+    {
+        $value = is_array($value) ?
+                    array_map('stripslashes_deep', $value) :
+                    stripslashes($value);
+
+        return $value;
+    }
+
+    $_POST = array_map('stripslashes_deep', $_POST);
+    $_GET = array_map('stripslashes_deep', $_GET);
+    $_COOKIE = array_map('stripslashes_deep', $_COOKIE);
+    $_REQUEST = array_map('stripslashes_deep', $_REQUEST);
+}
+?&gt;
+</pre>
+<hr>
+
+<h3>PHP gizleme</h3>
+
+Genelde, belirsizlikle güvenlik kurmak en zayıf güvenlik biçimidir. Ama bazen çok küçük fazladan güvenlik de istenebilir.
+<br /><br />
+Birkaç küçük basit teknik PHP gizlenmesini sağlatabilir. Belki sisteminizdeki zayıflıkları arayan birinin ilgisini biraz yavaşlatır. php.ini dosyasında "expose_php = off" ayarıyla, onlara sunulan bilgiyi oldukça azaltmış olursunuz.
+<br /><br />
+Bir başka taktik ise web sunucunun (apache gibi) başka dosya türlerini de PHP ile taranmasını sağlamasıdır. Bunu ya .htaccess yönelticisiyle ya da apche ayar dosyasıyla yapabilirisiniz. Başka dosya uzantıları gibi belirtebilirsiniz.
+<br /><br />
+PHP bir başka dil gibi saklanabilir
+<pre>
+# PHP kodunu başka bir kod gibi gösterme
+AddType application/x-httpd-php .asp .py .pl
+</pre>
+Ya da tümüyle belirsiz yap
+<br /><br />
+PHP uzantıları için bilinmeyenleri kullanma
+<pre>
+# PHP kodlarını bilinmeyen gibi tanımlama
+AddType application/x-httpd-php .bop .foo .133t
+</pre>
+Ya da HTML kodu olarak saklama. Biraz daha verimlidir. Çünkü HTML PHP tarafından daha hızlı taranır.
+<br /><br />
+PHP uzantıları için HTML tiplerini kullanma
+<pre>
+# Tüm PHP kodlarını HTML gibi kullanma
+AddType application/x-httpd-php .htm .html
+</pre>
+Bunun etkin çalışması için tüm PHP dosyalarını yukarıdaki uzantıya göre yeniden adlandırılmalıdır. Gizleyerek oluşturulan bir güvenlik biçimidir. 
+<br />
+<hr>
+
+<h3>Keeping Current</h3>
+
+PHP diğer büyük sistemler gibi sürekli incelenir ve iyileştirilir. Her yeni sürüm güvenlik açısından hem büyük hem de küçük değişiklikleri içerir. Kusurlar, ayar eksikleri ve diğer sorunlar sisteminizin genel güvenliğini ve sağlamlığını arttırır.
+<br /><br />
+Diğer sistem düzeyi kodlama dilleri ve programları gibi en iyi yaklaşım sıkça günleme yapmalı ve son sürümden ve değişikliklerinden haberli olunmalıdır.
+<br />
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,636 @@
+<HTML>
+<HEAD>
+<TITLE>AYBIM - AGTEKNIK</TITLE>
+</HEAD>
+<BODY BGCOLOR="white" LEFTMARGIN=50>
+<TABLE WIDTH="100%" CELLSPACING=10 CELLPADDING=5>
+<TR><TD WIDTH="10%" BGCOLOR="black" VALIGN="TOP">
+&nbsp;
+</TD>
+<TD>
+<H2>AĞ TEKNOLOJİSİNE İLİŞKİN BİLGİLER</H2>
+<HR>
+<P><B>ARCNet</B>
+
+<P>ARCNET birim adları çoğu zaman "arc0s", "arc1e", "arc2e" gibi adlar alır.
+Sistem açılırken ilk bulunan donanım "eth0" birimine atanır, 
+diğerleri bulundukça atamaları yapılır.
+
+Birim adının en sonundaki harf, ethernet "encapsulating" paket yapısı mı yoksa
+RFC1051 paket yapısı mı kullanıldığını gösterir.
+
+<P>Donanım, bilgisayara tanıtıldıktan sonra aşağıdaki tanıma benzer bir
+tanım yapmak gerekir.
+
+<P>
+<UL># ifconfig arc0e 192.168.0.1 netmask 255.255.255.0 up</UL>
+<UL># route add 192.168.0.0 netmask 255.255.255.0 arc0e</UL>
+
+<P><B>Appletalk (AF_APPLETALK)</B>
+
+<P>Özel bir birim adı gerekmez. Bu program var olan birimleri kullanır.
+
+<P>Appletalk desteği Linux bilgisayarınızın Apple ağı ile konuşmasını
+sağlar. En büyük özelliği yazıcı ve disk gibi kaynakların ortak
+kullanımına olanak vermesidir. Bu işlem için gereken yazılım "netatalk"
+adını taşır.
+
+<P>Michigan Universitesindeki `Research Systems Unix Group' tarafından
+geliştirilen ve Wesley Craig tarafından temsil edilen "netatalk" yazılımı,
+Appletalk protokolunu ve kullanılabilir yardımcı programları
+içerir. (bu proje grubunun e-posta adresi :
+  <A HREF="mailto:netatalk@umich.edu">netatalk@umich.edu</A> dır)
+
+<P>Bu yazılım 
+  <A HREF="ftp://terminator.rs.itd.umich.edu/unix/netatalk/">
+  &lt;ftp://terminator.rs.itd.umich.edu/unix/netatalk/&gt;</A>
+adresinden sağlanabilir.
+<P>
+<P>Appletalk yazılımını Linux altında tanımlama
+
+<P>Önce /etc/services kütüğüne yeni satırlar eklemek gerekir. Bunlar :
+<P>
+<TABLE>
+<TR><TD>rtmp    </TD><TD>1/ddp   </TD><TD># Routing Table Maintenance Protocol</TD></TR>
+<TR><TD>nbp     </TD><TD>2/ddp   </TD><TD># Name Binding Protocol</TD></TR>
+<TR><TD>echo    </TD><TD>4/ddp   </TD><TD># AppleTalk Echo Protocol</TD></TR>
+<TR><TD>zip     </TD><TD>6/ddp   </TD><TD># Zone Information Protocol</TD></TR>
+</TABLE>
+
+<P>Bundan sonraki adım appletalk işlemleri tanıtım kütüğü oluşturmaktır.
+Bu kütük /usr/local/atalk/etc yolunda olmalıdır (ya da yazılım nereye
+yüklendi ise orada olmalıdır).
+
+<P>İlk kütük /usr/local/atalk/etc/atalkd.conf kütüğüdür. Bu kütükte
+başlangıç olarak bir satır bulunmalı ve bu satırda Apple bilgisayaraların
+bulunduğu ağ ortamı tanımlanmalıdır. Yazılım bu kütüğe gereken bilgileri
+ağdaki çalışan apple bilgisayarlardan alarak yazar. İlk satır :
+
+<P>eth0
+
+<P>olur.
+
+<P>Appletalk aracılığı ile Linux kütüklerini paylaşıma açma
+
+<P>Paylaşıma açılan kütükler apple bilgisayarlaı tarafından kullanılabilir.
+
+<P>Bunu yapabilmek için /usr/local/atalk/etc/AppleVolumes.system kütüğünü
+gerekli bilgilerle donatmak yeterlidir. Diğer tanım kütüğü olan
+/usr/local/atalk/etc/AppleVolumes.default hangi kütüklere "konuk"
+kullanıcı tarafından erişilebileceğini belirtir.
+
+<P>Bu kütükte yer alacak basit bir örnek :
+
+<P>
+<UL>
+/tmp Scratch<BR>
+/home/ftp/pub "Public Area"<BR>
+</UL>
+olarak gösterilir.
+
+<P>Bu tanım Linux sisteminin /tmp yolunu AppleShare için 'Scratch'
+olarak paylaşıma açar.
+
+<P><B>Linux yazıcınızı Appletalk ile paylaşma</B>
+
+<P>Linuz yazıcınızı sizin Apple bilgisayarlarınızla kolayca
+paylaşabilirsiniz. Appletalk yazıcı erişim protokolu programı
+olan "papd" çalıştırıldığında Apple bilgisayarlarından gelen istekleri
+kabul eder ve sizin yerel yazıcı kuyruklama sisteminize gönderir.
+
+<P>"papd" programı tanımları için /usr/local/atalk/etc/papd.conf
+kütüğü düzenlenmelidir. Bu kütüğün yapısı /etc/printcap kütüğü
+gibidir. Buradaki tanımlara verilen isim Appletalk adlandırma protokolu NBP
+tarafından tanınır ve kaydedilir.
+
+<P>Tipik bir içerik bilgisi :
+
+<UL>
+       TricWriter:\<BR>
+<UL>
+          :pr=lp:op=cg:<BR>
+</UL>
+</UL>
+biçimindedir.
+
+<P>Bu örnekteki `TricWriter' adlı yazıcı Appletalk ağının kullanımına
+sunulmuştur. Appletalk ağı istekleri ve sizin linux yazma istekleriniz
+'lp' yazıcısı tarafından işleme alınır ( /etc/printcap kütüğünde lp
+için tanım yapılmıştır). Yukarıdaki tanımda yer alan 'op=cg' bilgisi
+linux kullanıcı olan 'cg' nin yazıcının işletmeni olduğudur.
+
+<P><B>Appletalk yazılımını başlatma</B>
+
+<P>"netatalk" tarafından dağıtılan rc.atalk adlı bir kütük vardır. Sizin
+yapacağınız bu kütüğü aşağıdaki komutla başlatmaktır :
+
+<UL>
+ # /usr/local/atalk/etc/rc.atalk
+</UL>
+
+<P><B>Appletalk yazılımını deneme</B>
+
+<P>Apple bilgisayarından "Choser" ("Secici") seçeneğini bulup AppleShare
+işlemini tıkladığınızda sizin linux bilgisayarınız seçenekler arasında
+görünür.
+
+<P><B>ATM</B>
+
+<P> Werner Almesberger <werner.almesberger@lrc.di.epfl.ch> şu anda 
+  Asynchronous Transfer Mode desteğini linux ortamına aktarmak için bir
+proje yönetmektedir. Bu proje hakkında ayrıntılı bilgi :
+  <A HREF="http://lrcwww.epfl.ch/linux-atm/">
+  &lt;http://lrcwww.epfl.ch/linux-atm/&gt;</A>.
+
+<P><B>AX25 (AF_AX25)</B>
+<P>
+  AX.25 birim adları `sl0', `sl1', v.b. dir.
+
+<P>
+  The AX25, Netrom ve Rose protokolları çevrilmiştir. Bu protokollar
+"Amateur Radio Operators" tarafından tüm dünyada denenmekte ve
+kullanılmaktadır.
+
+<P><B>DECNet</B>
+
+<P>Desteği şu anda yoktur, üzerinde çalışılmaktadır.
+
+<P><B>Ethernet</B>
+
+<P>
+  Ethernet birim adları `eth0', `eth1', `eth2' v.b.dir. İlk tanına kart
+eth0 olarak adlandırılır. Diğerleri tanındıkları sırada artan numara
+alırlar.
+
+<P>ethernet kartı bir kez tanındıktan sonra aşağıdaki işlemlerle kart
+kullanılır hale getirilir :
+
+<UL>
+  # ifconfig eth0 192.168.0.1 netmask 255.255.255.0 up<BR>
+  # route add 192.168.0.0 netmask 255.255.255.0 eth0<BR>
+</UL>
+
+<P><B>FDDI</B>
+
+<P>
+  FDDI birim adları `fddi0', `fddi1', `fddi2' v.b.dir.
+  İlk tanına kart `fddi0' birimine atanır.
+<P>
+  Digital Equipment Corporation FDDI EISA ve PCI kartları için
+sürücü programı geliştirilmiştir.
+
+<P>FDDI sürücü kurulduktan sonra bu kartı tanımlama ethernet kartı
+tanımlama işlemi ile aynıdır.
+
+<P><B>Frame Relay</B>
+
+<P>
+  Frame Relay birim adları DLCI encapsulation birimler için
+`dlci00', `dlci01' v.b., FRAD için `sdla0', `sdla1' v.b. dir.
+
+<P>Frame Relay veri iletişim trafiğine uygun tasarlanmış yeni bir 
+ağ teknolojisidir. Frame Relay ağına "Frame Relay Erişim Birimi" (FRAD) ile
+bağlanabilirsiniz.
+Linux Frame Relay destği RFC-1490 belgesinde açıklandığı gibidir.
+
+<P>Linux için Mike McLagan, mike.mclagan@linux.org,Frame Relay desteğini ve tanımlama
+araçlarını geliştirmiştir.
+
+<P>Şu anda Sangoma Technologies
+  <A HREF="http://www.sangoma.com/">
+  http://www.sangoma.com/</A>
+ ürünlerinden S502A, S502E and S508 ürün kodlu
+FRAD birimleri desteklenmektedir.
+
+<P>Frame Relay tanımlama araçları aşağıdaki adresten sağlanabilir :
+  <A HREF="ftp://ftp.invlogic.com/pub/linux/fr/frad-0.15.tgz">
+  ftp://ftp.invlogic.com/pub/linux/fr/frad-0.15.tgz</A>
+
+<P>Yazılımı yüklemek için gerekli adımlar :
+<P>
+<UL>
+# cd /usr/src<BR>
+# tar xvfz .../frad-0.15.tgz<BR>
+# cd frad-0.15<BR>
+# for i in common dlci frad; do cd $i; make clean; make; cd ..; done<BR>
+# mkdir /etc/frad<BR>
+# install -m 644 -o root -g root bin/*.sfm /etc/frad<BR>
+# install -m 700 -o root -g root frad/fradcfg /sbin<BR>
+# install -m 700 -o root -g root dlci/dlcicfg /sbin<BR>
+</UL>
+
+<P>Araçlar yüklendikten sonra /etc/frad/router.conf adlı kütük yaratılmalıdır.
+Bunun  için aşağıdaki örnek tanım kullanılabilir.
+
+<P>
+<UL>
+# /etc/frad/router.conf<BR>
+# This is a template configuration for frame relay.<BR>
+# All tags are included. The default values are based on the code<BR>
+# supplied with the DOS drivers for the Sangoma S502A card.<BR>
+#<BR>
+# A '#' anywhere in a line constitutes a comment<BR>
+# Blanks are ignored (you can indent with tabs too)<BR>
+# Unknown [] entries and unknown keys are ignored<BR>
+#<BR>
+<P>
+[Devices]<BR>
+Count=1                 # number of devices to configure<BR>
+  Dev_1=sdla0             # the name of a device<BR>
+  #Dev_2=sdla1            # the name of a device<BR>
+<P>
+# Specified here, these are applied to all devices, and can be overriden for<BR>
+# each individual board.<BR>
+#<BR>
+Access=CPE<BR>
+Clock=Internal<BR>
+KBaud=64<BR>
+Flags=TX<BR>
+#<BR>
+# MTU=1500              # Maximum transmit IFrame length, default is 4096<BR>
+# T391=10               # T391 value    5 - 30, default is 10<BR>
+# T392=15               # T392 value    5 - 30, default is 15<BR>
+# N391=6                # N391 value    1 - 255, default is 6<BR>
+# N392=3                # N392 value    1 - 10, default is 3<BR>
+# N393=4                # N393 value    1 - 10, default is 4<BR>
+<BR>
+# Specified here, these set the defaults for all boards<BR>
+# CIRfwd=16             # CIR forward   1 - 64<BR>
+# Bc_fwd=16             # Bc forward    1 - 512<BR>
+# Be_fwd=0              # Be forward    0 - 511<BR>
+# CIRbak=16             # CIR backward  1 - 64<BR>
+# Bc_bak=16             # Bc backward   1 - 512<BR>
+# Be_bak=0              # Be backward   0 - 511<BR>
+<BR>
+#<BR>
+#<BR>
+# Device specific configuration<BR>
+#<BR>
+#<BR>
+<BR>
+#<BR>
+# The first device is a Sangoma S502E<BR>
+#<BR>
+[sdla0]<BR>
+Type=Sangoma            # Type of the device to configure, currently only<BR>
+# SANGOMA is recognised<BR>
+#<BR>
+# These keys are specific to the 'Sangoma' type<BR>
+#<BR>
+# The type of Sangoma board - S502A, S502E, S508<BR>
+Board=S502E<BR>
+#<BR>
+# The name of the test firmware for the Sangoma board<BR>
+# Testware=/usr/src/frad-0.10/bin/sdla_tst.502<BR>
+#<BR>
+# The name of the FR firmware<BR>
+# Firmware=/usr/src/frad-0.10/bin/frm_rel.502<BR>
+#<BR>
+Port=360                # Port for this particular card<BR>
+Mem=C8                  # Address of memory window, A0-EE, depending on card<BR>
+IRQ=5                   # IRQ number, do not supply for S502A<BR>
+DLCIs=1                 # Number of DLCI's attached to this device<BR>
+DLCI_1=16               # DLCI #1's number, 16 - 991<BR>
+# DLCI_2=17<BR>
+# DLCI_3=18<BR>
+# DLCI_4=19<BR>
+# DLCI_5=20<BR>
+#<BR>
+# Specified here, these apply to this device only,<BR>
+# and override defaults from above<BR>
+#<BR>
+# Access=CPE            # CPE or NODE, default is CPE<BR>
+# Flags=TXIgnore,RXIgnore,BufferFrames,DropAborted,Stats,MCI,AutoDLCI<BR>
+# Clock=Internal        # External or Internal, default is Internal<BR>
+# Baud=128              # Specified baud rate of attached CSU/DSU<BR>
+# MTU=2048              # Maximum transmit IFrame length, default is 4096<BR>
+# T391=10               # T391 value    5 - 30, default is 10<BR>
+# T392=15               # T392 value    5 - 30, default is 15<BR>
+# N391=6                # N391 value    1 - 255, default is 6<BR>
+# N392=3                # N392 value    1 - 10, default is 3<BR>
+# N393=4                # N393 value    1 - 10, default is 4<BR>
+<BR>
+#<BR>
+# The second device is some other card<BR>
+#<BR>
+# [sdla1]<BR>
+# Type=FancyCard        # Type of the device to configure.<BR>
+# Board=                # Type of Sangoma board<BR>
+# Key=Value             # values specific to this type of device<BR>
+<BR>
+#<BR>
+# DLCI Default configuration parameters<BR>
+# These may be overridden in the DLCI specific configurations<BR>
+#<BR>
+CIRfwd=64               # CIR forward   1 - 64<BR>
+# Bc_fwd=16             # Bc forward    1 - 512<BR>
+# Be_fwd=0              # Be forward    0 - 511<BR>
+# CIRbak=16             # CIR backward  1 - 64<BR>
+# Bc_bak=16             # Bc backward   1 - 512<BR>
+# Be_bak=0              # Be backward   0 - 511<BR>
+<BR>
+#<BR>
+# DLCI Configuration<BR>
+# These are all optional. The naming convention is<BR>
+# [DLCI_D<devicenum>_<DLCI_Num>]<BR>
+#<BR>
+<BR>
+[DLCI_D1_16]<BR>
+# IP=<BR>
+# Net=<BR>
+# Mask=<BR>
+# Flags defined by Sangoma: TXIgnore,RXIgnore,BufferFrames<BR>
+# DLCIFlags=TXIgnore,RXIgnore,BufferFrames<BR>
+# CIRfwd=64<BR>
+# Bc_fwd=512<BR>
+# Be_fwd=0<BR>
+# CIRbak=64<BR>
+# Bc_bak=512<BR>
+# Be_bak=0<BR>
+<BR>
+[DLCI_D2_16]<BR>
+# IP=<BR>
+# Net=<BR>
+# Mask=<BR>
+# Flags defined by Sangoma: TXIgnore,RXIgnore,BufferFrames<BR>
+# DLCIFlags=TXIgnore,RXIgnore,BufferFrames<BR>
+# CIRfwd=16<BR>
+# Bc_fwd=16<BR>
+# Be_fwd=0<BR>
+# CIRbak=16<BR>
+# Bc_bak=16<BR>
+# Be_bak=0<BR>
+</UL>
+
+<P>Bu kütük yaratıldıktan sonra kalan son işlem gerçek birimin kendisinin
+parametrelerinin düzenlenmesi gerekir. Burada hatırlanması gereken
+en önemli nokta FRAD birimlerini başlatmanın (ayağa kaldırmanın), DLCI
+encapsulation birimlerinde önce yapılması gerektiğidir.
+
+<P>
+<UL>
+# Configure the frad hardware and the DLCI parameters<BR>
+/sbin/fradcfg /etc/frad/router.conf || exit 1<BR>
+/sbin/dlcicfg file /etc/frad/router.conf<BR>
+#<BR>
+# Bring up the FRAD device<BR>
+ifconfig sdla0 up<BR>
+#<BR>
+# Configure the DLCI encapsulation interfaces and routing<BR>
+ifconfig dlci00 192.168.10.1 pointopoint 192.168.10.2 up<BR>
+route add 192.168.10.0 netmask 255.255.255.0 dlci00<BR>
+#<BR>
+ifconfig dlci01 192.168.11.1 pointopoint 192.168.11.2 up<BR>
+route add 192.168.11.0 netmask 255.255.255.0 dlci00<BR>
+#<BR>
+route add default dev dlci00<BR>
+#<BR>
+</UL>
+
+<P><B>IPX (AF_IPX)</B>
+
+<P>IPX Novell Netware(tm) yerel ağlarında kullanılır ve linux
+bu protokolu destekler. Linux IPX ağ için bir router ya da ağın
+varış noktası olarak tanımlanabilir.
+
+<P><B>IPv6</B>
+
+<P>Tam IP ağlarının kurallarını öğrendik derken, kurallar birden değişti.
+IPv6 Internet protokolu sürüm 6 için kısa adlandırmadır. IPv6 kısa bir
+zaman sonra IP numarası sıkıntısı başgösterdiğinde kullanmak için
+Internet protokolu tarafından geliştirilen bir kavramdır. IPv6'da
+adresler 32 byte (128 bit) uzunluktadır. Bunun dışında IPv6 ağları
+biraz daha kolay yönetilebilir duruma getirmek için de çalışmaktadır.
+
+<P><B>ISDN</B>
+
+<P>ISDN sayısal veri ağları için çıkarılmış bir dizi standartlardan
+biridir. ISDN çağrı, iki nokta arasında senkron bağlantı kurar. ISDN
+genelde yüksek hızlardaki bölümnüş kanalları olan iletişim şebekelerinde 
+kullanılır. İki değişik tür ISDN kanalı vardır. Gerçek kullanıcı
+bilgilerini taşıyan "B tipi kanal" ve ISDN değişim noktasına kontrol
+komutlarını ve mesajlarını gönderen tekil "D kanalı". ISDN değişim
+noktaları bu mesajlarla başka işlevleri çalıştırır. Örneğin Avustralya'da
+2MB link hattı, 64kbps hızlı 30 bölünmüş kanal ve bir 64 kbps hızlı D
+kanalından oluşur. Siz aynı anda 30 değişik noktaya 64kbps hızla bağlantı
+kurabilisiniz, ya da 15 değişik noktaya 128kbps hızla bağlantı 
+kurabilirsiniz. Ya da birkaç küçük bağlantı kurar, diğerlerini boş 
+bırakabilirsiniz.
+Kanallar gelen ya da giden veri trafiğine açıktır. ISDN'in asıl çıkış
+nedeni hem ses hem de veri tarfiği için iletişim kurumunun bir alt
+yapıyı kullanmak istemesidir. Ya da evinizdeki telefon şebekesini veri
+iletişimi için kullanırken büyük bir iletişim altyapısı değişikliğine
+gerek duyulmaması içindi.
+
+<P>ISDN hizmetine bilgisayarınızı bağlamanın bir kaç yolu var. Biri
+Ağ bitiş ucuna `Terminal Adaptor' bağlamak ve çıkan seri uçları
+kullanmaktır. Buarda bir uç komutları ve tanımları yapmak için
+kullanılırken diğerleri gerçek veri iletişiminde kullanılır.
+Linux bu tür bağlantılarda tanım değişikliği bile yapmadan çalışır. Burada
+terminal adaptor üzerindeki seri uçları diğer seri uçlar gibi
+kullanabilirsiniz.
+
+<P>Diğer yöntem ise ISDN kartını kendi bilgisayarınıza takmak ve işletim
+sistemini buna uygun bir biçimde tanımlamaktır. Burada Linux yazılımı
+protokolu kontrol eder ve çağrıları kendi yapar.
+
+<P>Linux uygulamasında ISDN desteği aşağıdaki ISDN kartları için
+geçerlidir :
+<UL>
+<LI>ICN 2B ve 4B
+<LI>Octal PCBIT-D
+<LI>Teles ISDN-kart ve uyumluları
+</UL>
+
+<P>Bu kartların bazılarını çalıştırmak için sürücü yazılımı indirmeniz gerekir.
+
+<P>Bir Linux ISDN desteğini nasıl kuracağınızın ayrıntısı
+  /usr/src/linux/Documentation/isdn/ yolunda bulabilirsiniz.
+"isdn4linux" hakkında
+  Sıkça Sorulan Sorular için
+  <A HREF="http://www.lrz-muenchen.de/~ui161ab/www/isdn/">
+  http://www.lrz-muenchen.de/~ui161ab/www/isdn/</A> adresine başvurun.
+
+<P>PPP için bir not. PPP protokolu asenkron ya da senkron seri hatlarda
+çalışmak için tasarlanmıştır. Linux içinde dağıtılan "pppd" programı
+yalnız asenkron hatları destekler. Eğer ISDN hizmetinde PPP kullanmak
+isterseniz özel olarak değiştirilmiş bir sürümü kullanmanız gerekir. Yukarıda
+açıklanan dökümanlarda ayrıntılı bilgi ve bu programı nerede
+bulabileceğiniz vardır.
+
+<P><B>Mobile IP</B>
+
+<P>Bu işlem, bir bilgisayarın INTERNET'te bir noktadan diğerine taşındığında
+IP adresini değiştirmeden işlemlerine devam etmesine denir. Aslında
+bir bilgisayar, INTERNET bağlantısını değiştirdiğinde IP adresinin de
+değişmesi gerekir.
+"IP Mobility" bu sorunu yok eder. Burada hareketli bilgisayara değişmez bir
+IP adresi atanır ve IP tunneling tekniği ile otomatik yönlendirme
+yapılarak mesajlar o anda bilgisayarın bağlı olduğu ağdaki gerçek IP 
+adresine gönderilir.
+
+<P><B>Multicast</B>
+
+<P>Değişik IP ağlarındaki bazı bilgisayarlara
+datagramların sürekli yönlendirilmesi sağlanır. Bu işlem INTERNET 
+üzerinden audio ya da video yayımı (broadcast) yapma olanağı getirir.
+
+<P>Bu işlemler için bir takım araçlar ve ağ tanımlama işlemleri gerekir.
+Linux için
+  <A HREF="http://www.teksouth.com/linux/multicast/">
+  http://www.teksouth.com/linux/multicast/</A> adresine başvurun.
+
+<P>
+<B>NetRom (AF_NETROM)</B>
+
+<P>NetRom birimleri adı `nr0', `nr1', v.b.dir.
+
+<P>AX25 Netrom ve Rose protokolları
+Dünya üzerinde Amateur Radio Operators paketlenmiş radyo
+deneylerinde kullanılmaktadır.
+
+<P>Bu protokolları uyarlama yazılımlarının çoğu
+  Jonathon Naylor, jsn@cs.not.ac.uk tarafından geliştirilmiştir.
+
+<P><B>PLIP</B>
+
+<P>PLIP birim adları `plip0', `plip1, v.b.dir.
+
+<P>Plip (Parallel Line IP) SLIP protokolu gibi iki bilgisayar
+arasında paralel uçlardan sağlantıyı sağlar. Paralel uçlardan bir anda
+birden çok bit transfer edilebildiğinden iletişimde yüksek hızlara
+ulaşılabilir. Buna ek olarak yazıcılar için tasarlanmış paralel
+uçlar kullanılabilir.
+
+<P>Bazı laptop bilgisayarlarda paralel uç yongaları PLIP siynallerini
+desteklemediğinden PLIP bu bilgisayarlarda çalışmayabilir.
+
+<P>Linux plip arayüzü "Crynwyr Packet Driver PLIP" ile çalışır.
+Bunun anlamı, plip üzerinden tcp/ip desteği olan her DOS yazılımı
+ile linux bilgisayarı arasında bağlantı kurabilirsiniz.
+
+<P>Kernel derlerken plip zaman aşımı için kullanılan süre önemlidir
+Mili saniye cinsinden olan bu sürenin değeri pekçok ortamda çalışabilir.
+Eğer bilgisayar yavaşsa bu sürenin biraz hızlanması gerekebilir.
+
+<P>Sürücü program aşağıdaki değerleri varsayar :
+<P>
+<UL>
+<TABLE>
+<TR><TH> device  </TH><TH>i/o addr</TH><TH>IRQ</TH></TR>
+<TR><TD>plip0   </TD><TD>0x3BC</TD><TD>5</TD></TR>
+<TR><TD>plip1   </TD><TD>0x378</TD><TD>7</TD></TR>
+<TR><TD>plip2   </TD><TD>0x278</TD><TD>2 (9)</TD></TR>
+</TABLE>
+</UL>
+<P>Eğer sizin paralel uçunuz yukarıdaki seçeneklerden birine uyumlu
+değilse uçun IRQ değerini "ifconfig" komutunun "irq" parametresi ile
+değiştirebilirsiniz. Printer uçu için ROM BIOS tanımlarında
+IRQ değerlerini açmayı (enable) unutmayın.
+
+<P>PLIP arayüzünü tanımlamak için aşağıdaki satırları ağ tanımında
+kullanılan rc kütüğüne eklemeniz gerekir.
+
+<P>
+<UL>
+#<BR>
+# Attach a PLIP interface<BR>
+#<BR>
+#  configure first parallel port as a plip device<BR>
+/sbin/ifconfig plip0 IPA.IPA.IPA.IPA pointopoint IPR.IPR.IPR.IPR up<BR>
+#<BR>
+# End plip<BR>
+</UL>
+
+<P>Buradaki: IPA.IPA.IPA.IPA sizin IP adresinizi belirtir.
+     IPR.IPR.IPR.IPR ise diğer bilgisayarın IP adresidir.
+
+<P>Uçtan uça (point to point) parametresi SLIP ile aynı anlamdadır ve
+bağlantının karşı tarafındaki bilgisayarı belirtir.
+
+<P>Pek çok koşulda PLIP arayüzünü SLIP arayüzü gibi değerlendirebilirsiniz.
+Bir tek farkla ; dip ya da slattach PLIP arayüzünde kullanılamaz.
+
+<P><B>PLIP kablolama</B>
+
+<P>PLIP iki pc arasında MS-DOS ortamında kullanılan kütük taşıma
+programlarının kullandığı kablonun aynısını kullanır. Ayrıntılı bilgi
+<A HREF="aglar.html">KABLOLAR ve KABLOLAMA</A> başlığında anlatılmıştır.
+
+<P>Uzun mesafeler için PLIP bağlantısı olmamalıdır. Kablo boyu ençok 1
+metre olmalıdır.
+
+<P><B>YILDIZ tipi RADYO IP (STRIP - Starmode Radio IP)</B>
+
+<P>STRIP birim adları "st0", "st1" gibi tanımlanmıştır.
+
+<P>STRIP, bir bölüm Metricom Radyo modemleri için tanımlanmış bir protokoldur.
+Bu konuda Stanford Universitesinde bir proje götürülmektedir.
+  <A HREF="http://mosquitonet.Stanford.EDU/mosquitonet.html">
+  &lt;http://mosquitonet.Stanford.EDU/mosquitonet.html&gt;.</A> Adresinden daha
+ayrıntılı bilgi öğrenilebilir.
+
+  Metricom radyoları seri uça bağlanır, tipik olarak 100 kbps hızla iletişim
+kurar. Yaygın spektrum teknolojisi ile çalışır. Metricom radyolara ilişkin
+bilgi
+  <A HREF=http://www.metricom.com/">
+  &lt;http://www.metricom.com/&gt;</A> adresinden sağlanabilir.
+
+<P>Bugün için işlemin sistemi ağ araçları ve yardımcı programları
+STRIP sürücüyü tanımlamaz. Bu işlem için bir takım yazılımların
+kendi bilgisayarınıza indirilmesi gereklidir. Ne tür yazılımların
+gerekeceği 
+  <A HREF="http://mosquitonet.Stanford.EDU/strip.html">
+  &lt;http://mosquitonet.Stanford.EDU/strip.html&gt;</A> adresinden
+öğrenilebilir.
+
+<P>Tanımlamayı özetlemek gerekirse STRIP için "slattach" programının 
+değişime uğramış bir
+biçiminin kullanıldığı söylenebilir. Önce, seri uç için STRIP kullanıldığı 
+tanımlanır,
+"st[0-9]" birimi üretilince, ethernet gibi tanımlanır. Burada en önemli
+özellik STRIP protokolunun ARP kullanmamasıdır. Bu nedenle STRIP
+kullanıldığında alt ağdaki 
+her bilgisayar için ARP tanımlarını elle yapılır.
+
+<P><B>Token Ring</B>
+
+<P>Token Ring birim adları "tr0", "tr1" olarak tanımlanır.
+Token Ring, IBM'in yerel ağ ortamında çarpışmaları önleyici bir
+yöntem kullanıdığı protokol olarak bilinir. Bu yönteme göre, yalnız bir
+iş istasyonu yerel ağ içinde verilen bir zamanda gönderme yapabilir. 
+Verilen bir anda  bir 'token' yalnız bir iş istasyonu tarafından tutulabilir. 
+'Token' tutan bilgisayar o anda gönderme yapabilir. Mesajı gönderen bilgisayar
+'token' tutulmasını bir sonraki bilgisayar devreder. Bu biçimiyle 'token'
+yerel ağ üzerindeki tüm iş istasyonlarını dolaşır durur. Adı da bu işlemden
+doğmuştur.
+
+<P>UNIX ortamında Token Ring ile ethernet tanımı arasında bir ayrıcalık
+yoktur.
+
+<P><B>X.25</B>
+
+<P>X.25 devre paketlemeli anahtar protokolu olup CCITT tarafından tanımı
+yapılmıştır. Linux altındaki ilk örnek kodlamalar 
+  <A HREF="ftp://ftp.cs.nott.ac.uk/jsn/"> &lt;ftp://ftp.cs.nott.ac.uk/jsn/&gt;</A>
+adresinden sağlanabilir.
+
+<P><B>WaveLan Kartı</B>
+
+<P>Wavelan birimlerinin adı `eth0', `eth1', v.b.dir.
+
+<P>WaveLAN kartı, geniş spekrumlu telsiz kartıdır. Ethernet kartı gibi
+kullanılır ve aynı biçimde tanımlanır.
+
+<P>Ayrıntılı bilgi : <A HREF="http://www.wavelan.com/">
+  http://www.wavelan.com/</A> adresinden sağlanabiilir.
+<BR>
+</TD></TR>
+<TR>
+<TD COLSPAN=2>
+<HR>
+<A HREF="http://www.aybim.com.tr/">Ana Sayfaya</A>
+&nbsp;&nbsp;<A HREF="index.html">Teknik Bilgiler Sayfasina</A>
+</TD></TR></TABLE>
+</BODY>
+</HTML>

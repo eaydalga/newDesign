@@ -1,0 +1,17 @@
+
+com_release
+
+(PHP 4 >= 4.0.7)
+
+com_release — Decreases the components reference counter [deprecated]
+Description
+void com_release ( void )
+
+Decreases the components reference counter.
+Warning
+
+You should never need to use this function.
+
+    Note: This function has gone away in PHP 5. 
+
+

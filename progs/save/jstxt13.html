@@ -1,0 +1,241 @@
+<html>
+<body>
+<div id="sag"><span class="yazi">3 Aralık 2007</span></div>
+<h2></h2>
+<div class="yazi">
+Event information
+
+As with DHTML, this is always browser specific. When an event is triggered, the browser keeps some information about the event that we can use. There are two ways that browsers use to allow us to access this information. DOM compatible browsers pass the event information to the event handler function as the first argument. Some older browsers also use this version. Internet Explorer and a few other browsers store the event information in an event register, which we can access by writing 'window.event'.
+
+We also have to tell the browser what objects should detect what events and we also have to tell it what to do when that object detects that event.
+
+Although it is hardly used now, you may want the script to work in Netscape 4, since it is capable of doing this. With positioned elements and the document itself, Netscape 4 and Escape 4 will need to be told to capture the events first. Some other browsers (such as Mozilla/Firefox/Netscape 6+) may also provide the methods, but they do not actually do anything. Some others provide them but do not know how to use them, so you should check for the specific Event type as well. For example he simplest code used to listen for a keyup event would just be this:
+
+//Only Netscape 4 and Escape 4 need this first line
+if( document.captureEvents && Event.KEYUP ) { document.captureEvents( Event.KEYUP ); }
+document.onkeyup = alertkey;
+//where alertKey is a function that will handle the event
+
+Problems can arise if one element detects an event where a parent element also detects it. For example, if the document is told to detect when the user presses a key, and a text box in the document is also told to detect when the user presses a key, when the user presses a key in the text box, should the document react or the text box? Or both? And in what order? Some browsers will use capturing to say which element(s) should detect the event and in what order, while some will use bubbling, and many will do neither. I will not describe either of these here as they are far beyond the scope of this stage of the tutorial. I will cover them later in the DOM events part of the tutorial.
+
+For a full list of events that elements can detect cross-browser, see the section on The JavaScript object' subsection 'Standard document components. To see what events can be captured using captureEvents, see the same section, subsection 'window.Event. To see what information is passed about events, see the same section, sub section 'Event objects.
+
+The following examples attempt to solve as many problems as possible.
+Detecting the keyup event over the page and extracting the key code.
+
+    * Konqueror 3.3-, Safari 1.0 and NetFront 3.3- can only detect key events on text boxes.
+    * iCab only passes key code information in input boxes.
+    * Blazer (a version of NetFront) detects limited key events (due to the keyboard handling on the device) and returns nonsense key codes (such as -1987304).
+    * WebTV and Escape 4 can only detect key events on text boxes, and may be a little unreliable.
+    * OmniWeb 4.2- and Opera 5 for Mac do not pass key code information.
+    * Netscape 4 on Linux does not detect any key events properly.
+    * Clue browser and Tkhtml Hv3 cannot detect key events.
+    * I am unsure of the capabilities of NetBox, iPanel MicroBrowser and OpenTV here.
+
+Note that browsers may give different key code numbers for keypad keys. Also, many browsers do not give key code numbers for control keys (like F1, delete, backspace, alt, arrow keys etc.). Netscape gives a different key code for the letter 'a' to all other browsers. It may be more useful to use String.fromCharCode(key_code) which converts the key code back to its relevant key (like 'G', for example).
+
+//first, tell the browsers to react to the event
+if( document.captureEvents && Event.KEYUP ) {
+  //remove this part if you do not need Netscape 4 to work
+  document.captureEvents( Event.KEYUP );
+}
+/* this next line tells the browser to detect a keyup
+event over the whole document and when it detects it,
+it should run the event handler function 'alertkey' */
+document.onkeyup = alertkey;
+
+//now create the event handler function to process the event
+function alertkey(e) {
+  if( !e ) {
+    //if the browser did not pass the event information to the
+    //function, we will have to obtain it from the event register
+    if( window.event ) {
+      //Internet Explorer
+      e = window.event;
+    } else {
+      //total failure, we have no way of referencing the event
+      return;
+    }
+  }
+  if( typeof( e.keyCode ) == 'number'  ) {
+    //DOM
+    e = e.keyCode;
+  } else if( typeof( e.which ) == 'number' ) {
+    //NS 4 compatible
+    e = e.which;
+  } else if( typeof( e.charCode ) == 'number'  ) {
+    //also NS 6+, Mozilla 0.9+
+    e = e.charCode;
+  } else {
+    //total failure, we have no way of obtaining the key code
+    return;
+  }
+  window.alert('The key pressed has keycode ' + e +
+    ' and is key ' + String.fromCharCode( e ) );
+}
+
+Test it here: Click this link to start / stop keyup detection then press any key to test this script. Note that some keys give VERY odd responses with String.fromCharCode. The only reliable ones are letter and number keys on the main part of the keyboard.
+Detecting the mouse coordinates when it moves over a positioned element
+
+    * iCab 2- cannot detect mouse events over the page itself, only over specific elements within it (such as links).
+    * WebTV only detects mouse events over links.
+    * OmniWeb 4.2- does not provide any information about events.
+    * Clue browser only detects mousedown/up events, and only over links.
+    * I am unsure of the capabilities of NetBox, iPanel MicroBrowser and OpenTV here.
+
+There are three ways that are reliably supported which give mouse coordinates. There is also one unreliable way. All are given as properties of the event object, such as eventObject.clientX. These will be used to obtain the coordinates relative to the entire page.
+
+With clientX/Y, the standard was not very well written, so some older browsers made mistakes when implementing it. The coordinates should be relative to the displayed portion of the page, but Opera 6-, Konqueror 2- and iCab 2- give the coordinates relative to the entire page. There is no easy way to detect if a browser supports it correctly and the only way to write this piece of script is to detect the browsers that do not comply with the standard and provide appropriate scripts. This is the only time I will tell you to do this.
+
+Clue browser also makes, but as it cannot detect scrolling, there is no need to compensate.
+
+Note that Opera 7+, Konqueror 3+ and iCab 3+ actually comply with the standard, but as they also provides pageX, the script I will show you uses that instead, so again, the problem is avoided.
+
+Opera 6- can be detected because the property 'navigator.userAgent' contains the string 'Opera', even if it is running in IE5 emulation mode. iCab 2- can be detected because its window.ScriptEngine method contains the string 'InScript', even if it is running in emulation mode. Konqueror 2 can be detected because the property 'navigator.vendor' is 'KDE', even if it is running in emulation mode.
+
+   1. If pageX/Y is supplied, pageX/Y is relative to the whole page, and is completely reliable.
+   2. If clientX/Y is supplied, clientX/Y should be relative to displayed portion of page (DOM compatible).
+   3. Sometimes clientX/Y is relative to the whole page (in browsers that did not implement the specification properly).
+
+Most browsers provide both pageX/Y and clientX/Y. Internet Explorer is the only current browser that provides clentX/Y, but not pageX/Y.
+
+See the last section, 'Window size and scrolling', for information on how to detect how far the page has been scrolled. See the section on 'DHTML', for how to reference the positioned element.
+
+if( myReference.captureEvents && Event.MOUSEMOVE ) {
+  //remove this part if you do not need Netscape 4 to work
+  myReference.captureEvents( Event.MOUSEMOVE );
+}
+myReference.onmousemove = alertCoord;
+
+function alertCoord(e) {
+  if( !e ) {
+    if( window.event ) {
+      //Internet Explorer
+      e = window.event;
+    } else {
+      //total failure, we have no way of referencing the event
+      return;
+    }
+  }
+  if( typeof( e.pageX ) == 'number' ) {
+    //most browsers
+    var xcoord = e.pageX;
+    var ycoord = e.pageY;
+  } else if( typeof( e.clientX ) == 'number' ) {
+    //Internet Explorer and older browsers
+    //other browsers provide this, but follow the pageX/Y branch
+    var xcoord = e.clientX;
+    var ycoord = e.clientY;
+    var badOldBrowser = ( window.navigator.userAgent.indexOf( 'Opera' ) + 1 ) ||
+     ( window.ScriptEngine && ScriptEngine().indexOf( 'InScript' ) + 1 ) ||
+     ( navigator.vendor == 'KDE' );
+    if( !badOldBrowser ) {
+      if( document.body && ( document.body.scrollLeft || document.body.scrollTop ) ) {
+        //IE 4, 5 & 6 (in non-standards compliant mode)
+        xcoord += document.body.scrollLeft;
+        ycoord += document.body.scrollTop;
+      } else if( document.documentElement && ( document.documentElement.scrollLeft || document.documentElement.scrollTop ) ) {
+        //IE 6 (in standards compliant mode)
+        xcoord += document.documentElement.scrollLeft;
+        ycoord += document.documentElement.scrollTop;
+      }
+    }
+  } else {
+    //total failure, we have no way of obtaining the mouse coordinates
+    return;
+  }
+  window.alert('Mouse coordinates are ('+xcoord+','+ycoord+')');
+}
+
+Test it here: pass your mouse over this link to obtain its coordinates.
+
+To detect mouse coordinates over the whole document, use document instead of myReference.
+
+Since all the problematic old browser versions have now been replaced with versions that work correctly, you may want to remove the sniffer, and keep the code clean. You may not want to do this if there is a chance that any of your visitors are using those older versions. If that is not a problem for you, you could use this code instead:
+
+document.onmousemove = alertCoord;
+
+function alertCoord(e) {
+  var xcoord, ycoord;
+  if( !e ) { e = window.event; }
+  if( !e ) { return; }
+  if( typeof( e.pageX ) == 'number' ) {
+    xcoord = e.pageX;
+    ycoord = e.pageY;
+  } else if( typeof( e.clientX ) == 'number' ) {
+    xcoord = e.clientX;
+    ycoord = e.clientY;
+    if( document.body && ( document.body.scrollLeft || document.body.scrollTop ) ) {
+      xcoord += document.body.scrollLeft;
+      ycoord += document.body.scrollTop;
+    } else if( document.documentElement && ( document.documentElement.scrollLeft || document.documentElement.scrollTop ) ) {
+      xcoord += document.documentElement.scrollLeft;
+      ycoord += document.documentElement.scrollTop;
+    }
+  } else { return; }
+  window.alert('Mouse coordinates are ('+xcoord+','+ycoord+')');
+}
+
+Detecting mouse buttons
+
+    * Konqueror, Safari, OmniWeb 4.5+, iCab 3+, Tkhtml Hv3 and Escape 4 do not detect right clicks.
+    * Opera users can choose to allow scripts to detect right clicks - disabled by default.
+    * WebTV, iCab 2-, NetFront 3.3- and Clue browser do not pass information about mouse buttons.
+    * WebTV cannot detect mousedown or mouseup events.
+    * OmniWeb 4.2- does not provide any information about events.
+    * I am unsure of the capabilities of NetBox, iPanel MicroBrowser and OpenTV here.
+
+This example gives two methods for detecting then handling events with an link element. One is written using the standard HTML syntax and one of which is written using JavaScript syntax. It will extract the mouse button that triggered the event. Note: this may not work with 'click' events.
+
+There is also the oncontextmenu event that fires in a few browsers when a user activates their context menu, but that is not the same thing, since it also covers Ctrl+Click on Macs, and the context menu key on Windows and Linux/UNIX (and is also not very well supported).
+
+The mouse button is passed using either the which or button properties. With 'which', 1 is left button, 2 is middle button, 3 is right button. With button, the standard says that 0 is left button, 1 is middle button, 2 is right button, but in IE compatible browsers, 1 is left button, 4 is middle button, 2 is right button. Escape/Evo 5 uses a totally different numbering system, 1 is left button, 2 is middle button, 0 is right button - I suggest you ignore Escape/Evo.
+
+The only time you should ever detect a button is when you want, for example, to create a drag-drop type effect, and you want to ensure they are using the left (normal dragging) button. You should never abuse it to break the user's context menu, as that will only make your site inaccessible, and annoying for your users, and is not reliable anyway.
+
+The event registration attribute (onmouseup="etc.") is equivalent to an event handler function, and has access to all the usual function information, such as the attributes collection. It can get a bit messy writing all of the button detection code in there, so I want to pass it to the main handler function. Remember that in DOM compatible browsers, the first argument is the event, so I need to pass that too. I also want the handler to have access to the element that triggered the event so I must pass that.
+
+<script type="text/javascript">
+
+//link and form elements do not need to be told to capture.
+//Using the JavaScript syntax, we have to wait for the relevant
+//part of the page to load before telling it to detect the event
+//This is easiest done with a load event listener
+window.onload = function () { document.links[0].onmousedown=alertBut; }
+
+function alertBut( e, evElement ) {
+  if( !e ) {
+    if( window.event ) {
+      //Internet Explorer
+      e = window.event;
+    } else {
+      //total failure, we have no way of referencing the event
+      return;
+    }
+  }
+  if( typeof( e.which ) == 'number' ) {
+    //Netscape compatible
+    e = e.which;
+  } else if( typeof( e.button ) == 'number' ) {
+    //DOM
+    e = e.button;
+  } else {
+    //total failure, we have no way of obtaining the button
+    return;
+  }
+  if( !evElement ) { evElement = this; }
+  /* 'this' will exist if I have used object.onEventName = alertBut;
+  If I have passed evElement from the onmouseup attribute,
+  'this' will refer to window */
+  window.alert( evElement + ' was clicked with button ' + e );
+}
+
+</script>
+
+<a onmouseup="alertBut(arguments[0],this)" href="whatever">
+
+
+</div>
+<br />
+</body>
+</html>

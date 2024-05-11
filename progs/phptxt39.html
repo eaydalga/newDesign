@@ -1,0 +1,766 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP - Sınıflar ve Nesneler (PHP 4) </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="javascript:myvoid();" class="nav">Başlarken</a>
+               <a href="phptxt11.html" class="sub">ilk Anlatım</a>
+               <a href="javascript:myvoid();" class="nav">Kurulumlar</a>
+               <a href="phptxt21.html" class="sub">Genel Kurulum</a><br />
+               <a href="phptxt22.html" class="sub">UNIX Kurulumu</a><br />
+               <a href="phptxt23.html" class="sub">OSX Kurulumu</a><br />
+               <a href="phptxt24.html" class="sub">Wins Kurulumu</a>
+               <a href="javascript:myvoid();" class="nav">Dil Kuralları</a>
+               <a href="phptxt31.html" class="sub">Temel yazım</a><br />
+               <a href="phptxt32.html" class="sub">Tipler</a><br />
+               <a href="phptxt33.html" class="sub">Değişkenler</a><br />
+               <a href="phptxt34.html" class="sub">Değişmezler</a><br />
+               <a href="phptxt35.html" class="sub">Deyimler</a><br />
+               <a href="phptxt36.html" class="sub">İşlemler</a><br />
+               <a href="phptxt37.html" class="sub">Kontrol Yapıları</a><br />
+               <a href="phptxt38.html" class="sub">İşlevler</a><br />
+               <a href="phptxt39.html" class="sub">Sınıflar Nesneler</a><br />
+               <a href="phptxt391.html" class="sub">Ad uzayı</a><br />
+               <a href="phptxt392.html" class="sub">İstisnalar</a>
+               <a href="javascript:myvoid();" class="nav">Güvenlik</a>
+               <a href="phptxt41.html" class="sub">Giriş</a><br />
+               <a href="phptxt42.html" class="sub">Genel bilgi</a><br />
+               <a href="phptxt43.html" class="sub">CGI iklisi</a><br />
+               <a href="phptxt44.html" class="sub">Apache modülü</a><br />
+               <a href="phptxt45.html" class="sub">Dosyadüzeni</a><br />
+               <a href="phptxt46.html" class="sub">Veritabanı</a><br />
+               <a href="phptxt47.html" class="sub">Hatalar</a><br />
+               <a href="phptxt48.html" class="sub">Diğerleri</a><br />
+               <a href="javascript:myvoid();" class="nav">Özellikler</a>
+               <a href="phptxt51.html" class="sub">HTTP Şifresi</a><br />
+               <a href="phptxt52.html" class="sub">Çerezler</a><br />
+               <a href="phptxt53.html" class="sub">Oturumlar</a><br />
+               <a href="phptxt54.html" class="sub">XForm</a><br />
+               <a href="phptxt55.html" class="sub">DosyaYükleme</a><br />
+               <a href="phptxt56.html" class="sub">UzakDosyalar</a><br />
+               <a href="phptxt57.html" class="sub">Bağlantılar</a><br />
+               <a href="phptxt58.html" class="sub">VTBağlantısı</a>
+               <font color="#8e9ccb"><h3>Gelişmiş</h3></font>
+               <a href="phptxt7.html" class="nav">Php Kökü</a>
+               <a href="phptxt8.html" class="nav">Ekler</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">2 Şubat 2008</span></div>
+<div id="bdy" class="yazi">
+<h2>Sınıflar ve Nesneler (PHP 4)</h2>
+
+<h3>Sınıf (class)</h3>
+
+Bir sınıf, değişkenlerle çalışan  değişkenlerin ve işlevlerin birikimidir.  Değişkenler 'var' ile tanımlanır ve işlevler 'function' ile. Bir sınıf ise aşağıdaki yazım kuralıyla tanımlanır:
+<pre>
+&lt;?php
+class Cart {
+    var $items;  // Alış veriş sepetindeki ürünler
+
+    // $artnr üründen $num ürünü sepete ekle
+
+    function add_item($artnr, $num) {
+        $this-&gt;items[$artnr] += $num;
+    }
+
+    // $ârtnr üründen $num ürünü sepetten çıkar
+
+    function remove_item($artnr, $num) {
+        if ($this-&gt;items[$artnr] &gt; $num) {
+            $this-&gt;items[$artnr] -= $num;
+            return true;
+        } elseif ($this-&gt;items[$artnr] == $num) {
+            unset($this-&gt;items[$artnr]);
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+?&gt;
+</pre>
+Bu tanım Cart adlı sınıfı (class) belirtir. İçinde sepetteki ürünler dizisi vardır ve işlev de sepete ekleneck ürünlerle çıkarılacak ürünleri tanımlamak için kullanır.
+<h3>UYARI</h3>
+
+Bir sınıf tanımını birden çok dosyaya bölemezsiniz. Aynı zamanda bir sınıf tanımını birden çok PHP bloğuna bölemezsiniz. Aşağıdaki çalışmaz:
+<pre>
+&lt;?php
+class test {
+?&gt;
+&lt;?php
+    function test() {
+        print 'OK';
+    }
+}
+?&gt;
+</pre>
+ama aşağıdakine izin verilir:
+<pre>
+&lt;?php
+class test {
+    function test() {
+        ?&gt;
+        &lt;?php
+        print 'OK';
+    }
+}
+?&gt;
+</pre>
+Aşağıdaki dikkat edilecek notlar PHP 4 içindir.
+<h3>Dikkat</h3>
+
+stdClass adı Zend tarafından içsel işlemlerde kullanılır ve saklı sözcüktür. PHP içinde bu adla bir sınıf tanımı olamaz.
+<h3>Dikkat</h3>
+
+__sleep ve __wakeup adlı işlevler PHP sınıflarında tılsımlıdır. Sınıfların hiç birinde bu adlarla işlevleriniz olamaz ama onlara tılsımlı özellikler eklerseniz kullanabilirsiniz.
+<h3>Dikkat</h3>
+
+PHP __ ile başlayan tüm işlev adlarını tılsımlı kabul eder. Eğer işlevlerinizde tılsımlı özellikler olsun itemiyorsanız adlarını __ ile başlatmayın.
+<br /><br />
+PHP 4 içinde, "var" değişkenleri için değişmez ilklemelere izin verilir. Bir değişkeni değişmez olmayan bir değerle ilklemek için ilkleme işlevine gereksiniminiz olacaktır. Bu işlev, bir nesne yapılandırıldığında otomatik çağrılır. Bu tür işlevlere, yapılandırma işlevi denir.
+<pre>
+&lt;?php
+class Cart {
+    /* Bunların hiç biri PHP 4 altında çalışmaz */
+    var $todays_date = date("Y-m-d");
+    var $name = $firstname;
+    var $owner = 'Fred ' . 'Jones';
+    /* değişmez değerleri olan dizi. */
+    var $items = array("VCR", "TV");
+}
+
+/* Bu işin nasıl yapılacağını gösterir. */
+class Cart {
+    var $todays_date;
+    var $name;
+    var $owner;
+    var $items = array("VCR", "TV");
+
+    function Cart() {
+        $this-&gt;todays_date = date("Y-m-d");
+        $this-&gt;name = $GLOBALS['firstname'];
+        /* v.b. . . */
+    }
+}
+?&gt;
+</pre>
+Sınıflar türlerdir. Yani gerçek değişkenlerin mavi basımlarıdır. İstenen türde yeni bir işlemler bir değişken yaratmak için kullanırsınız.
+<pre>
+&lt;?php
+$cart = new Cart;
+$cart-&gt;add_item("10", 1);
+
+$another_cart = new Cart;
+$another_cart-&gt;add_item("0815", 3);
+?&gt;
+</pre>
+Bu her ikisinin sınıfı Cart olan $cart ve $another_cart adlı nesnelerini yaratır. $cart nesnesinin add_item() işlevi ürün kodu 10 olan bir ürünün $cart nesnesine eklenmesi için kullanılır. $another_cart adlı nesneye 0815 numaraları üründen 3 tanesi eklenmiştir.
+<br /><br />
+Hem $cart hem de $another_cart için add_item(), remove_item() işlevi ve değişken ürün sayıları vardır. Bunlar seçilmiş işlev ve değişkenlerdir. Nesneleri aslında dosya sistemi içindeki dosya yolu (klasör) gibi de düşünebilirsiniz. Bir dosya sisteminde README.TXT adlı iki dosya kullanabilirsiniz ama her ikisi de değişik klasörlerde olmalıdır. Dosyalar erişmek için dosya yolunun tümünü girmeniz gerekebilir. Aynı biçimde buradaki işlevlere erişmek için tüm adını girmeniz gerekir. PHP deyimlerine göre üst düzey dosya yolu, evrensel ad alanı ve dosya yolu ayıracıysa -&gt; işaretleridir. Buna göre $cart-&gt;items ve $another_cart->items iki değişik değişken demektir. Burada dikkat edilecek konu değişkenin $cart-&gt;items olduğu $cart-&gt;$items olmadığıdır. Bunun anlamı PHP değişken adlarında yalnız bir dolar işareti kullanılır.
+<pre>
+&lt;?php
+// doğru, bir tane $
+$cart-&gt;items = array("10" =&gt; 1); 
+
+// geçersiz, çünkü $cart-&gt;$items $cart-&gt;"" olur
+$cart-&gt;$items = array("10" =&gt; 1);
+
+// doğru, istenilen olmuş olmayabilir de
+// $cart-&gt;$myvar $cart-&gt;items olur
+$myvar = 'items';
+$cart-&gt;$myvar = array("10" =&gt; 1);  
+?&gt;
+</pre>
+Sınıf tanımı Cart yazıldığında, program içinde nesneye hangi adla erişileceğini bilmiyor olabilirsiniz. Nesnenin adı $cart mı olacak yoksa $another_cart mı olacak belirsizdir ya da sonra bir başka şey de olabilir. Bu nedenle Cart sınıfı içinde $cart-&gt;items kullanamazsınız. Yerine bir sınıfın içinden tüm işlevlerine ve değişkenlerine erişebilmek için $this adlı değişkenimsi kullanabilirsiniz. Anlamı 'kendi nesnem' ya da 'o anki nesne' olur. Buna göre '$this->items[$artnr] += $num' yazıldığında, "$num sayısını benim items dizimdeki $artnr sayacına ekle" anlaşılır.
+<br /><br />
+    Not: Eğer yöntem sunucuda statik olarak çağrılıyorsa $this değişkenimsi çoğunlukla tanımlanmamış olabilir. Ama bu çok kesin bir kural sayılmaz: Eğer yöntem bir başka nesneden statik olarak çağrılırsa, $this değişkenimsi tanımlanmış olur. Burada $this değeri çağaran nesnedir. Aşağıdaki örnekte gösterilmiştir:
+<pre>
+    &lt;?php
+    class A
+    {
+        function foo()
+        {
+            if (isset($this)) {
+                echo '$this tanımlandı (';
+                echo get_class($this);
+                echo ")\n";
+            } else {
+                echo "\$this tanımlanmadı.\n";
+            }
+        }
+    }
+
+    class B
+    {
+        function bar()
+        {
+            A::foo();
+        }
+    }
+
+    $a = new A();
+    $a->foo();
+    A::foo();
+    $b = new B();
+    $b->bar();
+    B::bar();
+    ?&gt;
+</pre>
+Yukarıdaki örneğin çıktısı şöyledir:
+<pre>
+    $this tanımlandı (a)
+    $this tanımlanmadı.
+    $this tanımlandı (b)
+    $this tanımlanmadı.
+</pre>
+
+    Not: sınıfları ve nesneleri ellemek için birçok güzel işlev vardır. Bu işlevlere bakmak isteyebilirsiniz.
+
+<hr>
+
+<h3>Uzantılar (extends)</h3>
+
+Çoğu zaman bir sınıfa benzeyen, aynı değişkenlerden oluşan bir başka sınıfın tanımı yapılmak istenir. Aslında soysal bir sınıf tanımlamak ve onu diğer projelerinizde de kullanmak ve gereksinmeye göre bu sınıfa değişiklikler uyarlayarak projelerde yararlanmak kullanışlıdır. Okuyuculara yardımcı olmak için sınıflar, başka sınıfların uzantıları olurlar denebilir. Genişletilen ya da türetilen sınıflar temel sınıfın tüm değişkenlerini ve işlevlerini içerir ve yeni eklenenleri de sınıf tanımında bulundurur (buna kalıtım dense de ölen hiçbir şey yoktur). Bir sınıftan bazı değişkenleri çıkartmak olanağı yoktur. Genişletilen sınıf, temel alınan tek sınıfın herşeyini içerir. Birden çok sınıfın kalıtımı olmaz. Sınıflar 'extends' anahtar sözcüğüyle uzantı olurlar.
+<pre>
+&lt;?php
+class Named_Cart extends Cart {
+    var $owner;
+  
+    function set_owner ($name) {
+        $this-&gt;owner = $name;
+    }
+}
+?&gt;
+</pre>
+Named_Cart adlı bir sınıfı tanımlanır. Onun içinde Cart değişkenlerine ve işlevlerine ek olarak $owner değişkeni ve ek işlev olarak set_owner() bulunur. named_cart yaratma işlemini normal yollardan yapabilirsiniz. Buna rağmen cart işlevlerini hala named_cart içinde kullanabilirsiniz:
+<pre>
+&lt;?php
+$ncart = new Named_Cart;    // named_cart yarat
+$ncart-&gt;set_owner("kris");  // Onu adlandır
+print $ncart-&gt;owner;        // cart owner (sepet sahibi) adını yazdır
+$ncart-&gt;add_item("10", 1);  // (sepetten alınan kalıtımsal işlevlik)
+?&gt;
+</pre>
+Buna "üst-alt" ilişkisi de denir. Bir sınıf yaratırsınız, onun üstünü (babasını) ve 'extends' ile uzantısını yeni bir sınıf olarak üstünü (babayı) taban alıp yaratırsınız. Bu çocuk sınıfı kullanır, buna dayanarak bir başka çocuk sınıf yaratabilirsiniz.
+<br /><br />
+    Not: Sınıflar kullanılmadan önce kullanılmalıdır. Eğer Named_Cart sınıfını Cart sınıfının uzantısı olmasını isterseniz önce Cart sınıfını tanımlamalısınız. Eğer adı Yellow_named_cart olan bir başka sınıfı Named_Cart sınıfına dayanark tanımlamak isterseniz Named_Cart sınıfı daha önce tanımlamış olmalısınız. Kısa kesersek, sınıfların yaratılmasındaki sırala önemlidir.
+<hr>
+
+<h3>Yapıcılar (Constructors)</h3>
+
+Yapıcılar bir sınıf içinde tanımlanan işlevlerdir. O sınıfın bir kopyası 'new' ile yaratılırken yapıcılar otomatik olarak çağrılırlar. Sınıfla aynı adı taşıyan işleve yapıcı (constructor) adı verilir. Eğer sınıfın bir yapıcısı yoksa, temel alınan sınıfın yapıcısı kullanılır (eğer varsa).
+<pre>
+&lt;?php
+class Auto_Cart extends Cart {
+    function Auto_Cart() {
+        $this-&gt;add_item("10", 1);
+    }
+}
+?&gt;
+</pre>
+
+Bu örnek Auto_Cart adlı bir sınıf tanımlar. O da Cart sınıfı ve ilklemeyi yapan yapıcıdan oluşur. İlkleme her yeni Auto_Cart için ürün numarası "10" olan bir mal yaratır. Yapıcılar parametreler alabilir ve bu parametreler seçenekli olabilir. Bu da onları çok daha kullanışlı yapar. Sınıfı parametresiz yapabilmek için yapıcının tüm parametreleri varsayılan değerle tanımlanmış seçimli parametreler olmalıdır.
+<pre>
+&lt;?php
+class Constructor_Cart extends Cart {
+    function Constructor_Cart($item = "10", $num = 1) {
+        $this-&gt;add_item ($item, $num);
+    }
+}
+ 
+// Aynı sıkıcı şeylerin alış verişi
+$default_cart = new Constructor_Cart;
+ 
+// Gerçek alış veriş...
+$different_cart = new Constructor_Cart("20", 17);
+?&gt;
+</pre>
+
+You also can use the @ operator to mute errors occurring in the constructor, e.g. @new.
+@ işlemini yapıcılarda oluşan hataları saklamak için kullanabilirsiniz (Örneğin @new biçiminde).
+<pre>
+&lt;?php
+class A
+{
+    function A()
+    {
+        echo "A için bir yapıcıyım.<br />\n";
+    }
+
+    function B()
+    {
+        echo "A sınıfı içinde tanımlanmış B adlı normal bir işlevim.<br />\n";
+        echo "A içinde bir yapıcı değilim.<br />\n";
+    }
+}
+
+class B extends A
+{
+}
+
+// Bu B() işlevini bir yapıcı olarak çağırır
+$b = new B;
+?&gt;
+</pre>
+A sınıfı içindeki B() işlevi, B sınıfında birden yapıcı oluverir. Halbuki A sınıfı içinde böyle bir görevi olabileceği hiç düşünülmemişti. PHP 4 işlevin B sınıfı içinde tanımlanmış mı olduğuna ya da kalıt olduğuna pek bakmaz.
+<h3>DİKKAT</h3>
+
+PHP 4 temel sınıfın yapıcılarını türetilmiş sınıfın bir yapıcısından otomatik olarak çağırmaz. Bu tür yapıcıları çağırmak sizin sorumluluğunuzdadır.
+<br /><br />
+Yıkıcılar (destructor) nesne silindiğinde (unset() ya da kapsam dışına çıkılınca) otomatik olarak çağrılan bir işlevlerdir. PHP içinde yıkıcılar yoktur. Siz yıkıcıların pekçok etkilerini benzetmek için register_shutdown_function() kullanabilirsiniz.
+<hr>
+
+<h3>Kapsam Çözüm İşlemi (Scope Resolution Operator) (::)</h3>
+<h3>Dikkat</h3>
+
+Aşağıdakiler PHP 4 ve sonrakiler içindir.
+<br /><br />
+Bazen temel sınıflar içindeki işlevlere ve değişkenlere erişim için ya da daha değişken tanımları bile olmayan sınıfların işlevlerine erişim için :: işlemi kullanılır.
+<pre>
+&lt;?php
+class A {
+    function example() {
+        echo "Ben asıl işlevim A::example().<br />\n";
+    }
+}
+
+class B extends A {
+    function example() {
+        echo "Ben yeniden tanımlanmış işlevim B::example().<br />\n";
+        A::example();
+    }
+}
+
+// A sınıfının nesnesi yoktur.
+// Aşağıdakiler yazdırılır
+//   Ben asıl işlevim A::example().
+A::example();
+
+// B sınıfı için nesne yarat.
+$b = new B;
+
+// Aşağıdakiler yazdırılır
+//   Ben yeniden tanımlanmış işlevim B::example().
+//   Ben asıl işlevim A::example().
+$b-&gt;example();
+?&gt;
+</pre>
+
+Yukarıdaki örnek A sınıfı içinde example() işlevini çağırır, ama A sınıfının bir nesnesi yoktur. Öyle ki $a-&gt;example() ya da benzeri olamaz. Ama yerine 'sınıf işlevi' olarak example() çağrılır. Yani sınıfın kendi işlevi olarak, o sınıfın nesnesi olarak değil.
+<br /><br />
+Sınıf işlevleri vardır, ama sınıf değişkenleri yoktur. Aslında, çağırma anında hiç nesne yoktur. Buna göre sınıf işlevi nesne değişkenlerini kullanmayabilir (ama yerel ve evrensel değişkenler kullanabilir) ve $this de kullanamabilir.
+<br /><br />
+Yukarıdaki örnekte, B sınıfı example() işlevini yeniden tanımlar. A sınıfı içindeki ilk tanım gölgelenir ve artık yoktur (eğer özellikle example() uyarlanamsını :: işlemini kullanarak göstermezse geçerlidir). Aslında parent::example() yazarak (A::example() yazmak gibi) bunu yapabilirsiniz.
+<br /><br />
+Bu içeriğe göre, o an nesne ve nesne değişkenleri bulunur. Böylece nesne işlevinin içinden kullanılırsa $this ve nesne değişkeni geçerli olur.
+<hr>
+
+<h3>Baba (parent)</h3>
+
+Kendinizi temel sınıflardaki işlev ve değişkenlere erişen kodlar yazarken bulabilirsiniz. Eğer türettiğiniz sınıf, temel sınıftaki kodun iyileştirilmesi ya da özelleştirilmesiy, bu özellikle doğru bir yazılımdır.
+<br /><br />
+Temel sınıfın değişmez adını kodunuzda kullanmak yerine, özel isim "parent" kullanılmalıdır. Bu da, sizin sınıfın tanım uzantısı içinde kullanılan temel sınıfın adına erişimi belirtir. Bu şekille kullanarak temel sınıfın adını bir yerden daha çok yerde kullanmayı önlemiş olursunuz. Sizin kalıtım ağacınız uyarlamada değişebilir mi? Değişim sizin sınıfın uzantı değişkiliğini uygulayarak elde edilir.
+<pre>
+&lt;?php
+class A {
+    function example() {
+        echo "Ben A::example() ve temel işlevselliği sağlarım.<br />\n";
+    }
+}
+
+class B extends A {
+    function example() {
+        echo "Ben B::example() ve ek işlevselliği sağlarım.<br />\n";
+        parent::example();
+    }
+}
+
+$b = new B;
+
+// Bu B::example() çağırır, o da A::example() çağırır.
+$b-&gt;example();
+?&gt;
+</pre>
+<hr>
+
+<h3>Nesnelerin Dizilmesi (Serializing objects) - Oturumlarda nesneler (objects in sessions)</h3>
+
+    Not: PHP 3 içinde, nesneler kendi sınıf ilişkilerini dizilim ve dizilimin bozuluşu işleminde kaybederler. Sonuç değişken nesne türündendir ama, ne sınıfı ne de yöntemi vardır. Yani biraz kullanışsızdır (komik yazımı olan bir diziye benzer).
+
+<h3>Dikkat</h3>
+
+Aşağıdaki bilgi PHP 4 ve sonrası için geçerlidir.
+<br /><br />
+Herhangi bir değerin bayt akıcı gösterim biçimindeki bir yazı dizisi serialize() (dizilme) ile döndürür. Asıl değişken değerini yeniden yaratmak için unserialize() (gerisarma) kullanılabilir. serialize() (dizilme) bir nesne saklamak için kullanılınca, bir nesnedeki tüm değişkenleri de saklar. Yalnız sınıfın adı saklanırken nesne içindeki işlevler saklanamaz.
+<br /><br />
+bir nesneyi unserialize() (gerisarma) yapabilmek için, o nesnenin sınıfının tanımlanmış olması gerekir. Yani, eğer "page1.php" üzerinde A sınıfının nesnesi $a varsa ve 'serialize' (dizilme) yapılmışsa, A sınıfını gösteren bir yazı dizisi elde edersiniz ve bu yazı dizisi $a içindeki tüm değişkenlerin değerlerini içerir. Eğer bunu 'page2.php' içinde gerisarmak (unserialize) isterseniz A sınıfının tanımı page2.php içinde olmalıdır. Bunu A sınıfı tanımını bir dosyada bulundurmak ve "include" işlemiyle eklemek biçimininde örnekleyebiliriz. "include" işlemi her iki dosyada da yer almalıdır (page1.php ve page2.php).
+<pre>
+&lt;?php
+// classa.inc:
+  
+  class A {
+      var $one = 1;
+    
+      function show_one() {
+          echo $this->one;
+      }
+  }
+  
+// page1.php:
+
+  include("classa.inc");
+  
+  $a = new A;
+  $s = serialize($a);
+  // store $s somewhere where page2.php can find it.
+  $fp = fopen("store", "w");
+  fwrite($fp, $s);
+  fclose($fp);
+
+// page2.php:
+  
+  // this is needed for the unserialize to work properly.
+  include("classa.inc");
+
+  $s = implode("", @file("store"));
+  $a = unserialize($s);
+
+  // now use the function show_one() of the $a object.  
+  $a-&gt;show_one();
+?&gt;
+</pre>
+
+Eğer oturumlar kullanıyorsanız ve session_register() nesneleri kayıt etmek için kullanıyorsanız, bu nesneler her PHP sayfasının sonunda otomatik olarak dizilir. Gerisarılması ise yine otomatik olarak yeni sayfada yapılır. Bunun anlamı, belirtilen nesneler bir kez oturum içine girmişlerse, herhangi bir sayfanızda görünürler. 
+<br /><br />
+Sizin tüm sayfalarınıza, sınıfların hepsini tüm sayfalarınızda kullanmasanız bile, sınıf tanımları kayıt edilmiş nesneleri eklemeniz kuvvetle önerilir. Eğer kullanmaz ve bir nesne sınıf tanımı olmadan gerisarılırsa, sınıf ilişkisini kaybeder ve stdClass sınıfının bir nesnesi olur. İşlevleri olmadığından oldukça kullanışsız kalır.
+<br /><br />
+Yani yukarıdaki örnekteki gibi $a session_register("a") ile oturumun bir parçası olur. Bu durumda tüm sayfalarınızda classa.inc dosyasını eklemeniz gerekir (yalnız page1.php ve page2.php değil).
+<hr>
+
+<h3>Tılsımlı işlevler (magic functions) __sleep ve __wakeup</h3>
+
+dizilme (serialize()) tılsımlı adı __sleep olan bir işlevin sınıfta olup olmadığını araştırır. Eğer varsa, o işlev herhangi bir dizilmeden önce çalıştırılır. Nesneyi temizleyebilir ve dizilecek o nesnenin tüm değişkenlerinin adlarını içeren bir dizi döndürür. Eğer yöntem hiçbir şey döndürmezse NULL dizilir ve E_NOTICE hatası verilir.
+<br /><br />
+Beklenen __sleep kullanımı, bekleyen veriyi onaylamak (örneğin veri tabanı için) ya da benzeri temizlik işlemleri yapılır. Aynı zamanda kocaman nesnelerde tümüyle saklanamaması söz konusu olduğunda bu işlev kullanışlı olur.
+<br /><br />
+Tersine, gerisarma (unserialize()) tılsımlı adı __wakeup olan işlev olup olmadığına bakar. Eğer varsa, o nesnenin var olabilecek tüm kaynaklarını yeniden yapılandırır.
+<br /><br />
+Beklenen __wakeup kullanımı, dizilme (serialize()) sırasında kaybolmuş olabilecek olan  herhangi bir veri tabanı bağlantısını yeniden oluşturur ve yeniden ilkleme işlemleri yapar.
+<hr>
+
+<h3>Yapıcılar içindeki göstergeler</h3>
+
+Yapıcılar içinde göstergeler yaratmak karmaşık sonuçlara neden olabilir. Bu bölüm sorunları gidermek için yararlıdır.
+<pre>
+&lt;?php
+class Foo {
+    function Foo($name) {
+        // evrensel dizi $globalref içinde bir gösterge yarat
+        global $globalref;
+        $globalref[] = &$this;
+        // geçirilen değere 'name' ata
+        $this-&gt;setName($name);
+        // ve onu yazdır
+        $this-&gt;echoName();
+    }
+
+    function echoName() {
+        echo "<br />", $this-&gt;name;
+    }
+ 
+    function setName($name) {
+        $this-&gt;name = $name;
+    }
+}
+?&gt;
+</pre>
+
+Şimdi kopya = işlem kullanarak yaratılan $bar1 ve gösterge =& işlem ile yaratılan $bar2 arasındaki farkı karşılaştıralım.
+<pre>
+&lt;?php
+$bar1 = new Foo('Yapıcıda ata');
+$bar1-&gt;echoName();
+$globalref[0]-&gt;echoName();
+
+/* output:
+Yapıcıda ata
+Yapıcıda ata
+Yapıcıda ata */
+
+$bar2 =& new Foo('Yapıcıda ata');
+$bar2-&gt;echoName();
+$globalref[1]-&gt;echoName();
+
+/* çıktı:
+Yapıcıda ata
+Yapıcıda ata
+Yapıcıda ata */
+?&gt;
+</pre>
+
+Görünüşte aralarında fark yoktur, ama aslında çok önemli bir tane vardır: $bar1 ve $globalref[0] eşitlenmemiştir. Aynı değişken değildirler. Çünkü "new" varsayılan olarak gösterge döndürmez ama yerine bir kopya döndürür.
+<br /><br />
+    Not:
+Gösterge yerine kopya döndürürken verim kaybı olmaz (çünkü PHP 4 ve üzeri gösterge sayacı kullanırlar). Tersine kopyalarla çalışmaz, gösterge yerine daha iyi olabilir. Çünkü gösterge yaratmak zaman alabilir ama kopya yaratmak görünürde zaman kaybı oluşturmaz. Eğer hiçbiri büyük dizi ya da nesne ve biri değişince diğerleri de değişiyorsa, bunları göstergeyle kullanarak değiştirmek daha uygun olur.
+<br /><br />
+Yukarıda ne yazıldığını kanıtlamak için aşağıdaki koda bakalım:
+<pre>
+&lt;?php
+// Şimdi ad değiştirilecek. Ne bekliyorsunuz?
+// $bar1 ve $globalref[0] de adlarını değişitir sanırsınız...
+$bar1-&gt;setName('dışarıdan atandı');
+
+// daha önce de söylendiği gibi durum böyle değil.
+$bar1-&gt;echoName();
+$globalref[0]-&gt;echoName();
+
+/* çıktı:
+dışarıdan atandı
+Yapıcıda ata */
+
+// $bar2 ve $globalref[1] arasındaki farka bakalım
+$bar2-&gt;setName('dışarıdan atandı');
+
+// Sanslıyız ki bular eşit değildir. Aynı değişkendir
+// böylece, $bar2-&gt;name ve $globalref[1]-&gt;name aynı olur.
+$bar2-&gt;echoName();
+$globalref[1]-&gt;echoName();
+
+/* çıktı:
+dışarıdan atandı
+dışarıdan atandı */
+?&gt;
+</pre>
+
+Son bir örnek daha:
+<pre>
+&lt;?php
+class A {
+    function A($i) {
+        $this-&gt;value = $i;
+        // Burada niye bir göstergeye gerek olmadığını bulmaya çalışın
+        $this-&gt;b = new B($this);
+    }
+
+    function createRef() {
+        $this-&gt;c = new B($this);
+    }
+
+    function echoValue() {
+        echo "&lt;br /&gt;","class ",get_class($this),': ',$this-&gt;value;
+    }
+}
+
+
+class B {
+    function B(&gt;$a) {
+        $this-&gt;a = &gt;$a;
+    }
+
+    function echoValue() {
+        echo "&lt;br /&gt;","class ",get_class($this),': ',$this-&gt;a-&gt;value;
+    }
+}
+
+// Burada basit bir kopya kullanmak *-işaretli satırda istenmeyen
+// bir sonuca dönüştüğünü anlamaya çalışın
+$a =& new A(10);
+$a-&gt;createRef();
+
+$a-&gt;echoValue();
+$a-&gt;b-&gt;echoValue();
+$a-&gt;c-&gt;echoValue();
+
+$a-&gt;value = 11;
+
+$a-&gt;echoValue();
+$a-&gt;b-&gt;echoValue(); // *
+$a-&gt;c-&gt;echoValue();
+
+?&gt;
+</pre>
+Yukarıdaki örneğin çıktısı:
+<pre>
+class A: 10
+class B: 10
+class B: 10
+class A: 11
+class B: 11
+class B: 11
+</pre>
+
+<hr>
+
+<h3>Nesneleri Karşılaştırma</h3>
+
+PHP 4 içinde, nesneler çok basit biçimde karşılaştırılır. Yani: Eğer aynı nitelikleri ve değerleri taşırlarsa iki nesne kopyası eşit sayılır. Aynı koşullar özdeş işlemini (===) kullanınca da aynı kurallar uygulanır.
+<br /><br />
+Eğer aşağıdaki kodu çalıştırırsak:
+<br /><br />
+PHP 4 içinde nesne karşılaştırması örneği
+<pre>
+&lt;?php
+function bool2str($bool) {
+    if ($bool === false) {
+            return 'FALSE';
+    } else {
+            return 'TRUE';
+    }
+}
+
+function compareObjects(&$o1, &$o2) {
+    echo 'o1 == o2 : '.bool2str($o1 == $o2)."\n";
+    echo 'o1 != o2 : '.bool2str($o1 != $o2)."\n";
+    echo 'o1 === o2 : '.bool2str($o1 === $o2)."\n";
+    echo 'o1 !== o2 : '.bool2str($o1 !== $o2)."\n";
+}
+
+class Flag {
+    var $flag;
+
+    function Flag($flag=true) {
+            $this-&gt;flag = $flag;
+    }
+}
+
+class SwitchableFlag extends Flag {
+
+    function turnOn() {
+        $this-&gt;flag = true;
+    }
+
+    function turnOff() {
+        $this-&gt;flag = false;
+    }
+}
+
+$o = new Flag();
+$p = new Flag(false);
+$q = new Flag();
+
+$r = new SwitchableFlag();
+
+echo "Kopyaları aynı parametreyle yaratılanları karşılaştırma\n";
+compareObjects($o, $q);
+
+echo "\nDeğişik parametrelerle yaratılan kopyaları karşılaştırma\n";
+compareObjects($o, $p);
+
+echo "\nÜst (baba) sınıfın bir kopyasını alt sınıflardan biriyle karşılaştırma\n";
+compareObjects($o, $r);
+?&gt;
+</pre>
+Yukarıdaki örneğin çıktısı:
+
+<pre>
+Kopyaları aynı parametreyle yaratılanları karşılaştırma
+o1 == o2 : TRUE
+o1 != o2 : FALSE
+o1 === o2 : TRUE
+o1 !== o2 : FALSE
+
+Değişik parametrelerle yaratılan kopyaları karşılaştırma
+o1 == o2 : FALSE
+o1 != o2 : TRUE
+o1 === o2 : FALSE
+o1 !== o2 : TRUE
+
+Üst (baba) sınıfın bir kopyasını alt sınıflardan biriyle karşılaştırma
+o1 == o2 : FALSE
+o1 != o2 : TRUE
+o1 === o2 : FALSE
+o1 !== o2 : TRUE
+</pre>
+
+Yukarıdaki karşılaştırma kurallarına göre bu çıktı beklenen sonuçtur. Yalnız nitelikleri aynı değerler olan ve aynı sınıftan olan kopyalar eşit ve özdeştir.
+<br /><br />
+Nesne karşılaştırması olan durumlarda bile, aynı karşılaştırma kuralları uygulanır. Aşağıdaki örnekte Flag nesnesinin ilişkili dizisi olarak "container" sınıfı yaratılır.
+<br /><br />
+PHP 4 içinde Karmaşık nesne karşılaştırması
+<pre>
+&lt;?php
+class FlagSet {
+    var $set;
+
+    function FlagSet($flagArr = array()) {
+        $this-&gt;set = $flagArr;
+    }
+
+    function addFlag($name, $flag) {
+        $this-&gt;set[$name] = $flag;
+    }
+
+    function removeFlag($name) {
+        if (array_key_exists($name, $this-&gt;set)) {
+            unset($this-&gt;set[$name]);
+        }
+    }
+}
+
+
+$u = new FlagSet();
+$u-&gt;addFlag('flag1', $o);
+$u-&gt;addFlag('flag2', $p);
+$v = new FlagSet(array('flag1'=&gt;$q, 'flag2'=&gt;$p));
+$w = new FlagSet(array('flag1'=&gt;$q));
+
+echo "\nKarmaşık nesneler u(o,p) ve v(q,p)\n";
+compareObjects($u, $v);
+
+echo "\nu(o,p) ve w(q)\n";
+compareObjects($u, $w);
+?&gt;
+</pre>
+Yukarıdaki örneğin çıktısı:
+<pre>
+Karmaşık nesneler u(o,p) ve v(q,p)
+o1 == o2 : TRUE
+o1 != o2 : FALSE
+o1 === o2 : TRUE
+o1 !== o2 : FALSE
+
+u(o,p) ve w(q)
+o1 == o2 : FALSE
+o1 != o2 : TRUE
+o1 === o2 : FALSE
+o1 !== o2 : TRUE
+</pre>
+<hr>
+<a href="php5txt39.html" class="ynav">Sınıflar ve Nesneler (PHP 5)</a>
+<br />
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

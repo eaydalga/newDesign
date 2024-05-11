@@ -1,0 +1,382 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Hyperlink Preprocessor </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">12 Mart 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>HTTP</h2>
+<h3>Giriş</h3>
+
+HTTP uzantısı iPHP'nin en önemli uygulaması için güçlü ve uygun işlevsel özellikleri olan bir küme sağlamayı amaçlar.
+<br /><br />
+HTTP URL adreslerini, tarihleri, yönlendirmeleri, başlıkları ve mesajları ele almayı kolaylaştırır. İstemciyle dil ve karakter takımı konusunda anlaşır. Aynı zamanda ön bellekli veriyi göndermede uygun yol aramayı çözümler. Yetenekleri devreye sokar.
+<br /><br />
+CURL desteğiyle hazırlanırsa, Güçlü istek işlevselliği sağlar. PHP 5 ve
+sonrası için paralel istekler olabilir.
+<br /><br />
+Belgelerdeki API göstergelerine ek olarak, nasıl kurup ayarlamak gerektiğine
+ilişkin bilgi vardır. Hangi evrensel değişkenlerin önceden tanımlandığı da
+belirtilir.
+
+
+<h3>Sınıflar</h3>
+
+Aşağıdaki sınıflar bu uzantıyla tanımlanmıştır. Buranın dışında kullanılamaz.
+<br /><br />
+HttpResponse sınıfı PHP 5.1 sürümünü gerektirir. Diğer sınıflar PHP 5.0'dan sonrası için geçerlidir.
+<br /><br />
+    Not: PHP 5.0 sürümünde bazı yöntemlerin olmadığı bilinmelidir.
+<ul>
+    <li> HttpMessage
+    <li> HttpQueryString
+    <li> HttpDeflateStream
+    <li> HttpInflateStream
+    <li> HttpRequest
+    <li> HttpRequestPool
+    <li> HttpResponse
+</ul>
+<h3>İşlevler</h3>
+<h3>Hazır İşlevler</h3>
+
+HTTP ile ilgili hazır işlevler burada daha önce listelenenler ağ kategorisinde
+de bulunabilir. 
+<br /><br />
+Aşağıdaki işlevler HTTP modülünün olmasını gerektirmez:<br />
+header(), headers_list(), headers_sent(), setcookie() ve setrawcookie()
+
+<h3>Ön Bellek İşlemi (Caching)</h3>
+<ul>
+    <li> http_cache_etag()
+    <li> http_cache_last_modified()
+</ul>
+<h3>Kodlama (Encodings)</h3>
+<ul>
+    <li> http_chunked_decode()
+    <li> http_deflate()
+    <li> http_inflate()
+</ul>
+<h3>Diğer (Miscellaneous)</h3>
+<ul>
+    <li> http_build_cookie()
+    <li> http_date()
+    <li> http_get_request_body_stream()
+    <li> http_get_request_body()
+    <li> http_get_request_headers()
+    <li> http_match_etag()
+    <li> http_match_modified()
+    <li> http_match_request_header()
+    <li> http_support()
+</ul>
+<h3>El sıkışma (Negotiation)</h3>
+<ul>
+    <li> http_negotiate_charset()
+    <li> http_negotiate_content_type()
+    <li> http_negotiate_language()
+</ul>
+<h3>Çıktı göstergeleri (Outputhandlers)</h3>
+<ul>
+    <li> ob_deflatehandler()
+    <li> ob_etaghandler()
+    <li> ob_inflatehandler()
+</ul>
+<h3>Taramalar (Parsers)</h3>
+<ul>
+    <li> http_parse_cookie()
+    <li> http_parse_headers()
+    <li> http_parse_message()
+    <li> http_parse_params()
+</ul>
+<h3>İstekler (Requests)</h3>
+<ul>
+    <li> http_get()
+    <li> http_head()
+    <li> http_post_data()
+    <li> http_post_fields()
+    <li> http_put_data()
+    <li> http_put_file()
+    <li> http_put_stream()
+    <li> http_request_body_encode()
+    <li> http_request_method_exists()
+    <li> http_request_method_name()
+    <li> http_request_method_register()
+    <li> http_request_method_unregister()
+    <li> http_request()
+</ul>
+<h3>Yanıtlar (Responses)</h3>
+<ul>
+    <li> http_redirect()
+    <li> http_send_content_disposition()
+    <li> http_send_content_type()
+    <li> http_send_data()
+    <li> http_send_file()
+    <li> http_send_last_modified()
+    <li> http_send_status()
+    <li> http_send_stream()
+    <li> http_throttle()
+</ul>
+<h3>URL Adresleri</h3>
+<ul>
+    <li> http_build_str()
+    <li> http_build_url()
+</ul>
+<h3>Sürekli Göstergeler (Persistent Handles)</h3>
+<ul>
+    <li> http_persistent_handles_count()
+    <li> http_persistent_handles_ident()
+    <li> http_persistent_handles_clean()
+</ul>
+<h3>İçindekiler</h3>
+<ul>
+    <li> Installation — HTTP uzantısının kurulumu
+    <li> Configuration — http modülü ayarlama yönelticileri
+    <li> Resources — HTTP uzantısıyla yaratılan kaynaklar
+    <li> Constants — Daja önceden tanımlanmış http modülü değişmezleri
+    <li> Request Options — HttpRequest sınıfıyla kullanılabilen seçenekler ve istek işlevleri
+    <li> HttpMessage — HTTP Mesaj sınıfı
+    <li> HttpMessage::__construct — HttpMessage yapıcısı
+    <li> HttpMessage::factory — yazı dizisinden HttpMessage yaratma
+    <li> HttpMessage::fromEnv — çevreden (environment) HttpMessage yaratma
+    <li> HttpMessage::fromString — Yazı dizisinden HttpMessage yaratma
+    <li> HttpMessage::toString — Yazı dizisi gösterilimini alma
+    <li> HttpMessage::toMessageTypeObject — Mesaj tipine bakmaksızın HTTP nesnesini alma
+    <li> HttpMessage::guessContentType — Misafir (Guess) içerik tipi
+    <li> HttpMessage::detach — HttpMessage bağlantısını ayırma
+    <li> HttpMessage::prepend — mesaj(ları) bitirmeye hazırlama.
+    <li> HttpMessage::reverse — mesaj zincirini ter çevirme
+    <li> HttpMessage::send — mesaj gönderme
+    <li> HttpMessage::getParentMessage — baba mesajını alma
+    <li> HttpMessage::getType — mesaj tipini alma
+    <li> HttpMessage::setType — mesaj tipini ayarlama
+    <li> HttpMessage::getHttpVersion — HTTP sürümünü alma
+    <li> HttpMessage::setHttpVersion — HTTP sürümünü ayarlama
+    <li> HttpMessage::getHeaders — mesaj başlıklarını alma
+    <li> HttpMessage::getHeader — başlık alma
+    <li> HttpMessage::addHeaders — başlık ekleme
+    <li> HttpMessage::setHeaders — başlık ayarlama
+    <li> HttpMessage::getBody — mesajı gövdesini alma
+    <li> HttpMessage::setBody — mesaj gövdesini ayarlama
+    <li> HttpMessage::getRequestMethod — istek yöntemini alma
+    <li> HttpMessage::setRequestMethod — istek yöntemini ayarlama
+    <li> HttpMessage::getRequestUrl — istenen URL adresini al
+    <li> HttpMessage::setRequestUrl — istenen URL adresini ayarla
+    <li> HttpMessage::getResponseCode — yanıt kodunu al
+    <li> HttpMessage::setResponseCode — yanıt kodunu ayarla
+    <li> HttpMessage::getResponseStatus — yanıt durumunu al
+    <li> HttpMessage::setResponseStatus — yanıt durumunu ayarla
+    <li> HttpQueryString — HTTP Sorgulama Yazı dizisi Sınıfı
+    <li> HttpQueryString::__construct — HttpQueryString yapıcısı
+    <li> HttpQueryString::singleton — HttpQueryString singleton
+    <li> HttpQueryString::get — sorgulama yazı dizisinin (bir parçasını) al
+    <li> HttpQueryString::mod — sorgulama yazı dizisini kopyalamayı değiştir
+    <li> HttpQueryString::set — Sourgulama yazı dizisi değişgeçlerini ayarlama
+    <li> HttpQueryString::toArray — Sorgulama yazı dizisini dizi olarak al
+    <li> HttpQueryString::toString — Sorgulama yazı dizisini al
+    <li> HttpQueryString::xlate — Sorgulama yazı dizisinin karakter takımını değiştir.
+    <li> HttpDeflateStream — HTTP Sönmüş Akar Sınıfı
+    <li> HttpDeflateStream::factory — HttpDeflateStream sınıf fabrikası
+    <li> HttpDeflateStream::__construct — HttpDeflateStream sınıf yapıcısı
+    <li> HttpDeflateStream::update — Update sönmüş akar gücelleme
+    <li> HttpDeflateStream::flush — sönmüş akar boşaltma
+    <li> HttpDeflateStream::finish — sönmüş akarı sonlandırma
+    <li> HttpInflateStream — HTTP Şişirilmiş akar
+    <li> HttpInflateStream::factory — HttpInflateStream sınıf fabrikası
+    <li> HttpInflateStream::__construct — HttpInflateStream sınıf yapıcısı
+    <li> HttpInflateStream::update — Şişirilmiş akar gücelleme
+    <li> HttpInflateStream::flush — Şişirilmiş akar boşaltma
+    <li> HttpInflateStream::finish — Şişirilmiş akar sonlama
+    <li> HttpRequest — HTTP İstek Sınıfı
+    <li> HttpRequest::addCookies — Çerez Ekle
+    <li> HttpRequest::addHeaders — Başlık ekle
+    <li> HttpRequest::addPostFields — Gönderilen giriş alanlarını ekle
+    <li> HttpRequest::addPostFile — Gönderilen dosyayı ekle
+    <li> HttpRequest::addPutData — yazılan veriyi ekle
+    <li> HttpRequest::addQueryData — Sorgu verisini ekle
+    <li> HttpRequest::addRawPostData — Gönderilen ham veriyi ekle
+    <li> HttpRequest::addSslOptions — ssl seçeneğini ekle
+    <li> HttpRequest::clearHistory — Tarihçeyi sil
+    <li> HttpRequest::__construct — HttpRequest yapıcısı
+    <li> HttpRequest::enableCookies — Çerezi aç
+    <li> HttpRequest::getContentType — İçerik türünü al
+    <li> HttpRequest::getCookies — Çerezi al
+    <li> HttpRequest::getHeaders — Başlığı al
+    <li> HttpRequest::getHistory — Tarihçeyi al
+    <li> HttpRequest::getMethod — Yöntemi al
+    <li> HttpRequest::getOptions — Seçenekleri al
+    <li> HttpRequest::getPostFields — Gönderilen bilgi alanlarını al
+    <li> HttpRequest::getPostFiles — Gönderilen dosyaları al
+    <li> HttpRequest::getPutData — Yazılan veriyi al
+    <li> HttpRequest::getPutFile — Yazılan dosyayı al
+    <li> HttpRequest::getQueryData — Sorgulanan veriyi al
+    <li> HttpRequest::getRawPostData — Gönderilen ham veriyi al
+    <li> HttpRequest::getRawRequestMessage — Ham istek mesajını al
+    <li> HttpRequest::getRawResponseMessage — Ham yanıt mesajını al
+    <li> HttpRequest::getRequestMessage — İstek mesajını al
+    <li> HttpRequest::getResponseBody — Yanıt gövdesini al
+    <li> HttpRequest::getResponseCode — Yanıt kodunu al
+    <li> HttpRequest::getResponseCookies — Yanıt çerez(lerini) al
+    <li> HttpRequest::getResponseData — Yanıt verisini al
+    <li> HttpRequest::getResponseHeader — Yanıt başlık(larını) al
+    <li> HttpRequest::getResponseInfo — Yanıt bilgisini al
+    <li> HttpRequest::getResponseMessage — Yanır mesajını al
+    <li> HttpRequest::getResponseStatus — Yanıt durumunu al
+    <li> HttpRequest::getSslOptions — ssl seçeneklerini al
+    <li> HttpRequest::getUrl — url adresini al
+    <li> HttpRequest::resetCookies — Çerezleri sıfırla
+    <li> HttpRequest::send — istek gönder
+    <li> HttpRequest::setContentType — İçerik türünü ayarla
+    <li> HttpRequest::setCookies — Çerezleri ayarla
+    <li> HttpRequest::setHeaders — Başlıkları ayarla
+    <li> HttpRequest::setMethod — Yöntem ayarla
+    <li> HttpRequest::setOptions — Seçenekleri ayarla
+    <li> HttpRequest::setPostFields — Gönderilen bili alanlarını ayarla
+    <li> HttpRequest::setPostFiles — Gönderilen dosyaları ayarla
+    <li> HttpRequest::setPutData — Yazılan veriyi ayarla
+    <li> HttpRequest::setPutFile — Yazılan dosyayı ayarla
+    <li> HttpRequest::setQueryData — Sorgulama verisini ayarla
+    <li> HttpRequest::setRawPostData — Gönderilen ham veriyi ayarla
+    <li> HttpRequest::setSslOptions — ssl seçeneklerini ayarla
+    <li> HttpRequest::setUrl — URL adresini ayarla
+    <li> HttpRequestPool — HTTP İstek havuzu sınıfı
+    <li> HttpRequestPool::attach — HttpRequest bağla
+    <li> HttpRequestPool::__construct — HttpRequestPool yapıcısı
+    <li> HttpRequestPool::__destruct — HttpRequestPool bozucusu
+    <li> HttpRequestPool::detach — HttpRequest ayır
+    <li> HttpRequestPool::getAttachedRequests — bağlanan istekleri al
+    <li> HttpRequestPool::getFinishedRequests — Biten istekleri al
+    <li> HttpRequestPool::reset — İstek havuzunu sıfırla
+    <li> HttpRequestPool::send — Tüm istekleri gönder
+    <li> HttpRequestPool::socketPerform — Cocket işlemlerini yap
+    <li> HttpRequestPool::socketSelect — Socket seçim işlemini yap
+    <li> HttpResponse — HTTP Yanıt sınıfı
+    <li> HttpResponse::capture — kodlama çıktısını yakala
+    <li> HttpResponse::getBufferSize — tampon alan boyutunu al
+    <li> HttpResponse::getCacheControl — Önbellek denetimini al
+    <li> HttpResponse::getCache — Önbellek al
+    <li> HttpResponse::getContentDisposition — İçerik düzenini al
+    <li> HttpResponse::getContentType — İçerik türünü al
+    <li> HttpResponse::getData — Veri al
+    <li> HttpResponse::getETag — ETag al
+    <li> HttpResponse::getFile — Dosya al
+    <li> HttpResponse::getGzip — gzip al
+    <li> HttpResponse::getHeader — Başlık al
+    <li> HttpResponse::getLastModified — Son değişimi al
+    <li> HttpResponse::getStream — Akar al
+    <li> HttpResponse::getThrottleDelay — Darboğaz gecikmesini al
+    <li> HttpResponse::getRequestBody — İstek gövdesini al
+    <li> HttpResponse::getRequestBodyStream — İstek gövdesi akarını al
+    <li> HttpResponse::getRequestHeaders — İstek başlıklarını al
+    <li> HttpResponse::guessContentType — İçeriği tahmin et
+    <li> HttpResponse::redirect — Yönlendir
+    <li> HttpResponse::send — Yanıt gönder
+    <li> HttpResponse::setBufferSize — tampon boyutunu ayarla
+    <li> HttpResponse::setCacheControl — Önbellek denetimini ayarla
+    <li> HttpResponse::setCache — Önbellek ayarla
+    <li> HttpResponse::setContentDisposition — İçerik düzenini ayarla
+    <li> HttpResponse::setContentType — İçerik türünü ayarla
+    <li> HttpResponse::setData — veri ayarla
+    <li> HttpResponse::setETag — ETag ayarla
+    <li> HttpResponse::setFile — dosya ayarla
+    <li> HttpResponse::setGzip — gzip ayarla
+    <li> HttpResponse::setHeader — Başlık ayarla
+    <li> HttpResponse::setLastModified — Son güncellemeyi ayarla
+    <li> HttpResponse::setStream — Akarı ayarla
+    <li> HttpResponse::setThrottleDelay — Darboğaz gecikmesini ayarla
+    <li> HttpResponse::status — HTTP yanıt durumunu gönder
+    <li> http_cache_etag — ETag ile önbelleğe alma
+    <li> http_cache_last_modified — Son güncellemeyle ön belleğe alma
+    <li> http_chunked_decode — Kodlanıp küçültülmüş veriyi açma
+    <li> http_deflate — Sönmüş veri
+    <li> http_inflate — Etkin veri
+    <li> http_get_request_body_stream — İstek gövdesini akar olarak al
+    <li> http_get_request_body — İstek gövdesini yazı dizisi olarak al
+    <li> http_get_request_headers — İstek başlığını dizi olarak al
+    <li> http_date — Compose HTTP RFC compliant date
+    <li> http_support — hazır HTTP desteğini denetle
+    <li> http_match_etag — ETag eşleştir
+    <li> http_match_modified — Son güncellemeyi eşleştir
+    <li> http_match_request_header — Herhangi başlığı eşleştir
+    <li> http_build_cookie — çerez yazı dizisi hazırla
+    <li> http_negotiate_charset — İstemcinin istediği karakter takımının
+pazarlığını yap
+    <li> http_negotiate_content_type — İstemcinin istediği içerik türünün pazarlığını yap
+    <li> http_negotiate_language — İstemcinin istediği dilin pazarlığını yap
+    <li> ob_deflatehandler — Çıktı göstergesini söndür
+    <li> ob_etaghandler — ETag çıktı göstergesi
+    <li> ob_inflatehandler — Çıktı göstergesini etkinleştir
+    <li> http_parse_cookie — HTTP çerezini tara
+    <li> http_parse_headers — HTTP başlıklarını tara
+    <li> http_parse_message — HTTP mesajlarını tara
+    <li> http_parse_params — Değişgeç listesini tara
+    <li> http_persistent_handles_count — sürekli göstergelerin durumuna bak
+    <li> http_persistent_handles_ident — sürekli göstergelerin kimliğini al/ayarla
+    <li> http_persistent_handles_clean — Sürekli göstergeleri temizle
+    <li> http_get — GET isteğini yap
+    <li> http_head — HEAD isteğini yap
+    <li> http_post_data — POST isteğini önceden kodlanmış veriyle yap
+    <li> http_post_fields — POST isteğini kodlanacak veriyle yap
+    <li> http_put_data — PUT isteğini veriyele yap
+    <li> http_put_file — PUT isteğini dosyayla yap
+    <li> http_put_stream — PUT isteğini akarla yap
+    <li> http_request_method_exists — İstek yönteminin varlığına bak
+    <li> http_request_method_name — İstek yöntemi adını al
+    <li> http_request_method_register — İstek yöntemini kaydet
+    <li> http_request_method_unregister — İstek yönteminin kaydını sil
+    <li> http_request — Kullanıcı isteğini yap
+    <li> http_request_body_encode — İstek gövdesini kodla
+    <li> http_redirect — HTTP yönlendirme başlat
+    <li> http_send_content_disposition — İçerik düzenini gönder
+    <li> http_send_content_type — İçerik türünü gönder
+    <li> http_send_data — Rastgele veri gönder
+    <li> http_send_file — Dosya gönder
+    <li> http_send_last_modified — En son guncellenme tarihini gönder
+    <li> http_send_status — HTTP yanıt durumunu gönder
+    <li> http_send_stream — Akar gönder
+    <li> http_throttle — HTTP datboğazı
+    <li> http_build_str — Sorgulama yazı dizisi hazırla
+    <li> http_build_url — URL hazırla
+</ul>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>JS - cookies (çerez) kullanımı </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script language="JavaScript" src="../js/XHConn.js"> </script>
+<script language="JavaScript" src="../js/js10.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="ysoltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="js.html" class="nav">Giriş</a>
+               <a href="jstxt1.html" class="nav">Sayfada Javascript</a>
+               <a href="jstxt2.html" class="nav">Nesnel Programlama</a>
+               <a href="jstxt3.html" class="nav">JS Nesneleri</a>
+               <a href="jstxt4.html" class="nav">İşlemler</a>
+               <a href="jstxt5.html" class="nav">Değişkenler</a>
+               <a href="jstxt6.html" class="nav">Denetim Yapıları</a>
+               <a href="jstxt7.html" class="nav">Script Yazma</a>
+               <a href="jstxt8.html" class="nav">Yazma İşlevleri</a>
+               <a href="jstxt9.html" class="nav">Başvuru</a>
+               <a href="jstxt10.html" class="nav">DHTML</a>
+               <a href="jstxt11.html" class="nav">Öğe İçeriği</a>
+               <a href="jstxt12.html" class="nav">Pencereler</a>
+               <a href="jstxt13.html" class="nav">Olay Bilgisi</a>
+               <a href="jstxt14.html" class="nav">Zaman Ayarı</a>
+               <a href="jstxt15.html" class="nav">Cookie Kullanımı</a>
+               <a href="jstxt16.html" class="nav">Güvenlik</a>
+               <a href="js24.html" class="nav">Javascript Nesneler</a>
+<br />
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>Javascript Yazılım Kuralları (JS)</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">3 Aralık 2007</span></div>
+<h2></h2>
+<div class="yazi">
+<h3>cookies (çerez) kullanımı</h3>
+
+Kullanıcının bilgisayarında saklanabilen değişkene cookies (çerezler) denir. Bu bilgiyi aynı alan adından ve doğru yoldan bir başka web sayfasıyla alabilme olanağı vardır. Belirtilen bir zaman süresi sonunda çerezler silinir. Yalnız yazı dizisi biçiminde değer saklamakla sınırlıdırlar.
+<br /><br />
+Birçok kullanıcı kendi bilgisayarlarında çerezlere izin vermedikleri konusunda herkes uyarılmalıdır. Web sayfasının çerezler üzerine bağımlı olmamasına dikkat edilmelidir. Birçok web sitesi, reklam izleme sistemi olarak çerezleri kullanmaktadır. Bunlarla sizin internetteki gezintinizi izlemek isterlerler. Halbuki insanlar şehir içinde alış veriş yaparken kendilerini izleyen birinin hemen arkalarında not alarak dolaşmasına katlanamaz. Bu nedenle çerezleri bir sonraki girişlerde kullanmak üzere kullanıcı adı ve şifre için kullanılacağını belirtmek bile (kullanıcının engellemesi konusunda) yeterli olmayabilir.
+<br /><br />
+Bazı tarayıcılar kaç tane çerez saklayabileceği konusunda sınır koymuştur. Çoğunlukla bu sayı 300 ya da daha fazladır. Bunların her alan adı için 20 tane olması söz konusudur. Açıldıktan sonra 4 KB olan çerezler her alan adı ve yolu için saklanabilir.
+<br /><br />
+'document.cookie' nesnesi o web sayfasına ilişkin tüm çerezlerin bir dizisini verir. 'document.cookie' nesnesinde biraz uygunsuzluk vardır aslında. Ona bir yazı dizisi atandığında, o sizin atadığınız değerle görünmez. O sizin değerinizin bir bölümünü alır o anki değere ekleyerek birçok değişken=değer biçiminde ikililerden oluşur.
+<h3>Çerezleri (cookies) Yaratma / Değiştirme ve Silme</h3>
+
+Tüm bunları yapabileceğiniz kodlama burada anlatılmıştır.
+<br /><br />
+ad=değer ikilisini document.cookie object değişkenine atayarak çerezler yaratır ya da değiştirilir.
+<pre>
+document.cookie = cookieString;
+</pre>
+Çerez yazı dizisi (yukarıdaki örnekte cookieString) yalnız bir diziden daha fazla bir şeydir. Yalnız bir değer değildir ve başka bilgiler de içerir. Çerezin ne zaman son bulacağı ve hangi dosya yolunda kullanılacağını belirtir. Tüm bu değerlerin neler olduğu bir dizi içinde "anahtar_sozcuk=deger;" biçiminde yer alır. Yalnız çerez adı ve değeri gereklidir diğerleri seçeneklidir. Tam bir çerez kalıbı aşağıdaki örnekte yer alır:
+<pre>
+cookieName=cookieValue[;expires=dataAsString
+                      [;path=pathAsString
+                      [;domain=domainAsString[;secure]]]]
+</pre>
+Bu bir çerezi nasıl atayacağınıza güzel bir örnektir ve hello için bir değer atamak, bunun da 21 Aralık 2012 sabah saat 10:00 da son bulacağını söylemek gerekir.
+<pre>
+document.cookie = 'mycookie=hello;expires=Fri, 21 Dec 2012 10:00:00 GMT';
+</pre>
+<h3>çerezadi (cookieName) ve çerezdeğeri (cookieValue)</h3>
+Bunlar yazı dizileridir ve URL biçiminde yazılmıştır. Herhamgi bir değer taşıyabilir. Çerez adı ya da değere URL kodu yazarken 'escape' yöntemi kullanılabilir. Bunun unicode karakterleriyle yapılması olanaksızdır. Yeni tarayıcılar encodeURIComponent yöntemini de sunmaktadır. Ama bunu kullanacak olursanız, eski tarayıcıların desteğini yitirmiş olursunuz.
+<dl>
+<dt>expires
+    <dd>Bu açıkça yazılmalıdır. Date.toGMTString() yöntemi tarihi doğru kalıpta verir. Örneğin:
+<pre>
+    var theDate = new Date();
+    var oneYearLater = new Date( theDate.getTime() + 31536000000 );
+    var expiryDate = oneYearLater.toGMTString();
+</pre>
+    Bir kez belirtilen tarihe ulaşıldığında, çerezin süresi dolar ve silinir. Eğer bitiş süresi belirtilmemişse, çerez tarayıcı kapatılınca hemen silinir. Bu bir çerezin nasıl silindiğinin örneğidir (bazı tarayıcılar çerezi gerçekten silmek için birkaç saniye gerekir). Kuramda, bilgisayarlar ileri zamana ait tarihlerin tümünü kabul edebilmelidir, ancak UNIX bilgisayarları saat 03:14, 18 Ocak 2038'den sonraki tarihleri kabul etmez. Macintosh bilgisayarlar da saat 06:28, 6 Şubat 2040'dan sonraki tarihi ya da UNIX gibi tarihi son olarak kabul eder. Bunlar Macintosh ve UNIX için millennium hatasıdır.
+    </dd>
+</dt>
+<dt>path
+    <dd>
+    Burada yol ya da kalsörlerden hangisinden çerezin kullanılabileceği belirtilir. Varsayılan o anki yoldur. Diğer bir deyimle "../". '/' ana yol ve 'altyolAdi/' ise 'o_ankiyol/altyolAdi/' biçimindedir. Not: eğer iki çerez aynı ad ama değişik yollarla tanımlanmışsa, her ikisi de kabul edilir. Eğer kodlama bu iki yolda da bulunuyorsa çerezlerin her ikisini de kullanabilir ve herhangi bir sırada onlara erişebilir. Onları ayırmanın bir yolu da yoktur.
+    </dd>
+</dt>
+<dt>domain
+    <dd>
+     Çerezin hangi alan adından erişilebileceğini anlatır. Varsayılan o anki alan adıdır. Oraya neler konacağını belirten kurallar çok doğrudan yazılmıştır. Alan adi com, edu, net, org, gov, mil, ve int ile bitenler için en az iki tane nokta olmalıdır (örneğin www.google.com gibi). Diğer alan adlarında en az üç nokta olmalıdır. Alan adi ya bunun alt alan adı ya da o anki alan adı olmalıdır. Şimdi pek çok tarayıcı var olan alan adlarının hepsini kabul etmektedir.
+    </dd>
+</dt>
+<dt>secure
+    <dd>
+    Bunun anlamı çereze yalnız https (güvenli) erişim biçimiyle ulaşılabilir.
+    </dd>
+</dt>
+</dl>
+
+<h3>Reading cookies</h3>
+
+'document.cookies' çerezlere erişim için kullanıldığında, aşağıdaki kalıpta bilgilere erişilir:
+<pre>
+cookieName4=value; cookieName3=value; cookieName2=value; cookieName1=value
+</pre>
+Dikkat etilmesi gereken konu en son değerin ardında noktalı virgül olmamasıdır. Eğer bir değişken için değer yoksa bazı tarayıcılar 'cookieAdi=' döndürür ama bazıları yalnız 'cookieAdi' verir. Çerezler yalnız 'document.cookie' nesnesiyle erişilebilir. Basit bir değişken ile erişilemez (ancak erişilen bir çerezi bir değişkene atayarak değişken adıyla kullanma olanağı vardır).
+<br /><br />
+Bu diziden bir değer almak için hata yapmamak önemlidir. Örneği "benimadim" adlı çerezi araken "benimadimdegil" ya da "buradabenimadim" gibi çerez adlarıyla karıştırılmamalıdır.
+<br /><br />
+Çerezden ikililerin alınmasında kullanılan en temel yöntem diziyi parçalamaktır (split). Bu işlem bir yazı dizilerinden oluşan bir dizi döndürür. Her bir öğe değişken=değer biçimindedir. Bunların arasında 'for' döngüsüyle dolaşıp aranana uyanı seçebilirsiniz. Bunu da parçalayınca iki öğeli dizi elde edilir. Birincisi değişkenin adını ikincisi ise değerini gösterir.
+<br /><br />
+unescape ya da decodeURIComponent yöntemleriyle birinci parçanın açılımı yapılır. Burada çerez adi vardır. Eğer bu istenene uyuyorsa doğru çerez bulunmuştur. if(!arrayname[1]) kullanılarak değeri olup olmadığına bakılır. Eğer değer yoksa çerez değeri boştur. Eğer değeri varsa kullanmak için açabilirsiniz ve döngüden çıkarsınız.
+<br /><br />
+Eğer ilk dizinin sonuna geldiğinizde istenilen çerez adına erişemediyseniz bu çerez bilgisayarda tanımlı değildir.
+</div>
+<br />
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,18 @@
+uygbaslik
+uygKodu  uygSecNo  uygAdi
+  1        1       Arkadas Davet Etme
+uygsatir
+uygSecNo  uygSayi  uygHtml       InFld  OutFld       T D I A
+  1        1       davetgir.php     1     2          - T - -
+  1        2       davetara.php     2     3          T T T T
+  1        3       davetson.php     3     4          T T T T
+uygalan
+uygField uygFno uygSz uygTip uygDesc
+  1         1     1    bol   profilde olsun
+  1         2     1    bol   kayıt etsin
+  1         3     1    bol   arkadaşlara açık olsun
+  1         4    40    chr   arkadaşın e-posta adresi
+  2         1   200    txt   davet mesajı
+  3         1    40    chr   e-posta adresi
+  3         2   200    txt   davet mesajı
+  4         1   200    out   işlem sonucu

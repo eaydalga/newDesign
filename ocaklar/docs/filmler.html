@@ -1,0 +1,541 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!-- baslik.inc basi -->
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<title>deneme</title>
+<link rel="stylesheet" href="mainx.css" type="text/css">
+<script type="text/javascript" src="js/goster.js"></script>
+<script type="text/javascript" src="js/coolmenu.js"></script>
+<body topmargin=0 leftmargin=0 marginheight=0 marginwidth=0>
+<script type="text/javascript">
+// Part 1 - Styles
+var STYLE = {
+    border:1,              // item's border width, pixels; zero means "none";
+    shadow:2,              // item's shadow size, pixels; zero means "none"
+    color:{
+        border:"#666666",  // color of the item border, if any;
+        shadow:"#DBD8D1",  // color of the item shadow, if any;
+        bgON:"#d4d4f4",      // background color for the items;
+        bgOVER:"#B6BDD2"   // background color for the item
+                           // which is under mouse right now;
+    },
+    css:{
+        ON:null,           // CSS class for items;
+        OVER:null          // CSS class  for item which is under mouse;
+    }
+};
+
+// Part 2 - Menu structure
+var MENU_ITEMS = [
+    {pos:[535,92], itemoff:[0,69], leveloff:[21,0], style:STYLE, size:[22,70]},
+    {code:"Ana Sayfa", url:"../index.php"},
+    {code:"Yazılım", url:"",
+        sub:[
+            {itemoff:[21,0]},
+            {code:"Genel", "url":"../progs/index.html"},
+            {code:"Css", "url":"../progs/css.html"},
+            {code:"HTML", "url":"../progs/html.html"},
+            {code:"dHTML", "url":"../progs/dhtml.html"},
+            {code:"js", "url":"../progs/js.html"},
+            {code:"Php", "url":"../progs/php.html"}
+        ]
+    },
+    {code:"Belgeler", url:"",
+        sub:[
+            {itemoff:[21,0],size:[22,90]},
+            {code:"Genel", "url":"index.html"},
+            {code:"Kullanıcılar", "url":"kullanici.html"},
+            {code:"Blog", "url":"blog.html"},
+            {code:"Filmler", "url":"filmler.html"},
+            {code:"Internet TV", "url":"webtv.html"},
+            {code:"Veri Değişimi", "url":"bvd.html"},
+            {code:"Ofisiçi", "url":"ofisici.html"},
+            {code:"Sürekli Yayım", "url":"swy.html"},
+            {code:"Panorama", "url":"pg.html"},
+        ]
+    },
+    {code:"Hakkımızda", url:"../hakkimizda.html" },
+    {code:"Adres", url:"../adres.html"},
+    {code:"Iletişim", url:"../iletisim.html"}
+];
+
+// Part 3 - Initialization code
+var m1 = new COOLjsMenu("menu1", MENU_ITEMS);
+
+function myvoid()
+{
+}
+
+function isteme(t)
+{
+var myConn5 = new XHConn();
+var body="bweb="+t;
+htop();
+
+resim();
+var fnIsteme = function (oXML) {
+   if(document.getElementById) {
+      target1=document.getElementById('sec5');
+      if(target1) {
+            target1.style.display = "none";
+      }
+      target=document.getElementById('sec11');
+      if(target) {
+            target.innerHTML=oXML.responseText;
+            target.style.display = "inline";
+      }
+   }
+ };
+myConn5.connect("../isteme.php", "GET", body, fnIsteme);
+}
+
+function isteme2()
+{
+var myConn6 = new XHConn();
+var errstr = "";
+var body = "bweb=0&";
+var err;
+htop();
+
+for(i=0; i < document.forms['wf_Enquiry'].elements.length; i++) {
+    var aa = document.forms['wf_Enquiry'].elements[i].name;
+    if ( aa != "undefined" ) {
+        wff=document.forms['wf_Enquiry'].elements[i].value;
+        err = mycheck(wff,document.forms['wf_Enquiry'].elements[i].className);
+        if (err.length > 0) {
+            errstr += document.forms['wf_Enquiry'].elements[i].name+ ":" + err + "\n";
+        }
+        else {
+            if (!(aa == "sayfa" || aa == "submit" || aa == "undefined")) {
+               body += aa + "=" + wff + "&";
+            }
+        }
+    }
+}
+if(errstr.length > 0) {
+    alert(errstr);
+    return false;
+}
+var fnIsteme2 = function (oXML) {
+   if(document.getElementById) {
+      target1=document.getElementById('sec11');
+      if(target1) {
+            target1.style.display = "none";
+      }
+      target=document.getElementById('sec12');
+      if(target) {
+            target.innerHTML=oXML.responseText;
+            target.style.display = "inline";
+      }
+   }
+ };
+myConn6.connect("../isteme.php", "GET", body, fnIsteme2);
+}
+function bitsin(n)
+{
+   if(document.getElementById) {
+      xx = 'sec'+n;
+      target1=document.getElementById(xx);
+      if(target1) {
+            target1.style.display = "none";
+      }
+   }
+   kapat();
+}
+</script>
+<body onLoad="ayarla();">
+<div id="headertop1">
+<div id="headertop">
+<!-- ust banner bolumu -->
+  <table cellpadding="0" cellspacing="0" border="0" width="960">
+  <tr>
+  <td valign="top">
+  <img src="img/bos.gif" width="15" height="63" border="0">
+  <img src="img/aybim.png" width="129" height="43" border="0"><br>
+  <img src="img/bos.gif" width="150" height="50" border="0">
+  </td><td valign="top">
+  </td></tr>
+  </table>
+  <table cellpadding="0" cellspacing="0" border="0">
+  <tr>
+  <td valign="top" width="140">
+  <!-- sol tarafin basi -->
+  <div id="soltaraf">
+      <div class="yazi">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8541306787668208";
+//120x600, created 1/16/08
+google_ad_slot = "7007060807";
+google_ad_width = 120;
+google_ad_height = 600;
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<br />
+<script type="text/javascript"><!--
+google_ad_client = "pub-8541306787668208";
+//120x240, created 1/25/08
+google_ad_slot = "8433790203";
+google_ad_width = 120;
+google_ad_height = 240;
+google_cpa_choice = ""; // on file
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+      </div>
+  </div>
+  </td>
+  <td valign="top" width="800">
+  <div id="header">
+<br /><br /><br /><br />
+<div id="bdy">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8541306787668208";
+//728x90, created 1/16/08
+google_ad_slot = "7459135715";
+google_ad_width = 728;
+google_ad_height = 90;
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<br>
+<br />
+<div id="sag"><span class="yazi">19 Şubat 2008</span></div>
+<h3>Film ve Kalıp/Kod Çeviriciler</h3>
+<p class="yazi">
+"http://www.fileinfo.net/filetypes/video" adresinde video kalıplarının uzantıları vardı (nedense siteye artık erişemedim). Aşağıdaki tablo oradan alınmıştır. Tabloda gösterilen ".mpeg" ve ".mpg" gibi uzantıların aynı tür film kalıplarının değişik işletim sistemi altındaki değişik uzantıları olduğunu yinelemekte yarar vardır. Yoksa konudan uzak biri "Bu kadar çok film kalıbı mı var?" diye düşünebilir.
+</p>
+<table>
+<tr><td valign="top">
+    <table border=0 width="220">
+      <tr><td class="syazi" colspan="2">VIDEO UZANTILARI</td></tr>
+      <tr><td class="syazi">Uzantı</td><td class="syazi">Açıklama</td></tr>
+      <tr><td class="ssyazi">.3g2</td><td class="ssyazi">3GPP2 Multimedia File</td></tr>
+      <tr><td class="ssyazi">.3gp</td><td class="ssyazi">3GPP Multimedia File</td></tr>
+      <tr><td class="ssyazi">.3gp2</td><td class="ssyazi">3GPP Multimedia File</td></tr>
+      <tr><td class="ssyazi">.3gpp</td><td class="ssyazi">3GPP Multimedia File</td></tr>
+      <tr><td class="ssyazi">.3mm</td><td class="ssyazi">3D Movie Maker Movie</td></tr>
+      <tr><td class="ssyazi">.60d</td><td class="ssyazi">CCTV Video Clip</td></tr>
+      <tr><td class="ssyazi">.aep</td><td class="ssyazi">After Effects Project</td></tr>
+      <tr><td class="ssyazi">.ajp</td><td class="ssyazi">CCTV Video File</td></tr>
+      <tr><td class="ssyazi">.amv</td><td class="ssyazi">Anime Music Video File</td></tr>
+      <tr><td class="ssyazi">.asf</td><td class="ssyazi">Advanced Systems Format File</td></tr>
+      <tr><td class="ssyazi">.asx</td><td class="ssyazi">Microsoft ASF Redirector File</td></tr>
+      <tr><td class="ssyazi">.avb</td><td class="ssyazi">Avid Bin File</td></tr>
+      <tr><td class="ssyazi">.avi</td><td class="ssyazi">Audio Video Interleave File</td></tr>
+      <tr><td class="ssyazi">.avs</td><td class="ssyazi">Application Visualization System Format</td></tr>
+      <tr><td class="ssyazi">.bik</td><td class="ssyazi">BINK Video File</td></tr>
+      <tr><td class="ssyazi">.bix</td><td class="ssyazi">Kodicom Video File</td></tr>
+      <tr><td class="ssyazi">.box</td><td class="ssyazi">Kodicom Video</td></tr>
+      <tr><td class="ssyazi">.byu</td><td class="ssyazi">Brigham Young University Movie</td></tr>
+      <tr><td class="ssyazi">.camrec</td><td class="ssyazi">Camtasia Studio Screen Recording</td></tr>
+      <tr><td class="ssyazi">.cvc</td><td class="ssyazi">cVideo</td></tr>
+      <tr><td class="ssyazi">.d2v</td><td class="ssyazi">DVD2AVI File</td></tr>
+      <tr><td class="ssyazi">.dat</td><td class="ssyazi">VCD Video File</td></tr>
+      <tr><td class="ssyazi">.dce</td><td class="ssyazi">DriveCam Video</td></tr>
+      <tr><td class="ssyazi">.dif</td><td class="ssyazi">Digital Interface Format</td></tr>
+      <tr><td class="ssyazi">.dir</td><td class="ssyazi">Adobe Director Movie</td></tr>
+      <tr><td class="ssyazi">.divx</td><td class="ssyazi">DivX-Encoded Movie</td></tr>
+      <tr><td class="ssyazi">.dpg</td><td class="ssyazi">Nintendo DS Movie File</td></tr>
+      <tr><td class="ssyazi">.dv</td><td class="ssyazi">Digital Video File</td></tr>
+      <tr><td class="ssyazi">.dvr-ms</td><td class="ssyazi">Microsoft Digital Video Recording</td></tr>
+      <tr><td class="ssyazi">.dxr</td><td class="ssyazi">Protected Macromedia Director Movie</td></tr>
+      <tr><td class="ssyazi">.eye</td><td class="ssyazi">Eyemail Video Recording</td></tr>
+      <tr><td class="ssyazi">.fcp</td><td class="ssyazi">Final Cut Project</td></tr>
+      <tr><td class="ssyazi">.flc</td><td class="ssyazi">FLIC Animation</td></tr>
+      <tr><td class="ssyazi">.fli</td><td class="ssyazi">FLIC Animation</td></tr>
+      <tr><td class="ssyazi">.flv</td><td class="ssyazi">Flash Video File</td></tr>
+      <tr><td class="ssyazi">.flx</td><td class="ssyazi">FLIC Animation</td></tr>
+      <tr><td class="ssyazi">.gl</td><td class="ssyazi">GRASP Animation</td></tr>
+      <tr><td class="ssyazi">.grasp</td><td class="ssyazi">GRASP Animation</td></tr>
+    </table>
+</td><td valign="top">
+    <table border=0 width="220">
+      <tr><td class="syazi" colspan="2">VIDEO UZANTILARI</td></tr>
+      <tr><td class="syazi">Uzantı</td><td class="syazi">Açıklama</td></tr>
+      <tr><td class="ssyazi">.gvi</td><td class="ssyazi">Google Video File</td></tr>
+      <tr><td class="ssyazi">.gvp</td><td class="ssyazi">Google Video Pointer</td></tr>
+      <tr><td class="ssyazi">.ifo</td><td class="ssyazi">DVD-Video Disc Information File</td></tr>
+      <tr><td class="ssyazi">.ivf</td><td class="ssyazi">Indeo Video Format File</td></tr>
+      <tr><td class="ssyazi">.ivs</td><td class="ssyazi">Internet Streaming Video</td></tr>
+      <tr><td class="ssyazi">.izz</td><td class="ssyazi">Isadora Media Control Project</td></tr>
+      <tr><td class="ssyazi">.izzy</td><td class="ssyazi">Isadora Project</td></tr>
+      <tr><td class="ssyazi">.lsf</td><td class="ssyazi">Streaming Media Format</td></tr>
+      <tr><td class="ssyazi">.lsx</td><td class="ssyazi">Streaming Media Shortcut</td></tr>
+      <tr><td class="ssyazi">.m1v</td><td class="ssyazi">MPEG-1 Video File</td></tr>
+      <tr><td class="ssyazi">.m2v</td><td class="ssyazi">MPEG-2 Video</td></tr>
+      <tr><td class="ssyazi">.m4e</td><td class="ssyazi">MPEG-4 Video File</td></tr>
+      <tr><td class="ssyazi">.m4u</td><td class="ssyazi">MPEG-4 Playlist</td></tr>
+      <tr><td class="ssyazi">.m4v</td><td class="ssyazi">iTunes Video File</td></tr>
+      <tr><td class="ssyazi">.mjp</td><td class="ssyazi">MJPEG Video File</td></tr>
+      <tr><td class="ssyazi">.mkv</td><td class="ssyazi">Matroska Video File</td></tr>
+      <tr><td class="ssyazi">.mod</td><td class="ssyazi">JVC Recorded Video File</td></tr>
+      <tr><td class="ssyazi">.moov</td><td class="ssyazi">Apple QuickTime Movie</td></tr>
+      <tr><td class="ssyazi">.mov</td><td class="ssyazi">Apple QuickTime Movie</td></tr>
+      <tr><td class="ssyazi">.movie</td><td class="ssyazi">QuickTime Movie File</td></tr>
+      <tr><td class="ssyazi">.mp4</td><td class="ssyazi">MPEG-4 Video File</td></tr>
+      <tr><td class="ssyazi">.mpe</td><td class="ssyazi">MPEG Movie File</td></tr>
+      <tr><td class="ssyazi">.mpeg</td><td class="ssyazi">MPEG Video File</td></tr>
+      <tr><td class="ssyazi">.mpg</td><td class="ssyazi">MPEG Video File</td></tr>
+      <tr><td class="ssyazi">.mpv2</td><td class="ssyazi">MPEG-2 Video Stream</td></tr>
+      <tr><td class="ssyazi">.msh</td><td class="ssyazi">Visual Communicator Project File</td></tr>
+      <tr><td class="ssyazi">.mswmm</td><td class="ssyazi">Windows Movie Maker Project</td></tr>
+      <tr><td class="ssyazi">.mvb</td><td class="ssyazi">Multimedia Viewer Book Source File</td></tr>
+      <tr><td class="ssyazi">.mvc</td><td class="ssyazi">Movie Collector Catalog</td></tr>
+      <tr><td class="ssyazi">.nvc</td><td class="ssyazi">NeroVision Express Project File</td></tr>
+      <tr><td class="ssyazi">.ogm</td><td class="ssyazi">Ogg Media File</td></tr>
+      <tr><td class="ssyazi">.omf</td><td class="ssyazi">Open Media Framework</td></tr>
+      <tr><td class="ssyazi">.playlist</td><td class="ssyazi">CyberLink PowerDVD Playlist</td></tr>
+      <tr><td class="ssyazi">.pro</td><td class="ssyazi">ProPresenter Export File</td></tr>
+      <tr><td class="ssyazi">.prproj</td><td class="ssyazi">Premiere Pro Project</td></tr>
+      <tr><td class="ssyazi">.prx</td><td class="ssyazi">Windows Media Profile</td></tr>
+      <tr><td class="ssyazi">.qt</td><td class="ssyazi">Apple QuickTime Movie</td></tr>
+      <tr><td class="ssyazi">.qtch</td><td class="ssyazi">QuickTime Cache File</td></tr>
+    </table>
+</td><td valign="top">
+    <table border=0 width="220">
+      <tr><td class="syazi" colspan="2">VIDEO UZANTILARI</td></tr>
+      <tr><td class="syazi">Uzantı</td><td class="syazi">Açıklama</td></tr>
+      <tr><td class="ssyazi">.rp</td><td class="ssyazi">RealPix Clip</td></tr>
+      <tr><td class="ssyazi">.rm</td><td class="ssyazi">Real Media File</td></tr>
+      <tr><td class="ssyazi">.rmvb</td><td class="ssyazi">RealVideo Variable Bit Rate File</td></tr>
+      <tr><td class="ssyazi">.rts</td><td class="ssyazi">RealPlayer Streaming Media</td></tr>
+      <tr><td class="ssyazi">.rts</td><td class="ssyazi">QuickTime Real-Time Streaming Format</td></tr>
+      <tr><td class="ssyazi">.sbk</td><td class="ssyazi">SWiSH Project Backup File</td></tr>
+      <tr><td class="ssyazi">.scm</td><td class="ssyazi">ScreenCam Screen Recording</td></tr>
+      <tr><td class="ssyazi">.sfvidcap</td><td class="ssyazi">Sonic Foundry Video Capture File</td></tr>
+      <tr><td class="ssyazi">.smil</td><td class="ssyazi">Synchronized Multimedia Integration Language</td></tr>
+      <tr><td class="ssyazi">.smv</td><td class="ssyazi">VideoLink Mail Video</td></tr>
+      <tr><td class="ssyazi">.spl</td><td class="ssyazi">FutureSplash Animation</td></tr>
+      <tr><td class="ssyazi">.srt</td><td class="ssyazi">Subtitle File</td></tr>
+      <tr><td class="ssyazi">.ssm</td><td class="ssyazi">Standard Streaming Metafile</td></tr>
+      <tr><td class="ssyazi">.str</td><td class="ssyazi">PlayStation Video Stream</td></tr>
+      <tr><td class="ssyazi">.svi</td><td class="ssyazi">Samsung Video File</td></tr>
+      <tr><td class="ssyazi">.swf</td><td class="ssyazi">Macromedia Flash Movie</td></tr>
+      <tr><td class="ssyazi">.swi</td><td class="ssyazi">SWiSH Project File</td></tr>
+      <tr><td class="ssyazi">.tda3mt</td><td class="ssyazi">DivX Author Template File</td></tr>
+      <tr><td class="ssyazi">.tivo</td><td class="ssyazi">TiVo Video File</td></tr>
+      <tr><td class="ssyazi">.ts</td><td class="ssyazi">Video Transport Stream File</td></tr>
+      <tr><td class="ssyazi">.vdo</td><td class="ssyazi">VDOLive Media File</td></tr>
+      <tr><td class="ssyazi">.veg</td><td class="ssyazi">Vegas Video Project</td></tr>
+      <tr><td class="ssyazi">.vf</td><td class="ssyazi">Vegas Movie Studio Project File</td></tr>
+      <tr><td class="ssyazi">.vfw</td><td class="ssyazi">Video for Windows</td></tr>
+      <tr><td class="ssyazi">.vid</td><td class="ssyazi">Generic Video File</td></tr>
+      <tr><td class="ssyazi">.viewlet</td><td class="ssyazi">Qarbon Viewlet</td></tr>
+      <tr><td class="ssyazi">.viv</td><td class="ssyazi">VivoActive Video File</td></tr>
+      <tr><td class="ssyazi">.vivo</td><td class="ssyazi">VivoActive Video File</td></tr>
+      <tr><td class="ssyazi">.vob</td><td class="ssyazi">DVD Video Object</td></tr>
+      <tr><td class="ssyazi">.vro</td><td class="ssyazi">DVD Video Recording Format</td></tr>
+      <tr><td class="ssyazi">.w32</td><td class="ssyazi">WinCAPs Subtitle File</td></tr>
+      <tr><td class="ssyazi">.wcp</td><td class="ssyazi">WinDVD Creator Project File</td></tr>
+      <tr><td class="ssyazi">.wm</td><td class="ssyazi">Windows Media File</td></tr>
+      <tr><td class="ssyazi">.wmd</td><td class="ssyazi">Windows Media Download Package</td></tr>
+      <tr><td class="ssyazi">.wmv</td><td class="ssyazi">Windows Media Video File</td></tr>
+      <tr><td class="ssyazi">.wmx</td><td class="ssyazi">Windows Media Redirector</td></tr>
+      <tr><td class="ssyazi">.wvx</td><td class="ssyazi">Windows Media Video Redirector</td></tr>
+      <tr><td class="ssyazi">.yuv</td><td class="ssyazi">YUV Video File</td></tr>
+    </table>
+</table>
+<br />
+<p class="yazi">
+Filmlerin gösteriminde karşılaşılan en büyük güçlük bu kadar çok film kalıbı arasından gösterici programa uyan kalıbı üretmektir. Ya da diğer bir deyimle filminizi elinizdeki programın göstereceği biçime getirmektir. Bu işleme çevirim adı verilmektedir. Biz de size kullanılabilen film çevirim programlarından bazılarını anlatmaya çalışacağız.
+</p>
+<h4>Stoik Converter</h4>
+<p class="yazi">
+Her tür yapıyı çevirmez. Giriş olarak AVI (DV AVI de dahil), MPEG, DAT (Video CD) ve WMV (WindowsMedia) türlerini açar, çıkışta AVI and WMV videoları üretir. Ücretsiz olan bu program tek pencereyle işlemlerini tamamlamaktadır. Ayrıntılı bilgi için aşağıdaki bağı tıklayın.
+</p>
+<p class="yazi">
+<a href="http://www.indezine.com/products/video/stoikconverter.html">http://www.indezine.com/products/video/stoikconverter.html</a>
+</p>
+<h4>WinAVI Video Converter 8.0 </h4>
+<p class="yazi">
+WEB sayfasında anlatılanlara göre özellikleri:
+<br />- AVI kalıplarını hızla VCD/SVCD/DVD biçimine çevirir ve CD'ye yazılmasını da sağlar.
+<br />- Güçlü video sıkıştırma/açma makinesidir. Bir filmi herhangi bir kalıptan DVD kalıbına çevirebilir.
+<br />- Tüm video kalıplarını MPEG1/2 VCD/SVCD/DVD kalıplarına çevirip CD yakabilir.
+<br />- Gerçek Dolby AC3 audio encoder eklenmiştir.
+<br />- Gerçek DVD Navigator encoder eklenmiştir.
+<br />- Tüm video kalıplarını AVI/DivX/XVid kalıbına çevirir.
+<br />- Tüm video kalıplarını ASF/WMV kalıbına çevirir.
+<br />- Tüm video kalıplarını RM (Real Video) kalıbına çevirir.
+<br />- QuickTime .MOV ve Flash .SWF kalıplarını destekler.
+</p>
+
+<p class="yazi">
+Ayrıntılı bilgi için bu adresi tıklayın:<br />
+<a href="http://www.free-codecs.com/download/WinAVI_Video_Converter.htm">http://www.free-codecs.com/download/WinAVI_Video_Converter.htm</a>
+</p>
+
+<h4>Prism Video Converter</h4>
+<p class="yazi">
+ avi, mpeg, wmv, divX, Xvid, mpeg1, mpeg2, mpeg4, mp4, mov, asf, vob, ogm, .3gp, H.264, RM video kalıplarını AVI ve Windows Media Video kalıplarına çevirir.
+</p>
+<p class="yazi">
+Ayrıntılı bilgi için bu adresi tıklayın:<br />
+<a href="http://www.nchsoftware.com/prism/index.html">http://www.nchsoftware.com/prism/index.html</a>
+</p>
+<h4>Wondershare Video Converter Platinum</h4>
+<p class="yazi">
+Bu video çevirici MP4, MOV, 3GP, AVI, WMV, RM, MPEG-1, MPEG-2, FLV ve ASF gibi video kalıplarını destekler. Ayrıca M4A, WMA, WAV, MP3, AAC ve AC3 gibi ses kalıplarını da içerir. Tüm video kalıpları birinden diğerine çevirilebilir.
+</p>
+<p class="yazi">
+Ayrıntılı bilgi için bu adresi tıklayın:<br />
+<a href="http://www.dvd-ripper-copy.com/video-converter-platinum.html">http://www.dvd-ripper-copy.com/video-converter-platinum.html</a>
+</p>
+<h4>Linux dvdauthor ve Mplayer</h4>
+<p class="yazi">
+Herhangi bir video dosyasını dvdauthor ve Mplayer kullanarak DVD kalıbına çevirebilirsiniz.
+</p>
+<p class="yazi">
+Dsoyaları MPEG-2 kalıbına çevirme<br />
+
+Dosyayı video için MPEG-2 kalıbına çevirmeden önce, ses için AC3 kalıbına çevirmek gerekip gerekmediği belirlenmelidir. Bu DVD standartları için gereklidir. Ses kayıt türünü öğrenme işlemi için aşağıdaki komut kullanılır:
+<br/>
+<pre>
+mplayer -vo dummy -ao dummy -identify your_video.avi 2&gt;&1 | grep AUDIO_FORMAT | cut -d '=' -f 2
+</pre>
+<br/>
+<span class="yazi">
+Bu komut hwac3 çıktısı verirse giriş dosyasındaki ses kaydı AC3 kalıbındadır o zaman aşağıdaki komutla dosya MPEG-2 kalıbına çevrilebilir.
+</span>
+<br />
+<pre>
+mencoder -oac copy -ovc lavc -of mpeg -mpegopts format=dvd -vf scale=720:576,harddup -lavcopts
+      vcodec=mpeg2video:vrc_buf_size=1835:vrc_maxrate=9800:vbitrate=5000:keyint=15:aspect=16/9
+      -ofps 25 -o your_video.mpg your_video.avi
+</pre>
+<br />
+<span class="yazi">
+Eğer ses kaydı AC3 kalıbında değilse yazılacak komut şöyle olmalıdır:
+</span>
+<br />
+<span class="yazi">
+mencoder -oac lavc -ovc lavc -of mpeg -mpegopts format=dvd -vf scale=720:576,harddup -srate 48000 -af lavcresample=48000 -lavcopts vcodec=mpeg2video:vrc_buf_size=1835:vrc_maxrate=9800:vbitrate=5000:keyint=15:aspect=16/9:acodec=ac3:abitrate=192 -ofps 25 -o your_video.mpg your_video.avi
+</span>
+<br />
+<span class="yazi">
+Önceki komut MPEG-2 dosyasını faz seçeneği PAL kalıplaması olacak biçimde 16:9 oranıyla üretir. Eğer NTSC standardı kullanarak MPEG-2 üretmek isterseniz aşağıdaki değişikliklerle komutu yeniden yazmanız gerekecektir:
+</span>
+<br />
+<br />
+<table border="1">
+<tr><td class="yazi">scale=720:576</td><td class="yazi"> yerine</td><td class="yazi"> scale=720:480</td></tr>
+<tr><td class="yazi">keyint=15</td><td class="yazi"> yerine</td><td class="yazi"> keyint=18</td></tr>
+<tr><td class="yazi"> -ofps 25</td><td class="yazi"> yerine</td><td class="yazi"> -ofps 30000/1001</td></tr>
+</table>
+<br />
+<span class="yazi">
+Ayrıntılı bilgiler için <a href="http://www.mplayerhq.hu/DOCS/man/en/mplayer.1.html">Mplayer el kitabı sayfalarını</a> okuyabilirsiniz.
+</span>
+</p>
+<p class="yazi">
+Konuya ilişkin ayrıntılı bilgi için bu adresi tıklayın:<br />
+<a href="http://www.linux.com/articles/53702">http://www.linux.com/articles/53702</a>
+</p>
+<h4>ffmpeg</h4>
+<p class="yazi">
+<a href="http://ffmpeg.mplayerhq.hu/">ffmpeg</a> programı Dünya üzerindeki hemen her tür video ve ses kalıplarını çevirecek özelliktedir. Bu programın Windows kullanıcılarının alışık olduğu çarpıcı grafik arayüzü yoktur. Komut satırından başlatılır.
+</p>
+<p class="yazi">
+Konuya ilişkin ayrıntılı bilgi için bu adresi tıklayın:<br />
+<a href="http://www.theinquirer.net/en/inquirer/news/2006/07/31/dont-buy-any-video-converter-before-trying-this-freebie">http://www.theinquirer.net/en/inquirer/news/2006/07/31/dont-buy-any-video-converter-before-trying-this-freebie</a>
+</p>
+<h4>SUPER ©</h4>
+<p class="yazi">
+Bu tümüyle ücretsiz bir yazılımdır. WEB sayfasında neler yapılabildiği ayrıntılarıyla anlatılmıştır. Göründüğü kadarıyla her tür video ve ses çevirimi için kullanılabilecek bir yazılımdır. Listede yer alan bazı özellikler kısaca şöyledir:
+<br />
+<table border=0>
+<tr><td valign="top">
+<ul>
+<li class="ssyazi"> Ses çevirici</li>
+<li class="ssyazi"> Mobile telefon 3GP çeviricisi</li>
+<li class="ssyazi"> Mobile telefon 3G2 çeviricisi</li>
+<li class="ssyazi"> PocketPC çevirici</li>
+<li class="ssyazi"> iPod & iPod 5.5G çevirici</li>
+<li class="ssyazi"> PS3 & PSP çevirici</li>
+<li class="ssyazi"> Zune çevirici</li>
+<li class="ssyazi"> Nintendo DS çevirici</li>
+<li class="ssyazi"> VCD çevirici</li>
+<li class="ssyazi"> SVCD çevirici</li>
+<li class="ssyazi"> DVD çevirici</li>
+<li class="ssyazi"> AVI çevirici</li>
+<li class="ssyazi"> MP4 çevirici</li>
+<li class="ssyazi"> MOV çevirici</li>
+<li class="ssyazi"> ASF çevirici</li>
+<li class="ssyazi"> FLV çevirici</li>
+</ul>
+</td><td valign="top">
+<ul>
+<li class="ssyazi"> MPG çevirici</li>
+<li class="ssyazi"> OGG çevirici</li>
+<li class="ssyazi"> WMV çevirici</li>
+<li class="ssyazi"> GIF çevirici</li>
+<li class="ssyazi"> AviSynth script dosyaları (.AVS) çeviricisi</li>
+<li class="ssyazi"> VCD (.DAT) dosyaları çeviricisi</li>
+<li class="ssyazi"> Flash (.FLV) dosyaları çeviricisi</li>
+<li class="ssyazi"> Matroska (.MKV) dosyaları çeviricisi</li>
+<li class="ssyazi"> QuickTime (.QT) dosyaları çeviricisi</li>
+<li class="ssyazi"> RealMedia (.RM  .RAM  .RMVB  .RA) dosyaları çeviricisi</li>
+<li class="ssyazi"> Old.Play.Station (.STR) dosyaları çeviricisi</li>
+<li class="ssyazi"> ShockWave Flash (.SWF) dosyaları çeviricisi</li>
+<li class="ssyazi"> HDTV (.TS) dosyaları çeviricisi</li>
+<li class="ssyazi"> VivoActive (.VIV) dosyaları çeviricisi</li>
+<li class="ssyazi"> AutoMode her tür video kayıdını VCD, SVCD, DVD kalıbına çevirme.</li>
+</ul>
+</td></tr></table>
+
+</p>
+<p class="yazi">
+Konuya ilişkin ayrıntılı bilgi için bu adresi tıklayın:<br />
+<a href="http://www.erightsoft.com/SUPER.html">http://www.erightsoft.com/SUPER.html</a>
+</p>
+<h4>Linux Video Araçları</h4>
+<p class="yazi">
+AcidRip, Audacity, AviDemux, Ccdtovcd, CDRDAO, Cinelerra, DeVeDe, DivFix++, Drip, DVBcut, dvd::rip, dvdauthor, DVDStyler, EffecTV, FAME project, ffmpeg, Freevo, GeeXboX, GePhex, HandBrake, iriverter, jahshaka, Jubler, K3b, K9Copy, Kdenlive, Kino, LinVDR, LiVES, LVE, lxdvdrip, ManDVD, MJPEG Tools, MKVtoolnix, MPlayer / Mencoder, MythTV, ogle, OpenVIP, PgcEdit, Q DVD-Author, qVamps, SageTV, tovid, tvtime, Varsha, VLC media player, WinFF, XdTV, xine, ZS4 adlı yazılımlar Linux Video araçlarının bir çoğudur.
+<br />Konuya ilişkin bilgi aşağıdaki web adresinde bir tablo biçiminde gösterilmiştir.
+<br />
+<a href="http://www.videohelp.com/tools/sections/linux-video-tools">http://www.videohelp.com/tools/sections/linux-video-tools</a>
+</p>
+<h4> Online FLV Çevirici</h4>
+<p class="yazi">
+Buradaki yazılım çeşitli flv uzantılı dosyaların çevirimi için kullanılan web tabanlı, ücretsiz bir yazılımdır. flv uzantılı dosyalar mov, wmv, mp4, 3qp, mp3 uzantılı dosyalara çevirilebilir.
+</p>
+<h4> ZAMZAR Online Dosya çevirici</h4>
+<p class="yazi">
+Belge, Görüntü ve video çevirme aracı olan bu yazılım web tabanlı olup ücretsiz olarak kullanılabilmektedir.
+<br />Konuya ilişkin bilgi aşağıdaki web adresinde bir tablo biçiminde gösterilmiştir.
+<br />
+<a href="http://www.zamzar.com/conversionTypes.php">http://www.zamzar.com/conversionTypes.php</a>
+</p>
+<h3>ÇEVİRİMLERİN KULLANIM ALANLARI</h3>
+<p class="yazi">
+Çevirimler daha sonra (<a href="http://www.dvdstyler.de/">DVDStyler</a> gibi programlarla) DVD üretmek için kullanılır. DVDstyler açık kaynak kodlu bir yazılımdır. Küçük video kayıtlarını cep telefonlarınıza indirmek için çevirici kullanmak, cep telefonlarıyla çekilen video'larınızı web ortamına taşımak için gereken çevirimler hep burada sözü edilen yazılımlarla gerçekleştirilir. Bu tür daha birçok yazılım vardır. Biz burada size ücretsiz olan yazılımlardan örnekler verdik. Diğerlerini siz Google aracılığıyla bulabilirsiniz.
+<br />
+Bazen WEB sayfasında flv uzantılı kısa video yayımlamak (<a href="http://flowplayer.org/">flowplayer</a> uygulaması kullanımında olduğu gibi) için de kullanılır. Flowplayer youtube benzeri sitelerde kısa video yayımları yapmak için kullanılabilecek bir uygulamadır. Web sayfalarınızın arasında yer alan tanımlarıyla çok kolay kullanılabilir.
+<br />
+Bazı uygulamalarda swf uzantılı videolar (flash animasyonu diye de adlandırılır) <a href="http://sswf.sourceforge.net/">sswf</a> araçlarıyla üretilebilir. sswf hem Windows hem de Linux altında çalışabilen açık kaynak kodlu araçlardır.
+sswf araçlarından söz edince <a href="http://osflash.org/">osflash</a> yazılımından söz etmeden geçmek doğru olmaz. Bu yazılım açık kaynak kodlu flash programıdır.
+</p>
+<br />
+</div>
+    <br />
+    <div class="yazi">
+        <div id="altsatir">
+            <br />
+            <span class="rside">Tasarım: Aybim Bilgisayar Tic Ltd Şti&nbsp;&nbsp;</span>
+        </div>
+    </div>
+  </div>
+  </td>
+  </tr></table>
+</div>
+</div>
+<br>
+<script type="text/javascript">
+var myMenu = new COOLjsMenu("menu1", MENU_ITEMS);
+</script>
+</body></html>

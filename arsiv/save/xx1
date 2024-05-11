@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Aybim </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onload="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="ortataraf">
+           <span><img src="../img/transparent.gif" width="1" height="50">
+           <img src="../img/transparent.gif" width="780" height="1"></span>
+           <div id="banner">
+             <img src="img/baslik.gif"><br />
+             <div id="mycontainer">
+               <div id="content">
+<div id="bdy" class="yazi">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8541306787668208";
+//728x90, created 1/16/08
+google_ad_slot = "7459135715";
+google_ad_width = 728;
+google_ad_height = 90;
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<br>
+<br>
+<div id="sag"><span class="yazi">24 Ocak 2008</span></div>
+<h3></h3>
+<br />
+</div>
+               </div>
+             </div>
+           </div>
+
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+          <a href="index.html" class="box"><img src="../img/aybim.png"></a><br /><br />
+          <a href="aglar.html" class="nav">Aglar</a>
+          <a href="aglink.html" class="nav">Aglink</a>
+          <a href="agteknik.html" class="nav">Agteknik</a>
+          <a href="ccode.html" class="nav">C-Kodlama</a>
+          <a href="cprep.html" class="nav">C-Önişleme</a>
+          <a href="crclrc.html" class="nav">CRC/LRC</a>
+          <a href="dea.html" class="nav">DEA</a>
+          <a href="etcsrv.html" class="nav">etcsrv</a>
+          <a href="fork.html" class="nav">Çatal (fork)</a>
+          <a href="ilet.html" class="nav">ilet</a>
+          <a href="inetd.html" class="nav">inetd</a>
+          <a href="make.html" class="nav">Make</a>
+          <a href="msgauth.html" class="nav">Msg Auth</a>
+          <a href="recur.html" class="nav">Özyinelemeli</a>
+          <a href="robots.html" class="nav">Robotlar için</a>
+          <a href="sdlc.html" class="nav">SDLC</a>
+          <a href="secure.html" class="nav">Güvenlik</a>
+          <a href="seri.html" class="nav">Seri uçlar</a>
+          <a href="snalu0.html" class="nav">SNA LU0</a>
+          <a href="snalu62.html" class="nav">SNA LU6.2</a>
+          <a href="tcpip.html" class="nav">tcp/ip</a>
+          <a href="tcpprg.html" class="nav">tcp Programı</a>
+          <a href="unix.html" class="nav">Unix</a>
+          <a href="vi.html" class="nav">vi Editör</a>
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

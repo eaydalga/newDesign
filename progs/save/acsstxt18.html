@@ -1,0 +1,125 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+</head>
+<body>
+<div id="sag"><span class="yazi">26 Ekim 2007</span></div>
+<h2>Ortam (Media) Türleri</h2>
+<span class="yazi">
+Ortam Türleri değişik ortamlarda belgelerin nasıl sunulduğunu gösterir. Belgeler ekranda, kağıtta ve diğer tarayıcılar gibi ortamlarda değişik biçimlerde görüntülenebilir.
+</span>
+<br />
+<h3>Ortam Türleri (Media Types)</h3>
+<span class="yazi">
+Bazı CSS türleri yalnız belirli ortamlarda çalışacak biçimde tasarlanmıştır. Örneğin "ses-ailesi" özellikleri işitsel kullanıcı ortamları için geçerlidir. Diğer türlerden bazıları yalnız (örneğin "yazı-tipi-boyu" özelliği) ekran ve yazıcı ortamları için geçerli olabilir, ama farklı değerlerle etkin olabilirler. Bir belge ekranda kağıda oranla daha büyük yazı-tipine gereksinim duyar. Örneğin sans-serif yazı-tipi ekranda daha okunaklıyken, serif yazı-tipi kağıtta daha iyidir.
+</span>
+<h3>@media Kuralı</h3>
+<span class="yazi">
+@media kuralı değişik stil kurallarını değişik ortamlar için aynı CSS içinde tanımlamaya yarar.<br />
+<br />
+Aşağıdaki örnekte ekranda görüntülenen yazı 14px verdana yazı-tipi kullanır. Ama eğer sayfa yazdırılacaksa, yazı 10px Times yazı-tipi olur. Dikkate edilecek konu yazı-ağırlığının "koyu" olması hem ekran hem de kağıt için geçerli olduğudur.
+<br />
+</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+&lt;html&gt;
+&lt;head&gt;
+&lt;style&gt;
+@media screen
+{
+p.test {font-family:verdana,sans-serif; font-size:14px}
+}
+
+@media print
+{
+p.test {font-family:times,serif; font-size:10px}
+}
+
+@media screen,print
+{
+p.test {font-weight:bold}
+}
+&lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+....
+
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+</fieldset>
+<br />
+<span class="yazi">
+See it yourself ! If you are using Mozilla/Firefox or IE 5+ and print this page, you will see that the paragraph under "Media Types" will be displayed in another font, and have a smaller font size than the rest of the text.
+Kendiniz görün. Eğer 
+Mozilla/Firefox yada IE 5+ kullanıyorsanız ve bu sayfayı yazdırıyorsanız, "Ortam Türleri" başlıklı paragrafın değişik yazı-tipiyle yazıldığını, belgenin diğer bölgelerinin daha küçük yazı-tipi kullanıdığı görürsünüz.
+</span>
+<h3>Değişik Ortam Türleri</h3>
+<span class="yazi">
+Not: Ortam türleri adları büyük-küçük harf duyarlı değildir.
+</span>
+<br />
+<table class="fyazi" cellspacing="0" border="1" width="100%" cellpadding="3">
+  <tr>
+    <th width="20%" align="left" valign="top">Ortam Türü</th>
+    <th width="80%" align="left" valign="top">Açıklama</th>
+  </tr>
+
+  <tr>
+    <td valign="top">all</td>
+    <td valign="top">
+Her ortam türü birimlerinde kullanılır</td>
+  </tr>
+  <tr>
+    <td valign="top">aural</td>
+    <td valign="top">
+Ses sentez birimlerinde kullanılır</td>
+  </tr>
+  <tr>
+    <td valign="top">braille</td>
+    <td valign="top">
+Braille için dokunmalı geri besleme birimlerinde kullanılır</td>
+  </tr>
+  <tr>
+
+    <td valign="top">embossed</td>
+    <td valign="top">
+Barille sayfalarının yazdırılmasında kullanılır</td>
+  </tr>
+  <tr>
+    <td valign="top">handheld</td>
+    <td valign="top">
+Eldeki ve küçük birimlerde kullanılır</td>
+  </tr>
+  <tr>
+    <td valign="top">print</td>
+    <td valign="top">
+Yazıcılarda kullanılır</td>
+  </tr>
+  <tr>
+    <td valign="top">projection</td>
+    <td valign="top">
+Slaytlar gibi proje sunumlarında kullanılır</td>
+  </tr>
+  <tr>
+    <td valign="top">screen</td>
+    <td valign="top">
+Bilgisayar ekranlarında kullanılır</td>
+  </tr>
+  <tr>
+    <td valign="top">tty</td>
+    <td valign="top">
+Terminaller gibi değişmez harflerle yazılması söz konusu olan ortamlarda kullanılır</td>
+  </tr>
+  <tr>
+    <td valign="top">tv</td>
+    <td valign="top">
+Televizyon türü birimlerde kullanılır</td>
+  </tr>
+</table> 
+<br />
+</body>
+</html>

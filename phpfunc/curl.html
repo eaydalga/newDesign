@@ -1,0 +1,135 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP CURL, İstemci URL adresi Kitaplık İşlevleri</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">18 Şubat 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>CURL, İstemci URL adresi Kitaplık İşlevleri<br />
+(Client URL Library Functions)</h2>
+
+<h3>Giriş</h3>
+
+PHP libcurl destekler. Bu kitaplık Daniel Stenberg tarafından yaratılmıştır.
+Sizin birçok değişik tür sunucuya birçok değişik protokol ile bağlanmanızı ve
+iletişim kurmanızı sağlar. Şu anda libcurl http, https, ftp, gopher, telnet,
+dict, file, ve ldap protokollerini destekler. libcurl aynı zamanda HTTPS
+sertifikalrını, HTTP POST, HTTP PUT, FTP yükleme, HTTP bilgi girişi tabanlı
+yükleme, proxy sunucular, çerezler ve kullanıcı/şifre kontrolu gibi işlemleri
+de destekler.
+<br /><br 7>
+Bu işlevler PHP 4.0.2 sürümünden sonra eklenmiştir.
+
+<h3>Gereksinim</h3>
+
+PHP'nin cURL işlevlerini kullanabilbek için libcurl paketini kurmanız gerekir.
+PHP libcurl 7.0.2-betat ya da daha üstünde bir sürümü kullanmanızı ister. PHP
+4..3.0 sürümü için 7.9.8 ya da üstü, PHP 5.0.0 sürümü için 7.10.5 ya da üstü
+gerekir.
+
+<h3>Kurulum</h3>
+
+PHP ile cURL kullanmak için "--with-curl[=DIR]" ile derleme yapmalısınız. DIr
+kitaplığın ve eklenecek dosyaların yerini gösterir. "include" dosya yolunda
+"curl" adlı bir dosya yolu olmalıdır. İçinde easy.h ve curl.h dosyaları
+bulunur. "lib" dosya yolunda "libcurl.a" dosyası olmalıdır. PHP 4.3.0
+sürümünden başlayarak CURL kullanılması için "--with-curlwrappers" PHP ayarı
+yapılmalıdır.
+<br /><br 7>
+    Not: Wİn32 kullanıcılarına not. Windows ortamında bu modülü açmak için , libeay32.dll ve ssleay32.dll PATH altında tanımlı olmalıdır. cURL sitesinden libcurl.dll almanıza gerek yoktur.
+
+<h3>Kaynak Türleri</h3>
+
+Bu uzantı iki kaynak türünü tanımlar: ele alınan cURL bilgisi, çoklu cURL
+bilgisi.
+
+<h3>Örnekler</h3>
+
+Bir kez cURL desteğiyle PHP derlenince, cURL işlevleri kullanılmaya başlanır.
+cURL işlevlerinin arkasındaki temel düşünce oturumların curl_init() ile
+ilklenmesi, ayarların ve seçeneklerin curl_setopt() ile yapılmasıi, oturumun
+curl_exec() ile çalıştırılması ve oturumun curl_close() ile bitirilmesi vardır.
+<br /><br 7>
+Örnek PHP cURL modülüyle example.com ev sayfasını arama
+
+<pre>
+&lt;?php
+
+$ch = curl_init("http://www.example.com/");
+$fp = fopen("example_homepage.txt", "w");
+
+curl_setopt($ch, CURLOPT_FILE, $fp);
+curl_setopt($ch, CURLOPT_HEADER, 0);
+
+curl_exec($ch);
+curl_close($ch);
+fclose($fp);
+?&gt;
+</pre>
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> Constants — Önceden tanımlı Curl Değişmezleri
+    <li> curl_close — cURL oturumunu kapatma
+    <li> curl_copy_handle — ele alınan cURL bilgisini özellikliyle kopyalama
+    <li> curl_errno — Son hata numarasını döndürür.
+    <li> curl_error — O anki oturumun son hatasını yazı dizisinde döndürür.
+    <li> curl_exec — cURL oturumu yaratma
+    <li> curl_getinfo — Özel bir transfer olmadan bilgiyi alma
+    <li> curl_init — cURL oturumunu ilkleme
+    <li> curl_multi_add_handle — Ele alınan normal cURL bilgisini çoklu cURL bilgisine ekleme
+    <li> curl_multi_close — Ele alınan cURL kümesini kapatma
+    <li> curl_multi_exec — Ele alınan o anki cURL bilgisinin alt bağlantılarını çalıştırma
+    <li> curl_multi_getcontent — CURLOPT_RETURNTRANSFER değeri varsa ele alınan cURL bilgisinin içeriğini döndürme.
+    <li> curl_multi_info_read — O anki transferler hakkında bilgi alma
+    <li> curl_multi_init — Yeni çoklu cURL bilgisi döndürür.
+    <li> curl_multi_remove_handle — cURL bilgileri içinden çoklu cURL bilgisini silme
+    <li> curl_multi_select — cURL uzantısıyla ilgili seçilebilen tüm soketleri al
+    <li> curl_setopt_array — cURL transferi için çoklu seçenek ayarla
+    <li> curl_setopt — cURL transferi için seçenek oluştur.
+    <li> curl_version — cURL sürüm bilgisini al
+</ul>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<html>
+<body>
+<div id="sag"><span class="yazi">3 Aralık 2007</span></div>
+<h2>Kodlamayla Yazma</h2>
+<div class="yazi">
+Kodlamayla yazarken dikkatli olunmalıdır. Eğer tarayıcı Kodlama desteklemezse (kapalıysa) yazılanlar sayfada gözükmez. Bu işlemi sayfa içeriğinin görüntülenmesini etkilemeyecek biçimde kullanmalısınız. Eğer kodlamayla yazılamayan bölümler varsa &lt;noscript&gt; biçimiyle kullanıcı uyarılmalıdır.
+<br />
+<h3>Sayfa yüklenirken yazma</h3>
+Sayfa yüklenmekteyken kodlama çalışırsa aşağıdakine benzer bir kodlama kullanın:
+<br />
+<pre>
+<script type="text/javascript">
+document.write('<p>Ne yazmak isterseniz<\/p>');
+document.writeln('<p>Ne yazmak isterseniz<\/p>');
+//writeln yazdıktan sonra satır kırılımı ekler
+//Bu parçacık HTML kaynak kodunda bir satır kırılımıdır.
+//Sayfa görüntüsünde fark olmaz.
+</script>
+</pre>
+<br />
+Kodlamanın hangi sayfanın neresinde çalıştığına bağımlı olarak ne yazmak gerekirse onu yazar. Doğal olarak buralara HTML biçimleri ya da program parçaları yerleştirebilirsiniz.
+<br />
+<br />
+
+Eğer Olay yakalayıcısı kullanarak yazarsanız (bir resmin onload olayında olduğu gibi), tüm sayfa yüklanmiş gibi yorumlanabilir ama öyle değildir.
+<h3>Sayfa yüklendikten sonra yazma</h3>
+
+<br />
+Tüm sayfa yüklendikten sonra kurallar değişir. Sayfanın içeriğine eklemeden, sayfayı değiştirilir. Bunu yapabilmek için belge açarını açmak gerekir (eğer doğrudan yazmaya başlarsanız birçok tarayıcı bunu size hazır eder). Ne yazmak isterseniz onu yazıp belge akarını kapatmanız gerekir. Yine bir çok tarayıcı akarı sizin için kapatır. Mozilla/Firefox tarayıcılar, akarı kapatmazsanız grafikler yükleniyor gibi gözterir. Güvenli olması için her zaman akarı kapatınız.
+<br />
+
+<pre>
+<script type="text/javascript">
+document.open();
+document.write('<p>Ne yazmak isterseniz yazın<\/p>');
+document.write('<p>Yazmak istediğiniz başka şeyler<\/p>');
+document.close();
+</script>
+</pre>
+
+<br />
+Buradaki gösterilmiş olan herşeyi siler ve hepsini yazmak istenilenle değiştirir. Bu yöntemi kullanırken &lt;html&gt; biçimlerini ve benzeri şeyleri de kullanmanız gerekir.
+<br />
+<br />
+
+HTML biçimlerini kullanırken kapanış biçimlerinde kesmenin önünde ters kesme olduğu kolaylıkla görülebilir. Bu HTML yazma standartıydı. Gerçi tarayıcılar kapanışı ters kesme kullanmadan da anlayabilir.
+<br />
+<br />
+
+Kodlamayla HTML yazılabildiğine göre, stil hatta başka kodlamalar da yazabilirsiniz. Eğer &lt;/script&gt; yazarken ters kesme yazmayı unutursanız, tarayıcı bunu var olan kodlamanın kapanması anlar ve yazmaya çalışılan kodlama bitmez. hata oluşur.
+
+<br />
+<br />
+Aynı şeyler açılan ve kapanan açıklamalar için de geçerlidir (kodlama yazarken neden açıklama yazmak isteneceğini pek anlaşılmasa da kural kuraldır). Bunlar '<'+'!--' ve '-'+'->' biçimde yazılır. Kodlama çalıştığında geçerli HTML açıklaması yaratılır.
+<h3>Eski tarayıcılarla problemler</h3>
+
+<br />
+Artık gerçek olarak pek kullanılmıyor olsa da, Netscape 4 gibi eski tarayıcılara nazik olmak gerekir. Eğer document.write dinamik olarak div öğesi yazmak için kullanılırsa, div için satır içi stil kullanırken left: ya da top: belirtmemek gerekir. Bu Netscape 4'ü tümüyle çuvallatır ve çok beklenmedik hata oluşur.
+<br />
+<br />
+
+Eğer bu yöntem &lt;div style="position:absolute"&gt; yaratırsa daha yüklenirken Netscape 4 tümüyle hata verir. Halbuki yerine kurallara uymasa da &lt;layer&gt; kullanılmalıdır.
+</div>
+<br />
+</body>
+</html>

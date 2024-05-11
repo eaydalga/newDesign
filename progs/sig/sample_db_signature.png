@@ -1,0 +1,89 @@
+<?php
+//
+// Setup the relative path to your phpBB folder...
+//
+$phpbb_root_path = '../forums/';
+
+//
+// Initialize phpBB and user session...
+//
+define('IN_PHPBB', true);
+include($phpbb_root_path . 'extension.inc');
+include($phpbb_root_path . 'common.'.$phpEx);
+$userdata = session_pagestart($user_ip, PAGE_INDEX);
+init_userprefs($userdata);
+
+//
+// Get the list of forums the current user is allowed to view...
+//
+$is_auth_ary = auth(AUTH_VIEW, AUTH_LIST_ALL, $userdata);
+$auth_data_sql = '';
+foreach( $is_auth_ary as $fid => $is_auth_row )
+{
+    if( $is_auth_row['auth_view'] )
+    {
+        $auth_data_sql .= ( $auth_data_sql != '') ? ', ' . $fid : $fid;
+    }
+}
+if( empty($auth_data_sql) )
+{
+    $auth_data_sql = -1;
+}
+
+//
+// Retrieve the latest active topic title...
+//
+$sql = "SELECT t.topic_title, u.username, p.post_time
+        FROM ". TOPICS_TABLE ." AS t,
+            ". FORUMS_TABLE ." AS f,
+            ". USERS_TABLE ." AS u,
+            ". POSTS_TABLE ." AS p
+        WHERE f.forum_id = t.forum_id
+            AND t.topic_last_post_id = p.post_id
+            AND p.poster_id = u.user_id
+            AND f.forum_id in ( $auth_data_sql )
+        ORDER BY t.topic_last_post_id DESC
+        LIMIT 1";
+if( !($result = $db->sql_query($sql)) || !($row = $db->sql_fetchrow($result)) )
+{
+//    Uncomment the following line for debug purposes ;-)
+//    message_die(GENERAL_ERROR, 'Could not query DB', '', __LINE__, __FILE__, $sql);
+    $text = array(
+        "Sorry, I couldn't retrieve the requested information.",
+        ""
+    );
+}
+else
+{
+    $post_date = create_date($board_config['default_dateformat'], $row['post_time'], $board_config['board_timezone']);
+    $text = array(
+        "Latest post by " . $row['username'] . ', ' . $post_date,
+        "Title: " . $row['topic_title']
+    );
+}
+
+// --------------------------------------------------------------------------------
+
+$image_info = array(
+    'image'    => 'sample_signature.gif'
+);
+
+$image_text = array(
+    array(
+        'x'     => 8,
+        'y'     => 6,
+        'color' => array(50, 100, 180),
+        'font'  => -2,
+        'text'  => $text[0]
+    ),
+    array(
+        'x'     => 8,
+        'y'     => 21,
+        'color' => array(50, 100, 180),
+        'font'  => -2,
+        'text'  => $text[1]
+    )
+);
+
+include('./includes/dynamic_gd_image.php');
+?> 

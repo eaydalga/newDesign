@@ -1,0 +1,82 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Gettext İşlevleri</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">18 Şubat 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>Gettext İşlevleri</h2>
+
+<h3>Giriş</h3>
+
+gettext işlevleri (Yerel Dil Desteği) uygulama arayüzlerini uyarlar. Bunlarla
+PHP uygulamanız uluslararası boyutlara erişir. Ayrıntılı bilgi için
+http://www.gnu.org/software/gettext/manual/gettext.html adresine gidin.
+
+<h3>Gereksinim</h3>
+
+Bu işlevleri kullanabilmek için sisteminizde GNU gettext paketi kurulu olmalı.
+Bu paketi http://www.gnu.org/software/gettext/gettext.html adresinden
+sağlayabilirsiniz.
+
+<h3>Kurulum</h3>
+
+GNU gettext desteğini PHP ile kullanmak için "--with-gettext[=DIR]"
+seçenepiyle derleme yapmalısınız. DIR için varsayılan yer "/usr/local/" olur.
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> bind_textdomain_codeset — DOMAIN mesaj kataloğundan dönen mesajların hangi kodlamayla olacağını belirtir.
+    <li> bindtextdomain — Bir yolu (path) yöresel ada ayarlar
+    <li> dcgettext — Tek arama için yöresel bilgiyi değiştirir
+    <li> dcngettext — dcgettext çoğul sürümüdür.
+    <li> dgettext — O anki yöresel bilgiyi değiştir
+    <li> dngettext — dgettext işlevi çoğulu
+    <li> gettext — Bir mesajı o anki yöresel ortamda arama
+    <li> ngettext — gettext çoğuludur
+    <li> textdomain — Varsayılan yöresel bilgiyi ayarlar
+</ul>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Aybim </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script language="JavaScript" src="../js/XHConn.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+
+function oku(s)
+{
+var myConn = new XHConn();
+
+var fnBitti = function (oXML) {
+   if(document.getElementById) {
+      target1=document.getElementById('canvas');
+      if(target1) {
+            target1.innerHTML = '';
+            target1.innerHTML=oXML.responseText;
+      }
+   }
+ };
+myConn.connect(s, "GET", "", fnBitti);
+}
+function oz(aa)
+{
+ayarla();
+oku(aa);
+}
+</script>
+</head>
+
+<body onLoad="oz('dhtmltxt.html');">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>DHTML</h3></font>
+               <a href="javascript:oku('dhtmltxt1.html');" class="nav">Giriş-DOM</a>
+               <a href="javascript:oku('dhtmltxt2.html');" class="nav">CSS</a>
+               <a href="javascript:oku('dhtmltxt3.html');" class="nav">Katman</a>
+               <a href="javascript:oku('dhtmltxt4.html');" class="nav">DOM</a>
+               <a href="javascript:oku('dhtmltxt5.html');" class="nav">Olaylar</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>Dinamik HTML</h2></center>
+       <div id="ortataraf">
+<!-- dynamic html sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+         </div>
+         <span><img src="img/notebook1.gif"></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+           <img src="../img/transparent.gif" height="64" width="1"><br /><br />
+           <div class="ymenublock">
+               &nbsp;
+           </div>
+       </div>
+    </td></tr>
+    </table>
+</div>
+<div id="canvas">
+</div>
+</body>
+</html>

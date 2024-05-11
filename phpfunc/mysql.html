@@ -1,0 +1,325 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Hyperlink Preprocessor </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">31 Mart 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>MySQL İşlevleri</h2>
+
+<h3>Giriş</h3>
+
+Bu işlevler MySQL veritabanı sunucusuna erişmenizi sağlar. MySQL hakkında
+bilgi edinmek isterseniz http://www.mysql.com/ adresine bakın.
+<br /><br />
+MySQL belgeleri http://dev.mysql.com/doc/ adresindedir.
+
+<h3>Gereksinim</h3>
+
+PHP MySQL desteğiyle derlenirse bu işlevler kullanılabilir.
+
+<h3>Kurulum</h3>
+
+Derlemek için "--with-mysql[=DIR]" ayarlama seçeneğini kullanın. Burada DIR
+MySQL kurulum yoludur.
+<br /><br />
+Buradaki MySQL uzantısı MySQL 4.1.0 ve üzeriyle uyumlu olsa da, bu sürümlerin
+sağladığı ek işlevsellikleri desteklemez. Bunlar için MySQLi uzantısını
+kullanmalısınız.
+<br /><br />
+Eğer mysql uzantısını mysqli uzantısıyla birlikte kurmak isterseniz Aynı
+istemi kitaplığını her ikisinde de kullanarak doğabilecek çelişkilerden
+kurtulmuş olursunuz.
+
+<h3>Linux Sistemi üzerinde kurulum</h3>
+<h3>PHP 4</h3>
+
+"--with-mysql" seçeneği varsayılan olarak açıktır. Bunu kapatmak için
+"--without-mysql" ayarlama seçeneği kullanılabilir. Eğer MySQL, kurulum yolu belirtilmeden açılırsa, PHP paketlenmiş MySQL kitaplıklarını kullanır.
+<br /><br />
+MySQL kullanan diğer uygulamaları çalıştıran kullanıcılar (örneğin auth-mysql)
+paketlenmiş kitaplıkları kullanmamalıdırlar. Ama kullanılan kitaplıkların yolu
+açıkça belirtmelidirler. Bu PHP'ye çelişkileri önelemek için istemci kitaplıklarını kullanmayı zorlar.
+
+<h3>PHP 5+</h3>
+
+MySQL varsayılan olarak açık değildirve MySQL kitaplığı PHP ile paketli
+değildir. MySQL desteğini eklemek için "--with-mysql[=DIR] ayarlama seçeneğini
+kullanın. Başlıkları ve kitaplıkları MySQL'den indirebilirsiniz.
+
+<h3>Windows Sistemi üzerinde kuruluş</h3>
+
+<h3>PHP 4</h3>
+
+PHP MySQL uzantısı PHP ile derlenmiştir.
+
+<h3>PHP 5+</h3>
+
+Artık MySQL varsayılan olarak açık değildir. php_mysql.dll php.ini içine
+yazılarak açılabilir. Aynı zamanda PHP MySQL istemci kitaplığına erişim için
+gerek duyar. libmysql.dşş adlı dosya Windows PHP dağıtımına eklenmiştir ve
+PHP'nin MySQL ile konuşabilmesi için bu dosyanın sistem çevre değişkeni PATH
+tarafından erişilir olması gerekir.
+<br /><br />
+Herhangi PHP uzantısının açılmasında olduğu gibi (php_mysql.dll gibi), PHP
+yönelticisi extension_dir PHP uzantılarının bulunduğu yolu göstermelidir.
+Örnek extension_dir PHP 5 için c:\php\ext olarak gösterilebilir.
+<br /><br />
+    Not: Eğer Web sunucuyu başlatırken aşağıdaki gibi bir hata oluşursa:
+<code>"Unable to load dynamic library './php_mysql.dll'"</code>
+bunun anlamı php_mysql.dll ve libmysql.dll sistem tarafından bulunamamış
+demektir.
+
+<h3>MySQL Kurulum Notları</h3>
+
+<h3>Uyarı</h3>
+
+Kırılmalar ve başlama sorunları bu uzantıyı yüklerken karşılaşılabilir. Daha
+çok bilgi için "uzantıyı yeniden kodlama" bölümüne bakın.
+<br /><br />
+    Not: Eğer latin (varsayılan) dışında bir karakter takımına gerek varsa, o zaman dışsal (paket içinden değil) libmysql yüklemelisiniz. Burada desteklenecek karakter takımı da derlenmelidir.
+
+<h3>Çalışma Zamanı Ayarları</h3>
+
+php.ini yönelticilerinin değerleri işlevlerin davranışlarını değiştirir.
+
+<h3>MySQL Ayarlama Seçenekleri
+
+<table class="yazi">
+<tr><td>Adı</td><td>Varsayılan</td><td>Değişebilir</td><td>Değişmekaydı</td></tr>
+<tr><td>mysql.allow_persistent</td><td>"1"</td><td>PHP_INI_SYSTEM</td><td></td></tr>
+<tr><td>mysql.max_persistent</td><td>"-1"</td><td>PHP_INI_SYSTEM</td><td></td></tr>
+<tr><td>mysql.max_links</td><td>"-1"</td><td>PHP_INI_SYSTEM</td><td></td></tr>
+<tr><td>mysql.trace_mode</td><td>"0"</td><td>PHP_INI_ALL</td><td>PHP 4.3.0. den beri var</td></tr>
+<tr><td>mysql.default_port</td><td>NULL</td><td>PHP_INI_ALL</td><td></td></tr>
+<tr><td>mysql.default_socket</td><td>NULL</td><td>PHP_INI_ALL</td><td>PHP 4.0.1. den beri var</td></tr>
+<tr><td>mysql.default_host</td><td>NULL</td><td>PHP_INI_ALL</td><td></td></tr>
+<tr><td>mysql.default_user</td><td>NULL</td><td>PHP_INI_ALL</td><td></td></tr>
+<tr><td>mysql.default_password</td><td>NULL</td><td>PHP_INI_ALL</td><td></td></tr>
+<tr><td>mysql.connect_timeout</td><td>"60"</td><td>PHP_INI_ALL</td><td>PHP <= 4.3.2. içinde PHP_INI_SYSTEM PHP 4.3.0. den beri var</td></tr>
+</table>
+
+PHP_INI_* değişmezleri için diğer ayrıntılar ve tanımlar php.ini
+yönelticilerinde anlatılmıştır.
+<br /><br />
+Burada ayarlama yönelticilerinin kısa açıklaması vardır
+<dl>
+<dt>mysql.allow_persistent mantıksal
+
+    <dd>MySQL ile sürekli bağ kurulmasına izin verilip verilmemesidir
+</dd></dt>
+<dt>mysql.max_persistent tamsayı
+
+    <dd>İşlem başına en çok sürekli bağlantı sayısını verir
+</dd></dt>
+<dt>mysql.max_links tamsayı
+
+    <dd>İşlem başına en çok MySQL bağlantısını verir (sürekliler dahil)
+</dd></dt>
+<dt>mysql.trace_mode mantıksal
+
+    <dd>Hata tarama konumu. mysql.trace_mode açılmasıyla, tablo/dizi taramasının, serbest olmayan sonuç takımlarının ve SQL-Hatalarının görüntülenmesi sağlanır (PHP 4.3.0 sürümüyle başladı)
+</dd></dt>
+<dt>mysql.default_port yazı dizisi
+
+    <dd>Veritabanına bağlanırken eğer port belirtilmemişse, varsayılan TCP port numarası kullanılır. Eğer varsayılan yoksa MYSQL_TCP_PORT çevre değişkeninden değer sağlanır. /etc/services dosyasındaki mysql-tcp giriş noktası ya da MYSQL_PORT değişmezi sırayla kullanılabilecek değerlerdir (bir yoksa sonrakine bakılır). Win32 ortamında yalnız MYSQL_PORT kullanılır.
+</dd></dt>
+<dt>mysql.default_socket yazı dizisi
+
+    <dd>Eğer başka "socket" adı belirtilmemişse, yerel veritabanına bağlanırken kullanılacak varsayılan "socket" adıdır.
+</dd></dt>
+<dt>mysql.default_host yazı dizisi
+
+    <dd>Eğer başka sunucu belirtilmemişse, veritabanına bağlanırken kullanılacak varsayılan sunucu adıdır. SQL güvenli konumu için geçerli değidir.
+</dd></dt>
+<dt>mysql.default_user yazı dizisi
+
+    <dd>Eğer başka ad belirtilmemişse veri tabanına bağlanırken kullanılacak kullanıcı adıdır. SQL güvenli konumda kullanılmaz.
+</dd></dt>
+<dt>mysql.default_password yazı dizisi
+
+    <dd>Eğer başak şifre girişi belirtilmemişse, veri tabanına bağlanırken kullanılacak olan şifredir. SQL güvenli konumda kullanılmaz.
+</dd></dt>
+<dt>mysql.connect_timeout tamsayı
+
+    <dd>Saniye türünden bağlantı zaman aşımı. Linuz ortamında bu sunucudan beklenen ilk yanıtın zaman aşımına eşittir.
+</dd></dt>
+</dl>
+
+<h3>Kaynak Türleri</h3>
+
+MySQL modülünde iki kaynak türü vardır. İlki veritabanı bağlantısı tanımıdır.
+ikincisi sorgulamanın sonucunu tutan kaynaktır.
+
+<h3>Önceden Tanımlı Değişmezler</h3>
+
+Aşağıda tanımlanan değişmezler bu uzanyı içindir. Uzantı yüklenmeden anlamları
+yoktur.
+<br /><br />
+PHP 4.3.0 sürümünden beri 
+mysql_connect() ve mysql_pconnect() işlevleri için ek istemci durum kodları
+vardır. Aşağıdaki değişmezler tanımlıdır:
+
+<h3>MySQL istemci değişmezleri</h3>
+
+<table class="yazi">
+<tr><td>Değişemz</td><td>Açıklama</td></tr>
+<tr><td>MYSQL_CLIENT_COMPRESS</td><td>Sıkıştırma protokolünü kullan</td></tr>
+<tr><td>MYSQL_CLIENT_IGNORE_SPACE</td><td>İşlev adının arkasında boşluk olmasına izin ver</td></tr>
+<tr><td>MYSQL_CLIENT_INTERACTIVE</td><td>Bağlantıyı kesmeden önce wait_timeout yerine, interactive_timeout saniyelerine izin ver </td></tr>
+<tr><td>MYSQL_CLIENT_SSL</td><td>SSL kodlamasını kullan. Bu durum kodu yalnız MySQL istemci kitaplığının Sürüm 4.x ve sonrasıyla geçerlidir. Sürüm 3.23.x PHP 4 ile paketlenmiştir vev Windows PHP 5 iklisiyle de birliktedir.</td></tr>
+</table>
+
+değişik türde sonuç dizileri için mysql_fetch_array() dizisi değişmez olarak kullanılır. Aşağıdaki değişmezler tanımlanmıştır:
+
+<h3>MySQL bulma değişmezleri</h3>
+
+<table class="yazi">
+<tr><td>Değişemz</td><td>Açıklama</td></tr>
+<tr><td>MYSQL_ASSOC</td><td>Kolonlar dizilere dönüştürülür. Alan adları dizide dizin olur.</td></tr>
+<tr><td>MYSQL_BOTH</td><td>Kolonlar diziye dönüşür. Dizi için sayısal dizi ve alan adı dizini vardır.</td></tr>
+<tr><td>MYSQL_NUM</td><td>Kolonlar diziye dönüşür. Alanlar için sayısal dizini vardır. Sonuçtaki ilk alan için dizin 0 olur.</td></tr>
+</table>
+
+<h3>Notlar</h3>
+
+    Not: 
+Pekçok MySQL işlevi son seçimlik değişgeç olarak "link_identifier" kabul eder.
+Eğer yoksa bağlantı php.ini içinde tanımlı varsayılan değişgeçi kullanır. Eğer
+o da başarılı olmazsa FALSE döndürür.
+
+<h3>Örnekler</h3>
+
+Bu basit örnek MySQL veritabanına bağlantının, sorgu çalıştırmanın, sonuç yazdırmanın nasıl olduğunu gösterir.
+<br /><br />
+Örnek-1 MySQL uzantısı genel görünüm örneği
+<pre>
+&lt;?php
+// Bağlantı, veri tabanının seçimi
+$link = mysql_connect('mysql_host', 'mysql_user', 'mysql_password')
+    or die('bağlanamadı: ' . mysql_error());
+echo 'başarıyla bağlandı';
+mysql_select_db('my_database') or die('Veritabanını seçemedi');
+
+// SQL sorgu hazırlama
+$query = 'SELECT * FROM my_table';
+$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+
+// Sonuçları HTML olarak yazma
+echo "<table>\n";
+while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
+    echo "\t<tr>\n";
+    foreach ($line as $col_value) {
+        echo "\t\t<td>$col_value</td>\n";
+    }
+    echo "\t</tr>\n";
+}
+echo "</table>\n";
+
+// Sonuçları boşalt
+mysql_free_result($result);
+
+// Bağlantıyı kapa
+mysql_close($link);
+?&gt;
+</pre>
+
+<h3>İçindekiler</h3>
+<ul>
+    <ul> mysql_affected_rows — Önceki MySQL işleminden etkilenen satır sayısını al
+    <ul> mysql_change_user — Etkin bağlantı kullanısında değişiklik
+kaydedilir.
+    <ul> mysql_client_encoding — Karakter takımının adını döndürür
+    <ul> mysql_close — MySQL bağlantısını kapatır.
+    <ul> mysql_connect — MySQL sunucuya bir bağlantı kurar
+    <ul> mysql_create_db — MySQL veritabanı yarat
+    <ul> mysql_data_seek — içsel sonuç göstergesini taşı
+    <ul> mysql_db_name — Sonuç verisini al
+    <ul> mysql_db_query — MySQL sorgusu gönder
+    <ul> mysql_drop_db — MySQL veritabanını düşür (sil)
+    <ul> mysql_errno — Önceki MySQL işleminin hata mesajının değerini döndürür
+    <ul> mysql_error — Önceki MySQL işleminin hata mesajının yazısını döndürür
+    <ul> mysql_escape_string — mysql sorgu kullanılmak üzere yazı dizisini
+atlatır
+    <ul> mysql_fetch_array — Bir sonuç satırını ilgili dizi ya da sayısal dizi ya da her ikisi olarak bul
+    <ul> mysql_fetch_assoc — Sonuç satırını ilişkili dizi olarak bul
+    <ul> mysql_fetch_field — Sonuçtan kolon bilgisini al ve nesne olarak döndür
+    <ul> mysql_fetch_lengths — sonuçtar her öıktının uzunluğunu al
+    <ul> mysql_fetch_object — Bir sonuç satırını nesne olarak bul
+    <ul> mysql_fetch_row — sıralı dizi olarak sonuç satırını al
+    <ul> mysql_field_flags — Sonuçta belirtilen alanın ilgili durum kodlarını al
+    <ul> mysql_field_len — Belirtilen alanın uzunluğunu döndür
+    <ul> mysql_field_name — Sonuçta belirtilen alanın adını al
+    <ul> mysql_field_seek — Belirtilen sonuç göstergesinin alan uzaklığını ayarla
+    <ul> mysql_field_table — Belirtilen alanın içinde bulunduğu tablonun adını
+al
+    <ul> mysql_field_type — Sonuçtaki belirtilen alanın tipini al
+    <ul> mysql_free_result — Sonuç belleğini boşalt
+    <ul> mysql_get_client_info — MySQL istemci bilgisini al
+    <ul> mysql_get_host_info — MySQL bilgisayar bilgisini al
+    <ul> mysql_get_proto_info — MySQL protokol bilgisini al
+    <ul> mysql_get_server_info — MySQL sunucu bilgisini al
+    <ul> mysql_info — En son sorguyla ilgili bilgiyi al
+    <ul> mysql_insert_id — Önceki INSERT işlemiyle üretilen ID bilgisini al
+    <ul> mysql_list_dbs — MySQL sunucudaki veritabanlarının listesini al
+    <ul> mysql_list_fields — MySQL tablo alanlarını listele
+    <ul> mysql_list_processes — MySQL işlemlerini listele
+    <ul> mysql_list_tables — List tables in a MySQL database
+    <ul> mysql_num_fields — Get number of fields in result
+    <ul> mysql_num_rows — Sonuçtaki satır sayısını al
+    <ul> mysql_pconnect — MySQL sunucuya sürekli bağlantı aç
+    <ul> mysql_ping — sunucu bağlantısını ping'le ya da bağlantı yoksa yeniden bağlan
+    <ul> mysql_query — MySQL sorguyu gönder
+    <ul> mysql_real_escape_string — SQL deyiminde kullanılacak yazı dizisindeki özel karakterleri atlatır
+    <ul> mysql_result — sonuç verisini al
+    <ul> mysql_select_db — MySQL veritabanının seç
+    <ul> mysql_set_charset — istemci karakter takımını ayarla
+    <ul> mysql_stat — O anki sistem durumunu al
+    <ul> mysql_tablename — Alanın tablo adını al
+    <ul> mysql_thread_id — o anki program parçasının tanıtımını (ID) döndürür
+    <ul> mysql_unbuffered_query — sonuç satırları tamponu olmadan seçilmeden MySQL'e SQL sorgu gönderir.
+</ul>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

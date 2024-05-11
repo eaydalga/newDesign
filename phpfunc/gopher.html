@@ -1,0 +1,92 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Net_Gopher</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">18 Şubat 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>Net_Gopher</h2>
+
+<h3>Giriş</h3>
+
+gopher protokolü RFC 1436'da belirtildiği gibi modern HTTP protokolünün
+öncesidir. Ayrıca gopher, gopher olmayan telnet, wais, nntp ve http gibi
+kaynakların göstergesi olmaya adaydır. Bu uzantı gopher_parsedir() yardımcı
+işlevini kullanarak dosya yolu listesi oluşturur.
+
+<h3>Kurulum</h3>
+
+Zorunluluk: PHP 4.3.0 ya da üstü.
+<br /><br />
+Bu PECL uzantısına ilişkin bilgiler http://pecl.php.net/package/net_gopher
+adresinden sağlanabilir.
+
+<h3>Önceden Tanımlı Değişmezler</h3>
+
+Aşağıdaki değişmezler bu uzantıyla tanımlanmıştır. Dışında kullanılamaz.
+<h3>Net_Gopher değişmezleri</h3> 
+<table class="yazi" width="100%">
+<tr><td>Değişmez</td><td>Değer</td><td>Açıklama</td></tr>
+<tr><td>GOPHER_DOCUMENT</td><td>0</td><td>Standart text/plain belge.</td></tr>
+<tr><td>GOPHER_DIRECTORY</td><td>1</td><td>Bu kaynak gopher kalıplı dosya yolu listesi içerir</td></tr>
+<tr><td>GOPHER_BINHEX</td><td>4</td><td>BinHex ile kodlanmış ikili
+dosya</td></tr>
+<tr><td>GOPHER_DOSBINARY</td><td>5</td><td>DOS kalıplı ikili arşiv
+dosyası</td></tr>
+<tr><td>GOPHER_UUENCODED</td><td>6</td><td>UU kodlanmış dosya</td></tr>
+<tr><td>GOPHER_BINARY</td><td>9</td><td>Soysal ikili dosya</td></tr>
+<tr><td>GOPHER_INFO</td><td>255</td><td>Bilgi giriş noktası</td></tr>
+<tr><td>GOPHER_HTTP</td><td>254</td><td>HTTP kaynağa bir gösterge</td></tr>
+<tr><td>GOPHER_UNKNOWN</td><td>-1</td><td>Tanımsız giriş noktası</td></tr>
+</table>
+Örnekler
+<pre>
+&lt;?php
+readfile("gopher://gopher.example.com/somedocument");
+?&gt;
+</pre>
+
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

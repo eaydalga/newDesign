@@ -1,0 +1,163 @@
+--------------------------------------------------------------
+OPENCLINICA RELEASE NOTES
+OpenClinica Version 2.2.1 - PATCH RELEASE
+Document Version 1.1
+--------------------------------------------------------------
+
+--------------------------------------------------------------
+Updated: June 4, 2008 Jason Carmichael jcarmich@akazaresearch.com, Paul Galvin pgalvin@akazaresearch.com
+--------------------------------------------------------------
+
+--------------------------------------------------------------
+OVERVIEW
+--------------------------------------------------------------
+
+This patch release of OpenClinica addresses issues in the base version of OpenClinica 2.2. The patch is numbered 2.2.2 to correspond with this initial public release. 
+
+--------------------------------------------------------------
+CONTENTS OF THIS DOCUMENT
+--------------------------------------------------------------
+ 
+I.   ISSUES ADDRESSED
+II.  SOFTWARE DEPENDENCIES AND SYSTEM REQUIREMENTS
+III. CONTENTS OF THIS PACKAGE
+IV.  PATCH PROCEDURE
+V.   PATCH VERIFICATION PROCESS
+VI.  ABOUT OPENCLINICA
+VII. GNU LGPL LICENSE
+
+--------------------------------------------------------------
+I. ISSUES ADDRESSED
+--------------------------------------------------------------
+All issues listed can be found at http://www.openclinica.org/bugtracker, please enter the corresponding issue ID number to review details and fixes. 
+
+
+
+--------------------------------------------------------------
+II. SOFTWARE DEPENDENCIES AND SYSTEM REQUIREMENTS
+--------------------------------------------------------------
+
+Pre-requisites (versions):
+    Operating system(s): Redhat Enterprise Linux 4.0+, Redhat Linux 8.0
+    Browsers: Internet Explorer 6.0+, Mozilla Firefox 1.5+
+    JDK : 1.5.0_12
+    Application server : Tomcat 5.5.25
+    NOTE: If you are running an earlier version of Tomcat, please upgrade to 5.5.25. If you want to continue using an earlier version of Tomcat, you must configure the smtp host correctly, or the system will hang when trying to send email notifications. If you don't want to use outgoing mail features, a workaround would be to set this value to a mail server with a short timeout. This has been noted a a Known Issue and will be resolved in a future release.
+    Database server : PostgreSQL 8.1.9
+    OpenClinica version : OpenClinica 2.2 or 2.2.1
+
+--------------------------------------------------------------
+III. CONTENTS OF THIS PACKAGE
+--------------------------------------------------------------
+
+--------------------------------------------------------------
+IV.  PATCH PROCEDURE
+--------------------------------------------------------------
+    * Verify pre-requisites
+    * Shutdown Tomcat (/usr/share/tomcat/bin/shutdown.sh)
+    * Backup the application’s database
+    * Shutdown the postgres DBMS
+    * Backup the web application configuration file
+      * CATALINA_HOME/conf/Catalina/localhost/OpenClinica.xml for Linux 
+    * Backup the web application properties file
+	* CATALINA_HOME/webapps/OpenClinica/properties/datainfo.properties
+    * Backup the web application facility file
+	* CATALINA_HOME/webapps/OpenClinica/properties/facilityinfo.properties
+    * Backup the web application’s war file
+	* CATALINA_HOME/webapps/OpenClinica.war
+    * Undeploy the web application (the Tomcat manager does not correctly undeploy the application, so do a manual undeploy)
+    	* Make sure Tomcat is shutdown
+    	* Delete the webapps/OpenClinica directory
+    	* Delete the work/Catalina/localhost/OpenClinica directory
+    * Start Tomcat (/usr/share/tomcat/bin/startup.sh)
+    * Create a new directory - /var/oc
+    * Untar the OpenClinica-2.2.2 package to /var/oc
+    * Deploy OpenClinica.war located in the directory oc/OpenClinica-2.2.2/distributcpusing the Tomcat Manager
+    * Update the OpenClinica.xml, datainfo.properties files and facilityinfo.properties. (Use backups and patch procedure as references)
+    * Restart Tomcat
+    * Verify patch for the OpenClinica web application
+--------------------------------------------------------------
+V.   PATCH VERIFICATION PROCESS
+--------------------------------------------------------------
+
+ * Test database connection and basic authentication
+	* Open a web browser on the server to http://<<server url>>:8080
+	* Verify that tomcat is running
+	* Open a web browser on the server to http://<<server url>>:8080/OpenClinica - You should see the login page
+	* Login to the system
+ * Verify version number is upgraded to 2.2.2
+
+--------------------------------------------------------------
+VI. ABOUT OPENCLINICA
+--------------------------------------------------------------
+
+OpenClinica: Open Source Software Platform for Managing Clinical Research Studies
+Professional Open Source Solutions for the Clinical Research Enterprise
+
+OpenClinica is a software platform for protocol configuration, design 
+of Case Report Forms (CRFs), and electronic data capture, retrieval, 
+and management. It is extensible, modular, standards-based, and open source.
+
+More about OpenClinica: http://www.OpenClinica.org 
+
+Software License
+
+OpenClinica is distributed under the GNU Lesser General Public License (GNU LGPL).
+For details see: http://www.openclinica.org/license or LICENSE.txt distributed with this distribution.
+
+Developer and Contact Information
+
+Akaza Research, based in Cambridge, MA, provides open informatics solutions
+that address the needs of academic and non-profit institutions engaged in 
+clinical, healthcare and biomedical research. 
+
+Akaza utilizes internally- and community-developed open source software and 
+open standards to provide professional services for the clinical research enterprise. These open solutions enable Akaza's customers to effectively address the challenges 
+of data management, compliance, and interoperability in the modern clinical and
+healthcare research environment.
+
+Akaza Research
+One Kendall Square
+Bldg. 400, 4th Floor
+Cambridge, MA 02139
+phone: 617.621.8585
+fax: 617.621.0065
+email: contact@akazaresearch.com
+
+For more about Akaza's products and initiatives see: 
+http://www.akazaresearch.com/
+http://www.OpenClinica.org/
+
+
+--------------------------------------------------------------
+VII. GNU LGPL LICENSE
+--------------------------------------------------------------
+
+OpenClinica is distributed under the GNU Lesser General Public License (GNU LGPL), 
+summarized in the Creative Commons text here:
+
+http://creativecommons.org/licenses/LGPL/2.1/
+
+The GNU Lesser General Public License is a Free Software license. Like any Free Software
+license, it grants to you the four following freedoms:
+
+0. The freedom to run the program for any purpose.
+1. The freedom to study how the program works and adapt it to your needs.
+2. The freedom to redistribute copies so you can help your neighbor.
+3. The freedom to improve the program and release your improvements to the public, so 
+that the whole community benefits.
+
+You may exercise the freedoms specified here provided that you comply with the express conditions of this license. The LGPL is intended for software libraries, rather than executable programs.
+
+The principal conditions are:
+
+* You must conspicuously and appropriately publish on each copy distributed an appropriate copyright notice and disclaimer of warranty and keep intact all the notices that refer to this License and to the absence of any warranty; and give any other recipients of the Program a copy of the GNU Lesser General Public License along with the Program. Any translation of the GNU Lesser General Public License must be accompanied by the GNU Lesser General Public License.
+* If you modify your copy or copies of the library or any portion of it, you may distribute the resulting library provided you do so under the GNU Lesser General Public License. However, programs that link to the library may be licensed under terms of your choice, so long as the library itself can be changed. Any translation of the GNU Lesser General Public License must be accompanied by the GNU Lesser General Public License.
+* If you copy or distribute the library, you must accompany it with the complete corresponding machine-readable source code or with a written offer, valid for at least three years, to furnish the complete corresponding machine-readable source code. You need not provide source code to programs which link to the library.
+
+Any of these conditions can be waived if you get permission from the copyright holder.
+Your fair use and other rights are in no way affected by the above.
+
+Full GNU LGPL License text:
+http://www.gnu.org/copyleft/lesser.html
+

@@ -1,0 +1,115 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Hyperlink Preprocessor </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">25 Mart 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>MySQL İşlevleri (PDO_MYSQL)</h2>
+
+<h3>Giriş</h3>
+
+PDO_MYSQL, PHP Veri nesneleri (PDO) arayüzünün MySQl 3.x, 4.x ve 5.x veritabanına erişimini sağlayan bir sürücüdür.
+<br /><br />
+PDO_MYSQL, MySQL 4.1 ve daha üstünde desteklenen yerel deyim hazırlığının üstünlüğünü kullanır. Eğer daha eski sürümler kullanıyorsanız mysql istemci kitaplığındaki eksikliği PDO benzetimle giderir.
+
+<h3>Uyarı</h3>
+
+Dikkat: Bazı MySQL tablo tipleri (sakalam makineleri) işlemleri desteklemez.
+İşlemsel veritabanı kodu yazarken kullanılan tablo türünde işlem
+desteklenmezse MySQL bir işlemin başarıyla başlatıldığını varsayar. Ek olarak
+başlatılan herhangi bir DDL sorgusunun beklemesi durumunda içsel onayı verilir.
+
+<h3>Önceden Tanımlı Değişkenler</h3>
+
+Aşağıdaki değişmezler bu sürücü için tanımlanmıştır. Uzantı kullanıldığında
+anlamı vardır. Eğer mysqle özel nitelikleri postgres sürücüyle kullanırsanız
+beklenmedik sonuçlar elde edebilirsiniz. PDO::getAttribute()
+PDO_ATTR_DRIVER_NAME niteliğini elde etmek için kullanılabilir. Böylece sürücü
+denetlenmiş olur (Eğer çoklu sürücüyle çalışan kodlamanız varsa önemlidir).
+<dl>
+<dt>
+PDO::MYSQL_ATTR_USE_BUFFERED_QUERY (tamsayı)
+<dd>
+Eğer bu nitelik PDOStatement üzerinde TRUE olursa, o zaman iMySQL sürücüyle MySQL API tamponlu sürümü kullanılmış olur. Eğer taşınabilir kod yazıyorsanız PDOStatement::fetchAll() kullanmalısınız.
+<br /><br />
+    Örnek-1 mysql içinde sorguları tamponlamaya zorlama
+<pre>
+    &lt;?php
+    if ($db->getAttribute(PDO::ATTR_DRIVER_NAME) == 'mysql') {
+        $stmt = $db->prepare('select * from foo',
+            array(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => true));
+    } else {
+        die("my application only works with mysql; I should use \$stmt->fetchAll() instead");
+    }
+    ?&gt;
+</pre>
+</dd></dt>
+<dt>PDO::MYSQL_ATTR_LOCAL_INFILE (tamsayı)
+
+    <dd>LOAD LOCAL INFILE açma.
+</dd></dt>
+<dt>PDO::MYSQL_ATTR_INIT_COMMAND (tamsayı)
+
+    <dd>MySQL sunucuya bağlanırken kullanılacak komut. Yeniden bağlanırken otomatik olarak yeniden çalıştırılır.
+</dd></dt>
+<dt>PDO::MYSQL_ATTR_READ_DEFAULT_FILE (tamsayı)
+
+    <dd>my.cnf yerine seçenekleri adlandırılan dosyadan oku.
+</dd></dt>
+<dt>PDO::MYSQL_ATTR_READ_DEFAULT_GROUP (tamsayı)
+
+    <dd>Seçenekleri my.cnf ya da  MYSQL_READ_DEFAULT_FILE ile belirtilen dosyadan adlandırılan grup için oku
+</dd></dt>
+<dt>PDO::MYSQL_ATTR_MAX_BUFFER_SIZE (tamsayı)
+
+    <dd>EN büyük tampon alan boyu. Varsayılan 1 MiB.
+</dd></dt>
+<dt>PDO::MYSQL_ATTR_DIRECT_QUERY (tamsayı)
+
+    <dd>Doğrudan sorguları yap. Hazırlanan deyimleri kullanma.
+</dd></dt>
+</dl>
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

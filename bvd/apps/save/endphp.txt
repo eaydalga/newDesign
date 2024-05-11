@@ -1,0 +1,38 @@
+<?php
+  if(isset($_FILES['uploaded'])) {
+      $usr = "deneme";
+      if(upload_file($usr) == true) {
+          // veri compress and encrypt
+          $comp = '';
+          $enc = 0;
+          $enckey = '1234567890123456';
+          //If everything is ok we try to upload it
+          /********************************************************************
+          **
+          **  SDXF dosya denetimi gecerli dosya mi?
+          **
+          ****************************************************************** */
+          if(sdxf_control($_FILES['uploaded']['tmp_name'],$comp,$enc,$enckey) == 'false') {
+              echo "Üzgünüz, dosyanız sdxf dosyası değil.";
+          } else {
+              if(move_uploaded_file($_FILES['uploaded']['tmp_name'], $target)) {
+                  echo "$target yüklendi<br />";
+                  $uygmsg="$usr $target dosyasını yükledi.";
+                  /* **********************************************************
+                  **  veri tabanina kayit yaz
+                  ** ******************************************************** */
+                  my_note_add($usr,$uygmsg);
+                  /* **********************************************************
+                  **  ilgililere mesaj gonder
+                  ** ******************************************************** */
+              } else {
+                  echo "Üzgünüz, dosyanızı yüklerken bir hata oluştu.";
+              }
+          }
+          echo("<form>");
+          echo("  <input type=\"button\" onclick=\"javascript:parent.clear13('sec5')\" value=\"Kapat\">");
+          echo("</form>");
+      }
+  }
+              }
+?> 

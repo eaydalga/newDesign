@@ -1,0 +1,135 @@
+JSON For Data Exchange (Updated)
+
+The tip of the week for May 11, 2007 introduces JSON (JavaScript Exchange
+Notation) and includes two new tags [Encode_JSON] and [Decode_JSON] which enable
+Lasso to translate native data types into objects which can be easily imported into other languages.
+
+
+Introduction
+
+JSON is a language independent data exchange format which is implemented by many languages. JSON is based on the JavaScript format for arrays and objects. It provides a lightweight method of exchanging data between different languages without the overhead of XML or other standards.
+
+Since JSON is based on JavaScript syntax it is very easy to pass data into JavaScript. JSON objects can be interpreted simply by passing them to the JavaScript eval() function. The tags included with this tip make it easier to pass data from Lasso to JavaScripts on the generated HTML page or to AJAX processors.
+
+More information about JSON can be found on the following pages:
+
+<http://json.org/index.html>
+
+<http://www.ietf.org/rfc/rfc4627.txt?number=4627>
+
+Please see also this tip of the week regarding JSON-RPC and several enhancements to Lasso's JSON support.
+
+<http://www.lassosoft.com/Documentation/TotW/index.lasso?9319>
+
+Download
+
+You can download the tags described in this tip from the following URL. Decompress the zip archive and include the "JSON.Lasso" page in any Lasso page where you want to use the [Encode_JSON] and [Decode_JSON] tags. This file may also be placed into the "LassoStartup" folder in the Lasso Professional 8 application folder or a site sub-folder in order to make the tags available to all pages in your server or site.
+
+<http://downloads.lassosoft.com/pub/totw/totw_9319.zip>
+
+This download was updated on September 28, 2007 after the publication of the JSON-RPC TotW <http://www.lassosoft.com/Documentation/TotW/index.lasso?9319>. If you downloaded the file before, please download it again to get the latest changes. The latest download version includes the [Encode_JSON], [Decode_JSON], and [JSON_RPCCall] tags, in addition to [Literal] and [Object] helper types, and a version of RPC.LassoApp which allows Lasso to serve JSON-RPC requests. In addition, this version of the file includes previously added additions including a change to how native data types are handled and implementation of the -UseNative and -NoNative keywords.
+
+
+Background
+
+The format of JSON will be familiar to anyone who has programmed in JavaScript. Each JSON structure is either an array of elements or an object. The structures appear much the same way in JSON as they would in a JavaScript.
+
+An array is formatted using square brackets with elements separated by commas. For example, the following code shows an array containing the English weekday names.
+
+["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+
+An object is formatted using curly braces. Each element consists of a string representing the name of the element, a colon, and the value of the element. For example, the following code shows an object containing information about Mr. John Doe.
+
+{"First": "John", "Last": "Doe", "Sex": "Male", "Title": "Mr."}
+
+An array is directly analogous to a Lasso array and an object is analogous to a Lasso map.
+
+The values contained in a JSON array or object can be of any of the following types.
+
+Strings - Enclosed in double quotes with escaped returns, newlines, tabs, and double quotes. Strings are encoded in UTF-8 by default.
+
+Numbers - Either integer or decimal values including scientific notation.
+
+Booleans - The values true or false written in lowercase without quotes.
+
+Null - The value null written in lowercase without quotes.
+
+Date/Time - The date time expressed in ISO yyyy-mm-dd%hh:mm:ss notation.
+
+Other Types - Data types which are analogous to a JSON type are converted to that type. For example, sets, lists, and queues are converted to arrays. If the -UseNative option is specified then this conversion is not performed.
+
+Native Types - Data types which are not analogous to a JSON type are embedded as a map with four elements: "type" contains the Lasso type name. "value" contains the string representation of the value. "comment" contains a URL referencing JSON information at LassoSoft's Web site. "native" contains the serialization of the type. If the -NoNative option is specified then native elements will be skipped rather than being embedded.
+
+Other languages which support JSON can either treat these values opaquely or may be able to extract some information from them.
+
+
+[Encode_JSON]
+
+This tag accepts a single parameter and encodes it as a JSON structure. If the parameter is an array or a map then it is encoded directly. If the parameter is any other data type then it is embedded in a single element array and encoded.
+
+The following examples show how several different Lasso data types are encoded. The array and map are encoded directly into simple JSON structures. The string is wrapped in a single element array and encoded.
+
+[Encode_JSON: (Array: 'Monday', 'Tuesday' , 'Wednesday')]
+JSON -> ["Monday", "Tuesday", "Wednesday"]
+
+[Encode_JSON: (Map: 'First'='John', 'Last'='Doe')]
+JSON - {"Last": "Doe", "First": "John"}
+
+[Encode_JSON: "The quick brown fox."]
+JSON - ["The quick brown fox."]
+
+The following example shows how a set is automatically converted into an array. If -UseNative is specified then this conversion is not performed and the set is instead embedded as a map (see below).
+
+[Encode_JSON: (Set: 'Monday', 'Tuesday' , 'Wednesday', 'Monday')]
+JSON -> [["Monday", "Tuesday", "Wednesday"]]
+
+The following example shows how a [Bytes] object is embedded as a map including the XML serialization of the type. The data in the [Bytes] object is opaque, but can be read by the [Decode_JSON] tag to recreate the original object. In general, for data exchange only native types like arrays, maps, strings, numbers, and dates should be passed into [Encode_JSON].
+
+[Encode_JSON: (Bytes: 'Stream')]
+JSON - [{"type": "bytes", "comment": "http://www.lassosoft.com/json", "value": "Stream", "native": "<LassoNativeType><bytesType>U3RyZWFt</bytesType></LassoNativeType>"}]
+
+If -NoNative is specified then the byte stream is simply skipped rather than being embedded as a map.
+
+[Encode_JSON: (Bytes: 'Stream')]
+JSON - []
+
+One great use of the [Encode_JSON] tag is to pass data into JavaScripts which are on the page which Lasso is generating. The following code uses [Encode_JSON] to format an array as a JavaScript variable. The JavaScript alert() function then shows the second element of the array to the site visitor. Note that the [NoProcess] ... [/NoProcess] tags are used to hide the array subscript square brackets from Lasso's processor.
+
+<script language="JavaScript">
+  var myArray = [Encode_JSON: (Array: 'one', 'two', 'three')];
+  [NoProcess]
+    alert(myArray[1]);
+  [/NoProcess]
+</script>
+
+
+[Decode_JSON]
+
+This tag accepts a single JSON structure as a parameter and decodes it into native Lasso data types. The result of this tag will always be either an array or a map.
+
+The three examples from above can now be decoded. Notice that the JSON structure is passed to the [Decode_JSON] tag as a string. The result is a native Lasso object. The array and the map are returned without any modifications. The string example does have one modification since it is now wrapped in a single element array.
+
+[Decode_JSON: '["Monday", "Tuesday", "Wednesday"]']
+Lasso -> array: (Monday), (Tuesday), (Wednesday)
+
+[Decode_JSON: '{"Last": "Doe", "First": "John"}']
+Lasso - map: (Last)=(Doe), (First)=(John)
+
+[Decode_JSON: '["The quick brown fox."]']
+Lasso - array: (The quick brown fox.)
+
+
+Notes
+
+The output of [Encode_JSON] will be in UTF-8 format. The required control characters \r \n \t \b \f and quotes \" are escaped, but UTF characters are represented as straight UTF-8 data rather than being escaped.
+
+If we embed a Chinese character in a Lasso string and encode it into a JSON structure using this code [Encode_JSON: '⿕'] then we get a structure like this as a result: ["⿕"]. Notice that the Chinese character is encoded in UTF-8 and appears unchanged within the structure.
+
+Although Lasso encodes JSON structures like this the [Decode_JSON] tag is able to automatically process escaped Unicode characters from other JSON encoders. For example, the JSON structure ["\u2FD5;"] is equivalent to the one Lasso produced above. When this structure is decoded by Lasso using [Decode_JSON: '["\u2FD5;"]'] the result is a native Lasso string containing the character ⿕.
+
+The [Decode_JSON] tag does not have built-in support for UTF-16 and UTF-32 encoded JSON structures. In order to decode data sent in these encodings it will be necessary to use the [String] constructor to create a native Lasso string first. For example, if you have a byte stream containing a UTF-16 encoded JSON stucture then it could be decoded using this code: [Decode_JSON: (String: $jsondata, 'utf-16')].
+
+
+More Information
+
+More information about all of the tags used in implementing this tip of the week can be found in the Lasso 8.5 Language Guide or in the online Lasso Reference <http://reference.lassosoft.com/>.

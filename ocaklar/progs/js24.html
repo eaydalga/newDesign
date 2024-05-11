@@ -1,0 +1,559 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Aybim </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script language="JavaScript" src="../js/XHConn.js"> </script>
+<script language="JavaScript" src="../js/js10.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+function itikla(bolum)
+{
+   if(document.getElementById) {
+      target=document.getElementById(bolum);
+      if(target.style.display == "inline") {
+            target.style.display = "none";
+      } else {
+            target.style.display = "inline";
+      }
+   }
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="ysoltaraf">
+           <a href="../index.php"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="js.html" class="nav">Giriş</a>
+               <a href="jstxt1.html" class="nav">Sayfada Javascript</a>
+               <a href="jstxt2.html" class="nav">Nesnel Programlama</a>
+               <a href="jstxt3.html" class="nav">JS Nesneleri</a>
+               <a href="jstxt4.html" class="nav">İşlemler</a>
+               <a href="jstxt5.html" class="nav">Değişkenler</a>
+               <a href="jstxt6.html" class="nav">Denetim Yapıları</a>
+               <a href="jstxt7.html" class="nav">Script Yazma</a>
+               <a href="jstxt8.html" class="nav">Yazma İşlevleri</a>
+               <a href="jstxt9.html" class="nav">Başvuru</a>
+               <a href="jstxt10.html" class="nav">DHTML</a>
+               <a href="jstxt11.html" class="nav">Öğe İçeriği</a>
+               <a href="jstxt12.html" class="nav">Pencereler</a>
+               <a href="jstxt13.html" class="nav">Olay Bilgisi</a>
+               <a href="jstxt14.html" class="nav">Zaman Ayarı</a>
+               <a href="jstxt15.html" class="nav">Cookie Kullanımı</a>
+               <a href="jstxt16.html" class="nav">Güvenlik</a>
+               <a href="js24.html" class="nav">Javascript Nesneler</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>Javascript Yazılım Kuralları (JS)</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="bdy" class="yazi">
+<div id="sag"><span class="yazi">17 Şubat 2008</span></div>
+<h2>JavaScript Nesnesi</h2>
+Bu sayfa belgeler ve Javascript parçaları için nesnelerin, özelliklerin, toplulukların ve yöntemlerin listesini verir. Öğe türlerinin tüm özelliklerinin gösterilişine Javascript nesneleri denir.
+<br /><br />
+Bazı tarayıcılar ek yöntemler ve özellikler sunarr ama burada yazdığınız kodun nasıl tümünde çalışabilmesi gerektiği anlatıldığından buradaki listede de hepsinde çalışabilecek özellikler ele alınmıştır. Önce dördüncü kuşak tarayıcıların özellikleri ele alınmıştır. Sonra beşinci kuşak özelliklerin bulunduğu tarayıcılar (DOM özelliği içeren gelişmiş tarayıcılar) dikkate alınmıştır.
+
+<h3>İçerik</h3>
+
+<ul>
+	<li><a href="#sdc">Standart belge parçaları</a> - bir web sayfasının adreslenebilen her parçası.</li>
+	<li><a href="jstxt241.html#pe">Yerleştirilmiş öğeler</a> - mutlak yerleştirilmiş div biçiminin adreslenebilen tüm parçaları.</li>
+
+	<li><a href="jstxt241.html#eo">Olay nesneleri</a> - bir olay için erişilebilen parçaları.</li>
+	<li><a href="jstxt241.html#io">Yerleşik nesneler</a> - yapılarıyla değişken tipleri.</li>
+</ul>
+<hr>
+<h3>Anahtar</h3>
+Burada Javascript Nesnelerini açıklarken kullanılan anahtarı açıklanmıştır. Eğer bir başlık altında başka nitelikler ya da açıklamalar varsa o başlık "mavi" renklidir. Fareyi üzerine götürüp tıklayınca alt başlıklar açılır. Aynı özellik alt başlıklarda da gösterilir. Eğer alt başlıklar yoksa, başlık koyu renkte gösterilir.
+<ul>
+	<li><a href="#"><b class="o">Baba (üst) nesne</b></a>
+        <ul>
+		<li><b class="o">Çocuk (alt) nesne</b></li>
+		<li><b class="p">Çocuk (alt) özellik</b></li>
+		<li><b class="c">Çocuk (alt) nesne topluluk[] aracılıyla erişilen </b></li>
+		<li><b class="e">Olay (Event)</b></li>
+		<li class="last"><b class="m">Method()</b></li>
+	</ul></li>
+	<li><b class="o">Yalnız nesne</b></li>
+</ul>
+<hr>
+Kalıbı: '<code>methodName([someOtherStuff])</code>' ya da  '<b>someOtherStuff</b>' biçiminde olanlar seçmeliktir ve yazılması zorunlu değildir.
+Aşağıdaki biçimde yazılan öğeler:<br />
+<code>'methodName(type varName)'</code>, <b>'type'</b><br />
+yöntem ve toplulukla kullanılan değişkenlerin tipini verir. Burada
+<b>varName</b> adı verilir.
+<br /><br />
+Bu yapıyı herhangi bir nesne, özellik, birikim ya da yöntem, treat 
+erişiminde kullanınca, her yeni dal (düzey) yeni bir çocuk düzeyi gibi olur. örnek:<br />
+<pre>
+window.document.formAdi.girisAdi.varsayilanDeger = 'Onu severim';
+</pre>
+<br />
+Not: Her birikimin <b>length</b> niteliği vardır. Ayrıca çocuk nesneye erişilirken <b>window</b> çoğu zaman unutulur.
+
+<h3 id="sdc">Standart belge parçaları</h3>
+
+<li><a href="javascript:itikla('winself')"><b class="o">window ya da self</b></a> <span>o anki web sayfasının evrensel nesnesine erişimi gösterir, yalnız okuma</span>
+<div id="winself" style="display: none;">
+<ul>
+	<li><b class="o">Array</b> <span>yapı tanımı olarak kullanışlıdır - yalnız okuma</span></li>
+	<li><b class="o">Boolean</b> <span>yapı tanımı olarak kullanışlıdır - yalnız okuma</span></li>
+
+	<li><b class="p">closed</b> <span>Pencere kapalıysa bu doğrudur - (window.open() ile kullanılır), yalnız okuma</span></li>
+	<li><a href="javascript:itikla('win1')"><b class="o">Date</b></a> <span>Çoğunlukla yapı tanımı olarak kullanışlıdır - yalnız okuma</span>
+        <div id="win1" style="display: none;">
+        <ul>
+		<li class="last"><b class="m">parse(string dateAsAString)</b> <span>Date.parse(string dateAsAString) yazı dizisini UNIX zaman damgasına (milisaniye) çevirir - Her tür tarih ve zaman yazı dizisini kabul eder</span></li>
+	</ul>
+        </div>
+</li>
+
+<li><b class="p">defaultStatus</b> <span>durum çubuğunda (status bar) görüntülenen varsayılan mesaja erişimi sağlar - Bazı tarayıcılar kullanıcıların buraya yazılacak bilgiyi engellemesini sağlar - okuma-yazma</span></li>
+<li><a href="javascript:itikla('win2')"><b class="o">document</b></a> <span>windowObject.document o anki belgeyi gösterir - layers kuralıyla yerleştirilmiş bir öğede, - positionedElementObject.document yerleştirilmiş öğenin gövdesini gösterir - yalnız okuma</span>
+        <div id="win2" style="display: none;">
+        <ul>
+	<li><b class="p">bgColor</b> <span>Belgenin varsayılan arka alan rengini gösterir - okuma-yazma - yalnız katmanlı tarayıcılarda - Tarayıcılar arası kodlama için - document.body.style.backgroundColor - document.documentElement.style.backgroundColor</span></li>
+	<li><a href="javascript:itikla('win21')"><b class="o">body</b></a> <span>o anki sayfanın BODY öğesi hakkında bilgi tutmak için kullanılır - hiçbir özelliği olmasa da bu nesne vardır - yalnız-okuma Yalnız katmansız tarayıcılar için</span>
+                <div id="win21" style="display: none;">
+	        <ul>
+		<li><b class="p">clientHeight</b> <span>tarayıcı penceresinin iç yüksekliğini pixel türünden verir - IE 6'da doğrudan (strict) konumda, belge alanının yüksekliğini verir - yalnız okuma - Yalnız katmansız tarayıcılar için - Tarayıcılar arası kodlama için - window.innerHeight - document.documentElement.clientHeight</span></li>
+		<li><b class="p">clientWidth</b> <span>Tarayıcı penceresinin içten enini pixel türünde verir - IE 6'da doğrudan (strict) konumda, belge alanının enini tanımlar - yalnız okuma - Yalnız katmansız tarayıcılar için - Tarayıcılar arası kodlama için - window.innerWidth - document.documentElement.clientWdth</span></li>
+		<li><b class="p">scrollLeft</b> <span>Belgenin pixel olarak yatay kaydırılmasını gösterir - Bazı tarayıcılar değeri 0 verir Nedeni o anda aynı bilgiyi - document.documentElement.scrollLeft - Yalnız okuma - Yalnız katmansız tarayıcılar için - Tarayıcılar arası kodlama için - window.pageXOffset - document.documentElement.scrollLeft</span></li>
+		<li><b class="p">scrollTop</b> <span>Belgenin düşey kaydırılması (pixel olarak) gösterilir - Bazı tarayıcılar değeri 0 verir Nedeni o anda aynı bilgiyi - document.documentElement.scrollTop ile sunabiliyorsa - yalnız okuma - Yalnız katmansız tarayıcılarda - Tarayıcılar arası kodlama için - window.pageYOffset - document.documentElement.scrollTop</span></li>
+		<li class="last"><a href="javascript:itikla('win211')"><b class="o">style</b></a> <span>Eğer varsa bu BODY öğesinin stilini verir - Yalnız okuma</span>
+                        <div id="win211" style="display: none;">
+		        <ul>
+			<li><b class="p">background</b> <span>BODY öğesinin art alan rengini gösterir - Opera 6- deki backgroundColor eşdeğerdir - Opera 5'de yoktur - okuma-yazma - Yalnız katmansız tarayıcılarda - Tarayıcılar arası kodlama için - document.bgColor - document.documentElement.style.background</span></li>
+			<li><b class="p">backgroundColor</b> <span>BODY öğesinin art alan rengini gösterir - Opera 5'de bulunmaz - okuma-yazma - Yalnız katmansız tarayıcılarda - tarayıcılar arası kodlama için - document.bgColor - document.documentElement.style.backgroundColor</span></li>
+			<li class="last"><b class="p">color</b> <span>BODY içindeki yazıların varsayılan rengini belirtir - okuma-yazma - Yalnız katmansız tarayıcılarda - Tarayıcı bağımsız kodlama için - document.fgColor - document.documentElement.style.color</span></li>
+		        </ul>
+                        </div>
+		</li>
+	</ul>
+        </div>
+	</li>
+	<li><b class="p">cookie</b> <span>o anki sayfaya yazı dizisi biçimindeki çerez değerleri açık olur - çerez yaratmak ve okumak için kullanılır - okuma-yazma</span></li>
+	<li><a href="javascript:itikla('win22')"><b class="o">documentElement</b></a> <span>O anki sayfanın HTML öğesi hakkında bilgi içerir - Hiç bir özelliği olmasa da bu nesne vardır - Yanlız okuma - Yalnız katmansız tarayıcılar için </span>
+                <div id="win22" style="display: none;">
+                <ul>
+		<li><b class="p">clientHeight</b> <span>Belge alanının pixel olarak yüksekliğini belirtir - IE 6'da strict konumda, tarayıcı penceresinin iç kısmının yüksekliğini belirtir - yalnız okuma - Yalnız katmansız tarayıcılar içindir - Tarayıcılar arası kodlama için - window.innerHeight - document.body.clientHeight</span></li>
+		<li><b class="p">clientWidth</b> <span>Belge alanının pixel olarak enini verir - IE 6'da  strict konumda, tarayıcı penceresinin içten enini verir - yalnız okuma - Yalnız katmansız tarayıcılar için - Tarayıcılar arası kodlama için - window.innerWidth - document.body.clientwidth</span></li>
+		<li><b class="p">scrollLeft</b> <span>Belgenin yatay kaydırılmasını pixel türünden verir - eğer kaydırma offset değeri için - document.body.scrollLeft varsa bazı tarayıcılar 0 değeri döndürür - yalnız okuma - Yalnız katmansız tarayıcılar için - Tarayıcılar arası kodlama için - window.pageXOffset - document.body.scrollLeft</span></li>
+		<li><b class="p">scrollTop</b> <span>Belgenin düşey kaydırılmasını pixel türünden verir - eğer kaydırma offset değeri için - document.body.scrollTop varsa bazı tarayıcılar 0 değeri döndürür - Yalnız okuma - Yalnız katmansız tarayıcılar için - Tarayıcılar arası kodlama için - window.pageYOffset - document.body.scrollTop</span></li>
+		<li class="last"><a href="javascript:itikla('win221')"><b class="o">style</b></a> <span>Eğer varsa bu HTML öğesinin stilini verir - yalnız okuma </span>
+                        <div id="win221" style="display: none;">
+                        <ul>
+			<li><b class="p">background</b> <span>HTML öğesinin varsayılan art alan rengini verir - okuma - yazma Yalnız katmansız tarayıcılar için - Tarayıcı bağımsız kodlama için - document.bgColor - document.body.style.background</span></li>
+			<li><b class="p">backgroundColor</b> <span>HTML öğesinin varsayılan art alan rengini verir - okuma yazma - Yalnız katmansız tarayıcılar için - Tarayıcı bağımsız kodlama için - document.bgColor - document.body.style.backgroundColor</span></li>
+			<li class="last"><b class="p">color</b> <span>HTML öğesinin varsayılan yazı rengini verir - okuma yazma - Yalnız katmansız tarayıcılar için - Tarayıcılar arası kodlama için - document.fgColor - document.body.style.color</span></li>
+		</ul></div></li>
+	</ul></div></li>
+	<li><b class="p">domain</b> <span>belgenin alan adını belirten yazı dizisidir - sunum değişebilir - okuma yazma - bazı tarayıcılarda (iletişim için alt alanlara da izin verir)</span></li>
+	<li><b class="p">fgColor</b> <span>belgedeki yazının varsayılan rengini belirtir - okuma yazma - ama ibelge yüklendikten sonra yalnız okuma olur - Yalnız katmanlı tarayıcılarda - Tarayıcı bağımsız kodlama için - document.body.style.color - document.documentElement.style.color</span></li>
+	<li><b class="o">IdOfPositionedElement</b> <span>Katmanli benzeri tarayıcı seçeneğinde öğenin yerleşimini verir - yalnız okuma - Yalnız katmanlı tarayıcılar için - Tarayıcı bağımsız kodlama için - document.layers - document.all - document.getElementById</span></li>
+
+	<li><b class="p">lastModified</b> <span>Belgenin son değiştirildiği tarihi gösteren yazı dizisidir - sunuş değişebilir - o anki gün ya da desteklenmiyorsa UNIX tarih kalıbı - yalnız okuma </span></li>
+	<li><a href="javascript:itikla('win23')"><b class="o">nameOfForm</b></a> <span>Belgedeki bir formu gösterir - yanlız okuma </span>
+                <div id="win23" style="display: none;">
+                <ul>
+		<li><b class="p">action</b> <span>Bir formun 'action' (işlem) niteliğini gösterir - okuma yazma </span></li>
+		<li><b class="p">encoding</b> <span>formun 'enctype' niteliğini gösterir - okuma yazma </span></li>
+		<li><b class="p">length</b> <span>Girişlerin sayısı - yalnız okuma </span></li>
+		<li><b class="p">method</b> <span>Bir formun 'method' niteliğini gösterir - okuma yazma </span></li>
+		<li><b class="p">name</b> <span>Bir formun 'name' niteliğini gösterir - okuma yazma</span></li>
+		<li><a href="javascript:itikla('win231')"><b class="o">nameOfInput/textarea/select</b> ya da <b class="m">nameOfInputsSharingName[int index]</b></a> <span>input, textarea ya da select biçimlerini gösterir - Eğer girişler ortak bir ad paylaşıyorsa nameOfInput çalışmaz, ama nameOfInputsSharingName topluluğu aynı adı kullanan çocuklara erişimi sağlar - nameOfInputsSharingName.length paylaşılan girişlerin sayısını veriri - radio düğmesi giriş seçeneklerindeki ad gibi - yalnız okuma </span>
+                        <div id="win231" style="display: none;">
+                        <ul>
+			<li><b class="p">checked</b> <span>Mantıksal: checkbox ya da radio düğmesi işaretlendi mi kontrolunu yapar - okuma yazma </span></li>
+			<li><b class="p">defaultChecked</b> <span>Mantıksal: checkbox ya da radio düğmesi form silindiğinde işaretlendi mi kontrolunu yapar (Varsayılan işaret) - okuma yazma </span></li>
+			<li><b class="p">defaultValue</b> <span>Girişin varsayılan değerini gösterir - form silindiğinde anlamı olabilir - Bazı tarayıcılar düğme türlerinin hiçbiri için bu bilgiyi vermezler - Değişik tarayıcılar seçilen giriş alanları için değişik yanıtlar verir. Buna dayalı kodlama yapmayın - okuma yazma </span></li>
+			<li><b class="p">disabled</b> <span>Mantıksal: eğer tarayıcı destekliyorsa girişin kapanıp kapanmadığını belirtir, - Netscape 4 desteklemez ve Opera 5 değerini değiştiremez - eğer arada sayfa yenilenmezse niteliği unutun (bu hata sorunlar yaratabilir) - okuma yazma </span></li>
+			<li><b class="o">form</b> <span>Giriş içeren formu gösterir - yalnız okuma </span></li>
+			<li><b class="p">length</b> <span>Seçimli bir giriş alanındaki seçeneklerin sayısını verir - ya da aynı adı paylaşan girişlerin sayısını - yalnız okuma </span></li>
+			<li><b class="p">name</b> <span>girişin name niteliğini verir - okuma yazma </span></li>
+			<li><b class="p">selectedIndex</b> <span>select input biçiminde o an seçilen girişin numarasını verir - hiç yoksa -1 - okuma yazma - tüm Internet Explorer 4'lerde</span></li>
+			<li><b class="p">type</b> <span>Girişin type niteliğini gösterir - Büyük ya da küçük harf olabilir - yalnız okuma - type tanımı belirtilen select hariç - Eğer tekilse ('select-one') ya da çoğulsa ('select-multiple') - seçenekler arasından seçilebilir</span></li>
+			<li><b class="p">value</b> <span>Girişin o anki değeri - Değişik tarayıcılar seçilen girişler için değişik yanıtlar verirler; bu bağımlı kalınmamalıdır - okuma yazma </span></li>
+			<li><a href="javascript:itikla('win2311')"><b class="c">options[int numberOfOptionWithSelectInput]</b></a> <span>select input içinde bir seçeneği gösterir okuma yazma - selectObject.options.length o anki seçeneklerin sayısını verir okuma yazma - Yeni seçenek yaratmak için - optionObject = new Option(string text,string value) - Bir seçeneği silmek için değerini null yapın </span>
+                                <div id="win2311" style="display: none;">
+                                <ul>
+				<li><b class="p">defaultSelected</b> <span>Mantıksal: giriş değerinin seçilen olduğunu gösterir eğer form silinmişse okuma yazma</span></li>
+				<li><b class="p">index</b> <span>Seçeneğin numarasıni gösterir Yalnız okuma</span></li>
+				<li><b class="p">selected</b> <span>Mantıksal: seçeneğin secilip seçilmediğini gösterir - okuma yazma</span></li>
+				<li><b class="p">text</b> <span>Seçeneğin görünen yazısını gösterir - okuma yazma</span></li>
+				<li class="last"><b class="p">value</b> <span>bir seçeneğin değerini gösterir - okuma yazma</span></li>
+			</ul></div></li>
+			<li><b class="e">onblur</b> <span>Giriş alanı odağı kaybedince ateşlenir - inputObject.onblur = functionName; okuma yazma</span></li>
+			<li><b class="e">onchange</b> <span>Giiriş alanı değişince ya da başka bir seçenek seçilince ateşlenir - inputObject.onchange = functionName; okuma yazma</span></li>
+			<li><b class="e">onclick</b> <span>Kullanıcı giriş alanı üzerinde fare tuşunu bastırıp kaldırınca ateşlenir. - ya da giriş tuştakımıyla aktif yapıldığında (fare olay - özellikleri desteklenmedi yerlerde) - inputObject.onclick = functionName; okuma yazma</span></li>
+			<li><b class="e">ondblclick</b> <span>Fare düğmesi iki kez bastırıp bırakılınca ateşlenir - giriş alanı üzerinde hızlı başarım için - inputObject.ondblclick = functionName; - Mac işletim sistemindeki tarayıcılarda (bir kaç başka tarayıcıda da) genelde bu olay yakalanmaz - Bu nedenle bu olayı yalnız ikili tıklamanın tek tıklama olarak algılanmasını engellemek için kullanmak en iyisidir - Kombinasyon kullanarak bu olayları benzetmek olanağı vardır - onclick ve window.setTimeout - okuma yazma</span></li>
+			<li><b class="e">onfocus</b> <span>Giriş odaklanınca ateşlenir - inputObject.onfocus = functionName; okuma yazma</span></li>
+			<li><b class="e">onkeydown</b> <span>Giriş odaklandığında kullanıcı farenin düğmesini bastırınca ateşlenir - inputObject.onkeydown = functionName; - Netscape 4 sürümlerinden bazıları yanıt vermez fakat giriş alanına odaklanıldığında document.onkeydown için yanıt verir - okuma yazma - yanlış dönünce, pek çok tarayıcıda tuş basılı işlemi engellenmiş olur </span></li>
+			<li><b class="e">onkeypress</b> <span>Giriş odaklandığında kullanıcı bir tuşa basıp bırakınca ateşlenir - inputObject.onkeypress = functionName; - Netscape 4 sürümlerinden bazıları yanıt vermez fakat giriş alanına odaklanıldığında document.onkeypress için yanıt verir - okuma yazma - yanlış dönünce, pek çok tarayıcıda tuş basılı işlemi engellenmiş olur </span></li>
+			<li><b class="e">onkeyup</b> <span>Giriş odaklandığında kullanıcı bir tuşu bırakır - inputObject.onkeyup = functionName; - Netscape 4 sürümlerinden bazıları yanıt vermez fakat giriş alanına odaklanıldığında document.onkeyup için yanıt verir - okuma yazma</span></li>
+			<li><b class="e">onmousedown</b> <span>Giriş üzerindeyken farenin düğmesine basınca ateşlenir - inputObject.onmousedown = functionName; okuma yazma - Farenin sağ düğmesi basılıyken yanlış dönmesi tarayıcıların bir çoğunda sağ tıklama menüsünü engeller - Bazıları oncontextmenu olayından yanlış dönmesini ister ve bazıları sağ tıklamayı anlamaz bile </span></li>
+			<li><b class="e">onmouseup</b> <span>Giriş üzerindeyken farenin düğmesinin nırakılmasında ateşlenir - inputObject.onmouseup = functionName; okuma yazma</span></li>
+			<li><b class="m">blur()</b> <span>Girişin odağı kaybetmesine neden olur </span></li>
+			<li><b class="m">focus()</b> <span>Girişin odağı kazanmasına neden olur </span></li>
+			<li class="last"><b class="m">select()</b> <span>yazı tabanlı girişte yazının seçilmesine neden olur </span></li>
+		</ul></div></li>
+		<li><b class="p">target</b> <span>Bir formun hedef niteliğini gösterir - okuma yazma</span></li>
+		<li><b class="c">elements[int numberOfInput]</b> <span>resim olmayan girişi gösteriri - Yalnız okuma formObject.elements.length gives the number of inputs - Yalnız okuma</span></li>
+		<li><b class="e">onreset</b> <span>Form silindiğinde ateşlenir - Eğer yanlış dönerse, silme iptal edilir ve form silinip yenilenmez - inputObject.onreset = functionName; okuma yazma</span></li>
+		<li><b class="e">onsubmit</b> <span>Form gönderildiğinde ateşlenir - Eğer yanlış dönerse, gönderme iptal olur ve form gönderme işlemi yapılmaz - inputObject.onreset = functionName; okuma yazma</span></li>
+		<li><b class="m">reset()</b> <span>formun silinmesine neden olur </span></li>
+		<li class="last"><b class="m">submit()</b> <span>formun gönderilmesine neden olur </span></li>
+	</ul></div></li>
+	<li><a href="javascript:itikla('win24')"><b class="o">nameOfImage</b></a> <span>Resmi gösterir - Yalnız okuma Aşağıdakini kullanarak yeni resim yaratma (tampon bellekte) - imageObject = new Image(); imageObject.src = string src;</span>
+                <div id="win24" style="display: none;">
+                <ul>
+		<li><b class="p">border</b> <span>resmin "border" niteliğini gösterir - Yalnız okuma</span></li>
+		<li><b class="p">complete</b> <span>Mantıksal: resmin yüklenmesinin bittiğini söyler - Yalnız okuma</span></li>
+		<li><b class="p">height</b> <span>resmin "height" niteliğini gösterir - Yalnız okuma</span></li>
+		<li><b class="p">lowsrc</b> <span>resmin "lowsrc" niteliğini gösterir - Yalnız okuma</span></li>
+		<li><b class="p">name</b> <span>resmin "name" niteliğini gösterir - Yalnız okuma</span></li>
+		<li><b class="p">src</b> <span>resmin "src" niteliğini gösterir - okuma yazma</span></li>
+		<li><b class="p">width</b> <span>resmin "width" niteliğini gösterir - Yalnız okuma</span></li>
+		<li><b class="e">onabort</b> <span>Resmin yüklenmesini kullanıcı keserle ateşlenir - imageObject.onabort = functionName; okuma yazma</span></li>
+		<li><b class="e">onerror</b> <span>Resmin kaynağındaki hatalar yüzünden resmin yüklenmesi durunca ateşlenir ya da - Eğer resim bulunamazsa - imageObject.onerror = functionName; okuma yazma</span></li>
+		<li><b class="e">onload</b> <span>Yükleme tamamlanır tamamlanmaz ateşlenir - imageObject.onload = functionName; - Saklanan resimlerde bazı tarayıcılar bu olayın tetiklenmesini başlatmaz - okuma yazma</span></li>
+		<li><b class="e">onmousedown</b> <span>kullanıcı fare düğmesine resim üzerindeyken ateşlenir - imageObject.onmousedown = functionName; okuma yazma Farenin sağ düğmesi basılıyken yanlış dönmesi tarayıcıların bir çoğunda sağ tıklama menüsünü engeller - bazısı oncentextmenu olayından yanlış dönmesini ister - bazısı sağ tıklamayı anlamaz </span></li>
+		<li class="last"><b class="e">onmouseup</b> <span>kullanıcı fare düğmesini resim üzerindeyken bırakınca ateşlenir - imageObject.onmouseup = functionName; okuma yazma</span></li>
+	</ul></div></li>
+	<li><b class="p">referrer</b> <span>bu sayfaya geçerken önceki sayfada kullanılan bağın URL adresini verir - gösterim değişebilir - Bazı tarayıcılar kullanıcının bu özelliği kapatmasına izin verir - Yalnız okuma</span></li>
+	<li><b class="p">title</b> <span>Belgenin başlığını gösterir - Yalnız okuma eski tarayıcılarda - okuma yazma - yeni tarayıcılarda </span></li>
+	<li><b class="p">URL</b> <span>web adresinin uzun yazı dizisi biçimi window.location.href ama yalnız okuma - Yalnız okuma</span></li>
+	<li><b class="c">all[string IdOfElement]</b> <span>Öğeyi gösterir - tescilli DOM uyumlu tarayıcılarda - Yerleştirilmiş Öğeyi gösterir - Yalnız okuma - yalnız tescilli DOM tarayıcılarda - Tarayıcılar arası kodlama için - document.IdOfPositionedElement - document.layers - document.getElementById</span></li>
+	<li><a href="javascript:itikla('win25')"><b class="c">anchors[int numberOfATagWithNameDefined]</b></a> <span>&lt;a ...&gt; biçimin "name" niteliği kurulduğunu gösterir - Yalnız okuma - documentObject.anchors.length name niteliklerine atama yapılmış öğelerde kaç tane çapa olduğunu söyler - Yalnız okuma</span>
+                <div id="win25" style="display: none;">
+                <ul>
+		<li><b class="p">name</b> <span>Bir çapanın "name" niteliğini gösterir - okuma yazma</span></li>
+		<li><b class="p">offsetLeft</b> <span>Çapanın sol kenarıyla "offsetParent" düğümünün sol kenarı arasındaki aralık - Tarayıcıya özel işlemlerde bunun nasıl kullanıldığı vardır - Yalnız okuma - Yalnız katmansız tarayıcılar için - Tarayıcılar arası kodlama için - anchorObject.x</span></li>
+		<li><b class="p">offsetParent</b> <span>offsetParent düğümü - bu değişik tarayıcılarda değişik olabilir - Tarayıcıya özel işlemlerde bunun nasıl kullanıldığı vardır - Yalnız okuma - Yalnız katmansız tarayıcılar için</span></li>
+		<li><b class="p">offsetTop</b> <span>Çapanın üst kenarından offsetParent düğümüne kadar olan uzaklıktır - Tarayıcıya özel işlemlerde bunun nasıl kullanıldığı vardır - Yalnız okuma - Yalnız katmansız tarayıcılar için - Tarayıcılar arası kodlama için - anchorObject.y</span></li>
+		<li><b class="p">x</b> <span>Çapanın sol kenarının sayfanın kenarına uzaklıktır - Yalnız okuma - Yalnız katmanlı tarayıcılar için - Tarayıcılar arası kodlama için - linkObject.offsetLeft recursively with anchorObject.offsetParent</span></li>
+		<li class="last"><b class="p">y</b> <span>Çapanın üst kenarının sayfanın üst kenarı arasındaki uzaklık - Yalnız okuma - Yalnız katmanlı tarayıcılar için - Tarayıcılar arası kodlama için - linkObject.offsetTop recursively with anchorObject.offsetParent</span></li>
+	</ul></div></li>
+	<li><a href="javascript:itikla('win251')"><b class="c">applets[int numberOfAppletTag]</b></a> <span>Belgedeki "applet" nesnesini gösterir - Yalnız okuma</span>
+                <div id="win251" style="display: none;">
+                <ul>
+		<li><b class="p">nameOfPublicProperty</b> <span>"applet" nesnesi var olan tüm özelliklerini sunar - Yalnız okuma/okuma yazma</span></li>
+		<li class="last"><b class="m">nameOfPublicMethod()</b> <span>"applet" nesnesinin var olan toplumsal yöntemlerini belirtir - Yalnız okuma/okuma yazma</span></li>
+
+	</ul></div></li>
+	<li><a href="javascript:itikla('win26')"><b class="c">embeds[nameOrNumberOfEmbeddedObject]</b></a> <span>Belge içine gömülmüş öğeyi gösterir - Bir çok tarayıcıda bu dizi Javanın açık olmasını ister - Eğer bu diziye erişmek isterseniz ve Java açık değilse, kodlama hata verir ve durur - Eğer takılabilir program ya da gömülmüş nesne yüklenemezse eğer gömülmüş dizinin karşıt hücresine erişimde Netscape 4 hata verir Bu dizi IE/Win ve iCab 3- tarayıcılarında boştur document.plugins incelenmelidir - Yalnız okuma</span>
+                <div id="win26" style="display: none;">
+                <ul>
+		<li><b class="p">height</b> <span>gömülmüş nesnenin yüksekliğini gösterir - Yalnız okuma</span></li>
+		<li><b class="p">hidden</b> <span>gömülmüş nesnenin "hidden" niteliğini gösterir - Yalnız okuma</span></li>
+		<li><b class="p">name</b> <span>gömülmüş nesnenin "name" niteliğini gösterir - Yalnız okuma</span></li>
+		<li><b class="p">pluginspage</b> <span>gömülmüş nesnenin "pluginspage" niteliğini gösterir - okuma yazma</span></li>
+		<li><b class="p">src</b> <span>gömülmüş nesnenin "src" niteliğini gösterir - okuma yazma</span></li>
+		<li><b class="p">type</b> <span>gömülmüş nesnenin veri tipini gösterir - Yalnız okuma</span></li>
+		<li><b class="p">units</b> <span>gömülmüş nesnenin birimini gösterir - (usu. 'pixels' in Netscape compatible or 'px' in - Internet Explorer compatible) - Yalnız okuma</span></li>
+		<li><b class="p">width</b> <span>gömülmüş nesnenin enini gösterir - Yalnız okuma</span></li>
+		<li><b class="e">onload</b> <span>gömülmüş nesne yüklendikten hemen sonra ateşlenir - embeddedObject.onload = functionName; okuma yazma</span></li>
+		<li class="last"><b class="m">nameOfPublicMethod()</b> <span>Gömülmüş nesnelerin toplumsal yöntemlerinin hepsini sunar - Bunlar takılabilir türe göre değişebilir - Takılabilirleri sunanın sayfasına da bakın - Yalnız okuma/okuma yazma</span></li>
+	</ul></div></li>
+	<li><b class="c">forms[int numberOfForm]</b> <span>belgedeki formu gösterir - window.document.nameOfForm çocuğu olarak - Yalnız okuma</span></li>
+	<li><b class="c">images[nameOrNumberOfImage]</b> <span>Belgedeki resimi gösterir - window.document.nameOfImage çocuğu olarak - Yalnız okuma</span></li>
+	<li><b class="c">layers[string IdOfPositionedElement]</b> <span>Yerleştirilmiş öğeyi gösterir - Katmanlı tarayıcılarda - Gösterilen öğeye bak - Yalnız okuma - Yalnız katmanlı tarayıcılar için - Tarayıcılar arası kodlama için - document.IdOfPositionedElement - document.all - document.getElementById</span></li>
+	<li><a href="javascript:itikla('win27')"><b class="c">links[int numberOfATagWithHrefDefined]</b></a> (Gösterilmiş Öğelere de bakın) <span>"HREF" niteliğinin kurulduğu &lt;a ...&gt; ya da &lt;area ...&gt; biçimini gösterir - Yalnız okuma - documentObject.links.length, href nitelikleri kurulmuş öğelerdeki çapa ya da alan sayısını verir - Yalnız okuma</span>
+                <div id="win27" style="display: none;">
+                <ul>
+		<li><b class="p">hash</b> <span>'href' biçiminde # işaretinden sonrakileri gösterir (Eğer varsa) - Bunu okurken hash sembolü de döner - Buna değer atarken hash sembolü dahil edilmez - Internet Explorer (Win/Mac), Gecko ve iCab 3- hash '#' ise boş yazı dizisi döndürür - ICEbrowser tüm href değerini hash olmadan döndürür - okuma yazma</span></li>
+		<li><b class="p">host</b> <span>"href" biçimindeki sunucu adi ve port numarası (eğer varsa) - okuma yazma</span></li>
+		<li><b class="p">hostname</b> <span>"href" biçimindeki sunucu adı - okuma yazma</span></li>
+		<li><b class="p">href</b> <span>"href" biçiminin tam yazı biçimi - okuma yazma</span></li>
+		<li><b class="p">innerText</b> <span>bağın görünen yazısı - Yalnız okuma - Proprietary DOM browsers only - Tarayıcılar arası kodlama için - linkObject.text</span></li>
+		<li><b class="p">offsetLeft</b> <span>"link" öğesinin sol kenarından  "offsetParent" düğümünün sol kenarı arasındaki uzaklığı gösterir - offsetParent düğümü - Tarayıcıya özel bölümde konu anlatılmıştır - Yalnız okuma - Yalnız katmansız tarayıcılar için - Tarayıcılar arası kodlama için - linkObject.x</span></li>
+		<li><b class="o">offsetParent</b> <span>offsetParent düğümü - Değişik tarayıcılarda değişik olabilir - Tarayıcıya özel bölümde konu anlatılmıştır - Yalnız okuma</span></li>
+		<li><b class="p">offsetTop</b> <span>"link" öğesinin üst kenarından "offsetParent" düğümünün üst kenarı arasındaki uzaklığı verir -  Tarayıcıya özel bölümde konu anlatılmıştır - Yalnız okuma - Yalnız katmansız tarayıcılar için - Tarayıcılar arası kodlama için - linkObject.y</span></li>
+		<li><b class="p">pathname</b> <span>"href" içinde sunucu adından sonraki bölüm - örneğin; subdir1/subdir2/file.html - okuma yazma</span></li>
+		<li><b class="p">port</b> <span>"port" numarası (eğer varsa) - okuma yazma</span></li>
+		<li><b class="p">protocol</b> <span>kullanılan protokol - örneğin http: - okuma yazma</span></li>
+		<li><b class="p">search</b> <span>Eğer varsa 'href' biçiminde ? işaretinden sonraki bölüm (işaret dahil) - okuma yazma</span></li>
+		<li><b class="p">target</b> <span>Bağın hedefi - okuma yazma</span></li>
+		<li><b class="p">text</b> <span>link öğesinin görünür yazısı - Yalnız okuma - "name" niteliği kurulmamaışsa Netscape 4 (bir hata yüzünden) bunu sunabilir Yalnız katmanlı tarayıcılar için - Tarayıcılar arası kodlama için - linkObject.innerText</span></li>
+		<li><b class="p">x</b> <span>link öğesinin sol kenarıyla sayfanın sol kenarıyla arasındaki uzaklık - Yalnız okuma - "name" niteliği kurulmamaışsa Netscape 4 (bir hata yüzünden) bunu sunabilir - Eğer öyleyse karşıt çapa nesnesinin "x" özelliğini kullanın Yalnız katmanlı tarayıcılar için - Tarayıcılar arası kodlama için - linkObject.offsetParenti ile özyineli olarak linkObject.offsetLeftkullanılır</span></li>
+		<li><b class="p">y</b> <span>link öğesinin üst kenarından sayfanın üst kenarına aradaki uzaklıktır - Yalnız okuma - "name" niteliği kurulmamaışsa Netscape 4 (bir hata yüzünden) bunu sunabilir - Eğer kurulmuşsa, çapalı nesnenin y özelliği kullanılır Yalnız katmanlı tarayıcılar için - Tarayıcılar arası kodlama için - linkObject.offsetParent ile özyineli linkObject.offsetTop kullanılır </span></li>
+		<li><b class="e">onblur</b> <span>Bağ odağı kaybedince tetiklenir - anchorObject.onblur = functionName; okuma yazma</span></li>
+		<li><b class="e">onclick</b> <span>Bağ üzerinde farenin düğmesi tıklanıp bırakılınca tetiklenir - ya da eğer bağ tuş takımını kullanarak etkinleştirilir (fare olayları ve özellikleri sunulmuyorsa) - linkObject.onclick = functionName; okuma yazma Burada tıklamadan yanlış dönmesi bağın izlenmemesi demektir </span></li>
+		<li><b class="e">ondblclick</b> <span>Fare düğmesinin iki kez basılıp bırakılmasında tetklenir - bağ üzerinde hızlı geçiş - linkObject.ondblclick = functionName; - Not edilmesi önemlidir Mac üzerindeki tarayıcılar (bir kaç tanesi daha) bu olayı yakalamazlar bile - Bu nedenle bu olayı iki tıklamanın bir tıklama gibi algılanacağı anlarda kullanılmalıdır - Kombinasyon kullanarak bu olayın benzetimi kurulabilir - onclick ve window.setTimeout okuma yazma</span></li>
+		<li><b class="e">onfocus</b> <span>Bağ odaklandığında tetiklenir - anchorObject.onfocus = functionName; okuma yazma</span></li>
+		<li><b class="e">onmousedown</b> <span>Bağ üzerinde farenin düğmesi basılınca tetiklenir - linkObject.onmousedown = functionName; okuma yazma - Farenin sağ düğmesi basılıyken yanlış dönmesi tarayıcıların bir çoğunda sağ tıklama menüsünü engeller - Bazısı oncontextmenu olayından yanlış dönmesini isteyebilir ve bazısı sağ tıklamayı anlamaz bile </span></li>
+		<li><b class="e">onmousemove</b> <span>Bağ üzerine fare gelince tetiklenir - linkObject.onmousemove = functionName; - Netscape 4 için geçerli değildir okuma yazma</span></li>
+		<li><b class="e">onmouseout</b> <span>Bağ üzerinden fare çekilince tetiklenir - linkObject.onmouseout = functionName; okuma yazma</span></li>
+		<li><b class="e">onmouseover</b> <span>Fareyi dışarıdan bağın üzerine getirince tetiklenir - linkObject.onmouseover = functionName; okuma yazma - Eğer durumu (status) bu olayı kullanarak kurarsanız, doğru (true) döndürmeniz gerekir </span></li>
+		<li><b class="e">onmouseup</b> <span>Bağın üzerindeyken farenin düğmesi bırakılınca tetiklenir - linkObject.onmouseup = functionName; okuma yazma</span></li>
+		<li><b class="m">blur()</b> <span>Bağın odaklanmayı kayvetmesine neden olur - Netscape 4 ile kullanılamaz - yöntemi kullanmadan var mı bak - if( linkObject.blur ) { linkObject.blur(); }</span></li>
+		<li class="last"><b class="m">focus()</b> <span>Bağın odaklanmasına neden olur - Netscape 4 desteklemez - Kullanmadan önce yöntem var mı deneyin - if( linkObject.focus ) { linkObject.focus(); }</span></li>
+	</ul></div></li>
+	<li><b class="c">plugins[numberOfObject]</b> <span>Belgenin içindeki gömülmüş ya da nesnel öğeyi gösterir - (tarayıcı tarafından neyin desteklendiğine bakarak) - Birçok tarayıcıda bu dizi java seçeneğinin açılmasını gerektirir - Eğer Java seçeneği açılmamışsa kodlamada dizi kullanınca hata verip kesilir - Eğer takılabilir program ya da gömülmüş nesne yüklenmezse, gömülmüş nesnedeki karşılığı olan hücreyi kullanmak istediğinizde Netscape 4 hata verir IE/Win ve iCab 3-i tarayıcılarında bu dizi boştur, ve - Konqueror/Safari/OmniWeb 4.5+ tarayıcılarında yoktur - Opera eğer kullanılmamışsa, tüm nesneleri ve gömülmüş biçimleri gösterir - Mozilla/Firefox yalnız gerçekten yüklenmiş takılabilirlerden nesneleri ve gömülmüşleri document.embeds çocukları olarak içerir - Yalnız okuma</span></li>
+	<li><b class="e">onclick</b> <span>Belgenin üzerindeyken farenin düğmesine basılıp bırakılmasıdır (tıklanma denir) - documentObject.onclick = functionName; Katmanlı tarayıcılar önce captureEvents kullanılmasını zorunlu tutar - okuma yazma</span></li>
+
+	<li><b class="e">ondblclick</b> <span>Farenin iki kez tıklanmasında tetiklenir - in quick succession over the document - documentObject.ondblclick = functionName; - Mac işletim sistemindeki tarayıcılar (başkaları da dahil) - Genelde bu olay fark edilmez - Bu nedenle en iyisi bu olayı iki tıklamanın tek tıklama olduğu yerlerde kullanılmalıdır - Bu olayın tepkisini "onclick" için çeşitli kombinasyonlar kullanarak benzetmek olanağı vardır - window.setTimeout Katmanlı tarayıcılar  önce captureEvents kullanmanızı ister - okuma yazma</span></li>
+	<li><b class="e">onkeydown</b> <span>Belgenin üzerindeyken (giriş alanı değil) odaklanma olduğunda bir tuşa basılınca tetiklenir - documentObject.onkeydown = functionName; Katmanlı tarayıcılar önce captureEvents kullanmanızı ister - okuma yazma</span></li>
+	<li><b class="e">onkeypress</b> <span>Belgenin üzerindeyken (giriş alanı değil) odaklanma olduğunda bir tuşa basılınca tetiklenir - documentObject.onkeypress = functionName; Katmanlı tarayıcılar captureEvents ikullanmanızı ister - okuma yazma</span></li>
+	<li><b class="e">onkeyup</b> <span>Belgenin üzerindeyken (giriş alanı değil) odaklanma olduğunda bir tuş bırakıldığında tetiklenir - documentObject.onkeyup = functionName; Katmanlı tarayıcılar önce captureEvents kullanılmasını ister  - okuma yazma</span></li>
+
+	<li><b class="e">onmousedown</b> <span>Belgenin üzerindeyken fare düğmesine basılınca tetiklenir - documentObject.onmousedown = functionName; Katmanlı tarayıcılar  önce captureEvents kullanmanızı ister - okuma yazma - Farenin sağ düğmesi basılıyken yanlış dönmesi tarayıcıların bir çoğunda sağ tıklama menüsünü engeller - Bazısı oncentextmenu olayından yanlış dönmesini ister - sağ tıklamayı anlamaz bile </span></li>
+	<li><b class="e">onmousemove</b> <span>Belgenin üzerinde farenin bulunması ile tetiklenir - documentObject.onmousemove = functionName; Katmanlı tarayıcılar  önce captureEvents kullanmanızı ister - okuma yazma</span></li>
+	<li><b class="e">onmouseout</b> <span>Belgenin üzerinden farenin çekilmesiyle tetiklenir - documentObject.onmouseout = functionName; Katmanlı tarayıcılar  önce captureEvents kullanmanızı ister - okuma yazma</span></li>
+	<li><b class="e">onmouseover</b> <span>belgenin dışından belgenin üzerine farenin taşınmasıyla tetiklenir - documentObject.onmouseover = functionName; Katmanlı tarayıcılar  önce captureEvents kullanmanızı ister - okuma yazma</span></li>
+
+	<li><b class="e">onmouseup</b> <span>Belgenin üzerindeyken fare düğmesinin bırakılmasıyla tetiklenir - documentObject.onmouseup = functionName; Katmanlı tarayıcılar  önce captureEvents kullanmanızı ister - okuma yazma</span></li>
+	<li><b class="e">captureEvents(Event.EventType)</b> <span>Katmanlı tarayıcıların olaylara tepki göstermesini sağlar - window.Event bölümü hangilerinin yakalanacağını anlatır </span></li>
+	<li><b class="m">close()</b> <span>Belge içeriğini yeniden yazmayı durdurduğunuzu söyler - and they should now be displayed</span></li>
+	<li><b class="m">getElementById(string IdOfElement)</b> <span>Bir öğeye erişimi döndürür - DOM uyumlu tarayıcılarda - Yerleştirilmiş öğeleri gösterir Yalnız - okuma - Yalnız DOM tarayıcıları için - Tarayıcılar arası kodlama için - document.IdOfPositionedElement - document.layers - document.all</span></li>
+
+	<li><b class="m">open()</b> <span>Belge içeriğini yeniden yazmaya başladığınızı söyler </span></li>
+	<li><b class="m">write(string content)</b> <span>belge içeriği yazar </span></li>
+	<li class="last"><b class="m">writeln(string content)</b> <span>Belgenin bir satırlık içeriğini yazar </span></li>
+</ul></div></li>
+</ul></div></li>
+<li><a href="javascript:itikla('win3')"><b class="o">event</b></a> <span>Eğer tarayıcı desteklerse, bir olayın anlık ayrıntılarını saklar - Yalnız okuma - Yalnız tescilli DOM tarayıcılar için - Tarayıcılar arası kodlama için - olay nesneleri ilk parametreyi kullanır </span></li>
+        <div id="win3" style="display: none;">
+        <li><b class="o">Event</b> <span>Katmanlı tarayıcıların sunduğu olay yakalama nesnesidir - olayları yakalamak için kullanılır - İlgisiz nedenlerle DOM olayları destekleyen tarayıcılar bunu sunar </span>
+        <ul>
+	<li><b class="p">CLICK</b> <span>Bir öğe üzerindeyken fare tıklanınca tetiklenir - Yalnız okuma</span></li>
+	<li><b class="p">DBLCLICK</b> <span>Fare düğmesi iki tek tıklanınca tetiklenir - öğe üzerinde hızlı başarı için - Mac işletim sistemi üzerindeki tarayıcılarda (az da olsa başkalarında da) genelde bu olay yakalanmaz - Bu nedenle olayı iki tıklamanın tek tıklama anlaşılmasını önlemek için kullanılmalıdır - Kombinasyonlar kullanarak bu olayın tepkisi benzetilebilir - onclick ve window.setTimeout - okuma yazma</span></li>
+
+	<li><b class="p">KEYDOWN</b> <span>Öğeye odaklanıldığında bir tuşa basılınca tetiklenir - Yalnız okuma</span></li>
+	<li><b class="p">KEYPRESS</b> <span>Öğeye odaklanıldığında kullanıcı bir tışa basıp bırakınca tetiklenir - Yalnız okuma</span></li>
+	<li><b class="p">KEYUP</b> <span>Öğeye odaknalındığında kullanıcı bir anahtarı bırakınca tetiklenir - Yalnız okuma</span></li>
+	<li><b class="p">MOUSEDOWN</b> <span>Öğenin üzerindeyken farenin düğmesine basıldığında tetiklenir - Yalnız okuma</span></li>
+
+	<li><b class="p">MOUSEMOVE</b> <span>Öğenin üzerindeyken fare gezdirilirse tetiklenir - Yalnız okuma</span></li>
+	<li><b class="p">MOUSEOUT</b> <span>Kullanıcı fareyi öğenin üzerinden dışarıya taşıyınca tetiklenir - Yalnız okuma</span></li>
+	<li><b class="p">MOUSEOVER</b> <span>Dışarıdan öğenin üzerine fareyi taşıyınca tetiklenir - Yalnız okuma</span></li>
+	<li class="last"><b class="p">MOUSEUP</b> <span>Öğenin üzerindeyken farenin düğmesini bırakınca tetiklenir - Yalnız okuma</span></li>
+
+</ul></div></li>
+<li><b class="o">Function</b> <span>Yapılandırıcı olarak kullanışlıdır - Yalnız okuma</span></li>
+<li><a href="javascript:itikla('win31')"><b class="o">history</b></a> <span>Tarayıcının belge tarihçesini gösterir - Yalnız okuma</span>
+        <div id="win31" style="display: none;">
+        <ul>
+	<li><b class="m">back()</b> <span>Tarayıcı tarihçesindeki son belgeyi yükler - Tarayıcının geri tuşuna basmaya eş değerdir </span></li>
+
+	<li><b class="m">forward()</b> <span>Tarayıcının tarihçesindeki sonraki belgeyi yükler - Tarayıcının geri tuşuna basmaya eş değerdir </span></li>
+	<li class="last"><b class="m">go(int numerToJump)</b> <span>Tarayıcı tarihçesinin belirtilen sayı kadar ileriye atlanmasıdır ve önceki belgeler için negatif sayılar kullanın </span></li>
+</ul></div></li>
+<li><b class="o">Image</b> <span>Yapıcı olarak önemlidir - Yalnız okuma</span></li>
+
+<li><b class="p">innerHeight</b> <span>tarayıcının belge alanı yüksekliğini pixel olarak gösterir - in most browsers (not IE) - Yalnız okuma - Yalnız Netscape uyumlu tarayıcılarda - Tarayıcılar arası kodlama için - document.body.clientHeight - document.documentElement.clientHeight</span></li>
+<li><b class="p">innerWidth</b> <span>tarayıcının belge alanı enini pixel olarak gösterir - in most browsers (not IE) - Yalnız okuma - Yalnız Netscape uyumlu tarayıcılarda - Tarayıcılar arası kodlama için - document.body.clientWidth - document.documentElement.clientWidth</span></li>
+<li><b class="p">length</b> <span>O anki belgede bulunan çerçevelerin sayısı - window.frames.length değerine eşittir - Yalnız okuma</span></li>
+<li><a href="javascript:itikla('win4')"><b class="o">location</b></a> <span>O anki adres hakkında bilgi verir - Yalnız okuma</span>
+        <div id="win4" style="display: none;">
+        <ul>
+
+	<li><b class="p">hash</b> <span>Adresin # işaretinden sonraki parçası (Eğer varsa) - bunu okurken hash sembolü de döner - bu değeri atartken hash sembolü olmamalıdır - Internet Explorer (Win/Mac), Gecko ve iCab 3- '#' biçiminde hash varsa boş yazı dizisi döndürürler - ICEbrowser tüm href değerini döndürür (hash olmadan) - okuma yazma</span></li>
+	<li><b class="p">host</b> <span>Adresin sunucu adı ve port numarası (eğer varsa)- Internet Explorer (windows) her zaman port numarası gösterir, href ile tanımlanmamış olsa da (bağlarda bunu yazmaz ) - okuma yazma</span></li>
+	<li><b class="p">hostname</b> <span>Adresin sunucu adı - okuma yazma</span></li>
+	<li><b class="p">href</b> <span>Adresin tümüyle yazı biçimi - okuma yazma</span></li>
+
+	<li><b class="p">pathname</b> <span>adresin sunucu adından sonraki parçası - örneğin: subdir1/subdir2/file.html - okuma yazma</span></li>
+	<li><b class="p">port</b> <span>port numarası (eğer varsa) - okuma yazma</span></li>
+	<li><b class="p">protocol</b> <span>Kullanılan protokol - örneğin. http: - okuma yazma</span></li>
+	<li><b class="p">search</b> <span>adreste ? işaretinden sonraki (işarette dahil) bölüm (eğer varsa) - okuma yazma</span></li>
+
+	<li><b class="m">reload([bool forceFullReload])</b> <span>O anki belgenin yeniden yüklenmesi - eğer forceFullReload doğru ise, sunucudan belge yeniden yüklenir, tampon bellekten değil</span></li>
+	<li class="last"><b class="m">replace(string location)</b> <span>o anki tarihçe satırını URL adresi ile değiştirip belirtilen adresi yükler - URL mutlak adres ya da göreceli adres olabilir</span></li>
+</ul></div></li>
+<li><a href="javascript:itikla('win5')"><b class="o">Math</b></a> <span>Bir öğe matematiksel değişmezler ve yöntemler içerir - Yalnız okuma</span>
+
+        <div id="win5" style="display: none;">
+        <ul>
+	<li><b class="p">E</b> <span>Değişmez - e - ~= - 2.718 - Yalnız okuma</span></li>
+	<li><b class="p">LN2</b> <span>Değişmez - ln(2) - ~= - 0.693 - Yalnız okuma</span></li>
+	<li><b class="p">LN10</b> <span>Değişmez - ln(10) - ~= - 2.303 - Yalnız okuma</span></li>
+	<li><b class="p">LOG2E</b> <span>Değişmez - log2(e) - ~= - 1.442 - Yalnız okuma</span></li>
+
+	<li><b class="p">LOG10E</b> <span>Değişmez - log10(e) - ~= - 0.434 - Yalnız okuma</span></li>
+	<li><b class="p">PI</b> <span>Değişmez - Pi - ~= - 3.142 - Yalnız okuma</span></li>
+	<li><b class="p">SQRT1_2</b> <span>Değişmez - 1/sqrt(2) or sqrt(1/2) - ~= - 0.707 - Yalnız okuma</span></li>
+	<li><b class="p">SQRT2</b> <span>Değişmez - sqrt(2) - ~= - 1.414 - Yalnız okuma</span></li>
+
+	<li><b class="m">abs(number n)</b> <span>n değişkeninin mutlak değerini verir</span></li>
+	<li><b class="m">acos(number n)</b> <span>n değişkeninin (radyan) cos^-1 değerini verir</span></li>
+	<li><b class="m">asin(number n)</b> <span>n değişkeninin (radyan) sin^-1 değerini verir</span></li>
+	<li><b class="m">atan(number n)</b> <span>n değişkeninin (radyan) tan^-1 değerini verir</span></li>
+
+	<li><b class="m">atan2(number n,number k)</b> <span>Kartezyen koordinatlarından (0,0 - n,k) açıyı (radyan) olarak verir</span></li>
+	<li><b class="m">ceil(number n)</b> <span>n değişkenini en yakın üst tamsayıya çevirir </span></li>
+	<li><b class="m">cos(number n)</b> <span>cos n değerini döndürür (n radyandır)</span></li>
+	<li><b class="m">exp(number n)</b> <span>e üzeri n değerini döndürür </span></li>
+
+	<li><b class="m">floor(number n)</b> <span>n değişkenini en yakın alt tamsayıya çevirir </span></li>
+	<li><b class="m">log(number n)</b> <span>ln(n) döndürür</span></li>
+	<li><b class="m">max(number a,number b,number c,.....)</b> <span>En büyük değeri döndürür </span></li>
+	<li><b class="m">min(number a,number b,number c,.....)</b> <span>En küçük sayıyı döndürür </span></li>
+
+	<li><b class="m">pow(number n,number k)</b> <span>n üzeri k değerini döndürür </span></li>
+	<li><b class="m">random()</b> <span>0 ile 1 arasındaki rastgele sayıyı döndürür </span></li>
+	<li><b class="m">round(number n)</b> <span>n değikenine en yakın üst ya da alt tamsayıyı verir </span></li>
+	<li><b class="m">sin(number n)</b> <span>sin n (n radyan türündendir) döndürür</span></li>
+
+	<li><b class="m">sqrt(number n)</b> <span>n karekök değerini döndürür </span></li>
+	<li class="last"><b class="m">tan(number n)</b> <span>tan n (n radyan türündendir) döndürür</span></li>
+</ul></li>
+    <li><b class="p">name</b> <span>O anki pencerenin &lt;a target= ...&gt; kullanılan adını gösterir - okuma yazma</span></li>
+
+<li><a href="javascript:itikla('winnavi')"><b class="o">navigator</b></a> <span>Kullanıcının tarayıcısı hakkında bilgi verir - Yalnız okuma</span>
+        <div id="winnavi" style="display: none;">
+        <ul>
+	<li><b class="p">appCodeName</b> <span>Tarayıcının kod adını verir - Bir çok tarayıcı destekler ama hiç kullanmayın - Yalnız okuma</span></li>
+	<li><b class="p">appName</b> <span>Tarayıcının kısa adı - Bir çok tarayıcı destekler ama hiç kullanmayın - Yalnız okuma</span></li>
+	<li><b class="p">appVersion</b> <span>Tarayıcının sürüm numarası - Bir çok tarayıcı destekler ama hiç kullanmayın - Yalnız okuma</span></li>
+
+	<li><b class="p">language</b> <span>Kendi tarayıcıları için kullanıcıların seçtiği dil - Yalnız okuma - Yalnız Netscape uyumlu tarayıcılarda </span></li>
+	<li><b class="p">platform</b> <span>Tarayıcının çalıştığı işletim sistemi - Birçok tarayıcı destekler ama hiç kullanmayın - Yalnız okuma</span></li>
+	<li><b class="p">userAgent</b> <span>Tarayıcının açık ve uzun adı - Birçok tarayıcı destekler ama hiç kullanmayın - Yalnız okuma</span></li>
+	<li><b class="p">userLanguage</b> <span>İşletim sistemi için kullanıcıların seçtiği dil - Yalnız okuma - Yalnız IE uyumlu tarayıcılarda</span></li>
+
+	<li><a href="javascript:itikla('win51')"><b class="c">mimeTypes[nameOrNumberOfMIMEType]</b></a> <span>Tarayıcının desteklediği MIME türü hakkında bilgi verir - Windows altındaki Internet Explorer 0 uzunlukta dizi verir - nesneyi sayfaya koyun ve kullanıcı gerekli takılabilir program henüz yoksa, indirmesi istenir - Yalnız okuma</span>
+                <div id="win51" style="display: none;">
+                <ul>
+		<li><b class="p">description</b> <span>MIME türünün açık, uzun açıklaması - Yalnız okuma</span></li>
+		<li><b class="o">enabledPlugin</b> <span>MIME türünü destekleyen takılabilir programı (plugin) gösterir - bunlar window.navigator.plugins[nameOrNumberOfPlugin] için çocuklardır - Yalnız okuma</span></li>
+		<li><b class="p">suffixes</b> <span>MIME türünün kapsadığı 'virgül-boşluk' aralıklı dosya uzantısı listesini verir - Yalnız okuma</span></li>
+
+		<li class="last"><b class="p">type</b> <span>MIME türünün resmi tip adını verir - örnek: image/gif - Yalnız okuma</span></li>
+	</ul></div></li>
+	<li><a href="javascript:itikla('win52')"><b class="c">plugins[nameOrNumberOfPlugin]</b></a> <span>Takılabilir program hakkında bilgi verir - Internet Explorer (Windows) sıfır uzunlukta dizi verir -  böylece, nesneyi sayfaya koyun ve kullanıcı gerekli takılabilir program henüz yoksa, indirmesi istenir - Yalnız okuma</span>
+                <div id="win52" style="display: none;">
+                <ul>
+		<li><b class="p">description</b> <span>Takılabilir programın uzun adı - Yalnız okuma</span></li>
+
+		<li><b class="p">filename</b> <span>Takılabilir program dosyasının uzun adı - Yalnız okuma</span></li>
+		<li><b class="p">length</b> <span>Takılabilir programın desteklediği MIME türlerinin sayısı - Yalnız okuma</span></li>
+		<li><b class="p">name</b> <span>Takılabilir programın kısa adı - Yalnız okuma</span></li>
+		<li class="last"><b class="o">nameOrNumberOfMIMEType</b> <span>navigator.mimeTypes birikimindeki öğeyi gösterir - Yalnız okuma</span></li>
+
+	</ul></div></li>
+	<li><a href="javascript:itikla('win53')"><b class="c">javaEnabled()</b></a> <span>Tarayıcının Java desteğini döndürür </span></li>
+                <div id="win53" style="display: none;">
+                <ul>
+		<li class="last"><b class="c">taintEnabled()</b> <span>Tarayıcının veri bozulmasını destekleyip desteklemediğini döndürür - Bozuşturmak "4. kuşak" tarayıcılarda desteklenmez - bu nedenle yöntem hiçbir şeye hizmet etmez - ama tarayıcılar hala sunarlar </span></li>
+</ul></div></li>
+<li><a href="javascript:itikla('win6')"><b class="o">Number</b></a> <span>Tarayıcının sayı desteği konusunda gereksiz değişmezleri ve bilgileri içerir - yapılandırıcı olarak kullanılabilir - Yalnız okuma</span>
+
+         <div id="win6" style="display: none;">
+         <ul>
+	<li><b class="p">MAX_VALUE</b> <span>tarayıcıda Number.MAX_VALUE en büyük sayıdır - işletim sisteminin desteklediği - Yalnız okuma</span></li>
+	<li><b class="p">MIN_VALUE</b> <span>tarayıcıda Number.MIN_VALUE ien küçük sayıdır - işletim sisteminin desteklediği - Yalnız okuma</span></li>
+	<li><b class="p">NaN</b> <span>örneğin Math.sqrt(-1)  değerinin sayısal olmayan eşdeğeridir Number.NaN - Yalnız okuma</span></li>
+	<li><b class="p">NEGATIVE_INFINITY</b> <span>eksi sonsuzu tanımlayan özel sayı Number.NEGATIVE_INFINITY - Yalnız okuma</span></li>
+
+	<li class="last"><b class="p">POSITIVE_INFINITY</b> <span>artı sonsuzu tanımlayan özel sayı Number.POSITIVE_INFINITY - Yalnız okuma</span></li>
+</ul></div></li>
+<li><b class="o">Object</b> <span>Yalnız tanımlama olarak kullanışlıdır - Yalnız okuma</span></li>
+<li><b class="o">opener</b> <span>O anki pencereden window.open yönteminin kullanıldığı pencereyi gösterir - okuma yazma</span></li>
+
+<li><b class="o">Option</b> <span>Tanımlama olarak önemlidir - Yalnız okuma</span></li>
+<li><b class="p">outerHeight</b> <span>Tarayıcı penceresinin pixel olarak yüksekliğini verir - Yalnız Netscape uyumlu tarayıcılar için - Yalnız okuma - Tarayıcılar arası eş değer yoktur - yeniden boyutlama karışıklığında yalnız resizeTo kapatmak için kullanılması iyi olur </span></li>
+<li><b class="p">outerWidth</b> <span>Tarayıcı penceresinin pixel olarak enini verir - Yalnız Netscape uyumlu tarayıcılar için - Yalnız okuma - Tarayıcılar arası eş değer yoktur - yeniden boyutlama karışıklığında yalnız resizeTo kapatmak için kullanılması iyi olur </span></li>
+<li><b class="p">pageXOffset</b> <span>Yatay kaydırmanın pixel olarak değerini verir - okuma yazma - Yalnız Netscape uyumlu tarayıcılar için - Tarayıcılar arası kodlama için - document.body.scrollLeft - document.documentElement.scrollLeft</span></li>
+
+<li><b class="p">pageYOffset</b> <span>Düşey kaydırmanın pixel olarak değerini verir - okuma yazma - Yalnız Netscape uyumlu tarayıcılar için - Tarayıcılar arası kodlama için - document.body.scrollTop - document.documentElement.scrollTop</span></li>
+<li><b class="o">parent</b> <span>Çerçeve ortamında üst pencereyi gösterir - Yalnız okuma</span></li>
+<li><a href="javascript:itikla('win7')"><b class="o">RegExp</b></a> <span>Kurallı deyimlerle arama bilgisini içerir - Bazı tarayıcılar bunu doğru uyarlayamaz (örneğin. Opera 6- ve iCab 2-) - Yalnız okuma</span>
+         <div id="win7" style="display: none;">
+        <ul>
+	<li><b class="p">$1 ... $9</b> <span>RegExp.$1 - RegExp.$9 yakalanan son dokuz arama sonucunu saklar - Yalnız okuma</span></li>
+
+	<li><b class="p">input</b> <span>RegExp.input son aramada kullanılan kurallı deyimi saklar - Yalnız okuma</span></li>
+	<li><b class="p">lastMatch or $&amp;</b> <span>RegExp.lastMatch kurallı deyimle birebir tutturulmuş arama, exec ya da test sonucunu gösterir - Yalnız okuma</span></li>
+	<li><b class="p">lastParen or $+</b> <span>RegExp.lastParen son yakalama anını verir - aramanın, exec ya da test - Yalnız okuma</span></li>
+	<li><b class="p">leftContext or $`</b> <span>RegExp.leftContext isondan önceki ilerideki alt yazı dizisi - alt yazı dizisi kurallı deyime tümüyle uyum sağlayan - aramada, exec ya da test - Yalnız okuma</span></li>
+
+	<li class="last"><b class="p">rightContext or $'</b> <span>RegExp.rightContext en sonuncudan sonraki alt yazı dizisi - alt yazı dizisi kurallı deyime uyum sağlayan - aramada, exec ya da test - Yalnız okuma</span></li>
+</ul></div></li>
+<li><a href="javascript:itikla('win8')"><b class="o">screen</b></a> <span>Kullanıcı ekranındaki bilgiyi sağlar - Yalnız okuma</span>
+        <div id="win8" style="display: none;">
+        <ul>
+	<li><b class="p">availHeight</b> <span>Ekranın pixel türünden var olan yükseklik - Durum çubuğu da dikkate alınır - Yalnız okuma</span></li>
+
+	<li><b class="p">availWidth</b> <span>Ekranın pixel türünden enini belirtir - İşlem çubuğu da dikkate alınır - Yalnız okuma</span></li>
+	<li><b class="p">colorDepth</b> <span>pixelDepth yoksa pixel başına bit sayısını verir - Yalnız okuma - Tarayıcılar arası kodlama için - pixelDepth</span></li>
+	<li><b class="p">height</b> <span>Ekranın pixel türünden yüksekliğini verir - Yalnız okuma</span></li>
+	<li><b class="p">pixelDepth</b> <span>Eğer sunuluyorsa pixel başına bit sayısı - Yalnız okuma - Tarayıcılar arası kodlama için - colorDepth</span></li>
+
+	<li class="last"><b class="p">width</b> <span>Ekranın pixel türünden enini verir - Yalnız okuma</span></li>
+</ul></div></li>
+<li><b class="p">status</b> <span>Tarayıcının durum çubuğuna yazılan yazı dizisini gösterir - okuma yazma</span></li>
+<li><a href="javascript:itikla('win9')"><b class="o">String</b></a> <span>Çoğunlukla tanımlama olarak kullanılır - Kullanışlı karakter yöntemi vardır - Yalnız okuma</span>
+        <div id="win9" style="display: none;">
+        <ul>
+	<li class="last"><b class="m">fromCharCode(number asciiCharacterValue)</b> <span>Sayısal değerin karşıtı olan karakteri gösterir (ascii) - Yalnız okuma</span></li>
+</ul></li>
+<li><a href="javascript:itikla('win91')"><b class="c">frames[nameOrNumberOfFrame]</b></a> <span>Bu sayfayla kurulan çerçeve (frameset) iskelesinde, eldeki sayfanın çerçeve (iframe) öğesini ya da pencere nesnesini gösterir (window.frames[nameOrNumberOfFrame].window iframe içindeki belgenin pencere nesnesine erişim için kullanılır) - Yalnız okuma - windowObject.frames.length çerçeve iskelesindeki çerveçe sayısını verir - NOT: bir çevçeveye erişme girişimi içinde HTML belgesi olmayan ya da başka bir alan adından gelen bir HTML olduğunda ya da yüklenmemiş iframe birçok tarayıcıda hatalara neden olur - Yalnız okuma</span>
+        <div id="win91" style="display: none;">
+        <ul>
+	<li class="last"><b class="p">name</b> <span>Çerçeve adını gösterir - okuma yazma</span></li>
+
+</ul></div></li>
+<li><b class="e">onblur</b> <span>pencere odaklanmayı kaybedince ateşlenir - windowObject.onblur = functionName; okuma yazma</span></li>
+<li><b class="e">onerror</b> <span>Kodlama hata verince tetiklenir - Bunu kurunca hata iletişim penceresi açılmaz - windowObject.onerror = functionName; - ya da - windowObject.onerror = null; - doğru (true) döndürmek hatanın kaydedilmesini önler Opare gibi tarayıcılarda yoktur bu nedenle yerine try{}catch(e){} kullanın - okuma yazma</span></li>
+<li><b class="e">onfocus</b> <span>Pencereye odaklanındığında ateşlenir - windowObject.onfocus = functionName; okuma yazma</span></li>
+
+<li><b class="e">onload</b> <span>Sayfa yüklenir yüklenmez tetiklenir - windowObject.onload = functionName; - IE 4 self.onload hatalı algılar (window.onload kullanılır) - okuma yazma</span></li>
+<li><b class="e">onunload</b> <span>Sayfa silinmeden biraz önce tetiklenir - windowObject.onunload = functionName; okuma yazma</span></li>
+<li><b class="m">alert(object)</b> <span>Bir nesnenin yazı biçiminde gösterilmesi için mesaj kutusu görüntüler - Eğer nesne yazı dizisiyse yazı görüntülenir </span></li>
+<li><b class="m">blur()</b> <span>Pencerenin odağı kaybetmesine neden olur </span></li>
+
+<li><b class="m">clearInterval(interval object)</b> <span>Aranın yeniden başlamasını durdurur </span></li>
+<li><b class="m">clearTimeout(timeout object)</b> <span>Zaman aşımının yeniden tetiklenmesini durdurur </span></li>
+<li><b class="m">close()</b> <span>Pencerenin kapanmasına neden olur - Eğer pencere kodlamayla açılmamışsa kullanıcının pencereyi kapatmak isteyip istemediği sorulur </span></li>
+<li><b class="m">confirm(string message)</b> <span>Bir mesajı görüntüler ve 'OK' ya da 'Cancel' düğmelerini görüntüleyip yanıt verilmesini sağlar - Eğer kullanıcı OK true döner, aksi halde false döner </span></li>
+
+<li><b class="m">escape(string textToURLEncode)</b> <span>yazı dizisini URL adresi biçiminde döndürür - unicode-safe değil</span></li>
+<li><b class="m">eval(string scriptToEvaluate)</b> <span>Bir yazıyı kodlama olarak çalıştırır </span></li>
+<li><b class="m">focus()</b> <span>Pencerenin odağı üzerine almasını sağlar </span></li>
+<li><b class="m">isNaN(number numberToCheck)</b> <span>sayı geçersizse (NaN) döndürür (örneğin Math.sqrt(-1))</span></li>
+
+<li><b class="m">moveBy(int xOffset,int yOffset)</b> <span>Tarayıcı penceresini belirtilen kadar kaydır </span></li>
+<li><b class="m">moveTo(int xPos,int yPos)</b> <span>Tarayıcı penceresini belirtilen koordinatlara taşır </span></li>
+<li><b class="m">open(string url[,string targetName[,string options[,bool replaceHistoryEntry]]])</b> <span>Kurulumla sunulan URL adresini açar - pencereye bir gösterge döndürür - &lt;a target= ...&gt; ile kullanılan targetName - Seçenekler virgüller ayrılmış option=value ikilisinden oluşan yazı dizisidir - Burada value büyüklük belirten tamsayıdır - ya da yes 1 seçenekleri açmak için, no 0 kapatmak için - var olan seçenekler : - height=int pencerenin yüksekliği - left=int ekranın sol kenarıyla pencerenin sol kenarı arasındaki uzaklık - location=enable/disable - menubar=enable/disable - resizable=enable/disable - scrollbars=enable/disable - status=enable/disable - toolbar=enable/disable - top=int ekranın üst kenarıyla pencerenin üst kenarı arasındaki uzaklık - width=int pencerenin eni - Bazı tarayıcılar daha çok sunar - Değerini değiştirmeyeceğinizi dışarıda bırakın </span></li>
+
+<li><b class="m">parseInt(string textContainingAnInteger)</b> <span>Bir yazının sayısal bölümünü döndürür </span></li>
+<li><b class="m">parseFloat(string textContainingAFloat)</b> <span>yazının kayan noktalı sayısını döndürür </span></li>
+<li><b class="m">print()</b> <span>Kullanıcının o anki belgeyi yazdırmak istemesiyle iletişim kutusu görüntülenir - Bazı eski tarayıcılarda yoktur </span></li>
+<li><b class="m">prompt(string message,string defaultValue)</b> <span>Kullanıcının bir değişkene değer girmesi için açılan mesaj kutusudur - kullanıcının girdiği değer yazı dizisi olarak döndürülür - kullanıcı işlemi keserse boşluk, null ya da undefined döndürür </span></li>
+
+<li><b class="m">resizeBy(int xOffset,int yOffset)</b> <span>tarayıcı penceresinin boyutlarını belirtilen değer kadar değiştirir</span></li>
+<li><b class="m">resizeTo(int xWidth,int yWidth)</b> <span>Tarayıcı penceresinin boyutlarını belirtilen değer kadar değiştirir </span></li>
+<li><b class="m">scrollBy(int xOffset,int yOffset)</b> <span>Belgeyi belirtilen değer kadar kaydırır </span></li>
+<li><b class="m">scroll or scrollTo(int xPos,int yPos)</b> <span>Belgeyi belirtilen koordinatlara kaydırır </span></li>
+
+<li><b class="m">setInterval(string or function scriptToEvaluate,int timeInMilliseconds)</b> <span>Yineleyerek belirtilen süre kadar bekler - belirtilen kodlamayı çalıştırmadan - Bekletilen nesneyi gösteren tam sayı döner </span></li>
+<li><b class="m">setTimeout(string or function scriptToEvaluate,int timeInMilliseconds)</b> <span>Belirtilen süre kadar bekler - belirtilen kodlamayı çalıştırmadan - zaman aşımı nesnesini belirten bir tam sayı döndürür </span></li>
+<li class="last"><b class="m">unescape(string textToURLUnEncode)</b> <span>yazı dizisin URL adresi olarak döndürür - unicode-safe olmadan - unescape(string textToURLUnEncode)</span></li>
+</ul></div></li>
+</ul>
+<br />
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"></span>
+       </div>
+    </td><td valign="top">
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

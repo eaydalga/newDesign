@@ -1,0 +1,527 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Hyperlink Preprocessor </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">23 Mart 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h3>MaxDB PHP Uzantısı</h3>
+
+<h3>Giriş</h3>
+
+MaxDB PHP uzantısı 7.5.0 ve üzeri sürümlerde sağlanan işlevselliğe erişmenizi
+sağlar. Daha çok bilgi için http://www.mysql.com/products/maxdb/ adresine bakın.
+<br /><br />
+MaxDB PHP uzantısı MySQL mysqli uzantısıyla uyumludur. MaxDb ve MySQL verştabanı sunucularının farklarından ikisi arasında çok küçük ayrıcalıklar bulunur.
+
+<h3>Ana değişiklikler şunlardır:</h3>
+<ul>
+    <li> maxdb_character_set_name() - Yalnız ascii ya da unicode döndürür
+    <li> maxdb_get_client_info() - Değişik sürüm yazı dizisi döndürür
+    <li> maxdb_get_client_version() - Değişik sürüm yazı dizisi döndürür
+    <li> maxdb_get_host_info() - Yerel bilgisayar ya da bilgisayar adı
+döndürür
+    <li> maxdb_get_server_info() - Değişik sürüm yazı dizisi döndürür
+    <li> maxdb_get_server_version() - Değişik sürüm yazı dizisi döndürür
+    <li> maxdb_kill() - Yalnız oturumu kapatır
+    <li> maxdb_multi_query() - Birden çok SQL deyimini ele alamaz
+    <li> maxdb_next_result() - İşlev her zaman False döndürür
+    <li> maxdb_options() - Başka tür seçenek kümesini destekler
+    <li> maxdb_report() - Farklı bir rapor konumunu destekler
+    <li> maxdb_stat() - Farklı bir sistem durum kodu yazı dizisini döndürür
+    <li> maxdb_stmt_store_result() - MaxDB için gerekli değildir
+    <li> maxdb_store_result() - MaxDb için gerekli değildir.
+</ul>
+MaxDB için gereken belgeler http://dev.mysql.com/doc/maxdb/ adresinde
+bulunabilir.
+
+<h3>Gereksinim</h3>
+
+Bu işlevlerin kullanılabilir olması için PHP MaxDB desteğiyle derlenmelidir.
+Ek olarak MaxDB SQLDBC çalışma zamanı kitaplığı olmalı ki MaxDB sunucusunu
+kullanabilesiniz.
+<br /><br />
+MaxDB SQLDBC için belgeler http://dev.mysql.com/doc/maxdb/ adresinde
+bulunabilir.
+<br /><br />
+MaxDB SQLDBC paketini http://dev.mysql.com/downloads/maxdb/clients.html adresinden indirebilirsiniz.
+
+<h3>Kurulum</h3>
+
+"--with-maxdb[=DIR]" ayar seçeneğini kullanarak PHP'nin MaxDB erişimini açmış olursunuz. [DIR] MaxDB SQLDBC paketinin kurulu olduğu yolu verir.
+<br /><br />
+Windows users will need to enable php_maxdb.dll inside of php.ini.
+
+<h3>Çalışma Zamanı Ayarları</h3>
+
+php.ini ayarları işlevlerin davranışını etkiler.
+
+<h3>MaxDB Ayar Seçenekleri</h3>
+<table class="yazi">
+<tr><td>Adı</td><td>Varsayılan</td><td>Değişebilen</td><td>DeğişmeKaydı</td></tr>
+<tr><td>maxdb.default_host</td><td>NULL</td><td>PHP_INI_ALL</td><td></td></tr>
+<tr><td>maxdb.default_db</td><td>NULL</td><td>PHP_INI_ALL</td><td></td></tr>
+<tr><td>maxdb.default_user</td><td>NULL</td><td>PHP_INI_ALL</td><td></td></tr>
+<tr><td>maxdb.default_pw</td><td>NULL</td><td>PHP_INI_ALL</td><td></td></tr>
+<tr><td>maxdb.long_readlen</td><td>"200"</td><td>PHP_INI_ALL</td><td></td></tr>
+</table>
+
+PHP_INI_* değişmezleri hakkında daha çok bilgi için php.ini yönelticilerine
+bakın.
+<br /><br />
+Burada ayar  yönelticilerinin kısa açıklaması vardır.
+<dl>
+<dt>maxdb.default_host yazı dizisi
+
+    <dd>Eğer bilgisayar tanımlanmazsa veritabanı sunucusuna bağlantıda varsayılan
+sunucu bilgisayar kullanılır.
+</dd></dt>
+<dt>maxdb.default_db yazı dizisi
+
+    <dd>Eğer başka veritabanı belirtilmemişse, varsayılan varitabanı sunucusu
+kullanılır.
+</dd></dt>
+<dt>maxdb.default_user yazı dizisi
+
+    <dd>Veritabanı sunucusuna bağlantıda başka kullanıcı adı belirtilmezse
+varsayılan kullanıcı adı kullanılır.
+</dd></dt>
+<dt>maxdb.default_pw yazı dizisi
+
+    <dd>Veritabanı sunucusuna bağlantıda şifre verilmemişse varsayılan şifre
+kullanılır.
+</dd></dt>
+<dt>maxdb.long_readlen integer
+
+    <dd>Eğer MaxDB sunucudan çok uzun veri alırsa, varsayılan en çok bayt uzunluğunun istemciye gönderilmesi sağlanır (daha uzun veri varsa kesilir).
+</dd></dt>
+</dl>
+<h3>Önceden Tanımlı Sınıflar</h3>
+<dl>
+<dt><b>maxdb</b>
+
+<dd>MaxDB veritabanı bağlantı PHP ile yapılmasını gösterir.
+<h3>Yapımcı (Constructor)</h3>
+<ul>
+    <li> maxdb - yeni maxdb nesnesi yapar
+</ul>
+<h3>Yöntemler (Methods)</h3>
+<ul>
+    <li> autocommit - veritabanını otomatik onaylamayı kapatıl açma
+    <li> change_user - veritabanı bağlantısında kullanıcıyı değiştirir
+    <li> character_set_name - veritabanı bağlantısı için varsayılan karakter takımı döndürür
+    <li> close - daha önce açılan bağlantının kapanması.
+    <li> commit - O anki işlemi onaylama
+    <li> connect - MaxDB Veritabanı sunucusuna yeni bağlantı açma
+    <li> debug - hata ayıklama işlemlerini yapılması.
+    <li> dump_debug_info - hata ayıklama işleminin dökülmesi
+    <li> get_client_info - istemci sürümünü döndürür
+    <li> get_host_info - kullanılan bağlantı türünü döndürür.
+    <li> get_server_info - MaxDB sunucusunun sürümünü döndürür
+    <li> get_server_version - MaxDB sunucusunun sürümünü döndürür
+    <li> init - maxdb nesne ilklemesi
+    <li> info - En son çalıştırılan sorgunun bilgisine erişilir.
+    <li> kill - MaxDB parçasının öldürülmesini sunucudan ister
+    <li> multi_query - Birçok sorguyu yapar
+    <li> more_results - O an çalışan çoklu sorguların daha başka sonuçları var mı bak
+    <li> next_result - O an çalışan çoklu sorgulamanın sonuçlarından sonrakini okuma
+    <li> options - Seçenekleri ayarla
+    <li> ping - Eğer bağlantı yoksa sunucu bağlantısını ya da yeniden bağlantıyı ping'ler.
+    <li> prepare - SQL sorgulamasını hazırlar
+    <li> query - Bir sorgulama oluşturur
+    <li> real_connect - MaxDB veritabanın sunucusuna bağlantı açmayı dener
+    <li> escape_string - yazı dizisindeki özel karakterleri kaçırmayı, o anki bağlantıda kullanılan karakter takımını dikkate alarak yapar.
+    <li> rollback - o anki işlemi geri alır
+    <li> select_db - Varsayılan veritabanını seçer
+    <li> ssl_set - ssl değiigeçini ayarlar
+    <li> stat - o anki sistem durumunu alır
+    <li> stmt_init- maxdb_stmt_prepare ile kullanılacak ilkleme deyimidir
+    <li> store_result - Son sorgulamadan elde edilen sonuç kümesini taşır
+    <li> use_result - son sorgulamadan elde edilen tamponlanmamış sonuç kümesini taşır
+    <li> thread-safe - parça güvenliği verildimi yoksa verilmedi mi döndürür
+</ul>
+<h3>Özellikler (Properties)</h3>
+<ul>
+    <li> affected_rows - önceki MaxDB işleminden etkilenen staır sayısını alır
+    <li> client_info - MaxDB istemci sürümünü yazı dizisi olarak alır
+    <li> client_version - MaxDB istemci sürümünü tamsayı olarak alır.
+    <li> errno - En son işlev çağırma işleminden dönen hata kodudur.
+    <li> error - En son işlev çağırma işleminden dönen hata yazı dizisidir
+    <li> field_count - En son sorgunun kolon sayısını döndürür
+    <li> host_info - kullanılan bağlantıyı belirten yazı tipidir
+    <li> info - en son çalıştırılan sorgu hakkında bilgi almak
+    <li> insert_id - son sorguda kullanılan otomatik yaratılan tanıtım kodunu
+döndürür
+    <li> protocol_version - returns the version of the MaxDB protocol used
+    <li> sqlstate - returns a string containing the SQLSTATE error code for the last error
+    <li> thread_id - O anki bağlantının program parçasının tanımını döndürür
+    <li> warning_count - önceki SQL deyiminin çalışmasında yaratılan uyarıların sayısını döndürür
+</ul>
+</dd></dt>
+<dt>
+<b>maxdb_stmt</b>
+
+<dd>Hazırlanmış bir deyimi gösterir.
+<h3>Yöntemler (Methods)</h3>
+<ul>
+    <li> bind_param - Hazırlanan deyime değişkenleri bağlar
+    <li> bind_result - Sonuç belleği içi hazırlanan deyime değişkenler bağlanır.
+    <li> close - hazırlanan bir deyimi kapatır
+    <li> data-seek - deyimin sonuç kümesinden rastgele bir satıırı ara
+    <li> execute - hazırlanan deyimi çalıştır
+    <li> fetch - hazırlanan deyimden sonuçları ara ve değişkenlere bağla
+    <li> free_result - verilen deyim göstergesine ilişkin sonuç belleğini boşalt
+    <li> result_metadata - hazırlanan deyimden elde edilen sonuç kümesinden
+metadata bilgisini alır.
+    <li> prepare - SQL sorgu hazırlar
+    <li> send_long_data - öbekler biçiminde verileri gönderir
+    <li> close_long_data - uzun veriyi gönderme sonu
+    <li> reset - hazırlanan deyimi siler
+    <li> store_result - hazırlanan deyimin sonuç kümesini tümüyle tampona alır
+</ul>
+<h3>Özellikler (Properties)</h3>
+<ul>
+    <li> affected_rows - son deyimin çalışmasından etkilenen satırları
+döndürür
+    <li> errno - son deyim işlevinden dönen hata kodudur
+    <li> errno - son deyim işlevinin hata mesajını döndürür
+    <li> param_count - hazırlanan deyimin değişgeç sayısını döndürür
+    <li> sqlstate - son deyim işlevine ilişkin SQLSTATE hata kodunun yazı dizisini döndürür
+</ul>
+</dd></dt>
+<dt>
+<b>maxdb_result</b>
+
+<dd>Veritabanına yapılan sorguya karşılık elde edilen sonuç kümesini gösterir.
+<h3>Yöntem (Methods)</h3>
+<ul>
+    <li> close - sonuç kümesini kapatır
+    <li> data_seek - içsel sonuç göstergesini hareket ettirir.
+    <li> fetch_field - sonuç kümesinden kolon bilgisini alır.
+    <li> fetch_fields - sonuç kümesinden yüm kolonlar için bilgi alır
+    <li> fetch_field_direct - Belirtilen kolon için kolon bilgisini alır.
+    <li> fetch_array - ilgili dizi, sayısak dizi ya da her ikisi biçiminde olan sonuç satırını seçer.
+    <li> fetch_assoc - ilgili dizi olarak bi sonuç satırını seç
+    <li> fetch_object - sonuç satırını bir nesne olarak seçer
+    <li> fetch_row - sonuç satırını sayılmış dizi olarak almak.
+    <li> close - sonuç belleğini boşaltır
+    <li> field_seek - Sonuç göstergesini belirtilen alanın belirtilen
+uzaklığına ayarlamak
+</ul>
+<h3>Özellikler (Properties)</h3>
+<ul>
+    <li> current_field - o anki alan göstergesinin uzaklığını döndürür
+    <li> field_count - sonuç kümesindeki alanların sayısını döndürür
+    <li> lengths - kolon uzunlukları dizisini döndürür
+    <li> num_rows - sonuç kümesindeki satır sayısını döndürür
+</ul>
+</dd></dt>
+</dl>
+
+<h3>Önceden Tanımlı Değişmezler</h3>
+
+Aşağıdaki değişmezler bu uzantı için tanımlanmıştır. Bu uzantı yüklenmeden
+kullanılamaz.
+<br /><br />
+maxdb_options() ile kullanılabilecek değişmezler aşağıda gösterilmiştir. Daha
+ayrıntılı bilgi için http://dev.mysql.com/doc/maxdb/ adresine bakın.
+
+<h3>MaxDB PHP istemci değişmezler</h3>
+
+<table class="yazi">
+<tr><td>Değişmez</td><td>Açıklama</td></tr>
+<tr><td>MAXDB_COMPNAME</td><td>SQLDBC çalışma zamanı çevresini ilklemek için kullanılan parça adı</td></tr>
+<tr><td>MAXDB_APPLICATION</td><td>Veritabanına bağlanacak uygulama</td></tr>
+<tr><td>MAXDB_APPVERSION</td><td>Uygulamanın sürümü</td></tr>
+<tr><td>MAXDB_SQLMODE</td><td>SQL konumu.</td></tr>
+<tr><td>MAXDB_UNICODE</td><td>TRUE, eğer bağlantı unicode (UCS2) istemciyse, aksi halde FALSE</td></tr>
+<tr><td>MAXDB_TIMEOUT</td><td>En çok işlemsiz bekleme süresi. Bu süre aşınca işletim sistemi bağlantıyı kapatır</td></tr>
+<tr><td>MAXDB_ISOLATIONLEVEL</td><td>içsel olarak paylaşımlı kilitler ya da ayrıcalıklı kilitlerin nasıl olacağını belirtir</td></tr>
+<tr><td>MAXDB_PACKETCOUNT</td><td>Bağlantı için kullanılan değişik istek paketleri sayısıdır</td></tr>
+<tr><td>MAXDB_STATEMENTCACHESIZE</td><td>The number of prepared statements to be cached for the connection for re-use.
+<tr><td>MAXDB_CURSORPREFIX</td><td>Otomatik olarak adlandırılan sonuç tablosunda kullanılan önek.</td></tr>
+</table>
+
+maxdb_fetch_array() değişik sonuç dizileri için bir değişmez kullanır. Aşağıda bu değişmezler vardır:
+
+<h3>MaxDB seçme değişmezleri</h3>
+<table class="yazi">
+<tr><td>Değişmez</td><td>Açıklama</td></tr>
+<tr><td>MAXDB_ASSOC</td><td>Kolonlar dizi olarak döner. Burada kolon adları dizin olur</td></tr>
+<tr><td>MAXDB_ASSOC_UPPER</td><td>Kolonlar bir diziye saklanır ve büyük harf alan adları dizide dizin olur.</td></tr>
+<tr><td>MAXDB_ASSOC_LOWER</td><td>Kolonlar dizi olarak döndürülür. Küçük harf kolon adları dizin olur.</td>>/tr>
+<tr><td>MAXDB_BOTH</td><td>Kolonlar dizide döndürülür. Hem sayısal dizin hem de alan adı dizini vardır.</td></tr>
+<tr><td>MAXDB_NUM</td><td>Kolonlar dizide döndürülür. Sayısal dizin kullanılır. Sayısal dizin 0'dan başlar</td></tr>
+</table>
+<h3>Örnekler</h3>
+
+Tüm MaxDB PHP belgelerindeki örnekler MaxDB'deki HOTELDB demo veritabanını
+kullanır.
+http://dev.mysql.com/doc/maxdb/en/98/11b83fa6b33c17e10000000a114084/frameset.htm
+adresinde bu bilgiyi bulabilirsiniz.
+<br /><br />
+MaxDB PHP belgelerindeki örnekleri kullanabilmek için veritabanına eğitim
+bilgilerini yüklemeniz gerekir.  Ayrıca php.ini içindeki maxdb.default_db
+değerini ayarlamış olmalısınız.
+<br /><br />
+Aşağıdaki basit örnek nasıl bağlantı kurulacağını, nasıl sorgulama çalıştırılacağını sonuçların nasıl yazdırılacağını ve nasıl MaxDB veritabanı bağlantısının kesileceğini gösterir.
+
+<h3>Örnek-1 MaxDB uzantısı özet işlem örneği</h3>
+<pre>
+&lt;?php
+$link = maxdb_connect("localhost", "MONA", "RED", "DEMODB");
+   
+/* bağlantıya bak */
+if (maxdb_connect_errno()) {
+   printf("Bağlantı kurulamadı: %s\n", maxdb_connect_error());
+   exit();
+}
+
+/* SQL sorgu hazırlama */
+$query = "SELECT * FROM hotel.city";
+$result = maxdb_query($link, $query)
+          or die("Sorgu olmadı : " . maxdb_error());
+
+/* Sonuçları HTML olarak yazdırmak */
+echo "<table>\n";
+while ($line = maxdb_fetch_array($result, MAXDB_ASSOC)) {
+    echo "  <tr>\n";
+    foreach ($line as $col_value) {
+        echo "    <td>$col_value</td>\n";
+    }
+    echo "  </tr>\n";
+}
+echo "</table>\n";
+
+/* sonuçları boşaltmak */
+maxdb_free_result($result);
+
+/* Bağlantıyı kapamak */
+maxdb_close($link);
+?&gt;
+</pre>
+
+Aşağıdaki örnek değişkenlerin nasıl SELECT INTO deyimine bağlanacağını
+gösterir.
+
+<h3>Örnek-2 SELECT INTO deyiminin kullanımına ilişkin örnek</h3>
+<pre>
+&lt;?php
+$link = maxdb_connect("localhost", "MONA", "RED", "DEMODB");
+
+/* bağlantıya bak */
+if (!$link) {
+   printf("Bağlantı kurulamadı: %s\n", maxdb_connect_error());
+   exit();
+}
+   
+/* SQL sorgusunu hazırlama */
+$stmt = maxdb_prepare ($link,
+    "SELECT percentage INTO ? FROM hotel.countrylanguage where language = ?");
+if (!$stmt) {
+  printf ("Hazırlama olmadı: %s\n", maxdb_error($link));
+}
+
+$name = "Mbundu";
+
+maxdb_stmt_bind_param($stmt, 'ds', $percentage, $name);
+maxdb_stmt_execute($stmt);
+
+printf ("%f\n", $percentage);
+
+maxdb_stmt_close ($stmt);
+?&gt;
+</pre>
+
+Aşağıdaki örnek MaxDB Veritabanı altprogramlarının kullanımını gösterir.
+
+<h3>Örnek-3 Veritabanı altprogramlarını kullanma örneği</h3>
+<pre>
+&lt;?php
+$link = maxdb_connect("localhost", "MONA", "RED", "DEMODB");
+
+/* bağlantıya bak */
+if (!$link) {
+   printf("Bağlantı kurulamadı: %s\n", maxdb_connect_error());
+   exit();
+}
+
+maxdb_report (MAXDB_REPORT_OFF);
+maxdb_query($link,"DROP DBPROC test_proc");
+maxdb_report (MAXDB_REPORT_ERROR);
+
+$query = "create dbproc test_proc (INOUT e_text char(72))
+                 AS select * from SYSDBA.DUAL; fetch into :e_text;";
+
+maxdb_query($link, $query);
+
+/* SQL sorgu hazırlama */
+$stmt = maxdb_prepare ($link, "CALL test_proc (?)");
+if (!$stmt) {
+  printf ("Hazırlık olmadı: %s\n", maxdb_error($link));
+}
+
+maxdb_stmt_bind_param($stmt, 's', $result);
+maxdb_stmt_execute($stmt);
+
+printf ("%s\n", $result);
+
+maxdb_stmt_close ($stmt);
+?&gt;
+</pre>
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> maxdb_affected_rows — Önceki MaxDB işleminde etkilenen satır sayısını alır.
+    <li> maxdb_autocommit — Veritabanı değişikliklerini otomatik onaylamayı açma kapama
+    <li> maxdb_bind_param — maxdb_stmt_bind_param eşdeğeri
+    <li> maxdb_bind_result — maxdb_stmt_bind_result eşdeğeri
+    <li> maxdb_change_user — Belirtilen veritabanı bağlantısında kullanıcıyı değiştirme
+    <li> maxdb_character_set_name — Veritabanı bağlantısının varsayılan karakter takımını döndürür
+    <li> maxdb_client_encoding — maxdb_character_set_name eşdeğeridir
+    <li> maxdb_close_long_data — maxdb_stmt_close_long_data eşdeğeridir
+    <li> maxdb_close — Daha önce açılmış veritabanı bağlantısını kapama
+    <li> maxdb_commit — O anki işlemi onaylar
+    <li> maxdb_connect_errno — Son bağlantı çağırmasından dönen hata kodunu
+alır
+    <li> maxdb_connect_error — Son bağlantı hatasının yazı dizisi gösterilişini döndürür
+    <li> maxdb_connect — MaxDB sunucuya yeni bağlantı açma
+    <li> maxdb_data_seek — Sonuç göstergesinin sonuçta rastgele bir satırı göstermesini ayarlar
+    <li> maxdb_debug — hata yazdırma işlemini hazırlar
+    <li> maxdb_disable_reads_from_master — Sunucuda okumayı kapat
+    <li> maxdb_disable_rpl_parse — RPL taramayı kapat
+    <li> maxdb_dump_debug_info — hata yazdırma bilgisini kayıt dosyasına dök
+    <li> maxdb_embedded_connect — gömülü MaxDB sunucuya bağlantıyı aç
+    <li> maxdb_enable_reads_from_master — Sunucuda okumayı aç
+    <li> maxdb_enable_rpl_parse — RPL taramayı aç
+    <li> maxdb_errno — En son çağrılan işlevin hata kodunu döndürür
+    <li> maxdb_error — En son hatanın yazı dizisi biçiminde döndürülmesi
+    <li> maxdb_escape_string — maxdb_real_escape_string eşdeğeri
+    <li> maxdb_execute — maxdb_stmt_execute eşdeğeri
+    <li> maxdb_fetch_array — Sonuçu ilgili dizi, sayısal dizi ya da her ikisi olarak seç
+    <li> maxdb_fetch_assoc — Sonucu ilgili dizi olarak seç
+    <li> maxdb_fetch_field_direct — Tek alan için meta-data seç
+    <li> maxdb_fetch_field — Sonuç kümesinden sonraki alanı döndür
+    <li> maxdb_fetch_fields — sonuç kümesindeki alanları gösteren kaynakların dizisini döndürür
+    <li> maxdb_fetch_lengths — Sonuç kümesindeki o anki satırın kolonlarının uzunluklarını döndürür
+    <li> maxdb_fetch_object — Sonuç kümesindenki o anki satırı nesne olarak döndürür
+    <li> maxdb_fetch_row — Sonuç satırını sayılı dizi olarak al
+    <li> maxdb_fetch — maxdb_stmt_fetch eşdeğeri
+    <li> maxdb_field_count — Son sorgudan dönen kolon sayısını verir
+    <li> maxdb_field_seek — Sonuç göstergesini belirtilen alan uzaklığına
+ayarla
+    <li> maxdb_field_tell — Sonuç göstergesinin o anki alanının uzaklığını al
+    <li> maxdb_free_result — Sonuçla ilgili belleği boşaltır.
+    <li> maxdb_get_client_info — MaxDB istemcisinin sürümünü yazı dizisi
+olarak döndürür
+    <li> maxdb_get_client_version — MaxDB istemci bilgisini al
+    <li> maxdb_get_host_info — Bağlantının türünü belirten yazı dizisini döndürür
+    <li> maxdb_get_metadata — maxdb_stmt_result_metadata eşdeğeridir
+    <li> maxdb_get_proto_info — kullanılan MaxDB protokolünün sürümünü döndürür
+    <li> maxdb_get_server_info — MaxDB sunucusunun sürümünü döndürür
+    <li> maxdb_get_server_version — MaxDB sunucusunun sürümünü tamsayı olarak döndürür
+    <li> maxdb_info — EN son çalıştırılan sorgu hakkında bilgi verir
+    <li> maxdb_init — MaxDB ilklenir ve maxdb_real_connect ile kullanılacak kaynağı döndürür.
+    <li> maxdb_insert_id — Son sorgulamada kullanılan otomatik üretilen tanıtım kodunu döndürür.
+    <li> maxdb_kill — MaxDB sunucusundan ayrılır.
+    <li> maxdb_master_query — sunucu/istemci ayarlarında sunucuda çalışacak sorguyu zorlar.
+    <li> maxdb_more_results — Çoklu sorgulamada başka sorgu var mı bak
+    <li> maxdb_multi_query — Veritabanında sorgu başlatır
+    <li> maxdb_next_result — Çoklu sorguda sonraki sonucu hazırla
+    <li> maxdb_num_fields — Sonuçta alan sayısını al
+    <li> maxdb_num_rows — Sonuçta satır sayısını al
+    <li> maxdb_options — Seçenekleri ayarla
+    <li> maxdb_param_count — maxdb_stmt_param_count eşdeğeri
+    <li> maxdb_ping — Bağlantı koptuysa ona yeniden bağlanmaya çalışır ya da bağlantıyı ping'ler.
+    <li> maxdb_prepare — Çalıştırmak için SQL deyimi hazırla
+    <li> maxdb_query — Veritabanına sorgulama hazırlama
+    <li> maxdb_real_connect — MaxDB sunucusuna bağlantı açma
+    <li> maxdb_real_escape_string — SQL deyimlerinde kullanılacak yazı dizisinde özel karakterlari kaçırmak (O anki bağlantının karakter takımını da dikkate alarak)
+    <li> maxdb_real_query — SQL sorgusunu çalıştırma
+    <li> maxdb_report — İçsel rapor işlevlerini açma ya da kapama
+    <li> maxdb_rollback — O anki işlemi geri sarar
+    <li> maxdb_rpl_parse_enabled — RPL tarama açıldı mı bak
+    <li> maxdb_rpl_probe — RPL sorma
+    <li> maxdb_rpl_query_type — RPL sorgu tipini döndür
+    <li> maxdb_select_db — Veritabanı sorguları için varsayılan veritabanı
+seçimi
+    <li> maxdb_send_long_data — maxdb_stmt_send_long_data eşdeğeri
+    <li> maxdb_send_query — Sorguyu gönder ve dön
+    <li> maxdb_server_end — Gömülü sunucuyu kapat
+    <li> maxdb_server_init — Gömülmüş sunucuyu ilklemek
+    <li> maxdb_set_opt — maxdb_options eşdeğeri
+    <li> maxdb_sqlstate — Returns the SQLSTATE error from previous MaxDB operation
+    <li> maxdb_ssl_set — Used for establishing secure connections using SSL
+    <li> maxdb_stat — Gets the current system status
+    <li> maxdb_stmt_affected_rows — Returns the total number of rows changed, deleted, or inserted by the last executed statement
+    <li> maxdb_stmt_bind_param — hazırlanan bir deyime değişkenleri değişgeç olarak bağlar
+    <li> maxdb_stmt_bind_result — hazırlanan bir deyime değişkenleri sonuç belleği için bağlar
+    <li> maxdb_stmt_close_long_data — maxdb_stmt_send_long_data sıralamasına
+son verir
+    <li> maxdb_stmt_close — Hazırlanan bir deyimi kapatır
+    <li> maxdb_stmt_data_seek — Bir deyimin sonuç kümesinde rastgele bir satırı arar
+    <li> maxdb_stmt_errno — En son deyimin hata kodunu döndürür
+    <li> maxdb_stmt_error — En son deyimin hatasının yazı dizisi gösterimini döndürür
+    <li> maxdb_stmt_execute — Hazırlanan sorguyu döndürür
+    <li> maxdb_stmt_fetch — hazırlanan deyimin sonucunu seçer ve değişkenlere aktarır
+    <li> maxdb_stmt_free_result — Verilen deyim göstergesiyle sonuç belleğini boşaltır
+    <li> maxdb_stmt_init — Bir deyimi ilkler ve  maxdb_stmt_prepare ile kullanılacak kaynağı döndürür
+    <li> maxdb_stmt_num_rows — Deyimin sonuç kümesindeki satırların sayısını döndürür
+    <li> maxdb_stmt_param_count — Verilen deyim için değişgeç sayısını verir
+    <li> maxdb_stmt_prepare — Çalıştırmak için SQL deyimi hazırlar
+    <li> maxdb_stmt_reset — Hazırlanan deyimin için temziler
+    <li> maxdb_stmt_result_metadata — Hazırlanan deyimin sonuç kümesinden metadata döndürür
+    <li> maxdb_stmt_send_long_data — Veriyi öbekle biçiminde döndür.
+    <li> maxdb_stmt_sqlstate — daha önceki deyimin işletilmesinden elde edilen  SQLSTATE hatasını döndürür
+    <li> maxdb_stmt_store_result — Hazırlanan deyimden sonuç kümesini taşır
+    <li> maxdb_store_result — Son sorgudaki sonuç kümesini taşır
+    <li> maxdb_thread_id — O anki bağlantının program parçası tanıtım kodunu döndürür.
+    <li> maxdb_thread_safe — güvenli program parçası verilip verilmediğini
+döndürür
+    <li> maxdb_use_result — Sonuç kümesi almayı ilkler
+    <li> maxdb_warning_count — verilen bağlantıdan son sorguyla oluşan uyarı sayısını döndürür
+</ul>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,110 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP GeoIP İşlevleri</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">18 Şubat 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>GeoIP İşlevleri</h2>
+
+<h3>Giriş</h3>
+
+The GeoIP extension allows you to find the location of an IP address. City, State, Country, Longitude, Latitude, and other information as all, such as ISP and connection type can be obtained with the help of GeoIP.
+
+<h3>Gereksinim</h3>
+
+This extension requires the GeoIP C library version 1.4.0 or higher to be installed. You can grab the latest version from » http://www.maxmind.com/app/c and compile it yourself.
+
+By default, you will only have access to the Free GeoIP Country or GeoLite City databases. While this module can work with other types of database, you must buy a commercial license from » Maxmind.
+
+<h3>Kurulum</h3>
+
+Bu PECL uzantısı PHP paketinde yoktur.
+<br /><br />
+Bu konuda ayrıntılı bilgi PECL uzantılarında bulunabilir. Ayrıca diğer yazılım
+bilgileri  http://pecl.php.net/package/geoip adresinden sağlanabilir.
+<h3>Önceden Tanımlı Değişmezler</h3>
+
+Aşağıdaki değişmezler bu uzantıyla tanımlıdır.
+<pre class="yazi">
+GEOIP_COUNTRY_EDITION (integer)
+GEOIP_REGION_EDITION_REV0 (integer)
+GEOIP_CITY_EDITION_REV0 (integer)
+GEOIP_ORG_EDITION (integer)
+GEOIP_ISP_EDITION (integer)
+GEOIP_CITY_EDITION_REV1 (integer)
+GEOIP_REGION_EDITION_REV1 (integer)
+GEOIP_PROXY_EDITION (integer)
+GEOIP_ASNUM_EDITION (integer)
+GEOIP_NETSPEED_EDITION (integer)
+GEOIP_DOMAIN_EDITION (integer)
+</pre>
+
+Aşağıdaki değişkenler ağ hızı içindir
+
+<pre class="yazi">
+GEOIP_UNKNOWN_SPEED (integer)
+GEOIP_DIALUP_SPEED (integer)
+GEOIP_CABLEDSL_SPEED (integer)
+GEOIP_CORPORATE_SPEED (integer)
+</pre>
+
+İçindekiler
+<ul>
+    <li> geoip_country_code_by_name — İki harfli ülke kodunu al
+    <li> geoip_country_code3_by_name — Üç harfli ülke kodunu al
+    <li> geoip_country_name_by_name — Açık ülke adını al
+    <li> geoip_database_info — GeoIP Veritabanı bilgisi
+    <li> geoip_db_avail — GeoIP veritabanı kullanıma açık mı bak
+    <li> geoip_db_filename — GeoIP veritabanının dosya adını döndürür
+    <li> geoip_db_get_all_info — Tüm GeuIP veritabanı bilgilerinin ayrıntılarını döndürür.
+    <li> geoip_id_by_name — Internet bağlantı hızını al
+    <li> geoip_isp_by_name — ISS (Internet Servis Sağlayıcı) adını al
+    <li> geoip_org_by_name — Organizasyon adını al
+    <li> geoip_record_by_name — GeoIP veritabanındaki ayrıntılı Şehir bilgisini döndürür
+    <li> geoip_region_by_name — Ülke kodunu ve bölgeyi al
+</ul>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,15 @@
+void xmlnprint (int, char *);
+void xmlprint (char *);
+void xmlcdata (char *);
+void vxmlstartelement (char *, ...);
+void vxmlvoidelement (char *, ...);
+void vxmlprocessinginstruction (char *, ...);
+void vxmlelement (char *, char *, ...);
+void vxmlcomment (char *, ...);
+
+void xmlattributes (char **);
+void xmlelement (char *, char **, char *);
+void xmlstartelement (char *, char **);
+void xmlendelement (char *);
+void xmlvoidelement (char *, char **);
+void xmlprocessinginstruction (char *, char **);

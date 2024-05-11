@@ -1,0 +1,1347 @@
+
+Patterns
+
+Patterns are ways to describe best practices and good designs. They show a flexible solution to common programming problems.
+Factory
+
+The Factory pattern allows for the instantiation of objects at runtime. It is called a Factory Pattern since it is responsible for "manufacturing" an object. A Parameterized Factory receives the name of the class to instantiate as argument.
+
+Example#1 Parameterized Factory Method
+<?php
+class Example
+{
+    // The parameterized factory method
+    public static function factory($type)
+    {
+        if (include_once 'Drivers/' . $type . '.php') {
+            $classname = 'Driver_' . $type;
+            return new $classname;
+        } else {
+            throw new Exception ('Driver not found');
+        }
+    }
+}
+?>
+
+Defining this method in a class allows drivers to be loaded on the fly. If the Example class was a database abstraction class, loading a MySQL and SQLite driver could be done as follows:
+<?php
+// Load a MySQL Driver
+$mysql = Example::factory('MySQL');
+
+// Load a SQLite Driver
+$sqlite = Example::factory('SQLite');
+?>
+Singleton
+
+The Singleton pattern applies to situations in which there needs to be a single instance of a class. The most common example of this is a database connection. Implementing this pattern allows a programmer to make this single instance easily accessible by many other objects.
+
+Example#2 Singleton Function
+<?php
+class Example
+{
+    // Hold an instance of the class
+    private static $instance;
+    
+    // A private constructor; prevents direct creation of object
+    private function __construct() 
+    {
+        echo 'I am constructed';
+    }
+
+    // The singleton method
+    public static function singleton() 
+    {
+        if (!isset(self::$instance)) {
+            $c = __CLASS__;
+            self::$instance = new $c;
+        }
+
+        return self::$instance;
+    }
+    
+    // Example method
+    public function bark()
+    {
+        echo 'Woof!';
+    }
+
+    // Prevent users to clone the instance
+    public function __clone()
+    {
+        trigger_error('Clone is not allowed.', E_USER_ERROR);
+    }
+
+}
+
+?>
+
+This allows a single instance of the Example class to be retrieved.
+<?php
+// This would fail because the constructor is private
+$test = new Example;
+
+// This will always retrieve a single instance of the class
+$test = Example::singleton();
+$test->bark();
+
+// This will issue an E_USER_ERROR.
+$test_clone = clone $test;
+
+?>
+---------------------------------------------------------------------------
+
+Magic Methods
+
+The function names __construct, __destruct (see Constructors and Destructors), __call, __get, __set, __isset, __unset (see Overloading), __sleep, __wakeup, __toString, __set_state and __clone are magical in PHP classes. You cannot have functions with these names in any of your classes unless you want the magic functionality associated with them.
+Caution
+
+PHP reserves all function names starting with __ as magical. It is recommended that you do not use function names with __ in PHP unless you want some documented magic functionality.
+__sleep and __wakeup
+
+serialize() checks if your class has a function with the magic name __sleep. If so, that function is executed prior to any serialization. It can clean up the object and is supposed to return an array with the names of all variables of that object that should be serialized. If the method doesn't return anything then NULL is serialized and E_NOTICE is issued.
+
+The intended use of __sleep is to commit pending data or perform similar cleanup tasks. Also, the function is useful if you have very large objects which do not need to be saved completely.
+
+Conversely, unserialize() checks for the presence of a function with the magic name __wakeup. If present, this function can reconstruct any resources that the object may have.
+
+The intended use of __wakeup is to reestablish any database connections that may have been lost during serialization and perform other reinitialization tasks.
+
+Example#1 Sleep and wakeup
+<?php
+class Connection {
+    protected $link;
+    private $server, $username, $password, $db;
+    
+    public function __construct($server, $username, $password, $db)
+    {
+        $this->server = $server;
+        $this->username = $username;
+        $this->password = $password;
+        $this->db = $db;
+        $this->connect();
+    }
+    
+    private function connect()
+    {
+        $this->link = mysql_connect($this->server, $this->username, $this->password);
+        mysql_select_db($this->db, $this->link);
+    }
+    
+    public function __sleep()
+    {
+        return array('server', 'username', 'password', 'db');
+    }
+    
+    public function __wakeup()
+    {
+        $this->connect();
+    }
+}
+?>
+__toString
+
+The __toString method allows a class to decide how it will react when it is converted to a string.
+
+Example#2 Simple example
+<?php
+// Declare a simple class
+class TestClass
+{
+    public $foo;
+
+    public function __construct($foo) {
+        $this->foo = $foo;
+    }
+
+    public function __toString() {
+        return $this->foo;
+    }
+}
+
+$class = new TestClass('Hello');
+echo $class;
+?>
+
+The above example will output:
+
+Hello
+
+
+    
+
+It is worth noting that before PHP 5.2.0 the __toString method was only called when it was directly combined with echo() or print(). Since PHP 5.2.0, it is called in any string context (e.g. in printf() with %s modifier) but not in other types contexts (e.g. with %d modifier). Since PHP 5.2.0, converting objects without __toString method to string would cause E_RECOVERABLE_ERROR.
+__set_state
+
+This static method is called for classes exported by var_export() since PHP 5.1.0.
+
+The only parameter of this method is an array containing exported properties in the form array('property' => value, ...).
+----------------------------------------------------------------------------
+
+Final Keyword
+
+PHP 5 introduces the final keyword, which prevents child classes from overriding a method by prefixing the definition with final. If the class itself is being defined final then it cannot be extended.
+
+Example#1 Final methods example
+<?php
+class BaseClass {
+   public function test() {
+       echo "BaseClass::test() called\n";
+   }
+   
+   final public function moreTesting() {
+       echo "BaseClass::moreTesting() called\n";
+   }
+}
+
+class ChildClass extends BaseClass {
+   public function moreTesting() {
+       echo "ChildClass::moreTesting() called\n";
+   }
+}
+// Results in Fatal error: Cannot override final method BaseClass::moreTesting()
+?>
+
+Example#2 Final class example
+<?php
+final class BaseClass {
+   public function test() {
+       echo "BaseClass::test() called\n";
+   }
+
+   // Here it doesn't matter if you specify the function as final or not
+   final public function moreTesting() {
+       echo "BaseClass::moreTesting() called\n";
+   }
+}
+
+class ChildClass extends BaseClass {
+}
+// Results in Fatal error: Class ChildClass may not inherit from final class (BaseClass)
+?>
+---------------------------------------------------------------------------
+
+Object cloning
+
+Creating a copy of an object with fully replicated properties is not always the wanted behavior. A good example of the need for copy constructors, is if you have an object which represents a GTK window and the object holds the resource of this GTK window, when you create a duplicate you might want to create a new window with the same properties and have the new object hold the resource of the new window. Another example is if your object holds a reference to another object which it uses and when you replicate the parent object you want to create a new instance of this other object so that the replica has its own separate copy.
+
+An object copy is created by using the clone keyword (which calls the object's __clone() method if possible). An object's __clone() method cannot be called directly.
+
+$copy_of_object = clone $object;
+
+When an object is cloned, PHP 5 will perform a shallow copy of all of the object's properties. Any properties that are references to other variables, will remain references. If a __clone() method is defined, then the newly created object's __clone() method will be called, to allow any necessary properties that need to be changed.
+
+Example#1 Cloning an object
+<?php
+class SubObject
+{
+    static $instances = 0;
+    public $instance;
+
+    public function __construct() {
+        $this->instance = ++self::$instances;
+    }
+
+    public function __clone() {
+        $this->instance = ++self::$instances;
+    }
+}
+
+class MyCloneable
+{
+    public $object1;
+    public $object2;
+
+    function __clone()
+    {
+        // Force a copy of this->object, otherwise
+        // it will point to same object.
+        $this->object1 = clone $this->object1;
+    }
+}
+
+$obj = new MyCloneable();
+
+$obj->object1 = new SubObject();
+$obj->object2 = new SubObject();
+
+$obj2 = clone $obj;
+
+
+print("Original Object:\n");
+print_r($obj);
+
+print("Cloned Object:\n");
+print_r($obj2);
+
+?>
+
+The above example will output:
+
+Original Object:
+MyCloneable Object
+(
+    [object1] => SubObject Object
+        (
+            [instance] => 1
+        )
+
+    [object2] => SubObject Object
+        (
+            [instance] => 2
+        )
+
+)
+Cloned Object:
+MyCloneable Object
+(
+    [object1] => SubObject Object
+        (
+            [instance] => 3
+        )
+
+    [object2] => SubObject Object
+        (
+            [instance] => 2
+        )
+
+)
+
+
+
+   
+
+-------------------------------------------------------------------------
+
+Comparing objects
+
+In PHP 5, object comparison is more complicated than in PHP 4 and more in accordance to what one will expect from an Object Oriented Language (not that PHP 5 is such a language).
+
+When using the comparison operator (==), object variables are compared in a simple manner, namely: Two object instances are equal if they have the same attributes and values, and are instances of the same class.
+
+On the other hand, when using the identity operator (===), object variables are identical if and only if they refer to the same instance of the same class.
+
+An example will clarify these rules.
+
+Example#1 Example of object comparison in PHP 5
+<?php
+function bool2str($bool)
+{
+    if ($bool === false) {
+        return 'FALSE';
+    } else {
+        return 'TRUE';
+    }
+}
+
+function compareObjects(&$o1, &$o2)
+{
+    echo 'o1 == o2 : ' . bool2str($o1 == $o2) . "\n";
+    echo 'o1 != o2 : ' . bool2str($o1 != $o2) . "\n";
+    echo 'o1 === o2 : ' . bool2str($o1 === $o2) . "\n";
+    echo 'o1 !== o2 : ' . bool2str($o1 !== $o2) . "\n";
+}
+
+class Flag
+{
+    public $flag;
+
+    function Flag($flag = true) {
+        $this->flag = $flag;
+    }
+}
+
+class OtherFlag
+{
+    public $flag;
+
+    function OtherFlag($flag = true) {
+        $this->flag = $flag;
+    }
+}
+
+$o = new Flag();
+$p = new Flag();
+$q = $o;
+$r = new OtherFlag();
+
+echo "Two instances of the same class\n";
+compareObjects($o, $p);
+
+echo "\nTwo references to the same instance\n";
+compareObjects($o, $q);
+
+echo "\nInstances of two different classes\n";
+compareObjects($o, $r);
+?>
+
+The above example will output:
+
+Two instances of the same class
+o1 == o2 : TRUE
+o1 != o2 : FALSE
+o1 === o2 : FALSE
+o1 !== o2 : TRUE
+
+Two references to the same instance
+o1 == o2 : TRUE
+o1 != o2 : FALSE
+o1 === o2 : TRUE
+o1 !== o2 : FALSE
+
+Instances of two different classes
+o1 == o2 : FALSE
+o1 != o2 : TRUE
+o1 === o2 : FALSE
+o1 !== o2 : TRUE
+
+
+     
+
+    Note: Extensions can define own rules for their objects comparison.
+
+------------------------------------------------------------------------
+
+Table of Contents
+
+    * Introduction
+    * The Reflector interface
+    * The ReflectionException class
+    * The ReflectionFunction class
+    * The ReflectionParameter class
+    * The ReflectionClass class
+    * The ReflectionObject class
+    * The ReflectionMethod class
+    * The ReflectionProperty class
+    * The ReflectionExtension class
+    * Extending the reflection classes
+
+Introduction
+
+PHP 5 comes with a complete reflection API that adds the ability to reverse-engineer classes, interfaces, functions and methods as well as extensions. Additionally, the reflection API also offers ways of retrieving doc comments for functions, classes and methods.
+
+The reflection API is an object-oriented extension to the Zend Engine, consisting of the following classes:
+<?php
+class Reflection { }
+interface Reflector { }
+class ReflectionException extends Exception { }
+class ReflectionFunction extends ReflectionFunctionAbstract implements Reflector { }
+class ReflectionParameter implements Reflector { }
+class ReflectionMethod extends ReflectionFunctionAbstract implements Reflector { }
+class ReflectionClass implements Reflector { }
+class ReflectionObject extends ReflectionClass { }
+class ReflectionProperty implements Reflector { }
+class ReflectionExtension implements Reflector { }
+?>
+
+    Note: For details on these classes, have a look at the next chapters. 
+
+If we were to execute the code in the example below:
+
+Example#1 Basic usage of the reflection API
+<?php
+Reflection::export(new ReflectionClass('Exception'));
+?>
+
+The above example will output:
+
+Class [ <internal> class Exception ] {
+
+  - Constants [0] {
+  }
+
+  - Static properties [0] {
+  }
+
+  - Static methods [0] {
+  }
+
+  - Properties [6] {
+    Property [ <default> protected $message ]
+    Property [ <default> private $string ]
+    Property [ <default> protected $code ]
+    Property [ <default> protected $file ]
+    Property [ <default> protected $line ]
+    Property [ <default> private $trace ]
+  }
+
+  - Methods [9] {
+    Method [ <internal> final private method __clone ] {
+    }
+
+    Method [ <internal, ctor> public method __construct ] {
+
+      - Parameters [2] {
+        Parameter #0 [ <optional> $message ]
+        Parameter #1 [ <optional> $code ]
+      }
+    }
+
+    Method [ <internal> final public method getMessage ] {
+    }
+
+    Method [ <internal> final public method getCode ] {
+    }
+
+    Method [ <internal> final public method getFile ] {
+    }
+
+    Method [ <internal> final public method getLine ] {
+    }
+
+    Method [ <internal> final public method getTrace ] {
+    }
+
+    Method [ <internal> final public method getTraceAsString ] {
+    }
+
+    Method [ <internal> public method __toString ] {
+    }
+  }
+}
+
+
+     
+
+Reflector
+
+Reflector is an interface implemented by all exportable Reflection classes.
+<?php
+interface Reflector
+{
+    public string __toString()
+    public static string export()
+}
+?>
+ReflectionException
+
+ReflectionException extends the standard Exception and is thrown by Reflection API. No specific methods or properties are introduced.
+ReflectionFunction
+
+The ReflectionFunction class lets you reverse-engineer functions.
+<?php
+class ReflectionFunction extends ReflectionFunctionAbstract implements Reflector
+{
+    final private __clone()
+    public void __construct(string name)
+    public string __toString()
+    public static string export(string name, bool return)
+    public string getName()
+    public bool isInternal()
+    public bool isDisabled()
+    public bool isUserDefined()
+    public string getFileName()
+    public int getStartLine()
+    public int getEndLine()
+    public string getDocComment()
+    public array getStaticVariables()
+    public mixed invoke([mixed args [, ...]])
+    public mixed invokeArgs(array args)
+    public bool returnsReference()
+    public ReflectionParameter[] getParameters()
+    public int getNumberOfParameters()
+    public int getNumberOfRequiredParameters()
+}
+?>
+
+Parent class ReflectionFunctionAbstract has the same methods except invoke(), invokeArgs(), export() and isDisabled().
+
+    Note: getNumberOfParameters() and getNumberOfRequiredParameters() were added in PHP 5.0.3, while invokeArgs() was added in PHP 5.1.0. 
+
+To introspect a function, you will first have to create an instance of the ReflectionFunction class. You can then call any of the above methods on this instance.
+
+Example#2 Using the ReflectionFunction class
+<?php
+/**
+ * A simple counter
+ *
+ * @return    int
+ */
+function counter() 
+{
+    static $c = 0;
+    return $c++;
+}
+
+// Create an instance of the ReflectionFunction class
+$func = new ReflectionFunction('counter');
+
+// Print out basic information
+printf(
+    "===> The %s function '%s'\n".
+    "     declared in %s\n".
+    "     lines %d to %d\n",
+    $func->isInternal() ? 'internal' : 'user-defined',
+    $func->getName(),
+    $func->getFileName(),
+    $func->getStartLine(),
+    $func->getEndline()
+);
+
+// Print documentation comment
+printf("---> Documentation:\n %s\n", var_export($func->getDocComment(), 1));
+
+// Print static variables if existant
+if ($statics = $func->getStaticVariables())
+{
+    printf("---> Static variables: %s\n", var_export($statics, 1));
+}
+
+// Invoke the function
+printf("---> Invokation results in: ");
+var_dump($func->invoke());
+
+
+// you may prefer to use the export() method
+echo "\nReflectionFunction::export() results:\n";
+echo ReflectionFunction::export('counter');
+?>
+
+    Note: The method invoke() accepts a variable number of arguments which are passed to the function just as in call_user_func(). 
+
+ReflectionParameter
+
+The ReflectionParameter class retrieves information about a function's or method's parameters.
+<?php
+class ReflectionParameter implements Reflector
+{
+    final private __clone()
+    public void __construct(string function, string parameter)
+    public string __toString()
+    public static string export(mixed function, mixed parameter, bool return)
+    public string getName()
+    public bool isPassedByReference()
+    public ReflectionClass getDeclaringClass()
+    public ReflectionClass getClass()
+    public bool isArray()
+    public bool allowsNull()
+    public bool isPassedByReference()
+    public bool isOptional()
+    public bool isDefaultValueAvailable()
+    public mixed getDefaultValue()
+}
+?>
+
+    Note: getDefaultValue(), isDefaultValueAvailable() and isOptional() were added in PHP 5.0.3, while isArray() was added in PHP 5.1.0. getDeclaringFunction() and getPosition() were added in PHP 5.2.3.
+
+To introspect function parameters, you will first have to create an instance of the ReflectionFunction or ReflectionMethod classes and then use their getParameters() method to retrieve an array of parameters.
+
+Example#3 Using the ReflectionParameter class
+<?php
+function foo($a, $b, $c) { }
+function bar(Exception $a, &$b, $c) { }
+function baz(ReflectionFunction $a, $b = 1, $c = null) { }
+function abc() { }
+
+// Create an instance of ReflectionFunction with the
+// parameter given from the command line.    
+$reflect = new ReflectionFunction($argv[1]);
+
+echo $reflect;
+
+foreach ($reflect->getParameters() as $i => $param) {
+    printf(
+        "-- Parameter #%d: %s {\n".
+        "   Class: %s\n".
+        "   Allows NULL: %s\n".
+        "   Passed to by reference: %s\n".
+        "   Is optional?: %s\n".
+        "}\n",
+        $i, 
+        $param->getName(),
+        var_export($param->getClass(), 1),
+        var_export($param->allowsNull(), 1),
+        var_export($param->isPassedByReference(), 1),
+        $param->isOptional() ? 'yes' : 'no'
+    );
+}
+?>
+ReflectionClass
+
+The ReflectionClass class lets you reverse-engineer classes and interfaces.
+<?php
+class ReflectionClass implements Reflector
+{
+    final private __clone()
+    public void __construct(string name)
+    public string __toString()
+    public static string export(mixed class, bool return)
+    public string getName()
+    public bool isInternal()
+    public bool isUserDefined()
+    public bool isInstantiable()
+    public bool hasConstant(string name)
+    public bool hasMethod(string name)
+    public bool hasProperty(string name)
+    public string getFileName()
+    public int getStartLine()
+    public int getEndLine()
+    public string getDocComment()
+    public ReflectionMethod getConstructor()
+    public ReflectionMethod getMethod(string name)
+    public ReflectionMethod[] getMethods()
+    public ReflectionProperty getProperty(string name)
+    public ReflectionProperty[] getProperties()
+    public array getConstants()
+    public mixed getConstant(string name)
+    public ReflectionClass[] getInterfaces()
+    public bool isInterface()
+    public bool isAbstract()
+    public bool isFinal()
+    public int getModifiers()
+    public bool isInstance(stdclass object)
+    public stdclass newInstance(mixed args)
+    public stdclass newInstanceArgs(array args)
+    public ReflectionClass getParentClass()
+    public bool isSubclassOf(ReflectionClass class)
+    public array getStaticProperties()
+    public mixed getStaticPropertyValue(string name [, mixed default])
+    public void setStaticPropertyValue(string name, mixed value)
+    public array getDefaultProperties()
+    public bool isIterateable()
+    public bool implementsInterface(string name)
+    public ReflectionExtension getExtension()
+    public string getExtensionName()
+}
+?>
+
+    Note: hasConstant(), hasMethod(), hasProperty(), getStaticPropertyValue() and setStaticPropertyValue() were added in PHP 5.1.0, while newInstanceArgs() was added in PHP 5.1.3. 
+
+To introspect a class, you will first have to create an instance of the ReflectionClass class. You can then call any of the above methods on this instance.
+
+Example#4 Using the ReflectionClass class
+<?php
+interface Serializable
+{
+    // ...
+}
+
+class Object
+{
+    // ...
+}
+
+/**
+ * A counter class
+ */
+class Counter extends Object implements Serializable 
+{
+    const START = 0;
+    private static $c = Counter::START;
+
+    /**
+     * Invoke counter
+     *
+     * @access  public
+     * @return  int
+     */
+    public function count() {
+        return self::$c++;
+    }
+}
+
+// Create an instance of the ReflectionClass class
+$class = new ReflectionClass('Counter');
+
+// Print out basic information
+printf(
+    "===> The %s%s%s %s '%s' [extends %s]\n" .
+    "     declared in %s\n" .
+    "     lines %d to %d\n" .
+    "     having the modifiers %d [%s]\n",
+        $class->isInternal() ? 'internal' : 'user-defined',
+        $class->isAbstract() ? ' abstract' : '',
+        $class->isFinal() ? ' final' : '',
+        $class->isInterface() ? 'interface' : 'class',
+        $class->getName(),
+        var_export($class->getParentClass(), 1),
+        $class->getFileName(),
+        $class->getStartLine(),
+        $class->getEndline(),
+        $class->getModifiers(),
+        implode(' ', Reflection::getModifierNames($class->getModifiers()))
+);
+
+// Print documentation comment
+printf("---> Documentation:\n %s\n", var_export($class->getDocComment(), 1));
+
+// Print which interfaces are implemented by this class
+printf("---> Implements:\n %s\n", var_export($class->getInterfaces(), 1));
+
+// Print class constants
+printf("---> Constants: %s\n", var_export($class->getConstants(), 1));
+
+// Print class properties
+printf("---> Properties: %s\n", var_export($class->getProperties(), 1));
+
+// Print class methods
+printf("---> Methods: %s\n", var_export($class->getMethods(), 1));
+
+// If this class is instantiable, create an instance
+if ($class->isInstantiable()) {
+    $counter = $class->newInstance();
+
+    echo '---> $counter is instance? '; 
+    echo $class->isInstance($counter) ? 'yes' : 'no';
+
+    echo "\n---> new Object() is instance? ";
+    echo $class->isInstance(new Object()) ? 'yes' : 'no';
+}
+?>
+
+    Note: The method newInstance() accepts a variable number of arguments which are passed to the function just as in call_user_func(). 
+
+    Note: $class = new ReflectionClass('Foo'); $class->isInstance($arg) is equivalent to $arg instanceof Foo or is_a($arg, 'Foo'). 
+
+ReflectionObject
+
+The ReflectionObject class lets you reverse-engineer objects.
+<?php
+class ReflectionObject extends ReflectionClass
+{
+    final private __clone()
+    public void __construct(mixed object)
+    public string __toString()
+    public static string export(mixed object, bool return)
+}
+?>
+ReflectionMethod
+
+The ReflectionMethod class lets you reverse-engineer class methods.
+<?php
+class ReflectionMethod extends ReflectionFunctionAbstract implements Reflector
+{
+    public void __construct(mixed class, string name)
+    public string __toString()
+    public static string export(mixed class, string name, bool return)
+    public mixed invoke(stdclass object [, mixed args [, ...]])
+    public mixed invokeArgs(stdclass object, array args)
+    public bool isFinal()
+    public bool isAbstract()
+    public bool isPublic()
+    public bool isPrivate()
+    public bool isProtected()
+    public bool isStatic()
+    public bool isConstructor()
+    public bool isDestructor()
+    public int getModifiers()
+    public ReflectionClass getDeclaringClass()
+
+    // Inherited from ReflectionFunctionAbstract
+    final private __clone()
+    public string getName()
+    public bool isInternal()
+    public bool isUserDefined()
+    public string getFileName()
+    public int getStartLine()
+    public int getEndLine()
+    public string getDocComment()
+    public array getStaticVariables()
+    public bool returnsReference()
+    public ReflectionParameter[] getParameters()
+    public int getNumberOfParameters()
+    public int getNumberOfRequiredParameters()
+}
+?>
+
+To introspect a method, you will first have to create an instance of the ReflectionMethod class. You can then call any of the above methods on this instance.
+
+Example#5 Using the ReflectionMethod class
+<?php
+class Counter
+{
+    private static $c = 0;
+
+    /**
+     * Increment counter
+     *
+     * @final
+     * @static
+     * @access  public
+     * @return  int
+     */
+    final public static function increment()
+    {
+        return ++self::$c;
+    }
+}
+
+// Create an instance of the ReflectionMethod class
+$method = new ReflectionMethod('Counter', 'increment');
+
+// Print out basic information
+printf(
+    "===> The %s%s%s%s%s%s%s method '%s' (which is %s)\n" .
+    "     declared in %s\n" .
+    "     lines %d to %d\n" .
+    "     having the modifiers %d[%s]\n",
+        $method->isInternal() ? 'internal' : 'user-defined',
+        $method->isAbstract() ? ' abstract' : '',
+        $method->isFinal() ? ' final' : '',
+        $method->isPublic() ? ' public' : '',
+        $method->isPrivate() ? ' private' : '',
+        $method->isProtected() ? ' protected' : '',
+        $method->isStatic() ? ' static' : '',
+        $method->getName(),
+        $method->isConstructor() ? 'the constructor' : 'a regular method',
+        $method->getFileName(),
+        $method->getStartLine(),
+        $method->getEndline(),
+        $method->getModifiers(),
+        implode(' ', Reflection::getModifierNames($method->getModifiers()))
+);
+
+// Print documentation comment
+printf("---> Documentation:\n %s\n", var_export($method->getDocComment(), 1));
+
+// Print static variables if existant
+if ($statics= $method->getStaticVariables()) {
+    printf("---> Static variables: %s\n", var_export($statics, 1));
+}
+
+// Invoke the method
+printf("---> Invokation results in: ");
+var_dump($method->invoke(NULL));
+?>
+
+    Note: Trying to invoke private, protected or abstract methods will result in an exception being thrown from the invoke() method. 
+
+    Note: For static methods as seen above, you should pass NULL as the first argument to invoke(). For non-static methods, pass an instance of the class. 
+
+ReflectionProperty
+
+The ReflectionProperty class lets you reverse-engineer class properties.
+<?php
+class ReflectionProperty implements Reflector
+{
+    final private __clone()
+    public void __construct(mixed class, string name)
+    public string __toString()
+    public static string export(mixed class, string name, bool return)
+    public string getName()
+    public bool isPublic()
+    public bool isPrivate()
+    public bool isProtected()
+    public bool isStatic()
+    public bool isDefault()
+    public int getModifiers()
+    public mixed getValue(stdclass object)
+    public void setValue(stdclass object, mixed value)
+    public ReflectionClass getDeclaringClass()
+    public string getDocComment()
+}
+?>
+
+    Note: getDocComment() was added in PHP 5.1.0. 
+
+To introspect a property, you will first have to create an instance of the ReflectionProperty class. You can then call any of the above methods on this instance.
+
+Example#6 Using the ReflectionProperty class
+<?php
+class String
+{
+    public $length  = 5;
+}
+
+// Create an instance of the ReflectionProperty class
+$prop = new ReflectionProperty('String', 'length');
+
+// Print out basic information
+printf(
+    "===> The%s%s%s%s property '%s' (which was %s)\n" .
+    "     having the modifiers %s\n",
+        $prop->isPublic() ? ' public' : '',
+        $prop->isPrivate() ? ' private' : '',
+        $prop->isProtected() ? ' protected' : '',
+        $prop->isStatic() ? ' static' : '',
+        $prop->getName(),
+        $prop->isDefault() ? 'declared at compile-time' : 'created at run-time',
+        var_export(Reflection::getModifierNames($prop->getModifiers()), 1)
+);
+
+// Create an instance of String
+$obj= new String();
+
+// Get current value
+printf("---> Value is: ");
+var_dump($prop->getValue($obj));
+
+// Change value
+$prop->setValue($obj, 10);
+printf("---> Setting value to 10, new value is: ");
+var_dump($prop->getValue($obj));
+
+// Dump object
+var_dump($obj);
+?>
+
+    Note: Trying to get or set private or protected class property's values will result in an exception being thrown. 
+
+ReflectionExtension
+
+The ReflectionExtension class lets you reverse-engineer extensions. You can retrieve all loaded extensions at runtime using the get_loaded_extensions().
+<?php
+class ReflectionExtension implements Reflector {
+    final private __clone()
+    public void __construct(string name)
+    public string __toString()
+    public static string export(string name, bool return)
+    public string getName()
+    public string getVersion()
+    public ReflectionFunction[] getFunctions()
+    public array getConstants()
+    public array getINIEntries()
+    public ReflectionClass[] getClasses()
+    public array getClassNames()
+    public string info()
+}
+?>
+
+To introspect an extension, you will first have to create an instance of the ReflectionExtension class. You can then call any of the above methods on this instance.
+
+Example#7 Using the ReflectionExtension class
+<?php
+// Create an instance of the ReflectionProperty class
+$ext = new ReflectionExtension('standard');
+
+// Print out basic information
+printf(
+    "Name        : %s\n" .
+    "Version     : %s\n" .
+    "Functions   : [%d] %s\n" .
+    "Constants   : [%d] %s\n" .
+    "INI entries : [%d] %s\n" .
+    "Classes     : [%d] %s\n",
+        $ext->getName(),
+        $ext->getVersion() ? $ext->getVersion() : 'NO_VERSION',
+        sizeof($ext->getFunctions()),
+        var_export($ext->getFunctions(), 1),
+
+        sizeof($ext->getConstants()),
+        var_export($ext->getConstants(), 1),
+
+        sizeof($ext->getINIEntries()),
+        var_export($ext->getINIEntries(), 1),
+
+        sizeof($ext->getClassNames()),
+        var_export($ext->getClassNames(), 1)
+);
+?>
+Extending the reflection classes
+
+In case you want to create specialized versions of the built-in classes (say, for creating colorized HTML when being exported, having easy-access member variables instead of methods or having utility methods), you may go ahead and extend them.
+
+Example#8 Extending the built-in classes
+<?php
+/**
+ * My Reflection_Method class
+ */
+class My_Reflection_Method extends ReflectionMethod
+{
+    public $visibility = array();
+
+    public function __construct($o, $m)
+    {
+        parent::__construct($o, $m);
+        $this->visibility = Reflection::getModifierNames($this->getModifiers());
+    }
+}
+
+/**
+ * Demo class #1
+ *
+ */
+class T {
+    protected function x() {}
+}
+
+/**
+ * Demo class #2
+ *
+ */
+class U extends T {
+    function x() {}
+}
+
+// Print out information
+var_dump(new My_Reflection_Method('U', 'x'));
+?>
+
+    Note: Caution: If you're overwriting the constructor, remember to call the parent's constructor _before_ any code you insert. Failing to do so will result in the following: Fatal error: Internal error: Failed to retrieve the reflection object 
+
+
+--------------------------------------------------------------------------
+
+Type Hinting
+
+PHP 5 introduces Type Hinting. Functions are now able to force parameters to be objects (by specifying the name of the class in the function prototype) or arrays (since PHP 5.1).
+
+Example#1 Type Hinting examples
+<?php
+// An example class
+class MyClass
+{
+    /**
+     * A test function
+     *
+     * First parameter must be an object of type OtherClass
+     */
+    public function test(OtherClass $otherclass) {
+        echo $otherclass->var;
+    }
+
+
+    /**
+     * Another test function
+     *
+     * First parameter must be an array
+     */
+    public function test_array(array $input_array) {
+        print_r($input_array);
+    }
+}
+
+// Another example class
+class OtherClass {
+    public $var = 'Hello World';
+}
+?>
+
+Failing to satisfy the type hint results in a catchable fatal error.
+<?php
+// An instance of each class
+$myclass = new MyClass;
+$otherclass = new OtherClass;
+
+// Fatal Error: Argument 1 must be an object of class OtherClass
+$myclass->test('hello');
+
+// Fatal Error: Argument 1 must be an instance of OtherClass
+$foo = new stdClass;
+$myclass->test($foo);
+
+// Fatal Error: Argument 1 must not be null
+$myclass->test(null);
+
+// Works: Prints Hello World
+$myclass->test($otherclass);
+
+// Fatal Error: Argument 1 must be an array
+$myclass->test_array('a string');
+
+// Works: Prints the array
+$myclass->test_array(array('a', 'b', 'c'));
+?>
+
+Type hinting also works with functions:
+<?php
+// An example class
+class MyClass {
+    public $var = 'Hello World';
+}
+
+/**
+ * A test function
+ *
+ * First parameter must be an object of type MyClass
+ */
+function MyFunction (MyClass $foo) {
+    echo $foo->var;
+}
+
+// Works
+$myclass = new MyClass;
+MyFunction($myclass);
+?>
+
+Type Hints can only be of the object and array (since PHP 5.1) type. Traditional type hinting with int and string isn't supported.
+
+---------------------------------------------------------------------------
+
+Late Static Bindings
+
+As of PHP 5.3.0, PHP implements a feature called late static bindings which can be used to reference the called class in a context of static inheritance.
+
+This feature was named "late static bindings" with an internal perspective in mind. "Late binding" comes from the fact that static:: will no longer be resolved using the class where the method is defined but it will rather be computed using runtime information. It was also called a "static binding" as it can be used for (but is not limited to) static method calls.
+Limitations of self::
+
+Static references to the current class like self:: or __CLASS__ are resolved using the class in which the function belongs, as in where it was defined:
+
+Example#1 self:: usage
+<?php
+class A {
+    public static function who() {
+        echo __CLASS__;
+    }
+    public static function test() {
+        self::who();      
+    }  
+}  
+
+class B extends A {      
+    public static function who() {
+         echo __CLASS__;
+    }  
+}   
+
+B::test();
+?>
+
+The above example will output:
+
+A
+
+
+    
+
+Late Static Bindings' usage
+
+Late static bindings tries to solve that limitation by introducing a keyword that references the class that was initially called at runtime. Basically, a keyword that would allow you to reference B from test() in the previous example. It was decided not to introduce a new keyword but rather use static that was already reserved.
+
+Example#2 static:: simple usage
+<?php
+class A {
+    public static function who() {
+        echo __CLASS__;
+    }
+    public static function test() {
+        static::who(); // Here comes Late Static Bindings     
+    }  
+}  
+
+class B extends A {      
+    public static function who() {
+         echo __CLASS__;
+    }  
+}   
+
+B::test();
+?>
+
+The above example will output:
+
+B
+
+
+    
+
+    Note: static:: does not work like $this for static methods! $this-> follows the rules of inheritance while static:: doesn't. This difference is detailed later on this manual page.
+
+Example#3 static:: usage in a non-static context
+<?php
+class TestChild extends TestParent {
+    public function __construct() {
+        static::who();
+    }
+
+    public function test() {
+        $o = new TestParent();
+    }
+
+    public static function who() {
+        echo __CLASS__."\n";
+    }
+}
+
+class TestParent {
+    public function __construct() {
+        static::who();
+    }
+
+    public static function who() {
+        echo __CLASS__."\n";
+    }
+}
+$o = new TestChild;
+$o->test();
+
+?>
+
+The above example will output:
+
+TestChild
+TestParent
+
+
+    
+
+    Note: Late static bindings' resolution will stop at a fully resolved static call with no fallback.
+
+    Example#4 Fully resolved static calls
+    <?php
+    class A {
+        public static function foo() {
+            static::who();
+        }
+            
+        public static function who() {
+            echo __CLASS__."\n";
+        }
+    }
+
+    class B extends A {
+        public static function test() {
+            A::foo();
+        }
+
+        public static function who() {
+            echo __CLASS__."\n";
+        }
+    }
+
+    B::test();
+    ?>
+
+    The above example will output:
+
+    A
+
+
+         
+
+Edge cases
+
+There are lots of different ways to trigger a method call in PHP, like callbacks or magic methods. As late static bindings base their resolution on runtime information, it might give unexpected results in so-called edge cases.
+
+Example#5 Late static bindings inside magic methods
+<?php
+class A {
+
+   protected static function who() {
+        echo __CLASS__."\n";
+   }
+
+   public function __get($var) {
+       return static::who();
+   }
+}
+
+class B extends A {
+
+   protected static function who() {
+        echo __CLASS__."\n";
+   }
+}
+
+$b = new B;
+$b->foo;
+?>
+
+The above example will output:
+
+B
+
+
+<hr>
+<a href="phptxt39.html" class="nav">Sınıflar ve Nesneler (PHP 4)</a>    
+<br />
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

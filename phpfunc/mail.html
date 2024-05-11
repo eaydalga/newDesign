@@ -1,0 +1,110 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Hyperlink Preprocessor </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">21 Mart 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>Mail işlevleri</h2>
+<h3>Giriş</h3>
+
+mail() işlevi e-posta göndermenizi sağlar
+
+<h3>Gereksinim</h3>
+
+For the Mail functions to be available, PHP must have access to the sendmail binary on your system during compile time. If you use another mail program, such as qmail or postfix, be sure to use the appropriate sendmail wrappers that come with them. PHP will first look for sendmail in your PATH, and then in the following: /usr/bin:/usr/sbin:/usr/etc:/etc:/usr/ucblib:/usr/lib. It's highly recommended to have sendmail available from your PATH. Also, the user that compiled PHP must have permission to access the sendmail binary.
+
+<h3>Çalışma Zamanı Ayarları</h3>
+
+php.ini ayarları işlevlerin davranışını etkiler
+
+
+<h3>Mail ayar seçenekleri</h3>
+<table class="yazi">
+<tr><td>Adı</td><td>Varsayılan</td><td>Değişebilir</td><td>Değişim
+Kaydı</td></tr>
+<tr><td>SMTP</td><td>"localhost"</td><td>PHP_INI_ALL</td><td></td></tr>
+<tr><td>smtp_port</td><td>"25"</td><td>PHP_INI_ALL</td><td>PHP 4.3.0. sürümünden beri var</td></tr>
+<tr><td>sendmail_from</td><td>NULL</td><td>PHP_INI_ALL</td><td></td></tr>
+<tr><td>sendmail_path</td><td>"/usr/sbin/sendmail -t -i"</td><td>PHP_INI_SYSTEM</td><Td></td></tr>
+</table>
+Diğer PHP_INI_* değişmezleri için php.ini yönelticilerine bakın.
+<br /><br />
+Burada ayar yönelticilerinin kısa açıklaması vardır.
+<dl>
+<dt>SMTP yazı dizisi
+
+<dd>Yalnız windows'da kullanılır: SMTP sunucusunun sunucu adı ya da IP adresi
+mail() işlevinde posta gönderirken kullanılır.
+</dd></dt>
+<dt>smtp_port tamsayı
+
+<dd>Windows altında Kullanılır: mail() ile posta gönderirken SMTP ayarlarıyla belirlenen sunucuya bağlanma port numarası burada belirtilir. Varsayılan 25 olur. PHP 4.3.0 sürümünden sonra geçerlidir.
+</dd></dt>
+<dt>sendmail_from yazı dizisi
+
+    <dd>Windows altından PHP'den posta gönderirken hangi "Kimden:" posta adresi kullanılacaktır. Bu yöneltici "Return-Path" başlığını da ayarlar.
+</dd></dt>
+
+<dt>sendmail_path yazı dizisi
+
+<dd>Sendmail programı çoğunlukla  /usr/sbin/sendmail ya da /usr/lib/sendmail yolunda
+bulunur. "configure" sizin için yerini belirler ve bir varsayılan hazırlar.
+Eğer hata olursa burada tanımlayabilirsiniz.
+<br /><br />
+    sendmail kullanmayan sistem, bu yönelticiyi sendmail tamamlayıcı/değiştiriciye ayarlar. O da kendi posta sisteminin sunduklarını yenilemek için kullanır. Örneğin Qmail kullanıcıları bunu  /var/qmail/bin/sendmail ya da /var/qmail/bin/qmail-inject değerlerine ayarlar.
+<br /><br />
+    qmail-inject postayı doğru işlemek için seçenek istemez
+<br /><br />
+Bu yöneltici Windows altında da çalışır. Ayarlandığında smtp, smtp_port ve sendmail_from atlanır ve belirtilen komut çalıştırılır.
+</dd></dt>
+</dl>
+<h3>İçindekiler</h3>
+<ul>
+    <li> ezmlm_hash — EZMLM tarafından istenen karışık değeri hesapla
+    <li> mail — e-posta gönder
+</ul>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

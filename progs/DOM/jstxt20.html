@@ -1,0 +1,313 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Aybim </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script language="JavaScript" src="../js/XHConn.js"> </script>
+<script language="JavaScript" src="../js/js10.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="ysoltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="js.html" class="nav">Giriş</a>
+               <a href="jstxt1.html" class="nav">Sayfada Javascript</a>
+               <a href="jstxt2.html" class="nav">Nesnel Programlama</a>
+               <a href="jstxt3.html" class="nav">JS Nesneleri</a>
+               <a href="jstxt4.html" class="nav">İşlemler</a>
+               <a href="jstxt5.html" class="nav">Değişkenler</a>
+               <a href="jstxt6.html" class="nav">Denetim Yapıları</a>
+               <a href="jstxt7.html" class="nav">Script Yazma</a>
+               <a href="jstxt8.html" class="nav">Yazma İşlevleri</a>
+               <a href="jstxt9.html" class="nav">Başvuru</a>
+               <a href="jstxt10.html" class="nav">DHTML</a>
+               <a href="jstxt11.html" class="nav">Öğe İçeriği</a>
+               <a href="jstxt12.html" class="nav">Pencereler</a>
+               <a href="jstxt13.html" class="nav">Olay Bilgisi</a>
+               <a href="jstxt14.html" class="nav">Zaman Ayarı</a>
+               <a href="jstxt15.html" class="nav">Cookie Kullanımı</a>
+               <a href="jstxt16.html" class="nav">Güvenlik</a>
+               <a href="jstxt17.html" class="nav">W3C DOM</a>
+               <a href="jstxt18.html" class="nav">DOM Düğümü</a>
+               <a href="jstxt19.html" class="nav">DOM Tablolar</a>
+               <a href="jstxt20.html" class="nav">DOM CSS</a>
+               <a href="jstxt21.html" class="nav">DOM Stiller</a>
+               <a href="jstxt22.html" class="nav">DOM Events</a>
+               <a href="jstxt23.html" class="nav">DOM Nesneleri</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>Javascript Yazılım Kuralları (JS)</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<h2>DOM CSS</h2>
+<h3>Her öğenin stilleri hakkında</h3>
+<ul>
+    <li> ICEbrowser ve Escape/Evo kayan (float) stilleri yazamaz ya da okuyamaz.
+</ul>
+DHTML bölümünde anlatıldığı gibi DOM uyumlu tarayıcılar 'style' nesnesini destekler. 'style' nesnesi Microsoft tarafından yaratıldı ama sonra DOM Level 2 standartı oldu. Eski DOM uyarlamalarını destekleyen tarayıcılarda buna uygun hiç bir şey yoktur. Bu nedenle evrensel olarak tüm DOM tarayıcılarına eklentisi yapılmıştır. 'style' nesnesi aracılığıyla, DOM tarayıcılar öğenin izin verdiği tüm stilleri değiştirebilirler. Bu stil niteliğini okumak ve yazmakla aynı şeydir. Stiller o nitelikle kurulabildiyse okunabilirler de. Tüm stiller hem okunur hem de yazılır türdendir.
+<br /><br />
+Kural çok basit. 'element.style.styleName' yazmak yeterli. Eğer stil adı bir ya da daha çok sözcükten oluşuyorsa aralarındaki '-' işaretini çıkarın ve onu izleyen kelimenin ilk harfini büyük harf yapın. Örneğin 'background-color' yerine 'backgroundColor' stil adı olarak kullanılır. Bir değer atanacaksa yazı dizisi biçiminde olmalıdır. Diğer bilgi türleri de yazı dizisine çevrilip saklanır. Birçok tarayıcı stilin değerine null yapınca silinmesini sağlasa da bir başkası bunu yazı dizi olarak algılayabilir ve istenmeyen sonuçlar doğurabilir. Bir stili silmek isterseniz değerini boş yazı dizisi yapmak yeterlidir.
+<br /><br />
+Tek tuhaf stil 'float', birçok programlama dilinde saklı sözcüktür (Javascript de dahil). Sonuç olarak bu stil cssFloat (Internel Explorer ile styleFloat) kullanılarak kurulmalıdır. Sonuçta her ikisini de kurun. Tarayıcı birini kullanacaktır.
+<br /><br />
+W3C DOM öğelerin stillerini değiştirmek için değişik bir yol sunar. Burada class niteliği aşağıdakini kullanarak kaldırılabilir:
+<pre>
+element.className = '';
+</pre>
+Ve şu biçimde değiştirilebilir:
+<pre>
+element.className = 'newClassName';
+</pre>
+<h3>uygulanan öğe stillerini okumak</h3>
+<ul>
+    <li> getComputedStyle ve currentStyle Safari 2-, Konqueror 3.4- ya da Tkhtml Hv3 tarafından desteklenmez.
+</ul>
+CSS stil sayfaları bir sayfaya uygulandığı zaman, öğeler bir çok stil kurallarının hedefi olabilir ve çapacılarından değişik stil kuralları alabilir. Tarayıcının iç stil sayfalarından da bazı varsayılan stilleri alabilir. DOM kuralları 'window.getComputerStyle' yöntemiyle bu tür stillerin neler olduğunu belirtir. Opera 7+, Mozilla, iCab 3+, Konqueror 3.5+, ve Safari 3+ bunu destekleyen tarayıcılardır. Internet Explorer ayrıca bir öğenin 'currentStyle' özelliğini de verir. Opera 9+ ve iCab 3 de aynı desteği vermektedir.
+<br /><br />
+'getComputedStyle' iki parametre ister. İlki öğeye erişim, ikincisi ise ('before', 'after', 'first-line') gibi yalancı öğeler ve öğe yerine null gibi değerlerdir... 'currentStyle' öğenin kendi stillerine erişilmesine izin verdiğine göre burada yalnız ondan söz edilecektir. Tarayıcılardan dönen değerler hep aynıdır. Ancak bazılarında ufak tefek değişiklikler vardır. Örneğin tablonun eni CSS ile atanmış olabilir ama, içindekiler sığsın diye daha da genişletilmiş olabilir. Genişletilmiş olsa bile 'currentStyle' eski enin değerini döndürse de 'getComputedStyle' ise genişletilmiş değeri döndürür.
+<pre>
+var oElement = document.getElementById('mydiv'), oColor;
+if( window.getComputedStyle ) {
+  oColor = window.getComputedStyle(oElement,null).color;
+} else if( oElement.currentStyle ) {
+  oColor = oElement.currentStyle.color;
+}
+</pre>
+Kullanılabilir gerçek değerlerin dışında bazı stil değerleri 'auto', 'normal', or 'inherit' gibi varsayılan değerlerdir. Tarayıcılar değerleri varolan herhangi bir birimle döndürebilir. Örneğin, CSS uzunluğu 'em' biriminden belirtse de dönen değer 'px' biçiminde olabilir.
+<br /><br />
+'currentStyle' değerinin değişik sonuçlar vermesi halinde, IE 'runtimeStyle' sunar. Bu nesne neredeyse 'currentStyle' ile aynıdır ama her zaman hesaplanmış değer döndürür. Ama bu değer her zaman kullanılabilir olmaz ve sıklıkla değişik tür sonuç verir. Tanımlanmamış değerler varsayılan yerine boş yazı dizisi olur. Bunu dikkatli kullanın ve eğer sonuç veriyorsa kullanın.
+<br /><br />
+Bazı öğelerin offset, client ve scroll değerlerini bilmek de yararlı olabilir.  Bunlar bir öğenin özellikleri olarak vardır ve pixel birimiyle değerlerini verir. Bunun anlamı CSS değeri 'auto' olsa bile gerçek boyutları verir olmasıdır. Satır içi öğeler için çok güvenilir değildir ve yalnız blok öğelerde ya da benzeri görüntüleme biçimlerinde kullanılmalıdır. Tarayıcılar arasından oldukça sorunsuz çalışır.
+<dl>
+<dt>offsetWidth ve offsetHeight
+    <dd>Öğenin boyutları sınırları dışından hesaplanır (IE quirks/dolambaçlı konumunda doldurmanın -padding- içinden hesaplanır).  </dd></dt>
+<dt>clientWidth ve clientHeight
+    <dd>Öğenin boyutları sınırların içinden hesaplanır ve kaydırma çubuğu çıkarılır.  </dd></dt>
+<dt>scrollWidth ve scrollHeight
+    <dd>Öğenin boyutları kaydırma çubuğu yoksa ve boyut içinde öngörülmemişse elde edilir (içeriğin boyutları artı doldurma -padding- toplam boyutu verir)</dd></dt>
+<dt>scrollLeft ve scrollTop
+    <dd>Öğenin kaydırıldığı uzaklık/mesafe.</dd></dt>
+</dl>
+<h3>Stil sayfalarını yeniden yazma</h3>
+
+DOM stil sayfalarının değiştirilmesine de izin verir. Bazı tarayıcılar stil sayfalarının değiştirilmesine izin verir. Bazıları yaratılmasına ve silinmesine de izin verir.
+<h3>Bir stilsayfasının href bağını değiştirme</h3>
+
+Stil sayfalarının href özelliği bazı tarayıcılarda okunabilir. Opera 7+, Mozilla, Konqueror, Safari ve Internet Explorer 5+ link öğesindeki href değerini setAttribute ile değiştirir ve Internet Explorer 4+, styleSheets[index] ile değerini değiştirir.
+<h3>Stil sayfalarının yerini değiştirme</h3>
+<ul>
+    <li> IE 4+ Win, IE 5+ Mac, Gecko (Mozilla/Firefox/Netscape 6+), ve Opera 9+ bunu destekler
+    <li> KHTML/WebKit (Konqueror 3+/Safari/OmniWeb 4.5+) ve ICEbrowser doğru desteklemez.
+    <li> Mac üzerindeki IE 4 neredeyse doğru destekler.
+    <li> Opera 7+ ve iCab 3 değişik bir yazım kuralıyla destekler.
+    <li> KHTML/WebKit değişik bir yazım kuralıyla destekler.
+    <li> iCab 3 üretilen içeriğe ve HTML öğesinin rengine uygulanırken önerilen stil sayfaları kapalıysa, hata yapar ve durur.
+</ul>
+Bazı tarayıcılarda mantıksal disabled özelliği kullanılarak stil sayfaları kapatılır/açılır. Bazı tarayıcılar 'title' niteliği tanımlanmışsa, yalnız kapatılmış özelliklerin değiştirilmesine izin verirler. Tarayıcılar arası en iyi çözüm için 'title' niteliği tanımlanmışsa, aşağıdaki kodlama stil sayfalarında kapatılma / açılma denemesini yapar.
+<br /><br />
+disabled özelliğinin en iyi kullanımı, okuyucularınızın sitenin görünüşünün değişmesine izin vermektir. Bunu kendi kişisel zevklerine ve erişilebilirlik gereksinimlerine uygun yapabilmelidirler. Bu da onların değişik stil sayfaları arasından seçim yapıp yerine kullanabilme olanağı kazanmalarını sağlar. Çoğunlukla bu teknik, kullanıcı sayfadan çıkarken beğendiği stil sayfalarının çerezlerde saklayarak sağlanır (unload olayını kullanarak). Daha sonra (onload olayında) aynı değeri kullanarak sayfa görüntülenir.
+<h3>HTML kurulumu</h3>
+
+Bunu yapabilmek için belgenizi aşağıdaki gibi kurun:<br/>
+İlk olarak tüm evrensel stil tanımlarıyla stil sayfanızı aşağıdaki gibi yaratın:
+<pre>
+&lt;link rel="stylesheet" type="text/css" href="all.css"&gt;
+</pre>
+Hiç 'title' niteliği olmadığından 'disabled' olmayacaktır. İstemiyorsanız bu stil sayfasını yaratmak zorunda değilsiniz. Ama isterseniz, bunun içinde kullandığınız tüm stiller daha sonra başkasıyla değiştirseniz bile bütün stil sayfalarında da kullanılacaktır.
+
+Varsayılan değiştirilebilir stil sayfası aşağıdaki gibi kurulur:
+<pre>
+&lt;link rel="stylesheet" type="text/css" href="default.css" title="Default"&gt;
+</pre>
+Bu stil sayfalrını 'disable/enable' yapamayan tarayıcılar tarafından da kullanılır ve varsayılan görüntü iyidir. Bunu kullanarak diğer seçeneklerin de kurulumunu yapabilirsiniz:
+<pre>
+&lt;link rel="alternate stylesheet" type="text/css"
+    href="extraPretty.css" title="Pretty"&gt;
+&lt;link rel="alternate stylesheet" type="text/css"
+    href="bigFont.css" title="Big Font"&gt;
+&lt;link rel="alternate stylesheet" type="text/css"
+    href="contrast.css" title="High Contrast"&gt;
+</pre>
+Bu stil sayfaları 'rel' niteliği için 'alternate stylesheet' olarak kurulduğundan küçük ve eski tarayıcılar bunları hiç yükleyemeyeceklerdir. Ve değiştirme yeteneği olmayan tarayıcılarda bu stil sayfaları hiç olmayacaktır. Stil sayfalarını değiştirebilen tarayıcılardaysa, varsayılan olarak görüntülenecektir. stil sayfalarını değiştirmekse tarayıcının görüntüleme menüsüyle olur.
+<br /><br />
+Opera 7+, Mozilla, Konqueror 3+ ve iCab 3+ kullanıcının seçenekli stil sayfalarını görüntüleme menüsünden değiştirmeye olanak verirler. Ama bu kurulum tarayıcılar tarafından hatırlanmadığı için (Konqueror hariç) sitedeki her sayfada kendi yapmalıdır.  Internet Explorer ve Safari gibi diğer 'iyi' taaryıcılar kullanıcıların stil sayfalarını değiştirmelerine izin vermezler, DOM kullanılılarak elle değiştirilmesi gerekir. DOM tekniği ya da view menüsünü kullanırken aynı başlık olması durumunda aynı stil sayfaları olması anlamına gelir ve her ikisi de değiştirilmiş olur.
+<br /><br />
+Görüntüleme menüsü başlıkları aynı olan stil sayfalarını seçme olanağı verir. Eğer çeşitli kombinasyonları dikkate almak isterseniz, ya da aynı sayfayı birkaç kez dahil etmek isterseniz değişik başlıklar kullanmalısınız. Bu temel stil sayfaları değiştirme kodlamaları sorunlara neden olabilir.
+<h3>Stil sayfalarının 'disabled' özelliği ve 'title' özelliği</h3>
+<h3>document.stylesheets</h3>
+
+Microsoft 'document.styleSheets birikimiyle ilk ortaya çıkandır. W3C bunun iyi bir fikir olduğunu ileri sürdü ve DOM Level 2 CSS kurallarına aldı. Tüm stil sayfaları bu birikimde bulunur ('rel' niteliği 'alternative stylesheet' olmasa bile). Bu birikimin 'disabled' özelliğini kurmak stilsayfasını kapatır ya da açar ve 'title' niteliği javascript özelliği olarak bulunur.
+<ul>
+    <li> Internet Explorer 4+ Win ve 5+ Mac document.styleSheets destekler (doğru olarak).
+    <li> Internet Explorer 4 Mac document.styleSheets destekler ama 'title' niteliğini sunmaz. Yerine style ya da link öğelerinin title niteliği kullanılmalıdır document.styleSheets[0].owningElement.title.
+    <li> Gecko (Mozilla/Firefox/Netscape 6+) document.styleSheets destekler.
+    <li> Opera 9+ document.styleSheets destekler.
+    <li> Konqueror ve Safari [KHTML/WebKit] document.styleSheets doğru olmayarak belirli bir anda açık olan stil sayfalarının toplanmasını sağlar. Stil sayfaları oradan kapatılamaz ve 'title' özellikleri yoktur.
+    <li> ICEbrowser kapatılacak/açılacak birikimi ve yalnız 'rel' niteliği 'sytlesheet' olanları alır ama 'alternate sytlesheet' olanları almaz. Bu da stil sayfaları değiştirme amacına uygun değildir ve W3C HTML kurallarıyla uyuşmaz. ICEbrowser kullanıcıları varsayılan stil sayfasına takılı kalacaktır, değiştirme girişimi sonucu değiştirmeyecektir.
+    <li> NetFront birikimi sunar ama içi hep boştur...
+    <li> Opera 7-8 ve iCab 3 birikimi sunmaz bile.
+</ul>
+<h3>Biçimlere erişim</h3>
+
+"document.styleSheets" eşdeğeri uygun LINK ve STYLE biçimlerinin erişimiyle sağlanır. 'disabled' özelliği okunur ve değiştirilebilir ve 'title' niteliği de sunulmuştur. 
+<ul>
+    <li> Internet Explorer 4+ Win bu tekniği destekler ama 'disabled' niteliği Javascript ile kurulmalıdır.
+    <li> Internet Explorer 4+ Mac bu tekniği doğru olarak destekler.
+    <li> Gecko (Netscape 6+, Mozilla vb.) bu tekniği doğru olarak destekler.
+    <li> Opera 9 bu tekniği doğru olarak destekler.
+    <li> Konqueror ve Safari [KHTML/WebKit] bu tekniği destekler, fakat 'disabled' özelliği Javascript tarafından kurulunca dek yanlış sonuç verir.
+    <li> Opera 7-8 ve iCab 3+ bu tekniği destekler ama Javascript 'disabled' özelliğini kurmalıdır. Görüntüleme menüsüyle yapılan değişiklikler yansımaz.
+    <li> ICEbrowser bu tekniği desteklemez.
+</ul>
+Buradan şu sonuç çıkarılabilir:
+<ul>
+    <li> Opera 7-8 ve iCab 3, link ve style biçimlerini kullanma tekniğinde bir stil sayfası seçilmeden özellikleri saklanmamalıdır.
+    <li> Aşağıdakilerden biri seçilir:
+    <ul>
+          <li> Opera 9+ link ve style biçimini kullanma tekniği seçilir.
+          <li> Opera 9+ document.stylesheets birikimi kullanılmalıdır.
+    </ul>
+    <li> KHTML/WebKit, link ve style biçim tekniklerini kullanır. Bir stil sayfası seçilmeden özellikleri saklanmamalıdır.
+    <li> Aşağıdakilerden biri seçilir:
+    <ul>
+          <li> Gecko ile link ve style biçimini kullanma tekniği seçilir.
+          <li> Gecko'da document.stylesheets birikimi seçilir.
+    </ul>
+    <li> Aşağıdakilerden biri seçilir:
+    <ul>
+          <li> document.all.tags kullanan IE'de link ve style biçimleri seçilir.
+ IE 4'de erişmek için de kullanılabilir. Bir stil sayfası seçilmeden özellikleri saklanmamalıdır.
+          <li> IE'de document.stylesheets birikimini kullanın bu IE 4'ü de içermeyi kolaylaştırır. sahib olan öğedeki başlığı kullanmaya özen gösterin.
+    </ul>
+    <li> ICEbrowser ile document.stylesheets birikimini kullanın ve "alternate stylesheets" ilgi alanınızsa önemlidir.
+</ul>
+W3C doğru yöntemin stil sayfaları olduğunu söylemektedir, ama bu ancak üç tarayıcıda çalışabildiğinden ve diğerlerinde sorun oluşturduğundan burada link ve style biçimleri kullanılır. ICEbrowser koşulu da eklenmelidir. Belki hatayı değiştirmiş olabilirler.
+<br /><br />
+Kullanıcının görüntüleme menüsünü kullanıp kullanmadığının anlaşılması hangi stil sayfalarının 'onload' ve 'onunload' olayından sonra kullanıldığının kontrol edilmesidir. Eğer fark varsa, o zaman kullanıcının görüntüleme menüsünden seçim yaptığı anlaşılır (Opear 7-8 tarayıcında bu olanaksızdır. 'disabled' özelliği görüntüleme menüsündeki değişiklikleri yansıtmaz). Ayrıca changeStyle işlevinin çalışıp değişkenin içeriğini değiştirdiği de kontrol edilmelidir. 
+<br /><br />
+Doğru tekniği kullanmak isteyebilirsiniz, öyle de olsa link ve style biçimleri tekniğini Opera 7-8 ve iCab tarayıcıları için kullanmalısınız (if(!document.styleSheets) vb.), ve ayrıca tarayıcıyı da seçmelisiniz. Çünkü KHTML/WebKit link ve style biçimleri tekniğini kullanır. KHTML/WebKit, iCab ve Opera 7-8 tarayıcıları için hala kullanıcı seçimini yapmadan saklama yapmamak gerektiğini bilmeniz gerekecektir. Ve IE 4 Mac için başlığın olmadığını bilerek kodlama yapmanız gerektiğini bilmelisiniz.
+<h3>Kodlama</h3>
+
+NOT: getElementsByTagName 'index' öğeli 'length' özellikli bir değer döndürür ve doğru bir birikim döndürmez. link ve style biçimlerinin dizilerini eklemek için array.concat yöntemi kullanılamaz, yerine birikimin içinde dolaşılmalı ve sırası geldikçe her öğeyi eklemmeliyiz.
+<pre>
+function getAllSheets() {
+  // ICEbrowser tarayıcısının sınırlı desteğini isterseniz buradaki gibi yapın
+  if( !window.ScriptEngine && navigator.__ice_version ) {
+  	//IE hataları: pencere kapanırken navigator.__ice_version görürse
+  	//window.ScriptEngine onu gizler
+    return document.styleSheets; }
+  if( document.getElementsByTagName ) {
+    //DOM browsers - link ve style biçimlerini al
+    var Lt = document.getElementsByTagName('link');
+    var St = document.getElementsByTagName('style');
+  } else if( document.styleSheets && document.all ) {
+    //document.all destekleyenlerin hepsi document.all.tags desteklemez
+    //ama destekleyenler stil sayfalarını değiştirmeyi de sunarlar
+    //document.styleSheets (document.all.tags kontrolu hata verirse
+    //IE içinde [NEDEN?!], gerçekte destekliyor olsa da)
+    var Lt = document.all.tags('LINK'), St = document.all.tags('STYLE');
+  } else { return []; } //daha ilkel bir tarayıcı - boş dizi döndür
+  //tüm link biçimleri için ...
+  for( var x = 0, os = []; Lt[x]; x++ ) {
+    //rel niteliğini ara içinde 'style' var mı bak
+    if( Lt[x].rel ) {
+        var rel = Lt[x].rel;
+    } else if( Lt[x].getAttribute ) {
+        var rel = Lt[x].getAttribute('rel');
+    } else {
+        var rel = '';
+    }
+    if( typeof( rel ) == 'string' &&
+        rel.toLowerCase().indexOf('style') + 1 ) {
+      //işletim sistemini bağlı stil sayfalarıyla doldur
+      os[os.length] = Lt[x];
+    }
+  }
+  //tüm stil biçimlerini de ekle ve diziyi döndür
+  for( var x = 0; St[x]; x++ ) { os[os.length] = St[x]; } return os;
+}
+function changeStyle() {
+  for( var x = 0, ss = getAllSheets(); ss[x]; x++ ) {
+    //tüm stil sayfaları için
+    if( ss[x].title ) {
+      //değiştirilebilirse stilsayfasını kapat
+      ss[x].disabled = true;
+    }
+    for( var y = 0; y &lt; arguments.length; y++ ) {
+      //her başlığı kontrol et...
+      if( ss[x].title == arguments[y] ) {
+        //eğer seçilen bir başlığı varsa stil sayfasını tekrar aç
+        ss[x].disabled = false;
+      }
+    }
+  }
+  if( !ss.length ) { alert( 'Tarayıcınız stil sayfalarını değiştiremez' ); }
+}
+
+...
+
+eg.
+&lt;body onload="changeStyle('High Contrast','Big Font');"&gt;
+</pre>
+Kısaltılınca şu biçimi alır:
+<pre>
+function getAllSheets() {
+  if( !window.ScriptEngine && navigator.__ice_version ) {
+      return document.styleSheets; }
+  if( document.getElementsByTagName ) {
+      var Lt = document.getElementsByTagName('link'),
+          St = document.getElementsByTagName('style');
+  } else if( document.styleSheets && document.all ) {
+      var Lt = document.all.tags('LINK'), St = document.all.tags('STYLE');
+  } else { return []; }
+  for( var x = 0, os = []; Lt[x]; x++ ) {
+    var rel = Lt[x].rel ? Lt[x].rel : Lt[x].getAttribute
+                                    ? Lt[x].getAttribute('rel') : '';
+    if( typeof( rel ) == 'string' &&
+        rel.toLowerCase().indexOf('style') + 1 ) {
+              os[os.length] = Lt[x];
+    }
+  }
+  for( var x = 0; St[x]; x++ ) {
+      os[os.length] = St[x];
+  }
+  return os;
+}
+function changeStyle() {
+  for( var x = 0, ss = getAllSheets(); ss[x]; x++ ) {
+    if( ss[x].title ) {
+        ss[x].disabled = true;
+    }
+    for( var y = 0; y &lt; arguments.length; y++ ) {
+        if( ss[x].title == arguments[y] ) {
+            ss[x].disabled = false;
+        }
+    }
+  }
+}
+</pre>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

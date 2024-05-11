@@ -1,0 +1,1252 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>HTML - URL Encoding</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="htmltxt1.html" class="nav">Öğeler</a>
+               <a href="htmltxt2.html" class="nav">Biçimler</a>
+               <a href="htmltxt3.html" class="nav">Kalıplama</a>
+               <a href="htmltxt4.html" class="nav">Varlıklar</a>
+               <a href="htmltxt5.html" class="nav">Bağlar</a>
+               <a href="htmltxt6.html" class="nav">Çerçeveler</a>
+               <a href="htmltxt7.html" class="nav">Tablolar</a>
+               <a href="htmltxt8.html" class="nav">Listeler</a>
+               <a href="htmltxt9.html" class="nav">Formlar</a>
+               <a href="htmltxt10.html" class="nav">Resimler</a>
+               <a href="htmltxt11.html" class="nav">Art-Alan</a>
+               <a href="htmltxt12.html" class="nav">Renkler</a>
+               <a href="htmltxt13.html" class="nav">RenkDeğerleri</a>
+               <a href="htmltxt14.html" class="nav">RenkAdları</a>
+               <font color="#8e9ccb"><h3>Gelişmiş</h3></font>
+               <a href="ahtmltxt1.html" class="nav">Yerleşim</a>
+               <a href="ahtmltxt2.html" class="nav">YazıTipleri</a>
+               <a href="ahtmltxt3.html" class="nav">Stiller</a>
+               <a href="ahtmltxt4.html" class="nav">Başlık</a>
+               <a href="ahtmltxt6.html" class="nav">URL-Adresleri</a>
+               <a href="ahtmltxt7.html" class="nav">YazıDüzeni</a>
+               <a href="ahtmltxt8.html" class="nav">Nitelikler</a>
+               <a href="ahtmltxt9.html" class="nav">Olaylar</a>
+               <a href="ahtmltxt10.html" class="nav">URL-Kodlama</a>
+               <a href="ahtmltxt11.html" class="nav">Muzik-Kodu</a>
+               <a href="ahtmltxt12.html" class="nav">Video-Kodu</a>
+               <a href="ahtmltxt13.html" class="nav">WEB-Sunucu</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>HTML</h2></center>
+       <div id="ortataraf">
+<!-- html sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">1 Aralık 2007</span></div>
+<h2>URL Encoding</h2>
+    	
+<h3>Background</h3>
+URL Encoding is the process of converting string into valid URL format.  Valid URL format means that the URL contains only what is termed "alpha | digit | safe | extra | escape" characters.  You can read more about the what and the whys of these terms on the World Wide Web Consortium site:  http://www.w3.org/Addressing/URL/url-spec.html and http://www.w3.org/International/francois.yergeau.html.  
+
+URL encoding is normally performed to convert data passed via html forms, because such data may contain special character, such as "/", ".", "#", and so on, which could either: a) have special meanings; or b) is not a valid character for an URL; or c) could be altered during transfer.   For instance, the "#" character needs to be encoded because it has a special meaning of that of an html anchor.   The <space> character also needs to be encoded because is not allowed on a valid URL format.   Also, some characters, such as "~" might not transport properly across the internet. 
+
+Example
+One of the most common encounters with URL Encoding is when dealing with <form>s.  Form methods (GET and POST) perform URL Encoding implicitly.  As an example, click the form below to see the string being URL encoded. 
+
+<pre>  
+<form method="GET" action="example.html">
+  <input type="text" name="var" size="50" 
+   value="This is a simple & short test."><input type="submit">
+</form>
+</pre>
+This sample <form> sends the data in the text field using the GET method, which means that the data will be appended as query string. 
+
+If you click the button and look at the resulting URL in the browser address bar, you should see something like this (the query string portion, which is automatically URL encoded by the browser, is shown in blue):
+
+  
+http://www.permadi.com/tutorial/urlEncoding/example.html?var=This+is+a+simple+%26+short+test.
+
+Here, you can see that:
+
+    * The <space> character has been URL encoded as "+".
+    * The & character has been URL encoded as "%26".
+
+<space> character and & character are just some of the special characters that need to be encoded.  Below are some others (click the button to see the result of the encoding).
+
+<form method="GET" action="example.html">
+   <input type="text" name="var" size="50"
+          value="$ &amp; &lt; &gt; ? ; # : = , &quot; ' ~ + %">
+   <input type="submit">
+</form>
+
+Here's the query string portion, which (as before) has been encoded by the browser automatically:
+
+  
+var=%24+%26+%3C+%3E+%3F+%3B+%23+%3A+%3D+%2C+%22+%27+%7E+%2B+%25
+
+As you can see, when a character is URL-encoded, it's converted as %XY, where X and Y is a number.   You will see later where these numbers come from.
+
+What Should be URL Encoded?
+As a rule of thumb, any non alphanumeric character should be URL encoded.  This of course applies to characters that are to be interpreted as is (ie: is not intend to have special meanings) .  In such cases, there's no harm in URL-Encoding the character,  even if the character actually does not need  to be URL-Encoded. 
+
+Some Common Special Characters
+Here's a table of some of often used characters and their URL encodings. 
+Character 	
+
+<table border="1" width="100%">
+<tr>
+   <td width="15%" align="center" bgcolor="#000000"><b>
+       <font color="#FFFFFF">Character</font></b></td>
+   <td width="83%" bgcolor="#000000" align="center">
+       <p align="left"><b><font color="#FFFFFF">URL Encoded</font></b></td>
+</tr>
+<tr>
+   <td width="15%" align="center" bgcolor="#66CCFF"><b>;</b></td>
+   <td width="83%" bgcolor="#FFFFCC"><font color="#0066FF"><b>%3B</b></font></td>
+</tr>
+<tr>
+   <td width="15%" align="center" bgcolor="#66CCFF"><b>?</b></td>
+   <td width="83%" bgcolor="#FFFFCC"><font color="#0066FF"><b>%3F</b></font></td>
+</tr>
+<tr>
+   <td width="15%" align="center" bgcolor="#66CCFF"><b>/</b></td>
+   <td width="83%" bgcolor="#FFFFCC"><font color="#0066FF"><b>%2F</b></font></td>
+</tr>
+<tr>
+   <td width="15%" align="center" bgcolor="#66CCFF"><b>:</b></td>
+   <td width="83%" bgcolor="#FFFFCC"><font color="#0066FF"><b>%3A</b></font></td>
+</tr>
+<tr>
+   <td width="15%" align="center" bgcolor="#66CCFF"><b>#</b></td>
+   <td width="83%" bgcolor="#FFFFCC"><font color="#0066FF"><b>%23</b></font></td>
+</tr>
+<tr>
+   <td width="15%" align="center" bgcolor="#66CCFF"><b>&amp;</b></td>
+   <td width="83%" bgcolor="#FFFFCC"><font color="#0066FF"><b>%24</b></font></td>
+</tr>
+<tr>
+   <td width="15%" align="center" bgcolor="#66CCFF"><b>=</b></td>
+   <td width="83%" bgcolor="#FFFFCC"><font color="#0066FF"><b>%3D</b></font></td>
+</tr>
+<tr>
+   <td width="15%" align="center" bgcolor="#66CCFF"><b>+</b></td>
+   <td width="83%" bgcolor="#FFFFCC"><font color="#0066FF"><b>%2B</b></font></td>
+</tr>
+<tr>
+   <td width="15%" align="center" bgcolor="#66CCFF"><b>$</b></td>
+   <td width="83%" bgcolor="#FFFFCC"><font color="#0066FF"><b>%26</b></font></td>
+</tr>
+<tr>
+   <td width="15%" align="center" bgcolor="#66CCFF"><b>,</b></td>
+   <td width="83%" bgcolor="#FFFFCC"><font color="#0066FF"><b>%2C</b></font></td>
+</tr>
+<tr>
+   <td width="15%" align="center" bgcolor="#66CCFF"><b>&lt;space&gt;</b></td>
+   <td width="83%" bgcolor="#FFFFCC"><b><font color="#0066FF">%20</font><font color="#000000">
+      </font> </b><font color="#000000">or</font><font color="#0066FF"><b> +</b></font></td>
+</tr>
+<tr>
+   <td width="15%" align="center" bgcolor="#66CCFF"><b>%</b></td>
+   <td width="83%" bgcolor="#FFFFCC"><font color="#0066FF"><b>%25</b></font></td>
+</tr>
+<tr>
+   <td width="15%" align="center" bgcolor="#66CCFF"><b>&lt;</b></td>
+   <td width="83%" bgcolor="#FFFFCC"><font color="#0066FF"><b>%3C</b></font></td>
+</tr>
+<tr>
+   <td width="15%" align="center" bgcolor="#66CCFF"><b>&gt;</b></td>
+   <td width="83%" bgcolor="#FFFFCC"><font color="#0066FF"><b>%3E</b></font></td>
+</tr>
+<tr>
+   <td width="15%" align="center" bgcolor="#66CCFF"><b>~</b></td>
+   <td width="83%" bgcolor="#FFFFCC"><font color="#0066FF"><b>%7E</b></font></td>
+</tr>
+<tr>
+   <td width="15%" align="center" bgcolor="#66CCFF"><b>%</b></td>
+   <td width="83%" bgcolor="#FFFFCC"><b><font color="#0066FF">%25</font></b></td>
+</tr>
+</table>			
+
+Note that because the <space> character is very commonly used, a special code ( the "+" sign) has been reserved as its URL encoding.  Thus the string "A B" can be URL encoded as either "A%20B" or "A+B".
+
+Where Does the Numbers Come From?
+The number following the % sign is the hexadecimal ASCII code of the character being encoded.  You can find an ASCII table here. 
+
+Language Support
+Most web programming languages already provide built in method to perform URL Encoding and URL Decoding.  Here are the common ones, click the method name to find more info.
+<table border="1" width="100%" height="185">
+  <tr>
+    <td width="25%" bgcolor="#000000" height="18"><b><font color="#FFFFFF">
+	Languagege</font></b></td>
+    <td width="38%" bgcolor="#000000" height="18"><b><font color="#FFFFFF">
+	URL Encoding </font></b></td>
+    <td width="35%" bgcolor="#000000" height="18">
+	<font color="#FFFFFF"><b>URL Decoding</b></font></td>
+  </tr>
+  <tr>
+    <td width="25%" bgcolor="#66CCFF" height="18" align="left" valign="top">
+    <b>JavaScript</b><td width="38%" bgcolor="#FFFFCC" height="18" align="left" valign="top">
+	<a href="http://wp.netscape.com/eng/mozilla/3.0/handbook/javascript/ref_d-e.htm#48073" class="contentlink">escape(String)</a> 
+	Note: does not encode '/' and '+' character</td>
+    <td width="35%" bgcolor="#FFFFCC" height="18" align="left" valign="top">
+	<a href="http://wp.netscape.com/eng/mozilla/3.0/handbook/javascript/ref_t-z.htm#66677" class="contentlink">unescape(String)</a></td>
+  </tr>
+  <tr>
+    <td width="25%" bgcolor="#66CCFF" height="17" align="left" valign="top"><b>PHP</b></td>
+    <td width="38%" bgcolor="#FFFFCC" height="17" align="left" valign="top">
+	<a href="http://us3.php.net/urlencode" class="contentlink">urlencode(string)</a></td>
+    <td width="35%" bgcolor="#FFFFCC" height="17" align="left" valign="top">
+	<a href="http://us3.php.net/urldecode" class="contentlink">urldecode(string)</a></td>
+  </tr>
+  <tr>
+    <td width="25%" bgcolor="#66CCFF" height="18" align="left" valign="top"><b>ASP</b></td>
+    <td width="38%" bgcolor="#FFFFCC" height="18" align="left" valign="top">
+	<a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/iissdk/html/cbb19811-6ba3-46fe-b324-e0874cfc3382.asp" class="contentlink">Server.URLEncode(string)</a></td>
+    <td width="35%" bgcolor="#FFFFCC" height="18" align="left" valign="top">?</td>
+  </tr>
+  <tr>
+    <td width="25%" bgcolor="#66CCFF" height="18" align="left" valign="top"><b>Perl</b></td>
+    <td width="38%" bgcolor="#FFFFCC" height="18" align="left" valign="top">
+	<a href="http://www.unix.org.ua/orelly/perl/perlnut/c17_110.htm" class="contentlink">
+	uri_escape </a><br>
+	Use CGI.pm module.&nbsp; 
+	<a href="http://search.cpan.org/dist/CGI.pm/" class="contentlink">
+	Link</a>.</td>
+    <td width="35%" bgcolor="#FFFFCC" height="18" align="left" valign="top">
+	<a href="http://www.unix.org.ua/orelly/perl/perlnut/c17_111.htm" class="contentlink">
+	uri_unescape</a></td>
+  </tr>
+  <tr>
+    <td width="25%" bgcolor="#66CCFF" height="36Java</td>
+    <td width=" bgcolor="#FFFFCC" height="36" align="left" valign="top">
+	<b>Java</b></td>
+    <td width="35%" bgcolor="#FFFFCC" height="36" align="left" valign="top">java.net.URLEncode.encode(String)<br>
+         or 
+	<a href="http://www.w3.org/International/O-URL-code.html" class="contentlink">
+	see this link</a>.</td>
+    <td width="35%" bgcolor="#FFFFCC" height="18" align="left" valign="top">
+	<a href="http://www.w3.org/International/O-URL-code.html" class="contentlink">
+	See this link</a>.</td>					
+  </tr>
+  <tr>
+    <td width="25%" bgcolor="#66CCFF" height="18" align="left" valign="top"><b>Flash (MX or 
+	later)</b></td>
+    <td width="38%" bgcolor="#FFFFCC" height="18" align="left" valign="top">
+	<a href="http://www.macromedia.com/support/flash/action_scripts/actionscript_dictionary/actionscript_dictionary199.html" class="contentlink">
+	escape(expresiion)</a></td>
+    <td width="35%" bgcolor="#FFFFCC" height="18" align="left" valign="top">
+	<a href="http://www.macromedia.com/support/flash/action_scripts/actionscript_dictionary/actionscript_dictionary812.html" class="contentlink">
+	unescape(expression)</a></td>
+  </tr>
+  <tr>
+    <td width="25%" bgcolor="#66CCFF" height="18" align="left" valign="top"><b>VBScript</b></td>
+    <td width="38%" bgcolor="#FFFFCC" height="18" align="left" valign="top">
+	<a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/script56/html/vsfctescape.asp" class="contentlink">
+	escape(string)</a></td>
+    <td width="35%" bgcolor="#FFFFCC" height="18" align="left" valign="top">
+	<a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/script56/html/vsfctunescape.asp" class="contentlink">
+	unescape(string)</a></td>
+  </tr>
+  <tr>
+    <td width="25%" bgcolor="#66CCFF" height="18" align="left" valign="top"><b>.NET</b></td>
+    <td width="38%" bgcolor="#FFFFCC" height="18" align="left" valign="top">
+	<a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpref/html/frlrfsystemwebhttputilityclassurlencodetopic.asp" class="contentlink">
+	HttpUtility.UrlEncode </a></td>
+    <td width="35%" bgcolor="#FFFFCC" height="18" align="left" valign="top">
+	<a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpref/html/frlrfsystemwebhttputilityclassurldecodetopic.asp" class="contentlink">
+	HttpUtility.UrlDecode</a></td>
+  </tr>
+</table>
+
+A JavaScript URL Encoder
+The example below uses the escape and unescape functions.  Because the escape function does not properly encode the '+' and '/' character (I've no idea why it's programmed in that way), these characters need to be converted manually.  This is done using String.replace function. 
+ 
+
+function TestEncoding()
+{
+  var inputString=document.forms["TestEncodingForm"]["inputString"].value;  
+  var encodedInputString=escape(inputString);
+  encodedInputString=encodedInputString.replace("+", "%2B");
+  encodedInputString=encodedInputString.replace("/", "%2F"); 
+  document.forms["TestEncodingForm"]["encodedInputString"].value=encodedInputString;
+}
+			
+
+Type anything on the Not encoded field, when you press the URL Encode button, the encoded string will be displayed on the Encoded field.
+
+Alternatively, type anything on the Encoded field, when you press the URL Decode button, the decoded string will be displayed on the Not encoded field.
+
+<form name="TestEncodingForm">
+	Not encoded 
+	<input type="text" name="inputString" size="50" onFocus="javascript:clearTextField('encodedInputString');" 
+		onBlur="javascript:clearTextField();">
+	<input type="button" value="URL Encode" name="URLEncode" onClick="javascript:TestEncoding();"><p class="yazi">
+	Encoded&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="text" name="encodedInputString" size="50" onFocus="javascript:clearTextField('inputString');" 
+		onBlur="javascript:clearTextField();"> 
+	<input type="button" value="URL Decode" name="URLDecode" onClick="javascript:TestDecoding();"></p>
+</form>
+<br />
+URL-encoding from %00 to %8f
+
+<table class="ex" cellspacing="0" border="1" width="100%">
+    <tr>
+      <th align="left">ASCII Value</th>
+      <th align="left">URL-encode</th>
+      <th align="left">ASCII Value</th>
+      <th align="left">URL-encode</th>
+      <th align="left">ASCII Value</th>
+
+      <th align="left">URL-encode</th>
+      </tr>
+    <tr>
+      <td>æ</td>
+      <td>%00</td>
+      <td>0</td>
+      <td>%30</td>
+
+      <td>`</td>
+      <td>%60</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>%01</td>
+      <td>1</td>
+
+      <td>%31</td>
+      <td>a</td>
+      <td>%61</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>%02</td>
+
+      <td>2</td>
+      <td>%32</td>
+      <td>b</td>
+      <td>%62</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+
+      <td>%03</td>
+      <td>3</td>
+      <td>%33</td>
+      <td>c</td>
+      <td>%63</td>
+    </tr>
+
+    <tr>
+      <td>&nbsp;</td>
+      <td>%04</td>
+      <td>4</td>
+      <td>%34</td>
+      <td>d</td>
+      <td>%64</td>
+
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>%05</td>
+      <td>5</td>
+      <td>%35</td>
+      <td>e</td>
+
+      <td>%65</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>%06</td>
+      <td>6</td>
+      <td>%36</td>
+
+      <td>f</td>
+      <td>%66</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>%07</td>
+      <td>7</td>
+
+      <td>%37</td>
+      <td>g</td>
+      <td>%67</td>
+    </tr>
+    <tr>
+      <td>backspace</td>
+      <td>%08</td>
+
+      <td>8</td>
+      <td>%38</td>
+      <td>h</td>
+      <td>%68</td>
+    </tr>
+    <tr>
+      <td>tab</td>
+
+      <td>%09</td>
+      <td>9</td>
+      <td>%39</td>
+      <td>i</td>
+      <td>%69</td>
+    </tr>
+
+    <tr>
+      <td>linefeed</td>
+      <td>%0a</td>
+      <td>:</td>
+      <td>%3a</td>
+      <td>j</td>
+
+      <td>%6a</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>%0b</td>
+      <td>;</td>
+      <td>%3b</td>
+
+      <td>k</td>
+      <td>%6b</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>%0c</td>
+      <td>&lt;</td>
+
+      <td>%3c</td>
+      <td>l</td>
+      <td>%6c</td>
+    </tr>
+    <tr>
+      <td>c return</td>
+      <td>%0d</td>
+
+      <td>=</td>
+      <td>%3d</td>
+      <td>m</td>
+      <td>%6d</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+
+      <td>%0e</td>
+      <td>&gt;</td>
+      <td>%3e</td>
+      <td>n</td>
+      <td>%6e</td>
+    </tr>
+    <tr>
+
+      <td>&nbsp;</td>
+      <td>%0f</td>
+      <td>?</td>
+      <td>%3f</td>
+      <td>o</td>
+      <td>%6f</td>
+
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>%10</td>
+      <td>@</td>
+      <td>%40</td>
+      <td>p</td>
+
+      <td>%70</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>%11</td>
+      <td>A</td>
+      <td>%41</td>
+
+      <td>q</td>
+      <td>%71</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>%12</td>
+      <td>B</td>
+
+      <td>%42</td>
+      <td>r</td>
+      <td>%72</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>%13</td>
+
+      <td>C</td>
+      <td>%43</td>
+      <td>s</td>
+      <td>%73</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+
+      <td>%14</td>
+      <td>D</td>
+      <td>%44</td>
+      <td>t</td>
+      <td>%74</td>
+    </tr>
+
+    <tr>
+      <td>&nbsp;</td>
+      <td>%15</td>
+      <td>E</td>
+      <td>%45</td>
+      <td>u</td>
+      <td>%75</td>
+
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>%16</td>
+      <td>F</td>
+      <td>%46</td>
+      <td>v</td>
+
+      <td>%76</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>%17</td>
+      <td>G</td>
+      <td>%47</td>
+
+      <td>w</td>
+      <td>%77</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>%18</td>
+      <td>H</td>
+
+      <td>%48</td>
+      <td>x</td>
+      <td>%78</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>%19</td>
+
+      <td>I</td>
+      <td>%49</td>
+      <td>y</td>
+      <td>%79</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+
+      <td>%1a</td>
+      <td>J</td>
+      <td>%4a</td>
+      <td>z</td>
+      <td>%7a</td>
+    </tr>
+
+    <tr>
+      <td>&nbsp;</td>
+      <td>%1b</td>
+      <td>K</td>
+      <td>%4b</td>
+      <td>{</td>
+      <td>%7b</td>
+
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>%1c</td>
+      <td>L</td>
+      <td>%4c</td>
+      <td>|</td>
+
+      <td>%7c</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>%1d</td>
+      <td>M</td>
+      <td>%4d</td>
+
+      <td>}</td>
+      <td>%7d</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>%1e</td>
+      <td>N</td>
+
+      <td>%4e</td>
+      <td>~</td>
+      <td>%7e</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>%1f</td>
+
+      <td>O</td>
+      <td>%4f</td>
+      <td>&nbsp;</td>
+      <td>%7f</td>
+    </tr>
+    <tr>
+      <td>space</td>
+
+      <td>%20</td>
+      <td>P</td>
+      <td>%50</td>
+      <td>€</td>
+      <td>%80</td>
+    </tr>
+
+    <tr>
+      <td>!</td>
+      <td>%21</td>
+      <td>Q</td>
+      <td>%51</td>
+      <td>&nbsp;</td>
+      <td>%81</td>
+
+    </tr>
+    <tr>
+      <td>&quot;</td>
+      <td>%22</td>
+      <td>R</td>
+      <td>%52</td>
+      <td>‚</td>
+
+      <td>%82</td>
+    </tr>
+    <tr>
+      <td>#</td>
+      <td>%23</td>
+      <td>S</td>
+      <td>%53</td>
+
+      <td>ƒ</td>
+      <td>%83</td>
+    </tr>
+    <tr>
+      <td>$</td>
+      <td>%24</td>
+      <td>T</td>
+
+      <td>%54</td>
+      <td>„</td>
+      <td>%84</td>
+    </tr>
+    <tr>
+      <td>%</td>
+      <td>%25</td>
+
+      <td>U</td>
+      <td>%55</td>
+      <td>…</td>
+      <td>%85</td>
+    </tr>
+    <tr>
+      <td>&amp;</td>
+
+      <td>%26</td>
+      <td>V</td>
+      <td>%56</td>
+      <td>†</td>
+      <td>%86</td>
+    </tr>
+
+    <tr>
+      <td>'</td>
+      <td>%27</td>
+      <td>W</td>
+      <td>%57</td>
+      <td>‡</td>
+
+      <td>%87</td>
+    </tr>
+    <tr>
+      <td>(</td>
+      <td>%28</td>
+      <td>X</td>
+      <td>%58</td>
+
+      <td>ˆ</td>
+      <td>%88</td>
+    </tr>
+    <tr>
+      <td>)</td>
+      <td>%29</td>
+      <td>Y</td>
+
+      <td>%59</td>
+      <td>‰</td>
+      <td>%89</td>
+    </tr>
+    <tr>
+      <td>*</td>
+      <td>%2a</td>
+
+      <td>Z</td>
+      <td>%5a</td>
+      <td>Š</td>
+      <td>%8a</td>
+    </tr>
+    <tr>
+      <td>+</td>
+
+      <td>%2b</td>
+      <td>[</td>
+      <td>%5b</td>
+      <td>‹</td>
+      <td>%8b</td>
+    </tr>
+
+    <tr>
+      <td>,</td>
+      <td>%2c</td>
+      <td>\</td>
+      <td>%5c</td>
+      <td>Œ</td>
+
+      <td>%8c</td>
+    </tr>
+    <tr>
+      <td>-</td>
+      <td>%2d</td>
+      <td>]</td>
+      <td>%5d</td>
+
+      <td>&nbsp;</td>
+      <td>%8d</td>
+    </tr>
+    <tr>
+      <td>.</td>
+      <td>%2e</td>
+      <td>^</td>
+
+      <td>%5e</td>
+      <td>Ž</td>
+      <td>%8e</td>
+    </tr>
+    <tr>
+      <td>/</td>
+      <td>%2f</td>
+
+      <td>_</td>
+      <td>%5f</td>
+      <td>&nbsp;</td>
+      <td>%8f</td>
+    </tr>
+</table>
+
+
+<h2>
+<b>URL-encoding from %90 to %ff</b></h2>
+
+
+<table class="ex" cellspacing="0" border="1" width="100%">
+    <tr>
+      <th align="left">ASCII Value</th>
+      <th align="left">URL-encode</th>
+      <th align="left">ASCII Value</th>
+      <th align="left">URL-encode</th>
+
+      <th align="left">ASCII Value</th>
+      <th align="left">URL-encode</th>
+      </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>%90</td>
+      <td>À</td>
+
+      <td>%c0</td>
+      <td>ð</td>
+      <td>%f0</td>
+    </tr>
+    <tr>
+      <td>‘</td>
+      <td>%91</td>
+
+      <td>Á</td>
+      <td>%c1</td>
+      <td>ñ</td>
+      <td>%f1</td>
+    </tr>
+    <tr>
+      <td>’</td>
+
+      <td>%92</td>
+      <td>Â</td>
+      <td>%c2</td>
+      <td>ò</td>
+      <td>%f2</td>
+    </tr>
+
+    <tr>
+      <td>“</td>
+      <td>%93</td>
+      <td>Ã</td>
+      <td>%c3</td>
+      <td>ó</td>
+
+      <td>%f3</td>
+    </tr>
+    <tr>
+      <td>”</td>
+      <td>%94</td>
+      <td>Ä</td>
+      <td>%c4</td>
+
+      <td>ô</td>
+      <td>%f4</td>
+    </tr>
+    <tr>
+      <td>•</td>
+      <td>%95</td>
+      <td>Å</td>
+
+      <td>%c5</td>
+      <td>õ</td>
+      <td>%f5</td>
+    </tr>
+    <tr>
+      <td>–</td>
+      <td>%96</td>
+
+      <td>Æ</td>
+      <td>%c6</td>
+      <td>ö</td>
+      <td>%f6</td>
+    </tr>
+    <tr>
+      <td>—</td>
+
+      <td>%97</td>
+      <td>Ç</td>
+      <td>%c7</td>
+      <td>÷</td>
+      <td>%f7</td>
+    </tr>
+
+    <tr>
+      <td>˜</td>
+      <td>%98</td>
+      <td>È</td>
+      <td>%c8</td>
+      <td>ø</td>
+
+      <td>%f8</td>
+    </tr>
+    <tr>
+      <td>™</td>
+      <td>%99</td>
+      <td>É</td>
+      <td>%c9</td>
+
+      <td>ù</td>
+      <td>%f9</td>
+    </tr>
+    <tr>
+      <td>š</td>
+      <td>%9a</td>
+      <td>Ê</td>
+
+      <td>%ca</td>
+      <td>ú</td>
+      <td>%fa</td>
+    </tr>
+    <tr>
+      <td>›</td>
+      <td>%9b</td>
+
+      <td>Ë</td>
+      <td>%cb</td>
+      <td>û</td>
+      <td>%fb</td>
+    </tr>
+    <tr>
+      <td>œ</td>
+
+      <td>%9c</td>
+      <td>Ì</td>
+      <td>%cc</td>
+      <td>ü</td>
+      <td>%fc</td>
+    </tr>
+
+    <tr>
+      <td>&nbsp;</td>
+      <td>%9d</td>
+      <td>Í</td>
+      <td>%cd</td>
+      <td>ý</td>
+      <td>%fd</td>
+
+    </tr>
+    <tr>
+      <td>ž</td>
+      <td>%9e</td>
+      <td>Î</td>
+      <td>%ce</td>
+      <td>þ</td>
+
+      <td>%fe</td>
+    </tr>
+    <tr>
+      <td>Ÿ</td>
+      <td>%9f</td>
+      <td>Ï</td>
+      <td>%cf</td>
+
+      <td>ÿ</td>
+      <td>%ff</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>%a0</td>
+      <td>Ð</td>
+
+      <td>%d0</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>¡</td>
+      <td>%a1</td>
+
+      <td>Ñ</td>
+      <td>%d1</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>¢</td>
+
+      <td>%a2</td>
+      <td>Ò</td>
+      <td>%d2</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+
+      <td>£</td>
+      <td>%a3</td>
+      <td>Ó</td>
+      <td>%d3</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>&nbsp;</td>
+      <td>%a4</td>
+      <td>Ô</td>
+      <td>%d4</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+
+    </tr>
+    <tr>
+      <td>¥</td>
+      <td>%a5</td>
+      <td>Õ</td>
+      <td>%d5</td>
+      <td>&nbsp;</td>
+
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>|</td>
+      <td>%a6</td>
+      <td>Ö</td>
+      <td>%d6</td>
+
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>§</td>
+      <td>%a7</td>
+      <td>&nbsp;</td>
+      <td>%d7</td>
+
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>¨</td>
+      <td>%a8</td>
+      <td>Ø</td>
+
+      <td>%d8</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>©</td>
+      <td>%a9</td>
+
+      <td>Ù</td>
+      <td>%d9</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>ª</td>
+
+      <td>%aa</td>
+      <td>Ú</td>
+      <td>%da</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+
+      <td>«</td>
+      <td>%ab</td>
+      <td>Û</td>
+      <td>%db</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>¬</td>
+      <td>%ac</td>
+      <td>Ü</td>
+      <td>%dc</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+
+    </tr>
+    <tr>
+      <td>¯</td>
+      <td>%ad</td>
+      <td>Ý</td>
+      <td>%dd</td>
+      <td>&nbsp;</td>
+
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>®</td>
+      <td>%ae</td>
+      <td>Þ</td>
+      <td>%de</td>
+
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>¯</td>
+      <td>%af</td>
+      <td>ß</td>
+
+      <td>%df</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>°</td>
+      <td>%b0</td>
+
+      <td>à</td>
+      <td>%e0</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>±</td>
+
+      <td>%b1</td>
+      <td>á</td>
+      <td>%e1</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+
+      <td>²</td>
+      <td>%b2</td>
+      <td>â</td>
+      <td>%e2</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>³</td>
+      <td>%b3</td>
+      <td>ã</td>
+      <td>%e3</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+
+    </tr>
+    <tr>
+      <td>´</td>
+      <td>%b4</td>
+      <td>ä</td>
+      <td>%e4</td>
+      <td>&nbsp;</td>
+
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>µ</td>
+      <td>%b5</td>
+      <td>å</td>
+      <td>%e5</td>
+
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>¶</td>
+      <td>%b6</td>
+      <td>æ</td>
+
+      <td>%e6</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>·</td>
+      <td>%b7</td>
+
+      <td>ç</td>
+      <td>%e7</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>¸</td>
+
+      <td>%b8</td>
+      <td>è</td>
+      <td>%e8</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+
+      <td>¹</td>
+      <td>%b9</td>
+      <td>é</td>
+      <td>%e9</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>º</td>
+      <td>%ba</td>
+      <td>ê</td>
+      <td>%ea</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+
+    </tr>
+    <tr>
+      <td>»</td>
+      <td>%bb</td>
+      <td>ë</td>
+      <td>%eb</td>
+      <td>&nbsp;</td>
+
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>¼</td>
+      <td>%bc</td>
+      <td>ì</td>
+      <td>%ec</td>
+
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>½</td>
+      <td>%bd</td>
+      <td>í</td>
+
+      <td>%ed</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>¾</td>
+      <td>%be</td>
+
+      <td>î</td>
+      <td>%ee</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>¿</td>
+
+      <td>%bf</td>
+      <td>ï</td>
+      <td>%ef</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+</table>
+
+URL Encoding (VB.net)
+
+<fieldset class="fyazi">
+<pre>
+&lt;%@ Page Language="VB" %&gt;
+&lt;html&gt;
+   &lt;head&gt;
+      &lt;title&gt;URLEncoding&lt;/title&gt;
+   &lt;script runat="server"&gt;
+      Sub Page_Load()
+         If IsPostBack
+            Response.Write(Server.UrlEncode(Request.Form("name")))
+         End If
+      End Sub
+   &lt;/script&gt;
+   &lt;/head&gt;
+&lt;body&gt;
+&lt;%--    &lt;form id="form1" action="UrlEncode.aspx"  method="POST" runat="server"&gt;
+ --%&gt;
+   &lt;form id="form1" method="POST" runat="server"&gt;
+      &lt;h3&gt;Name:&lt;/h3&gt;
+      &lt;input type="text" id="name" runat="server"&gt;
+      &lt;input type="submit" runat="server"&gt;
+   &lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+</fieldset>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

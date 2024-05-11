@@ -1,0 +1,222 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Hyperlink Preprocessor </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">31 Mart 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>mnoGoSearch İşlevleri</h2>
+
+<h2>Giriş</h3>
+
+Bu işlevler mnoGoSearch (eskiden UdmSearch idi) ücretsiz arama motoruna
+erişimi sağlar. mnoGoSearch tüm özellikleriyle iç ağ ve Internet ağı için
+kullanılabilecek bir yazılımdır. mnoGoSearch GNU lisansıyla dağıtılır ve bazı
+tekil özellikleriyle pek çok uygulama için aranan program olur. Site
+aramasından özel amaçlı gazete aramalarına, ftp arşiv aramalarına ve haber
+yazılarına değin kullanım olanağı oluşur. Tam yazı diziniyle HTML, PDF ve yazı
+belgelerinde kullanılır. mnoGoSearch iki bölümden oluşur. İlki dizi
+makenizmasıdır (dizinleyici). Dizinleyicinin amacı HTTP, FTP, NEWS sunucusu ya
+da yerel dosyaları dolanıp bu belgelerden meta-veri oluşturmaktır. Meta-veri
+SQL veritabanına akıllı ve verimli bir yöntemle saklanır. Sonra tüm veri
+karşılığı olan URL adresiyle saklanır. Meta-veri dizinleyici tarafından arama
+işleminde kullanılır. Arama Web arayüzü. C, CGI, PHP ve Perl arama ön yüzüyle
+de kullanılabilir.
+<br /><br />
+mnoGoSearch hakkında daha çok bilgi için http://www.mnogosearch.org/ adresine
+bakın.
+<br /><br />
+    Not: Bu uzantı PECL havuzuna taşınmıştır. PHP 5.1.0 sürümden beri paket içinde değildir
+<br /><br />
+    Not: Bu uzantı Windows ortamı için kullanılabilir değildir.
+
+<h3>Gereksinim</h3>
+
+http://www.mnogosearch.org/ adresinden mnoGosearch indirilir ve kurulur.
+Bunun için en az 3.1.10 sürümüne gerek vardır.
+
+<h3>Kurulum</h3>
+
+Bu işlevlerin kullanılabilmesi için PHP "--with-mnoGoSearch" seçeneğiyle
+derlenmiş olması gerekir. Yol belirtilmezse PHP /usr/local/mnoGoSearch altında
+bu programı arar. Başka bir yol tanımlamak için "--mnoGoSearch=DIR"
+kullanılır.
+<br /><br />
+Bu PECL uzantısını kurmak için gereken bilgi PECL uzantılarında bulunabilir.
+Diğer bilgiler http://pecl.php.net/package/mnogosearch adresinden
+bulunabilir.
+<br /><br />
+    Not: PHP'nin hazır MySQL erişim kitaplığı vardır. Bununla MySQL veritabanına
+erişilebilir. mnoGoSearch bu kitaplıkla uyumlu değildir. Bu nedenle
+mnoGoSearch ile MySQL kullanacak ulursanız, mnoGoSearch ile kullandığınız MySQL yolunu açıkça belirmeniz gerekecektir. "--with-mnogosearch --with-mysql=/usr" gibi...
+
+<h3>Önceden Tanımlı Değişmezler</h3>
+
+Aşağıdaki değişmezler bu uzantı için geçerlidir. Uzantı yüklü değilse
+kullanılamaz.
+
+<pre>
+UDM_FIELD_URLID (tamsayı)
+UDM_FIELD_URL (tamsayı)
+UDM_FIELD_CONTENT (tamsayı)
+UDM_FIELD_TITLE (tamsayı)
+UDM_FIELD_KEYWORDS (tamsayı)
+UDM_FIELD_DESC (tamsayı)
+UDM_FIELD_DESCRIPTION (tamsayı)
+UDM_FIELD_TEXT (tamsayı)
+UDM_FIELD_SIZE (tamsayı)
+UDM_FIELD_RATING (tamsayı)
+UDM_FIELD_SCORE (tamsayı)
+UDM_FIELD_MODIFIED (tamsayı)
+UDM_FIELD_ORDER (tamsayı)
+UDM_FIELD_CRC (tamsayı)
+UDM_FIELD_CATEGORY (tamsayı)
+UDM_FIELD_LANG (tamsayı)
+UDM_FIELD_CHARSET (tamsayı)
+UDM_PARAM_PAGE_SIZE (tamsayı)
+UDM_PARAM_PAGE_NUM (tamsayı)
+UDM_PARAM_SEARCH_MODE (tamsayı)
+UDM_PARAM_CACHE_MODE (tamsayı)
+UDM_PARAM_TRACK_MODE (tamsayı)
+UDM_PARAM_PHRASE_MODE (tamsayı)
+UDM_PARAM_CHARSET (tamsayı)
+UDM_PARAM_LOCAL_CHARSET (tamsayı)
+UDM_PARAM_BROWSER_CHARSET (tamsayı)
+UDM_PARAM_STOPTABLE (tamsayı)
+UDM_PARAM_STOP_TABLE (tamsayı)
+UDM_PARAM_STOPFILE (tamsayı)
+UDM_PARAM_STOP_FILE (tamsayı)
+UDM_PARAM_WEIGHT_FACTOR (tamsayı)
+UDM_PARAM_WORD_MATCH (tamsayı)
+UDM_PARAM_MAX_WORD_LEN (tamsayı)
+UDM_PARAM_MAX_WORDLEN (tamsayı)
+UDM_PARAM_MIN_WORD_LEN (tamsayı)
+UDM_PARAM_MIN_WORDLEN (tamsayı)
+UDM_PARAM_ISPELL_PREFIXES (tamsayı)
+UDM_PARAM_ISPELL_PREFIX (tamsayı)
+UDM_PARAM_PREFIXES (tamsayı)
+UDM_PARAM_PREFIX (tamsayı)
+UDM_PARAM_CROSS_WORDS (tamsayı)
+UDM_PARAM_CROSSWORDS (tamsayı)
+UDM_PARAM_VARDIR (tamsayı)
+UDM_PARAM_DATADIR (tamsayı)
+UDM_PARAM_HLBEG (tamsayı)
+UDM_PARAM_HLEND (tamsayı)
+UDM_PARAM_SYNONYM (tamsayı)
+UDM_PARAM_SEARCHD (tamsayı)
+UDM_PARAM_QSTRING (tamsayı)
+UDM_PARAM_REMOTE_ADDR (tamsayı)
+UDM_LIMIT_CAT (tamsayı)
+UDM_LIMIT_URL (tamsayı)
+UDM_LIMIT_TAG (tamsayı)
+UDM_LIMIT_LANG (tamsayı)
+UDM_LIMIT_DATE (tamsayı)
+UDM_PARAM_FOUND (tamsayı)
+UDM_PARAM_NUM_ROWS (tamsayı)
+UDM_PARAM_WORDINFO (tamsayı)
+UDM_PARAM_WORD_INFO (tamsayı)
+UDM_PARAM_SEARCHTIME (tamsayı)
+UDM_PARAM_SEARCH_TIME (tamsayı)
+UDM_PARAM_FIRST_DOC (tamsayı)
+UDM_PARAM_LAST_DOC (tamsayı)
+UDM_MODE_ALL (tamsayı)
+UDM_MODE_ANY (tamsayı)
+UDM_MODE_BOOL (tamsayı)
+UDM_MODE_PHRASE (tamsayı)
+UDM_CACHE_ENABLED (tamsayı)
+UDM_CACHE_DISABLED (tamsayı)
+UDM_TRACK_ENABLED (tamsayı)
+UDM_TRACK_DISABLED (tamsayı)
+UDM_PHRASE_ENABLED (tamsayı)
+UDM_PHRASE_DISABLED (tamsayı)
+UDM_CROSS_WORDS_ENABLED (tamsayı)
+UDM_CROSSWORDS_ENABLED (tamsayı)
+UDM_CROSS_WORDS_DISABLED (tamsayı)
+UDM_CROSSWORDS_DISABLED (tamsayı)
+UDM_PREFIXES_ENABLED (tamsayı)
+UDM_PREFIX_ENABLED (tamsayı)
+UDM_ISPELL_PREFIXES_ENABLED (tamsayı)
+UDM_ISPELL_PREFIX_ENABLED (tamsayı)
+UDM_PREFIXES_DISABLED (tamsayı)
+UDM_PREFIX_DISABLED (tamsayı)
+UDM_ISPELL_PREFIXES_DISABLED (tamsayı)
+UDM_ISPELL_PREFIX_DISABLED (tamsayı)
+UDM_ISPELL_TYPE_AFFIX (tamsayı)
+UDM_ISPELL_TYPE_SPELL (tamsayı)
+UDM_ISPELL_TYPE_DB (tamsayı)
+UDM_ISPELL_TYPE_SERVER (tamsayı)
+UDM_MATCH_WORD (tamsayı)
+UDM_MATCH_BEGIN (tamsayı)
+UDM_MATCH_SUBSTR (tamsayı)
+UDM_MATCH_END (tamsayı)
+</pre>
+<h3>İçindekiler</h3>
+<ul>
+    <li> udm_add_search_limit — Çeşitli arama sınırlarını ekle
+    <li> udm_alloc_agent_array — mnoGoSearch oturumuna yer aç
+    <li> udm_alloc_agent — mnoGoSearch oturumuna yer aç
+    <li> udm_api_version — mnoGoSearch API sürümünü al
+    <li> udm_cat_list — o anki ile aynı düzeyde olan tüm kategorileri al
+    <li> udm_cat_path — o anki kategorinin yolunu al
+    <li> udm_check_charset — verilen karakter takımı mnogosearch tarafından biliniyor mu bak
+    <li> udm_check_stored — Bağlantıyı saklananla karşılaştır
+    <li> udm_clear_search_limits — Tüm mnoGoSearch sınırlamalarını kaldır.
+    <li> udm_close_stored — Bağlantıyı saklanan göre kapa
+    <li> udm_crc32 — verilen yazı dizisi için CRC32 denetim kodunu döndür
+    <li> udm_errno — mnoGoSearch hata numarasını al
+    <li> udm_error — mnoGoSearch hata mesajını al
+    <li> udm_find — arama yap
+    <li> udm_free_agent — mnoGoSearch oturumunu boşalt
+    <li> udm_free_ispell_data — ispell verisi için açılan belleği boşalt
+    <li> udm_free_res — mnoGoSearch sonuçlarını boşalt
+    <li> udm_get_doc_count — Veri tabanındaki toplam belge sayısını al
+    <li> udm_get_res_field — Sonuç alanına bak
+    <li> udm_get_res_param — mnoGoSearch sonuç değişgeçlerini al
+    <li> udm_hash32 — verilen yazı dizisi için Hash32 denetim kodunu döndür
+    <li> udm_load_ispell_data — ispell verisini yükle
+    <li> udm_open_stored — Bağlantıyı saklanana göre aç
+    <li> udm_set_agent_param — mnoGoSearch ajanı oturumu değişgeçlerini ayarla
+</ul>
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

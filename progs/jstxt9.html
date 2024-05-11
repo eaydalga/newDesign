@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>JS - Başvuru </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script language="JavaScript" src="../js/XHConn.js"> </script>
+<script language="JavaScript" src="../js/js10.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="ysoltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="js.html" class="nav">Giriş</a>
+               <a href="jstxt1.html" class="nav">Sayfada Javascript</a>
+               <a href="jstxt2.html" class="nav">Nesnel Programlama</a>
+               <a href="jstxt3.html" class="nav">JS Nesneleri</a>
+               <a href="jstxt4.html" class="nav">İşlemler</a>
+               <a href="jstxt5.html" class="nav">Değişkenler</a>
+               <a href="jstxt6.html" class="nav">Denetim Yapıları</a>
+               <a href="jstxt7.html" class="nav">Script Yazma</a>
+               <a href="jstxt8.html" class="nav">Yazma İşlevleri</a>
+               <a href="jstxt9.html" class="nav">Başvuru</a>
+               <a href="jstxt10.html" class="nav">DHTML</a>
+               <a href="jstxt11.html" class="nav">Öğe İçeriği</a>
+               <a href="jstxt12.html" class="nav">Pencereler</a>
+               <a href="jstxt13.html" class="nav">Olay Bilgisi</a>
+               <a href="jstxt14.html" class="nav">Zaman Ayarı</a>
+               <a href="jstxt15.html" class="nav">Cookie Kullanımı</a>
+               <a href="jstxt16.html" class="nav">Güvenlik</a>
+               <a href="js24.html" class="nav">Javascript Nesneler</a>
+<br />
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>Javascript Yazılım Kuralları (JS)</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">22 Aralık 2007</span></div>
+<h2>Başvuru</h2>
+<div class="yazi">
+<h3>Tarayıcılar Nasıl etkilenir</h3>
+
+Başvuru (gönderim) doğru öğrenmenin en zor kısmıdır.
+Gerekli olan yöntemlerin, değişik tarayıcıların hepsinde çalıştığına emin olunması gerekir. Burada en çok kullanılan tarayıcılardan Javascript kullananların listesi vardır.
+<br />
+<br />
+En yüksek Javascript desteği Opera ve Mozilla tarayıcılarında vardır. Ama pek çok kod zayıf yazılmış olduğundan uygulanabilirliği birkaç tarayıcıyla sınırlıdır. Maalesef IE güzel bir Javascript desteğine sahip değildir. Çoğu kez var olan özellikler de standartlarla uyumlu değildir. Pek çok kişi standart olmayan eklentilere dayanarak kod yazar. Pek çoğu kullandıkları özelliklerin standart dışı olduğunu bile bilmezler. Başka tarayıcılar da bu eklentilerin bazılarını uyarlamış olabilirler. Belki yalnız kodların çalışmasına yetecek kadarı uyarlanmıştır.
+<br />
+<br />
+Burada incelenebilecek kadar çok tarayıcıya bakılmış ve kodlama karşısından nasıl davrandıkları gözlenip açıklama sayfaları hazırlanmıştır. Buraya yazılanların pek çok tarayıcıda çalışır olabilmesine gayret edilmiştir. Örneklerde standart sürüm kullanılmış, ancak standart sürüm yetersiz olduğunda dışına çıkılmıştır.
+<h3>Nesne Sıradüzeni</h3>
+
+Bir sayfadaki öğelere (nesnelere) erişim, nesnel yapısına ya da sıradüzene göre olur. En üst düzeydeki belge çoğu zaman 'document' olur. Daha sonraki belge, yapısına göre değişir. Bir çok öğeye (HTML biçimleri) dördüncü kuşak tarayıcılarda erişilemez bile. Aşağıda erişilenlerin hangi öğeler olduğu gösterilmiştir:
+<br />
+<ul class="yazi">
+    <li> body, 'document' ile erişilir</li>
+    <li> div, tarayıcı bağımlı erişimler vardır, 'id' biçimiyle hedeflenebilir.</li>
+    <li> span, tarayıcı bağımlı erişimler vardır. 'id' biçimiyle hedeflenebilir (bu erişimleri hiç kullanmamak daha doğru olabilir. Dördüncü kuşak tarayıcılarda hatalar vardır. Kullanırsanız ortaya çıkabilir).</li>
+    <li> img, belge nesnesiyle erişilebilir, hedefleme 'name' ile yapılır.</li>
+    <li> a, belge nesnesiyle erişilebilir, hedefleme dizin sırasıyla (index) ile olur.</li>
+    <li> form, belge nesnesiyle erişilebilir, hedefleme 'name' ile yapılır.</li>
+    <li> input, select or textarea, form ile erişilebilir ve hedefleme 'name' ile yapılır</li>
+</ul>
+<br />
+Birçok tarayıcıda, bu bölümler yazıldıktan hemen sonra kodlama kullanıma açıktır, ama bazı eski tarayıcılarda kodlama çalışmasını bitirinceye dek (&lt;/script&gt; biçiminden sonra) açık olmayabilirler.
+<br />
+<br />
+Belgenin ne zaman yüklendiğini 'window.onload' olayıyla öğrenebilirsiniz (HTML'de nasıl yazıldığı aşağıda gösterilmiştir).
+<br />
+<pre>
+&lt;body onload= ...).
+</pre>
+<br />
+Tuhaftır ki, Gecko tarayıcılar (Mozilla/Firefox/Netscape 6+) tarayıcılarında öğenin başlangıç biçimi ve kodlama arasında en az bir karakter olmalıdır. Öğe resim bile olsa, ya da kodlama sayfa yüklenmeden açık olmaz.
+<br />
+<br />
+
+Başvurulabilen birkaç öğe daha vardır. Tüm nesneler, özellikler, toplamalar ve yöntemler Javascript nesnelerine başvurur.
+<br />
+<br />
+
+Tüm belge parçalarına erişebilen (bağlar hariç) soysal başvuru işlevi yazıldığında sonraki yazıları kısa kesmeden inceleyin. Gerçekten anlarsınız ki, incelemeden körü körüne yazılan kodu kullanmamak gerekir.
+<h3>Başvuru çelişkilerini önleme</h3>
+
+Unutmayın ki Javascript adları küçük-büyük harf duyarlıdır. Adlar a-z ve A-Z ya da _ ile başlar ve a-z, A-Z, 0-9 ve _ karakterlerini içerir. Ad kurallarındaki alışkanlık adların yaptığı işe uygun adlandırılmalıdır. Eğer ad bir kelimeden uzunsa, alt çizgi kullanmak iyidir. Genelde herkes ilk kelime dışındaki her kelimenin ilk harfini büyük yazar.
+<br />
+<br />
+Örneğin sizin hakkınızda yazı içeren bir değişkenin adı için 'hakkimizdaki yazi' olacaksa, boşlukları kaldırıp, boşlukları izleyen kelimenin ilk harfi büyük yapılınca değişkenin adı 'hakkimizdakiYazi' biçimini alır.
+<br />
+<br />
+Başvuru çelikşilerini önlemek için, Javascript nesneler ya da belge öğeleri aynı ad verilmemeli (giriş alan adları hariç).
+<br />
+<br />
+Değişkenler, işlevler, HTML biçimlerinin 'names' ve 'id' değerleri için ad seçerken, bir dizi saklı sözcük vardır. Bunlar: 
+abstract, arguments, boolean, break, byte, case, catch, char, class, const, continue, debugger, default, delete, do, double, else, enum, export, extends, false, final, finally, float, for, function, goto, if, implements, import, in, instanceof, int, interface, long, native, new, null, package, private, protected, public, return, short, static, super, switch, synchronized, this, throw, throws, transient, true, try, typeof, var, void, volatile, while, with.
+<br />
+<br />
+Ek olarak, var olan  özelliklerin ve yöntemlerin enversel nesnelerin adları kullanılmamalıdır (nesne adlarını ibilhassa ezmek isterseniz aynı adı kullanabilirsiniz).
+</div>
+<br />
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

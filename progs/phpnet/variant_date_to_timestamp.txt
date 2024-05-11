@@ -1,0 +1,13 @@
+
+variant_date_to_timestamp
+
+(PHP 5)
+
+variant_date_to_timestamp — Converts a variant date/time value to Unix timestamp
+Description
+int variant_date_to_timestamp ( variant $variant )
+
+Converts variant from a VT_DATE (or similar) value into a Unix timestamp. This allows easier interopability between the Unix-ish parts of PHP and COM.
+
+See also variant_date_from_timestamp() for the inverse of this operation, date(), strftime().
+

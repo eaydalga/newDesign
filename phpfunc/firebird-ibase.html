@@ -1,0 +1,331 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Firebird/InterBase İşlevler </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">18 Şubat 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>Firebird/InterBase İşlevler</h2>
+
+<h3>Giriş</h3>
+
+Firebird/InterBase ilişkisel veri tabanıdır. ANSI SQL-92 özelliklerinin
+pekçoğunu içerir. Linux, Windows ve birçok Unix ortamında çalışır.
+Firebird/Interbase saklanan işlemler ve tetikleyiciler için mükemmel ilişki, yüksek verim ve güçlü dil desteği sağlar. 1981'den beri birçok deüişik adlarla üretim sistemlerinde kullanılmaktadır.
+
+<br /><br />
+Interbase RDBMS kapalı kaynak kod sistemin adıdır. Borland/Inprise
+geliştirmiştir. Daha çok bilgi için  http://www.borland.com/interbase/
+adresine bakılabilir.
+<br /><br />
+Firebird C ve C++ programcılarının, teknik danışmanların ve destekleyenlerin ticari olarak bağımsız projesidir. Birden çok ortamda ilişkisel veritabanı yönetim sistemi olarak geliştirmesi devam etmiştir. İlk kaynak kod Inprise Corp (Şimdi Borland Software Corp olarak bilinmektedir) kaynaklarına dayanır. Daha çok bilgi için http://www.firebirdsql.org/ adresine bakılabilir.
+<br /><br />
+    Not: Bu uzantı Interbase sürüm 5 ve sonrasını ve tüm Firebird sürümlerini destekler. Interbase Sürüm 5.x sdesteği PHP 5'de bırakılacaktır.
+<br /><br />
+Bu veritabanı atlatmalar için tek tırnak (') kullanır. Sybase sistemine
+benzerdir. php.ini dosyasına aşağıdaki yönelticiyle eklenir:
+<pre>
+    magic_quotes_sybase = On
+</pre>
+
+<h3>Kurulum</h3>
+
+PHP "--with-interbase[=DIR]" ile derlenince Interbase desteği sağlanmış olur.
+DIR Interbase kurulum dosya yoludur (varsayılan değeri /usr/interbase olur).
+<br /><br />
+    Not: 
+<b>Windows kullanıcıları için not</b>
+Bu uzantının çalışması için DLL dosyalarının Windows PATH çevre değişkeniyle
+erişilen yerde olması gerekir. Bu uzantı gds32.dll dosyasının PATH ile
+erişilecek yerde olmasını ister.
+<br /><br />
+PHP ile Interbase sistemini aynı bilgisayarda kurmuşsanız DLL doğru
+yerindedir. Ve bu DLL için dertlenmeniz gerekmez.
+<h3>Çalışma Zamanı Ayarları</h3>
+
+İşlevlerin davranışları php.ini ayarlarıyla değişim gösterir.
+
+<h3>InterBase ayar seçenekler</h3>
+<table class="fyazi">
+<tr><td>Ad</td><td>Varsayılan</td><td>Değişebilir</td><td>Değişme
+Kaydı</td></tr>
+<tr><td>ibase.allow_persistent</td><td>"1"</td><td>PHP_INI_SYSTEM</td><td></td></tr>
+<tr><td>ibase.max_persistent</td><td>"-1"</td><td>PHP_INI_SYSTEM</td><td></td></tr>
+<tr><td>ibase.max_links</td><td>"-1"</td><td>PHP_INI_SYSTEM</td><td></td></tr>
+<tr><td>ibase.default_db</td><td>NULL</td><td>PHP_INI_SYSTEM</td><td>PHP 5.0.0 sürümden beri.</td></tr>
+<tr><td>ibase.default_user</td><td>NULL</td><td>PHP_INI_ALL</td><td></td></tr>
+<tr><td>ibase.default_password</td><td>NULL</td><td>PHP_INI_ALL</td><td></td></tr>
+<tr><td>ibase.default_charset</td><td>NULL</td><td>PHP_INI_ALL</td><td>PHP 5.0.0 sürümden beri.</td></tr>
+<tr><td>ibase.timestampformat</td><td>"%Y-%m-%d
+%H:%M:%S"</td><td>PHP_INI_ALL</td><td></td></tr>
+<tr><td>ibase.dateformat</td><td>"%Y-%m-%d"</td><td>PHP_INI_ALL</td><td></td></tr>
+<tr><td>ibase.timeformat</td><td>"%H:%M:%S"</td><td>PHP_INI_ALL</td><td></td></tr>
+</table>
+
+Ayrıntılı tanımlar için PHP_INI_* değişmezleri ve php.ini yönelticilerine
+bakın.
+<br /><br />
+Ayar yönelticilerinin kısa açıklaması
+<dl>
+<dt>ibase.allow_persistent mantıksal
+
+    <dd>Firebird/InterBase ile sürekli bağlantı olacak mı?.
+</dd></dt>
+<dt>ibase.max_persistent tamsayı
+
+    <dd> Firebird/InterBase Sürekli bağlantı için en çok bağlantı sayısı. Yeni
+bağlantılar ibase_connect() ile sağlanır. Eğer bu sayı geçerse sonuç belli
+olmaz.
+</dd></dt>
+<dt>ibase.max_links tamsayı
+
+    <dd> Firebird/InterBase bağlantı için en çok bağlantı sayısı. Sürekli
+bağlantılar dahil.
+</dd></dt>
+<dt>ibase.default_db yazı dizisi
+
+    <dd>ibase_[p]connect() çağrıldığında bağlanılacak varsayılan veritabanı
+(veritabanı adı belirtmeksizin). Eğer bu değer ayarlanır ve güvenli SQL konumu
+açıksa, bu veritabanından başkasına baülantı olamaz.
+</dd></dt>
+<dt>ibase.default_user yazı dizisi
+
+    <dd>Eğer kullanıcı adı belirtilmezse veritabanına bağlanacak kullanıcı adı
+</dd></dt>
+<dt>ibase.default_password yazı dizisi
+
+    <dd>Eğer şifre belirtilmezse bağlantıda kullanılacak şifre
+</dd></dt>
+<dt>ibase.default_charset yazı dizisi
+
+    <dd>Eğer karakter takımı belirtilmemişse bağlantıda kullanılacak karakter takımı.
+</dd></dt>
+<dt>ibase.timestampformat yazı dizisi</dt>
+
+<dt>ibase.dateformat yazı dizisi</dt>
+
+<dt>ibase.timeformat yazı dizisi
+
+    <dd>Bu yönelticiler tarih ve zaman kalıbını belirtmekte kullanılan
+yönelticilerdir.
+</dd></dt>
+</dl>
+
+<h3>Önceden Tanımlı Değişmezler</h3>
+
+Aşağıdaki değişmezler bu uzantıyla tanımlıdır. Uzantı yoksa kullanılamaz.
+<br /><br />
+
+Aşağıdaki değişmezler işlem davranışları için ibase_trans() işlevine geçirilebilir.
+<br /><br />
+Firebird/InterBase İşlem duruk kodları
+<table class="fyazi">
+<tr><td>Değişmez</td><td>Açıklama</td></tr>
+<tr><td>IBASE_DEFAULT</td><td>Varsayılan işlem ayarları kullanılabilir. Varsayılanlar istemci kitaplığıyla belirlenir. O da bu değerleri IBASE_WRITE|IBASE_CONCURRENCY|IBASE_WAIT ile tanımlar.</td></tr>
+<tr><td>IBASE_READ</td><td>Yalnız okunur işlem başlatır.</td></tr>
+<tr><td>IBASE_WRITE</td><td>Yalnız okunur işlem başlatır. </td></tr>
+<tr><td>IBASE_CONSISTENCY</td><td>Izolasyon düzeyi 'concurrency' olan bir işlem başlatır. Bunun anlamı işlem başka işlemler tarafından aynı anda değiştirilen tablolardan bilig okuyamaz.</td></tr>
+<tr><td>IBASE_CONCURRENCY</td><td>
+Izolasyon düzeyi 'concurrency' (ya da 'snapshot') olan bir işlem başlatır.
+Bunun anlamı işlemin tüm tablolara erişimi vardır ama bu işlem başladıktan
+sonra diğer işlemlerin onayladığı değişiklikleri göremez.
+</td></tr>
+<tr><td>IBASE_COMMITTED</td><td>
+Izolasyon düzeyi ^read comitted' olan işlemi başlatır. Bu durum kodu
+IBASE_REC_VERSION ya da IBASE_REC_NO_VERSION ile beraber kullanılmalı. Bu
+izolasyon düzeyi işlem başladıktan sonra onaylanan başka işlem verilerini de
+tablodan okur. Eğer IBASE_REC_VERSION tanımlandıysa, satır diğer işlemde
+değişiklik beklemekte olsa bile okunabilir.
+</td></tr>
+<tr><td>IBASE_WAIT</td><td>
+Çelişki oluştuğunda işlem durmalı ve tekrarlanmalı.
+</td></tr>
+<tr><td>IBASE_NOWAIT</td><td>
+Çelişki olduğunda işlem kesilmeli
+</td></tr>
+</table>
+
+Aşağıdaki değişmezler ibase_fetch_row(), ibase_fetch_assoc() ya da ibase_fetch_object() işlevlerine arama davranışını belirtmek için kullanılır.
+<h3>Firebird/InterBase aram durum kodları</h3>
+<table class="fyazi">
+<tr><td>Değişmez</td><td>Açıklama</td></tr>
+<tr><td>IBASE_FETCH_BLOBS</td><td>
+Eskilere uyum için IBASE_TEXT olarak da vardır. BLOB içeriğinin satıriçinde
+aranmasını sağlar (BLOB tanıtıcısı yerine).
+</td></tr>
+<tr><td>IBASE_FETCH_ARRAYS</td><td>
+Dizilerin satır içinde aranmasını sağlar. Aksi halde dizi tanımları
+dçndürülür. Dizi tanımları INSERT işlemine parametre olabilir. Diğer işlevler
+hala dizileri parametre olarak kullanamamaktadır.
+</td></tr>
+<tr><td>IBASE_UNIXTIME</td><td>
+Tarih ve zaman alanlarının yazı dizisi olarak döndürülmemesine neden olur.
+Yerine UNIX zaman damgası döner. Eğer 1970'den önceki tarihler kullanılıyorsa
+sorun olabilir.
+</td></tr>
+</table>
+
+Aşağıdaki değişmezler istekleri ve seçenekleri hizmetin API işlevlerine
+(ibase_server_info(), ibase_db_info(), ibase_backup(), ibase_restore() ve
+ibase_maintain_db()). Bu seçenkeler için Firebird/InterBase kitaplarına bakın.
+geçirmek için kullanılır.
+<dl>
+<dt>IBASE_BKP_IGNORE_CHECKSUMS</dt>
+<dt>IBASE_BKP_IGNORE_LIMBO</dt>
+<dt>IBASE_BKP_METADATA_ONLY</dt>
+<dt>IBASE_BKP_NO_GARBAGE_COLLECT</dt>
+<dt>IBASE_BKP_OLD_DESCRIPTIONS</dt>
+<dt>IBASE_BKP_NON_TRANSPORTABLE</dt>
+<dt>IBASE_BKP_CONVERT
+    <dd>ibase_backup() seçenekleri
+    </dd></dt>
+<dt>IBASE_RES_DEACTIVATE_IDX</dt>
+<dt>IBASE_RES_NO_SHADOW</dt>
+<dt>IBASE_RES_NO_VALIDITY</dt>
+<dt>IBASE_RES_ONE_AT_A_TIME</dt>
+<dt>IBASE_RES_REPLACE</dt>
+<dt>IBASE_RES_CREATE</dt>
+<dt>IBASE_RES_USE_ALL_SPACE
+    <dd>ibase_restore() seçenekleri
+    </dd></dt>
+<dt>IBASE_PRP_PAGE_BUFFERS</dt>
+<dt>IBASE_PRP_SWEEP_INTERVAL</dt>
+<dt>IBASE_PRP_SHUTDOWN_DB</dt>
+<dt>IBASE_PRP_DENY_NEW_TRANSACTIONS</dt>
+<dt>IBASE_PRP_DENY_NEW_ATTACHMENTS</dt>
+<dt>IBASE_PRP_RESERVE_SPACE</dt>
+<dt>IBASE_PRP_RES_USE_FULL</dt>
+<dt>IBASE_PRP_RES</dt>
+<dt>IBASE_PRP_WRITE_MODE</dt>
+<dt>IBASE_PRP_WM_ASYNC</dt>
+<dt>IBASE_PRP_WM_SYNC</dt>
+<dt>IBASE_PRP_ACCESS_MODE</dt>
+<dt>IBASE_PRP_AM_READONLY</dt>
+<dt>IBASE_PRP_AM_READWRITE</dt>
+<dt>IBASE_PRP_SET_SQL_DIALECT</dt>
+<dt>IBASE_PRP_ACTIVATE</dt>
+<dt>IBASE_PRP_DB_ONLINE</dt>
+<dt>IBASE_RPR_CHECK_DB</dt>
+<dt>IBASE_RPR_IGNORE_CHECKSUM</dt>
+<dt>IBASE_RPR_KILL_SHADOWS</dt>
+<dt>IBASE_RPR_MEND_DB</dt>
+<dt>IBASE_RPR_VALIDATE_DB</dt>
+<dt>IBASE_RPR_FULL</dt>
+<dt>IBASE_RPR_SWEEP_DB
+    <dd>ibase_maintain_db() seçenekleri
+    </dd></dt>
+<dt>IBASE_STS_DATA_PAGES</dt>
+<dt>IBASE_STS_DB_LOG</dt>
+<dt>IBASE_STS_HDR_PAGES</dt>
+<dt>IBASE_STS_IDX_PAGES</dt>
+<dt>IBASE_STS_SYS_RELATIONS
+    <dd>ibase_db_info() seçenekleri
+    </dd></dt>
+<dt>IBASE_SVC_SERVER_VERSION</dt>
+<dt>IBASE_SVC_IMPLEMENTATION</dt>
+<dt>IBASE_SVC_GET_ENV</dt>
+<dt>IBASE_SVC_GET_ENV_LOCK</dt>
+<dt>IBASE_SVC_GET_ENV_MSG</dt>
+<dt>IBASE_SVC_USER_DBPATH</dt>
+<dt>IBASE_SVC_SVR_DB_INFO</dt>
+<dt>IBASE_SVC_GET_USERS
+    <dd>ibase_server_info() seçenekleri
+    </dd></dt>
+</dl>
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> ibase_add_user — Bir kullanıcıyı güvenlik veri tabanına ekle (yalnız IB6 ya da sonrası)
+    <li> ibase_affected_rows — Önceki sorgulamadan etkilenen kaç satır olduğunu döndürür.
+    <li> ibase_backup — Hizmet yöneticisinde yedekleme işlemi başlatır ve hemen geri döner (sonucu beklemez)
+    <li> ibase_blob_add — Yeni blob için veri ekleme
+    <li> ibase_blob_cancel — blob yaratmayı kes.
+    <li> ibase_blob_close — blob kapa
+    <li> ibase_blob_create — Veri eklemek için yeni blob yarat
+    <li> ibase_blob_echo — Tarayıcıya blob içeriğini yaz
+    <li> ibase_blob_get — Açık blob'dan bayt uzunluğu al
+    <li> ibase_blob_import — blob yarat, dosyayı içine yaz ve kapa
+    <li> ibase_blob_info — blob uzunluğunu ve diğer gerekli bilgileri döndür
+    <li> ibase_blob_open — veri bölümlerini almak için blob aç
+    <li> ibase_close — InterBase veritabanına kurulan bağlantıyı kapa
+    <li> ibase_commit_ret — işlemi kapatmadan onaylamak
+    <li> ibase_commit — işlemi onaylamak
+    <li> ibase_connect — InterBase veritabanına bağlantı açmak
+    <li> ibase_db_info — Veritabanı istatistiklerini istemek
+    <li> ibase_delete_user — Güvenlik veritabanından bir kullanıcıyı silmek (IB5 ve sonrası için geçerli)
+    <li> ibase_drop_db — Veritabanını siler
+    <li> ibase_errcode — Hata kodu döndürür
+    <li> ibase_errmsg — hata mesajlarını döndürür
+    <li> ibase_execute — Önceden hazırlanmış sorguyu çalıştırır
+    <li> ibase_fetch_assoc — Sorgunun sonuç satırından birini ilgili diziye alır
+    <li> ibase_fetch_object — InterBase veritabanından bir nesne alır
+    <li> ibase_fetch_row — InerBase veritabanından bir satır al
+    <li> ibase_field_info — Alan hakkında bilgi al
+    <li> ibase_free_event_handler — Kaydedilmiş olay belirticisini kes
+    <li> ibase_free_query — hazırlanan sorguya ayrılan belleği boşaltma
+    <li> ibase_free_result — Sonuç bilgilerini boşaltma
+    <li> ibase_gen_id — Adlandırma sayacını arttır ve yeni değer al
+    <li> ibase_maintain_db — Veritabanı sunucusunda bir komutun bakımını yap ve çalıştır.
+    <li> ibase_modify_user — Güvenlik veritabanındaki kullanıcıyı değiştirme (yalnız IB6 ve sonrası için)
+    <li> ibase_name_result — Sonuçlara bir ad atar
+    <li> ibase_num_fields — Sonuç grubundaki alan sayısını alır
+    <li> ibase_num_params — Hazırlanan  sorgudaki parametre sayısını döndürür
+    <li> ibase_param_info — Hazırlanan sorguda bir parametre hakkında bilgi verir
+    <li> ibase_pconnect — InterBase veritabanına sürekli bağlantı açar
+    <li> ibase_prepare — Prepare a query for later binding of parameter placeholders and execution
+    <li> ibase_query — Execute a query on an InterBase database
+    <li> ibase_restore — Sunucu yönetiminde geri yükleme işlemini başlatıp döner
+    <li> ibase_rollback_ret — Kapatmadan bir işlemi geri alır.
+    <li> ibase_rollback — Bir işlemi geri alır
+    <li> ibase_server_info — Veritabanı sunucusu hakkında bilgi ister
+    <li> ibase_service_attach — Sunucu yönetimine bağlanır
+    <li> ibase_service_detach — Sunucu yönetiminden ayrılır
+    <li> ibase_set_event_handler — Olaylar gönderildiğinde kullanılmak üzere geri besleme işlevini kaydettir
+    <li> ibase_timefmt — Zaman damgasının tarih ve zaman kalıbını belirler
+    <li> ibase_trans — İşlem başlatır
+    <li> ibase_wait_event — Veritabanınca bir olayın gönderilmesini bekle
+</ul>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,443 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<TITLE>AYBIM - C KODLAMASI</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onload="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+          <a href="../index.php" class="box"><img src="../img/aybim.png" border="0"></a><br /><br />
+          <a href="aglar.html" class="nav">Aglar</a>
+          <a href="aglink.html" class="nav">Aglink</a>
+          <a href="agteknik.html" class="nav">Agteknik</a>
+          <a href="ccode.html" class="nav">C-Kodlama</a>
+          <a href="cprep.html" class="nav">C-Önişleme</a>
+          <a href="crclrc.html" class="nav">CRC/LRC</a>
+          <a href="dea.html" class="nav">DEA</a>
+          <a href="etcsrv.html" class="nav">etcsrv</a>
+          <a href="fork.html" class="nav">Çatal (fork)</a>
+          <a href="ilet.html" class="nav">ilet</a>
+          <a href="inetd.html" class="nav">inetd</a>
+          <a href="make.html" class="nav">Make</a>
+          <a href="msgauth.html" class="nav">Msg Auth</a>
+          <a href="recur.html" class="nav">Özyinelemeli</a>
+          <a href="robots.html" class="nav">Robotlar için</a>
+          <a href="sdlc.html" class="nav">SDLC</a>
+          <a href="secure.html" class="nav">Güvenlik</a>
+          <a href="seri.html" class="nav">Seri uçlar</a>
+          <a href="snalu0.html" class="nav">SNA LU0</a>
+          <a href="snalu62.html" class="nav">SNA LU6.2</a>
+          <a href="tcpip.html" class="nav">tcp/ip</a>
+          <a href="tcpprg.html" class="nav">tcp Programı</a>
+          <a href="unix.html" class="nav">Unix</a>
+          <a href="vi.html" class="nav">vi Editör</a>
+       </div>
+        </td>
+       <td valign="top">
+       <div id="ortataraf">
+           <span><img src="../img/transparent.gif" width="1" height="50">
+           <img src="../img/transparent.gif" width="780" height="1"></span>
+           <div id="banner">
+             <img src="img/baslik.gif"><br />
+             <div id="mycontainer">
+               <div id="content">
+<div id="bdy" class="yazi">
+<br /><br />
+<script type="text/javascript"><!--
+google_ad_client = "pub-8541306787668208";
+//728x90, created 1/16/08
+google_ad_slot = "7459135715";
+google_ad_width = 728;
+google_ad_height = 90;
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<br>
+<br>
+<div id="sag"><span class="yazi">24 Ocak 2008</span></div>
+<H2>C KODLAMA STANDARDLARI</H2>
+<OL>
+<B>
+<LI> KAYNAK PROGRAM KÜTÜKLERİ</B>
+<P>
+1000 satırdan büyük kaynak programların hem derlemesi yavaş, hem de bakımı
+zordur. Programları 1000 satırlık kütüklere bölün.
+<P>
+79 karakterden büyük satırlar her terminalde ve editörde kolay
+görüntülenmez. Bu nedenle çok uzun satırlar kullanmayınız.
+<P>
+<OL>
+<LI><B> KÜTÜK ADI TANIMLAMA KURALLARI.</B>
+<P>
+Her kaynak program ana kütük adı ve ekten oluşur. Ekler genelde derleyici
+ve kullanılan programa göre düzenlenir ( .c, .cc, .l, .y gibi). Ana kütük
+adı sekiz karakterden oluşmalıdır.
+<P>
+OKUBENİ (README) directory altındaki kütükleri ve derleme adımında kullanılan
+parametreleri içermelidir.
+<P>
+make derleme işlemi için makefile yerine "Makefile" kullanın.
+<P>
+<LI><B> PROGRAM KÜTÜKLERİ.</B>
+<P>
+<OL>
+<LI> Her programın başında kütük içinde ne olduğunu belirten ön bilgi (prologue)
+olmalıdır. Dizi içindeki işlevler, tanımlar burada kısaca anlatılır. Gerekirse
+yazar adı ve yazıldığı tarih belirtilir.
+<LI> Başlık (header) eklemeleri bu açıklamanın peşine yazılır (include files). Bazı
+sistemlerde sistemin kullanığı eklemeler, kullanıcınınkilerin önünde yer
+almalıdır.
+<LI> "define" ve "typedef" komutları bundan sonra yazılır. Önce değişmez
+"macro" tanımları daha sonra işlevsel tanımlar, en son "typedef" ve "enum"
+tanımları yapılır.
+<LI> Tanımlardan sonra tüm programda kullanılan "global/external" bilgi
+alanları tanımlanır. Genel sıramada önce "extern", static olamayan global
+tanımlar, ve sonra static tanımlar yer alır. Bir yapı tanımını ilgilendiren
+"define" varsa, bu yapı tanımının peşinde yer almalıdır.
+<LI> Program içinde kullanılan işlevler bu tanımlamaların sonunda yer alır. Belirli bir
+kural olarak, incelenmesi en kolay olan yönteme göre sıralanmalıdır. Aynı
+düzeyde çağırılan işlevlerin beraber bulunması yararlıdır.
+</OL>
+<P>
+Genel program yapısı :
+<P>
+<PRE>
+    /*
+    *  ön açıklama (ön bilgi)
+    */
+    #include &lt;system_kütükleri.h&gt;
+    #include &lt;uygulama.h&gt;
+
+    #define DEGISMEZLER
+
+    #define FUNC(x)
+
+    typedef struct A {
+            ...
+            } a_t;
+
+    enum { NO=0, YES};
+
+    extern int  *p_external;
+    extern struct A_EXT a_ext;
+
+    int         *p_global;
+    struct A_GLOBAL {
+        ...
+    } a_glob;
+    #define A_GLOBSZ sizeof(struct A_GLOBAL);
+
+    static int  *p_static;
+
+    main(int argc, char **argv)
+    {
+    ...
+    }
+</PRE>
+<LI><B> HEADER KÜTÜKLERİ</B>
+<P>
+Başlık (header) tanımları her alt sistem için ayrı kütüklerde olmalıdır. Makina bağımlı
+tanımlar olası taşımalarda değiştirilmek üzere ayrı kütüklerde tanımlanmalıdır.
+Tanımlarda ve eklemelerde (include) <kütükadı> kullanılmalı "kütükadı" gibi
+tanımlardan kaçınılmalıdır. C derleyicileri -I parametresi ile kütüğü nereden
+alacağını bulabilmektedir. Bu özellik başlık (header) kütüklerinin yerinin değişmesi 
+durumunda programlarda değişiklik yapılmasını gerektirmez.
+<P>
+İşlevleri ve "external" tanımları içeren başlık (header) kütükleri tanımın yapıldığı
+kaynak programa eklenmelidir. Böylece derleyici tip denetimini kolaylıkla
+yapabilir. başlık (header) kütükleri iç içe (nested) tanımlanmamalıdır. Her başlık (header)
+kütüğündeki ön bilgi alanınada bu başlık (header) kütüğünden önce hangilerinin eklenmesi
+gerektiği anlatılmalıdır.
+<P>
+<LI><B> DİĞER KÜTÜKLER.</B>
+<P>
+OKUBENİ (README) adlı bir kütüğün hem genel görüntüyü tanımlaması, hem de program derleme
+ve kullanım biçiminin açıklanması açısından önemi çok büyüktür. Burada koşullu
+derleme adımları ve makina bağımlı kütükler veya programlar açıklanır.
+<P>
+</OL>
+<LI><B>AÇIKLAMALAR HAKKINDA.</B>
+<P>
+Açıklamalar ne olduğunu, nasıl yapıldığını ve parametrelerin neler
+olduğunu bildirmelidir. Kısa açıklamalar ise işlemin ne olduğunu 
+anlatmalıdır. Her işlevin başında 3-10 satırlık bir açıklama her satırda
+işlemin yapılışını ayrıntılayan açıklamadan daha iyidir. Blok açıklama
+<P>
+<PRE>
+    /*
+    *
+    ...
+    */
+</PRE>
+biçiminde yazılmalıdır. Veri yapıları, algoritmalar blok açıklama içinde
+anlatılmalıdır.
+<P>
+<LI><B>TANIMLAR HAKKINDA.</B>
+<P>
+Global tanımlar hemen birinci kolondan başlamalıdır. Tüm "external" tanımların 
+önünde "extern" bulunmalıdır. Eğer bir "extern" dizi tanımı (array) varsa
+bu tanımın boyu her tanımda belirtilmelidir. Gösterge tanımında kullanılan '*'
+türün önünde değil, tanımın önünde yer almalıdır :
+<P><PRE>
+    char *s, *p;
+</PRE>
+<P>
+gibi.
+<P>
+İlişkili olmayan tanımlar aynı türden olsalar da ayrı satırlarda 
+tanımlanmalıdır.
+<P>
+Tanımlarda kullanılan değişkenler, değerler ve açıklamalar alt alta gelecek
+şekilde "tab" tuşu ile ayrılmalıdır.
+<P>
+Eğer "define" komutundaki değerin program içinde bir anlamı yoksa "enum"
+kullanmak daha iyidir. Örneğin :
+<P>
+<PRE>
+    #define  KETCH     (1)
+    #define  YAWL      (2)
+    #define  SLOOP     (3)
+    #define  SQRIG     (4)
+    #define  MOTOR     (5)
+</PRE>
+<P>
+yerine :
+<P>
+<PRE>
+    enum bt { KETCH=1, YAWL, SLOOP, SQRIG, MOTOR };
+</PRE>
+<P>
+Bir değişkenin ilk değeri önemli ise ilk değeri açıkça yazılmalı, 
+C derleyicisinin değeri belirlemesi beklenmemelidir. "long" olarak
+tanımlanan değişmezlerde "l" yerine "L" kullanılmalıdır. Çünkü "2l" ile
+"21" kolaylıkla karışır.
+<P>
+"static" tanımlar mutlaka belirtilmelidir. Hatta STATIC diye bir "define"
+kullanılması daha doğru olur.
+<P>
+İşlevlerin geri döndürdüğü değerin tipi belirtilmelidir. En çok yapılan hata
+matemetiksel işlevlerin "double" döndürdüğünün unutulmasıdır.
+<P>
+<LI><B> İŞLEV TANIMLARI HAKKINDA</B>
+<P>
+Her işlevinden önce açıklama alanı (prologue) bulunmalıdır. Burada işlevin
+ne yaptığı anlatılmalıdır.
+<P>
+İşlevin döndürdüğü değer mutlaka belirtilmelidir. Eğer bir değer döndürmüyorsa
+"void" tanımlanmalıdır.
+<P>
+İşlevin her parametresi tanımlanmalıdır. İşlev içinde kullanılan döngü
+değişkeni için 'i', karakter göstergeleri (pointer) için 's' ve karakter
+tanımlamalar için 'c' kullanımı tüm işlevlerde aynı amaç için kullanılmalıdır.
+Aynı gruptan olan işlevlerde de aynı tür değişkenleri ve parametreleri
+kullanmak, onları çağıran programlarda kodlama kolaylığı getirir.
+<P>
+Değişken sayıda parametresi olan işlevlerde C dilinde tanımlanmış "varargs"
+kullanmak anlaşılması veya taşınması açısından önemlidir.
+<P>
+Eğer işlev içinde kullanılan bir değişken kaynak programda tanımlı "global" 
+değişkenlerden değil de başka kaynak programda yer alıyorsa "extern"
+kullanılarak tanımlanmalıdır.
+<P>
+İçerlek yazma ve boşluklar işlevin blok yapısını gösterir. Her iç blok
+için en az üç boşluk bırakarak yazmak programı daha okunaklı yapar.
+<P>
+Uzun koşullarda her ve/veya işleminden sonra kalanı başka bir satıra yazmak,
+"for" döngülerinde her bir döngü işlemini ayrı satıra yazmak ve "?" isleminde
+her bir koşulu ayrı satıra yazmak programı daha okunaklı yapar.
+<P>
+<LI><B> BASİT KOMUTLAR (SIMPLE STATEMENTS) HAKKINDA.</B>
+<P>
+Her satırda mümkünse bir işlem, komut olsun.
+"while" döngülerinde döngü gövdesi boş ise ";" ayrı bir satırda olsun.
+"if" deyiminde test sonucunda sıfır olmama koşulu derleyicinin kabulüne
+bırakılmasın. Örneğin :
+<P><UL>
+    if (f() != FAIL)
+</UL>
+<P>her zaman
+<P><UL>
+    if (f())
+</UL>
+<P>biçiminden daha iyidir. Eğer FAIL değeri sıfır ise ve sonra birisi bu
+değeri -1 yapmak isterse tüm kodlamada ilgili satırların bulunup düzeltilmesi
+gerekebilir. Bu şekilde kullanım değeri değişmese bile diğer "if" deyimlerinde
+de yer almalıdır.
+<P>
+Sıfır olamayan derleyici kabulü ancak aşağıdaki testler için kullanılmalıdır.
+<P>
+- Sonuç yalnız sıfır ve başka bir şey olmuyorsa,<BR>
+- Sonuç daha önceden adlandırılmış (TRUE gibi) ve başka birşey olmuyorsa,
+  örneğin "isvalid", "valid" veya "checkvalid" gibi işlevlerde
+<P>
+kullanılabilir.
+<P>
+Kodlama kolaylığı olsa bile birden çok atama ("=" işlemi) kullanılmamalıdır.
+<P>
+"goto" deyimi hiç kullanılmamalıdır. Eğer bir döngüden çıkmak için
+gerekiyorsa, döngü içindeki bölüm işlev haline getirilmeli, bu işlevin
+döndürdüğü değer TRUE/FALSE olarak tanımlanmalı ve "goto" deyimi yerine
+dönen değer kullanılmalıdır.
+<P>
+Ancak "goto" deyimi kullanmak gerekiyorsa, etiket (label) programın okunmasına 
+kolaylık sağlaması açısından, kodlamanın daha solundan yazılmalıdır.
+<P>
+<LI><B> BİRLEŞİK KOMUTLAR (COMPOUND STATEMENTS) HAKKINDA.</B>
+<P>
+Kıvrımlı prantez (brace) içindeki komutların tümüne birleşik komutlar denir.
+Birleşik komutlarda :
+<P>
+<PRE>
+   kontrol {
+           komut;
+           komut;
+   }
+</PRE>
+<P>
+stili kullanılır. Buna "K & R stili" denir.
+<P>
+"switch" deyimde bir "case" seçeneğinden sonra "break" komutu yoksa buraya
+açıklama içinde bilgi yazın. Eğer son seçenek varsayılan (default) değilse mutlaka
+"break" kullanın ve her zaman son seçenek varsayılan (default) olsun.
+<P>
+"if-else" deyiminde her koşul için komutlar (bir tane de olsa) mutlaka 
+"brace" içine alınsın. Özellikle iç içe tanımlanmış "if" deyimlerinde "else"
+olmaması durumunda bu kodlama çıkabilecek sorun veya hatayı azaltır.
+<P>
+"do-while" döngülerinde mutlaka "brace" kullanılmalıdır.
+<P>
+<LI><B> İŞLEMLER HAKKINDA.</B>
+<P>
+Tüm ikili işlemler ile değişkenler arasında en az bir boşluk bırakın ('.' ve
+'-&gt;' hariç). Eğer bir deyimin okunması zor ise en az öncelikli işlemden
+deyimi satırlara bölmek gerekir. Gerekli olduğunda parantez kullanarak
+işlem önceliklerini gösterin. Ancak çok fazla parantez kullanmayın. İnsan
+gözü parantezleri okumaya alışık değildir.
+<P>
+virgül (comma) işlemi en çok "for" döngülerinde birden çok değişkene ilk değer vermek
+için yararlıdır. Bunun dışında fazla kullanmamaya çalışın.
+<P>
+"?:" işlemindeki '?' öncesindeki koşulu parantez içinde yazın.
+<P>
+C dili deyimlerinden "sizeof" dışında kalanlardan sonra ilk parantezden önce
+bir boşluk bırakılmalıdır. İşlevlerin parameterlerindeki virgülden sonra da
+bir boşluk bırakılmalıdır. "macro" tanımlarında ilk parantezden önce
+boşluk bırakılmamalıdır. Yoksa ön derleyici (preprocessor) parametreleri
+algılayamaz.
+<P>
+<LI><B> DEĞİŞKENLERİ ADLANDIRMA.</B>
+<P>
+Değişkenin adının başında ve sonunda '_' kullanmayın. Bu tür değişkenler
+kullanıcıya açık olmayan derleyici değişkenleri arasında bulunabilir.
+<P>
+Tüm "define" ve "enum" komutlarında değişmezler için büyük harfli 
+tanım kullanın.
+<P>
+İşlev adları, değişken adları, "typedef", "struct", "union" ve "enum"
+tanımları için küçük harf kullanın.
+<P>
+"macro" işlevleri büyük harf olmalıdır. Küçük harf "macro" tanımları eğer
+"macro" bir işlev gibi çalışıyorsa kabul edilebilir.
+<P>
+Aynı programda yalnız büyük ve küçük harf farkı olan değişkenler ve çok benzer
+değişkenler kullanmayın (foo ve Foo gibi veya foobar ve foo_bar gibi).
+<P>
+Başka anlama gelebilecek değişken adları kullanmayın. Mümkünse 'l' harfini
+hiç kullanmayın. Her zaman '1' ile karışabilir.
+<P>
+"typedef" tanımlarının sonunda çoğu kez "_t" eki bulunur.
+<P>
+<LI><B> DEĞİŞMEZLER HAKKINDA</B>
+<P>
+Sayısal değişmezler için "define" kullanmak ileride programın bakımını
+kolaylaştırır. Yalnız "define" tanımını değiştirmek yeterli olabilir.
+<P>
+Değişmezler kullanım amaçlarına uyumlu tanımlanmalıdır. Örneğin "long"
+değişmez 'L' ile kayan noktalı değişmez '.0' ile.
+<P>
+ASCII gösterilemeyen değişmezleri "define" altında tanımlayın veya sekizli (octal)
+tanımını tırnak içinde kullanın.
+<P>
+NULL yerine '0' kullanmayın.
+<P>
+<LI><B> "MACRO" HAKKINDA</B>
+<P>
+Karmaşık deyimler "macro" olarak tanımlanır. Eğer "macro" parametreleri
+etrafında parantezler yoksa işlem önceliklerinde sorunlar olabilir.
+<P>
+Bazen hem "macro" hem de işlevler aynı adla tanımlanabilir. Bu durumda
+parametrelerin işleyişi önem kazanır. İşlevlerde kullanılan parametrelerin
+değerleri işleve geçerken, "macro" larda parametrenin açılımı kullanılır.
+<P>
+<LI><B> KOŞULLU DERLEME</B>
+<P>
+Koşullu derleme işlemi makina bağımlı işlemler, "debug" ve derleme sırasında
+belirlenen seçeneklerin kullanımı için önemlidir.
+<P>
+Mümkün ise "ifdef" tanımını başlık (header) kütüğüne koyun. Kaynak program içine
+koymamağa çalışın.
+<P>
+<LI><B> DÜZELTME (DEBUG)</B>
+<P>
+"enum" kullanırken mümkünse ilk değer sıfırdan farklı olmalı. Eğer sistemde
+hata koşulu sıfır ise her zaman birinci değer hatayı gösterir.
+<P>
+Her zaman hatayı görmek için <errno.h> eklemesindeki bilgiyi kullanın. Yeri
+geldiğinde "assert" olanağından yararlanın.
+<P>
+Test amaçlı kodlamalarda her zaman başlık (header) içinde "define" ile "macro"
+kullanın. Böylece kodlamada değişiklik yapmanız gerekmez.
+<P>
+<LI><B> "make" KOMUTU HAKKINDA</B>
+<P>
+"make" komutu için kullanılan bazı genel kavramlar aşağıda verilmiştir :
+<P>
+<TABLE class="yazi">
+<TR><TD>
+<TR><TD>all          </TD><TD>Her zaman tüm kütüphaneleri derler.</TD></TR>
+<TR><TD>clean        </TD><TD>ara kütüklerin tümünü siler.</TD></TR>
+<TR><TD>debug        </TD><TD>testler için kullanılan 'a.out' uretir.</TD></TR>
+<TR><TD>depend       </TD><TD></TD></TD></TR>
+<TR><TD>install      </TD><TD>programları ve kütüphaneleri gerçek yerine taşır.</TD></TR>
+<TR><TD>deinstall    </TD><TD>"install" işlemini geri alma adımıdır.</TD></TR>
+<TR><TD>mkcat        </TD><TD>yardım ekranlarını "man" komutu ile kullanılır hale getirir.</TD></TR>
+<TR><TD>lint         </TD><TD>"lint" programını çalıştırır.</TD></TR>
+<TR><TD>print/list   </TD><TD>tüm kaynak programların listesini almaya yarar.</TD></TR>
+<TR><TD>rdist        </TD><TD>kaynak programları başka bilgisayarlara taşımaya yarar.</TD></TR>
+</TABLE>
+<P>
+Bunlara ek olarak "Makefile" için komut satırından "DEBUG" veya "CFLAGS"
+tipi değerler girilebilir.
+<P>
+<LI><B> PROJEYE BAĞIMLI STANDARDLAR</B>
+<P>
+Genelde bu bölümde proje bağımlı kütük adları, directory adları, 
+başlık bilgisi adları gibi tanımlar yazılır.
+</OL>
+<P>
+<HR>
+<br />
+</div>
+               </div>
+             </div>
+           </div>
+
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>HTML - Bağlar </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="htmltxt1.html" class="nav">Öğeler</a>
+               <a href="htmltxt2.html" class="nav">Biçimler</a>
+               <a href="htmltxt3.html" class="nav">Kalıplama</a>
+               <a href="htmltxt4.html" class="nav">Varlıklar</a>
+               <a href="htmltxt5.html" class="nav">Bağlar</a>
+               <a href="htmltxt6.html" class="nav">Çerçeveler</a>
+               <a href="htmltxt7.html" class="nav">Tablolar</a>
+               <a href="htmltxt8.html" class="nav">Listeler</a>
+               <a href="htmltxt9.html" class="nav">Formlar</a>
+               <a href="htmltxt10.html" class="nav">Resimler</a>
+               <a href="htmltxt11.html" class="nav">Art-Alan</a>
+               <a href="htmltxt12.html" class="nav">Renkler</a>
+               <a href="htmltxt13.html" class="nav">RenkDeğerleri</a>
+               <a href="htmltxt14.html" class="nav">RenkAdları</a>
+               <font color="#8e9ccb"><h3>Gelişmiş</h3></font>
+               <a href="ahtmltxt1.html" class="nav">Yerleşim</a>
+               <a href="ahtmltxt2.html" class="nav">YazıTipleri</a>
+               <a href="ahtmltxt3.html" class="nav">Stiller</a>
+               <a href="ahtmltxt4.html" class="nav">Başlık</a>
+               <a href="ahtmltxt6.html" class="nav">URL-Adresleri</a>
+               <a href="ahtmltxt7.html" class="nav">YazıDüzeni</a>
+               <a href="ahtmltxt8.html" class="nav">Nitelikler</a>
+               <a href="ahtmltxt9.html" class="nav">Olaylar</a>
+               <a href="ahtmltxt10.html" class="nav">URL-Kodlama</a>
+               <a href="ahtmltxt11.html" class="nav">Muzik-Kodu</a>
+               <a href="ahtmltxt12.html" class="nav">Video-Kodu</a>
+               <a href="ahtmltxt13.html" class="nav">WEB-Sunucu</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>HTML</h2></center>
+       <div id="ortataraf">
+<!-- html sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">30 Kasım 2007</span></div>
+<h2>Bağlar</h2>
+<span class="yazi">
+WEB'de başka bir belgeye bağ kurma işlemidir.
+</span>
+<br />
+
+<h3>Demir atma biöimi ve href niteliği</h3>
+
+<span class="yazi">
+HTML bir başka belgeye bağ kurmak için &lt;a&gt; (çapa atma) biçimini kullanır.<br />
+<br />
+Bir çapa atma, WEB'de herhangi bir kaynağı gösterebilir: bir HTML sayfası, bir resim, bir ses dosyası, bir film vb...<br />
+<br />
+Bir çapa atmanın dil kuralı şöyledir:<br />
+</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+&lt;a href="url"&gt;Görüntülenecek yazı&lt;/a&gt;
+</pre>
+</fieldset>
+<br />
+<span class="yazi">
+&lt;a&gt; biçimi bir bağlantı kurmak için çapa atma işlemidir. "href" niteliği gidilecek belgenin adresini belirtmek için kullanılır. Çapa atmanın açılış ve kapanış biçimleri arasındaki yazı bağlantı bilgisi (hyperlink) olarak görüntülenir.<br />
+<br />
+
+Aşağıdaki çapa atma işlemi w3shools'a bağ kurmak için kullanılır:<br />
+</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+&lt;a href="http://www.w3schools.com/"&gt;W3Schools Sitesini Gezin!&lt;/a&gt;
+</pre>
+</fieldset>
+
+<span class="yazi">
+Tarayıcıda yukarıdaki satır şöyle görünür:<br />
+<br />
+<a href="http://www.w3schools.com/">W3Schools Sitesini Gezin!</a>
+</span>
+<br />
+
+<h3>Amaç (Target) Niteliği</h3>
+
+<span class="yazi">
+Amaç niteliğinde açılacak belgenin nerede olacağını tanımlayabilirsiniz<br />
+<br />
+Aşağıdaki satır belgeyi tarayıcının yeni bir sayfasında açar:<br />
+</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+&lt;a href="http://www.w3schools.com/"
+target="_blank"&gt;Visit W3Schools!&lt;/a&gt;
+</pre>
+</fieldset>
+
+<h3>Çapa Atma Biçimi ve Ad (Name) Niteliği</h3>
+<span class="yazi">
+Ad niteliği adlandırılmış çapa atma işlemini tanımlar. Adlandırılmış çapalar kullanıldığında doğrudan sayfanın belirtilen yerine bağ kurabiliriz. Sayfanın başından kullanıcının bilgiyi aramaya kalkmasına oranla çok daha kullanışlı bir yöntemdir...<br />
+<br />
+Adlandırılmış çapanın dil kuralı aşağıda gösterilmiştir:<br />
+</span>
+
+<fieldset class="fyazi">
+<pre>
+&lt;a name="label"&gt;Görüntülenecek yazı&lt;/a&gt;
+</pre>
+</fieldset>
+
+<span class="yazi">
+Ad niteliği adlandırılmış çapayı tanımlamakta kullanılır. çapa adı vermek istediğiniz herhangi bir ad olabilir.<br />
+<br />
+Aşağıdaki bağ adlandırılmış çapayı tanımlar:<br />
+</span>
+
+<fieldset class="fyazi">
+<pre>
+&lt;a name="tips"&gt;Kullanılabilir ipuçları&lt;/a&gt;
+</pre>
+</fieldset>
+
+<span class="yazi">
+Adlandırılmış çapanın özel görüntülenme biçimi yoktur.<br />
+<br />
+"ipuçları" bölümüne doğrudan bağlanmak için URL adresinin arkasına # işaretini ekleyip sonra çapa adını yazmak yeterli olacaktır. Örnek olarak:<br />
+</span>
+
+<fieldset class="fyazi">
+<pre>
+&lt;a href="http://www.w3schools.com/html_links.asp#tips"&gt;
+</pre>
+</fieldset>
+<br />
+<h3>Kullanışlı ipuçu bölümlerine atlama</h3>
+
+<span class="yazi">
+"html_links.asp" dosyasındaki "Kullanışlı İpucu Bölümüne" bağlantı gösterimi aşağıdaki gibidir:
+</span>
+<br />
+
+<fieldset class="fyazi">
+<pre>
+&lt;a href="#tips"&gt;Kullanışlı İpucu Bölümüne Atlama&lt;/a&gt;
+</pre>
+</fieldset>
+
+<h3>Temel Notlar - Kullanışlı ipuçları</h3>
+
+<span class="yazi">
+Diğer HTML sayfalarına bağlantı verirken URL adresin sonuna (/) eklemeyi unutmayın. Eğer bağlantınız href="http://www.w3schools.com/html" biçimindeyse, sunucuya iki istek üretirsiniz. Çünkü sunucu adresin sonunda (/) yoksa onu ekler ve yeni bir istek yaratmanız için size gönderir. Yeni istek:
+href="http://www.w3schools.com/html/" biçiminde olur.<br />
+<br />
+Adlı çapalar çoğunlukla büyük ve uzun bir belgenin "içindekiler" bölümünde kullanılır. Belge içindeki her bölüme bir çapa adı verilir ve bu çapalara bağlar belgenin başındaki içindekiler bölümüde yer alır.<br />
+<br />
+Eğer tarayıcı çapa adını belge içinde bulamazsa, belgenin başından görüntüler ve hata mesajı vermez...<br />
+</span>
+<br />
+<table class="fyazi" border="1" cellpadding="0">
+<tr><td>Biçim</td><td>Açıklama</td></tr>
+<tr><td>&lt;a&gt;</td><td>Bir çapayı tanımlar</td></tr>
+</table>
+<br />
+<h3>Örnekler</h3>
+
+<span class="yazi">
+Bu örnekte HTML belgesi içinde nasıl bağlar kurulduğunu anlatır.<br />
+</span>
+<table>
+<tr><td valign="top">
+<fieldset class="fyazi">
+<pre>
+&lt;html&gt;
+&lt;body&gt;
+
+&lt;p&gt;
+&lt;a href="lastpage.htm"&gt;
+Bu yazı&lt;/a&gt; bu web sitesindeki bir sayfaya bağdır.
+this Web site.
+&lt;/p&gt;
+
+&lt;p&gt;
+&lt;a href="http://www.microsoft.com/"&gt;
+Bu yazı&lt;/a&gt; Dünya Çapında Web (WWW) üzerinde
+bir sayfaya bağdır.
+&lt;/p&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+
+</pre>
+</fieldset>
+</td><td valign="top">
+<table border="1" cellpadding="0">
+<tr><td>
+<pre class="yazi">
+<a href="">Bu yazı</a> bu web sitesindeki bir sayfaya bağdır.
+
+<a href="">Bu yazı</a> Dünya Çapında Web (WWW) üzerindeki bir sayfaya bağdır.
+</pre>
+</td></tr></table>
+</td></tr>
+</table>
+
+<span class="yazi">
+Bu örnekte resmi nasıl bağ olarak kullanıldığı anlatılır.<br />
+</span>
+<table>
+<tr><td valign="top">
+<fieldset class="fyazi">
+<pre>
+&lt;html&gt;
+&lt;body&gt;
+&lt;p&gt;
+Bir resmi de bağ olarak kullanabilirsiniz:
+&lt;a href="lastpage.htm"&gt;
+&lt;img border="0" src="buttonnext.gif" width="65" height="38"&gt;
+&lt;/a&gt;
+&lt;/p&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+
+</pre>
+</fieldset>
+</td><td valign="top">
+<a href=""><img src="img/Screenlink.jpg" border="0"></a>
+</td></tr>
+</table>
+
+<br />
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

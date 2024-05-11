@@ -1,0 +1,103 @@
+<?php
+//
+// Setup relative path to Drupal folder...
+//
+$sig2drupal_path = '../';
+
+//
+// Setup relative path from Drupal folder to the 'sig' folder...
+//
+$drupal2sig_path = 'sig';
+
+//
+// How many nodes we wish?
+//
+$nodes_count = 3;
+
+//
+// Set to TRUE if we wish nodes promoted to frontpage only
+//
+$promoted_to_front = FALSE;
+
+//
+// Enter list of node types (comma-separated)
+// note each node type must be single quoted!
+// Leave empty to retrive nodes of any type.
+//
+$node_types = "'story','book'";
+
+//
+// END OF SETTINGS
+// ---------------
+
+//
+// Change current working directory to the Drupal root path.
+//
+chdir($sig2drupal_path);
+
+//
+// Initialize Drupal...
+//
+require_once './includes/bootstrap.inc';
+drupal_bootstrap(DRUPAL_BOOTSTRAP_FULL);
+
+//
+// Retrieve the latest active node titles...
+//
+$where = array('n.status = 1');
+if ($promoted_to_front) {
+  $where[] = 'n.promote = 1';
+}
+if (!empty($node_types)) {
+  $where[] = 'n.type IN ('. $node_types .')';
+}
+$text = array();
+$result = db_query(db_rewrite_sql('SELECT n.title, n.created FROM {node} n WHERE '. implode(' AND ', $where) .' ORDER BY n.sticky DESC, n.created DESC'), $nodes_count);
+while ($node = db_fetch_object($result)) {
+  $text[] = format_date($node->created, 'custom', 'd-m-Y') .' '. check_plain($node->title);
+}
+
+if (count($text) <= 0) {
+  $text = array(
+    "Sorry, I couldn't retrieve the requested information.",
+    '',
+    ''
+  );
+}
+// --------------------------------------------------------------------------------
+
+$image_info = array(
+    'image'    => 'sample_drupal_latest_nodes.gif'
+);
+
+//
+// This could be made a loop, but the vertical offset
+// depends on the height of the font, so...
+//
+$image_text = array(
+    array(
+        'x'     => 8,
+        'y'        => 6,
+        'color'    => array(50, 100, 180),
+        'font'    => -2,
+        'text'    => $text[0]
+    ),
+    array(
+        'x'     => 8,
+        'y'        => 21,
+        'color'    => array(50, 100, 180),
+        'font'    => -2,
+        'text'    => $text[1]
+    ),
+    array(
+        'x'     => 8,
+        'y'        => 36,
+        'color'    => array(50, 100, 180),
+        'font'    => -2,
+        'text'    => $text[2]
+    )
+);
+
+chdir($drupal2sig_path);
+include('./includes/dynamic_gd_image.php');
+?> 

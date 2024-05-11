@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<TITLE>AYBIM - FORK/EXEC</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onload="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+          <a href="../index.php" class="box"><img src="../img/aybim.png" border="0"></a><br /><br />
+          <a href="aglar.html" class="nav">Aglar</a>
+          <a href="aglink.html" class="nav">Aglink</a>
+          <a href="agteknik.html" class="nav">Agteknik</a>
+          <a href="ccode.html" class="nav">C-Kodlama</a>
+          <a href="cprep.html" class="nav">C-Önişleme</a>
+          <a href="crclrc.html" class="nav">CRC/LRC</a>
+          <a href="dea.html" class="nav">DEA</a>
+          <a href="etcsrv.html" class="nav">etcsrv</a>
+          <a href="fork.html" class="nav">Çatal (fork)</a>
+          <a href="ilet.html" class="nav">ilet</a>
+          <a href="inetd.html" class="nav">inetd</a>
+          <a href="make.html" class="nav">Make</a>
+          <a href="msgauth.html" class="nav">Msg Auth</a>
+          <a href="recur.html" class="nav">Özyinelemeli</a>
+          <a href="robots.html" class="nav">Robotlar için</a>
+          <a href="sdlc.html" class="nav">SDLC</a>
+          <a href="secure.html" class="nav">Güvenlik</a>
+          <a href="seri.html" class="nav">Seri uçlar</a>
+          <a href="snalu0.html" class="nav">SNA LU0</a>
+          <a href="snalu62.html" class="nav">SNA LU6.2</a>
+          <a href="tcpip.html" class="nav">tcp/ip</a>
+          <a href="tcpprg.html" class="nav">tcp Programı</a>
+          <a href="unix.html" class="nav">Unix</a>
+          <a href="vi.html" class="nav">vi Editör</a>
+       </div>
+        </td>
+       <td valign="top">
+       <div id="ortataraf">
+           <span><img src="../img/transparent.gif" width="1" height="50">
+           <img src="../img/transparent.gif" width="780" height="1"></span>
+           <div id="banner">
+             <img src="img/baslik.gif"><br />
+             <div id="mycontainer">
+               <div id="content">
+<div id="bdy" class="yazi">
+<br /><br />
+<script type="text/javascript"><!--
+google_ad_client = "pub-8541306787668208";
+//728x90, created 1/16/08
+google_ad_slot = "7459135715";
+google_ad_width = 728;
+google_ad_height = 90;
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<br>
+<br>
+<div id="sag"><span class="yazi">24 Ocak 2008</span></div>
+<H2>UNIX KOMUTLARINA ERİŞİM</H2>
+<P>
+<B>PROGRAM ÇATALLAMA ve ÇALIŞTIRMA</B>
+<P>
+Bu bölümde C dilinde kullanılan <B>çatallama (fork), çalıştırma (exec) ve
+system</B> deyimleri
+hakkında açıklama bulunur. Kısaca özetlemek gerekirse bu komutlar
+<B>çocuk</B> işlemi başlatmak için kullanılır. Bu komutlarla başlatılan
+bir işlemin <B>velisi</B> işlemi başlatan programdır. İşlem hata kodu
+(başarılı bitip bitmediği bilgisi) veli programa ilgili işlevin
+dönüş değeri olarak geri döner. Hata durumlarında program <B>errno</B>
+değişkeninin aldığı değerden hatanın türünü belirleyebilir.<P>
+<UL>
+<LI>System işlevi :<P>
+Bu işleve parametre olarak verilen dizi (karakter array) işletim
+sistemi tarafından bağımsız olarak çalıştırılan bir programdır. Diğer
+bir deyimli işletim sistemi parametreyi komut satırı olarak algılar.
+Bu işlev parametresini
+çağıran programın çocuğu olarak başlatırken, çağıran program çocuğun
+işlemini bitirmesini bekler. "system" işlevi
+çağıran programa, çocuk işleminin bitiş kodunu döndürür.<P>
+<UL>
+<PRE>
+örnek :
+
+...
+ret = system("ls -l &gt; atmp");
+if(ret &lt; 0) {
+     printf("%d nolu hata oldu.\n", errno);
+     exit(0);
+     }
+...
+</PRE>
+</UL>
+<P>
+Bu örnekte yer alan "ls -l &gt; atmp" komutu bitmeden "system" işlevi
+programa bir değer döndürmez. Dönen değer işlem doğru çalışmış ise 0
+hata oluşmuş ise -1 dir.<P>
+<LI>Çalıştırma (exec) işlevleri :<P>
+Bu serideki işlevler belirtilen kütüğü belleğe yükleyip çalıştırmak için
+kullanılır. Bu tür işlevler programın bellekteki görüntüsünü yenilemek
+amacı ile de kullanılır. Diğer bir deyimle yeni kopyayı belleğe yüklemeye
+yarar.<P>
+<LI>Çatallama (fork) işlevi :<P>
+Bu işlev, çalışan bir programın tüm değişkenleri ile bellekte yeni kopyasının
+yaratmasına ve aynı komuttan başlayarak çalıştırılması için kullanılır.<P>
+<B>fork</B> işlevi yalnız işlem numarası ve velisinin işlem numarası farklı
+bir çocuk üretir. Yani kendisinin kopyasıdır. <B>Fork</B> işlevi başarı ile
+tamamlandığında veliye çocuğun işlem numarası, çocuğa da 0 değeri geri
+döner. Her iki program da bu işlevin altındaki ilk komuttan birbirinden
+bağımsız çalışmaya başlar. Tüm açık kütükler, tüm özellikleri ile
+çocuğun kullanımına açıktır. Ayrıca bellekteki bilgi alanlarının
+değerleri de çocuğa taşınmıştır.<P>
+Çatallama işlevini anlamak benim yıllarımı aldı. O zamanlar bu tür
+işleve uygun bir uygulama bulamadığımdan olayı canlandıramamıştım. 
+Ancak TCP/IP kullanımı
+ile bu kavram daha belirgin oldu. Şimdi vereceğim örnekler de bu konuyla
+ilgili. Diyelim bir hattan gelen mesajı dinliyorsunuz. Program doğru mesajı
+aldığını anlayınca protokol gereği yapması gereken işlemler için hemen bir
+çocuk işlem üretir ve tekrar hattı dinlemeye başlar. Çocuk işlem, velisi
+hattan gelecek yeni bir bağlantıyı beklerken eski bağlantının cevaplarını
+velisinden bağımsız olarak vermeye devam eder. Böylece aynı anda aynı
+program ile birbirine karışmadan birden çok bağlantının mesajları
+algılanır.<P> Konuya örnek için <A HREF="tcpip.html">TCP/IP Programları</A> 
+adlı belgeye bakın.
+</UL>
+<HR>
+<a href="../index.html">Ana Sayfaya</a>
+&nbsp;&nbsp;<A HREF="index.html">Teknik Bilgiler Sayfasina</A>
+<br />
+</div>
+               </div>
+             </div>
+           </div>
+
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

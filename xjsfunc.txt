@@ -1,0 +1,22 @@
+function basvurubak(n,m)
+{
+var errstr = "";
+var err;
+for(i=0; i < document.forms[n].elements.length; i++) {
+    var aa = document.forms[n].elements[i].name;
+    if ( aa != "undefined" ) {
+        wff=document.forms[n].elements[i].value;
+        err = mycheck(wff,document.forms[n].elements[i].className);
+        if (err.length > 0) {
+            errstr += document.forms[n].elements[i].name+ ":" + err + "\n";
+        }
+    }
+}
+if(errstr.length > 0) {
+    alert(errstr);
+    }
+else {
+    document.forms[n].action=m;
+    document.forms[n].submit();
+    }
+}

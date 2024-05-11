@@ -1,0 +1,43 @@
+<CC5Request>
+    <Name>[USERNAME]</Name>
+    <Password>[PASSWORD]</Password>
+    <ClientId>[CLIENTID]</ClientId>
+    <IPAddress></IPAddress>
+    <Email>[EMAIL]</Email>
+    <Mode>P</Mode>
+    <OrderId>[ORDERID]</OrderId>
+    <GroupId></GroupId>
+    <TransId></TransId>
+    <UserId></UserId>
+    <Type>Auth</Type>
+    <Number>[CCNUMBER]</Number>
+    <Expires>[CCEXP]</Expires>
+    <Cvv2Val>[CCCVC2]</Cvv2Val>
+    <Total>[TOTAL]</Total>
+    <Currency>949</Currency>
+    <Taksit>[INSTALLMENT]</Taksit>
+    <BillTo>
+        <Name>[B_NAME]</Name>
+        <Street1>[B_ADDR1]</Street1>
+        <Street2>[B_ADDR2]</Street2>
+        <Street3>[B_ADDR3]</Street3>
+        <City>[B_CITY]</City>
+        <StateProv>[B_STATE]</StateProv>
+        <PostalCode>[B_POSTALCODE]</PostalCode>
+        <Country>[B_COUNTRY]</Country>
+        <Company>[B_COMPANY]</Company>
+        <TelVoice>[B_TEL]</TelVoice>
+    </BillTo>
+    <ShipTo>
+        <Name>[S_NAME]</Name>
+        <Street1>[S_ADDR1]</Street1>
+        <Street2>[S_ADDR2]</Street2>
+        <Street3>[S_ADDR3]</Street3>
+        <City>[S_CITY]</City>
+        <StateProv>[S_STATE]</StateProv>
+        <PostalCode>[S_POSTALCODE]</PostalCode>
+        <Country>[S_COUNTRY]</Country>
+
+    </ShipTo>
+    <Extra></Extra>
+</CC5Request>

@@ -1,0 +1,1106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="content-type">
+<title></title>
+<link rel="stylesheet" href="mainx.css" type="text/css">
+<script type="text/javascript" src="js/baslik.js"></script>
+<script type="text/javascript" src="js/dizigoster.js"></script>
+<script type="text/javascript" src="js/jsmenu.js"></script>
+</head>
+<body topmargin=0 leftmargin=0 marginheight=0 marginwidth=0>
+<div id="headertop1">
+<div id="headertop">
+<!-- ust banner bolumu -->
+  <table cellpadding="0" cellspacing="0" border="0" width="960">
+  <tr>
+  <td valign="top">
+  <img src="img/bos.gif" width="15" height="63" border="0">
+  <img src="img/aybim.png" width="129" height="43" border="0"><br>
+  <img src="img/bos.gif" width="15" height="1" border="0">
+  Aybim Bilgisayar Tic. Ltd.<br>
+  <img src="img/bos.gif" width="150" height="50" border="0">
+  </td><td valign="top">
+  </td></tr>
+  </table>
+  <table cellpadding="0" cellspacing="0" border="0">
+  <tr>
+  <td valign="top" width="140">
+  <!-- sol tarafin basi -->
+  <div id="soltaraf">
+    <center><div id="yazi"><h3>Veri Değişimi</h3></div></center>
+    <div id="masterdiv">
+        <div class="menutitle" onclick="SwitchMenu('sub2')">Çeşitli Belgeleri</div>
+        <span class="submenu" id="sub2">
+                - <a href="cdisc-odm1.html">CDISC-1</a><br>
+                - <a href="cdisc-odm2.html">CDISC-2</a><br>
+                - <a href="sdxf.html">RFC 3072</a><br>
+                - <a href="edifact.html">UN/EDIFACT</a><br>
+                - <a href="cvd.html">CVD Belgeleri</a><br>
+                - <a href="zvd.html">ZVD Belgeleri</a><br>
+                - <a href="json.html">Veri Değişmi için JSON</a><br>
+                - <a href="eso.html">MIDAS/FITS Kalıbı</a><br>
+        </span>
+        <div class="menutitle">
+             <a href="apps/index.php" class="vnav">Üye Olun</a>
+        </div>
+    </div>
+  </div>
+  </td>
+  <td valign="top" width="800">
+  <div id="header">
+      <div id="baslik">
+
+<h3>Klinik Veri Değişim Standartları Birliği<br>
+Clinical Data Interchange Standards Consortium</h3>
+
+
+<b>
+İşletim Veri Modeli (Operational Data Model - ODM) Belirtimi<br>
+Sürüm 1.3 Üretimi<br>
+Kaynak Dosya: ODM1-3-0.html<br>
+Son Güncelleme: 2006-12-19</b>
+
+<b>Copyright © CDISC 2006</b>
+
+Bu belge tümüyle CDISC Inc malıdır. Copyright kayıdıyla birlikte serbestçe kullanılabilir. Belge içinde değişiklikler CDISC Inc izinyle yapılabilir.
+<br><br>
+Bu belgenin Ingilizce aslının bulunduğu adres şöyledir:
+<a href="http://www.cdisc.org/models/odm/v1.3/ODM1-3-0-Final.html">
+http://www.cdisc.org/models/odm/v1.3/ODM1-3-0-Final.html</a>.
+<br><br>
+Yenilenme süresi, Lisans yükümlülükleri, gösterim ve garantiler için Bölüm 7'e
+bakın.
+<br><br>
+Bu belge ODM Sürüm 1.3 için anlatımdır. Eskiye dönük değişiklikler uyumlu
+bırakılmıştır.
+<br><br>
+
+<h3>İçindekiler</h3>
+<ol class="yazi">
+   <!-- 
+   <li> Giriş <a href="javascript:dizigoster('sec1')">(ayrıntı)</a>
+       <div id="sec1" style="display: none">
+       </div>
+   -->
+
+   <li> Giriş <a href="javascript:dizigoster('sec1')">(ayrıntı)</a>
+       <div id="sec1" style="display: none">
+<br>
+İşletimsel Veri Modeli (ODM - Operational Data Model) sağlayıcı bağımsız, ortam
+bağımsız klinik deneme verilerinin bulunduğu bilgi değişim ve arşivleme
+kalıbıdır. veriler klinik verileri ve yanındaki meta verileri, yönetim
+verilerini, referans verilerini ve denetim bilgisini de içerecek
+biçimdedir. Bu modelde değişik yazılım sistemleri arasında paylaşılacak
+ayarlama, işletim, analiz, gönderme ya da arşivlerin uzun dönemli kullanımı
+için gereken bilgilerin paylaşımı söz konusudur.
+<br><br>
+Bu ODM 1.3 sürümüdür. Bu sürümde yeni özellikler işlevselliği, güvenliği ve
+model içinde uygunluğu iyileştirmiştir. Özellikle süreli gönderilen bilgiler
+ve CRF uygulaması için önemlidir. Bölüm 2.5'de değişiklikler anlatılmıştır.
+ODM 1.3 eskiye uyumlu olacak biçimdedir. Daha önceki sürümlerden elde edilen
+dosyalar bu sürümle de kullanılabilir.
+<br><br>
+Model'in eski sürümleri için DTD eklenmiştir. Sürüm 1.2'de hem XML hem de DTD
+bilgisi vardır. Bundan böyle yalnız XLM bilgisi olacaktır.
+<br><br>
+Klinik veri yönetim sistemi saklanan bilgi ve kurallarıyla ayrıcalık taşır.
+ODM modeli çalışılan bilginin geniş bir açısını karşılayacak biçimde
+tasarlanmıştır. Böylece var olan diğer Klinik verileriyle uyumluluk korunmuş
+olur. ODM modeliyle aynı özelliklere sahip olmayan sistemler hala ODM uyumlu
+kalabilir. Sistem benzetim kuralalrına uyan veri yönetim sistemleri
+çerçevesinde olmalıdırlar.
+<br><br>
+Bilgisayar sistemleri için FDA ile uyumlu olacak biçimde tasarlanan ODM Klinik
+denemeleri de içerir. Bu belge ODM için resmi anlatım belgesi olduğu kadar bu
+modelde kullanılan ve arşivlenen ve sunulan bilgi için de kullanıcı klavuz
+kitabı gibidir.
+       </div>
+   <li> Genel Yayınlar
+      <ol class="yazi">
+         <li> Standart'ın İçeriği <a href="javascript:dizigoster('sec21')">(ayrıntı)</a>
+             <div id="sec21" style="display: none">
+
+<br>
+Bu belge CDISC ODM Standartları tanımlarını içerir. Burada sistemlerin
+standart gereksinimleri ODM dosyalarını yazma ve okuma gereksinimleri
+belirtir. Bu standartlara uymayan yazılar not ya da örnek gibi paragraf ve bölümler biçiminde değerlendirilir.
+             </div>
+         <li> Dosya Uygunluğu<a href="javascript:dizigoster('sec22')">(ayrıntı)</a>
+             <div id="sec22" style="display: none">
+<br>
+XML dosyası standartı, standartlarda belirtilenlerin hepsini sağlarsa uyumlu
+kabul edilir. Bu kriterler dil yazım kuralları ve anlamların tümü içerir.
+<br><br>
+Dil yazım kuralı şunlardan oluşur:
+<br>
+<ol>
+   <li> ODM dosyası iyi yapılanmış XML dosyası olmalıdır. Ayrıntılar için XML standartlarına bakın.
+   <li> ODM dosyası XML ad alanı standartlarına uygun olmalıdır. Ayrıntılar için XML ad alanlarına bakın.
+   <li> ODM dosyası ODM standart tasarısı içinde öğeleri ve nitelikleri ya da geçerli sağlayıcı uzantılı tasrılar içindeki kuralları, iç içe tanımlanan öğeleri ve niteliklerin kalıplarını ve öğenin gövdesinde olması gerekenleri de sağlamalıdır.
+   <li> ODM dosyası bir giriş (prolog) öğesi (üst düzey ODM öğesi) içerir.
+   <li> ODM için sürüm 1.3 ad alanı http://www.cdisc.org/ns/odm/v1.3
+adresindedir.
+</ol>
+
+ODM Sürüm 1.3 tasarısı http://www.cdisc.org/schemas/odm/v1.3 adresinde
+bulunabilir.
+<br><br>
+Bu tanımlar normalizasyon deyimleri ve açıklamaları içerir. 
+<br><br>
+ODM öğesinin prolog ve üst düzey öğesi örneği:
+<pre>
+&lt;?xml version="1.0" encoding="ISO-8859-1"?&gt;
+&lt;ODM xmlns="http://www.cdisc.org/ns/odm/v1.3"
+     xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ 
+    xsi:schemaLocation="http://www.cdisc.org/ns/odm/v1.3 ODM1-3-0.xsd"
+ 
+    ODMVersion="1.3"
+    FileOID="000-00-0000"
+    FileType="Transactional"
+    Description="Sample ItemData Extension"
+ 
+    AsOfDateTime="2005-04-04T07:57:00"
+    CreationDateTime="2005-04-06T10:30:00"&gt;
+</pre>
+Anlambilim kurallarının ayrıntıları belgenin kalanında ayrıntılarıyla
+anlatılmıştır.
+<br><br>
+ODM sürümü XML tasarım dosyasıinın XML tarayıcısı ile konrol edilmesi ODM
+dosyasının dil bilim açısından geçerlidir. Anlam bilim açısından geçerli
+olması için ODM kontrol uygulamasının kullanılması önerilir.
+             </div>
+
+         <li> Sistem Uyumluluğu <a href="javascript:dizigoster('sec23')">(ayrıntı)</a>
+             <div id="sec23" style="display: none">
+<br>
+<b>[Commentary] </b><br>
+ODm standartının değeri, her bilgi standartı gibi ODM dosyalarının yüksek
+uyumluluğu olduğu varsayılınca gelişmiş olur. Ama ODM hem teknoloji hem de
+standart sağladığı için bir değer taşır. Geçmişte hiç olmayan klinik verinin
+değiştirilmesi gibi önemli bir değer. Aşağıdaki uyumluluk deyimi kalitenin bir
+dengesini göstermesi açısından anlamlıdır. Burada hem standart hem de kalite
+esnek uygulama isteğini geliştirmeye yöneliktir.
+<br><br>
+ODM kalıbındaki bir bilgiyi işleyen bilgisayar sistemi, aşağıdaki kuralları
+uyguladığında uyumdan söz edebilir:
+<ol>
+   <li> Yaratılan ODM dosyaları standart içindeki tüm doğruluk kurallarını
+sağlamalıdır (hem anlambilim hem de dil bilimi açısından).
+   <li> Alan sistem herhangi bir ODM dosyasını okuyabilmelidir. Burada tüm
+doğruluk kuralları ve standartlar anlambilim ve dil bilim açısından
+sağlanmalıdır.
+   <li> ODM dosyaları ODM tasarıyla denetlenmelidir. ODM kök öğesinde
+belirtilen sürüm kullanılarak denetim yapılır.
+   <li> Yaratılan ODM dosyasındaki bilgi standartlardaki tanım ve açıklamalara
+göre tam doğrulukta olmalıdır.
+   <li> ODM dosyasını alan sistem, içeriği okuyup doğru yorumlayabilmelidir.
+Yorumlama standart kurallarına ve tanımlara uymalıdır.
+   <li> Yaratılan ODM dosyaları yaratan sistemde saklanan ya da ele alınan
+bilgilerden başkasını üretmeyebilir.
+   <li> ODM dosyalarını alan bir sistem dosyadan okunan ama sisteminde
+kullanılmayacak olan bilgileri dikkatae almayabilir.
+   <li> Alan sistem veri değerlerin, anahtarların, adların ve diğerlerinin sınırlarını oluşturabilir. Bunlar ele alma ve saklama açısından önemli olan değerlerdir.
+   <li> ODM klinik dosyalarını alan ama normalde 2.14'de belirtilen bir ya da iki veri türünü destekleyen sistemler, desteklenmeyen veri türlerini yazı olarak kabul etmelidir.
+  <li> Tüm sistem sınırlamaları (6'dan 9'a kadar) belgelenmelidir.
+  <li> Eğer uyumluluk bazı durum ve ayarlara bağımlıysa o da belgelenmelidir.
+</ol>
+             </div>
+         <li>  Sağlayıcı Uzantıları <a href="javascript:dizigoster('sec24')">(ayrıntı)</a>
+             <div id="sec24" style="display: none">
+<br>
+ODM standart kalıbı desteklemek için tasarlanmıştır. Klinik verilerin
+saklanması ve değişiminde deneysel ve meta veriler bu biçimde ele alınır.
+Model çok fazla klinik uygulamasında kullanılabilecek olduğu kanıtlanmış olsa
+da, her bir klinik veri sistemi ODM modelinde doğru gösterilemiyen verileri de
+içerebilir.
+Bu sistemlerin ODM kullanımını özendirmek için standart bilgi değişiminde ve
+arşivlemede klinik araştırma uygulamalarının taşınabilirliğini sağlamak için
+ODM sağlayıcı uzantısı kullanımı önerilir.
+ODM modeline sağlayıcı uzantılarının gereksinimi şöyledir:
+<ol>
+   <li> Sağlayıcı XML tasarısını sağlamalıdır. Burada ODM kalıbı tümüyle
+gösterilir.
+   <li> Gelişmiş ODM dosyaları düzgün uzantı tasarısını göstermelidir.
+   <li> Uzantı yeni XML öğe ve nitelikleri ekleyebilir, ama standart ODM
+öğelerini ya da niteliklerini değiştiremez.
+Sağlayıcı uzantıları ODM öğeleriyle anlatılabilen bilgileri kullanamaz.
+   <li> TGüm yeni öğeler ve nitelik adları tekil XML ad alanı kullanmalıdır. Böylece başka sağlayıcılarla adlandırma karışıklığı olmaması granti edilmiş olur.
+   <li> Tüm sağlayıcı uzantılarını uzantılı ODM dosyasından silince geriye
+anlamlı ve doğru standart ODM dosyası kalmalıdır.
+   <li> Sağlayıcılar, isteğe bağımlı sağlayıcı uzantıları olmayan
+ODM dosyaları yaratabilmelidir.
+</ol>
+
+gelişkin ODM dosyaları yaratabilen uygulamalar, standart ODM dosyaları da
+kabul edebilmelidir.
+<br><br>
+Not: 
+Uzantıları çoğu kez yararlı bilgiler içeren sağlayıcıların CDISC dikkatine
+çekilmeli, gelecek standartlar için bilgileri kullanılmalıdır.
+<br><br>
+Not: 
+Gelişmiş ODM dosyasından standart olmayan nitelikleri ve öğeleri ayıklayan bir
+filitre yazmak olanağı vardır. Bunu ayrı bir program ya da standart giriş
+işlemi olarak kullanabilirsiniz.
+Alan sistemler gelişmiş ODm dosyaları aldıklarında gereken kolaylığı
+göstermelidir.
+             </div>
+         <li> Önceki Sürümlerden değişiklikler
+<a href="javascript:dizigoster('sec25')">(ayrıntı)</a>
+             <div id="sec25" style="display: none">
+<br>
+ODM 1.3 ODm 1.2.1'de tanımlanmış tüm nitelikleri ve öğeleri içerir. Yeni
+öğeler ve nitelikler yeni değişim olanakları ve arşiv özellikleri için
+eklenmiştir.
+Model'den çıkarılan öğe ve nitelikler 2.5.5'de anlatılmıştır.
+             <ol>
+                <li> Sınıflandırılmış Veri İletimi
+<a href="javascript:dizigoster('sec251')">(ayrıntı)</a>
+                    <div id="sec251" style="display: none">
+<br>
+ODM 1.3'deki en belirgin değişiklik türü belirlenmiş veri gönderme işlemidir.
+Bu geliştirmeyle ODM belgelerinin klinik verileri tasarı denetiminden geçer.
+Bunun anlamı, veri öğelerinin değerleri doğru veri türü olup olmadığı
+denetlenmiş olur. Karşılığı olan ItemDef'de tanımlandığı için ODM belgesini
+alan uygulamada veri türü denetimine gerek kalmaz.
+<br><br>
+Eski sürümlerde kullanılan türü belirlenmemiş göndermeler hala
+desteklenmektedir. Anahtar fark, yeni ItemData[TYPE] öğelerinin ItemData
+yerine kullanılmış olmasıdır. Örnek:
+<br><br>
+<b>[Türlü Veri Gönderme]</b>
+<pre>
+&lt;ItemDataInteger ItemOID="ID.INT"&gt;1&lt;/ItemDataInteger&gt; 
+</pre>
+
+<b>[Türsüz Veri Gönderme]</b>
+<pre>
+&lt;ItemData ItemOID="ID.INT" Value="1"/&gt;
+</pre>
+
+                <ol class="yazi">
+                <li> ItemData için yeni veri türleri
+<a href="javascript:dizigoster('sec2511')">(ayrıntı)</a>
+                    <div id="sec2511" style="display: none">
+<br>
+Türü belirlenmiş veri iletişiminin diğer gelişkin özellikleri arasında birkaç
+yeni veri türünün oluşumudur. Aşağıda listelenen tüm veri türleri ItemDef veri
+türü niteliği olarak kullanıma açıktır.
+
+<pre>
+     string
+     boolean
+     double
+     hexBinary
+     base64Binary
+     hexFloat
+     base64Float
+     partialDate
+     partialTime
+     partialDateTime
+     durationDateTime
+     intervalDateTime
+     incompleteDateTime
+     URI
+</pre>
+
+ODM meta verisi için tanımlanan klinik verileri ya türü belirlenmiş veri
+olarak ItemData[TYPE] öğesinden biriyle gönderilebilir ya da türü belirsiz
+veri olarak ItemData öğesinde gönderilir.
+
+<pre>
+	ItemDataString
+	ItemDataInteger
+	ItemDataFloat
+	ItemDataDate
+	ItemDataTime
+	ItemDataDatetime
+	ItemDataBoolean
+	ItemDataDouble
+	ItemDataHexBinary
+	ItemDataBase64Binary
+	ItemDataHexFloat
+	ItemDataBase64Float
+	ItemDataPartialDate
+	ItemDataPartialTime
+	ItemDataPartialDatetime
+	ItemDataDurationDatetime
+	ItemDataIntervalDatetime
+	ItemDataIncompleteDatetime
+	ItemDataURI
+</pre>
+             </div>
+
+                     <li> ItemDataAny
+<a href="javascript:dizigoster('sec2512')">(ayrıntı)</a>
+                         <div id="sec2512" style="display: none">
+<br>
+Klinik verilerini toplama işleminde, toplanan verinin bazen istenilen veri
+türünde olmadığı durumlar olur. Doğru olanı her koşulda gelen klinik
+verilerini değiştirebilmek ve arşivlemek olanağını yaratmaktır.
+ItemDataAny öğesi uyumlu olmayan klinik verilerini gönderirken kullanılacak
+bir olanaktır.
+Bir örnek olarak, bir labuvatuar deneyi sonucunda 'Bilirubin' adlı öğede
+veriler toplanıyor olsun ve bu öğe kayan noktalı tanımlanmış olsun ama
+toplanan değer '&gt;200' olabilir.
+Bu durumda ItemDef şu biçimde olur:
+
+<pre>
+&lt;ItemDef OID="Idef.Bilirubin" name="Bilirubin" datatype="float" /&gt;
+</pre>
+
+Tipik ItemDataFloat öğesi için gönderilecek değer:
+
+<pre>
+&lt;ItemDataFloat OID="Idef.Bilirubin"&gt; 5.73 </ItemDataFloat&gt;
+</pre>
+
+ItemDataAny öğesi için '&gt;200' değeri gönderilsin.
+
+<pre>
+&lt;ItemDataAny OID="Idef.Bilirubin"&gt;&lt;![CDATA[&gt;200]]&lt;/ItemDataAny&gt;
+</pre>
+
+<b> Türlenmiş Veri İletişiminde Öğeleri Sınıflama İşlem Konumu</b>
+
+Türlenmiş veri iletişimini açmak için işlem konumunda, aşağıdaki öğe
+sınıflaması Nesne Verisi SubjectData öğesi için eklenmelidir
+
+<pre>
+	AuditRecords
+	Signatures
+	Annotations
+</pre>
+             </div>
+                     <li> Öğeleri Sınıflayarak İletmek için İşlem Konumu
+<a href="javascript:dizigoster('sec2513')">(ayrıntı)</a>
+                         <div id="sec2513" style="display: none">
+
+<br>
+Türlenmiş veri iletişimini açmak için işlem konumunda, aşağıdaki öğe
+sınıflaması Nesne Verisi SubjectData öğesi için eklenmelidir
+
+<pre>
+        AuditRecords
+        Signatures
+        Annotations
+</pre>
+             </div>
+             </ol>
+             </div>
+
+          <li> Yeni Metadata Özellikler
+<a href="javascript:dizigoster('sec252')">(ayrıntı)</a>
+              <div id="sec252" style="display: none">
+
+<br>Bir açıklama öğesi
+StudyEventDef, FormDef, ItemGroupDef ve ItemDef öğelerine eklendi.
+<br><br>
+Yeni ConditionDef öğesi  StudyEventRef, FormRef, ItemGroupRef ve ItemRef
+öğelerince ODM meta verisinden yaratılan eCRF'leri koşullu
+taramak için gösterilebilir.
+<br><br>
+Yeni MethodDef öğesi ImputationMethod adlı kullanılmayan öğeyi değiştirir.
+Yeni öğe işlem yapmak, türetmek ve çalıştırmak gerektiğinde kullanılır.
+             </div>
+
+
+          <li> Yeni Taslak Girişleri
+<a href="javascript:dizigoster('sec253')">(ayrıntı)</a>
+              <div id="sec253" style="display: none">
+<br>
+Sürüm 1.2.1'den beri ODM tasarısı yeniden yapılandırıldı. Böylece sağlayıcı
+uzantılarını daha kolay algılaması sağlanmış oldu. Yeniden yapılanmadan önce,
+sağlayıcı uzantıları içeren ODM belgeleri, tasarı düzeyinde kontrol
+edilemiyordu. Bu temel denetim için ayrı bir uygulama programı yazılması
+gerekiyordu. Program dil kurallı açısından uzantıyı irdeleyebiliyordu.
+<br><br>
+ODM tasarısı iki tasarı dosyası kullanarak tanımlanır:
+odm1-3-0-foundation.xsd ve odm1-3-0.xsd.
+
+<table>
+<tr><td>odm1-3-0.xsd</td><td>varsayılan odm ad alanını tanımlar ve odm1-3-0-foundation.xsd dosyasını dıştan alır.</td></tr>
+<tr><td>odm1-3-0-foundation.xsd</td><td>ODM'i oluşturan öğe ve nitelikleri tanımlar.</td></tr>
+</table>
+
+Tüm diğer uzantılar ve sağlayıcı uzantıları altındaki özellikler eskisi gibi
+kalır.
+             </div>
+
+          <li> ODM Ad Alanı (NameSpace)
+<a href="javascript:dizigoster('sec254')">(ayrıntı)</a>
+              <div id="sec254" style="display: none">
+<br>
+
+Yeni bir ad alanı sürüm 1.3 için tanımlanmıştır. Adresi:
+(http://www.cdisc.org/ns/odm/v1.3).
+             </div>
+
+          <li> Kullanılmayan Öğe ve Nitelikler
+<a href="javascript:dizigoster('sec255')">(ayrıntı)</a>
+              <div id="sec255" style="display: none">
+<br>
+ItemRef öğesinin
+ImputationMethod ve ImputationMethodOID nitelikleri
+artık kullanımıyor
+<br><br>
+SignatureDef içindeki CryptoBindingManifest öğesi kullanılmıyor.
+ItemDef içindeki Role öğesi Role niteliğiyle değiştirildi.
+             </div>
+
+          <li> Yeni Özelliklerin Ayrıntıları
+<a href="javascript:dizigoster('sec256')">(ayrıntı)</a>
+              <div id="sec256" style="display: none">
+<table>
+<tr><td>Açıklama</td><td>Belirtim Bölümü</td></tr>
+<tr><td>Yeni veri türleri: Binaries, Partial Dates, Boolean</td><td>DataFormats</td></tr>
+<tr><td>Türlenmiş ItemData</td><td>ItemData[TYPE]</td></tr>
+<tr><td>Öğe açıklaması</td><td>Açıklama</td></tr>
+<tr><td>EnumeratedItem element under CodeList</td><td>CodeList, EnumeratedItem</td></tr>
+<tr><td>Rank attribute for CodeListItem and EnumeratedItem elements</td><td>CodeListItem, EnumeratedItem</td></tr>
+<tr><td>AuditRecord, Signature, Annotation collections under ClinicalData</td><td>ClinicalData,AuditRecords, Signatures, Annotations</td></tr>
+<tr><td>ConditionDef referenced by StudyEventRef, FormRef, ItemGroupRef, ItemRef</td><td>ConditionDef</td></tr>
+<tr><td>MethodDef</td><td>MethodDef</td></tr>
+<tr><td>Computable Expression element referenced by ConditionDef, RangeCheck and MethodDef</td><td>FormalExpression</td></tr>
+</table>
+             </div>
+             </ol>
+             </div>
+
+          <li>  Öğeler ve Oluşumlar
+<a href="javascript:dizigoster('sec26')">(ayrıntı)</a>
+              <div id="sec26" style="display: none">
+<br>
+
+ODM modeli klinik incelemenin verileri çeşitli tür oluşumlardandır. Bunlar
+nesne (subject), incelenen olaylar (study event), giriş bilgileri (forms), öğe
+sınıfları (item groups), öğeler ve ek açıklamalardır.
+<br><br>
+Bir öğe o kliniğin öğe verileridir. Yani sistolik kan basıncı okuması gibi.
+Öğeler öğe sınıfları altında toplanır.
+<br><br>
+Bir öğe sınıf genelde birlikte analiz edilen öğelerden oluşur (öğe sınıflarına
+bazen "kayıtlar" da denir ve "panel" ya da "tablo" biçiminde olurlar). Öğe
+sınıfları giriş formlarında toplanır.
+<br><br>
+Bir giriş formu CRF kitabındaki ya da CRF ekranındaki bir sayfaya benzer.
+Genelde giriş bilgisi genelde mantıksal ve geçici olarak ilişkilendirilmiş
+bilgilerin kümesidir. Bir dizi giriş formu incelenen olayın bir parçası olur.
+<br><br>
+Bir inceleme olayı tekrar kullanılabilen giriş formları paketi olup genelde
+incelemenin veri toplama olayına karşılık gelir.
+<br><br>
+Bir inceleme protokol tasarımı bir ya da daha çok planlı denet ziyaretlerini
+içerir. Burada veriler toplanır. Her tasarlanmış ziyaret bir ya da daha çok
+ODM incelemesine karşılık gelebilir. ODM inceleme olayları birden çok denet
+ziyaretlerine karşılık da gelebilir.
+<br><br>
+Bir denet inceleme içindeki bir hastadır.
+<br><br>
+Bir ek açıklama denete, inceleme olayına, giriş formuna, öğe sınıfına ya da
+öğeye uygulanan bir yorumdur. Ek açıklama bir çift oluşuma karşı da olabilir.
+<br><br>
+Bir incelemenin meta verisi inceleme olayını, giriş formunu, öğe sınıflarını
+ve öğeleri tanımlar. Bunların hepsi inceleme içinde izin verilmiştir. Meta
+veri oluşumu StudyEventDefs, FormDefs, ItemGroupDefs, ve ItemDefs içerir.
+<br><br>
+StudyEventDef özel bir tür inceleme olayını açıklar (çoğu zaman giriş formlarının türlerini listeler)
+<br><br>
+FormDef özel bir giriş formunu açıklar.
+<br><br>
+ItemGroupDef özel bir öğe sınıfını açıklar
+<br><br>
+ItemDef özel bir tür öğeyi açıklar
+<br><br>
+İncelemenin klinik verileri aslında birçok gerçek inceleme olayı
+StudyEventDef karşılığı olur.  Birçok gerçek giriş formu  FormDef karşılığı
+olur ve böyle sürer gider...
+<br><br>
+Bir ODM dosyası (herhangi bir XML dosyası gibi) bir öğeler agcı içerir. ODM dosyası içindeki klinik verileri öğeleri, ya klinik oluşumunun bir göstergesidir ya da o oluşumun durumunu değiştirir. Bu öğeler SubjectData, StudyEventData, FormData, ItemGroupData, ItemData, ve Annotation olarak tanımlanmıştır.
+<br><br>
+Bu tür öğelerde anahtar niteliği vardır ve veri oluşumunu tanımlar. Sıklıkla
+birçok veri öğesi bir veri oluşumuna karşılık gelir. Bu bir dizi güncelleme
+bir oluşuma uygulandıktan sonra denetim deneyleri gösterilir.
+<br><br>
+Aynı biçimde meta veri oluşumuna karşılık XML öğeleri vardır.
+<br><br>
+Tüm klinik incelemeler verilerini ziyaretler ya da giriş formlarıyla
+derlerler. Bu tür incelemeler için her denete ilişkin tek inceleme olayı daha
+uygun olur ya da bir giriş formu her inceleme olayı için kullanılır.
+              </div>
+
+          <li>  Klinik Verileri Anahtarları
+<a href="javascript:dizigoster('sec27')">(ayrıntı)</a>
+              <div id="sec27" style="display: none">
+<br>
+
+ODM'de iki tür anahtar vardır. İçsel ve dışsal. İçsel anahtarlar model
+içindeki oluşumları belirlemekte kullanılır ve tüm oluşumlar arasındaki
+ve ODM dosyalarındaki karşılıklı gösterlere de izin verir  İşsel anahtarlar
+insanların kullanımı için değildir ve değişmedikleri varsayılır. İşsel
+anahtarlar, denet anahtarları, öğenin OID'leri ve tekrarlanan anahtarları
+içerir.
+<br><br>
+Kliniksel veri oluşumlarını tümüyle tanımlamak için aşağıdaki içsel anahtarlar
+gerekir:
+<table>
+<tr><td>Kind of Entity</td><td>Identifying Keys	</td><tr>
+<tr><td>study</td><td>StudyOID</td><tr>
+<tr><td>subject</td><td>above plus SubjectKey</td><tr>
+<tr><td>study event</td><td>above plus StudyEventOID and StudyEventRepeatKey</td><tr>
+<tr><td>form</td><td>above plus FormOID and FormRepeatKey</td><tr>
+<tr><td>item group</td><td>above plus ItemGroupOID and ItemGroupRepeatKey</td><tr>
+<tr><td>item</td><td>above plus ItemOID</td><tr>
+<tr><td>annotation</td><td>keys for the annotated entity plus SeqNum</td><tr>
+</table>
+Bir StudyOIDi tekil olarak bir incelemeyi tanımlar.
+Bir SubjectKey inceleme içindeki deneti tekil olarak tanımlar.
+SubjectKeys incelemeler arasındaki denetleri tanımlamakta kullanılamaz.
+<br><br>
+Bir StudyEventOID tekil olarak inceleme içindeki  StudyEventDef tanımlar.
+Ama belirli türü ilişkin birden çok inceleme olayı vardır.
+Böylece, belirli bir inceleme olayını tümüyle tanımlamak için StudyOID, SubjectKey, StudyEventOID, ve StudyEventRepeatKey gereklidir.
+<br><br>
+Her giriş formu bir inceleme olayına aittir. Türünü belirleyen FormOID ve  FormRepeatKey ile tanımlanabilir.
+<br><br>
+Kliniksel verilerde her öğe sınıfı bir giriş formuna aittir. Türünü belirten ItemGroupOID ve ItemGroupRepeatKey ile tanımlanabilir.
+<br><br>
+Diğer öğe sınıfları referans verisidir.  ItemGroupOID ve ItemGroupRepeatKey
+ile tanımlanabilir.
+<br><br>
+Her öğe öğe sınıfına aittir. Ama bir öğe, öğe sınıfında yalnız bir kez referans edilir. Böylece yalnız ItemOID tekil olarak tanımlamak için gerekir.
+<br><br>
+Dışsal anahtarlar klinik personeli tarafından kullanılan tek anahtardır.
+Bunlar denet rastgele kodu içermek, site kodları ve bunun gibi... ODM içinde,
+dışsal anahtarlar klinilsel veri gibi gösterilir. Böylece dışsal anahtarlar
+gerektiğinde değiştirilebilir, ve normal denetim işlemi onlara uygulanabilir.
+              </div>
+
+          <li>  Tek dosyalar ve Toplananlar
+<a href="javascript:dizigoster('sec28')">(ayrıntı)</a>
+              <div id="sec28" style="display: none">
+<br>
+
+Bir ODM belgesi (dosya) bir dizi komutla hedef veri tabanını değiştirmeyi
+anlatmak gibi görüntülenebilir. Böylece kaynak veri tabanıyla aynılaştırılmış
+olunur. Bir ODM belgesi kaynak veri tabanıyla ilgili yüm bilgiyi içerir. Tüm
+öğeler, meta veriler, tüm klinik verileri ve her öğeye uygulanan tüm
+değişiklikler. Ama her zaman bu kadar büyük bir belge üretmeye gerek yoktur. O
+zaman bir dizi ODM dosyasıyla bu bilgiyi sağlamış oluruz.
+<br><br>
+Her ODM belgesinin FileOID niteliği vardır (ODM öğelerine bakın). FileOID
+belgeyi tekil olarak tanımlar.
+<br><br>
+ODM belgesinin PriorFileOID niteliği vardır. Bu nitelik serideki dosyanın FileOID değerini verir. Böylece PriorFileOID  ile birbirlerine bağlanmış dosyalar tanımlanır. Böylece kaynak veri tabanı ardaşık dosyalarla elde edilmiş olur.
+<br><br>
+Serinin bir dosyasındaki veri serinin bir önceki dosyasındaki tanıma bağlıdır.
+Eğer bir dosya ReferenceData ya da ClinicalData içerirse ya dosyayı
+yorumlayacak meta verisi vardır ya da seride önceki bir dosyada bu bilgiler
+vardır. Aynı şekilde, eğer dosyada ClinicalData varsa, dosyada ya yönetim
+verisi denetim (audit) ve imza (signature) kayıtlarını referans etmiştir, ya
+da seride daha önceki bir dosyada bu bilgi vardır.
+<br><br>
+Ağaç yapısında toplamış ODM dosyalarına (buarada önceki dosyayı gösteren birden
+çok dosya vardır) izin verilir.
+<br><br>
+Bir ODM belgesi (ya da topluuğu) birden çok inceleme ilişkin bilgi içerebilir.
+Tartışmayı basitleştirmek için yalnız bir inceleme varmış gibi örnekler
+verilmiştir. Bir dosya (ya da dosyalar topluluğu) birden çok inceleme
+içerirse, aşağıdaki kurallar bu incelemelerin her birine uygulanmalıdır.
+<br><br>
+Not: Belgenin içeriğini FileOID cwtanımlar. Belge kopyalandı diye değeri
+değişmez.
+<br><br>
+Not: FileOID'ler evrensel olarak tekil olmalıdır. Bunu sağlamanın en kolay yolu her
+FileOID önüne yaratanın Internet alan adını eklemektir. Örneğin
+FileOID="BestPharmaceuticals.com/Study5894/1" Eczacılar için kullanılabilecek
+ilk dosya adı olabilir.
+<br><br>
+Not: Aynı biçimde, StudyOID'ler de evrensel olarak tekil olmalıdır. Örneğin
+StudyOID="BestPharmaceuticals.com/Study5894" kullanılabilecek tekil addır.
+<br><br>
+Not:
+Uygulama aldığı ODM belgelerini ve sonra eriştiklerini FileOID ile
+gerçekleştirir. Bir seri içinde yeni dosyayı yorumlamak önceki dosyay FileOID
+ile belirleyerek sağlanır. Bunun kolay bir yolu FileOID (ihtimal çevrilmişdir)
+kullanarak dosya adının bir bölümünü oluşturmaktır. Örneğin yukarıda
+belirtilen ODm belgesi ...\BestPharmaceuticals.com\Study5894\1.xml olarak
+saklanabilir.
+<br><br>
+<b>Diğer Dosya Nitelikleri</b>
+<br><br>
+Yukarıda söylendiği gibi pek çok ODM dosyası kaynak veri tabanında saklanan toplam bilginin yalnız bir parçasını içerebilir (o anki ya da tarihsel).
+<br><br>
+Bir belgede gönderilen bilgi birçok boyutta değişebilir. Bir belgenin içeriği
+hakkındaki örnekler:
+<ul>
+    <li> yalnız meta veri,
+    <li> yalnız klinik verisi,
+    <li> yalnız alan adı verisi (SDTM),
+    <li> verilen denetteki bir değer için bir dizi güncelleme,
+    <li> tüm incelemenin o anki durumu,
+    <li> bir incelemenin alt kümesinin o anki durumu (belirli konular, belirli giriş formları vb),
+    <li> son iletişimden beri incelemeye yapılan değişiklikler ya da,
+    <li> incelemeye yapılmış tüm değişiklikler.
+</ul>
+Bu değişkenlikten her belgenin kendisini açıklaması önemlidir. Böylece
+belgenin müşterisi ondan ne alabileceğini bilir. Bu gereksinimleri belirlemek
+için ODM öğelerinin birkaç niteliği vardır. Bu nitelikler o anki belgeyi
+tanımlamakta kullanılır.
+<br><br>
+<b>CreationDateTime</b> niteliği ODM belgesinin yaratıldığı tarıhi belirtir.
+AsOfDateTime niteliği belgenin ne zaman doğrulandığını gösterir. Bir veri
+tabanının işlenmesi birden çok dosyaya yayıldığında bu niteliğin önemi
+fazladır.
+<br><br>
+<b>FileType</b> ve <b>Granularity</b> niteliği belge gönderenin
+bir kapsam tanımlamasına
+olanak verir. Bu kapsam zaman içinde verinin neleri içerdiğini gösterir.
+Archive niteliği gönderilen belgenin içeriğinin doğruluğunu belirtir.
+FDA 21 CFR 11 kurallarında belirtilen elektronik kayıt özelliklerini gösteren
+bir dizi kriterden geçtiğini belirtir.
+Son olarak <b>Description</b> niteliği gönderene yazı dizisi sağlar.
+Buraya gönderen
+gerekli olan ayrıntıları yazar.
+OBu bölüm bu niteliklerin alabileceği değerlerin ayrıntılarını anlatır.
+<br><br>
+<b>Dosya Türü (FileType)</b><br>
+
+Bir ODM belgesinde FileType ya enstantane (snapshot) ya da işlem
+(transaction) olur. enstantane belge o anki durumun nasıl yeniden
+yaratılacağını gösterir. Kaynak veri tabanından içerilen veriye kadar
+olanların zamana göre alınmasıdır. İşlemsel belge, içerikteki her oluşum için kaynak veri
+tabanının son durumunu ve (seçimlik olarak) o oluşumun önceki durumlarından birinin kaynak veri tabanındaki durumunu gösterir. TransactionType niteliği Enstantane (Snapshot) belgesinde olmak zorunda değildir. İşlemsel bir belgeyi işlerken, bir veri noktası için işlemleri sıralama kuralı daha sonra "Öğeleri Sıralama" başlığı altında incelenmiştir.
+<br><br>
+<b>Ortalama Öğe Boyu (Granularity)</b><br>
+
+Bir ODM belgesinin ortalama boyu (granularity) gönderene kısa yoldan belge
+içindeki ibazı genel belge bölümlerinin bilgisini tanımlama olanağı verir.
+Bu kategorilerde belirtilmek istenen bilgi aşağıda gösterilmiştir:
+<table>
+<tr><td>Kategori</td><td>Belge içeriği</td>
+<tr><td>All</td><td>Herhangi biri ve tüm veri türleri ve meta veri</td>
+<tr><td>Metadata</td><td>Yalnız meta veri</td>
+<tr><td>AdminData</td><td>Yalnız admin verisi</td>
+<tr><td>ReferenceData</td><td>Yalnız referans verisi</td>
+<tr><td>AllClinicalData</td><td>Yalnız klinik verisi</td>
+<tr><td>SingleSite</td><td>Yalnız bir site için klinik veri</td>
+<tr><td>SingleSubject</td><td>Yalnız tek denet için klinik veri</td>
+</table>
+
+Eğer bu kısa yol kategorileri yeterli değilse, belgenin Description niteliği
+ayrıntıları vermek için kullanılabilir.
+<br><br>
+
+<b>Arşivleme (Archival)</b><br>
+
+Archival niteliği seçimliktir.
+<br><br>
+Archival=Yes
+ile bu dosya (ya da dosyalar topluluğu) 21 CFR 11'de belirtilen elektronik kayıt gereksinimlerini karşılar. Daha belirgin yapmak için, dosya ya da dosyalar topluluğu kendini tekrarlamayan ekleri, değişiklikleri ve silinmeleri (eğer varsa) denetim ve imza değerleriyle açıkça sağlamalıdır. 
+<br><br>
+Archival=Yes gereksinimi
+<ul>
+    <li> O anki dosya Transactional olmalıdır.
+    <li> Eğer o anki dosya topluluğun bir tanesiyse, topluluktaki diğer tüm dosyalar Archival ve Transactional olmalıdır.
+    <li> İşlemler kümesi dosya içinde hem tamam hem tekrarlamayan durumda olmalıdır. Özellikle her dosya içeriği:
+     <ul>
+          <li> AsOfDateTime zamanından önceki audit zamanlı işlemlerin hiç biri olmamalıdır
+          <li> AsOfDateTime zamanına kadar olan tüm işlemler. (Granularity=All için, bunun anlamı incelemedeki tüm işlemlerdir. Granularity ayarlarına bakın),
+          <li> Kaynak veri tabanındaki tüm AuditRecord ve Signature bilgisi
+          <li> Upsert işlemler yok. 
+          </ul>
+</ul>
+              </div>
+          <li> İşlemler
+<a href="javascript:dizigoster('sec29')">(ayrıntı)</a>
+              <div id="sec29" style="display: none">
+<br>
+
+Her veri öğesinin seçimlik TransactionType niteliği vardır. Bu nitelik Insert,
+Update, Remove, ya da Upsert değerlerinden biri olabilir.
+<br><br>
+TransactionType için Insert anlamı, veri oluşumunun yeni olmasıdır (incelemede o ana değin hiç var olmamıştır) ve inceleme verilerine tüm özellikleriyle eklenecektir. Eğer veri oluşumu daha önce varsa bu bir hatadır. Ya da bu oluşumun babası yoksa hata olur.
+<br><br>
+TransactionType için Update anlamı, veri oluşumu o anda vardır ve yeni
+özellikleri içermesi için güncellenmelidir. Eğer veri oluşumu yoksa hata olur.
+<br><br>
+TransactionType için Remove anlamı, veri oluşumu daha önce olduğundan
+silinmesi istenmektedir. Çocukları da silinir. Eğer veri oluşumu yoksa bu bir
+hatadır.
+<br><br>
+Not: "delete" sozcüğünün yukarıdaki kullanımı veri oluşumunun tüm kayıtlarının
+silinmesi gerektiğini söylemez. Ama sırada o oluşum için bir sonraki işlemin
+Update ya da Remove olması gerekir.
+<br><br>
+TransactionType için Upsert anlamı, eğer veri oluşumu varsa Update ile aynıdır, yoksa Insert ile aynı olur.
+<br><br>
+Not: Upsert gönderenin veri oluşumunu araştırmasını ortadan kaldırır. Bazı veri toplama sistemleri için kullanışlı bir özelliktir. Bu özellik potensiyel olarak tehlikelidir (ilerideki sürümlerde kaldırılabilir).
+<br><br>
+TransactionType için Context anlamı, veri özellikle içerik açısından yeniden gönderilmiştir. Buna uygun örnek, istatistiksel veriler içeren ItemGroup bilgilerinin gönderilmesidir. Sürekli değişen bu değerlerin gönderen ve alıcı sistemlerinde aynı olması Context ile sağlanır.
+<br><br>
+Bir çocuk öğe kendi  TransactionType değerini belirtmemişse, babasının
+TransactionType değerini kullanır. En tepedeki kök veri öğesinin TransactionType değeri belirgindir.
+
+ODM belgesinde bir oluşum için iki işlem varsa, onların sıralandığı
+biçimde uygulanmaları sağlanır.
+<br><br>
+Eğer bir oluşumda TransactionType için Remove varsa, aynı soydan gelen
+işlemlerde TransactionType yalnız
+Remove olabilir. ODM dosyalarını işleyen bir program burada anlatılan
+kuralı bozan öğeleri önceden almalıdır.
+<br><br>
+Eğer bir enstantane (Snapshot) belgesi TransactionType içerirse, bu ancak
+TransactionType=Insert olabilir.
+              </div>
+
+          <li> Öğelerin Sıralanması (Element Ordering)
+<a href="javascript:dizigoster('sec210')">(ayrıntı)</a>
+              <div id="sec210" style="display: none">
+<br>
+
+ODM dosyası içindeki öğeler bir oluşuma uygulandığında, geçici sırada
+olmalıdırlar. Yani, her oluşumdaki işlemler o oluşumun öğelerini dosya
+içindeki sıralarıyla aynı sırada uygulanırlar. Signatures ve AuditRecords artan sıradaki DateTimeStamps içindedirler.
+<br><br>
+Genelde, ayrı oluşumların öğeleri bir diğerine göreceli sıralanmak durumunda
+değillerdir. Ama bir oluşum imzalanınca, o oluşumun imzadan önceki  tüm işlemleri aynı ODM dosyasında ya da bağlantılı serideki ODM dosyalarında daha önce yer almalıdır.
+<br><br>
+Dosyadaki tüm DateTimeStamps CreationDateTime öncesinde bulunur.
+<br><br>
+ODM dosyalarının bağlantılı serisinde bu dosyaların AsOfDateTimes değeri
+geçici sırada olmalıdır. Her dosyadaki  DateTimeStamps  AsOfDateTimes
+sonrasında olmalıdır.
+<br><br>
+Bir veri oluşumu (bir form gibi) bir dizi veri öğeleri olarak gösterilebilir.
+Oluşumun bağlı olmayan parçaları bu öğelerin verileridir (özellikler ve
+çocuklar). Bu parçalara ya da her ikisinin karışımına sıralı değişiklikler
+uygulanır.
+<br><br>
+Bir incelemede, klinik verilerinin ilkleme ve varsayılan değerleri NULL kabul
+edilir. Bu nedenle enstantane (Snapshot) iletişiminde NULL değerli öğeleri
+girmek gerekmez. bir öğeye ekleme ve güncellemelerde NULL değerli ilkleme
+gerekmez.
+<br><br>
+ODM dosyaları yaratan sistemlerde bu tür dosyadaki öğe sayısını azaltmaya
+çalışır. Aynı oluşum için iki öğe bir taneye indirgenebilir. Öğelerin anlambilim değerleri (ve sıralama kurallarından hiç birini bozmadan), birleşme yapılması önerilir. Aynı zamanda gereksiz öğeler çıkarılır.
+              </div>
+
+          <li> Öğe Tanımlayıcıları ve Referanslar (Element Identifiers and References)
+<a href="javascript:dizigoster('sec211')">(ayrıntı)</a>
+              <div id="sec211" style="display: none">
+<br>
+
+ODM içinde, bir öğenin bir başkasını göstermesi gereken bir çok durum vardır.
+Bazıları aynı dosyada bazıları bir dizi dosya içinde serpiştirilmiş
+durumdadır. Hedef öğeye tekil bir "ad" veilir (onun OID değeri). O zaman bu
+öğeyi gösterecek diğer öğeler hep bu değeri kullanır (OID).
+<br><br>
+Örnek: Diyelim bizim bir öğe tanımımız var (ItemDef) ve adı "Systolic Blood
+Pressure". bu ItemDef için OID niteliğini "SBP" yapalım. O zaman bu öğenin
+verisi (ItemData) tanımlara kendi ItemOID değeriyle bağlanır o da "SBP" olur.
+<br><br>
+OID'ler tekil olmaz zorundadır ama yalnız belirli içerik altında. Tekillik
+kuralları şöyledir:
+<ul>
+    <li> Bir inceleme, kullanıcı, yer ya da  SignatureDef için OID ilgili belge serisi içinde tekil olmalıdır.
+    <li> MeasurementUnit, MetaDataVersion, StudyEventDef, FormDef, ItemGroupDef, ItemDef, CodeList, Presentation, ConditionDef, ve MethodDef için OID bir inceleme içinde tekil olmalıdır (ve ilgili ODM belgeleri serisinde). Başka incelemelerde bu öğeler için OID'ler yeniden kullanılabilir.
+    <li> The OID for an ArchiveLayout must be unique within a single form definition (within a study). It is permitted to reuse OIDs for this element in different form definitions. 
+    <li> ArchiveLayout için OID bir form tanımı içinde tekil olmalıdır (bir incelemede). Bu öğenin bu OID değeri için değişik form tanımları olabilir.
+</ul>
+Açıkça iki meta veri öğesine (StudyEventDef, FormDef, ItemGroupDef, ItemDef,
+CodeList, Presentation, ConditionDef, ve MethodDef) izin verilir. Bunlar aynı
+OID değerini kullanabilirler ama farklı MetaDataVersion öğesinde olmaları
+gerekir. Sonraki ilkinin güncellemesi olur (ayrıntılar için MetaDataVersion
+öğelerine bakın).
+<br><br>
+Bir öğe bir OID kullanıp bir başka öğeyi gösterirse, gösterilen öğe
+göstergeyle aynı belgede yer almalıdır. Böylece gösterilen öğe PriorFileOID
+bağlarıyla her zaman geriye gidilerek bulunabilir.
+<br><br>
+Not: 
+OID göstergelerinin dosyalar arasında olması standart XML ID ve IDREF
+değerlerinin kullanımını engeller (bunlar yalnız bir dosya içinde
+kullanılabilir). Bu özellik öğe tanımları bölümünde özellikle anlatılmıştır.
+Orada oid ve oidref, ID ve IDREF yerine kullanılmıştır.
+<br><br>
+Not: Yukarıdaki gösterge kuralları şunları anlatır:
+<ul>
+    <li> Bir göstergeyi OID değerine gönderemezsiniz. Ama o OID değeri
+ya o belgede tanımlanmış olacak ya da serideki önceki belgede tanımlanmış
+olmalıdır. O zaman kullanılabilir.
+    <li> OID ile belirtilen bir tanım değişirse, değişiklik gösterildiği yerdeki tanımda ya önceden ya da belge içinde dağıtılmalıdır.
+    <li> Bir dizi başlatan bir belge gösterdiği tüm tanımaları içermelidir.
+    <li> Bir işlemsel belge desteklenen herhangi bir tanımı içermelidir. Bunlar Önceki belgeye göre yeni ya da göreceli değişik olurlar. Örneğin diyelim ki B3207 belgesi X öğetanımına göstergeyi içerir. Daha sonra kodlama listesi koşulları X'e eklenmiş olsun. Bu da B3207'nin öncesindedir. Bu durumda B3207 aynı zamanda MetaDataVersion öğesi (yeni OID ile) içerir ve burada X için güncelleme tanımı da vardır.
+</ul>
+              </div>
+          <li> Dil Bilim Gösterilimi (Syntax Notation)
+<a href="javascript:dizigoster('sec212')">(ayrıntı)</a>
+              <div id="sec212" style="display: none">
+<br>
+Her XLM öğesinin dil bilim kuralları aşağıdaki gibidir:
+<br><pre>
+Öğe-Adı
+Gövde:
+	içerik-belirtgeci
+
+Nitelikler:
+	nitelik-adı veri-kalıbı seçimlik anlambilim ayrıntıları
+...
+</pre>
+İçerik belirticisi 'EMPTY', veri kalıp adı ya da öğe sınıfı olabilir. EMPTY bu
+öğenin gövdesi olmadığını belirtir (iç içe tanımlı içerik vardır). Veri kalıbı
+adı, gövdenin herhangi bir yazı dizisi olduğunu ve adlandırılan kalıba
+uyduğunu gösterir. Öğe sınıfı, adlandırılan öğelerin öğeleri içinde doğrudan
+iç içe tanımlandığını gösterir.
+<br><br>
+Öğe sınıfları bir ya da daha çok öğe adlarından (ya da öğe sınıflarından) oluşur. Bu adlar parantezler içinde virgül ya da dikey çizgilerle ayrılarak yazılırlar. Virgüller öğelerin XML'de sıralanmış olduğunu gösterir. Dikey çizgiler en birinin listede bulunması gerektiğini gösterir. Bir öğe ya da öğe sınıfı peşinden ? gelirse, seçimlik olduğu anlaşılır. Peşinden * gelirse, sıfır ya da daha çok tekrar anlamına gelir. ya da + gelirse bir ya da daha çok tekrar anlaşılır.
+<br><br>
+Nitelikler tablo biçiminde listelenir. her satırda bir nitelik olur. Buraya
+nitelik adı, veri kalıplama biçimi ve seçimlik olup olmadığı ve bazı
+anlambilim bilgileri yer alır. Tüm nitelikler gereklidir ancak seçimlik
+kolonunda (seçimlik) bilgisi varsa zorunluluk kalkar. ODM vakfı tasarısı
+uygulanması XML tasarısında belirtilir.
+              </div>
+
+          <li> Veri Kalıpları (Data Formats)
+<a href="javascript:dizigoster('sec213')">(ayrıntı)</a>
+              <div id="sec213" style="display: none">
+<br>
+
+Tüm XML nitelik değerleri ve bazı öğe gövdeleri yazı dizileridir. Bu diziler
+veri kalıplarıyla dizinin izin verilen biçimini tanımlar. Karşılığı olan XML
+tasarımı ve olması gereken değeri gösterilir. ODM kalıp kümesi aşağıdaki
+gibidir:
+<table>
+<tr><td>Kalıp Adı</td><td>Tasarım Veritürü </td><td>İzin verilen dizi deseni</td></tr>
+<tr><td>integer</td><td>xs:integer</td><td>-?digit+</td></tr>
+<tr><td>float</td><td>xs:decimal</td><td>-?digit+(.digit+)?</td></tr>
+<tr><td>date</td><td>xs:date</td><td>YYYY-MM-DD</td></tr>
+<tr><td>time</td><td>xs:time</td><td>hh:mm:ss(.n+)? ((+|-)hh:mm)?</td></tr>
+<tr><td>datetime</td><td>xs:dateTime</td><td>YYYY-MM-DD T hh:mm:ss(.n+)? ((+|-)hh:mm)?</td></tr>
+<tr><td>text</td><td>xs:string</td><td>any sequence of characters</td></tr>
+<tr><td>oid</td><td>xs:string</td><td>any sequence of characters</td></tr>
+<tr><td>oidref</td><td>xs:string</td><td>any sequence of characters</td></tr>
+<tr><td>subjectKey</td><td>xs:string</td><td>any sequence of characters</td></tr>
+<tr><td>repeatKey</td><td>xs:string</td><td>any sequence of characters</td></tr>
+<tr><td>name</td><td>xs:string</td><td>any sequence of characters</td></tr>
+<tr><td>sasName</td><td>xs:string</td><td>( letter | _ )( letter | digit | _ )*</td></tr>
+<tr><td>sasFormat</td><td>xs:string</td><td>( letter | _ | $ )( letter | digit | _ | . )*</td></tr>
+<tr><td>fileName</td><td>xs:string</td><td>( letter | digit | _ | . )+</td></tr>
+<tr><td>languageTag</td><td>xs:language	LL</td><td>(-CC)* (see below)</td></tr>
+<tr><td>string</td><td>xs:string</td><td>Semantically equivalent to text but directly supported as XML schema datatype</td></tr>
+<tr><td>boolean</td><td>xs:boolean</td><td>(true | false | 1 | 0)</td></tr>
+<tr><td>double</td><td>xs:string</td><td>(((\+|-)?[0-9]+(\.[0-9]+)?((D|d|E|e)(\+|-)[0-9]+)?)|(-?INF)|(NaN))</td></tr>
+<tr><td>hexBinary</td><td>xs:hexBinary</td><td>hex-encoded binary stream data</td></tr>
+<tr><td>base64Binary</td><td>xs:base64Binary</td><td>binary stream encoded using Base64 Alphabet</td></tr>
+<tr><td>hexFloat</td><td>xs:hexBinary</td><td>up to 16 characters</td></tr>
+<tr><td>base64Float</td><td>xs:base64Float</td><td>up to 12 characters</td></tr>
+<tr><td>partialDate</td><td>xs:date</td><td>YYYY[-MM[-DD ]]</td></tr>
+<tr><td>partialTime</td><td>xs:time</td><td>hh[:mm[:ss(.n+)? ((+|-)hh:mm)?]]</td></tr>
+<tr><td>PartialDatetime</td><td>xs:dateTime</td><td>YYYY[-MM[-DD ]]T hh[:mm[:ss(.n+)? ((+|-)hh:mm)?]]</td></tr>
+<tr><td>intervalDatetime</td><td>xs:string</td><td>partialDatetime/partialDatetime)|(durationDatetime/partialDatetime)|(partialDatetime/durationDatetime)</td></tr>
+<tr><td>durationDatetime</td><td>xs:duration</td><td>(((+|-)?P((((n(n+)?)Y)?((nn+)?)M)?((nn+)?)D)?)(T(((n(n+)?)H)?((n(n+)?)M)?((n(n+)?)((\.n+)?)S)?)?)?|(((n(n+)?)W))))</td></tr>
+<tr><td>incompleteDatetime</td><td>xs:string</td><td>[YYYY|-]-[MM |-]-[DD|-]]]T[hh|-]:[mm|-]:[ss.s|-][?(+|-)nn:nn|Z]</td></tr>
+<tr><td>URI</td><td>xs:anyURI</td><td></td></tr>
+</table>
+
+Sayılar (tamsayı ve kayan noktalı) 10 tabanına göre gösterilmiştir. Kayan
+noktalıların ondalık noktalı bölümleri (kesirli) vardır.
+<br><br>
+Not: Bazı tamsayı nitelikler (KeySequence, OrderNumber, ve SeqNum) ilgili oluşumlar arasında bir sıralama tanımlamak için kullanılır. Bu nitelikler için birden başlayan ardaşık sayılar kullanmak gerekir.
+<br><br>
+Bir yazı değeri herhangi bir karakter ya da karakter dizisidir. XML belge
+kodlaması içinde kullanılabilir olmalıdır. ODM dosyalarının içine gömüldüğünde
+yazı dizileri standart XML tırnak işaretleri ya da karakter kaçırma
+aracılığıyla kullanılır.
+<br><br>
+Tarih gregorian takvimindeki gibi gösterilir. Yıl (YYYY) 0000 ile 9999
+arasında bir değer olur. Ay (MM) 01 ile 12, günler (DD) 01 ile 31 arasında
+değer alır. ODM tarihleri XML tarihinin biraz sınırlanmış biçimidir. Zaman
+dilimi kullanımına izin verilmez.
+<br><br>
+Zaman 24 saatlik okumadan oluşur. Saat (hh) 00 ile 23 arasındadır. Dakika (mm)
+ve saniye (ss) 00 ile 39 arasındadır. Seçimlik kesirli bölüm (.nnn) kesirli
+saniyeleri gösterir. ODM zamanı XML tasarısındaki time veri türünden biraz
+daha sınırlı olanıdır. Yalnız +-hh:mm biçimindeki zaman dilimine izin verilir.
+<br><br>
+Datetimes tarih ve zamanı birleştirir (seçimlik olarak) saat dilimi  de
+eklenir. ODM datetimes, XML tasarısındaki dateTime veri türünden azıcık daha
+sınırlıdır. Yalnız +-hh:mm biçiminde saat dilimine izin verilir.
+<br><br>
+Dates, times, ve datetimes verinin toplandığı yerde  yerel saat okumaları olarak yorumlanır. datetime içinde +-hh:mm saat ve dakika olarak evrensel saat ile yerel saat arasındaki saat dilimi uzaklığını verir. Eğer saat dilimi bilgisi yoksa evrensel saat ile yerel saat arasındaki ilişki bilinmiyor demektir.
+<br><br>
+Örnek: 3:14 pm, 3 Ocak 2001 Chicago'da (6 saat dilimi Greenwich batısında) şu
+şekilde gösterilir: "2001-01-03T15:14:00-06:00". 
+<br><br>
+Not: Yukarıdaki kalıplar (dates, times, ve datetimes için olanlar) ISO 8601
+uyumludur ("Complete Representations" referansına bakın). ODM date, time, ve
+datetime kalıpları tüm öğelerin parçalarını içermelidir.
+<br><br>
+PartialDate, partialTime ve partialDatetime kalıpları ISO8601 ile uyumludur.
+Bunlar tarihi iletmek için gereklidir. Veri elde edildiğinde bir ya da birkaç
+tarih parçası açıkça belli değilse bunlar kullanılır. Örneğin  PartialDate
+değeri için ayın günü belli olmayabilir.
+<br><br>
+IntervalDatetime kalıbı ikili partialDatetime değerinin başlangıç ve bitiş
+zaman aralığını belirtir. Başlangıç partialDatetime ve durationDatetime, ya da 
+durationDatetime ve partialDatetime sonucu kesmelerle ayrılır. (bakınız
+"Representation of time-interval identified by its start and its end",
+"Representation of time-interval identified by its start and its duration",
+ve "Representation of time-interval identified by its duration and its end"
+sırasıyla)
+<br><br>
+DurationDatetime veri kalıbı ISO 8601 ile tanımlanır. Örneğin 4 saat ve 35
+dakika PT4H35M ile gösterilir. ODM uyarlamasında her parçanın taşınma
+değerleri ve eksi süreler desteklenmektedir.
+<br><br>
+IncompleteDatetime kalıbı datetime iletişimine izin verir. Burada bir ya da
+daha fazla parça -- önemsiz olması gerekmez -- atlanmıştır. Ayıraçların tümü
+datetime için kullanılır. Eksik parçalar bir kesmeyle gösterilir. ODM
+uyarlamasında, en anlamlı partialDatetime biçimi aynı zamanda desteklenir.
+Örneğin "Bilinmeyen bir saatten 5 dakika sonrası bilinmeyen bir ayın 15. günüde
+yıl 2004 iken" şöyle gösterilir: 2004--15T-:05.
+<br><br>
+hexFloat ve base64Float veri kalıpları ikili türler olup özellikle kayan
+noktalı sayıların değişiminde kullanılmak için tasarlanmıştır. Türlerin
+tanımında IBM Mainframe kalıplarına sadık kalınmıştır (SAS V5 çevirim kalıbı). İkincil çevirim XML kodlamasına uyumludur.
+<br><br>
+Not:
+hexFloat ya da Base64Float olarak gönderilen veri değerleri XML dilinde
+insanlar tarafından okunamaz. Bu nedenle, bu türleri kullanma kararı
+uygulamanın bu kalıpta veri almak istemesinden kaynaklanır.
+<br><br>
+hexFloat ve hexBinary için değerler karakter üçlüsü olarak kodlanır ve iki
+hexadecimal rakamdan oluşur.
+<br><br>
+base64Binary veri değerleri Base64Alfabesinin 65 karakteriyle kodlanır. Bunlar
+a-z, A-Z, 0-9, +, /, = ve boşluk olarak tanımlanmıştır [Bakınız XML 1.0
+(İkinci Sürüm)].
+<br><br>
+hexBinary ve base64Binary veri türleri kayan noktalı sayıların değişimi için
+de kullanılır ama ortam ya da uygulamaya bağımlı olabilir. Uyarlayıcılar alan
+uygulamanın değeri yazı dizisi mi yoksa kayank noktalı mı algıladığını
+bilmelidir. Bu veri türlerini içeren kodlanmış değerler doğru olarak ancak
+donanım uyumlu ortamlarda taşınabilirler.
+<br><br>
+Not:
+ODM 1.1 -99.99 gibi bir saat dilimine izin verir. Bu da "saat dilimi
+kalıplaması yoktur" anlamına gelir. Artık bu kalıp desteklenmemektedir.
+<br><br>
+Bir oid (OID) öğeyi tekil olarak tanımlar (Öğe tanımları ve referanslarına
+bakın). Bir oidref bir öğeyi göstermeye yarayan OID kullanımıdır. OID'ler ve
+oidref boş olamaz.
+<br><br>
+subjectKey ya da repeatKey bir klinik veri oluşumunu tanımlamaya yarar. SubjectKey değeri boş olamaz.
+<br><br>
+Bir ad, bir oluşumun insanlarca okunabilen adıdır. Adlar (Names) boş olamaz.
+<br><br>
+sasName (ya da sasFormat),
+herhangi bir SAS Sürüm 5 İletişim Kalıp adıdır (ya da kalıbıdır).
+Bunlar 8 karakterlik uzunlukla sınırlıdırlar.
+<br><br>
+fileName bir dosyayı gösterir. dosya adları sistem bağımlıdır ve işlenen ODM
+dosyasının bulunduğu yere göre dosya yolu belirlenir. Dosya adı boş olamaz.
+<br><br>
+languageTag doğal dilin ülkeye özel değişikliğini gösterir. Geçerli değerler
+IETF RFC 3066 (Dilleri Tanımlayacak Biçimler) ile tanımlanmıştır. languageTag
+boş olamaz.
+<br><br>
+Örnek:
+"fr-CA" fransızcanın Kanada değişikliğini anlatır. 
+TranslatedText ile languageTag çevirimlerde nasıl kullanılır bakın.
+<br><br>
+Genelde NULL içeren veri kalıpları için boş yazı dizisi kullanılmalıdır
+(örneğin: attribute-name=""). Öğe gövdesindeki değiştirilen veriyi göstermek
+için öğeyi boş gönderin (<element-name/>). Klinik verileri için özel "isNULL"
+işareti vardır. Böylece değeri olmayanla ayrımı yapılmış olur (ItemData
+öğesinin isNULL niteliğine bakın).
+<br><br>
+sayılandırılmış türlerin tanımları için ODM vakfı tasarısına bakın. "ODM örnek
+XML" dosyası diğer örnekler için incelenebilir.
+              </div>
+
+          <li> ItemData[TYPE] Öğeler
+<a href="javascript:dizigoster('sec214')">(ayrıntı)</a>
+              <div id="sec214" style="display: none">
+<br>
+
+
+ODM 1.3.0'dan başlayarak ItemData öğesi için iki tür form vardır. Klinik
+verilerinin iletişiminde öğenin değeri ODM tarafından kullanılan öğededir.
+ItemData öğesi, eski ODM sürümlerinde vardı, türlenmemiş verilerin iletişimde
+kullanılan yapıdır. ItemData[TYPE] öğeleri türlenmiş veri iletişim
+yapılarıdır.
+<br><br>
+Sürüm 1.3. için ODM tasarısı aşağıdaki ItemDataTYPE öğelerini içerir:
+<pre>
+	ItemDataAny
+	ItemDataString
+	ItemDataInteger
+	ItemDataFloat
+	ItemDataDate
+	ItemDataTime
+	ItemDataDatetime
+	ItemDataBoolean
+	ItemDataDouble
+	ItemDataHexBinary
+	ItemDataBase64Binary
+	ItemDataHexFloat
+	ItemDataBase64Float
+	ItemDataPartialDate
+	ItemDataPartialTime
+	ItemDataPartialDatetime
+	ItemDataDurationDatetime
+	ItemDataIntervalDatetime
+	ItemDataIncompleteDatetime
+	ItemDataURI
+</pre>
+Tüm türlenmiş veri öğeleri PCDATA içeriğiymiş gibi kendi verilerini taşır.
+Örneğin, ItemDataInteger öğesi aşağıdaki gibi görünür:
+<pre>
+  &lt;ItemDataInteger ItemOID="ID.114"&gt;100&lt;/ItemDataInteger&gt;
+</pre>
+Uygulamanın aldığı ODM XML dosyasında ItemData[TYPE] öğesi yapısının kullanımı
+ODM dosyasının taranmasına izin verir.
+<br><br>
+ItemDataAny öğesi is provided as an escape mechanism for transmitting clinical data values that do not have the correct DataType for the corresponding ItemDef. Receiving applications are not required to load the data values transmitted using ItemDataAny elements into the corresponding database field.
+<br><br>
+Türlenmiş ve türlenmemiş veri iletişimi tek ODM dosyalarıyla
+karıştırılmamalıdır.
+<br><br>
+Note: türlenmemiş veri iletişiminde, ' , " , &lt; , &gt; , &amp; gibi özel karakterler kaçırılmalıdır. Türlenmiş veri iletişim formlarında bunlar CDATA içinde gönderilebilir ya da kaçırılarak gönderilebilir.
+
+<pre>
+  &lt;ItemDataString ItemOID="ID.115"&gt;
+    &lt;![CDATA[
+	Kaçırılması gereken beş karakter ' , " , < , > , &amp; olmalıdır.
+	]]&gt;
+  &lt;/ItemDataString&gt;
+</pre>
+
+[Commentary]
+ODM dosyaları yaratan ya da alan sistemler türlenmiş veri iletişimi için
+teşvik edilir.
+<br><br>
+ODM klinik veri dosyalarını alan sistemler içerikteki bir ya da daha çok veri
+türünü desteklemiyorlarsa, bu öğenin verilerini yazı (text) olarak
+algılamalıdır. Bu sistemlerin klinik verileri göndermeleri durumunda yeni ODM
+dosyasında öğelerin veri türünde ilk baştaki değerleri kullanmaları gerekir.
+<br><br>
+Örneğin, Eğer bir sistem normal olarak HexBinary ya da HexFloat veri türünü
+desteklemiyorsa ve bir ODM XML dosyası aldığında bu dosya içindeki veri türü
+HexFloat ise bu öğe için klinik verisi TEXT (yazı) olarak saklanır. Bu sistem
+daha sonra bir ODM dosyası yaratacak olursa, bu öğe için ItemDef değerinde
+HexFloat olur.
+         </div>
+</ol>
+<!-- ------------ tabloyu kapama -------- -->
+      </div>
+  </div>
+</td></tr></table>
+</bodY>
+</html>

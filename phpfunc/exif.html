@@ -1,0 +1,148 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Exif işlevleri </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">18 Şubat 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h3>Exif İşlevleri</h3>
+
+<h3>Giriş</h3>
+
+exif uzantısıya, resimlerin meta verileriyle oynama olanağı olur. Örneğin exif işlevlerini resimlerin meta verilerini okumak için kullanabilirsiniz (özellikle sayısal kameralarla çekilenlerin başlıklarında saklanan bilgileri) JPEG ve TIFF resimler için geçerlidir.
+
+<h3>Gereksinim</h3>
+
+Sizin PHP sürümünüz "--enable-exif" ile derlenmiş olmalıdır. exif modülü için php ayrıca bir kitaplık gerekmez. Windows kullanıcıları için ayrıca mbstring uzantısı da açılmalıdır.
+
+<h3>Kurulum</h3>
+
+exif desteğini açmak için PHP "--enable-exif" ile derlenmelidir.
+<br /><br />
+Windows kullanıcıları hem php_mbstring.dll ve php_exif.dll adlı DLL'leri açmalıdır. php_mbstring.dll DLL php_exif.dll kitaplığından önce yüklenmelidir. O zaman php.ini buna göre ayarlanır.
+
+<h3>Çalışma Zamanı Ayarları</h3>
+
+php.ini ayarlarıyla işlevlerin davranışları etkilenir.
+<br /><br />
+Exif mbstring modülü açıksa otomatik olarak kullanıcı açıklamalarını Unicode ve JIS kodlamasına çevirmek için hazırdır. Bu ilkin açıklamanın belirtilen karakter takımıyla açılmasını sağlar. Sonuç daha sonra sizin HTML sayfanızdaki karaketer takımına uygunolarak yeniden çevrilir.
+<h3>Exif ayar seçenekler</h3>
+<table class="yazi">
+<tr><td>Ad</td><td>Varsayılan</td><td>Değişebilir</td><td>Değişim Kaydı</td></tr>
+<tr><td>exif.encode_unicode</td><td>"ISO-8859-15"</td><td>PHP_INI_ALL</td><td>PHP 4.3.0. sürümünden beri vardır</td></tr>
+<tr><td>exif.decode_unicode_motorola</td><td>"UCS-2BE"</td><td>PHP_INI_ALL</td><td>PHP 4.3.0. sürümünden beri vardır</td></tr>
+<tr><td>exif.decode_unicode_intel</td><td>"UCS-2LE"</td><td>PHP_INI_ALL</td><td>PHP 4.3.0. sürümünden beri vardır</td></tr>
+<tr><td>exif.encode_jis</td><td>""</td><td>PHP_INI_ALL</td><td>PHP 4.3.0. sürümünden beri vardır</td></tr>
+<tr><td>exif.decode_jis_motorola</td><td>"JIS"</td><td>PHP_INI_ALL</td><td>PHP 4.3.0. sürümünden beri vardır</td></tr>
+<tr><td>exif.decode_jis_intel</td><td>"JIS"</td><td>PHP_INI_ALL</td><td>PHP 4.3.0. sürümünden beri vardır</td></tr>
+</table>
+
+PHP_INI_* değişmezler ve tanımlar için php.ini yönelticilerine bakın.
+<br /><br />
+Burada ayar yönelticilerinin kısa açıklaması vardır
+
+<dl>
+<dt>exif.encode_unicode yazı dizisi
+
+    <dd>exif.encode_unicode 
+Kullanıcı açıklamalarının ele alındığı UNICODE karakter takımını tanımlar. Varsayılan ISO-8859-15 olur ve pek çok Asya ülkeleri için doğru çalışır. Bu boş
+varsayılan değeri zorlar. İşlev de içsel mbstring kodlamasını kullanır.
+</dd></dt>
+<dt>exif.decode_unicode_motorola yazı dizisi
+
+    <dd>exif.decode_unicode_motorola 
+resimlerin Unicode ile kodlanmış kullanıcı açıklamaları  için içsel karakter
+takımını tanımlar. Görüntü motorola bayt sırasındadır. Bu ayar boş olamaz ama
+mbstring kullanarak hangi kodlamaların desteklendiğini belirtebilirsiniz.
+Varsayılan ise UCS-2LE olur.
+</dd></dt>
+<dt>exif.decode_unicode_intel yazı dizisi
+
+    <dd>exif.decode_unicode_intel 
+resimlerin Unicode ile kodlanmış kullanıcı açıklamaları  için içsel karakter
+takımını tanımlar. Görüntü intel bayt sırasındadır. Bu ayar boş olamaz ama
+mbstring kullanarak hangi kodlamaların desteklendiğini belirtebilirsiniz.
+Varsayılan ise UCS-2LE olur.
+
+</dd></dt>
+<dt>exif.encode_jis yazı dizisi
+
+    <dd>exif.encode_jis 
+Kullanıcı açıklamalarının ele alındığı JIS karakter takımını tanımlar. Bu boş
+varsayılan değeri zorlar. İşlev de içsel mbstring kodlamasını kullanır.
+</dd></dt>
+<dt>exif.decode_jis_motorola yazı dizisi
+
+    <dd>exif.decode_jis_motorola 
+resimlerin JIS ile kodlanmış kullanıcı açıklamaları  için içsel karakter
+takımını tanımlar. Görüntü motorola bayt sırasındadır. Bu ayar boş olamaz ama
+mbstring kullanarak hangi kodlamaların desteklendiğini belirtebilirsiniz.
+Varsayılan ise JIS olur.
+</dd></dt>
+<dt>exif.decode_jis_intel yazı dizisi
+
+    <dd>exif.decode_jis_intel resimlerin JIS ile kodlanmış kullanıcı açıklamaları  için içsel karakter takımını tanımlar. Görüntü intel bayt sırasındadır. Bu ayar boş olamaz ama mbstring kullanarak hangi kodlamaların desteklendiğini belirtebilirsiniz. Varsayılan ise JIS olur.
+</dd></dt>
+</dl>
+
+<h3>Önceden Tanımlı Değişmezler</h3>
+
+Aşağıdaki değişmezler bu uazntıyla tanımlanmıştır ve yalnız bu uzantı olduğu
+zaman kullanılabilir (derleme ya da modüler yükleme biçiminde).
+<br /><br />
+EXIF_USE_MBSTRING (integer)
+<br /><br />
+exif_imagetype() konuya ilişkin birkaç tane hazır değişkeni listeler
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> exif_imagetype — Reim tipini belirler
+    <li> exif_read_data — JPEG ya da TIFF içinden EXIF başlıklarını okur
+    <li> exif_tagname — Dizinin başlık adını alır
+    <li> exif_thumbnail — TIFF ya da JPEG resimlerin gömülmüş vesikalıklarını alır
+    <li> read_exif_data — exif_read_data eşdeğeridir
+</ul>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<html>
+<head>
+<style>
+body{
+font-family:Arial;
+line-height:140%;
+}
+span{
+font-family:Georgia, Times New Roman, Times, serif;
+color:#006666;
+font-size:12px;
+line-height:140%;
+}
+</style>
+<title>En iyi kim</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<script>
+var origMouseX, origMouseY, originalLayerTop, origLayerRight, layerID="a";	// set global variables used later on
+
+
+function accessCSS(layerID){	// access a layer's CSS property in all browsers
+	if(document.getElementById){
+		return document.getElementById(layerID).style;
+	}else if(document.all){
+		return document.all[layerID].style;
+	}else if(document.layers){
+		return document.layers[layerID];
+	}
+}
+
+
+
+function getLayerWidth(layerID){	// get width of a layer in all browsers
+	if(document.getElementById){
+		return parseInt(document.getElementById(layerID).offsetWidth);
+	}else if(document.all){
+		return parseInt(document.all[layerID].offsetWidth);
+	}else if(document.layers){
+		return parseInt(document.layers[layerID].clip.width);
+	}
+}
+
+
+
+function getLayerHeight(layerID){	// get height of a layer in all browsers
+	if(document.getElementById){
+		return parseInt(document.getElementById(layerID).offsetHeight);
+	}else if(document.all){
+		return parseInt(document.all[layerID].offsetHeight);
+	}else if(document.layers){
+		return parseInt(document.layers[layerID].clip.height);
+	}
+}
+
+
+
+function getLayerID(e){		// figure out which layer was clicked on and store it as variable, layerID
+	if(navigator.appName=="Netscape"){
+		if(document.getElementById){
+			if(e.target.nodeName=="#text"){
+				layerID=e.target.parentNode.id;
+			}else{
+				layerID=e.target.id;
+			}
+		}else if(document.layers){
+			var mouseX = e.pageX, mouseY = e.pageY;
+			for (i=0;i<document.layers.length;i++){
+				el = document.layers[i];
+				if (mouseX>parseInt(el.left) && mouseX<parseInt(el.left+el.clip.width) && mouseY>parseInt(el.top) && mouseY<parseInt(el.top+el.clip.height)){
+					layerID = document.layers[i].id + ""
+					break;
+				}
+			}
+		}
+	}else{
+		layerID=event.srcElement.id + "";
+	}
+}
+
+
+
+function startdrag(e){		// function that operates onclick and selects the layer that was clicked, storing original properties of this layer and the mouse as global variables to be used when changing the position of the layer in the dragit() function (you can see how these variables are used down there)
+	getLayerID(e);		// get layer ID
+	if(layerID.indexOf("drag")!=-1){	// make sure layer is one you want dragged (one with "drag" in the id)
+		accessCSS(layerID).zIndex=100;		// make this layer "above everything else"
+		origMouseX = (navigator.appName=="Netscape")?e.pageX:window.event.x;	// get the X-coordinate of the mouse position that you originally start at
+		origMouseY = (navigator.appName=="Netscape")?e.pageY:window.event.y;	// get the Y-coordinate of the mouse position that you originally start at
+		origLayerLeft = parseInt(accessCSS(layerID).left);	// get the original position of the layer (the left coordinate)
+		origLayerTop = parseInt(accessCSS(layerID).top);	// get the original position of the layer (the top coordinate)
+	}
+}
+
+
+
+function dragit(e){	// function that operates on mousemove.  It moves the layer that was selected in the startdrag() function
+	if(layerID.indexOf("drag")!=-1){	// make sure layer is one you want dragged (one with "drag" in the id)
+		mouseX = (navigator.appName=="Netscape")?e.pageX:window.event.x;	// get the current X-coordinate of the mouse position
+		mouseY = (navigator.appName=="Netscape")?e.pageY:window.event.y;	// get the current Y-coordinate of the mouse position
+		accessCSS(layerID).left = origLayerLeft + (mouseX - origMouseX);	// moves the layer to the appropriate place (moves the X coordinate of the layer)
+		accessCSS(layerID).top = origLayerTop + (mouseY - origMouseY);		// moves the layer to the appropriate place (moves the Y coordinate of the layer)
+	}
+}
+
+
+
+
+
+
+
+
+function onTarget(layerID){	// function called from stopdrag(), which is run onmouseup, and it sees if the layer is ontarget (where we want it to go) and performs an appropriate action if so, depending upon the answer chosen
+		
+		// the following variables store the layer's left, right, top, and bottom coordinates
+		layerLeft = parseInt(accessCSS(layerID).left);		// stores the layer's left coordinate
+		layerRight = layerLeft + getLayerWidth(layerID);	// stores the layer's right coordinate
+		layerTop = parseInt(accessCSS(layerID).top);		// stores the layer's top coordinate
+		layerBot = layerTop + getLayerHeight(layerID);		// stores the layer's bottom coordinate
+		
+
+		if(layerRight>60 && layerLeft<250 && layerBot>70 && layerTop<105){
+
+	//	This checks to see if layer is in target area.  I'm giving them (the user) a little bit of leeway and giving them a little bigger target than the actual target.
+	//	What it does is detect if the right edge of the dragging layer is in (farther to the right than) the left edge of the target spot and if the left edge of the dragging layer is in (farther to the left than) the right edge of the target spot,
+	//	and it also detects if the bottom edge of the dragging is in (farther to the bottom than) the top edge of the target spot and if the top edge of the dragging layer is in (farther to the top than) the bottom edge of the target spot.
+	//	If you think about it, it makes sense and gives them a little bit of room so that they don't have to drag so that all corners of the dragging layer are within the bounds of the target spot.  After all, the dragging layer could be larger than the target spot.
+	//  Look at the accompanying graphic on this page for a diagram to help you understand this.
+
+			if(layerID=="dragRCarlos"){	// if the layer we're dragging is layer, "dragRCarlos" and because of the other if() statement, it must be on target
+				
+				accessCSS("dragRCarlos").left = 95;	// sets "dragRCarlos" layer to the position where it is centered on the target (on the blank), thus answering the question correctly (sets the X-coordinate).  This sets the X-coordinate to the centered spot of the blank.
+				accessCSS("dragRCarlos").top = 81;	// sets "dragRCarlos" layer to the position where it is centered on the target (on the blank), thus answering the question correctly (sets the Y-coordinate).  This sets the Y-coordinate to the centered spot of the blank.
+				alert('Haklısınız!  Roberto Carlos en iyisidir');	// alerts the user they are correct
+			
+			}else{		// if the user dragged the incorrect answer to the blank
+				
+				accessCSS(layerID).left = origLayerLeft;	// sets the incorrect answer layer back to where it came from (sets the X-coordinate)
+				accessCSS(layerID).top = origLayerTop;		// sets the incorrect answer layer back to where it came from (sets the Y-coordinate)
+				alert('Hatalısınız!  Yeniden seçim yapın!');		// alerts the user they were wrong
+			}
+	
+	}else{	   // if the user dragged any layer, but didn't get the layer close enough to the blank
+	
+		accessCSS(layerID).left = origLayerLeft;	// sets the layer that didn't make it to the blank back to where it came from (sets the X-coordinate)
+		accessCSS(layerID).top = origLayerTop;		// sets the layer that didn't make it to the blank back to where it came from (sets the Y-coordinate)
+	}
+}
+
+
+
+
+
+
+
+function stopdrag(e){	   // function called onmouseup that runs the ontarget() function; it sets the layer's zIndex back to 2, and sets layerID back to "a," so that none of the if() functions will evaluate later on until layerID is set again by the getLayerID() function
+	if(layerID.indexOf("drag")!=-1){	// make sure layer is one you want dragged (one with "drag" in the id)
+		onTarget(layerID);	// runs the onTarget() function to see wheether the dragging layer is ontarget and perform the appropriate action according to it's location and whether it answers the question correctly
+		accessCSS(layerID).zIndex=2;	// sets z-index back to normal
+		layerID="a";	// sets layerID back to normal so that none of the functions will run without a layer being appropriately selected
+	}
+}
+
+function init(){  // sets function to perform on certain events
+	if (navigator.appName=="Netscape"){
+		document.captureEvents(Event.MOUSEDOWN | Event.MOUSEMOVE | Event.MOUSEUP);
+	}
+	document.onmousedown=startdrag;
+	document.onmousemove=dragit;
+	document.onmouseup=stopdrag;
+}
+
+window.onload=init;
+</script>
+</head>
+<body bgcolor="#FFFFFF" text="#000000">
+
+<div id="targetLayer" style="position:absolute; width:455px; height:27px; z-index:1; left: 70px; top: 80px"><font face="Arial, Helvetica, sans-serif" size="4">Dünyanın en iyi insanı _________________  &nbsp; mıdır acaba?</font></div>
+<div id="dragGeorgeB" style="position:absolute; width:144px; height:21px; z-index:2; left: 54px; top: 9px; font-family:Arial, Helvetica, sans-serif;font-size:18px;color:#E37609; cursor: hand">George W. Bush</div>
+<div id="dragRCarlos" style="position:absolute; width:144px; height:21px; z-index:2; left: 226px; top: 9px; font-family:Arial, Helvetica, sans-serif;font-size:18px;color:#E37609; cursor: hand">Roberto Carlos</div>
+<div id="dragOPamuk" style="position:absolute; width:144px; height:21px; z-index:2; left: 398px; top: 9px; font-family:Arial, Helvetica, sans-serif;font-size:18px;color:#E37609; cursor: hand">Orhan Pamuk</div>
+<div id="dragBillGates" style="position:absolute; width:144px; height:21px; z-index:2; left: 570px; top: 9px; font-family:Arial, Helvetica, sans-serif;font-size:18px;color:#E37609; cursor: hand">Bill Gates</div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p align="center"><font face="Verdana, Arial, Helvetica, sans-serif" size="4" color="#990000">Doğru yanıtı fareyle tutup
+  boşluğa taşıyın</font></p>
+<p align="center">&nbsp;</p>
+<p align="left">Aşağıda hedef ve katmanı gösteren bir çizim vardır. Burada katmanın hedef üstünde olup olmadığı kodlarda gösterilmiştir.</p>
+<p align="center"><img src="img/draggingLayer.gif" width="298" height="274"></p>
+<p align="left">Bu kodu çalışırken izledikten sonra ilgileneceğimiz bir konu daha kaldı: O da filitreler. Filitreler IE 4 teknolojisi zamanından kalmadır ama bazı koşullarda çok da etkin kullanılabilir. Yalnız tarayıcı bağımsız kodlamadan söz etmek en iyisidir ama burada bir ayrıcalık yapacağız. Filitreler konusunda aşağıdaki bağları incelemenizde yarar vardır:
+</p>
+<ul class="yazi">
+<li><a href="http://hotwired.lycos.com/webmonkey/97/33/index1a.html?tw=authoring">Webmonkey Tutorial</a></li>
+<li><a href="http://msdn.microsoft.com/workshop/author/filter/reference/reference.asp">reference from Microsoft</a></li>
+</ul>
+<P>&nbsp;
+<P>&nbsp;
+<P>&nbsp;
+<P>&nbsp;
+<P>
+<B><A HREF="javascript:history.back()">Dönüş</A></B>
+
+</body>
+</html>

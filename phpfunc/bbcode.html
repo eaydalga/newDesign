@@ -1,0 +1,167 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP BBCode İşlevleri</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">18 Şubat 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>BBCode İşlevleri</h2>
+
+<h3>Giriş</h3>
+
+Bu uzantı BBCode yazısını tarayıp HTML ya da başka bir dile (aynı tür) biçimine değiştirilmesine yarar. Bir adımlık tarama işlemi kullanır ve kurallı deyimler üzerinde hızlı gelişmeyi sağlar. Ayrıca açılan ve kapanan biçimlerle doğru düzgün HTML elde etmenizi sağlar.
+<br /><br />
+0.10.1 sürümünden beri tek tırnaklı, çift tırnaklı ve HTML atlatlamı çift tırnaklı parametreleri destekler.
+
+<h3>Kurulum</h3>
+
+Bu PECL uzantısı hakkında bilgi PECL uzantısı kurulumunda bulunabilir. <a href="http://pecl.php.net/package/bbcode">http://pecl.php.net/package/bbcode</a> adresini tıklayın.
+<br /><br />
+PHP ile yazılan bir başka çözüm PEAR paketidir.
+<br /><br />
+<b>Çalışırken kullanılan Ayarlar</b>
+<br /><br />
+php.ini içinde bu uzantı için bir ayar yönelticisi yoktur.
+<br /><br />
+Kaynak Türleri
+<br /><br />
+BBCode uzantısında bir kaynak kullanılır: bbcode_create() işleminden dönen BBCode_Container.
+<br /><br />
+Önceden Tanımlanmış Değişmezler
+<br /><br />
+Aşağıdaki değişmezler bu uzantıyla tanımlanır. Bu uzantı PHP ile derlendiğinde
+ya da çalışma zamanında dinamik olarak yüklendiğinde bu değişmezlerin anlamı
+vardır.
+<br /><br />
+<dl>
+<dt>BBCODE_TYPE_NOARG (integer, tamsayı)
+    <dd>Bu BBCode biçimi parametre kabul etmez.
+    </dd></dt>
+<dt>BBCODE_TYPE_SINGLE (integer, tamsayı)
+    <dd>Bu BBCode biçimi için karşıtı "close" biçimi yoktur. 
+    </dd></dt>
+<dt>BBCODE_TYPE_ARG (integer, tamsayı)
+    <dd>Bu BBCode biçimi parametre ister. 
+    </dd></dt>
+<dt>BBCODE_TYPE_OPTARG (integer, tamsayı)
+    <dd>Bu BBCode biçimi seçimli parametre kabul eder.
+    </dd></dt>
+<dt>BBCODE_TYPE_ROOT (integer, tamsayı)
+    <dd>Bu BBCode biçimi özel kök biçimidir (iç içe düzeyi 0). 
+    </dd></dt>
+<dt>BBCODE_FLAGS_ARG_PARSING (integer, tamsayı)
+    <dd>Bu BBCode biçimi parametre taraması ister (BBCode uzantısıyla parametreler de taranır). Sürüm 0.10.2 ve sonrasında parametre taraması için başka taramalar da kullanılabilir.
+    </dd></dt>
+<dt>BBCODE_FLAGS_CDATA_NOT_ALLOWED (integer, tamsayı)
+    <dd>Bu BBCode biçimi içerik kabul etmez (varsa yok eder). 
+    </dd></dt>
+<dt>BBCODE_FLAGS_SMILEYS_ON (integer, tamsayı) - sürüm 0.10.2 ve sonrasında
+    <dd>Bu BBCode biçimi "smileys" kabul eder. 
+    </dd></dt>
+<dt>BBCODE_FLAGS_SMILEYS_OFF (integer, tamsayı) - sürüm 0.10.2 ve sonrasında
+    <dd>Bu BBCode biçimi "smileys" kabul etmez.
+    </dd></dt>
+<dt>BBCODE_FLAGS_ONE_OPEN_PER_LEVEL (integer, tamsayı) - sürüm 0.10.2 ve
+sonrasında
+    <dd>Eğer aynı türün başka biçimi, aynı iç içe düzeyde bulunursa, bu BBCode biçimi otomatik olarak kapanır, 
+    </dd></dt>
+<dt>BBCODE_FLAGS_REMOVE_IF_EMPTY (integer, tamsayı) - sürüm 0.10.2 ve sonrasında
+    <dd>Eğer içirek boşsa, daha hafif HTML kurulmasını sağlar, o zaman bu BBCode biçimi otomatik olarak silinir.
+    </dd></dt>
+<dt>BBCODE_FLAGS_DENY_REOPEN_CHILD (integer, tamsayı) - sürüm 0.10.3 ve sonrasında
+    <dd>Bu BBCode biçimi kapanmamış çocukların otomatik kapanıp yeniden açılmasına izin vermez.
+    </dd></dt>
+<dt>BBCODE_ARG_DOUBLE_QUOTE (integer, tamsayı) - sürüm 0.10.2 ve sonrasında
+    <dd>Bu bir tarama seçeneğidir. Parametre çift tırnak içinde olur.
+    </dd></dt>
+<dt>BBCODE_ARG_SINGLE_QUOTE (integer, tamsayı) - sürüm 0.10.2 ve sonrasında
+    <dd>Bu bir tarama seçeneğidir. Parametre tek tırnak içinde olur.
+    </dd></dt>
+<dt>BBCODE_ARG_HTML_QUOTE (integer, tamsayı) - sürüm 0.10.2 ve sonrasında
+    <dd>Bu bir tarama seçeneğidir. Parametre HTML sürümü çift tırnak (&amp;quot;) içinde olur.
+    </dd></dt>
+<dt>BBCODE_AUTO_CORRECT (integer, tamsayı) - sürüm 0.10.2 ve sonrasında
+    <dd>Bu hataların yorumlandığı bir tarama seçeneği yoludur. Bir biçimi açıldıkları sırada otomatik olarak kapatır. Ve biçimleri kapatma biçimleri varmış kabul edip yalnız açılma biçimi varmış gibi yorumlar.
+    </dd></dt>
+<dt>BBCODE_CORRECT_REOPEN_TAGS (integer, tamsayı) - sürüm 0.10.2 ve sonrasında
+    <dd>Bu tarama seçeneğinde hataların yorumlanmasına yarar. Eğer kapanma biçimleri doğru biçimde değilse, biçimleri otomatik olarak yeniden açar.
+    </dd></dt>
+<dt>BBCODE_DISABLE_TREE_BUILD (integer, tamsayı) - sürüm 0.10.2 ve sonrasında
+    <dd>Bu BBCode taramasını durduran bir tarama seçeneğidir. "smiley" değiştirilmesi söz konusu olursa önemlidir.
+    </dd></dt>
+<dt>BBCODE_DEFAULT_SMILEYS_ON (integer, tamsayı) - sürüm 0.10.2 ve sonrasında
+    <dd>Eğer biçim düzeyinde bir durum belirtilmemişse, bu tarama seçeneği "smileys" değerini ON yapar.
+    </dd></dt>
+<dt>BBCODE_DEFAULT_SMILEYS_OFF (integer, tamsayı) - sürüm 0.10.2 ve sonrasında
+    <dd>Eğer biçim düzeyinde bir durum belirtilmemişse, bu tarama seçeneği "smileys" değerini OFF yapar.
+    </dd></dt>
+<dt>BBCODE_FORCE_SMILEYS_OFF (integer, tamsayı) - sürüm 0.10.2 ve sonrasında
+    <dd>Bu tarama seçeneği "smiley" taramasını tümüyle kaldırmaya yarar.
+<dt>BBCODE_SMILEYS_CASE_INSENSITIVE (integer, tamsayı) - sürüm 0.10.3 ve
+sonrasında
+    <dd>İkili arama yerine "smileys" için küçük büyük harf duyarlılığı tanıyan bir durumdur.
+    </dd></dt>
+<dt>BBCODE_SET_FLAGS_SET (integer, tamsayı) - sürüm 0.10.2 ve sonrasında
+    <dd>Bu taramada tamamlanma durumunu kurmaya izin verir.
+    </dd></dt>
+<dt>BBCODE_SET_FLAGS_ADD (integer, tamsayı) - sürüm 0.10.2 ve sonrasında
+    <dd>Bu taramada durumu ON yapmaya yarar.
+    </dd></dt>
+<dt>BBCODE_SET_FLAGS_REMOVE (integer, tamsayı) - sürüm 0.10.2 ve sonrasında
+    <dd>Bu taramada durumu OFF yapmaya yarar.
+    </dd></dt>
+</dl>
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> bbcode_add_element — bbcode öğesi ekler
+    <li> bbcode_add_smiley — Taramaya smiley ekler
+    <li> bbcode_create — BBCode Kaynağı yaratır
+    <li> bbcode_destroy — "BBCode_container" cwkaynağını kapatır
+    <li> bbcode_parse — Bir yazı dizisini verilen kurallara göre tarama.
+    <li> bbcode_set_arg_parser — Parametre taraması için başka kural takımı kullanmak için başka tarama eklemek.
+    <li> bbcode_set_flags — Tarama seçeneklerini ayarlama ve değiştirme.
+</ul>
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

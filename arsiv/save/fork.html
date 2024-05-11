@@ -1,0 +1,85 @@
+<HTML>
+<HEAD>
+<TITLE>AYBIM - FORK/EXEC</TITLE>
+</HEAD>
+<BODY BGCOLOR="white" LEFTMARGIN=50>
+<TABLE WIDTH="100%" CELLSPACING=10 CELLPADDING=5>
+<TR><TD WIDTH="10%" BGCOLOR="black" VALIGN="TOP">
+&nbsp;
+</TD>
+<TD>
+<H2>UNIX KOMUTLARINA ERİŞİM</H2>
+<P>
+<B>PROGRAM ÇATALLAMA ve ÇALIŞTIRMA</B>
+<P>
+Bu bölümde C dilinde kullanılan <B>çatallama (fork), çalıştırma (exec) ve
+system</B> deyimleri
+hakkında açıklama bulunur. Kısaca özetlemek gerekirse bu komutlar
+<B>çocuk</B> işlemi başlatmak için kullanılır. Bu komutlarla başlatılan
+bir işlemin <B>velisi</B> işlemi başlatan programdır. İşlem hata kodu
+(başarılı bitip bitmediği bilgisi) veli programa ilgili işlevin
+dönüş değeri olarak geri döner. Hata durumlarında program <B>errno</B>
+değişkeninin aldığı değerden hatanın türünü belirleyebilir.<P>
+<UL>
+<LI>System işlevi :<P>
+Bu işleve parametre olarak verilen dizi (karakter array) işletim
+sistemi tarafından bağımsız olarak çalıştırılan bir programdır. Diğer
+bir deyimli işletim sistemi parametreyi komut satırı olarak algılar.
+Bu işlev parametresini
+çağıran programın çocuğu olarak başlatırken, çağıran program çocuğun
+işlemini bitirmesini bekler. "system" işlevi
+çağıran programa, çocuk işleminin bitiş kodunu döndürür.<P>
+<UL>
+<PRE>
+örnek :
+
+...
+ret = system("ls -l &gt; atmp");
+if(ret &lt; 0) {
+     printf("%d nolu hata oldu.\n", errno);
+     exit(0);
+     }
+...
+</PRE>
+</UL>
+<P>
+Bu örnekte yer alan "ls -l &gt; atmp" komutu bitmeden "system" işlevi
+programa bir değer döndürmez. Dönen değer işlem doğru çalışmış ise 0
+hata oluşmuş ise -1 dir.<P>
+<LI>Çalıştırma (exec) işlevleri :<P>
+Bu serideki işlevler belirtilen kütüğü belleğe yükleyip çalıştırmak için
+kullanılır. Bu tür işlevler programın bellekteki görüntüsünü yenilemek
+amacı ile de kullanılır. Diğer bir deyimle yeni kopyayı belleğe yüklemeye
+yarar.<P>
+<LI>Çatallama (fork) işlevi :<P>
+Bu işlev, çalışan bir programın tüm değişkenleri ile bellekte yeni kopyasının
+yaratmasına ve aynı komuttan başlayarak çalıştırılması için kullanılır.<P>
+<B>fork</B> işlevi yalnız işlem numarası ve velisinin işlem numarası farklı
+bir çocuk üretir. Yani kendisinin kopyasıdır. <B>Fork</B> işlevi başarı ile
+tamamlandığında veliye çocuğun işlem numarası, çocuğa da 0 değeri geri
+döner. Her iki program da bu işlevin altındaki ilk komuttan birbirinden
+bağımsız çalışmaya başlar. Tüm açık kütükler, tüm özellikleri ile
+çocuğun kullanımına açıktır. Ayrıca bellekteki bilgi alanlarının
+değerleri de çocuğa taşınmıştır.<P>
+Çatallama işlevini anlamak benim yıllarımı aldı. O zamanlar bu tür
+işleve uygun bir uygulama bulamadığımdan olayı canlandıramamıştım. 
+Ancak TCP/IP kullanımı
+ile bu kavram daha belirgin oldu. Şimdi vereceğim örnekler de bu konuyla
+ilgili. Diyelim bir hattan gelen mesajı dinliyorsunuz. Program doğru mesajı
+aldığını anlayınca protokol gereği yapması gereken işlemler için hemen bir
+çocuk işlem üretir ve tekrar hattı dinlemeye başlar. Çocuk işlem, velisi
+hattan gelecek yeni bir bağlantıyı beklerken eski bağlantının cevaplarını
+velisinden bağımsız olarak vermeye devam eder. Böylece aynı anda aynı
+program ile birbirine karışmadan birden çok bağlantının mesajları
+algılanır.<P> Konuya örnek için <A HREF="tcpip.html">TCP/IP Programları</A> 
+adlı belgeye bakın.
+</UL>
+</TD></TR>
+<TR>
+<TD COLSPAN=2>
+<HR>
+<A HREF="http://www.aybim.com.tr/">Ana Sayfaya</A>
+&nbsp;&nbsp;<A HREF="index.html">Teknik Bilgiler Sayfasina</A>
+</TD></TR></TABLE>
+</BODY>
+</HTML>

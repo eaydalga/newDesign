@@ -1,0 +1,248 @@
+<HTML>
+<HEAD>
+<TITLE>AYBIM - SNA LU6.2</TITLE>
+</HEAD>
+<BODY BGCOLOR="white" LEFTMARGIN=50>
+<TABLE WIDTH="100%" CELLSPACING=10 CELLPADDING=5>
+<TR><TD WIDTH="10%" BGCOLOR="black" VALIGN="TOP">
+&nbsp;
+</TD>
+<TD>
+<H2>SNA LU6.2 PROTOKOLU </H2>
+<H4>GİRİŞ</H4>
+<P>
+Burada UNIX Sistemlerinin <a href="http://www.ibm.com">IBM</a> merkez 
+bilgisayarına PU 2.0 ve LU 6.2
+protokolu altında tek oturum (SINGLE SESSION) kurarak bağlantısı
+anlatılır.
+<P>
+<H4>IBM MERKEZ BİLGİSAYARI TANIMLARI</H4>
+<P>
+VTAM parametrelerinde bu tür bağlantı için PU ve LU
+tanımlarına aşağıdaki bilgiler olmalıdır.
+<p>
+PU tanımında MAXOUT=7 PUTYPE=2 olmalıdır. LU tanımında
+LOCADDR=xx DLOGMODE=xxxxxxxx bulunmalıdır. Diğer
+parametreler sistem değerleri olabilir.
+<p>
+CICS tanımlarından SIT, TCT, PCT, PPT tablolarında kullanılan
+parametreler şöyle sıralanır.
+<p>
+<table border=1>
+<tr>
+<td valign=top>TCT tablosunda</td>
+<td>
+TYPE=SYSTEM, ACCMETH=VTAM,
+FEATURE=SINGLE,SYSIDNT=xxxx, MODENAM=xxxxxxx,
+TRMSTAT=TRANCEIVE, BUFFERS=4096,RUSIZE=256 ve
+TRMTYPE=LUTYPE62 olmalıdır.
+</td>
+</tr>
+</table>
+<p>SIT tablosunda <b>ISC=YES</b> parametresi bulunmalıdır.
+<p>PCT ve PPT tablolarında kullanılacak program ve transaction
+tanımları yapılır. Burada en önemli unsur, PCT tablosunda
+<b>MODENAM=xxxxxxxx</b> tanımının yer almasıdır.
+<p>CICS altında yapılan MODEENT tanımı aşağıdaki örnek bilgilerden
+oluşur.
+<table border=1>
+<tr>
+<td>
+LOGMODE=logmode_adı, TYPE=0,FMPROF=X'13',TSPROF=X'07',<br>
+PRIPROT=X'B0',SECPROT=X'B0',ENCR=B'0000',COMPORT=X'50B1',<br>
+RUSIZE=X'8585',PSERVICE=X'060200000000000000002D00'
+</td>
+</tr>
+</table>
+<P>
+<H4>UNIX BİLGİSAYARI TANIMLARI</H4>
+<P>
+UNIX tarafında SNA gateway tanımı için kullanılan parametreler şöyle sıralanır.
+<table border=1>
+<tr>
+<td> PU=2.0</td>
+<td>PU tanımı 2.0 veya 2.1 olarak yapılmalıdır</td>
+</tr>
+<td> PIUSIZE=256</td>
+<td>Merkezle iletişimde kullanılacak parametre 256-32768 arasında
+bir değer olabilir</td>
+</tr>
+<td> ADDR=C1</td>
+<td>Burada bağlantı adresi C1,C2,C3 gibi değerler olabilir</td>
+</tr>
+<td> SDLCWIN=7</td>
+<td><b>SDLC window size</b> parametresi VTAM da tanımlanan değerler 
+<b>MAXOUT</b> aynı olmalıdır.</td>
+</tr>
+<td> FORMAT=NRZI</td>
+<td>Bağlantıda kullanılan format, Merkezdeki tanımların <b>NRZI=YES</b> veya 
+<b>NRZI=NO</b> değerlerine göre düzenlenmelidir.</td>
+</tr>
+<td> DUPLEX=FULL</td>
+<td> Bu değer dört telli modemler için FULL, iki telli modemler için
+HALF DUPLEX olmalıdır.</td>
+</tr>
+<td> ROLE=S</td>
+<td>Bağlantıda UNIX bilgisayarının görevi "Secondary" (İkincil)
+bilgisayar olarak tanıtılır. Bu parametre <b>INITSELF</b> için geçerlidir.</td>
+</tr>
+</table>
+<p>
+Bu bilgilerin dışında kalan parametreler kullanılan UNIX sistemindeki
+sürücü programına özel değerler olabilir. Burada olması gereken parametrik
+bilgilerin alabilecekleri değerler açıklanmıştır.
+<P>
+LU6.2 hizmet programları için konfigurasyon bilgilerinde gereken 
+parametreler ise şöyle olmalıdır.
+<p>
+<table border=1>
+<tr><td align=left>UNIX bilgisayarındaki ençok LU sayısı</td></tr>
+<tr><td align=left>Merkezdeki LU sayısı</td></tr>
+<tr><td align=left>Sistemde kullanılacak uygulama programları sayısı</td></tr>
+<tr><td align=left>Gönderme/Alma işlemlerinde kullanılan tampon alan boyu</td></tr>
+<tr><td align=left>Merkezdeki ve UNIX üzerindeki LU adları.</td></tr>
+</table>
+<p>
+<h4>İLETİŞİM MANTIĞI</h4>
+<p>
+Kurulacak iletişim, oturum başlatma ve kapama mantığı ile çalışır.
+<P>
+SNA ortamında taraflardan biri bekleme, diğeri gönderme
+konumundadır. Gönderme konumunda olan taraf oturumun yönünü
+değiştirebilir. Bu durumda gönderme konumundaki taraf bekleme
+konumuna geçerken, bekleme konumunda olan gönderme konumuna
+geçer. Bu iletişim kuralına <b>HALF DUPLEX FLIP FLOP</b> adı
+verilir. Ancak merkez bilgisayar bekleme konumunda olduğu
+zaman bile karşı tarafı uyararak, gönderme konumuna
+geçebilir. Bu durmunda UNIX programı oturum yönünü kaybeden
+taraf, Merkez bilgisayar ise oturum yönünü kazanan taraf
+olarak adlandırılır.
+<p>
+Oturum kuran taraf birincil program, oturumu karşılayan
+program ise ikincil programdır. Oturum ilk kurulduğunda
+Birincil program her zaman gönderme konumunda, ikincil
+program ise alma konumundadır.  Birincil program mesajı
+gönderdikten sonra karşı tarafı gönderme konumuna sokacak
+<b>SEND INVITE</b> komutunu kullanır ve bekleme konumuna geçer.
+İkincil program mesajı alınca gönderme konumunda iken <b>SEND
+CONFIRM</b>, <b>SEND LAST</b> veya <b>SEND INVITE</b> komutları ile cevap
+verir. <b>SEND CONFIRM</b>, mesajın alındığının bildirilmesi, <b>SEND
+LAST</b>, mesaj alınınca oturumu kapatılması, <b>SEND INVITE</b> ise
+mesaj alınınca gönderme konumuna geçilmesi için kullanılır.
+<p>
+Oturumu kapatma komutu hem UNIX hem de CICS tarafındaki
+ikincil programlardan yönlendirilir.
+<p>
+<h4>UYGULAMA PROGRAMLARI MANTIĞI</h4>
+<p>
+<b>UNIX oturumu başlatırsa (UNIX --> CICS)</b>
+<p>
+Daha önce hiç bağlantı kurulmamış ise önce SNA bağlantısı
+kurulur (INITSELF,BIND,STD mesajları ile). Bu durumda LU
+tanımı CICS ortamında <b>"Rel"</b> durumundan <b>"Acq"</b> duruma geçer.
+VTAM'da ise terminal <b>"ACTIVE"</b> iken <b>"ACT/S"</b> olarak gözükür.
+<p>
+UNIX, CICS altında çalışacak programı başlatır ve CICS
+programına mesaj gönderir.
+<p>
+UNIX programı mesajı gönderdikten sonra CICS programının
+cevap verbilmesi için iletişimin mesaj trafiği yönünü
+değiştirir ve cevap bekleme konumuna geçer.
+<p>
+CICS programı her zaman <b>RECEIVE</b> komutu ile mesajı alır,
+işlemi yapar ve cevabı <b>SEND CONFIRM</b> veya <b>SEND LAST</b> komutu ile
+bildirir.
+<p>
+Cevap UNIX programına <b>SEND CONFIRM</b> ile gelmiş ise UNIX
+programı mesajın alındığını Confirm mesajı göndererek CICS
+programına bildirir ve cevap bekleme konumunda kalır.
+<p>
+Cevap, <b>SEND LAST</b> komutu ile gelmiş ise UNIX programı oturumu
+kapatır. Bu sırada CICS programı da oturumu kapatmıştır.
+<p>
+<b>Merkez oturumu başlatırsa (CICS --> UNIX)</b>
+<p>
+Merkezdeki program, önce oturum başlatmak için ALLOCATE
+komutunu çalıştırır. Burada <b>SYSID</b> parametresi TCT
+tablosundaki TYPE=SYSTEM için verilen addır. Başarılı sonuçlanan <b>ALLOCATE</b> 
+komutundan sonra program, <b>CONNECT</b> komutunu çalıştırır ve <b>SEND INVITE
+WAIT</b> ile mesajı gönderir.  <b>CONNECT</b> komutunda şubedeki ikincil
+uygulama programının adı girilirken, <b>CONVID</b> bilgisi <b>ALLOCATE</b>
+komutundan alınarak belirtilir <b>(EIBRSRC)</b>.
+<p>
+Oturum kurulunca UNIX uygulama programı çalışır vaziyette cevap bekleme
+konumundadır. Gelen mesajı alır, iletişim yönünü değiştirir,
+CICS programına gidecek mesajı <b>SEND LAST</b> komutu ile gönderir
+ve oturumu kapatır.  Aynı anda CICS programı <b>RECEIVE</b> komutu
+ile cevabı alır ve oturumu kapatır.
+<p>
+<H4>UNIX PROGRAMLARI KATMANLARI</h4>
+<p>
+Örnek bir uygulamada UNIX üzerindeki iletişim programı katmanları
+aşağıda anlatılmıştır.
+<pre>
+          SNA GATEWAY
+  LU62 BİRİNCİL UYGULAMASI  LU62 İKİNCİL UYGULAMASI
+         SUBE                      SUBE
+       PROGRAMI                  PROGRAMI
+</pre>                                       
+<p>
+Şube programı merkeze bir mesaj göndermek istediğinde
+Birincil programa duyuruda bulunur. Birincil program mesajı CICS ortamına
+gönderir. CICS programından gelen cevap Birincil program tarafından ilgili
+sube programına duyurulur. Şube programı mesajı alır ve işlemin gereğini yapar.
+Birincil program her zaman bellekte çalışır durumdadır.
+<p>
+CICS ortamından başlayan işlemlerde, CICS programı, önce
+ikincil uygulama programını UNIX üzerinde başlatır ve mesajını ikincil
+uygulama programına gönderir.  İkincil uygulama programı
+aldığı bilgiyi Şube programına duyurur.
+Şube programı cevabı ikincil uygulama programı aracılığı ile gönderir. 
+İkincil uygulama programı oturumu kapatır ve son bulur. Bellekte durmaz.
+<p>
+Bu durumda şubede hiçbir terminal çalışmasa bile merkezden
+gelen mesaj uygulama programlarınca algılanır ve gereken
+cevap, süresi içinde verilir.
+<p>
+<h4>PROGRAMLAMAYA YÖNELİK DİĞER KAVRAMLAR</h4>
+<p>
+Bu örnekte iki UNIX bilgisayarının Merkez Bilgisayar aracılığı ile
+birbirleri ile konuşması ele alımıştır. Uygulama, Bankcılık ortamı
+göz önüne alınarak anlatılmıştır.
+<p>
+Bu uygulamada, CICS programının oturumu başlatması ancak sistemin CICS
+tarafından <b>"Acq"</b> görülmesi ile mümkündür.
+<p>
+UNIX programları sistem açıldığında tüm LU tanımlarını "Acq"
+yapabilmek için <b>"Allocate"</b> işlemini başlatır.
+<p>
+CICS altındaki programlar oturum kurulduğunda <b>"Sus"</b> (Suspend) gözükür.
+Bir terminalin (şube bilgisayarının) meşgul olması demek, o
+terminal ile ilgili bir işlemin <b>"Sus"</b> veya <b>"Act"</b> durumda
+olması demektir. Bu durumda <b>CICS ALLOCATE</b> komutu ile bir
+işlem başlatamaz, oturum kuramaz.
+<p>
+CICS programı oturum başlatırken o şubedeki belirtilen ve
+"Aqc" durumda olan LU için çalışan bir iş olup olmadığına
+bakar. LU boş ise oturum kurulur. CICS her zaman UNIX
+üzerinde ikincil programı çalıştırdığından, ikincil program
+mesajı ilgili şube programına devreder. Bu durumda mesaj
+karışması ve bekleme olmaz. LU boş değilse CICS programı işi
+başlatan şubeye <b>"KARŞI ŞUBE MEŞGUL"</b> mesajını gönderir.
+<p>
+İki şube arasındaki iletişimde ilk şubeye göre ikincil
+program olan CICS programı doğrudan karşı şubedeki ikincil
+programı da başlatabildiğinden ve yeni kurulan oturum için
+birincil program olduğundan, mesaj kaybı, program
+kuyruklaması gibi sorunlar en aza indirgenmiş olur.
+</TD></TR>
+<TR>
+<TD COLSPAN=2>
+<HR>
+<A HREF="http://www.aybim.com.tr/">Ana Sayfaya</A>
+&nbsp;&nbsp;<A HREF="index.html">Teknik Bilgiler Sayfasina</A>
+</td>
+</tr>
+</table>
+</BODY>
+</HTML>

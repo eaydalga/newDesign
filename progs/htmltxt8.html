@@ -1,0 +1,205 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>HTML Listeleri </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="htmltxt1.html" class="nav">Öğeler</a>
+               <a href="htmltxt2.html" class="nav">Biçimler</a>
+               <a href="htmltxt3.html" class="nav">Kalıplama</a>
+               <a href="htmltxt4.html" class="nav">Varlıklar</a>
+               <a href="htmltxt5.html" class="nav">Bağlar</a>
+               <a href="htmltxt6.html" class="nav">Çerçeveler</a>
+               <a href="htmltxt7.html" class="nav">Tablolar</a>
+               <a href="htmltxt8.html" class="nav">Listeler</a>
+               <a href="htmltxt9.html" class="nav">Formlar</a>
+               <a href="htmltxt10.html" class="nav">Resimler</a>
+               <a href="htmltxt11.html" class="nav">Art-Alan</a>
+               <a href="htmltxt12.html" class="nav">Renkler</a>
+               <a href="htmltxt13.html" class="nav">RenkDeğerleri</a>
+               <a href="htmltxt14.html" class="nav">RenkAdları</a>
+               <font color="#8e9ccb"><h3>Gelişmiş</h3></font>
+               <a href="ahtmltxt1.html" class="nav">Yerleşim</a>
+               <a href="ahtmltxt2.html" class="nav">YazıTipleri</a>
+               <a href="ahtmltxt3.html" class="nav">Stiller</a>
+               <a href="ahtmltxt4.html" class="nav">Başlık</a>
+               <a href="ahtmltxt6.html" class="nav">URL-Adresleri</a>
+               <a href="ahtmltxt7.html" class="nav">YazıDüzeni</a>
+               <a href="ahtmltxt8.html" class="nav">Nitelikler</a>
+               <a href="ahtmltxt9.html" class="nav">Olaylar</a>
+               <a href="ahtmltxt10.html" class="nav">URL-Kodlama</a>
+               <a href="ahtmltxt11.html" class="nav">Muzik-Kodu</a>
+               <a href="ahtmltxt12.html" class="nav">Video-Kodu</a>
+               <a href="ahtmltxt13.html" class="nav">WEB-Sunucu</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>HTML</h2></center>
+       <div id="ortataraf">
+<!-- html sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">30 Kasım 2007</span></div>
+<h2>HTML Listeleri</h2>
+<span class="yazi">
+HTML sıralı, sırasız ve tanımlama listeleri oluşturabilir.<br />
+</span>
+
+<h3>Sırasız (Unordered) Listeler</h3>
+<span class="yazi">
+Sırasız liste bir dizi öğeden oluşur. Listelenen öğeler bilyalarla işaretlenir (özel olarak küçük siyah çemberlerden söz edilmektedir).<br />
+<br />
+Sırasız bir listeyi başlatmak için &lt;ul&gt; biçimi kullanılır. Her liste öğesi ise &lt;li&gt; biçimiyle başlar.<br />
+</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+&lt;ul&gt;
+&lt;li&gt;Kahve&lt;/li&gt;
+&lt;li>Süt&lt;/li&gt;
+&lt;/ul&gt;
+</pre>
+</fieldset>
+<br />
+<span class="yazi">
+Tarayıcıda bunların nasıl göründüğü aşağıda gösterilmiştir:<br />
+</span>
+<ul>
+    <li> Kahve</li>
+    <li> Süt</li>
+</ul>
+<span class="yazi">
+Bir liste öğesi içinde paragraflar, satır kırılmaları, resimler, bağlar ve başka listeler olabilir.<br />
+</span>
+
+<h3>Sıralı (Ordered) Listeler</h3>
+
+<span class="yazi">
+Sıralı liste de bir dizi öğeden oluşur. Liste öğeleri sayılarla işaretlenmiştir.<br />
+</span>
+
+<span class="yazi">
+Sıralı liste &lt;ol&gt; biçimiyle başlar. Her öğe &lt;li&gt; biçimiyle tanımlanır.<br />
+</span>
+
+<fieldset class="fyazi">
+<pre>
+&lt;ol&gt;
+&lt;li&gt;Kahve&lt;/li&gt;
+&lt;li&gt;Süt&lt;/li&gt;
+&lt;/ol&gt;
+</pre>
+</fieldset>
+
+<span class="yazi">
+Burada tarayıcda nasıl olduğunu görebilirsiniz:<br />
+</span>
+
+<ol>
+<li>Kahve</li>
+<li>Süt</li>
+</ol>
+
+<span class="yazi">
+Bir liste öğesi içine paragraflar, satır kırılımları, resimler, bağlar ve diğer listeler vb yazılabilir.<br />
+</span>
+
+<h3>Tanımlama (Definition) Listeleri</h3>
+
+<span class="yazi">
+Bir tanım listesi öğelerin listesi değildir. Deyimlerin ve açıklamalarının listesidir.
+
+Bir tanım listesi &lt;dl&gt; ile başlar. Her tanım listesi öğesi &lt;dt&gt; biçimiyle başlar. Ve her deyim tanımı ise &lt;dd&gt; ile başlar.
+</span>
+
+<fieldset class="fyazi">
+<pre>
+&lt;dl&gt;
+&lt;dt&gt;Kahve&lt;/dt&gt;
+&lt;dd&gt;Siyah sıcak içecek&lt;/dd&gt;
+&lt;dt&gt;Milk&lt;/dt&gt;
+&lt;dd&gt;Beyaz soğuk içecek&lt;/dd&gt;
+&lt;/dl&gt;
+</pre>
+</fieldset>
+
+<span class="yazi">
+Tarayıcıda bu tanımın nasıl göründüğü aşağıda gösterilmiştir:<br />
+</span>
+
+<dl>
+<dt>Kahve</dt>
+<dd>Siyah sıcak içecek</dd>
+<dt>Milk</dt>
+<dd>Beyaz soğuk içecek</dd>
+</dl>
+
+<span class="yazi">
+Tanımlama listesinin içindeki liste tanımlarında (&lt;dd&gt; biçimi) paragraflar, satır kırılımları, resimler, bağlar ve diğer listeler bulunabilir.<br />
+</span>
+
+<h3>Liste Biçimleri</h3>
+
+<table class="fyazi" cellspacing="0" border="1">
+<tr>
+<th align="left">Biçim</th>
+
+<th align="left">Açıklama</th>
+</tr>
+<tr>
+<td>&lt;ol&gt;</td>
+<td>Sıralı liste tanımı</td>
+</tr>
+<tr>
+<td>&lt;ul&gt;</td>
+<td>Sırasız liste tanımı</td>
+</tr>
+<tr>
+<td>&lt;li&gt;</td>
+<td>Bir liste öğesini tanımlar</td>
+</tr>
+<tr>
+<td>&lt;dl&gt;</td>
+<td>Tanımlama listesi tanımı</td>
+</tr>
+<tr>
+<td>&lt;dt&gt;</td>
+<td>Tanımlama terimi tanımı</td>
+</tr>
+<tr>
+<td>&lt;dd&gt;</td>
+<td>Defines a definition description</td>
+</tr>
+</table>
+<br />
+Eski biçimlerden &lt;dir&gt; ve &lt;menu&gt; yerine artık &lt;ul&gt; kullanılır.
+<br />
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

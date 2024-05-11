@@ -1,0 +1,216 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+</head>
+<body>
+<div id="sag"><span class="yazi">26 Ekim 2007</span></div>
+<h2>Dolgu (padding)</h2>
+<h3>Genel</h3>
+<span class="yazi">
+Dolgu özelliği, öğelerin çevresindeki boşluğu tanımlar. Eksi değerler tanımlanamaz. Üst, sağ, alt ve sol dolgular ayrı özelliklerle tanımlanarak birbirlerinden bağımsız değiştirilebilir. Kısaltılmış bir dolgu özelliği hepsini topluca tanımlamakta da kullanılabilir.<br />
+</span>
+<br />
+<table class="yazi">
+<tr><td>Destekleyen Tarayıcılar:</td><td>IE: Internet Explorer, F: Firefox, N: Netscape.</td></tr>
+<tr><td></td><td>W3C: Buradaki sayısal değer CSS türünü (CSS1 ya da CSS2) gösterir.</td></tr>
+</table>
+<table cellspacing="0" border="1" cellpadding="3" class="fyazi">
+  <tr>
+    <th width="25%" align="left">Özellik</th>
+    <th width="30%" align="left">Açıklama</th>
+    <th width="25%" align="left">Değerler</th>
+    <th width="5%" align="left">IE</th>
+    <th width="4%" align="left">F</th>
+
+    <th width="4%" align="left">N</th>
+    <th width="7%" align="left">W3C</th>
+  </tr>
+  <tr>
+    <td valign="top">padding </td>
+    <td valign="top">Bir tanımda dolgu özelliğinin tüm değerlerini atamaya yarar.</td>
+
+    <td valign="top"><i>üst-dolgu<br />
+      sağ-dolgu<br />
+      alt-dolgu<br />
+      sol-dolgu</i></td>
+    <td valign="top">4</td>
+    <td valign="top">1</td>
+
+    <td valign="top">4</td>
+    <td valign="top">1</td>
+  </tr>
+  <tr>
+    <td valign="top"><p class="yazi">padding-bottom</p> </td>
+    <td valign="top">Bir öğe için alt kenar boşluğunu tanımlar</td>
+    <td valign="top">auto<br />
+      <i>uzunluk<br />
+      %</i></td>
+    <td valign="top">4</td>
+
+    <td valign="top">1</td>
+    <td valign="top">4</td>
+    <td valign="top">1</td>
+  </tr>
+  <tr>
+    <td valign="top"><p class="yazi">padding-left </p> </td>
+    <td valign="top">Sol dolguyu belirtir</td>
+    <td valign="top">auto<br />
+      <i>uzunluk<br />
+      %</i></td>
+    <td valign="top">3</td>
+
+    <td valign="top">1</td>
+    <td valign="top">4</td>
+    <td valign="top">1</td>
+  </tr>
+  <tr>
+    <td valign="top"> <p class="yazi">padding-right </p> </td>
+    <td valign="top">Sağ dolguyu belirtir</td>
+    <td valign="top">auto<br />
+      <i>uzunluk<br />
+      %</i></td>
+    <td valign="top">3</td>
+
+    <td valign="top">1</td>
+    <td valign="top">4</td>
+    <td valign="top">1</td>
+  </tr>
+  <tr>
+    <td valign="top">margin-top </td> 
+    <td valign="top">Üst dolguyu tanımlar</td>
+    <td valign="top">auto<br />
+      <i>uzunluk<br />
+      %</i></td>
+    <td valign="top">3</td>
+    <td valign="top">1</td>
+
+    <td valign="top">4</td>
+    <td valign="top">1</td>
+  </tr>
+</table>
+<br />
+<h3>Kenar boşluğu (margin) Özelliği</h3>
+<span class="yazi">
+Bir tanımlamada dört dolgunun tüm özelliklerini belirtmeye yarayan bir kısaltmadır.<br />
+</span>
+<fieldset class="fyazi">
+<pre>
+h1 {padding: 10px}
+her dört kenarda dolgu 10px
+
+h1 {padding: 10px 2%}
+üst ve alt dolgu 10px,
+sol ve sağ dolgu en yakın öğenin
+toplam eninin yüzde 2'sidir.
+
+h1 {padding: 10px 2% 15px}
+üst dolgu 10px, sol ve sağ dolgu
+en yakın öğenin toplam eninin yüzde 2'si kadar
+alt dolguysa 15px'dir
+
+h1 {padding: 10px 2% 15px 20px}
+üst dolgu 10px,
+sağ dolgu, en yakın öğenin
+toplam eninin yüzde 2'si
+alt dolgu 15px,
+sol dolgu 20px'dir
+</pre>
+</fieldset>
+<span class="yazi">
+Olası değerler:
+<br>
+üst-dolgu
+sağ-dolgu
+alt-dolgu
+sol-dolgu: dolgu için özellikleri belirtir. Değerler % biçiminde (dolgunun belgenin toplam boyu ya da enine yüzde oranını belirtmek için), uzunluk (değişmez dolguyu belirtmek için) ve auto (tarayıcının atayacağı bir değer için) olabilir.<br />
+<br />
+Varsayılan değer yoktur.<br />
+</span>
+<br />
+<h3>Alt Dolgu (padding-bottom) Özelliği</h3>
+<span class="yazi">
+Alt dolgu, bir öğenin alt dolgu değerini belirtir.
+</span>
+<fieldset class="fyazi">
+<pre>
+h1
+{ 
+margin-bottom: 10px
+}
+
+h2
+{ 
+padding-bottom: 10px
+}
+</pre>
+</fieldset>
+<span class="yazi">
+Olası değerler:
+<br>
+auto: Alt dolguyu tarayıcı belirler.<br />
+uzunluk: değişmez alt dolguyu tanımlar. Varsayılan değer 0 dır.<br />
+%: alt dolgunun tüm belgenin boyunun yüzde oranı olarak atanmasını sağlar.<br />
+</span>
+<br />
+<h3>Sol Dolgu (padding-left) Özelliği</h3>
+<span class="yazi">
+Bir öğenin sol dolgusunu belirtir<br />
+</span>
+<fieldset class="fyazi">
+<pre>
+h1
+{ 
+padding-left: 10px
+}
+</pre>
+</fieldset>
+<span class="yazi">
+Olası değerler:
+<br>
+auto: Tarayıcı değeri belirler<br />
+uzunluk: Değişmez sol dolguyu tanımlar<br />
+%: Belgenin toplam eninin yüzde oranı kadar sol dolgu bırakmaya yarar<br />
+</span>
+<br />
+<h3>Sağ Dolgu (padding-right) Özelliği</h3>
+<span class="yazi">
+Bir öğenin Sağ Dolgusunu tanımlar.<br />
+</span>
+<fieldset class="fyazi">
+<pre>
+h1
+{ 
+padding-right: 10px
+}
+</pre>
+</fieldset>
+<span class="yazi">
+Olası değerler:
+<br>
+auto: Tarayıcı değeri belirler<br />
+uzunluk: Değişmez sağ dolgusunu tanımlar<br />
+%: Belgenin toplam eninin yüzde oranı kadar sağ dolgu bırakmaya yarar<br />
+</span>
+<br />
+<h3>Üst Dolgu (padding-top) Özelliği</h3>
+<span class="yazi">
+Bir öğenin Üst dolgusunu tanımlar.<br />
+</span>
+<fieldset class="fyazi">
+<pre>
+h1
+{ 
+padding-top: 10px
+}
+</pre>
+</fieldset>
+<span class="yazi">
+Olası değerler:
+<br>
+auto: Tarayıcı değeri belirler<br />
+uzunluk: Değişmez üst dolguyu tanımlar<br />
+%: Belgenin toplam boyunun yüzde oranı kadar üst dolgu bırakmaya yarar<br />
+</span>
+<br />
+</body>
+</html>

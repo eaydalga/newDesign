@@ -1,0 +1,39 @@
+
+
+    ChunkID     flags     length      data
+    +--+--+  +---+-----+ +--+--+--+ +------------
+               |    |
+      +--------+    |
+      |             |
+   DataType   C E Sh Arr R
+   --------   ------------
+   0 pend
+   1 Struct   -----X--X-------------> Chunk-1 Chunk-2 ... Chunk-n
+   2 bit      ----------------------> bits (32,64 bits value)
+   3 Num      ----------------------> integer (sh -> 24 bits unsigned)
+   4 Char     --------------------+-> char string
+   6 UTF-8    --------------------+
+   5 float    -----X----------------> floating number (value)
+   7 reserv
+
+1) sh && Arr olamaz
+2) struct && sh olamaz
+3) float && sh olamaz
+4) struct && Arr olamaz
+
+
+init --> create---> leave                      writing chunk
+init --> enter----> next---> extract--->leave  reading chunk
+
+Array --> ChunkID is same in all of them
+  EL fixed length CT number of array elements
+Array ---> ChunkID+F(0x02)+(CL)+(CT)(EL)+array data
+
+COMPRESSION
+    ChunkID     flags     length            data
+    +--+--+  +---+-----+ +--+--+--+ +--+-+--------
+                                       |
+                    +------------------+
+                    |
+            |-md(1)-|-orglength(3)-|
+

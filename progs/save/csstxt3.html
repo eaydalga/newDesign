@@ -1,0 +1,319 @@
+<html>
+<head>
+</head>
+<body>
+<div id="sag"><span class="yazi">26 Ekim 2007</span></div>
+<h2>CSS Yazı (text) Özellikleri</h2>
+<span class="yazi">CSS Yazı özelliği, yazının web sayfasında nasıl görüneceğini tanımlamanızı sağlar. Yazının rengini değiştirebilirsiniz, harfler arasındaki boşluğu çoğaltıp azaltabilirsiniz, yazıyı yanaştırabilirsiniz (sağa, sola ya da her iki yönde), yazıyı dekore edebilirsiniz. Yazının ilk satırının içerden yazılmasını ve daha birçok işlemi tanımlayabilirsiniz.</span>
+<br />
+<table cellspacing="0" border="1" cellpadding="3" class="fyazi">
+<tr><td valign="top">
+Özellik</td><td valign="top" width="230">Açıklama</td><td valign="top">Değerler</td><td valign="top">IE</td><td valign="top">F</td><td valign="top">N</td><td valign="top">W3C</td></tr>
+<tr><td valign="top">color</td><td valign="top" width="230">Yazının rengini belirler</td><td valign="top">color</td><td valign="top">3</td><td valign="top">1</td><td valign="top">4</td><td valign="top">1</td></tr>
+<tr><td valign="top">direction</td><td valign="top" width="230">Yazının yönünü belirler</td><td valign="top">ltr<br/>
+rtl</td><td valign="top">6</td><td valign="top">1</td><td valign="top">6</td><td valign="top">2</td></tr>
+<tr><td valign="top">line-height</td><td valign="top" width="230">Satırlar arasındaki yüksekliği belirler</td><td valign="top">normal<br />
+sayı<br />
+uzunluk<br />
+%</td><td valign="top">4</td><td valign="top">1</td><td valign="top">4</td><td valign="top">1</td></tr>
+<tr><td valign="top">letter-spacing</td><td valign="top" width="230">Karakterler arası uzaklığı azaltır çoğaltır</td><td valign="top">normal<br />
+uzunluk</td><td valign="top">4</td><td valign="top">1</td><td valign="top">6</td><td valign="top">1</td></tr>
+<tr><td valign="top">text-align</td><td valign="top" width="230">Bir HTML öğesi içinde yazıyı yanaştırır (sağa, sola gibi)</td><td valign="top">left<br />
+right<br />
+center<br />
+justify</td><td valign="top">4</td><td valign="top">1</td><td valign="top">4</td><td valign="top">1</td></tr>
+<tr><td valign="top">text-decoration</td><td valign="top" width="230">Yazıya dekorasyon ekler</td><td valign="top">none<br />
+underline<br />
+overline<br />
+line-through<br />
+blink</td><td valign="top">4</td><td valign="top">1</td><td valign="top">4</td><td valign="top">1</td></tr>
+<tr><td valign="top">text-indent</td><td valign="top" width="230">Bir öğenin ilk satırındaki yazının belirtilen uzunluk değeri kadar içerden başlamasını sağlar.</td><td valign="top">uzunluk<br />
+%</td><td valign="top">4</td><td valign="top">1</td><td valign="top">4</td><td valign="top">1</td></tr>
+<tr><td valign="top">text-shadow</td><td valign="top" width="230"></td><td valign="top">none<br />
+color<br />
+uzunluk</td><td valign="top"></td></td></td></td></td></td></tr>
+<tr><td valign="top">text-transform</td><td valign="top" width="230">Bir öğedeki harfleri denetler</td><td valign="top">none<br />
+capitalize<br />
+uppercase<br />
+lowercase</td><td valign="top">4</td><td valign="top">1</td><td valign="top">4</td><td valign="top">1</td></tr>
+<tr><td valign="top">unicode-bidi</td><td valign="top" width="230"></td><td valign="top">normal<br />
+embed<br />
+bidi-override</td><td valign="top">5</td><td valign="top"></td><td valign="top"></td><td valign="top">2</td></tr>
+<tr><td valign="top">white-space</td><td valign="top" width="230">Bir öğe içinde boşlukların nasıl değerlendirildiğini belirtir</td><td valign="top">normal<br />
+pre<br />
+nowrap</td><td valign="top">5</td><td valign="top">1</td><td valign="top">4</td><td valign="top">1</td></tr>
+<tr><td valign="top">word-spacing</td><td valign="top" width="230">Kelimeler arasındaki boşluğu büyütüp küçültmek için kullanılır.</td><td valign="top">normal<br />
+uzunluk</td><td valign="top">6</td><td valign="top">1</td><td valign="top">6</td><td valign="top">1</td></tr>
+</table>
+
+<h3>Renk (color) özelliği</h3>
+<span class="yazi">Yazının rengini ayarlama özelliğidir (Daha önce alt alan başlığı altında işlenmiştir).</span><br />
+<br />
+<span class="yazi">Örnek:</span><br />
+<fieldset class="fyazi">
+<pre>
+ody
+{ 
+color: rgb(255,255,0)
+} 
+</pre>
+</fieldset>
+<br />
+<span class="yazi">Olası değerler:</span><br />
+<br />
+<span class="yazi">color: Renk değeri o rengin adı (red), rgb değeri (rgb(255,0,0)), ya da hex sayı (#ff0000).</span><br />
+<span class="yazi">Varsayılan değer: Tarayici bağımlı</span><br />
+
+<h3>Yön (direction) özelliği</h3>
+<span class="yazi">Yön (direction) özelliği yazının yönünü belirler.</span><br />
+<br />
+<span class="yazi">Örnek:</span>
+<fieldset class="fyazi">
+<pre>
+div
+{ 
+direction: rtl
+}
+</pre>
+</fieldset>
+<span class="yazi">Olası değerler:</span><br />
+<br />
+<span class="yazi">ltr: Varsayılan. Yazı soldan sağa doğrudur.</span><br />
+<span class="yazi">rtl: Yazı sağdan sola doğrudur.</span><br />
+<br />
+<h3>Satır yüksekliği (Line-height) Özelliği</h3>
+<span class="yazi">
+Bu özellik satırlar arasındaki yüksekliği belirler.<br />
+<br />
+Sayısal değer kullanıldığında, satır yüksekliği buradaki yazı-tipi boyu ile belirtilen sayının çarpını olur. Bunun yüzde değerinden farkı kalıtımsal davranışlarındadır. Sayısal değer kullanıldığında içteki öğe belirtilen değeri kullanır ama yüzde tanımında sonuç değer kullanılır.<br />
+</span>
+<br />
+<span class="yazi">Örnek:</span>
+<fieldset class="fyazi">
+<pre>
+p
+{ 
+line-height: 1.4
+}
+
+p
+{ 
+line-height: 14pt
+} 
+
+p
+{ 
+line-height: 140%
+}
+
+Aşağıdaki örneklerin hepsinde satır yüksekliği aynıdır:
+div { line-height: 1.2; font-size: 10pt }     /* sayı 1.2x10=12 */
+div { line-height: 1.2em; font-size: 10pt }   /* uzunluk 1.2x10=12 */
+div { line-height: 120%; font-size: 10pt }    /* yüzde 120x10/100=12 */
+</pre>
+</fieldset>
+<span class="yazi">Olası değerler:</span><br />
+<br />
+<span class="yazi">normal: Varsayılan değer. Satırlar arasındaki uzaklık kabul edilebilir uzaklıktadır.</span><br />
+<span class="yazi">sayı: Yazı-tipi boyuyla çarpılarak elde edilecek sayıyı tanımlar.</span><br />
+<span class="yazi">uzunluk: Satırlar arasında değişmez uzaklığı tamınlamak için tanımlanır.</span><br />
+<span class="yazi">% : Satırlar arasındaki uzaklığı yazı-tipi boyunun yüzdesi olarak belirtmeye yarar.</span><br />
+<br />
+<h3>Harf aralığı (letter-spacing) Özelliği</h3>
+<span class="yazi">
+Harf aralığı (letter-spacing) özelliği karakter arasındaki boşluğun azaltılması ya da çoğaltılması için kullanılır.<br />
+<br />
+Uzunluk değeri karakterler arasındaki varsayılan boşluğa eklenecek değeri gösterir. Eksi değerlere izin verilir ama uygulamaya bağımlı sınırlamalar olabilir.<br />
+</span>
+<br />
+<span class="yazi">Örnek:</span>
+<fieldset class="fyazi">
+<pre>
+p
+{ 
+letter-spacing: 12px
+}
+
+p
+{ 
+letter-spacing: -0.5px
+}
+
+Bu örnekte blockquote öğesinin harf aralığı
+0.1 kadar daha fazladır.
+
+blockquote { letter-spacing: 0.1em }
+</pre>
+</fieldset>
+<span class="yazi">Olası değerler:</span><br />
+<span class="yazi">normal : Varsayılan değer. Karakterler arasında normal uzaklığı tanımlar.</span><br />
+<span class="yazi">uzunluk: Karakterler arasında değişmez uzaklığı tanımlar. Uzunluk değeri karakterler arasındaki boşluğu değiştirir. Değer eksi olabilir. Uygulamayla sınırlı sonuçları olabilir.</span><br />
+<br />
+<h3>Yazı Yanaştırma (text-align) Özelliği</h3>
+<span class="yazi">
+Yazı yanaştırma özelliği bir öğe içindeki yazının yanaştırılması için kullanılır. kerçek algoritma tarayıcıya ve kullanılan dilin (Türkçe, İngilizce gibi) kurallarına bağlıdır
+
+</span><br />
+
+<br />
+<fieldset class="fyazi">
+<pre>
+p
+{ 
+text-align: center
+}
+
+div.center { text-align: center }
+</pre>
+</fieldset>
+<br />
+<span class="yazi">
+Yazı yanaştırmasının (text-align) kalıtımsal özelliği vardır. Örneğin "div" öğesi ortalanıyorsa (center), içindeki blok düzeyli bir öğe de ortalanır. Öğelerin enine göre ortalama yapılır, tarayıcının pencere eni temel alınmaz. Eğer yanaştırma uygulanamıyorsa, tarayıcı Batı dilleri için sola yanaşık yazı yazmayı kullanacaktır.
+</span>
+<span class="yazi">
+Olası değerler:<br />
+left : yazıyı sola yanaştırır. Varsayılan değer tarayıcıya göre değişir.<br />
+right: yazıyı sağa yanaştırır.<br />
+center: yazıyı ortalar<br />
+justify: Öğenin her iki yana dayanır...<br />
+</span>
+<br />
+<h3>Yazı dekorasyonu (text-decoration) Özelliği</h3>
+<span class="yazi">Bu özellik yazıya süsleyici özellikler katar. Eğer öğede yazı yoksa (img öğesi gibi) ya da boşsa (&lt;em&gt; &lt;/em&gt; gibi) özelliğin etkisi kalmaz. "blink" değeri yazının göz kırpmasını sağlar.<br />
+<br />
+Yazı dekorasyonunda kullanılacak renkler "color" özelliğindeki değerlerden oluşur. Bu değer kalıtımsızdır ama daha önceki öğeye uyumludur. Eğer bir öğenin altı çizilmişse, çizgi altındaki öğelere de geçer. Altçizginin rengi, yazının rengi farklı olsa bile önceki değerle aynı olur.
+</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+p
+{ 
+text-decoration: underline
+}
+
+a:link, a:visited, a:active { text-decoration: underline }
+</pre>
+</fieldset>
+<br />
+<span class="yazi">
+Yukarıdaki örneklerde tüm bağların ve paragrafların altlarının çizilmesi belirtilir.<br />
+<br />
+Kalıtımsal özelliği yoktur ama içteki öğenin uyumlu değeri olmalıdır.<br />
+<br />
+Olası değerler:<br />
+none: Varsayılan. Normal yazıyı belirtir.<br />
+underline: Yazının altında bir çizgi olmasını sağlar.<br />
+overline: Yazının üstünde bir çizgi olmasını sağlar<br />
+line-through: Yazının ortasından geçen çizgiyi tanımlar.<br />
+link: Yanar döner yazıyı belirtir.
+<br />
+</span>
+<br />
+<h3>İçerlek Yazı (text-indent) Özelliği</h3>
+<span class="yazi">
+Bir öğe içindeki yazının ilk satırını içerden yazılacağını belirtir.<br />
+<br />
+Kalıplanan yazının ilk satırından önce ne kadar içeriden başlanacağını belirtir. Değeri eksi olabilir ama tarayıcı uygulamasına göre sınırlamaları bulunabilir.<br />
+</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+p
+{ 
+text-indent: 20px
+}
+
+p
+{ 
+text-indent: -12px 
+}
+</pre>
+</fieldset>
+<span class="yazi">
+Olası değerler:<br />
+uzunluk: Değişmez içerlek yazıyı tanımlar<br />
+% : Öğenin yüzde ölçüsü kadar içerlek yazı tanımlar.<br />
+</span>
+<br />
+<h3>Yazı çevirme (text-transform) Özelliği</h3>
+<span class="yazi">Bir öğe içindeki yazıları denetlemek için kullanılan özelliktir.</span><br />
+<br />
+<fieldset class="fyazi">
+<pre>
+p
+{ 
+text-transform: uppercase
+}
+</pre>
+</fieldset>
+<span class="yazi">Olası değerler:<br />
+none: Varsayılan. Küçük ve büyük harfleriyle normal yazıyı tanımlar.<br />
+capitalize: Her kelimenin ilk harfi büyük harfe döner.<br />
+uppercase: Yazı büyük harflere çevrilir<br />
+lowercase: Yazı küçük harflere çevrilir<br />
+</span>
+<br />
+<h3>Düşey ayarlama (vertical-align) Özelliği</h3>
+<span class="yazi">
+Düşey ayarlama özelliği öğenin düşey konumunu ayarlar.<br />
+<br />
+Olası değerler:<br />
+<br />
+Önceki öğeye göre kullanılabilen değerler:<br />
+baseline: Öğenin tabanını önceki öğenin tabanına oturtmaya yarar.<br />
+middle: Öğenin (resim öğesi gibi) yüksekliğinin yarısını önceki öğenin yarı yüksekliğine ayarlar<br />
+sub: Öğeyi alt yazı biçimine çevirir<br />
+super: Öğeyi üst yazı biçimine çevirir<br />
+text-top: Yazının üstünü önceki öğenin yazı-tipi üstüyle aynı sıraya getirir<br />
+text-bottom: Yazının altını önceki öğenin yazı-tipi altıyla aynı hizaya getirir<br />
+<br />
+Öğenin içindeki diğer satırlara göre yapılan ayarlama değerleri şöyledir:<br />
+top: Öğenin üstünü öğe içindeki en uzun satırın üstüne göre ayarlamaya yarar<br />
+bottom: Öğenin altını en kısa satırın altına göre ayarlar.<br />
+<br />
+Yüzde değerler öğenin satır-yüksekliğine göre hesaplanır. Bunlar öğenin tabanını önceki öğenin tabaından ne kadar yukarıya kaydırılacağını belirtir.<br />
+Eksi değerler yazılabilir. Çrneğin -100% öğeyi aşağıya kaydırır öyle ki öğenin altı bir sonraki satırın altının olması gerektiği yere iner. Bu yöntemle yazılar yerine kullanılan resimlerde şaşmaz düşey ayar yapabilme olanağı getirilmiş olunur.<br />
+</span>
+<br />
+<h3>Boşluk (white-space) Özelliği</h3>
+<span class="yazi">
+Bir öğe içinde boşluğun nasıl ele alındığını tanımlamakta kullanılır.
+</span><br />
+<br />
+<fieldset class="fyazi">
+<pre>
+p
+{
+white-space: normal
+}
+</pre>
+</fieldset>
+<span class="yazi">
+Olası değerler:<br />
+normal: Varsayılan. boşluklar tarayıcı tarafından önemsenmez.<br />
+pre: Boşluklaar taracyıcı tarafından olduğu gibi korunur.<br />
+nowrap: yazı satır sonunda alt satıra hiç bir zaman geçmez. Aynı satırda &lt;br&gt; görünceye dek devam eder.<br />
+</span>
+<br />
+<h3>Kelime boşluğu (word-spacing) Özelliği</h3>
+<span class="yazi">Bu özellik kelimeler arasındaki boşluğu genişletir ya da daraltır. Uygulamaya bağımlı sınırlamalar olabilir. Kelimeler arasındaki boşluk her iki kenara yaslama işleminde (justify) otomatik olarak çağrılır.</span><br />
+<br />
+<fieldset class="fyazi">
+<pre>
+p
+{ 
+word-spacing: 30px
+}
+
+p
+{ 
+word-spacing: -0.5px
+}
+</pre>
+</fieldset>
+<span class="yazi">Olası değerler:</span><br />
+<span class="yazi">normal: kelimeler arasında normal aralığı belirtir. Varsayılan değerdir.</span><br />
+<span class="yazi">uzunluk: Kelimeler arasında değişmez uzunluktaki aralığı tanımlar.</span><br />
+<br />
+</body>
+</html>

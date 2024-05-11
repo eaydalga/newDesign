@@ -1,0 +1,222 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>AYBIM - SNA LU0</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onload="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+          <a href="../index.php" class="box"><img src="../img/aybim.png" border="0"></a><br /><br />
+          <a href="aglar.html" class="nav">Aglar</a>
+          <a href="aglink.html" class="nav">Aglink</a>
+          <a href="agteknik.html" class="nav">Agteknik</a>
+          <a href="ccode.html" class="nav">C-Kodlama</a>
+          <a href="cprep.html" class="nav">C-Önişleme</a>
+          <a href="crclrc.html" class="nav">CRC/LRC</a>
+          <a href="dea.html" class="nav">DEA</a>
+          <a href="etcsrv.html" class="nav">etcsrv</a>
+          <a href="fork.html" class="nav">Çatal (fork)</a>
+          <a href="ilet.html" class="nav">ilet</a>
+          <a href="inetd.html" class="nav">inetd</a>
+          <a href="make.html" class="nav">Make</a>
+          <a href="msgauth.html" class="nav">Msg Auth</a>
+          <a href="recur.html" class="nav">Özyinelemeli</a>
+          <a href="robots.html" class="nav">Robotlar için</a>
+          <a href="sdlc.html" class="nav">SDLC</a>
+          <a href="secure.html" class="nav">Güvenlik</a>
+          <a href="seri.html" class="nav">Seri uçlar</a>
+          <a href="snalu0.html" class="nav">SNA LU0</a>
+          <a href="snalu62.html" class="nav">SNA LU6.2</a>
+          <a href="tcpip.html" class="nav">tcp/ip</a>
+          <a href="tcpprg.html" class="nav">tcp Programı</a>
+          <a href="unix.html" class="nav">Unix</a>
+          <a href="vi.html" class="nav">vi Editör</a>
+       </div>
+       </td>
+       <td valign="top">
+       <div id="ortataraf">
+           <span><img src="../img/transparent.gif" width="1" height="50">
+           <img src="../img/transparent.gif" width="780" height="1"></span>
+           <div id="banner">
+             <img src="img/baslik.gif"><br />
+             <div id="mycontainer">
+               <div id="content">
+<div id="bdy" class="yazi">
+<br /><br />
+<script type="text/javascript"><!--
+google_ad_client = "pub-8541306787668208";
+//728x90, created 1/16/08
+google_ad_slot = "7459135715";
+google_ad_width = 728;
+google_ad_height = 90;
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<br>
+<br>
+<div id="sag"><span class="yazi">24 Ocak 2008</span></div>
+<h2>SNA LU0 PROTOKOLU </h2>
+<p><h3>GİRİŞ</h3>
+<P>
+LU0 iletişim protokolu, iki program arasında mesaj alış verişini yapmak için
+kullanılan eski bir tekniktir. Bu protokolda, programın biri Merkez Bilgisayarda
+diğeri ise SNA ortamına bağlı bir başka bilgisayarda olur. Merkez bilgisayara
+gönderilen mesaj LU0 protokolu kurallarına göre hazırlanır. Eski bir teknik
+olduğundan protokol arayüzü çok üst düzey işlevlerden oluşmaz. Bazı protokol
+arayüzü işlemleri (status sorma, cevap tipini belirleme gibi) uygulama 
+arayüzünde de bulunabilir.
+<P>
+SNA ortamındaki bazı kavramlar LU0 protokolu kullanılırken çok daha iyi
+bilinmelidir.
+<P>
+<b>Uygulama Arayüzü</b>
+<UL> HOSTOPEN
+<ul>
+Merkezdeki program ortamı ile bağlantı kurma. Bu işlemde 
+Merkezdeki
+program iletişim tanımlarına göre Mantıksal bir birimdir (Logical Unit). 
+Örneğin Merkezdeki CICS ortamı bir mantıksal birimdir ve uygulama programı
+diğer uçtaki mantıksal birim olarak CICS ile bağlantı kurar. Kurulan
+bağlantıda aradaki katmanlara CICS ortamı adı, bağlantı protokolu (LU0 gibi)
+Birincil ve ikincil birim tanımları anlatılır. Bu bilgiler bugün parametre
+biçiminde belirtilir.
+</ul>
+</ul>
+<UL>HOSTCLOSE
+<UL> Merkezdeki mantıksal birimle kurulan bağlantıyı kapamak 
+için kullanılır.</UL>
+</UL>
+<UL>HOSTWRITE
+<UL> Merkezdeki mantıksal birime veya ara katmanlara mesaj 
+göndermek için kullanılır. Gönderilen mesajda protokol gereği bracket
+işlemleri, cevap koşulları (Excp response, Definite response, Negative
+response gibi) da bulunur.</UL>
+</UL>
+<UL>HOSTREAD
+<UL> Merkezden gelen mesajları veya komutları okumak için 
+kullanılır. Cevapta status bilgisi (sense byte) response tipi (Negative,
+Definite gibi) uygulama bilgilerinden ayrı olarak mesajın başında
+ilk 9 byte içinde bulunur.</UL>
+</UL>
+</UL>
+<b>Protokol Arayüzü</b>
+<UL>INITSELF
+<UL>Merkezdeki VTAM programı aracığılı ile Merkezdeki uygulama
+programı ortamına bağlantı kurmak için gönderilen komuttur. Burada
+bağlantı kurulacak CICS adı, varsa MODTAB tanımı yapılır. Komut VTAM
+tarafından aktif durumdaki CICS ortamına iletilir. Cevap VTAM
+aracılığı ile Protokol arayüzüne gelir.</UL>
+</UL>
+<UL>BIND
+<UL>INITSELF komutu, merkezdeki programlar tarafından kabul edilince
+ilk gelen cevap BIND komutudur. Burada, hangi kalıp yapısı (format type) ile
+sistemin mesaj kabul edeceği yer alır. BIND komutuna iki tür cevap
+verilebilir. Ya komut kabul edilir veya red edilir. Bu işlem uygulama
+programı arayüzündeki mantıkla çözümlenir. Eğer BIND red edilirse, uygulama
+programı arayüzündeki HOSTOPEN işlemi başarısız olmuştur.</UL>
+</UL>
+<UL>BID
+<UL>Bir program "cevap verme" konumunda ise, BID komutunu göndererek
+"gönderme" konumuna geçmek ister. BID komutuna karşı taraftan olumlu
+yanıt gelirse istekte bulunan taraf "gönderme" konumundadır. Olumlu cevap
+gelmezse istekte bulunan taraf protok gereği panatezin kapanmasını
+beklemelidir. Çoğu kez BID komutu iletişimi durdurmak veya kurulmuş oturumu
+kapatmak için kullanıldığından BID komutuna olumlu cevap verilmeli ve 
+"cevap alma" konumuna geçilmelidir. Uygulama arayüzü sistem "Alma" konumunda
+iken bir mesaj göndermek isterse protokol konumundan bu işlem başlatılmalıdır.
+Eğer uygulama programı alınan cevap beklenmedik bir biçimde ise veya alınan
+cevap içeriği oturumu koşulsuz kapatmayı gerektiriyorsa protokol arayüzünde
+BID komutu başlatılmalı. BID komutuna gelen olumlu cevapla oturum
+kapatılmalıdır. Genelde, uygulama programı karşı taraftan beklenen sürede
+cevap alamaz ise, daha sonraki mesajlarda konum uyumsuzluğu olmaması için
+oturumu kapatıp, yeniden açmak ister. Protokol arayüzünde program "Alma"
+konumunda kalmış ve cevap alamamış olduğundan BID komutu ile "Gönderme"
+konumuna geçilir ve daha sonra oturum UNBIND komutu ile kapatılır.</UL>
+</UL>
+<UL>READ
+<UL>Protokol arayüzü "Alma" konumunda iken READ komutu ile merkezden
+cevap bekler. İletişim arayüzüne bağımlı olarak cevap ya okunacak hiçbirşey 
+yok (zaman aşımı) veya cevap geldi biçimindedir. Gelen cevap yine iletişim
+arayüzü programlarına bağımlı olarak ya 255 byte uzunluğunda zincirler
+halindedir, ya da 255 byte'lık bilgiler bir yapıya taşınmış BIND komutundaki
+kalıba göre düzenlenmiştir. BIND komutundaki kalıba göre düzenlenmiş bilgi
+aşağıdaki değerlerden oluşur :
+<PRE>
+  [Transmission Header][Request Header][Request Unit]
+</PRE>
+Protokol Arayüzü, TH (Tranmission Header) ve 
+RH (Request Header) değerlerinden mesajın içeriğini anlar ve
+uygulama programına gönderilmesi gereken cevap bu bilgilerden hazırlanır.
+RU (Request Unit), bu protokolda uygulama programı mesajını içerir. Bazı 
+durumlarda RU
+bilgisi sıfır uzunlukta gelir. Bu bilgi CICS ortamındaki işlemin
+bittiği, protokol gereği parantezin kapandığı anlamını taşır. Protokol
+arayüzü sıfır RU boyu olan mesajla (boş mesaj), mesaj alamama durumunu
+ayırt etmelidir. Mesaj alamama durumunda CICS programı "Gönderme"
+konumunda kalmış, VTAM CICS ortamını "Gönderen" olarak tanıyordur. Uygulama
+programı zaman aşımına uğramış, "Alma" konumundan çıkmak istemektedir. Hatta
+yeniden "Gönderme" konumuna geçip mesaj göndermek istiyor olabilir.
+Bu durumda "Alma" durumunda olan tarafın VTAM aracılığı ile konumunu
+değiştirmesi gerekir. Aksi halde VTAM, uygulama programının konumunu hala
+"Alma" konumu olarak bildiğinden gönderilen her mesajı red edecektir.
+İşte bu gibi durumlarda BID komutu işe yarar. Eğer parantez kapanmamış 
+ise BID
+komutu ile VTAM da yön değiştirme işlemi yapılır ve UNBIND gönderilerek
+oturum kapatılır. Böylece CICS uygulama programı hala çalışıyorsa durması
+artık karşı taraftaki programın cevap beklemediği belirtilmiş olur. Eğer
+CICS programı herhangi bir nedenle durmuş, zaten çalışmıyorsa bu işlemle 
+VTAM açısından parantez kapanması sağlanmış olur.</UL>
+</UL>
+<UL>
+WRITE
+<UL>Bu komut format yapısına göre mesaj hazırlayıp bu mesajı merkezdeki
+CICS programına göndermek için kullanılır. Protokol arayüzü "Gönderme" 
+konumunda iken bu komutu işleme sokar. Gönderilen mesajın yapısı
+<PRE>
+   [Transmission Header][Request Header][Request Unit]
+</PRE>
+biçimindedir.</UL>
+</UL>
+<UL>UNBIND
+<UL>Bu komut INITSELF ve BIND komutları ile kurulmuş oturumu kapatmak
+için kullanılır. Gerçekte iletişim kapatılmaz, Mantıksal birimler arasında
+kurulmuş olan oturum kapatılır.</UL>
+</UL>
+<UL>HATA Kodları
+<UL>Gönderilen mesajlardan sonra, INITSELF işleminden sonra veya
+READ işleminden sonra STATUS sorularak hata mesajları alınabilir. SNA
+ortamındaki hata mesajlarına "sense byte" adı verilir. Hata mesajları 6 byte
+olarak protokol arayüzüne gelir. Hata mesajlarının anlamları SNA kitaplarında
+ayrıntıları ile açıklanmıştır.</UL>
+</UL>
+<b>İletişim Protokol</b>
+<a href="sdlc.html">(SDLC Protokolu)</a>
+<UL>SNA ortamında iletişim protokolu SDLC
+olarak adlandırılır. Ayrıntılı bilgi ilgili sayfada açıklanmıştır.
+</UL>
+<HR>
+<br />
+</div>
+               </div>
+             </div>
+           </div>
+
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

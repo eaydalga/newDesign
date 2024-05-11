@@ -1,0 +1,325 @@
+<html>
+<body>
+<div id="sag"><span class="yazi">26 Kasım 2007</span></div>
+
+<div class="yazi">
+<h2>W3C DOM Düzey 2 Olayları</h2>
+<p class="yazi">Olayların çalışması konusunda bir fikriniz oldu. Şimdi W3C DOM Düzey 2'de durum nedir ona bakalım. Buradaki adreste ayrıntılı bilgi vardır:</p>
+  <a href="http://www.w3.org/TR/2000/REC-DOM-Level-2-Events-20001113/events.html">DOM Olayları (Events)</a></p>
+
+<h2>Yakalama ya da Fokurdama (Capture or Bubble)?</h2>
+<p class="yazi">DOM'un bir sayfada nasıl siradüzensel yapıda olduğunu anımsayıp olaylara ne olduğuna bakalım:</p>
+<ol>
+  <li>O düğümde olay olur ve olay yakalama işlemi o düğüm için geçerli olur</li>
+  <li>Düğümde olay gerçekleşir, olay yakalama işlemini bu noktaya demirleyip sıradüzensel yapı içinde aşağıya doğru ilerlerken her geçtiği düğümde başkası kalmayıncaya dek bu olayı tetiklemeyi kaldırır.</li>
+  <li>Olay düğümde oluşur, o düğüm için olay yakalama işlemini kapatır ve sıradüzensel yapı içinde başkası kalmayıncaya dek yukarıya çıkarak işlemleri tamamlar.</li>
+</ol>
+<p class="yazi">Let's take a look at an example page:</p>
+<p class="yazi">Şimdi aşağıdaki örneğe bakalım:</p>
+
+<fieldset class="yazi">
+<pre>
+&lt;html&gt;
+     &lt;head&gt;
+     &lt;/head&gt;
+       &lt;body&gt;
+            &lt;div id=&quot;div1&quot;&gt;
+                 &lt;span id=&quot;span1&quot;&gt;
+                    Click Me
+               &lt;/span&gt;
+            &lt;/div&gt;
+       &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+</fieldset>
+<p class="yazi">Ve şimdi olayın üç yöne gidişini gösteren çizime bakalım:</p>
+<h3>1. Olay içinde bulunduğu düğümde etkindir</h3>
+<p align="center"><img src="img/propragate.gif" width="414" height="261"></p>
+<h3>2. Yakalama - bir düğümde olay olduğunda ve en üst noktadan aşağıya doğru tümünü ateşlediğinde.</h3>
+<p align="center"><img src="img/capture.gif" width="414" height="261"></p>
+<h3>3. Fokurdama - Bir düğümde olay olduğunda ve olayın olduğu düğümden yukarı doğru tümünü ateşlediğinde</h3>
+<p align="center"><img src="img/bubble.gif" width="414" height="261"></p>
+
+<h3 align="left">Yöntemleri Anlama</h3>
+<p align="left">Bir olay oluştuğunda üç değişik biçimde geliştiğini biliyoruz. Şimdi bazı kodlamalara bakalım.</p>
+<p class="yazi">"addEventListener(eventType, Function, useCapture)"
+Bir düğümden çalıştırılacak olayı ekler.</p>
+<ol>
+  <li>İlk parametre ne tür olayın algılanacağını söyler. Unutulmamaı gereken konu burada alıştığımız "on" önekini kullanmamamızdır. Yani "onclick" yerine küçük harflerle "click" kullanılır.</li>
+
+  <li>Olayda kullanılacak işlev ikinci parametrede belirtilir.</li>
+  <li>Son parametre mantıksal doğru/yanlış değerini kabul eder. Bu değer "true" (doğru) ise olay yakalanacaktır. Bunun anlamı en üst demirlenme noktasından içeriye doğru ilerleyecektir. Eğer "false" (yanlış) ise olay fokurdar. Bunun anlamı en üst düğüme doğru olay ilerleyecektir.</li>
+</ol>
+<p class="yazi">"removeEventListener(eventType, Function, useCapture)" Çalıştırılacağı düğümden bu olay dinleme işlemini kaldırmak için kullanılır. Unutulmaması gereken en önemli nokta tüm parametreler "addEventListener()" işlemindekiyle aynı olmalıdır.
+Eğer "addEventListener()" işleminde useCapture değerini "false" olarak atamışsanız, removeEventListener() işleminde buraya "true" yazarsanız silme işlemi çalışmaz...</p>
+
+<p class="yazi">"stopPropagation()" Olayın dökümanın diğer yerlerinde dolanmasını engeller. Örneğin olayın yakalanmasıni ya da fokurdamasını engeller.</p>
+</div>
+
+<h2>DOM Örnekleri</h2>
+
+<div class="yazi">
+
+DOM yazılımı için bir tablo üzerinde çalışacağız. Bir tablo yaratacağız. Hücresi tıklandığında rengi değişecek ve "ışıldayacak". Tablonun bir hücresi seçildiğinde görünen bir form çıkacak ve yapabileceğimiz işlemleri belirtecek. Yeni satır ekleme, seçilen satırı silme, o anki satırı kopyalama, kopyalanan satırı yapıştırma ve satırın yazısını değiştirme. Buradaki örnek 
+  <a href="ornek12.html">Örnek 12</a>
+yalnız NS 6 ve Mozilla tarayıcılarında çalışır.
+  
+<h3>Örnek Kod</h3>
+
+<p class="yazi">Şimdi parç parça bu kodu inceleyelim</p>
+<br />
+<fieldset class="fyazi">
+<pre>
+&lt;script language=&quot;javascript&quot; type=&quot;text/javascript&quot;&gt;
+    var selectedTD = null;
+    var copiedTD = null;
+    var table, tbody, tr, td, text;
+</pre>
+</fieldset>
+<p class="yazi">Bu kod kullanacağımız küresel değişkenlerimizi yaratır.
+"selectedTD" kullanıcının seçtiği tablo hücresini saklar.
+"copiedTD" Kullanıcının kopyaladığı tablo hücresini saklar.
+"document.createElement()" işlemiyle yarattığımız değişik tablo bölümlerinin değerlerinin "table, tbody, tr, td, text" değişkenleri saklar.
+
+<h3>Tablomnuzu yaratalım</h3>
+<p class="yazi"><fieldset class="fyazi"> 
+<pre>
+function createNewRow(txt){
+      tr = document.createElement(&quot;tr&quot;);
+      td = document.createElement(&quot;td&quot;);
+
+      td.setAttribute(&quot;width&quot;,&quot;300&quot;);
+      td.setAttribute(&quot;bgColor&quot;,&quot;purple&quot;);
+      td.setAttribute(&quot;style&quot;,&quot;color:white;font-family:Arial;text-align:center&quot;);
+      td.addEventListener(&quot;click&quot;, 
+  clickTD, false);
+      text = document.createTextNode(txt);
+      td.appendChild(text);
+      tr.appendChild(td);
+    }
+</pre>
+</fieldset>
+</p>
+<p class="yazi">Bu işlev yeni satır yaratır ve değerlerini ilgili değişkenlerde saklar.
+Bu işlev, parametresinden gelen yazıya göre bir yazı düğümü yaratır.
+It creates a textNode with the text passed in its sole 
+  argument.
+Also, it assigns some attributes to the table cell tag; the <span>bgColor</span> 
+Tablo hücresinin niteliklerine de değerler atar. Aslında "bgColor" bu yazılımda oldukça çok kullanılan bir niteliktir. Varsayılan değeri seçilmediğinde pembedir (seçilince parlak mavi olacaktır).
+Ek olarak bu yeni yaratılmış tablo hücrelerine "Olay Dinleyici" eklemekteyiz. Böylece hücrelerden birini tıklayınca "clickTD" işlevini çalıştıracağız.</p>
+
+<fieldset class="fyazi">
+<pre>
+    div = document.createElement(&quot;div&quot;);
+    div.setAttribute(&quot;align&quot;,&quot;center&quot;);
+    table = document.createElement(&quot;table&quot;);
+
+    table.setAttribute(&quot;border&quot;,&quot;3&quot;);
+    div.appendChild(table);
+    tbody = document.createElement(&quot;tbody&quot;);
+
+    table.appendChild(tbody);
+    for(i=0;i&lt;5;i++){
+      createNewRow(&quot;This 
+  is the text in cell &quot;+parseInt(i+1)+&quot;.&quot;);
+
+      tbody.appendChild(tr);
+    }
+    document.body.appendChild(div);
+</pre>
+</fieldset>
+
+<p class="yazi">Kodun bu bölümü "align" niteliği ortalanmış (center) bir "div" öğesi yaratır. Aynı zamanda bir "table" öğesi "div" öğesinin çocuğu olarak yaratılır.
+Daha sonra "tbody" öğesi "table" öğesinin çocuğu olarak yaratılır. Artık yeni satırlar "tbody" öğesinin altına eklenecektir.
+Son olarak "div" öğesi "body" öğesinin arkasına eklenir.
+Böylece tamamı aşağıdaki HTML kodunu üretmeiş olur.</p>
+
+<fieldset class="fyazi">
+<pre>
+&lt;body&gt;<br />
+    &lt;div align=&quot;center&quot;&gt;<br />
+      &lt;table border=&quot;3&quot;&gt;<br />
+  &lt;tbody&gt;<br />
+    &lt;tr&gt;<br />
+      &lt;td width=&quot;300&quot; 
+  bgcolor=&quot;purple&quot; style=&quot;color:white;font-family:Arial;text-align:center&quot;&gt;<br />
+  This is the text in cell 1.<br />
+      &lt;/td&gt;<br />
+    &lt;/tr&gt;<br />
+    &lt;tr&gt;<br />
+      &lt;td width=&quot;300&quot; 
+  bgcolor=&quot;purple&quot; style=&quot;color:white;font-family:Arial;text-align:center&quot;&gt;<br />
+  This is the text in cell 2.<br />
+      &lt;/td&gt;<br />
+    &lt;/tr&gt;<br />
+    &lt;tr&gt;<br />
+      &lt;td width=&quot;300&quot; 
+  bgcolor=&quot;purple&quot; style=&quot;color:white;font-family:Arial;text-align:center&quot;&gt;<br />
+  This is the text in cell 3.<br />
+      &lt;/td&gt;<br />
+    &lt;/tr&gt;<br />
+    &lt;tr&gt;<br />
+      &lt;td width=&quot;300&quot; 
+  bgcolor=&quot;purple&quot; style=&quot;color:white;font-family:Arial;text-align:center&quot;&gt;<br />
+  This is the text in cell 4.<br />
+      &lt;/td&gt;<br />
+    &lt;/tr&gt;<br />
+    &lt;tr&gt;<br />
+      &lt;td width=&quot;300&quot; 
+  bgcolor=&quot;purple&quot; style=&quot;color:white;font-family:Arial;text-align:center&quot;&gt;<br />
+  This is the text in cell 5.<br />
+      &lt;/td&gt;<br />
+    &lt;/tr&gt;<br />
+  &lt;/tbody&gt;<br />
+      &lt;/table&gt;<br />
+    &lt;/div&gt;<br />
+  &lt;/body&gt; <br />
+</pre>
+</fieldset>
+
+
+<h3>clickTD işlevi</h3>
+<p class="yazi">Şimdi bir başka kod parçasını inceleyelim:</p>
+
+<fieldset class="fyazi">
+<pre>
+function clickTD(){
+  if(selectedTD) 
+      selectedTD.setAttribute(&quot;bgColor&quot;,&quot;purple&quot;);
+      if(selectedTD != this){
+          selectedTD = this;
+          selectedTD.setAttribute(&quot;bgColor&quot;,&quot;blue&quot;);
+          showForm();
+      }else{
+          selectedTD = null;
+          hideForm();
+      }
+    }
+</pre>
+</fieldset>
+
+<p class="yazi">Bu kod zor gelebilir ama göründüğü gibi değildir. Biri tablo hücresinde fareyi tıkladığında bu işlev çalışmaya başlar. Hücrenin art alan rengi değişerek hücre seçilmiş (etkinleştirilmiş) olur. Daha önce seçilmiş bir başka hücre varsa o hücrenin etkinleştirilmiş olması kaldırılır.
+(rengi yeniden pembeye döner). Hücre etkinleştirilince tablonun hemen altında bir form görüntülenir. Seçilmiş hücre yeniden tıklandığında etkinleştirilme kalkar ve görüntülenmiş form kaybolur.</p>
+
+<p class="yazi">Öncelikle "clickTD" bir işlev olarak tanımlanır. Eğer hücre daha önce seçilmişse, etkinliği kaldırılır ve art alan rengi diğer hücrelerinki gibi "pembe" olur.
+"selectedTD" değişkenine kullanıcının tıkladığı tablo hücresinin değerini atar.
+Tıklanan hücrenin rengini de "mavi" yapar. Bundan sonra "showForm" işlevi çalıştırılır. Birazdan incelenecek olan form bu işlevle görüntülenir.
+Eğer tıklanan tablo hücresi daha önce seçilmişse, şimdi seçilmişlik kaldırılmak istenmektedir. Bu durumda "selectedTD" değeri "null" yapılır ve "form" "hideForm" işleviyle saklanır.</p>
+
+<h3>Form</h3>
+<p class="yazi">Daha çok ilerlemeden "Form" kodunu inceleyelim::</p>
+<fieldset class="fyazi">
+<pre>
+&lt;form style=&quot;display:none&quot;&gt;
+    &lt;div align=&quot;center&quot;&gt;
+      &lt;input type=&quot;button&quot; 
+          value=&quot;Delete&quot; onclick=&quot;deleteR()&quot;&gt;
+          &amp;nbsp; &lt;font 
+               face=&quot;Arial, Helvetica, sans-serif&quot;&gt;
+      &lt;input type=&quot;button&quot; 
+          value=&quot;Insert New Row&quot;
+               onClick=&quot;insertNR()&quot;&gt;
+      &lt;input type=&quot;button&quot; 
+          value=&quot;Copy Cell&quot;
+               onClick=&quot;copyCell(selectedTD)&quot;&gt;
+      &lt;input type=&quot;button&quot; 
+          value=&quot;Paste Cell&quot;
+               onClick=&quot;pasteCell()&quot;&gt;
+      &lt;br&gt;
+      Change Text:
+      &lt;/font&gt; 
+      &lt;input name=&quot;newTextInput&quot; 
+          type=&quot;text&quot; size=&quot;27&quot;&gt;
+      &lt;input type=&quot;button&quot; 
+          value=&quot;Change Text&quot;
+          onclick=&quot;changeText(document.forms[0].newTextInput.value)&quot;&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+</pre>
+</fieldset>
+
+<p class="yazi">Şimdi bu formu gösteren ve saklayan işlerleri inceleyelim. Form öncelikle (sayfa yüklenince) saklıdır. İşlevlerimiz:<br />
+
+<pre>
+function hideForm(){
+    document.getElementsByTagName(&quot;form&quot;).item(0).setAttribute(&quot;style&quot;,&quot;display:none&quot;);
+ }
+
+function showForm(){
+    document.forms[0].setAttribute(&quot;style&quot;,&quot;display:block&quot;);
+ }
+</pre>
+<p class="yazi">
+"hideForm" işlevi formu saklar, "showForm" işlevi formu görüntüler. form öğesine her iki biçimde de ulaşmanın nasıl olduğu görülmüş olur.
+</p>
+<p class="yazi">Seçilen tablo hücresinde işlerin nasıl yapıldığına bakalım.</p>
+
+<h3>Yeni Satır Ekle</h3>
+<pre>
+  function insertNR(){
+      if(document.forms[0].newTextInput.value==&quot;&quot;) 
+           createNewRow(&quot;This is the new table cell&quot;);
+      else createNewRow(document.forms[0].newTextInput.value);
+      tbody.insertBefore(tr, 
+               selectedTD.parentNode.nextSibling);
+               window.resizeBy(-10,-10);
+               window.resizeBy(10,10);
+    }
+</pre>
+<p class="yazi">
+Bu işlev yeni satır oluşturur. Eğer "newTextInput" giriş alanı boşsa, yeni tablo hücresini soysal yazıyla üretir. Aksi halde "next" değeri "newTextInput" içinde olacak biçimde yeni hücreyi üretir. Üretilen hücre seçilenin peşine eklenir.
+Unutmayın ki "selectedTD.parentNode" "td" öğesinin bulunduğu "tr" öğesini gösterir.
+"selectedTD.parentNode.nextSibling" ise seçili öğeden sonra gelen ilk "tr" öğesini belirtir. Böylece yenisi seçilenden selectedTD.parentNode sonra eklenebilir. O da selectedTD.parentNode.nextSibling'dan öncekidir.
+Burada kodun sonunda yer alan "window.resizeBy()", birden çok satır eklemek ya da yapıştırmak isteyince çıkan Mozilla hatasını geçiştirmek için kodlanmıştır.</p>
+
+<h3>Hücre Yazısını Değiştir</h3>
+<pre>
+  function changeText(txt){
+     if(txt=&quot;&quot;)return;
+     selectedTD.firstChild.nodeValue = txt;
+  }
+</pre>
+
+<p class="yazi">
+Bunun yaptığı
+document.forms[0].newTextInput içindeki veriyi parametre olarak geçirmektir (txt).
+Ama document.forms[0].newTextInput.value değeri boşsa, hiçbir şey yapmaz.</p>
+
+<h3>Hücre Kopyala</h3>
+<pre>
+  function copyCell(cellToCopy){
+      copiedTD = selectedTD.cloneNode(true);
+      copiedTD.setAttribute(&quot;bgColor&quot;,&quot;purple&quot;);
+      copiedTD.addEventListener(&quot;click&quot;, clickTD, false);
+    }
+</pre>
+
+<p class="yazi">Seçilen hücreyi kopyalar.
+Seçilen hücre zaten selectedTD içinde olduğundan aynı özellikleri olan copiedTD gerekmez. Seçilen etkinleştirilmiştir ama kopyalanın da etkinleştirilmesi gerekmediğinden bu özellik kaldırılmıştır. Son olarak kopyalanan bir düğümün EventListener özellikleri kopyalanmadığından yeni düğüm için bunları ayarlamak gerekir.
+</p>
+
+
+<h3>Hücreyi Yapıştır</h3>
+
+<p class="yazi"><span>
+<pre>
+  function pasteCell(){
+   if(!copiedTD) return;
+   tr = document.createElement(&quot;tr&quot;);
+   tr.appendChild(copiedTD);
+   tbody.insertBefore(tr, 
+          selectedTD.parentNode.nextSibling);
+   window.resizeBy(-10,-10);
+   window.resizeBy(10,10);
+   copyCell(copiedTD);
+   }
+</pre>
+
+<p class="yazi">Önce hücrenin kopyalanıp kopyalanmadığını saptar. Eğer kopyalanmamışsa işlev son bulur. Ama kopyalanmışsa işlev devam eder. Yeni bir "tr" öğesi ekler ve ona "copiedTD" içindeki "td" öğesini ekler. Ve yeni tablo satırını hemen seçilenin altına ekler. Daha sonra Mozilla düzeltme koduna yer verilmiştir.
+
+<p class="yazi">Burada çekirdek DOM (temel DOM) kullandık, ama DOM buradakiler yerine hazır işlevleri vardır. "insertRow" ve "deleteRow" bunlardan bazılarıdır. Bu yöntemler bazı öğeler için geçerlidir. Konuya ilişkin WEB sayfası
+  <a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-html.html">DOM-HTML</a> ve burada anlatılanların (tablolar gibi) yer aldığı belgeler <a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-html.html#ID-64060425">DOM-HTML: TABLES</a> altında bulunabilir.
+</p>
+</div>
+</body>
+</html>

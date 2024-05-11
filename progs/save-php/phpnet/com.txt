@@ -1,0 +1,221 @@
+
+COM ve .Net (Windows)
+
+Giriş
+
+COM is an acronym for Component Object Model; it is an object orientated layer (and associated services) on top of DCE RPC (an open standard) and defines a common calling convention that enables code written in any language to call and interoperate with code written in any other language (provided those languages are COM aware). Not only can the code be written in any language, but it need not even be part of the same executable; the code can be loaded from a DLL, be found in another process running on the same machine, or, with DCOM (Distributed COM), be found in another process on a remote machine, all without your code even needing to know where a component resides.
+
+There is a subset of COM known as OLE Automation which comprises a set of COM interfaces that allow loose binding to COM objects, so that they can be introspected and called at run-time without compile-time knowledge of how the object works. The PHP COM extension utilizes the OLE Automation interfaces to allow you to create and call compatible objects from your scripts. Technically speaking, this should really be called the "OLE Automation Extension for PHP", since not all COM objects are OLE compatible.
+
+Now, why would or should you use COM? COM is one of the main ways to glue applications and components together on the Windows platform; using COM you can launch Microsoft Word, fill in a document template and save the result as a Word document and send it to a visitor of your web site. You can also use COM to perform administrative tasks for your network and to configure your IIS; these are just the most common uses; you can do much more with COM.
+
+Starting with PHP 5, this extension (and this documentation) was rewritten from scratch and much of the old confusing and bogus cruft has be removed. Additionally, we support the instantiation and creation of .Net assemblies using the COM interoperability layer provided by Microsoft.
+
+Please read » this article for an overview of the changes in this extension in PHP 5.
+
+Gereksinim
+
+COM functions are only available for the Windows version of PHP.
+
+.Net support requires PHP 5 and the .Net runtime.
+
+Kurulum
+
+There is no installation needed to use these functions; they are part of the PHP core.
+
+The windows version of PHP has built in support for this extension. You do not need to load any additional extension in order to use these functions.
+
+You are responsible for installing support for the various COM objects that you intend to use (such as MS Word); we don't and can't bundle all of those with PHP.
+
+For Each
+
+Starting with PHP 5, you may use PHP's own foreach statement to iterate over the contents of a standard COM/OLE IEnumVariant. In laymans terms, this means that you can use foreach in places where you would have used For Each in VB/ASP code.
+
+Example#1 For Each in ASP
+
+<%
+Set domainObject = GetObject("WinNT://Domain")
+For Each obj in domainObject
+  Response.Write obj.Name & "<br />"
+Next
+%>
+
+Example#2 while() ... Next() in PHP 4
+<?php 
+$domainObject = new COM("WinNT://Domain"); 
+while ($obj = $domainObject->Next()) { 
+   echo $obj->Name . "<br />"; 
+} 
+?>
+
+Example#3 foreach in PHP 5
+<?php 
+$domainObject = new COM("WinNT://Domain"); 
+foreach ($domainObject as $obj) { 
+   echo $obj->Name . "<br />"; 
+} 
+?>
+Arrays and Array-style COM properties
+
+Many COM objects expose their properties as arrays, or using array-style access. In PHP 4, you may use PHP array syntax to read/write such a property, but only a single dimension is allowed. If you want to read a multi-dimensional property, you could instead make the property access into a function call, with each parameter representing each dimension of the array access, but there is no way to write to such a property.
+
+PHP 5 introduces the following new features to make your life easier:
+
+    *
+
+      Access multi-dimensional arrays, or COM properties that require multiple parameters using PHP array syntax. You can also write or set properties using this technique.
+    *
+
+      Iterate SafeArrays ("true" arrays) using the foreach control structure. This works because SafeArrays include information about their size. If an array-style property implements IEnumVariant then you can also use foreach for that property too; take a look at COM for more information on this topic.
+
+Exceptions (PHP 5)
+
+This extension will throw instances of the class com_exception whenever there is a potentially fatal error reported by COM. All COM exceptions have a well-defined code property that corresponds to the HRESULT return value from the various COM operations. You may use this code to make programmatic decisions on how to handle the exception.
+Runtime Configuration
+
+The behaviour of these functions is affected by settings in php.ini.
+
+Com configuration options Name 	Default 	Changeable 	Changelog
+com.allow_dcom 	"0" 	PHP_INI_SYSTEM 	Available since PHP 4.0.5.
+com.autoregister_typelib 	"0" 	PHP_INI_ALL 	PHP_INI_SYSTEM in PHP 4. Available since PHP 4.1.0.
+com.autoregister_verbose 	"0" 	PHP_INI_ALL 	PHP_INI_SYSTEM in PHP 4. Available since PHP 4.1.0.
+com.autoregister_casesensitive 	"1" 	PHP_INI_ALL 	PHP_INI_SYSTEM in PHP 4. Available since PHP 4.1.0.
+com.code_page 	"" 	PHP_INI_ALL 	Available since PHP 5.0.0.
+com.typelib_file 	"" 	PHP_INI_SYSTEM 	Available since PHP 4.0.5.
+For further details and definitions of the PHP_INI_* constants, see the php.ini directives.
+
+Here's a short explanation of the configuration directives.
+
+com.allow_dcom
+
+    When this is turned on, PHP will be allowed to operate as a D-COM (Distributed COM) client and will allow the PHP script to instantiate COM objects on a remote server.
+com.autoregister_typelib
+
+    When this is turned on, PHP will attempt to register constants from the typelibrary of objects that it instantiates, if those objects implement the interfaces required to obtain that information. The case sensitivity of the constants it registers is controlled by the COM configuration directive.
+com.autoregister_verbose
+
+    When this is turned on, any problems with loading a typelibrary during object instantiation will be reported using the PHP error mechanism. The default is off, which does not emit any indication if there was an error finding or loading the type library.
+com.autoregister_casesensitive
+
+    When this is turned on (the default), constants found in auto-loaded type libraries will be registered case sensitively. See com_load_typelib() for more details.
+com.code_page
+
+    It controls the default character set code-page to use when passing strings to and from COM objects. If set to an empty string, PHP will assume that you want CP_ACP, which is the default system ANSI code page.
+
+    If the text in your scripts is encoded using a different encoding/character set by default, setting this directive will save you from having to pass the code page as a parameter to the COM class constructor. Please note that by using this directive (as with any PHP configuration directive), your PHP script becomes less portable; you should use the COM constructor parameter whenever possible.
+
+        Note: This configuration directive was introduced with PHP 5. 
+
+com.typelib_file
+
+    When set, this should hold the path to a file that contains a list of typelibraries that should be loaded on startup. Each line of the file will be treated as the type library name and loaded as though you had called com_load_typelib(). The constants will be registered persistently, so that the library only needs to be loaded once. If a type library name ends with the string #cis or #case_insensitive, then the constants from that library will be registered case insensitively.
+
+Resource Types
+
+This extension defines a reference to a COM component returned by deprecated com_load() (this function does not exist in PHP 5; use the COM class instead).
+Predefined Constants
+
+The constants below are defined by this extension, and will only be available when the extension has either been compiled into PHP or dynamically loaded at runtime.
+
+CLSCTX_INPROC_SERVER (integer)
+CLSCTX_INPROC_HANDLER (integer)
+CLSCTX_LOCAL_SERVER (integer)
+CLSCTX_REMOTE_SERVER (integer)
+CLSCTX_SERVER (integer)
+CLSCTX_ALL (integer)
+VT_NULL (integer)
+VT_EMPTY (integer)
+VT_UI1 (integer)
+VT_I2 (integer)
+VT_I4 (integer)
+VT_R4 (integer)
+VT_R8 (integer)
+VT_BOOL (integer)
+VT_ERROR (integer)
+VT_CY (integer)
+VT_DATE (integer)
+VT_BSTR (integer)
+VT_DECIMAL (integer)
+VT_UNKNOWN (integer)
+VT_DISPATCH (integer)
+VT_VARIANT (integer)
+VT_I1 (integer)
+VT_UI2 (integer)
+VT_UI4 (integer)
+VT_INT (integer)
+VT_UINT (integer)
+VT_ARRAY (integer)
+VT_BYREF (integer)
+CP_ACP (integer)
+CP_MACCP (integer)
+CP_OEMCP (integer)
+CP_UTF7 (integer)
+CP_UTF8 (integer)
+CP_SYMBOL (integer)
+CP_THREAD_ACP (integer)
+VARCMP_LT (integer)
+VARCMP_EQ (integer)
+VARCMP_GT (integer)
+VARCMP_NULL (integer)
+NORM_IGNORECASE (integer)
+NORM_IGNORENONSPACE (integer)
+NORM_IGNORESYMBOLS (integer)
+NORM_IGNOREWIDTH (integer)
+NORM_IGNOREKANATYPE (integer)
+NORM_IGNOREKASHIDA (integer)
+DISP_E_DIVBYZERO (integer)
+DISP_E_OVERFLOW (integer)
+MK_E_UNAVAILABLE (integer)
+
+See Also
+
+For further information on COM read the » COM specification or perhaps take a look at Don Box's » Yet Another COM Library (YACL). You might find some additional useful information in our FAQ for PHP and COM. If you're thinking of using MS Office applications on the server side, you should read the information here: » Considerations for Server-Side Automation of Office.
+Table of Contents
+
+    * COM — COM class
+    * DOTNET — DOTNET class
+    * VARIANT — VARIANT class
+    * com_addref — Increases the components reference counter [deprecated]
+    * com_create_guid — Generate a globally unique identifier (GUID)
+    * com_event_sink — Connect events from a COM object to a PHP object
+    * com_get_active_object — Returns a handle to an already running instance of a COM object
+    * com_get — Gets the value of a COM Component's property [deprecated]
+    * com_invoke — Calls a COM component's method [deprecated]
+    * com_isenum — Indicates if a COM object has an IEnumVariant interface for iteration [deprecated]
+    * com_load_typelib — Loads a Typelib
+    * com_load — Creates a new reference to a COM component [deprecated]
+    * com_message_pump — Process COM messages, sleeping for up to timeoutms milliseconds
+    * com_print_typeinfo — Print out a PHP class definition for a dispatchable interface
+    * com_propget — Alias of com_get
+    * com_propput — Alias of com_set
+    * com_propset — Alias of com_set
+    * com_release — Decreases the components reference counter [deprecated]
+    * com_set — Assigns a value to a COM component's property
+    * variant_abs — Returns the absolute value of a variant
+    * variant_add — "Adds" two variant values together and returns the result
+    * variant_and — performs a bitwise AND operation between two variants and returns the result
+    * variant_cast — Convert a variant into a new variant object of another type
+    * variant_cat — concatenates two variant values together and returns the result
+    * variant_cmp — Compares two variants
+    * variant_date_from_timestamp — Returns a variant date representation of a Unix timestamp
+    * variant_date_to_timestamp — Converts a variant date/time value to Unix timestamp
+    * variant_div — Returns the result from dividing two variants
+    * variant_eqv — Performs a bitwise equivalence on two variants
+    * variant_fix — Returns the integer portion ? of a variant
+    * variant_get_type — Returns the type of a variant object
+    * variant_idiv — Converts variants to integers and then returns the result from dividing them
+    * variant_imp — Performs a bitwise implication on two variants
+    * variant_int — Returns the integer portion of a variant
+    * variant_mod — Divides two variants and returns only the remainder
+    * variant_mul — multiplies the values of the two variants and returns the result
+    * variant_neg — Performs logical negation on a variant
+    * variant_not — Performs bitwise not negation on a variant
+    * variant_or — Performs a logical disjunction on two variants
+    * variant_pow — Returns the result of performing the power function with two variants
+    * variant_round — Rounds a variant to the specified number of decimal places
+    * variant_set_type — Convert a variant into another type "in-place"
+    * variant_set — Assigns a new value for a variant object
+    * variant_sub — subtracts the value of the right variant from the left variant value and returns the result
+    * variant_xor — Performs a logical exclusion on two variants
+
+

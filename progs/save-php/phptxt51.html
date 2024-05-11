@@ -1,0 +1,241 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP - Özellikler HTTP Şifresi </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="javascript:myvoid();" class="nav">Başlarken</a>
+               <a href="phptxt11.html" class="sub">ilk Anlatım</a>
+               <a href="javascript:myvoid();" class="nav">Kurulumlar</a>
+               <a href="phptxt21.html" class="sub">Genel Kurulum</a><br />
+               <a href="phptxt22.html" class="sub">UNIX Kurulumu</a><br />
+               <a href="phptxt23.html" class="sub">OSX Kurulumu</a><br />
+               <a href="phptxt24.html" class="sub">Wins Kurulumu</a>
+               <a href="javascript:myvoid();" class="nav">Dil Kuralları</a>
+               <a href="phptxt31.html" class="sub">Temel yazım</a><br />
+               <a href="phptxt32.html" class="sub">Tipler</a><br />
+               <a href="phptxt33.html" class="sub">Değişkenler</a><br />
+               <a href="phptxt34.html" class="sub">Değişmezler</a><br />
+               <a href="phptxt35.html" class="sub">Deyimler</a><br />
+               <a href="phptxt36.html" class="sub">İşlemler</a><br />
+               <a href="phptxt37.html" class="sub">Kontrol Yapıları</a><br />
+               <a href="phptxt38.html" class="sub">İşlevler</a><br />
+               <a href="phptxt39.html" class="sub">Sınıflar Nesneler</a><br />
+               <a href="phptxt391.html" class="sub">Ad uzayı</a><br />
+               <a href="phptxt392.html" class="sub">İstisnalar</a>
+               <a href="javascript:myvoid();" class="nav">Güvenlik</a>
+               <a href="phptxt41.html" class="sub">Giriş</a><br />
+               <a href="phptxt42.html" class="sub">Genel bilgi</a><br />
+               <a href="phptxt43.html" class="sub">CGI iklisi</a><br />
+               <a href="phptxt44.html" class="sub">Apache modülü</a><br />
+               <a href="phptxt45.html" class="sub">Dosyadüzeni</a><br />
+               <a href="phptxt46.html" class="sub">Veritabanı</a><br />
+               <a href="phptxt47.html" class="sub">Hatalar</a><br />
+               <a href="phptxt48.html" class="sub">Diğerleri</a><br />
+               <a href="javascript:myvoid();" class="nav">Özellikler</a>
+               <a href="phptxt51.html" class="sub">HTTP Şifresi</a><br />
+               <a href="phptxt52.html" class="sub">Çerezler</a><br />
+               <a href="phptxt53.html" class="sub">Oturumlar</a><br />
+               <a href="phptxt54.html" class="sub">XForm</a><br />
+               <a href="phptxt55.html" class="sub">DosyaYükleme</a><br />
+               <a href="phptxt56.html" class="sub">UzakDosyalar</a><br />
+               <a href="phptxt57.html" class="sub">Bağlantılar</a><br />
+               <a href="phptxt58.html" class="sub">VTBağlantısı</a>
+               <font color="#8e9ccb"><h3>Gelişmiş</h3></font>
+               <a href="../phpfunc/islevler.html" class="nav">İşlevler</a>
+               <a href="phptxt7.html" class="nav">Php Kökü</a>
+               <a href="phptxt8.html" class="nav">Ekler</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">2 Şubat 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>HTTP Şifresi</h2>
+HTTP Şifre eklentileri, PHP Apache modülü olduğu zaman geçerlidir. Yani CGI sürümünde bu özellik yoktur. Apache modülündeki PHP kodlamasından "header()" işleviyle "Şifre İstenir" (Authentication Required) mesajı istemciye gönderilebilir. O da kullanıcı kodu ve şifre girişi penceresini açar. Bir kez kullanıcı kodu ve şifre girişi doldurulunca, URL adresindeki PHP kodlaması önceden tanımlı PHP_AUTH_USER (kullanıcı kodu), PHP_AUTH_PW (şifresi) ve AUTH_TYPE (denetim türü) değerleriyle yine çağrılır. Bu önceden tanımlı değişkenler $_SERVER ve $HTTP_SERVER_VARS dizilerinde vardır. "Basic" ve "Digest" denetim türlerinin her ikisi de desteklenir.
+<br /><br />
+    Not: $_SERVER gibi süper evrenseller PHP 4.1.0 sürümden sonra, $HTTP_SERVER_VARS ise PHP 3 sürümünden sonra kullanıma açılmıştır.
+<br /><br />
+Bir sayfada kullanıcı denetimini zorlayan bir örnek kodlama parçası aşağıdaki gibidir:
+<br /><br />
+Temel (basic) denetim örneği
+<pre>
+&lt;?php
+if (!isset($_SERVER['PHP_AUTH_USER'])) {
+    header('WWW-Authenticate: Basic realm="My Realm"');
+    header('HTTP/1.0 401 Unauthorized');
+    echo 'Cancel düğmesine basılınca gönderilecek yazı';
+    exit;
+} else {
+    echo "&lt;p&gt;Merhaba {$_SERVER['PHP_AUTH_USER']}.&lt;/p&gt;";
+    echo "&lt;p&gt;Şifreniz olarak {$_SERVER['PHP_AUTH_PW']} girdiniz.&lt;/p&gt;";
+}
+?&gt;
+</pre>
+
+"Digest" (Sindirilmiş) denetim örneği
+<br /><br />
+Bu örnek basit bie "Digest" HTTP denetimini nasıl uygulayacağınızı gösterir.
+<pre>
+&lt;?php
+$realm = 'Korunmuş alan';
+
+//user =&gt; password
+$users = array('admin' =&gt; 'mypass', 'guest' =&gt; 'guest');
+
+
+if (empty($_SERVER['PHP_AUTH_DIGEST'])) {
+    header('HTTP/1.1 401 Unauthorized');
+    header('WWW-Authenticate: Digest realm="'.$realm.
+           '",qop="auth",nonce="'.uniqid().'",opaque="'.md5($realm).'"');
+
+    die('Kullanıcı Cancel düğmesine basınca çıkan yazı');
+}
+
+
+// PHP_AUTH_DIGEST değişkeni incelenir
+if (!($data = http_digest_parse($_SERVER['PHP_AUTH_DIGEST'])) ||
+    !isset($users[$data['username']]))
+    die('Hatalı Şifre/Kullanıcı!');
+
+
+// geçerli yanıtı üretme
+$A1 = md5($data['username'] . ':' . $realm . ':' . $users[$data['username']]);
+$A2 = md5($_SERVER['REQUEST_METHOD'].':'.$data['uri']);
+$valid_response = md5($A1.':'.$data['nonce'].':'.$data['nc'].':'.$data['cnonce'].':'.$data['qop'].':'.$A2);
+
+if ($data['response'] != $valid_response)
+    die('Hatalı Şifre/Kullanıcı!');
+
+// ok, geçerili kullanıcı kodu ve şifresi
+echo 'Siz: ' . $data['username'] . ' olarak sisteme giriş yaptınız';
+
+
+// http denetim başlığını tarama işlevi
+function http_digest_parse($txt)
+{
+    // eksik veriye karşı korunma
+    $needed_parts = array('nonce'=&gt;1, 'nc'=&gt;1, 'cnonce'=&gt;1, 'qop'=&gt;1, 'username'=&gt;1, 'uri'=&gt;1, 'response'=&gt;1);
+    $data = array();
+
+    preg_match_all('@(\w+)=(?:([\'"])([^\2]+)\2|([^\s,]+))@', $txt, $matches, PREG_SET_ORDER);
+
+    foreach ($matches as $m) {
+        $data[$m[1]] = $m[3] ? $m[3] : $m[4];
+        unset($needed_parts[$m[1]]);
+    }
+
+    return $needed_parts ? false : $data;
+}
+?&gt;
+</pre>
+    Not (Uyumluluk notudur):
+HTTP başlık satırlarını kodlarken dikkat edin. Tüm istemcilerle en yüksek uyumu sağlamak için "Basic" anahtar sözcüğü büyük harf "B" ile yazılmalıdır. "realm" yazı dizisi çift tırnak içinde olmalıdır ve HTTP/1.0 401 başlık satırında 401'den önce bir boşluk olmalıdır. Denetim parametreleri virgülle ayrılmış olmalıdır (yukarıdaki digest örneğind eolduğu gibi).
+<br /><br />
+Doğrudan  PHP_AUTH_USER ve PHP_AUTH_PW yazmak yerine, yukarıdaki örnekte gösterildiği gibi geçerlilik için kullanıcı kodu ve şifresini denetlemek isteyebilirsiniz (örneğin veri tabanına bakarak).
+<br /><br />
+Hatalı Internet Explorer tarayıcılarına dikkat edin. Başlıkların sırasında çok hassas olabiliyorlar. HTTP/1.0 401 başlığından önce WWW-Authenticate başlığı olması sorunu gidermektedir.
+<br /><br />
+PHP 4.3.0 sürümünden sonra, başkalarının bir sayfa için geleneksel dışsal mekanizmayla şifreyi ortaya çıkartmasını önlemek için PHP_AUTH değişkenleri, o sayfa için dışsal denetim (external authentication) açıksa, değer almaz ve güvenli konuma geçilir. Buna rağmen REMOTE_USER (uzak kullanıcı) dışsal denetlenmiş kullanıcıyı tanımlar. Böyle $_SERVER['REMOTE_USER'] kullanılabilir.
+<br /><br />
+    Not (Ayarlama notudur): PHP, AuthType yönelticisini dışsal kullanıcı/şifre denetiminin açık olup olmadığını anlamak için kullanır.
+<br /><br />
+Ama denetlenmemiş bir URL adresindeki birinini, aynı sunucudaki denetlenmiş adresten şifre çalmasını engellemez.
+<br /><br />
+Netscape Navigator ve Internet Explorer yerel tarayıcının denetim belleğini 401 sunucu yanıtı alınca silerler. Bu kullanıcıyı etkin olarak sistemden çıkarır ve yeniden kullanıcı kod ve şifre girişine zorlar. Bazıları bunu girişlerde zaman aşımı için kullanır. Ya da "Çıkış" düğmesinde bu işlemi yapar.
+<br /><br />
+HTTP denetim örneği (yeni kullanıcı/şifre girişini zorlar)
+<pre>
+&lt;?php
+function authenticate() {
+    header('WWW-Authenticate: Basic realm="Test Authentication System"');
+    header('HTTP/1.0 401 Unauthorized');
+    echo "Buradaki kaynağa erişmek için geçerli kullanıcı kodu ve şifre  girin\n";
+    exit;
+}
+ 
+if (!isset($_SERVER['PHP_AUTH_USER']) ||
+    ($_POST['SeenBefore'] == 1 && $_POST['OldAuth'] == $_SERVER['PHP_AUTH_USER'])) {
+    authenticate();
+} else {
+    echo "&lt;p&gt;{$_SERVER['PHP_AUTH_USER']} Hoşgeldiniz.<br />";
+    echo "Eskisi: {$_REQUEST['OldAuth']}";
+    echo "&lt;form action='{$_SERVER['PHP_SELF']}' METHOD='post'&gt;\n";
+    echo "&lt;input type='hidden' name='SeenBefore' value='1' /&gt;\n";
+    echo "&lt;input type='hidden' name='OldAuth' value='{$_SERVER['PHP_AUTH_USER']}' /&gt;\n";
+    echo "&lt;input type='submit' value='Re Authenticate' /&gt;\n";
+    echo "&lt;/form&gt;&lt;/p&gt;\n";
+}
+?&gt;
+</pre>
+Bu bölüm HTTP temel denetim standartında zorunlu değildir. Bu nedenle konuya bağımlı olmamalısınız. Lynx ile yapılan denemeler gösterdi ki lynx denetim kodlarını silmez. Kullanıcı/şifre bilgisi değişmediği sürece ileri ve geri gidebilirsiniz. Kullanıcı '_' tuşuna basarak denetim bilgilerini silebilir.
+<br /><br />
+PHP 4.3.3 sürüme kadar, HTTP denetimi Microsoft IIS sunucularda çalışmadı. PHP 4.3.3+ sürümlerinde çalışmasını sağlamak için IIS ayarlarında "Directory Security" değerini değiştirmelisiniz. Seçeneklerde yalnız "Anonymous Access" değeri işaretlenmelidir.
+<br /><br />
+Diğer bir sınırlama da IIS modülü (ISAPI) ve PHP 4 kullanıyorsanız karşınıza çıkar. PHP_AUTH_* değişkenlerini kullanabilirsiniz ama yerine HTTP_AUTHORIZATION kullanıma açıktır. Örneğin aşağıdaki kodua bakın:<br />
+<pre>
+list($user, $pw) = explode(':', 
+          base64_decode(substr($_SERVER['HTTP_AUTHORIZATION'], 6)));
+</pre>
+<br /><br />
+    Not (IIS Notu): IIS ile HTTP kullanıcı/şifre denetiminin çalışması PHP yönelticisi cgi.rfc2616_headers değeri 0 olmalıdır.
+<br /><br />
+    Not: Eğer güvenli konum açıksa, kodlamanın kullanıcı kodu (uid) WWW-Authenticate başlığındaki "realm" parçasına eklenir.
+<br />
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8541306787668208";
+//120x600, created 1/16/08
+google_ad_slot = "7007060807";
+google_ad_width = 120;
+google_ad_height = 600;
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<br />
+<script type="text/javascript"><!--
+google_ad_client = "pub-8541306787668208";
+//120x240, created 1/25/08
+google_ad_slot = "8433790203";
+google_ad_width = 120;
+google_ad_height = 240;
+google_cpa_choice = ""; // on file
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

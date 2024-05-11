@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="content-type">
+<title>UN/EDIFACT GIRISI</title>
+<link rel="stylesheet" href="mainx.css" type="text/css">
+<script type="text/javascript" src="js/baslik.js"></script>
+<script type="text/javascript" src="js/dizigoster.js"></script>
+<script type="text/javascript" src="js/jsmenu.js"></script>
+</head>
+<body topmargin=0 leftmargin=0 marginheight=0 marginwidth=0>
+<div id="headertop1">
+<div id="headertop">
+<!-- ust banner bolumu -->
+  <table cellpadding="0" cellspacing="0" border="0" width="960">
+  <tr>
+  <td valign="top">
+  <img src="img/bos.gif" width="15" height="63" border="0">
+  <img src="img/aybim.png" width="129" height="43" border="0"><br>
+  <img src="img/bos.gif" width="15" height="1" border="0">
+  Aybim Bilgisayar Tic. Ltd.<br>
+  <img src="img/bos.gif" width="150" height="50" border="0">
+  </td><td valign="top">
+  </td></tr>
+  </table>
+  <table cellpadding="0" cellspacing="0" border="0">
+  <tr>
+  <td valign="top" width="140">
+  <!-- sol tarafin basi -->
+  <div id="soltaraf">
+    <center><div id="yazi"><h3>Veri Değişimi</h3></div></center>
+    <div id="masterdiv">
+        <div class="menutitle" onclick="SwitchMenu('sub2')">Çeşitli Belgeleri</div>
+        <span class="submenu" id="sub2">
+                - <a href="cdisc-odm1.html">CDISC-1</a><br>
+                - <a href="cdisc-odm2.html">CDISC-2</a><br>
+                - <a href="sdxf.html">RFC 3072</a><br>
+                - <a href="edifact.html">UN/EDIFACT</a><br>
+                - <a href="cvd.html">CVD Belgeleri</a><br>
+                - <a href="cvd.html">ZVD Belgeleri</a><br>
+                - <a href="json.html">Veri Değişmi için JSON</a><br>
+                - <a href="eso.html">MIDAS/FITS Kalıbı</a><br>
+        </span>
+        <div class="menutitle">
+             <a href="apps/index.php" class="vnav">Üye Olun</a>
+        </div>
+    </div>
+  </div>
+  </td>
+  <td valign="top" width="800">
+  <div id="header">
+      <div id="baslik">
+
+<center><h3>UN/EDIFACT ALIŞILAGELMİŞ (STANDART) DİZİN<br>
+GİRİŞ<br>
+UN/EDIFACT Alışılagelmiş Dizin Sunumu</h3></center>
+
+<ol>
+<li>UN/EDIFACT Standartı elektronik veri değişim standartı olup Birleşmiş
+Milletlere üye ülkelerce düzenlenir/geliştirilir. Daha çok iş alanında bilgi
+değişimi amacıyla kullanılır. Firma içi kullanımının daha sık olduğu
+gözlenmiştir. Bu biçimde elektronik haberleşmenin masraf azalttı
+bilinmektedir. Ayrıca kalite açısından da yararlı sonuçlar alınmıştır.
+
+<li> Burada UN/EDIFACT mesajlarının belgelenmesi yapılır ve destekledikleri
+dosya yolları  (kesim-segment, bütünleşik veri öğesi, veri öğesi ve kod
+belgeleri) belirtilir. Ayrıca onaylanmış UNSM bildirgesini mesaj türü
+yollarında (EDSD, IDMD) bulundurur. Kesimler (EDSD, IDSD), bütünleşik veri
+öğeleri (EDCD, IDCD), veri öğeleri (EDED) ve kod listesi (UNCL).
+
+<li> UN/EDIFACT Standart Dizinin niyeti, Ulusal ve Uluslararası elektronik veri değişim uygulamasıdır.
+
+<li> UNECE tarafından anlaşıldığı üzere mesajlara uygulanacak dil kuralları
+UN-ISO EDIFACT birleşik kurallarıdır. 
+
+<li> UN/CEFACT (http://www.unece.org/cefact/), EWG
+(http://www.edifact-wg.org/) adreslerindedir. ISO/TC154-UN/CEFACT
+Birleşik Dil Kuralları Çalışma Grubu (http://www.gefeg.com/jswg/)
+adresindedir.
+
+<li> Belgeler geliştirme ve düzenleme için yeterlidir.
+
+ <ol>
+ <li> EWG işletim belgeleri http://www.edifact-wg.org/ adresinden sağlanabilir.
+
+  <ul>
+  <li> Çalışan işlemlere veri düzeltme istemi - UN/EDIFACT Standart Dizininde
+değişiklik isteminin nasıl yapılacağını belirtir.
+  <li> Giriş Noktası İstemi ve Arayüz Sorumlulukları - Bu belge Giriş
+Noktalarındaki gereksinimi ve sorumlulukları belirtir.
+  <li> EWG İşlemleri - Bu belge tüm işletim adımlarını tanımlar.
+  <li> Belge Yönetimi için UN/EDIFACT Çalışma Grubu İşletim Adımları - Bu
+belge işlem adımlarının bakım ve dizin olmayan belgelerin yayınlamasını
+anlatır.
+  </ul>
+
+<li> GELİŞTİRİCİLER İÇİN BELGELER - Bunlar  http://www.edifact-wg.org/
+adresinden sağlanır.
+
+<ul>
+  <li> EDI için UN/EDIFACT Mesaj Tasarım Kuralları - Bu belge tasarım
+kurallarını yönlendirir.
+  <li> Mesajlar ve Kod El Kitabı (MACH) - Bu belge klavuz ilkeler ve önerileri
+içerir.
+  <li> Standartlaştırılmış Mesaj ve Dizin için Kurallar Belgeleri - Bu belge
+yazı sunumunda kullanılan yerleşimi belirtir.
+  <li> DMRDEF/DMSTAT MIG - Bu belgeler UN/EDİFACT DMRDEF ve DMSTAT
+mesajlarının nasıl uyarlandığını gösterir. Değişiklik isterleri ve Giriş
+Noktaları arasındaki durumları gösterilir.
+  <li> UN/EDIFACT Çalışma Grubu Teknik Değerler Denetim Listesi - 
+Bu belge Günlük Bakım İsterleri (DMR) değerleri için ana kaynak olarak görev
+yapar.
+  <li> UN/CEFACT Modelleme Yöntemi - Bu belge iş adımlarını modellemek için
+kullanılan yöntemi ve bilgi modellerini tanımlar.
+  <li> Modeller için UN/EDIFACT Çalışma Grubu Teknik Değerler Denetim Listesi - 
+iş adımlarının değerlendirilmesi için ilk kaynak görevi bu belgelerle
+sağlanır. Teknik açıdan Günlük Bakım İsterlerinin (DMR) desteklendiği bilgi
+modelleri oluşur.
+</ul>
+
+<li> EDIFACT DİL KURALLARI http://www.gefeg.com/jswg/ adresinden sağlanır.
+  <ul>
+     <li> ISO 9735 Sürüm 3
+     <li> ISO 9735 Sürüm 4
+  </ul>
+</ol>
+<li> Uyarlama ve kullanım için gereken belgeler http://www.edifact-wg.org/
+adresinden sağlanır.
+  <ul>
+  <li> Ticaret Verilerini değiştirmek (UNCID) için yönetimin bir örnek kuralları - Bu belgeler kullanıcıların verileri elektronik olarak değiştirirken nasıl davranacaklarını belirtir.
+  <li> Elektronik Veri Değişimi için değiştirme anlaşmalarının ticari
+kullanımı (UNECE öneri numarası 26) - Bu belge ticari ortemlarda EDI
+çalıştırınca değişim anlaşmalarının nasıl kullanılacağını belirtir.
+  <li> Standartlanmış Mesaj ve Dizinlerin Belgelerinin sunumu için kurallar -
+bu belge yazı sunumunda kullanılan yerleşimi belirtir.
+  <li> DIRDEF MIG - BU belge UN/EDIFACT DIRDEF mesajının yayında nasıl
+kullanıldığını anlatır.
+  </ul>
+
+<li> Kesim 2, dizinlerin içeriğindeki deyim ve tanımların kullanılış
+biçimini sağlar.
+
+<li> Kesim 3, mesajların, kesimlerin, birleşkelerin, öğelerin ve kodların UN/EDIFACT dizinini meydana getirir. Her dosya için kısa açıklama şöyledir: İki tür mesaj vardır. Birinci toplu işlem için ikincisi etkileşimli kullanım içindir. Her ikisinde de aynı temel tasarım biçimi vardır. Kavramları sunum biçiminden farkları vardır. Bunun nedeni etkileşimli sistemler senkron yanıt gerekrilen yapıya göre tasarlanmıştır. Ama toplu işlemlerde işlemler asenkrondur. 
+ <ol>
+ <li> Aşağıdaki bağımsız dosyaların hepsi UN/EDIFACT Standart Dizini
+oluşturur.
+  <ul>
+  <li> UNCL - UN/EDIFACT Sağlandırılmış Kod Listesi. Bu liste kodlanmış veri
+öğelerindeki tüm kodların listesidir. UNCL veri öğeleriyle düzenlenir. Her
+biri biçimi (tag), adı (name), açıklama (description), gösterilişi
+(representation) ve toplu işlem ya da etkileşim durum kodu. Bu öğeler biçim
+sırasındadır. Her öğe için kodlar değeri ve açıklamasıyla listelenir. Ad ve
+açıklaması değere göre sıralanır.
+  <li> EDED - UN&amp;EDIFACT Veri Öğesi Dizini, tüm veri öğelerinin listesidir.
+EDED biçimleri, ad, açıklama, gösteriliş ve toplu iş ya da etkileşimli iş durum kodu olan öğeler listesi olarak düzenlemir. İki düzün dosyası biçim, ad ve kullanım koduyla biri biçimler sırasında, diğeri adlar sırasındadır.
+  <li> EDCD - UN/EDIFACT Bileşik Veri Çğesi Dizini, alt veri öğeleriyle
+birliktedir. EDCD biçimleriyle, ad ve açıklamalarıyla, her bileşke için biçime
+göre sıralanmış listedir. İki dizin vardır. Biri biçim, diğeri ad
+sırasındadır.
+  <li> EDSD - UN/EDIFACT Standart Kesim Dizini, tüm standart kesimlerin
+tanımını içerir. EDSD biçimleri, adı ve işlevleriyle kesimlerin listesi olarak
+düzenlenmiştir. Her kesimde bileşik veri kesimi vardır. İki dizin biçim ve ad
+sırasında düzenlenmiştir.
+  <li> EDMD - UN/EDIFACT Dizini, Tüm Birleşmiş Milletler standart mesaj
+türlerini içerir. EDMD her mesaj için bir standart dosya olarak
+hazırlanmıştır. Burada mesaj, genel giriş
+   (giriş/kapsam/referans/deyimler ve tanımlar)
+ve mesaj tanımı ile gösterilir. Mesaj tanımı kesim açıklamasıyla başlar ve
+mesajda kullanılan her kesimi ve kesim sınıflarını tanıtır. Mesaj yapısı,
+mesajın yapısını grafik görünüm verir. Her UNSM için bir dosya yerine EDSD iki
+dizin tutar. Her birinde mesaj kodu ve adı vardır. Biri koda diğeri ada göre
+sıralıdır.
+  <li> IDCD - UN/EDIFACT Etkileşimli Bileşik Veri Öğeleri Dizini, alt veri
+öğeleriyle birlikte. IDCD aynı EDCD gibi hazırlanır.
+  <li> IDSD - UN/EDIFACT Etkileşimli Standart Kesim Dizini, tüm standart
+kesimlerin tüm açıklamasını içerir. IDSD aynı EDSD gibi hazırlanır.
+  <li> IDMD - UN/EDIFACT Etkileşimli UNSMS Dizinidir. Birleşmiş Milletlerin
+Etkileşimli Standart Mesaj türlerini tüm açıklamalarıyla içerir. IDMD EDMD
+gibi hazırlanır.
+  </ul>
+ </ol>
+</ol>
+<!-- ------------ tabloyu kapama -------- -->
+      </div>
+  </div>
+</td></tr></table>
+</bodY>
+</html>

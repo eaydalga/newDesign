@@ -1,0 +1,52 @@
+<html>
+<HEAD>
+<TITLE>AYBIM - DEA</TITLE>
+</HEAD>
+<BODY BGCOLOR="white" LEFTMARGIN=50>
+<TABLE WIDTH="100%" CELLSPACING=10 CELLPADDING=5>
+<TR><TD WIDTH="10%" BGCOLOR="black" VALIGN="TOP">
+&nbsp;
+</TD>
+<TD>
+<h2>PAKETLEME/ŞİFRELEME</h2>
+<table><tr><td WIDTH=100% ALIGN=RIGHT>1 Aralık 1996</td></tr></table>
+<hr>
+<h2>DEA (DATA ENCRYPTION ALGORITHM)</h2>
+<p>
+Bu program mantığı şifreleme işlemlerinde kullanılabilen DES algoritmasını
+açıklar. 
+<p>
+DEAi, aşağıdaki çizimde gösterilen akışı onaltı kez yapar.
+<p>
+<IMG BORDER=1 ALIGN=middle SRC="img/dea.gif" ALT="DEA">
+<p>
+genel dea program mantığı :
+<p>
+<pre>
+işlev girdileri : 
+    encrypt/decrypt, input data, key, input data length.
+işlev bilgi alanları :
+    k0 k1 each 64 bits in length
+    lr0 64 bits in length
+    lr1 96 bits in length
+    l0 r0 each 32 bits in length
+    l1 r1 each 48 bits in length
+calculate key from K0 -> C1,D1
+calculate L0,R0 from input
+counter = 0;
+do {
+   calculate K1
+   calculate R1 as L0 + f(R0,K1)
+   counter++;
+   } while(counter < 16);
+apply inverse permutation to L1 and R1.
+</pre>
+</TD></TR>
+<TR>
+<TD COLSPAN=2>
+<HR>
+<A HREF="http://www.aybim.com.tr/">Ana Sayfaya</A>
+&nbsp;&nbsp;<A HREF="index.html">Teknik Bilgiler Sayfasina</A>
+</TD></TR></TABLE>
+</body>
+</html>

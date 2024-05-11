@@ -1,0 +1,106 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Hyperlink Preprocessor </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">16 Mart 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>ID3 İşlevleri</h2>
+<h3>Giriş</h3>
+
+Bu işlevler ID3 biçimlerini okumayı ve değiştirmeyi sağlar. ID3 biçimleri MP3
+dosyalarında kullanılır. Muziğin başlığını saklamakta kullanılır. Ayrıca
+artist, albüm, tür, yıl ve iz sayısı da burada bulunur.
+<br /><br />
+Sürüm 0.2 ID3 v2.2+ biçiminden yazıyı alabilir.
+<h3>Kurulum</h3>
+
+id2 PECL parçasıdır ve PEAR kurucusuyla kurulabilir. PHP'nin id3 destekli
+derlenebilmesi için "--enable-id3" seçeneği kullanılmalıdır. Kaynak kod
+php-src/ext/id3 yoluna indirilmelidir.
+
+<h3>Önceden Tanımlı Değişmezler</h3>
+
+id3 işlevlerinin çoğunluğu ya biçim sürümünü belirtme ya da döndürmenizi
+sağlar. Sürümü belirlemek için lütfen bu değişmezlerden birini kullanın.
+<dl>
+<dt>ID3_V1_0 (integer)
+    <dd>ID3_V1_0 eğer ID3 V1.0 biçimlerle uğraşıyorsanız kullanılır. Bu biçimler başlık, artist, albüm, tür, yıl ve açıklamayı içerir.
+</dd></dt>
+<dt>ID3_V1_1 (tamsayı)
+    <dd>ID3_V1_1 eğer ID3 V1.1 biçimlerle uğraşıyorsanız kullanılır. V1.0 biçimindekiler ek olarak track sayısı vardır.
+</dd></dt>
+<dt>ID3_V2_1 (tamsayı)
+    <dd>ID3_V2_1 eğer ID3 VR2.1 biçimlerle uğraşıyorsanız kullanılır.
+</dd></dt>
+<dt>ID3_V2_2 (tamsayı)
+    <dd>ID3_V2_2 eğer ID3 VR2.2 biçimlerle uğraşıyorsanız kullanılır.
+</dd></dt>
+<dt>ID3_V2_3 (tamsayı)
+    <dd>ID3_V2_3 eğer ID3 V2.3 biçimlerle uğraşıyorsanız kullanılır.
+</dd></dt>
+<dt>ID3_V2_4 (tamsayı)
+    <dd>ID3_V2_4 eğer ID3 V2.4 biçimlerle uğraşıyorsanız kullanılır.
+</dd></dt>
+<dt>ID3_BEST (tamsayı)
+    <dd>ID3_BEST id3 işlevlerinin hangi biçimin kullanılacağını belirlemesini isterseniz kullanılır.
+</dd></dt>
+</dl>
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> id3_get_frame_long_name — ID3V2 iskeletini uzun adını al
+    <li> id3_get_frame_short_name — ID3V2 iskeletinin kısa adını al
+    <li> id3_get_genre_id — Bir tür için kimliği al
+    <li> id3_get_genre_list — Tüm olası tür değerlerini al
+    <li> id3_get_genre_name — Tür kimliği adını al
+    <li> id3_get_tag — ID3 biçimindeki tüm bilgiyi al
+    <li> id3_get_version — ID3 biçiminin sürümünü al
+    <li> id3_remove_tag — Var olan ID3 biçimini sil
+    <li> id3_set_tag — ID3 biçimindeki bilgiyi güncelle
+</ul>
+
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

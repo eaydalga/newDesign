@@ -1,0 +1,273 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP kökler - Programlama</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+function ackapa(no)
+{
+var bolum="secim"+no;
+    target=document.getElementById(bolum);
+    if(target.style.display == "inline") {
+         target.style.display = "none";
+    } else {
+         target.style.display = "inline";
+    }
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.php"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <a href="phptxt7.html" class="nav">Php Kök</a>
+               <a href="phpkok1.html" class="sub">ext_skel</a><br 7>
+               <a href="phpkok2.html" class="sub">UNIX:config.m4</a><br 7>
+               <a href="phpkok3.html" class="sub">Win:config.w32</a><br 7>
+               <a href="phpkok4.html" class="sub">zend_module</a><br 7>
+               <a href="phpkok8.html" class="sub">Zorunluluklar</a><br 7>
+               <a href="phpkok9.html" class="sub">Hazırlama</a><br 7>
+               <a href="phpkok10.html" class="sub">İskelet doldurma</a><br 7>
+               <a href="phpkok11.html" class="sub">Hazılama</a><br 7>
+               <a href="phpkok12.html" class="sub">Denemeler</a><br 7>
+               <a href="phpkok13.html" class="sub">Paket Yaratma</a><br 7>
+               <a href="phpkok14.html" class="sub">pdo_dbh_t</a><br 7>
+               <a href="phpkok15.html" class="sub">pdo_stmt_t</a><br 7>
+               <a href="phpkok16.html" class="sub">Değişmezler</a><br 7>
+               <a href="phpkok17.html" class="sub">Hatalar</a><br 7>
+               <a href="phpkok18.html" class="sub">PHP uzantı API</a><br 7>
+               <a href="phpkok19.html" class="sub">Zend API: </a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">10 Mart 2008</span></div>
+<div id="bdy" class="yazi">
+<h3>UNIX kurulum sistemi hakkında: config.m4</h3>
+
+Bir uzantı için config.m4 dosyası UNIX kurulum sistemine sizin uzantınızın hangi ayar seçeneklerini desteklediğini anlatır. Hangi dışsal kitaplıklar ve eklenecek dosyalar gereklidir. Hangi kaynak kod dosyaları bu amaç için derlenecektir.
+"autoconf" makrosuna bağ, PHP'ye özel ve "autoconf" içine ekleneler hakkında bilgi Zend Makinesi 2 API bölümünde anlatılmıştır.
+
+<h3>İpucu</h3>
+
+Bir PHP uzantısı geliştirirken, autoconf 2.13 kurulmuş olması şiddetle istenir. Yenileri varken bunun istenmesi değişik UNIX ortamları için ortak bölen olarak kullanılabilir olmasındandır.
+
+<h3>Örnek-1 config.m4 dosyası örneği</h3>
+<pre class="fyazi">
+dnl $Id: configunix.xml,v 1.3 2007/06/28 04:45:10 gwynne Exp $
+dnl config.m4 for extension example
+
+PHP_ARG_WITH(example, for example support,
+[  --with-example[=FILE]
+    Include example support.
+    File is the optional path to example-config])
+PHP_ARG_ENABLE(example-debug,
+    whether to enable debugging support in example,
+[  --enable-example-debug
+    example: Enable debugging support in example], no, no)
+PHP_ARG_WITH(example-extra,
+    for extra libraries for example,
+[  --with-example-extra=DIR
+    example: Location of extra libraries for example], no, no)
+
+dnl Check whether the extension is enabled at all
+if test "$PHP_EXAMPLE" != "no"; then
+  
+  dnl Check for example-config.
+    First try any path that was given to us, then look in $PATH
+  AC_MSG_CHECKING([for example-config])
+  EXAMPLE_CONFIG="example-config"
+  if test "$PHP_EXAMPLE" != "yes"; then
+    EXAMPLE_PATH=$PHP_EXAMPLE
+  else
+    EXAMPLE_PATH=`$php_shtool path $EXAMPLE_CONFIG`
+  fi
+  
+  dnl If a usable example-config was found, use it
+  if test -f "$EXAMPLE_PATH" &&
+     test -x "$EXAMPLE_PATH" &&
+     $EXAMPLE_PATH --version > /dev/null 2>&1; then
+    AC_MSG_RESULT([$EXAMPLE_PATH])
+    EXAMPLE_LIB_NAME=`$EXAMPLE_PATH --libname`
+    EXAMPLE_INCDIRS=`$EXAMPLE_PATH --incdirs`
+    EXAMPLE_LIBS=`$EXAMPLE_PATH --libs`
+    
+    dnl Check that the library works properly
+    PHP_CHECK_LIBRARY($EXAMPLE_LIB_NAME,
+         example_critical_function,
+    [
+      dnl Add the necessary include dirs
+      PHP_EVAL_INCLINE($EXAMPLE_INCDIRS)
+      dnl Add the necessary libraries and library dirs
+      PHP_EVAL_LIBLINE($EXAMPLE_LIBS, EXAMPLE_SHARED_LIBADD)
+    ],[
+      dnl Bail out
+      AC_MSG_ERROR([example library not found.
+         Check config.log for more information.])
+    ],[$EXAMPLE_LIBS]
+    )
+  else
+    dnl No usable example-config, bail  
+    AC_MSG_RESULT([not found])
+    AC_MSG_ERROR([Please check your example installation.])
+  fi
+  
+  dnl Check whether to enable debugging
+  if test "$PHP_EXAMPLE_DEBUG" != "no"; then
+    dnl Yes, so set the C macro
+    AC_DEFINE(USE_EXAMPLE_DEBUG,1,
+      [Include debugging support in example])
+  fi
+  
+  dnl Check for the extra support
+  if test "$PHP_EXAMPLE_EXTRA" != "no"; then
+    if test "$PHP_EXAMPLE_EXTRA" == "yes"; then
+      AC_MSG_ERROR([You must specify a path
+                    when using --with-example-extra])
+    fi
+    
+    PHP_CHECK_LIBRARY(example-extra,
+                      example_critical_extra_function,
+    [
+      dnl Add the neccessary paths
+      PHP_ADD_INCLUDE($PHP_EXAMPLE_EXTRA/include)
+      PHP_ADD_LIBRARY_WITH_PATH(example-extra,
+          $PHP_EXAMPLE_EXTRA/lib, EXAMPLE_SHARED_LIBADD)
+      AC_DEFINE(HAVE_EXAMPLEEXTRALIB,1,
+          [Whether example-extra support is present and requested])
+      EXAMPLE_SOURCES="$EXAMPLE_SOURCES example_extra.c"
+    ],[
+      AC_MSG_ERROR([example-extra lib not found.
+                    See config.log for more information.])
+    ],[-L$PHP_EXAMPLE_EXTRA/lib]
+    )
+  fi
+  
+  dnl Finally, tell the build system about
+      the extension and what files are needed
+  PHP_NEW_EXTENSION(example,
+      example.c $EXAMPLE_SOURCES, $ext_shared)
+  PHP_SUBST(EXAMPLE_SHARED_LIBADD)
+fi
+</pre>
+<h3>autoconf yazımına kısa açıklama</h3>
+
+config.m4 dosyaları GNU autoconf yazım kurallarına göre hazırlanır. "nutshell" olarak adlandırılabilir. Güçlü makro yazılımyla güçlendirilmiş kabuk kodlaması olarak kabul edilebilir. Açıklamalar "dnl" yazı dizisiyle sonlandırılmıştır ve yazı dizileri sol ve sağ köşeli parantezler arasına sınırlandırılmıştır. Yazıları tırnak içine almak istendiği kadar çok iç içe kullanmak mümkündür. Tüm yazım kuralları için  http://www.gnu.org/software/autoconf/manual/ adresine gidilebilir.
+
+<h3>PHP_ARG_*: Kullanıcılara seçeneği vermek</h3>
+
+Yukarıdaki örnek config.m4 görünen ilk şey, birka açıklama dışında, PHP_ARG_WITH() ve PHP_ARG_ENABLE() kullanılan üç satırdır. Bunlar ayarlamanın seçeneklerle olmasını ve seçeneklerin "./configure --help" ile görünmesini sağlar. Adından da anlaşılacağı gibi ikisi arasındaki fark "--with-*" seçeneğiyle mi yoksa "--enable-*" seçeneğiyle mi kullanıldığıdır. Her uzantı birini ya da diğeini uzantı adıyla sunabilmelidir. Kural olarak PHP_ARG_WTH() kitaplığın yerinin belirtilmesi gibi parametresi olan seçenekleri belirtir. PHP_ARG_ENABLE() ise yalnız durum kodu belirtmekte kullanılır.
+
+<h3>Örnek-2 Örnek configure çıktısı</h3>
+<pre>
+$ ./configure --help
+...
+  --with-example[=FILE]
+         Include example support.
+         FILE is the optional path to example-config
+  --enable-example-debug
+         example: Enable debugging support in example
+  --with-example-extra=DIR
+         example: Location of extra libraries for example
+...
+
+$ ./configure --with-example=/some/library/path/example-config
+              --disable-example-debug
+              --with-example-extra=/another/library/path
+...
+checking for example support... yes
+checking whether to enable debugging support in example... no
+checking for extra libraries for example... /another/library/path
+...
+</pre>
+
+    Not: Hangi sırayla seçenekler komut satırına yazılmış olursa olsun, çalışırken kullanılan sıra config.m4 dosyasındaki gibi olur.
+
+<h3>Kullanıcının seçeneklerini işlemek</h3>
+
+Bilinmelidir ki config.m4 yapılacakları belirten bazı seçenekleri de kullanıcıya sunar. Bu seçenekler üzerinde konuşmanın zamanıdır. Yukarıdaki örnekte üç seçeneğin varsayılan değeri "no" olarak belitilmiştir. Uzantıyı açan seçenekte bu değerlerin "no" kalması en iyisidir. Her zaman yalnız derlemede phpize ile bu uazntıda değerleri değiştirme olanağı vardır. O zaman PHP altında uzantının alanı değişmeyecektir. Üç seçenekle ilgili kodun işlenmesi ise çok daha karmaşıktır.
+<h3>Handling the --with-example[=FILE] option</h3>
+
+"--with-example[=FILE]" seçeneğiyle yapılan ilk denetim, onun kurulmasıyla ilgilidir. Bu seçenek tüm uzantının dahil edilmesini de içerdiğinden, daha önce tanımlanmaz. Eksi kalıbı kullanmak (--without-example gibi) ya da "no" değerini vererek hiçbir şey yaptırılmayabilir. Yukarıdaki örnekte /some/library/path/example-config değeri belirtilir bu nedenle deneme başarılı olur.
+<br /><br />
+Sonra kod AC_MSG_CHECKING() çağırır. Bu da "birşeyi denetleme" satırnı çıkartan standart autoconf makrosudur. Kullanıcı fiktif example-config için açık bir yol verebilir. Bu örnekte PHP_EXAMPLE /some/library/path/example-config değerini alır ki bu da EXAMPLE_PATH değeri olarak kopyalanır. Eğer kullanıcı yalnız --with-example belirtirse, kod "$php_shtool path $EXAMPLE_CONFIG" ile çalışır. O da kullanıcının o anki yolunu kullanarak example-config dosyasının yerini bulmaya çalışır. Her koşulda, sonraki adım seçilen EXAMPLE_PATH değerinin düzgün bir dosya olup olmadığa bakılmasıdır. Eğer çalıştırılabiliyorsa çalıştırılır. Eğer öyleyse AC_MSG_RESULT() çağrılır ve AC_MSG_CHECKING() ile başlatılan satırı tamamlar. Aksi halde AC_MSG_ERROR() çağrılır, verilen mesajı yazar sonra ayarlamayı hemen durdurur.
+<br /><br />
+"example-config" bir kaç kez çalıştırılarak siteye özgü bilgiler verir. Sonraki işlem PHP_CHECK_LIBRARY() çağırmaktır. PHP kurulum sisteminde kullanılan bu makro autoconf'in AC_CHECK_LIB() tamamlayıcısıdır. PHP_CHECK_LIBRARY() programı derlemeye, bağlamaya ve çalıştırmaya uğraşır. Bu programın çağırdığı simge, birinci parametreyle belirtilen kitaplıktaki ikinci parametreyle gösterilir. Beşinci parametredeki yazı dizisi ise bağlayıcıya parametre olarak geçirilir. Eğer uğraş başarılı olursa üçüncü parametre çalıştırılır. Bu kodlama PHP kurulumuna, ekleme yolundakilerin ve kitaplıkların açılmasını emreder. Ham seçnek yazı dizisindeki kitaplık adları da açılmak için sunulur. Eğer girişimde hata olursa, dördüncü parametredeki kodlama çalıştırılır. Bu durumda AC_MSG_ERROR() işlemi durdurmak için çalıştırılır.
+<h3> --enable-example-debug seçeneğinin ele alınışı</h3>
+
+"--enable-example-debug" çlıştırmak da çok benzerdir. Bu doğruluk değeri için çok basit bir işlem yapılır. Eğer deneme geçerli olursa AC_DEFINE() çağrılır. Burada C makrosuyla USE_EXAMPLE_DEBUG değerini kaynak kod içinde kullanılacak biçimde düzenlenir. Üçüncü parametre config.h için açıklamayı içerir. Çoğu zaman da boştur.
+<h3> --with-example-extra=DIR seçeneğinin ele alınışı</h3>
+
+Buradaki örnek için --with-example-extra=DIR seçeneğiyle istenen fiktif "extra" işlevselliği, gerçek olmayan exaample-config programını paylaşmaz ve aranacak varsayılan yolu da yoktur. Bu nedenle kullanıcı gerekli kitaplığın yolunu sağlamak zorundadır. Bu kurulum biraz gerçek hayat uzantısı gibi de olsa göstermek içindir.
+<br /><br />
+PHP_EXAMPLE_EXTRA değerinin doğruluğunun denetimiyle kod çalışmaya başlar. Eğer ters yapı sunulmuş olsa, daha sonra işlem yapılmamalıydı. Kulalnıcı ek işlevsellik istemez. Eğer düzgün yapı sunuluyorsa, parametre olmadan AC_MSG_ERROR() işlemi durdurmak için çalıştırılır. Bir sonraki adım PHP_CHECK_LIBRARY() için bir başka davettir.
+Şİmdi, daha önceden tanımlanmış derleme seçenekleri olmadığından, PHP_ADD_INCLUDE() ve PHP_ADD_LIBRARY_WITH_PATH() ek işlevsellikler için ekleme yollarını, kitaplık yollarını ve kitaplık durum kodlarını oluşturmak için kullanılır. AC_DEFINE() koda ek işlevsellik gerekli ve vardır demek için çağrılır. Daha sonraki adımlarda ek kaynak kodların da olduğu belirtilmek için bir değişkene atamaya yapılır. Hatayı bildirmenin bir başka yolu da AC_MSG_WARNING() kullanmak olabilir.
+<br />
+<pre>
+      AC_MSG_WARNING([example-extra lib not found.
+             example will be built without extra functionality.])
+</pre>
+<br />
+Burada, "configure" hata mesajı yerine uyarı mesajları verir ve işleme devam eder. Bunlar tasarım kararları olup uzantıyı geliştirenin kendisine bırakılmıştır.
+<h3>Kurulum sistemine neyin bulunduğunun anlatılması</h3>
+
+With all the necessary includes and libraries specified, with all the options processed and macros defined, one more thing remains to be done: The build system must be told to build the extension itself, and which files are to be used for that. To do this, the PHP_NEW_EXTENSION() macro is called.
+
+İlk parametre uzantının adıdır. O da içinde bulunduğu dosya yolunun adıdır. İkinci parametre uzantının bir parçası olan kaynak kodların hepsidir. PHP_ADD_BUILD_DIR() kurulum işlemine kaynak kod eklemek için bakılması gerekendir.
+Üçüncü parametre her zaman $ext_shared olur. PHP_ARG_WITH() "--with-example[=FILE]" için çağrıldığında değeri "configure" ile belirlenir.
+Diğer tüm seçenekler için boş olmalıdır. Beşinci parametre CFLAGS değerine eklenecek tüm durum kodlarını belirten listedir. Altıncı ise mantıksal değerdir. Eğer "yes" olursa tüm uzantıyı $CC yerine $CXX ile derler. Üçüncüden sonraki tüm parametreler seçenektir. Olmayabilir.
+Son olarak PHP_SUBST() uzantının paylaşılan kurulumlarını açmak için çağrılır. Uzantının paylaşım konumunu kapatma desteği hakkında daha fazla bilgi için Uzantılar hakkında Sıkça Sorulan Sorulara bakmak gerekir.
+<br />
+
+         </div>
+<hr>
+<div id="sag"> <B><A HREF="javascript:history.back()">Dönüş</A></B> </div>
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8541306787668208";
+//120x600, created 1/16/08
+google_ad_slot = "7007060807";
+google_ad_width = 120;
+google_ad_height = 600;
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<br />
+<script type="text/javascript"><!--
+google_ad_client = "pub-8541306787668208";
+//120x240, created 1/25/08
+google_ad_slot = "8433790203";
+google_ad_width = 120;
+google_ad_height = 240;
+google_cpa_choice = ""; // on file
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

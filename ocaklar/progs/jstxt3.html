@@ -1,0 +1,484 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>JS - Nesneler </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script language="JavaScript" src="../js/XHConn.js"> </script>
+<script language="JavaScript" src="../js/js10.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="ysoltaraf">
+           <a href="../index.php"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="js.html" class="nav">Giriş</a>
+               <a href="jstxt1.html" class="nav">Sayfada Javascript</a>
+               <a href="jstxt2.html" class="nav">Nesnel Programlama</a>
+               <a href="jstxt3.html" class="nav">JS Nesneleri</a>
+               <a href="jstxt4.html" class="nav">İşlemler</a>
+               <a href="jstxt5.html" class="nav">Değişkenler</a>
+               <a href="jstxt6.html" class="nav">Denetim Yapıları</a>
+               <a href="jstxt7.html" class="nav">Script Yazma</a>
+               <a href="jstxt8.html" class="nav">Yazma İşlevleri</a>
+               <a href="jstxt9.html" class="nav">Başvuru</a>
+               <a href="jstxt10.html" class="nav">DHTML</a>
+               <a href="jstxt11.html" class="nav">Öğe İçeriği</a>
+               <a href="jstxt12.html" class="nav">Pencereler</a>
+               <a href="jstxt13.html" class="nav">Olay Bilgisi</a>
+               <a href="jstxt14.html" class="nav">Zaman Ayarı</a>
+               <a href="jstxt15.html" class="nav">Cookie Kullanımı</a>
+               <a href="jstxt16.html" class="nav">Güvenlik</a>
+               <a href="js24.html" class="nav">Javascript Nesneler</a>
+<br />
+<script type="text/javascript"><!--
+google_ad_client = "pub-8541306787668208";
+//120x600, created 1/16/08
+google_ad_slot = "7007060807";
+google_ad_width = 120;
+google_ad_height = 600;
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<br />
+<script type="text/javascript"><!--
+google_ad_client = "pub-8541306787668208";
+//120x240, created 1/25/08
+google_ad_slot = "8433790203";
+google_ad_width = 120;
+google_ad_height = 240;
+google_cpa_choice = ""; // on file
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>Javascript Yazılım Kuralları (JS)</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">22 Aralık 2007</span></div>
+<h2>Nesneler</h2>
+<div class="yazi">
+<p class="yazi">
+Aşağıdaki işlev myobject sınıfından bir nesne yaratmak için gösterilmiştir.
+<fieldset class="fyazi">
+<pre>
+function myobject() {
+  this.containedValue = 0;
+  this.othercontainedValue = 0;
+  this.anothercontainedValue = 0;
+}
+
+var mything = new myobject();
+</pre>
+</fieldset>
+<p class="yazi">
+İşte buradan devam edelim. mything, myobject sınıfından bir bileşendir. Aşağıdaki özellikleri vardır ve hepsinin değeri sıfırdır:
+</p>
+<ul class="yazi">
+    <li> mything.containedValue</li>
+    <li> mything.othercontainedValue</li>
+    <li> mything.anothercontainedValue</li>
+</ul>
+Artık:
+<pre>
+   myobject.prototype.newContainedValue = someValue;
+</pre>
+yazabilirsiniz ve myobject sınıfının tüm bileşenlerinde  "newContainedValue" değeri "someValue" olur.
+<h3>Yöntemiyle bir nesne yaratmak</h3>
+<p class="yazi">
+Şimdi nesneniz için nasıl yöntem tanımlanacağı gösterilmiştir. Örnek olarak, çember yaratmak nesne haline getirildiğinde:
+</p>
+<dl>
+<dt>nameOfCircle.retArea()</dt>
+    <dd>Çemberin alanını döndürür (pi r2)</dd>
+<dt>nameOfCircle.retCirc()</dt>
+    <dd>Çemberin çevresini döndürür (2 pi r)</dd>
+<dt>nameOfCircle.mvBy(xDis,yDis)</dt>
+    <dd>Çemberix yönünde xDis ve y yönünde yDis kadar hareket ettirir </dd>
+</dl>
+<p class="yazi">
+Aşağıdaki satırlar nesnenin kullanacağı yöntemleri işlevlere bağlar
+</p>
+<ul class="yazi">
+    <li> this.retArea = getTheArea;</li>
+    <li> this.mvBy = mvCclBy;</li>
+    <li> this.retCirc = function () { ... };</li>
+</ul>
+<p class="yazi">
+Bu tanımların üçüncüsü tek satırlık anonim bir işlevi belirtir. NN 4'de bu satır çalışmaz. '}' işaretinden sonra bir noktalı virgülü vardır ve bu da ender doğru örneklerden biridir.
+</p>
+
+<fieldset class="fyazi">
+<pre>
+function mycircle(x,y,r) {
+  this.xcoord = x;
+  this.ycoord = y;
+  this.radius = r;
+  this.retArea = getTheArea;
+  // Aşağıdaki satır başka bir yazım kuralı kullanır
+  this.retCirc = function () {
+       return ( Math.PI * this.radius * 2 );
+  };
+  this.mvBy = mvCclBy;
+}
+function getTheArea() {
+  return ( Math.PI * this.radius * this.radius );
+}
+function mvCclBy(xDis,yDis) {
+  this.xcoord += xDis;
+  this.ycoord += yDis;
+}
+
+/*
+testcircle.xcoord 3 ve testcircle.ycoord 4 ve
+testcircle.radius 5 olan testcircle adlı bir mycircle yaratmak 
+*/
+var testcircle = new mycircle(3,4,5);
+/*
+testcircle merkezini göstermek için mvBy yöntemini kullanın
+x yönünde 2, y yönünde 3 kaydırın
+*/
+testcircle.mvBy(2,3);
+// Şimdi testcircle.xcoord 5 ve testcircle.ycoord 7 olur
+
+window.alert( 'The area of the circle is ' + testcircle.retArea() );
+window.alert( 'The circumference is ' + testcircle.retCirc() );
+</pre>
+</fieldset>
+
+<h3>Özel 'toString' yöntemi</h3>
+<p class="yazi">
+Siz tanımlamamış olsanız da tüm nesnelerde 'toString' yöntemi vardır. Yöntem nesnenin yazı dizini biçimini döndürür. Bir nesnenin yazı dizini biçimindeki konumu istendiğinde otomatik çağrılır. Örneğin "alert(myObject)" işlemini kullandığınızda burada anlatılan gerçekleşir.
+</p>
+
+<p class="yazi">
+Pek çok tarayıcıda '[object Object]' döner ama bazı kullanışlı tarayıcılarda aşağıdakine benzer bir yazı görüntülenir:
+</p>
+<pre>
+  '{özellik1:değer1,özellik2:değer2,method1:function () { ... },etc.}'
+</pre>
+
+<p class="yazi">
+Ancak, sizin nesneleriniz için daha kullanışlı bilgiler içeren yazı dizisi oluşturmak isterseniz 'toString' yöntemini yeniden yazmalısınız.
+</p>
+
+<fieldset class="fyazi">
+<pre>
+this.toString = function () {
+  return 'Circle object; xcoord: ' + this.xcoord + ', ycoord: ' +
+    this.ycoord + ', radius: ' + this.radius;
+};
+</pre>
+</fieldset>
+
+<h3>Gelişmiş Nesne Teknikleri</h3>
+<p class="yazi">
+Burada Javascript ile çok az kullanılan bir kavramdan söz edilmektedir. Javascript herkesin kullandığından daha güçlü bir programlama dilidir. Bunun nedeni normal kodlamada bu özelliklerin hepsinin kullanılması gerekmemektedir. 
+</p>
+
+<p class="yazi">
+NN 4 gibi eski tarayıcılarda burada anlatılanların bir çoğu çalışmayabilir.
+</p>
+
+<h3>"prototype" kullanarak daha çok özellikler/yöntemler ekleme</h3>
+
+<p class="yazi">
+Bu yazının başındaki "mycircle" örneğini ele alın. Şimdiye dek 'mycircle' sınıfının bir bileşeni olarak 'testcircle' yaratıldı. Biraz daha 'mycircle' tanımları yaratıldığını varsayalım. Şimdi her çembere 'texture' gibi yeni bir özellik daha eklenmek istendiğinde aşağıdaki kullanılabilir:
+</p>
+
+<pre>
+testcircle.texture = 'smooth';
+</pre>
+
+<p class="yazi">
+Ve bunu her 'mycircle' bileşeni için yapabiliriz. Eğer bu özellik tüm bileşenlere eklenecekse, ayrı ayrı tanım yapmak yerine hepsini birden bir kerede tanımlamak çok daha iyidir:
+</p>
+
+<pre>
+mycircle.prototype.texture = 'smooth';
+</pre>
+<p class="yazi">
+Artık tüm 'mycircle' bileşenlerinde yeni özellik eklenmiştir.
+</p>
+
+<fieldset class="fyazi">
+<pre>
+alert(testcircle.texture);
+//alerts 'smooth'
+</pre>
+</fieldset>
+<p class="yazi">
+Yeni yöntemler de aynı biçimde eklenebilir.
+</p>
+
+<fieldset class="fyazi">
+<pre>
+mycircle.prototype.setArea = function (oArea) {
+  this.radius = Math.sqrt( oArea / Math.PI );
+};
+mycircle.setArea(5);
+</pre>
+</fieldset>
+
+<p class="yazi">
+Yerleşik (içsel) nesneler için daha kullanışlıdır. Örneğin /a[0-9]b/g new RegExp('a[0-9]b','g') yerine kullanılan bir kısaltmadır. Aslında bu işlem tüm yerleşik nesnel sınıfların (String, Number ve Boolean gibi) hepsi için geçerlidir. Tüm yazı dizilerinde yazı dizisinin içeriğini ters çeviren yeni bir yöntem tanımlanmak istediğinde (reverse gibi) aşağıdaki işlem yapılır:
+</p>
+
+<fieldset class="fyazi">
+<pre>
+String.prototype.reverse = function() {
+  for( var oStr = '', x = this.length - 1, oTmp;
+       oTmp = this.charAt(x); x-- ) {
+    oStr += oTmp;
+  }
+  return oStr;
+};
+</pre>
+</fieldset>
+
+<p class="yazi">
+'prototype', 'mycircle' nesnesinin tüm yöntemleri için de kullanılabilir. Bu özellik yalnız yeni olanlar için geçerli değildir.
+Nesnenin her bileşeni için ayrı bir kopya oluşturmak gerekmez. Ama tarayıcı yöntemin o anki ve önceki kapsamını aramak zorundadır. Az yer alır ama biraz daha uzun sürer. Genel olarak kodunuza en uygun hangisiyse onu kullanmanız önerilir. Ve bu kararı verimliliği düşünerek vermeniz gerekmez (ama çok özel denetim ortamıyla lgileniyorsanız daha hassas davranabilirsiniz).
+</p>
+
+<fieldset class="fyazi">
+<pre>
+function mycircle(x,y,r) {
+  this.xcoord = x;
+  this.ycoord = y;
+  this.radius = r;
+}
+mycircle.prototype.retArea = function () {
+  return ( Math.PI * this.radius * this.radius );
+};
+mycircle.prototype.retCirc = function () {
+  return ( Math.PI * this.radius * 2 );
+};
+mycircle.prototype.mvBy = function (xDis,yDis) {
+  this.xcoord += xDis;
+  this.ycoord += yDis;
+};
+</pre>
+</fieldset>
+<h3>Toplumsal (Public) ve kişisel (private) özellikler</h3>
+
+<p class="yazi">
+Bu öyle bir kavramdır ki neredeyse Javascript kodlamasında hiç kullanılmaz. Bunun için geçerli bir neden de vardır. Basit olarak buna gerek yoktur. Çok karmaşık kodlar bile bu işlemi kullanmaya gereksinim duymaz. Ama Java ve C++ gibi diğer dilleri kullanan programcılar Javascript içinde bu davranışı sıkça kullanmak isterler. Bu yöntem büyük bir projede birçok kod parçasından oluşan kaynak kod için yararlı olur.
+</p>
+
+<p class="yazi">
+Diyelim ki siz toplumsal işlev kitaplığı oluşturuyorsunuz. Bunlar bir dizi yapılar ve yöntemlerdir. Öyle ki herkes projelerinde onları kullanabilir (Java programcılarının her zaman kullandıkları bir şey). Diyelim "mycircle" yapısı da bunların içindedir. Böylece siz kendi "mycircle" yapınızı kurabilirisiniz. Aşağıdakini yazmış olun:
+<pre>
+   var aCircle = new mycircle(5,6,'about 3mm');
+</pre>
+<p class="yazi">
+Bu çalışır (doğru ölçü değil belki ancak yapı tanımı bundan etkilenmez), ama sonra bu sınıfla desteklenen yöntemleri kullanmaya kalktığınızda hepsi çakılır.
+O halde bu değerin geçerli olduğunu denetlemiş olmalısınız ve eğer değilse varsayılan değeri kullanmış olmalısınız. Ama eğer aşağıdaki gibi birşeyden söz ederseniz:
+</p>
+<pre>
+   aCircle.radius = 'some text';
+</pre>
+<p class="yazi">
+Yine kırılacaktır (Doğal olarak sizin hatanızdan, ama daha karmaşık uygulamalarda, bu biçimde hatalar yapma olasılığı vardır ve bunlar da gerçekten hata oluştururlar). O halde özelliği doğrudan değiştirme olanağının kaldırılması gerekir. Bunu ancak denetlenebilen bir yöntem aracılığıyla yapmaya izin verilmelidir:
+</p>
+<fieldset class="fyazi">
+<pre>
+this.setRadius = function (oRad) {
+  if( typeof(oRad) == 'number' && oRad >= 0 ) {
+    this.radius = oRad;
+  } else {
+    this.radius = 0;
+  }
+};
+</pre>
+</fieldset>
+<p class="yazi">
+Önemli olabilecek diğer bir durum bir dizi özelliğe bu bilginin saklanmasıdır. Ama bunu gerçekleştirmek için kullanılan özelliklerin değişmesi gerekir. Kullanıcı yalnız yöntemleri kullanmaya zorlanır. Ve yöntemler yeni özellikleri kapsayacak biçimde değiştirilse bile yazılmış olanlar değişmeden kullanılabilir. Bu durumda neyin değiştiğinin izlenmesine bile gerek olmaz. Böylece herkes kendi projesini geliştirebilir ama birbirlerinin zamanını işgal etmemiş olurlar.
+</p>
+
+<p class="yazi">
+Bunlar kapanmamış bir çok özellikte karşılaşılacak çelişkileri yok etmeye de yarar. Örneğin bir özellik bir nesneye gecici olarak atanmak istense, içeriği çok da iyi bilinmiyorsa ve eğer bu özellik daha önce zaten kullanılmışsa, yenisi eskinin yerini alacak ve nesne üzerinde sorunlara neden olacaktır.
+</p>
+
+<p class="yazi">
+Burada kişisel özellikler devreye girer. Özelliklerin doğrudan değiştirilmesine gerek olmadan yapıları kullanan kodların yöntemler üzerinde değişiklik yapmalarını sağlar. Pek çok bilgisayar programlama dillerinden ayrılarak Javascript değişkenlerin 'public' ya da 'private' tanımına gerek duymaz. Bu tümüyle onların nasıl yaratıldığına bağımlıdır.
+</p>
+
+<p class="yazi">
+'this.propertyname' yukarıda belirtildiği gibi toplumsal özellik yaratır. Her kod bir nesne yaratabilir ve özelliklerini doğrudan değiştirebilir. Değişkeni tanımlamak için yapıda "var" kullanmak "kişisel" özellik yaratılmasını sağlar. Toplumsal özelliklere karşın, kişisel özellikler sonra erişimde (yöntemlerin içinde) "this" ön kodu olmadan normal değişken gibi değerlendirilir. Bu javascript kapsamının işlevsel olarak yoğun kullanımını gerektirir. Kişisel değişkenler satır içinde tanımlanmışsa, yalnız yöntemlerde erişilebilir ve dışarıdan erişilemez ya da prototype yapısıyla tanımlanamaz. Buna örnek:
+</p>
+<pre>
+   this.mymethod = function () { alert( propertyname ); };
+</pre>
+olur...<br />
+<fieldset class="fyazi">
+<pre>
+function myob() {
+  this.property1 = 'value1'; //this creates a public property
+  var property2 = 'value2';  //this creates a private property
+  this.method1 = function () { alert( property2 ); };
+}
+var oneOb = new myob();
+alert(oneOb.property1); //alerts 'value1'
+alert(oneOb.property2); //alerts undefined (private property)
+oneOb.method1();        //alerts 'value2'
+</pre>
+</fieldset>
+<p class="yazi">
+Benzer biçimde kişisel yöntemler de tanımlanabilir. yapının içinde tanımlanmış işlevler bu tür tanımlardır. Biraz karışık görünüyor olabilir ama çalışır. Kişisel işlev yalnız kendi yapısı tarafından çağrılabilir. Eğer bunlar toplumsal yöntem yapıları içinde tanımlanırlarsa ve toplumsal yöntemlerle erişilirlerse (aşağıdaki "method2" de olduğu gibi) kişisel yöntemler olarak tanımlanabilirler.
+</p>
+
+<fieldset class="fyazi">
+<pre>
+function myob() {
+  function cantBeSeen() {
+    alert(secretValue);
+  }
+  var secretValue = '';
+  this.method1 = function () {
+    secretValue = 'no surprises';
+    cantBeSeen();
+  };
+  this.method2 = cantBeSeen;
+}
+var oneOb = new myob();
+oneOb.method1(); //alert mesajı 'no surprises' olur
+oneOb.method2(); //alert mesajı 'no surprises' olur
+</pre>
+</fieldset>
+
+<p class="yazi">
+Bu bölüm de Javascript ile pek kullanılmaz. Başka dillerde çok yaygın olması burada da kullanılmasını gerektirmez. Küreyi tanımlayacak verilerle yeni tür bir nesne yaratılacaktır. Aslında küre üç boyutlu bir çember olduğundan daha önce çember için yaratılmış olan nesnelerin hepsi kullanılmak istenecektir. retArea kesit alanını elde etmek, retCirc çevresini almak, mvBy belirli bir tür hareket ettirmek, ek olarak retVol hacmini elde etmek ve retSurf yüzey alanını almak için kullanılacaktır. Nesneyi yaratırken ya da mvBy kullanırken z koordinatına da gereksinim doğacaktır.
+</p>
+
+<p class="yazi">
+Böylece 'mycircle' nesnesine dayanan yeni bir nesne, birkaç ekle ya da değişiklikle yaratılacaktır. Şimdi 'mycircle' için yazılmış tüm kod yeniden yazılır ve yalnız gereken değişiklikler üzerinde uygulanır. Gerçek yaşamda bu zaman kaybından başka birşey değildir. Burada yapılması gereken kürenin kalıtsal olarak 'mycircle' özelliklerinin hepsini içermesi ve yalnız değişenlerin üzerine yazılmasıdır.
+</p>
+
+<p class="yazi">
+Bu mysphere nesnesini etkin olarak 'mycircle' nesnesinin alt-sınıfı yapar. Böylece, kalıtsal olarak mycircle'dan sınıf yaratılmasını sağlar. Bu işlem aşağıdaki kadar basittir:
+</p>
+<pre>
+function mysphere(x,y,z,r) { ... yapıcı kodlama ... }
+mysphere.prototype = new mycircle();
+</pre>
+<p class="yazi">
+Nasıl çalıştığı merak konusu oluyorsa: Önce mycircle yaratılır ve sonra mysphere yapısına prototype olarak atanır. Sonuç olarak mysphere yapı tasarımı, mycircle nesnesini ilk tip (prototip) zincirine eklemiş olur. Bunun anlamı her mysphere yaratıldığında, mycircle nesnesinin yöntem ve özelliklerini beraberinde taşır.
+Kendisi ilk tipi kullanarak bu özelliklerden herhangi birini değiştirebilir. Eğer bu özelliklerden herhangi biri "delete" (sil) kullanarak silinirse katılsal olanlar yeniden açılmış olurlar. Zincir içindeki kopyalar değişikliklere göre elden geçer ve değişiklikler kendilerine uygulanır.
+</p>
+
+<p class="yazi">
+"mycircle" nesnesinden kalıtsal bağ alarak mysphere oluşturmak oldukça kolaydır. En azından öyle olmalıdır. Ama unutulmaması gereken mycircle, bazı parametreler kullanılmasını beklemektedir. Yeni yapı tasarımcısı kullanıldığında bu parametreler otomatik olarak mycircle işlev yapısına geçecektir.
+Bunu, yaratılmak istenen her mysphere için yapmak gerekir. Ama parametrelerin ilk tip ataması sırasında mycircle nesnesine geçirilmemiş olması, mycircle yapısının yaratılmadan durmasına neden olur. Toplumsal parametreler hemen tanımlanmadan bir yöntem tanımlayarak işlem yapılabilir. Eğer gerekli parametreler (arguments.length) geçirilirse yöntem hemen çağrılır.
+</p>
+
+<p class="yazi">
+Eğer parametreler varsa, mycircle yapı tasarımı çalışmaya devam eder ve hiç kimsenin değişiklikleri bilmesi de gerekmez. Daha sonrası için işleri kolaylaştırmak amacıyla, yapı tasarımlarından tüm yöntemler dışarı çıkarılır ve ilk tipler kullanılırken eklenir. Bu biçimiyle mycircle ilk tip yöntemleri her zaman kullanılabilir olur. Maalesef toplumsal ve kişisel özelliklerin kullanımı imkansız olur.
+</p>
+<fieldset class="fyazi">
+<pre>
+function mycircle(x,y,r) {
+  if( arguments.length ) { this.getready(x,y,r); }
+}
+mycircle.prototype.getready = function (a,b,c) {
+  this.xcoord = a;
+  this.ycoord = b;
+  this.radius = c;
+};
+mycircle.prototype.retArea = function () {
+  return ( Math.PI * this.radius * this.radius );
+};
+mycircle.prototype.retCirc = function () {
+  return ( Math.PI * this.radius * 2 );
+};
+mycircle.prototype.mvBy = function (xDis,yDis) {
+  this.xcoord += xDis; this.ycoord += yDis;
+};
+</pre>
+</fieldset>
+<p class="yazi">
+Yeniden mysphere yapı tasarımına dönüldüğünde onun nasıl kalıtsal olduğu anlatılmıştır ama hala mycircle.getready yöntemi ilkleme için gereklidir. Bunu yapmak için üst katmandaki sınır ilk tipini göstererek yöntemi çalıştırmak gerekir. Üst düzey yöntem aynı adı taşısa da her zaman doğru olan kullanılır.
+Ne kadar alt-sınıf gerekeceği hiç bir zaman bilinmese de, yukarıda anlatıldığı biçimde olunca ad çatışması olmaz.
+</p>
+
+<p class="yazi">
+Yöntemi çalıştırırken, javascript'e başka bir ilk tip yöntemi olduğu belirtilse bile onun yaratılan nesnenin yöntemiymiş gibi kullanması istenebilir (Yaratılmakta olan nesneye eklenen özellikler olması koşulu gereklidir). Bu "call" ya da "apply" yöntemiyle yapılabilir fakat, IE 5 bunları anlamamaktadır. Bu nedenle yeni nesnenin gecici özellikleri atanır ve buradan çalıştırmak zorunda kalınır.
+</p>
+
+<p class="yazi">
+"mycircle" nesnesi mysphere ilk tipine atanınca, bu işlem mysphere ilk tip yapı tasarımındaki özellikleri ve değiştirir. Bu çok önemli bir sorun olmaz ama, bazı kodlamalarda kullanılmaktadır. Bu nedenle gösterilimi (reference) nerede olması gerekiyorsa oraya geri koymak gerekir.
+</p>
+<fieldset class="fyazi">
+<pre>
+function mysphere(x,y,z,r) {
+  if( arguments.length ) { this.getready(x,y,z,r); }
+}
+//mycircle ilk tipinden alındı
+mysphere.prototype = new mycircle();
+//doğru yapı tasarımını geri koymak (zorunlu değil)
+mysphere.prototype.constructor = mysphere;
+
+mysphere.prototype.getready = function (a,b,c,d) {
+  //üst sınıftan getready yöntemini almak
+  this.tempReady = mycircle.prototype.getready;
+  //ve bu nesnenin bir parçasıymış gibi çalıştırmak
+  this.tempReady(a,b,d);
+  //Bilinmelidir ki tüm zorunlu özellikler üst sınıftan
+  //alıntıdır, başkaları ise buradan tanımlanır.
+  this.zcoord = c;
+}
+mysphere.prototype.mvBy = function (xDis,yDis,zDis) {
+  //Var olan yöntemi ezmek/değiştirmek
+  this.xcoord += xDis;
+  this.ycoord += yDis;
+  this.zcoord += zDis;
+};
+mysphere.prototype.retVol = function () {
+  return ( 4 / 3 ) * Math.PI * Math.pow( this.radius, 3 );
+};
+mysphere.prototype.retSurf = function () {
+  return 4 * Math.PI * this.radius * this.radius;
+};
+</pre>
+</fieldset>
+Ve sonunda kullanmak için:
+<br />
+<fieldset class="fyazi">
+<pre>
+var testsphere = new mysphere(3,4,5,6);
+
+alert( 'The cross-section area is ' + testsphere.retArea() );
+alert( 'The circumference is ' + testsphere.retCirc() );
+alert( 'The volume is ' + testsphere.retVol() );
+alert( 'The surface area is ' + testsphere.retSurf() );
+</pre>
+</fieldset>
+</div>
+<br />
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

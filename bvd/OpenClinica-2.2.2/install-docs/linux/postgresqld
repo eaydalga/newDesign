@@ -1,0 +1,167 @@
+#! /bin/sh
+# postgresqld	This is the init script for starting up the PostgreSQL
+#		server
+#
+# chkconfig: 345 83 17
+# description: Starts and stops the PostgreSQL backend daemon that handles \
+#	       all database requests.
+# processname: postmaster
+# pidfile: /var/run/postmaster.pid
+
+PG_HOME="/usr/local/pgsql"
+
+# Source function library.
+INITD=/etc/rc.d/init.d
+. $INITD/functions
+
+# Get function listing for cross-distribution logic.
+TYPESET=`typeset -F`
+# Get config.
+. /etc/sysconfig/network
+
+# Find the name of the script
+#NAME=`basename $0`
+NAME="PostgreSQLd"
+
+# Set defaults for port and database directory
+PGPORT=5432
+export PGDATA=/usr/local/pgsql/data
+
+# Check that networking is up.
+# Pretty much need it for postmaster.
+[ "${NETWORKING}" = "no" ] && exit 0
+
+[ -f /$PG_HOME/bin/postmaster ] || exit 0
+
+start(){
+	PSQL_START=$"Starting ${NAME} service: "
+
+	        echo -n $"Initializing database: "
+                if [ ! -d $PGDATA ]
+		then
+			mkdir -p $PGDATA
+			chown postgres.postgres $PGDATA
+			chmod go-rwx $PGDATA
+		fi
+
+		# Make sure the locale from the initdb is preserved for later startups...
+		[ -f $PG_HOME/i18n ] && cp $PG_HOME/i18n $PGDATA/../initdb.i18n
+		# Just in case no locale was set, use en_US
+		[ ! -f $PG_HOME/i18n ] && echo "LANG=en_US" > $PGDATA/../initdb.i18n 
+		# Is expanded this early to be used in the command su runs
+		echo "export LANG LC_ALL LC_CTYPE LC_COLLATE LC_NUMERIC LC_CTYPE LC_TIME" >> $PGDATA/../initdb.i18n
+		# Initialize the database
+		su -l postgres -s /bin/sh -c "$PG_HOME/bin/initdb --pgdata=$PGDATA > /dev/null 2>&1" < /dev/null
+		[ -f $PGDATA/PG_VERSION ] && echo_success
+		[ ! -f $PGDATA/PG_VERSION ] && echo_failure
+		echo
+
+
+	# Check for postmaster already running...
+  # note that pg_ctl only looks at the data structures in PGDATA
+  # you really do need the pidof()
+	pid=`pidof -s $PG_HOME/bin/postmaster`
+	if [ $pid ] && $PG_HOME/pg_ctl status -D $PGDATA > /dev/null 2>&1
+	then
+		echo $"Postmaster already running."
+	else
+		#all systems go -- remove any stale lock files
+		rm -f /tmp/.s.PGSQL.${PGPORT} > /dev/null
+		echo -n "$PSQL_START"
+		su -l postgres -s /bin/sh -c "$PG_HOME/bin/pg_ctl  -D $PGDATA -p $PG_HOME/bin/postmaster -o '-i -p ${PGPORT}' start  > /dev/null 2>&1" < /dev/null
+ 		sleep 1
+ 		pid=`pidof -s $PG_HOME/bin/postmaster`
+ 		if [ $pid ]
+		then
+			if echo "$TYPESET"|grep "declare -f success" >/dev/null
+			then
+				success "$PSQL_START"
+			else
+				echo "  [ OK ]"
+			fi
+			touch /var/lock/subsys/${NAME}
+			echo $pid > /var/run/postmaster.${PGPORT}.pid
+			echo
+		else
+			if echo "$TYPESET"|grep "declare -f failure" >/dev/null
+			then
+				failure "$PSQL_START"
+			else
+				echo " [ FAILED ]"
+			fi
+			echo
+		fi
+	fi
+}
+
+stop(){
+        echo -n "Stopping $NAME..."
+	PSQL_STOP=$"Stopping ${NAME} service: "
+	su -l postgres -s /bin/sh -c "$PG_HOME/bin/pg_ctl stop -D $PGDATA -s -m fast" > /dev/null 2>&1
+	ret=$? 
+	if [ $ret -eq 0 ]
+	then
+		if echo "$TYPESET"|grep "declare -f success" >/dev/null
+		then
+			success "$PSQL_STOP"
+		else
+			echo "  [ OK ]"
+		fi
+
+	else
+		if echo "$TYPESET"|grep "declare -f failure" >/dev/null
+		then
+			failure "$PSQL_START"
+		else
+			echo "  [ FAILED ]"
+		fi
+
+	fi
+	echo
+	rm -f /var/run/postmaster.${PGPORT}.pid
+	rm -f /var/lock/subsys/${NAME}
+	echo
+}
+
+restart(){
+    stop
+    start
+}
+
+condrestart(){
+    [ -e /var/lock/subsys/${NAME} ] && restart
+}
+
+reload(){
+    su -l postgres -s /bin/sh -c "$PG_HOME/bin/pg_ctl reload -D $PGDATA -s" > /dev/null 2>&1
+}
+
+# This script is slightly unusual in that the name of the daemon (postmaster)
+# is not the same as the name of the subsystem (postgresql)
+
+# See how we were called.
+case "$1" in
+  start)
+	start
+	;;
+  stop)
+	stop
+	;;
+  status)
+	status postmaster
+	;;
+  restart)
+	restart
+	;;
+  condrestart)
+	condrestart
+	;;
+  reload|force-reload)
+	reload
+	;;
+  *)
+	echo $"Usage: $0 {start|stop|status|restart|condrestart|reload|force-reload}"
+	exit 1
+esac
+
+exit 0

@@ -1,0 +1,211 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>JS - Pencere boyutları ve kaydırma </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script language="JavaScript" src="../js/XHConn.js"> </script>
+<script language="JavaScript" src="../js/js10.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="ysoltaraf">
+           <a href="../index.php"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="js.html" class="nav">Giriş</a>
+               <a href="jstxt1.html" class="nav">Sayfada Javascript</a>
+               <a href="jstxt2.html" class="nav">Nesnel Programlama</a>
+               <a href="jstxt3.html" class="nav">JS Nesneleri</a>
+               <a href="jstxt4.html" class="nav">İşlemler</a>
+               <a href="jstxt5.html" class="nav">Değişkenler</a>
+               <a href="jstxt6.html" class="nav">Denetim Yapıları</a>
+               <a href="jstxt7.html" class="nav">Script Yazma</a>
+               <a href="jstxt8.html" class="nav">Yazma İşlevleri</a>
+               <a href="jstxt9.html" class="nav">Başvuru</a>
+               <a href="jstxt10.html" class="nav">DHTML</a>
+               <a href="jstxt11.html" class="nav">Öğe İçeriği</a>
+               <a href="jstxt12.html" class="nav">Pencereler</a>
+               <a href="jstxt13.html" class="nav">Olay Bilgisi</a>
+               <a href="jstxt14.html" class="nav">Zaman Ayarı</a>
+               <a href="jstxt15.html" class="nav">Cookie Kullanımı</a>
+               <a href="jstxt16.html" class="nav">Güvenlik</a>
+               <a href="js24.html" class="nav">Javascript Nesneler</a>
+<br />
+<script type="text/javascript"><!--
+google_ad_client = "pub-8541306787668208";
+//120x600, created 1/16/08
+google_ad_slot = "7007060807";
+google_ad_width = 120;
+google_ad_height = 600;
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<br />
+<script type="text/javascript"><!--
+google_ad_client = "pub-8541306787668208";
+//120x240, created 1/25/08
+google_ad_slot = "8433790203";
+google_ad_width = 120;
+google_ad_height = 240;
+google_cpa_choice = ""; // on file
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>Javascript Yazılım Kuralları (JS)</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">23 Aralık 2007</span></div>
+<h2>Pencere boyutları ve kaydırma</h2>
+<div class="yazi">
+Tarayıcı penceresinin boyutlarını bulma.
+<ul class="yazi">
+    <li> Clue tarayıcısı yalnız pencere enini hesaplar.
+    <li> Tkhtml Hv3 body/documentElement clientHeight/Width değerlerini ters anlar - Eylül 2007'den önceki sürümler innerHeight/Width de desteklemez. Bu nedenle bu kodlamayla çalışmaz.
+</ul>
+belge alanının yazılacak bölümüne ilişkin bilgi veren bazı değişmezler vardır. Belge yüklenmeden bular kullanıma açık değildir ve bunlara erişimde kullanılan yöntemler tümüyle tarayıcı bağımlıdır. Var olan değişmezler şöyledir:
+<br /><br />
+<dl>
+<dt>window.innerHeight/Width
+    <dd>Bir çok tarayıcı tarafından desteklenir, ama en önemlisi IE tarafından desteklenmez.</dd>
+</dt>
+<dt>document.body.clientHeight/Width
+    <dd>Bir çok tarayıcı tarafından desteklenir, IE de dahil</dd>
+</dt>
+<dt>document.documentElement.­clientHeight/Width
+    <dd>Pek çok DOM tarayıcısı tarafından desteklenir, IE de dahil</dd>
+</dt>
+</dl>
+<br /><br />
+Bu biraz karışık çünkü "clientHeight/Width" özelliği değişik tarayıcılarda değişik anlamlara gelebilir. Belge tipi tanımının tetiklenmesine bağımlı olarak tarayıcının "strict" konumuna ya da "quirks" konumuna göre değişik sonuçlar verir.
+Bazı koşullarda pencerenin boyutlarına ilişkin bilgi verirken, bazen pencere içindeki belgenin boyutları hakkında bilgi verir. Değişik konum ve tarayıcılarda ne anlamlar oluştuğu aşağıdaki tabloda anlatılmıştır:
+
+<h3>Özellikler ve neye yaradıkları</h3>
+<table class="yazi">
+<tr><th width="25%" valign="bottom">Browser</th>
+<th valign="bottom">window. innerHeight </th>
+<th valign="bottom">document. body. clientHeight </th>
+<th valign="bottom">document. documentElement. clientHeight</th></tr>
+<tr><td>Opera 9.5+ strict</td><td>window</td><td>document</td><td>window</td></tr>
+<tr><td>Opera 9.5+ quirks</td><td>window</td><td>window</td><td>document</td></tr>
+<tr><td>Opera 7-9.2</td><td>window</td><td>window</td><td>document</td></tr>
+<tr><td>Opera 6</td><td>window</td><td>window</td><td>N/A</td></tr>
+<tr><td>Mozilla strict</td><td>window</td><td>document</td><td>window</td></tr>
+<tr><td>Mozilla quirks</td><td>window</td><td>window</td><td>document</td></tr>
+<tr><td>KHTML</td><td>window</td><td>document</td><td>document</td></tr>
+<tr><td>Safari</td><td>window</td><td>document</td><td>document</td></tr>
+<tr><td>iCab 3</td><td>window</td><td>document</td><td>document</td></tr>
+<tr><td>iCab 2</td><td>window</td><td>window</td><td>N/A</td></tr>
+<tr><td>IE 6+ strict</td><td>N/A</td><td>document</td><td>window</td></tr>
+<tr><td>IE 5-7 quirks</td><td>N/A</td><td>window</td><td>0</td></tr>
+<tr><td>IE 4</td><td>N/A</td><td>window</td><td>N/A</td></tr>
+<tr><td>ICEbrowser</td><td>window</td><td>window</td><td>document</td></tr>
+<tr><td>Tkhtml Hv3</td><td>window</td><td>window</td><td>document</td></tr>
+<tr><td>Netscape 4</td><td>window</td><td>N/A</td><td>N/A</td></tr>
+</table>
+<br /><br />
+Gördüğünüz gibi tarayıcılar en azından bir özellikte uyum sağlarlar. O da; "innerHeight". IE kafasını toplayamayan tek tarayıcıdır. Onun etkisiyle diğer tarayıcılar ileride belki "clientHeight" özelliğinden vaz geçerler. 
+Şimdilik hemen tüm tarayıcılar "window.innerHeight/Width" desteklemektedir. O halde bunu kullanmak daha uygundur. IE 'strick' konumundayken değerleri değiş tokuş etmektedir. İyi ki 'quicks' konumunda '0' değeri döndürüyor.
+Bunun anlamı: documentElement'in özelliklerinde bir değer olması ve tarayıcı window nesnesinde bu özellikleri desteklememesi bize bu tarayıcının IE olduğunu ve 'strict' konumunda olduğunu belirtir.
+<br /><br />
+En kesin yöntem aşağıdaki algoritmanın kullanımıyla bulunur. Gelecekteki tarayıcılarda sorun olabilir. Bu da çok rahat olunamayacak bir durumdur:
+<ol class="yazi">
+   <li> Eğer 'window.innerHeight/Width' varsa, buna tümüyle güvenilebilir, bunu kullanın</li>
+   <li> Aksi halde eğer 'document.documentElement.clientHeight/Width' varsa ve herhangi biri sıfırdan büyükse onu kullanın.</li>
+   <li> Akis halde 'document.body.clientHeight/Width' kullanın.</li>
+</ol>
+IE 6+ standartları uyumlu konum içindeyse (pencere 0px ile 0px değerine düşürülmüşse) bu algoritmada hata vardır.
+Bunun oluşma biçimi kullanıcının bilerek pencereyi küçültmesindendir. Bundan başka, yalnız belgenin yüksekliği verilirse, yine de problem olmayabilir. Aşağıdaki kodlamada önerilen algoritmayı uygular.
+<pre class="fyazi">
+function alertSize() {
+  var myWidth = 0, myHeight = 0;
+  if( typeof( window.innerWidth ) == 'number' ) {
+    //Non-IE
+    myWidth = window.innerWidth;
+    myHeight = window.innerHeight;
+  } else if( document.documentElement &&
+            ( document.documentElement.clientWidth ||
+              document.documentElement.clientHeight ) ) {
+    //IE 6+ in 'standards compliant mode'
+    myWidth = document.documentElement.clientWidth;
+    myHeight = document.documentElement.clientHeight;
+  } else if( document.body &&
+            ( document.body.clientWidth ||
+              document.body.clientHeight ) ) {
+    //IE 4 compatible
+    myWidth = document.body.clientWidth;
+    myHeight = document.body.clientHeight;
+  }
+  window.alert( 'Width = ' + myWidth );
+  window.alert( 'Height = ' + myHeight );
+}
+</pre>
+Bunu burada deneyin:
+pencerenin iç boyutlarını alın.
+<br /><br />
+Not: Tarayıcılar eni ya kaydırma çubuğunun dışından ya da içinden ölçerler (eğer varsa). Hiçbir yerde bu sorunun üstesinden gelecek bir yol gösterilmemiştir.
+<h3>Pencerenin ne kadar kaydırıldığını bulmak</h3>
+<ul class="yazi">
+    <li> OmniWeb 4.2-, NetFront 3.3- ve Clue tarayıcıları bunu çözecek bir yol göstermezler.</li>
+    <li> Safari and OmniWeb 4.5+ hataları vardır. Hatalar kodlamayı etkilemez.</li>
+</ul>
+Belgede çeşitli etkileri yaratmaya çalışırken (kar yağması gibi ya da daha ciddi olarak okuyucu tarafından sayfa kaydırılırken aynı yerde menüleri durdurmak gibi) karşılaşılan sorunlar vardır. Aslında kaydırmanın başlangıçtan uzaklığı yatay ve düşey olarak bilinmektedir.
+<br /><br />
+Bunu bulmanın üç ayrı yolu vardır ama pencerenin boyutlarını bulmaktan daha kolaydır. Bir çok tarayıcı "window.pageXOffset/pageYOffset" destekler. Bunlara güvenilebilir. Yine tuhaf olan IE, "document.body.scrollLeft/Top" sunuyor olmasıdır. 'strict' konumunda IE 6 ve birkaç tane daha tarayıcı "document.documentElement.scrollLeft/Top" sunar.
+<br /><br />
+Eğer "scrollLeft/Top" özelliği hem "document.body" ve hem de "document.documentElement" tarafından sunulursa, bunların kullanımı  Safari and OmniWeb 4.5+ hariç diğerlericwndeyle güvenlidir. Onlarda da kayma 0 ise -8 döndürür ama diğerlerini doğru iletirler. Ancak bunlar "window.pageXOffset/pageYOffset" değerlerini doğru sunabildiklerine göre kodlamada sorun olmaz.
+<br /><br />
+Aşağıdaki kodlama kayma uzaklıklarını verir.
+<pre class="fyazi">
+function getScrollXY() {
+  var scrOfX = 0, scrOfY = 0;
+  if( typeof( window.pageYOffset ) == 'number' ) {
+    //Netscape compliant
+    scrOfY = window.pageYOffset;
+    scrOfX = window.pageXOffset;
+  } else if( document.body &&
+           ( document.body.scrollLeft ||
+             document.body.scrollTop ) ) {
+    //DOM compliant
+    scrOfY = document.body.scrollTop;
+    scrOfX = document.body.scrollLeft;
+  } else if( document.documentElement &&
+           ( document.documentElement.scrollLeft ||
+             document.documentElement.scrollTop ) ) {
+    //IE6 standards compliant mode
+    scrOfY = document.documentElement.scrollTop;
+    scrOfX = document.documentElement.scrollLeft;
+  }
+  return [ scrOfX, scrOfY ];
+}
+</pre>
+Artık bu kodlamadaki yolla yapılacak işi kurmak kolay olacaktır.
+</div>
+<br />
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,4 @@
+LIBRARY SDXF
+DESCRIPTION 'SDXF: Structured Data Exchange Format'
+EXPORTS
+  sdxfB

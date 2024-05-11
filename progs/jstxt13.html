@@ -1,0 +1,305 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>JS - Olay Bilgileri </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script language="JavaScript" src="../js/js10.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="ysoltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="js.html" class="nav">Giriş</a>
+               <a href="jstxt1.html" class="nav">Sayfada Javascript</a>
+               <a href="jstxt2.html" class="nav">Nesnel Programlama</a>
+               <a href="jstxt3.html" class="nav">JS Nesneleri</a>
+               <a href="jstxt4.html" class="nav">İşlemler</a>
+               <a href="jstxt5.html" class="nav">Değişkenler</a>
+               <a href="jstxt6.html" class="nav">Denetim Yapıları</a>
+               <a href="jstxt7.html" class="nav">Script Yazma</a>
+               <a href="jstxt8.html" class="nav">Yazma İşlevleri</a>
+               <a href="jstxt9.html" class="nav">Başvuru</a>
+               <a href="jstxt10.html" class="nav">DHTML</a>
+               <a href="jstxt11.html" class="nav">Öğe İçeriği</a>
+               <a href="jstxt12.html" class="nav">Pencereler</a>
+               <a href="jstxt13.html" class="nav">Olay Bilgisi</a>
+               <a href="jstxt14.html" class="nav">Zaman Ayarı</a>
+               <a href="jstxt15.html" class="nav">Cookie Kullanımı</a>
+               <a href="jstxt16.html" class="nav">Güvenlik</a>
+               <a href="js24.html" class="nav">Javascript Nesneler</a>
+<br />
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>Javascript Yazılım Kuralları (JS)</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">24 Aralık 2007</span></div>
+<h2></h2>
+<div class="yazi">
+<h3>Olay Bilgileri</h3>
+
+Olaylar DHTML'de olduğu gibi tümüyle tarayıcıya özeldir. Bir olay tetiklendiğinde, tarayıcı olay hakkında kullanılabilecek bazı bilgileri bulundurur. Bu bilgiye erişilmesi tarayıcılar tarafından iki değişik yoldan sağlanır. DOM benzeri tarayıcılar olay bilgisini olay çözücü işleve ilk parametre olarak aktarır. Bazı eski tarayıcılar da bu kuralı kullanmıştır. IE ve az sayıda diğer tarayıcılar olay bilgisini olay kaydedicide (register) saklar ve windows.event ile bilgiye erişilebilir.
+<br /><br />
+Nesnelerin hangi olayların yakalandığı tarayıcılara bildirilmelidir. Aynı zamanda nesne bu olayı yakaladığında ne iş yapacağı da bildirilmelidir.
+<br /><br />
+Artık kullanılmıyor olsa da, Netscape 4'de kodlamanın da bunu çözmesi istenebilir (çözmeye uygun alt yapısı vardır). Yerleştirilmiş öğeler ve belgenin kendisinde Netscape 4 ve escape 4 için önce olayı yakalaması gerektiği belirtilmelidir. Diğer tarayıcılarda (Mozilla/Firefox/Netscape 6+ gibi) aynı yöntemi sunabilir ama gerçekte birşey yapmazlar. Başkaları da sunarlar ama ne yapılacağını bilmezler. O halde bazı özel olay tiplerini de denemek gerekir.
+<pre>
+//Yalnız Netscape 4 ve Escape 4 bu ilk satırı ister
+if( document.captureEvents && Event.KEYUP ) {
+      document.captureEvents( Event.KEYUP );
+}
+document.onkeyup = alertkey;
+//Burada alertKey olayı çözümleyecek işlevdir.
+</pre>
+Bir öğe olayı yakalar ve üst düzeyde bir başka öğe de aynı olayı yakalarsa o zaman sorunlar başlar. Örneğin belgenin tuşa basılmasını yakalaması istenmişse, ve belge içindeki bir yazı kutusu da tuşa basılmasını yakalayacak biçimdeyse, hangisinin önce davranacağı belli değildir. Bazı tarayıcılar yakalama işleminde hangi öğelerin ve hangi sırada işlem yapacaklarını belirtirler, bazıları kabarcık kavramını kullanır ve çoğunluk hçbirini yapmaz. Konu burada anlatılmamıştır. Diğer başlıklarda çözüm aranmalıdır (özellikle kaynak web sayfalarında).
+<br /><br />
+Öğelerden tarayıcılar arası olay yakalamsının tüm olaylar listesi için 
+<a href="js24.html">JavaScript nesneleri</a> bölümüne bakın. Aynı yerde olay bilgilerinin neler olduğu da görülebilir.
+<br /><br />
+Aşağıdaki örnekler çözülebilecek kadar sorunu çözmek için yazılmıştır.
+<h3>Sayfada tuş-bırakıldı olayını yakalamak ve tuş değerini içinden çekmek</h3>
+<ul class="yazi">
+    <li> Konqueror 3.3-, Safari 1.0 ve NetFront 3.3- tuş olaylarını yazı kutuları içinde anlarlar.</li>
+    <li> iCab giriş alanlarındaki tuş bilgilerini geçirirler</li>
+    <li> Blazer (bir NetFront sürümüdür) sınırlı tuş olaylarını yakalar (donanım birimlerindeki tuştakımı algılanmasına bağımlı olarak) ve anlamsız tuş değerleri döndürür (-1987304 gibi).
+    <li> WebTV ve Escape 4 yazı kutularındaki tuş olaylarını yakalar ve biraz da tutarsızdır.
+    <li> OmniWeb 4.2- ve MAc için Opera 5 tuş bilgisi geçirmez.
+    <li> Linux üzerindeki Netscape 4 tuş olaylarını doğru düzgün çözemez.
+    <li> Clue tarayıcısı ve Tkhtml Hv3 tuş olaylarını yakalayamaz.
+    <li> NetBox, iPanel MicroBrowser ve OpenTV hakkında açık bir bilgi yoktur.
+</ul>
+Tarayıcılar, tuş kodu sayılarını değişik verirler. Bir çok tarayıcı da kontrol tuşları için hiç değer vermezler (F1, delete, alt ok tuşları gibi). Netscape 'a' için diğer tarayıcılardan daha başka bir kod üretir. String.fromCharCode(key_code) daha kullanışlıdır. Bunun görevi tuş kodunu bilinen tuş kodlarına çevirmektir ('G' gibi).
+<pre class="fyazi">
+//Önce, tarayıcılara olayda etkin olmaları söylenir
+if( document.captureEvents && Event.KEYUP ) {
+  //Eğer Nestcape 4 çalışsın istemiyorsanız bu bölümü kaldırın
+  document.captureEvents( Event.KEYUP );
+}
+/* Bundan sonraki satır, tarayıcının tüm belgede tuş-kalktı
+   olayını yakalamasını ve yakaladığında 'alertKey' işlevini
+   çalıştırması ister */
+document.onkeyup = alertkey;
+
+//şimdi olay çözümleyici işlevi olayı işlemek için yarat
+function alertkey(e) {
+  if( !e ) {
+    //tarayıcı işleve olay bilgisini aktarmadı
+    //o halde olay kaydedicisinden sağlanmalıdır
+    if( window.event ) {
+      //Internet Explorer
+      e = window.event;
+    } else {
+      //tümüyle hatali. Tuş kodlarına erişmek olanaksızdır.
+      return;
+    }
+  }
+  if( typeof( e.keyCode ) == 'number'  ) {
+    //DOM
+    e = e.keyCode;
+  } else if( typeof( e.which ) == 'number' ) {
+    //NS 4 uyumlu
+    e = e.which;
+  } else if( typeof( e.charCode ) == 'number'  ) {
+    //NS 6+, Mozilla 0.9+ gibiler
+    e = e.charCode;
+  } else {
+    //tümüyle hatali. Tuş kodlarına erişmek olanaksızdır.
+    return;
+  }
+  window.alert('The key pressed has keycode ' + e +
+    ' ve tuş değeri: ' + String.fromCharCode( e ) );
+}
+</pre>
+<h3>Yerleştirilmiş öğelerin üzerinde farenin koordinatlarını yakalamak</h3>
+<ul>
+    <li> iCab 2- Sayfa üzerindeki fare olaylarını yakalayamaz ama içindeki özel bir öğedekini yakalayabilir (bağ biçimlerindeki gibi)</li>
+    <li> WebTV bağlar üzerindeki fare olaylarını yakalayabilir.</li>
+    <li> OmniWeb 4.2- olaylar hakkında bilgi sunmaz.</li>
+    <li> Clue tarayıcısı yalnız bağ üzerindeki fare aşağı/yukarı olaylarını yakalar.
+    <li> NetBox, iPanel MicroBrowser ve OpenTV konusunda pe açık bilgi yoktur.
+</ul>
+Fare koordinatlarını belirtmek için desteklenen üç yol vardır. Bir de güvensiz bir kullanım biçimi bulunur. Hepsi de olay nesnesinin özellikleridir (örneğin eventObject.clientX gibi). Bunlar tüm sayfaya göre koordinat almak için kullanılabilir.
+<br /><br />
+clientX/Y için eski tarayıcılar doğru yazılmamış standartların yorumlanmasından doğan karmaşayla farklı uygulama gerçekleştirdiler. Koordinatlar, sayfanın görünen bölümüne göre olmalıdır ama Opera 6-, Konqueror 2- ve iCab 2- koordinatları tüm sayfaya göre verir. Bunu kullanmanın yolu tarayıcı türüne bağımlı olarak hangi tarayıcıların nasıl uyguladıkları dikkate alınarak kodlama yapılmasıdır.
+<br /><br />
+Clue tarayıcısı kaydırma yapabilir ama kaydırmayı yakalayamaz.
+<br /><br />
+Opera 7+, Konqueror 3+ ve iCab 3+ standartlara uyarlar ama aynı zamanda pageX de sunduklarından sorunlar bu biçimiyle giderilmiş olur.
+<br /><br />
+Opera 6- IE benzetim konumunda çalışıyor olsa bile yakalanabilir çünkü 'navigator.userAgent' özelliğinin yazı dizisi içinde 'Opera' vardır. iCab 2 - IE benzetim konumunda çalışıyor olsa da yakalanabilir çünkü window.ScriptEngine yöntemi 'InScript' içerir. Konqueror 2 yakalanabilir çünkü 'navigator.vendor' özelliğinde 'KDE' vardır (benzetim konumunda olsa bile).
+<ol>
+   <li> Eğer pageX/Y sunulursa, pageX/Y tüm sayfaya görecelidir ve tümüyle güvenilebilir bir değerdir.</li>
+   <li> Eğer clientX/Y sunulursa, clientX/Y sayfanın görüntülenen bölümüne görecelidir (DOM uyumlu).</li>
+   <li> Bazen clientX/Y tüm sayfaya görecelidir (özel nitelikleri uygulanmadığı durumlarda).
+</ol>
+Pek çok tarayıcı pageX/Y ve clientX/Y sunar. Şu anda clientX/Y sunan tek tarayıcı IE olarak gözükmektedir. Ama IE pageX/Y sunmaz.
+<br /><br />
+'Pencere boyutları ve kaydırma' başlıklı son bölüme ve bir sayfanın ne kadar daha kaydırılabileceğine bakılır. 'DHTML' bölümünde yerleştirilmiş öğelere nasıl erişilebileceğine bakılır.
+<pre>
+if( myReference.captureEvents && Event.MOUSEMOVE ) {
+  //Netscape 4 çalışmasını istemiyorsanız bu bölümü çıkarın
+  myReference.captureEvents( Event.MOUSEMOVE );
+}
+myReference.onmousemove = alertCoord;
+
+function alertCoord(e) {
+  if( !e ) {
+    if( window.event ) {
+      //Internet Explorer
+      e = window.event;
+    } else {
+      //tümüyle hatalı, öğeye erişebilecek bir yol yok
+      return;
+    }
+  }
+  if( typeof( e.pageX ) == 'number' ) {
+    //pek çok tarayıcıda
+    var xcoord = e.pageX;
+    var ycoord = e.pageY;
+  } else if( typeof( e.clientX ) == 'number' ) {
+    //Internet Explorer ve eski tarayıcılarda
+    //diğer tarayıcılar için burasını kullan fakat pageX/Y dalını izle
+    var xcoord = e.clientX;
+    var ycoord = e.clientY;
+    var badOldBrowser = ( window.navigator.userAgent.indexOf( 'Opera' ) + 1 ) ||
+     ( window.ScriptEngine && ScriptEngine().indexOf( 'InScript' ) + 1 ) ||
+     ( navigator.vendor == 'KDE' );
+    if( !badOldBrowser ) {
+      if( document.body &&
+          ( document.body.scrollLeft ||
+            document.body.scrollTop ) ) {
+        //IE 4, 5 & 6 (standart dışı uyum konumu)
+        xcoord += document.body.scrollLeft;
+        ycoord += document.body.scrollTop;
+      } else if( document.documentElement &&
+                 ( document.documentElement.scrollLeft ||
+                   document.documentElement.scrollTop ) ) {
+        //IE 6 (standart uyum konum)
+        xcoord += document.documentElement.scrollLeft;
+        ycoord += document.documentElement.scrollTop;
+      }
+    }
+  } else {
+    //tümüyle hatalı, öğeye erişebilecek bir yol yok
+    return;
+  }
+  window.alert('Fare koordinatları:('+xcoord+','+ycoord+')');
+}
+</pre>
+Fare koordinatlarını tüm belgeye göre almak için 'myReference' yerine 'document' kullanılır.
+<br /><br />
+Tüm problemli eski tarayıcılar doğru çalışan sürümlerle değiştirildikleri için filitreler kaldırılmak istenebilir. Eski sürümü kullanan biri çıkabilir diye kod eskisi gibi kullanılmak istenebilir. 
+<pre>
+document.onmousemove = alertCoord;
+
+function alertCoord(e) {
+  var xcoord, ycoord;
+  if( !e ) { e = window.event; }
+  if( !e ) { return; }
+  if( typeof( e.pageX ) == 'number' ) {
+    xcoord = e.pageX;
+    ycoord = e.pageY;
+  } else if( typeof( e.clientX ) == 'number' ) {
+    xcoord = e.clientX;
+    ycoord = e.clientY;
+    if( document.body &&
+        ( document.body.scrollLeft ||
+          document.body.scrollTop ) ) {
+      xcoord += document.body.scrollLeft;
+      ycoord += document.body.scrollTop;
+    } else if( document.documentElement &&
+          ( document.documentElement.scrollLeft ||
+            document.documentElement.scrollTop ) ) {
+      xcoord += document.documentElement.scrollLeft;
+      ycoord += document.documentElement.scrollTop;
+    }
+  } else { return; }
+  window.alert('Mouse coordinates are ('+xcoord+','+ycoord+')');
+}
+</pre>
+<h3>Fare düğmelerini yakalama</h3>
+<ul>
+    <li> Konqueror, Safari, OmniWeb 4.5+, iCab 3+, Tkhtml Hv3 ve Escape 4 sağ tıklamayı yakalayamaz.</li>
+    <li> Opera kullanıcıları kodlamanın sağ tıklamayı yakalamasını özelliklerden değiştirebilir (varsayılan değer kullanıma kapalı olmasıdır).</li>
+    <li> WebTV, iCab 2-, NetFront 3.3- ve Clue tarayıcıları fare düğmeleri hakkında bilgi geçirmezler.</li>
+    <li> WebTV mousedown ya da mouseup olaylarını yakalayamaz.
+    <li> OmniWeb 4.2- olaylar hakkından hiçbir bilgi sunmaz.</li>
+    <li> NetBox, iPanel MicroBrowser ve OpenTV yetenekleri hakkında bilgi yoktur.
+</ul>
+Bu örnek iki yöntem ile bağlantı öğelerinde olayların yakalanmasını anlatır. İlki standart HTML sayfaları yazılarak ve diğeri Javascript yazım kuralıyla yazılarak. Olay tetiklenen fare düğmesinden başlar. Not: bu 'click' olayıyla çalışmayabilir.
+<br /><br />
+Az sayıdaki tarayıcıda görülen 'oncontextmenu' olayı da vardır. Kullanıcı bu içerik menüsünü başlatabilir. Bu işlem Mac'larda Crtl+Click olayını da içine alır ve içerik menüsü Windows/Linux/Unix ortamında da pek iyi desteklenmemektedir.
+<br /><br />
+Fare düğmesi hangisi (which) ya da düğme (button) özellikleriyle kodlamaya geçirilir. 'which' kullanılırken 1 sol düğme 2 orta düğme 3 sağ düğme olur. 'button' için standart; 0 sol düğme, 1 orta düğme, 2 sağ düğme olur. ama IE uyumlu tarayıcılarda 1 sol düğme, 4 orta düğme, 2 sağ düğme olue.  Escape/Evo 5 tümüyle farklı bir numaralama sistemi kullanır; 1 sol düğme, 2 orta düğme ve 0 sağ düğme olur.
+<br /><br />
+Fare düğmesinin yakalaması istendiği tek an, aç-kapa türü etkiler arandığı andır. Kullanıcının bu gibi durumlarda sol tuşa bastığından emin olunmalıdır. İşlem içerik menülerinin kırılmasına neden olmamalıdır. Site erişilemeyecek durumda olmamalıdır.
+<br /><br />
+Olay kayıt niteliği (onmouseup="etc."), olay yakalama işlevine eşittir. Tüm işlev bilgilerine erişimi vardır (nitelikler birikimi gibi). Tüm tuş algılama kodunu buraya yazmak biraz karşmaşık gelebilir. Bu nedenle ana yakalama bölümü buraya alınmıştır.
+<pre>
+&lt;script type="text/javascript"&gt;
+
+//bağ ve form öğeleri için yakalanma uyarısına gerek yoktur.
+//Javascript yazım kuralları kullanarak, sayfanın uygun bölümü
+//yükleninceye dek beklemek gerekir. Sonra olayı yakalaması istenir.
+//Bu en kolay dinleyici yükleyerek olur.
+window.onload = function () { document.links[0].onmousedown=alertBut; }
+
+function alertBut( e, evElement ) {
+  if( !e ) {
+    if( window.event ) {
+      //Internet Explorer
+      e = window.event;
+    } else {
+      //hata olayı yakalama olasılığı yoktur
+      return;
+    }
+  }
+  if( typeof( e.which ) == 'number' ) {
+    //Netscape uyumlu
+    e = e.which;
+  } else if( typeof( e.button ) == 'number' ) {
+    //DOM
+    e = e.button;
+  } else {
+    //hata olayı yakalama olasılığı yoktur
+    return;
+  }
+  if( !evElement ) { evElement = this; }
+  /* Eğer object.onEventName = alertBut; kullanılırsa 'this' olur
+  Eğer evElement onmouseup niteliğinden geçirilirse,
+  'this' tüm pencereyi gösterir */
+  window.alert( evElement + ' was clicked with button ' + e );
+}
+
+&lt;/script&gt;
+
+&lt;a onmouseup="alertBut(arguments[0],this)" href="whatever"&gt;
+</pre>
+
+</div>
+<br />
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

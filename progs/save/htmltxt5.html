@@ -1,0 +1,196 @@
+<html>
+<body>
+<div id="sag"><span class="yazi">30 Kasım 2007</span></div>
+<h2>Bağlar</h2>
+<span class="yazi">
+WEB'de başka bir belgeye bağ kurma işlemidir.
+</span>
+<br />
+
+<h3>Demir atma biöimi ve href niteliği</h3>
+
+<span class="yazi">
+HTML bir başka belgeye bağ kurmak için &lt;a&gt; (çapa atma) biçimini kullanır.<br />
+<br />
+Bir çapa atma, WEB'de herhangi bir kaynağı gösterebilir: bir HTML sayfası, bir resim, bir ses dosyası, bir film vb...<br />
+<br />
+Bir çapa atmanın dil kuralı şöyledir:<br />
+</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+&lt;a href="url"&gt;Görüntülenecek yazı&lt;/a&gt;
+</pre>
+</fieldset>
+<br />
+<span class="yazi">
+&lt;a&gt; biçimi bir bağlantı kurmak için çapa atma işlemidir. "href" niteliği gidilecek belgenin adresini belirtmek için kullanılır. Çapa atmanın açılış ve kapanış biçimleri arasındaki yazı bağlantı bilgisi (hyperlink) olarak görüntülenir.<br />
+<br />
+
+Aşağıdaki çapa atma işlemi w3shools'a bağ kurmak için kullanılır:<br />
+</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+&lt;a href="http://www.w3schools.com/"&gt;W3Schools Sitesini Gezin!&lt;/a&gt;
+</pre>
+</fieldset>
+
+<span class="yazi">
+Tarayıcıda yukarıdaki satır şöyle görünür:<br />
+<br />
+<a href="http://www.w3schools.com/">W3Schools Sitesini Gezin!</a>
+</span>
+<br />
+
+<h3>Amaç (Target) Niteliği</h3>
+
+<span class="yazi">
+Amaç niteliğinde açılacak belgenin nerede olacağını tanımlayabilirsiniz<br />
+<br />
+Aşağıdaki satır belgeyi tarayıcının yeni bir sayfasında açar:<br />
+</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+&lt;a href="http://www.w3schools.com/"
+target="_blank"&gt;Visit W3Schools!&lt;/a&gt;
+</pre>
+</fieldset>
+
+<h3>Çapa Atma Biçimi ve Ad (Name) Niteliği</h3>
+<span class="yazi">
+Ad niteliği adlandırılmış çapa atma işlemini tanımlar. Adlandırılmış çapalar kullanıldığında doğrudan sayfanın belirtilen yerine bağ kurabiliriz. Sayfanın başından kullanıcının bilgiyi aramaya kalkmasına oranla çok daha kullanışlı bir yöntemdir...<br />
+<br />
+Adlandırılmış çapanın dil kuralı aşağıda gösterilmiştir:<br />
+</span>
+
+<fieldset class="fyazi">
+<pre>
+&lt;a name="label"&gt;Görüntülenecek yazı&lt;/a&gt;
+</pre>
+</fieldset>
+
+<span class="yazi">
+Ad niteliği adlandırılmış çapayı tanımlamakta kullanılır. çapa adı vermek istediğiniz herhangi bir ad olabilir.<br />
+<br />
+Aşağıdaki bağ adlandırılmış çapayı tanımlar:<br />
+</span>
+
+<fieldset class="fyazi">
+<pre>
+&lt;a name="tips"&gt;Kullanılabilir ipuçları&lt;/a&gt;
+</pre>
+</fieldset>
+
+<span class="yazi">
+Adlandırılmış çapanın özel görüntülenme biçimi yoktur.<br />
+<br />
+"ipuçları" bölümüne doğrudan bağlanmak için URL adresinin arkasına # işaretini ekleyip sonra çapa adını yazmak yeterli olacaktır. Örnek olarak:<br />
+</span>
+
+<fieldset class="fyazi">
+<pre>
+&lt;a href="http://www.w3schools.com/html_links.asp#tips"&gt;
+</pre>
+</fieldset>
+<br />
+<h3>Kullanışlı ipuçu bölümlerine atlama</h3>
+
+<span class="yazi">
+"html_links.asp" dosyasındaki "Kullanışlı İpucu Bölümüne" bağlantı gösterimi aşağıdaki gibidir:
+</span>
+<br />
+
+<fieldset class="fyazi">
+<pre>
+&lt;a href="#tips"&gt;Kullanışlı İpucu Bölümüne Atlama&lt;/a&gt;
+</pre>
+</fieldset>
+
+<h3>Temel Notlar - Kullanışlı ipuçları</h3>
+
+<span class="yazi">
+Diğer HTML sayfalarına bağlantı verirken URL adresin sonuna (/) eklemeyi unutmayın. Eğer bağlantınız href="http://www.w3schools.com/html" biçimindeyse, sunucuya iki istek üretirsiniz. Çünkü sunucu adresin sonunda (/) yoksa onu ekler ve yeni bir istek yaratmanız için size gönderir. Yeni istek:
+href="http://www.w3schools.com/html/" biçiminde olur.<br />
+<br />
+Adlı çapalar çoğunlukla büyük ve uzun bir belgenin "içindekiler" bölümünde kullanılır. Belge içindeki her bölüme bir çapa adı verilir ve bu çapalara bağlar belgenin başındaki içindekiler bölümüde yer alır.<br />
+<br />
+Eğer tarayıcı çapa adını belge içinde bulamazsa, belgenin başından görüntüler ve hata mesajı vermez...<br />
+</span>
+<br />
+<table class="fyazi" border="1" cellpadding="0">
+<tr><td>Biçim</td><td>Açıklama</td></tr>
+<tr><td>&lt;a&gt;</td><td>Bir çapayı tanımlar</td></tr>
+</table>
+<br />
+<h3>Örnekler</h3>
+
+<span class="yazi">
+Bu örnekte HTML belgesi içinde nasıl bağlar kurulduğunu anlatır.<br />
+</span>
+<table>
+<tr><td valign="top">
+<fieldset class="fyazi">
+<pre>
+&lt;html&gt;
+&lt;body&gt;
+
+&lt;p&gt;
+&lt;a href="lastpage.htm"&gt;
+Bu yazı&lt;/a&gt; bu web sitesindeki bir sayfaya bağdır.
+this Web site.
+&lt;/p&gt;
+
+&lt;p&gt;
+&lt;a href="http://www.microsoft.com/"&gt;
+Bu yazı&lt;/a&gt; Dünya Çapında Web (WWW) üzerinde
+bir sayfaya bağdır.
+&lt;/p&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+
+</pre>
+</fieldset>
+</td><td valign="top">
+<table border="1" cellpadding="0">
+<tr><td>
+<pre class="yazi">
+<a href="">Bu yazı</a> bu web sitesindeki bir sayfaya bağdır.
+
+<a href="">Bu yazı</a> Dünya Çapında Web (WWW) üzerindeki bir sayfaya bağdır.
+</pre>
+</td></tr></table>
+</td></tr>
+</table>
+
+<span class="yazi">
+Bu örnekte resmi nasıl bağ olarak kullanıldığı anlatılır.<br />
+</span>
+<table>
+<tr><td valign="top">
+<fieldset class="fyazi">
+<pre>
+&lt;html&gt;
+&lt;body&gt;
+&lt;p&gt;
+Bir resmi de bağ olarak kullanabilirsiniz:
+&lt;a href="lastpage.htm"&gt;
+&lt;img border="0" src="buttonnext.gif" width="65" height="38"&gt;
+&lt;/a&gt;
+&lt;/p&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+
+</pre>
+</fieldset>
+</td><td valign="top">
+<a href=""><img src="img/Screenlink.jpg" border="0"></a>
+</td></tr>
+</table>
+
+<br />
+</body>
+</html>

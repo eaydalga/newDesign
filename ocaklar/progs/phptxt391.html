@@ -1,0 +1,311 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP - Ad Alanları (Namespaces) </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.php"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="javascript:myvoid();" class="nav">Başlarken</a>
+               <a href="phptxt11.html" class="sub">ilk Anlatım</a>
+               <a href="javascript:myvoid();" class="nav">Kurulumlar</a>
+               <a href="phptxt21.html" class="sub">Genel Kurulum</a><br />
+               <a href="phptxt22.html" class="sub">UNIX Kurulumu</a><br />
+               <a href="phptxt23.html" class="sub">OSX Kurulumu</a><br />
+               <a href="phptxt24.html" class="sub">Wins Kurulumu</a>
+               <a href="javascript:myvoid();" class="nav">Dil Kuralları</a>
+               <a href="phptxt31.html" class="sub">Temel yazım</a><br />
+               <a href="phptxt32.html" class="sub">Tipler</a><br />
+               <a href="phptxt33.html" class="sub">Değişkenler</a><br />
+               <a href="phptxt34.html" class="sub">Değişmezler</a><br />
+               <a href="phptxt35.html" class="sub">Deyimler</a><br />
+               <a href="phptxt36.html" class="sub">İşlemler</a><br />
+               <a href="phptxt37.html" class="sub">Kontrol Yapıları</a><br />
+               <a href="phptxt38.html" class="sub">İşlevler</a><br />
+               <a href="phptxt39.html" class="sub">Sınıflar Nesneler</a><br />
+               <a href="phptxt391.html" class="sub">Ad uzayı</a><br />
+               <a href="phptxt392.html" class="sub">İstisnalar</a>
+               <a href="javascript:myvoid();" class="nav">Güvenlik</a>
+               <a href="phptxt41.html" class="sub">Giriş</a><br />
+               <a href="phptxt42.html" class="sub">Genel bilgi</a><br />
+               <a href="phptxt43.html" class="sub">CGI iklisi</a><br />
+               <a href="phptxt44.html" class="sub">Apache modülü</a><br />
+               <a href="phptxt45.html" class="sub">Dosyadüzeni</a><br />
+               <a href="phptxt46.html" class="sub">Veritabanı</a><br />
+               <a href="phptxt47.html" class="sub">Hatalar</a><br />
+               <a href="phptxt48.html" class="sub">Diğerleri</a><br />
+               <a href="javascript:myvoid();" class="nav">Özellikler</a>
+               <a href="phptxt51.html" class="sub">HTTP Şifresi</a><br />
+               <a href="phptxt52.html" class="sub">Çerezler</a><br />
+               <a href="phptxt53.html" class="sub">Oturumlar</a><br />
+               <a href="phptxt54.html" class="sub">XForm</a><br />
+               <a href="phptxt55.html" class="sub">DosyaYükleme</a><br />
+               <a href="phptxt56.html" class="sub">UzakDosyalar</a><br />
+               <a href="phptxt57.html" class="sub">Bağlantılar</a><br />
+               <a href="phptxt58.html" class="sub">VTBağlantısı</a>
+               <font color="#8e9ccb"><h3>Gelişmiş</h3></font>
+               <a href="phptxt7.html" class="nav">Php Kökü</a>
+               <a href="phptxt8.html" class="nav">Ekler</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">2 Şubat 2008</span></div>
+<div id="bdy" class="yazi">
+<h2>Ad Alanları (Namespaces)</h2>
+
+<h3>Ad Alanlarına Genel Bakış</h3>
+
+Ad Alanları büyük PHP kitaplıklarındaki kapsam sorununu çözmek için tasarlanmıştır. PHP içinde tüm sınıf tanımları evrenseldir. Bu nedenle kitaplık sorumlusu kitaplık için bazi hazır programlar (utility) yaratsa ya da API (Application Program Interface) sınıfları oluştursa, aynı işlevselliği olan başka kitaplıklarda aynı adla tanımlar olabileceğini bilir. O zaman tekil adlar kullanmalı ki diğer kitaplıklarla ortak kullanımında sorun çıkmasın. Genelde sınıf adlarının tekil yazı dizisine eklenmesiyle bu yaklaşım çözülür. Örneği veri tabanı sınıflarında "My_Library_VT" öneki bulunur. Kitaplıklar büyüdükçe ön ekler artar ve sonunda çok uzun adlarla karşılaşılır.
+<br /><br />
+Ad Alanı, geliştiricinini adlandırma kapsamını yönetmesine uzun adlar kullanmadan izin verir ve paylaşılan evrensel uzaydaki sorunu da gidermiş olur.
+<br /><br />
+PHP 5.3.0 sürümünden sonra Ad Alanları kullanıma açıldı. Bu bölüm deneyseldir ve değiştirilebilir.
+<br /><br />
+<hr>
+<h3>Ad Alanı tanımı</h3>
+
+Ad alanı "namespace" anahtar sözcüğüyle tanımlanır. Dosyanın en başında olmalıdır.
+<br /><br />
+Ad alanı tanımlama örneği
+<pre>
+&lt;?php
+    namespace MyProject::DB;
+    
+    const CONNECT_OK = 1;
+
+    class Connection { /* ... */ }
+    
+    function connect() { /* ... */  }
+    
+?&gt;
+</pre>
+Bazı ad alanı adı birçok dosyada kullanılabilir.
+<br /><br />
+Ad alanı sınıf, değişmez ve işlev tanımları bulundurabilir ama serbest kod olamaz.
+
+<h3>Ad Alanı tanımı aşağıdakini yapar:</h3>
+
+<ul>
+    <li> Ad alanı içinde tanımlar içindeki tüm sınıflar, işlevler ve değişmez adları otomatik olarak ad alanı adıyla ön eklenir. Sınıf adı her zaman uzun ad olur. Örneğin yukarıdaki örneki sınıf MyProject::DB::Connection olarak çağrılır.
+    <li> Değişmez tanımlar, ad alanı adı ve değişmez adından oluşan değişmez yaratır. Sınıf değişmezleri gibi ad alanı değişmezleri yalnız statik değerler taşıyabilir.
+    <li>
+
+Tekilleştirilmemiş sınıf adı (yani adında :: olmayanlar) aşağıdaki yönteme göre çalışma zamanında çözülür:
+<ol>
+         <li> Sınıf o anki ad alanının içinde otomatik yükleme yapılmadan aranır (Yani ad alanı adı ön ek yapılmış ad)
+         <li> Sınıf evrensel ad alanı içinde otomatik yükleme yapılmadan aranır.
+         <li> O anki ad alanı içinde ad için otomatik yükleme yapılır.
+         <li> Eğer önceki olmazsa, arama da olmaz.
+</ol>
+    <li>
+
+Tekilleştirilmemiş sınıf adı (yani adında :: olmayanlar) çalışma zamanında önce o anki ad alanında, daha sonra evrensel uzayda aranır.
+    <li>
+
+Tekilleştirilmemiş değişmez adları önce o anki ad alanında daha sonra evrensel tanımlanmış değişmezler arasında aranır.
+</ul>
+
+Uzun ad çözümlemesine de bakın.
+<hr>
+
+<h3>Ad Alanlarını kullanma</h3>
+
+Ad Alanındaki her sınıf ve işleve uzun adıyla erişilebilir. Örneğin MyProject::DB::Connection ya da MyProject::DB::connect.
+<br /><br />
+Ad Alanlı ad örneği
+<pre>
+&lt;?php
+    require 'MyProject/Db/Connection.php';
+    $x = new MyProject::DB::Connection;
+    MyProject::DB::connect();
+?&gt;
+</pre>
+Ad Alanı o anki içeriğe 'use' işlemiyle alınabilir (evrensel ya da ad alanı olarak). Bu işlemin yazım kuralı şöyledir:
+<pre>
+&lt;?php
+/* ... */
+use Some::Name as Othername;
+
+// use basitleşmiş biçimidir
+use Foo::Bar;
+// bu da aynı şöyledir:
+use Foo::Bar as Bar;
+?&gt;
+</pre>
+Alınan ad şöyle çalışır: Derleyici her yerel ad "Othername" ile karşılaştığında (tek başına olduğunda ya da daha uzun bir ada :: ile önek olarak eklenmiş olduğunda) alınan ad Som::Name, onun yerini alır.
+<br /><br />
+'use' evrensel kapsamda kullanılabilir. Bir işlevin ya da sınıfın içinde olamaz. Alınan adların etkisi alındığı andan o anki dosyanın sonuna kadar sürer. Karmaşıklığı önlemek için alınmaları dosyanın en başına yerleştirmek önerilen yazım biçimidir.
+<br /><br />
+Ad alanlarına erişim ve alınması örneği
+<pre>
+&lt;?php
+    require 'MyProject/Db/Connection.php';
+    use MyProject::DB;
+    use MyProject::DB::Connection as DbConnection;
+    
+    $x = new MyProject::DB::Connection();
+    $y = new DB::connection();
+    $z = new DbConnection();
+    DB::connect();
+?&gt;
+</pre>
+    Not: Alma işlemi derleme zamanında olur. Tüm yerel adlar uzun adlarla derleme zamanında değiştirilir. Unutmayın ki yazı dizileri içindeki adlar değiştirilemez ve geri dönüşler alma kurallarına dayanmamalıdır.
+<hr>
+
+<h3>Evrensel Alan (Global space)</h3>
+
+Ad alanı tanımı olmadan tüm sınıflar işlevler evrensel uzayda bulunur. Bir ad için :: önek kullanmak adın evrensel uzayda gerekli olduğunu belirtir (ad alanı içeriğinde bile bu doğrudur).
+<br /><br />
+Evrensel uzay belirtmeyi kullanma örneği
+<pre>
+&lt;?php
+    namespace A::B::C;
+ 
+ /* Bu işlev A::B::C::fopen */
+    function fopen() { 
+         /* ... */
+         $f = ::fopen(...); // evrensel fopen çağrılır
+         return $f;
+    } 
+?&gt;
+</pre>
+<hr>
+
+<h3>__NAMESPACE__</h3>
+
+Derleme zamanı değişmezi __NAMESPACE__ o anki ad alanının adı olarak tanımlanır. Ad alanı dışında bu değişmezde boş yazı dizisinin değeri vardır. i yerel ad alanlı adlar için birisi uzun adları kullanırsa bu değişmez kullanışlıdır.
+<br /><br />
+__NAMESPACE__ kullanam örneği
+<pre>
+&lt;?php
+namespace A::B::C;
+         
+function foo() {
+// işlemler burada
+}
+
+set_error_handler(__NAMESPACE__ . "::foo");
+?&gt;
+</pre>
+<hr>
+
+<h3>Ad çözünürlük kuralları</h3>
+
+Adlar aşağıdaki kurallara göre çözümlenir:
+<ol>
+   <li> Tüm tanımlı adlar derleme anında o anki alma kurallarına göre çevrilir. Örnekte ad alanı A::B::C alınmış ve C::D::e() çağrılışı A::B::C::D::e() biçimine çevrilir.
+   <li> Tanımlanmamış sınıflar derleme zamanında o anki alma kurallarına göre çevrilir (kısa alınmış ad yerine uzun ad kullanılır). Örnekte eğer ad alanı A::B::C alınmışsa (imported), new C() A::B::C() biçiminde çevrilir.
+   <li> Ad alanı içinde, o anki ad alanında tanımlanmış olan tanımsız işlevi çağırma (call tarandığında bilinen) derleme zamanında bu ad alanındaki işlev çağrılıyormuş gibi yorumlanır.
+   <li> Ad alanı içinde (diyelim A::B), o anki ad alanında tanımlanmamış, belirsiz işlevleri çağırma çalışma zamanında çözülür. Burada foo() işlevini çağırmanın nasıl çözüldüğü vardır:
+       <ol>
+         1. O anki ad alanından bir işleve bakar : A::B::foo().
+         2. içsel foo() işlevine bakar ve çağırmaya çalışır.
+       </ol>
+Kullanıcının evrensel ad alanında tanımlanan bir işlevini çağırmak için ::foo(9 biçimi kullanılmalıdır.
+   <li> Ad alanı içinde (diyelim A::B), belirtilmemiş sınıf adlarını çağırma çalışma zamanında çözümlenir. new C() çağırılışının nasıl çözüldüğü aşağıdadır:
+       <ol>
+         1. O anki ad alanındaki sınıfa bakar A::B::C()
+         2. içsel sınıfı çağırmaya çalışır C() gibi.
+         3. A::B::C() C() sınıflarını otomatik yüklemeye çalışır
+       </ol>
+Kullanıcının tanıladığı bir sınıfa evrensel ad alanında göstermek için new ::C() kullanılmalıdır.
+   <li> Belirtilen işlevlerin çağrılışındaki çözüm çalışma zamanında olur. A::B::foo() çözümünün nasıl yapıldığı aşağıda anlatılmıştır:
+       <ol>
+         1. O anki ad alanında foo(9 işlevine bakılır A::B.
+         2. A::B sınıfına bakılır ve onun statik yöntemi foo() çağrılır. Gerekirse sınıf otomatik yüklenir.
+       </ol>
+   <li> Belirtilen sınıf adları derleme zamanında karşılık olan ad alanından çözümlenir. Örneğin new A::B::C() aslında A::B ad alanındaki C sınıfını gösterir.
+</ol>
+Ad çözümünün gösteriliş örneği
+<pre>
+&lt;?php
+namespace A;
+
+// işlev çağırma
+
+foo();   // önce ad alanı "A" içindeki "foo" çağrılmaya çalışılır
+         // Daha sonra içsel işlev "foo" çağrılır
+
+::foo(); // evrensel kapsamdaki "foo" işlevini çağırır
+
+// sınıf gösterilimi
+
+new B(); // ad alanı "A" tanımlanan "B" sınıfının nesnesini yaratır
+         // daha sonra içsel "B" sınıfı yaratılır
+
+new ::B();  // evrensel kapsamda "B" sınıfı nesnesi yaratılır
+
+// başka ad alanından statik yöntem/ad alanı işlevleri
+
+B::foo(); // ad alanı "A::B" den "foo" işlevi çağrılır
+          // içsel sınıf "B" den yöntem foo() çağrılır
+
+::B::foo(); // ad alanı "B" den "foo" işlevini çağırır
+            // Evrensel kapsamdan sınıf "B" yöntemi "foo" çağrılır
+
+// o anki ad alanı için statik yöntem/ad alanı işlevleri
+
+A::foo(); // ad alanı "A::A" dan "foo" işlevi çağrılır
+          // ad alanı "A" dan sınıf "A" yöntemi "foo" çağrılır
+          // Ad alanı "A" dan "foo" işlevi çağrılır
+          // içsel sınıf "A" dan "foo" yöntemi çağrılır
+
+::A::foo(); // ad alanı "A" dan "foo" işlevini çağırır
+            // evrensel kapsamdan sınıf "A" yöntemi "foo" çağrılır
+?&gt;
+</pre>
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8541306787668208";
+//120x600, created 1/16/08
+google_ad_slot = "7007060807";
+google_ad_width = 120;
+google_ad_height = 600;
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<br />
+<script type="text/javascript"><!--
+google_ad_client = "pub-8541306787668208";
+//120x240, created 1/25/08
+google_ad_slot = "8433790203";
+google_ad_width = 120;
+google_ad_height = 240;
+google_cpa_choice = ""; // on file
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

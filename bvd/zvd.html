@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="content-type">
+<title>TARIMSAL VERI DEGISIMI</title>
+<link rel="stylesheet" href="mainx.css" type="text/css">
+<script type="text/javascript" src="js/baslik.js"></script>
+<script type="text/javascript" src="js/dizigoster.js"></script>
+<script type="text/javascript" src="js/jsmenu.js"></script>
+</head>
+<body topmargin=0 leftmargin=0 marginheight=0 marginwidth=0>
+<div id="headertop1">
+<div id="headertop">
+<!-- ust banner bolumu -->
+  <table cellpadding="0" cellspacing="0" border="0" width="960">
+  <tr>
+  <td valign="top">
+  <img src="img/bos.gif" width="15" height="63" border="0">
+  <img src="img/aybim.png" width="129" height="43" border="0"><br>
+  <img src="img/bos.gif" width="15" height="1" border="0">
+  Aybim Bilgisayar Tic. Ltd.<br>
+  <img src="img/bos.gif" width="150" height="50" border="0">
+  </td><td valign="top">
+  </td></tr>
+  </table>
+  <table cellpadding="0" cellspacing="0" border="0">
+  <tr>
+  <td valign="top" width="140">
+  <!-- sol tarafin basi -->
+  <div id="soltaraf">
+    <center><div id="yazi"><h3>Veri Değişimi</h3></div></center>
+    <div id="masterdiv">
+        <div class="menutitle" onclick="SwitchMenu('sub2')">Çeşitli Belgeleri</div>
+        <span class="submenu" id="sub2">
+                - <a href="cdisc-odm1.html">CDISC-1</a><br>
+                - <a href="cdisc-odm2.html">CDISC-2</a><br>
+                - <a href="sdxf.html">RFC 3072</a><br>
+                - <a href="edifact.html">UN/EDIFACT</a><br>
+                - <a href="cvd.html">CVD Belgeleri</a><br>
+                - <a href="cvd.html">ZVD Belgeleri</a><br>
+                - <a href="json.html">Veri Değişmi için JSON</a><br>
+                - <a href="eso.html">MIDAS/FITS Kalıbı</a><br>
+        </span>
+        <div class="menutitle">
+             <a href="apps/index.php" class="vnav">Üye Olun</a>
+        </div>
+    </div>
+  </div>
+  </td>
+  <td valign="top" width="800">
+  <div id="header">
+      <div id="baslik">
+
+<center><h3>
+              agroXML,<br>
+     Çiftlik Yönetimi Bilgi Sistemlerinde<br>
+  Ortam-Bağımsız Internet Veri Değişimi</h3><br><br>
+</center>
+  <ol>
+   <li> Association for Technology and Structures in Agriculture,<br>
+     Bartningstraße 49,<br>
+     64289 Darmstadt, Germany<br>
+     m.schmitz@ktbl.de, d.martini@ktbl.de, m.kunisch@ktbl.de<br><br>
+   <li> Software AG, Uhlandstraße 9, 64297 Darmstadt<br>
+     Hans-Juergen.Moesinger@softwareag.com<br>
+  </ol>
+<br>
+<b>Özet</b>. agroXML tarımda veri değişimi için standartlaştırılmış bir
+dildir.
+XML tabanlıdır ve XML tasarısını dil tanımında kullanır.
+agroXML is used to submit
+agroXML çiftlik yönetimi bilgi sistemlerinden dışsal iş ortaklarına bilgi gönderilmesi için kullanılır. Örneğin yiyecek besleme zincirlerindeki ürün işleme endüstrileri ya da tarıma yönelik hizmet sunucuları bu iş ortaklarındandır.
+In addition, data about operating supplies like
+Gübreciler ya da zararlı böcek öldürücü kimyasal ilaç satanlar (zirai donanım
+gibi) çiftçiye kendi tedarikçisi yoluyla hazır edilir. Gelecekte, XML bağlantı
+teknikleriyle devinimli ve esnek işlemlerle dışsal bilgi kaynaklarına
+bağlantılar da sağlanabilecektir.
+<br>
+<dl>
+<dt class="koyu"> Giriş
+<dd>
+Tarımsal deneylerin belgelenmesi gün geçtikçe çiftçiler için önemli olmaktadır. 
+Diğer bir açıdan, yurt dışında mevzuat onları artarak bu işe zorlamaktadır ve
+zirai üretimin tümleşik planlaması geçmişteki ölçü ve olaylara doğrudan
+bağlıdır.
+Tarımda veri değişim işlemi bugüne kadar yalnız ilgili arayüzlerle ve değişik
+iletişim gruplarıyla yapılmıştır.
+Elektronik sistemler ve çiftçiler üretim bilgilerini kaydetmiş de olsalar,
+gerekli veri bir yazılımdan giderine elle taşınmaktaydı ya da ekrandan kağıt
+üzerindeki formlara geçirilmekteydi.
+Elekronik veri değişimi için standartlaşmış sistem, bilgiye yönlendirilmiş
+zirai ürünlerde yeni olanaklar sunar. Reklam etkilerini en aza indirebilir ve
+sürekliliği arttırır.
+Bir çiftliğin tümleşik görüntüsü için üretim bilgilerine ve diğer verilere izin veren sistem üçüncü partilerce sağlanır. İklim ve hava durumu, coğrafya bilgisi ölçümleri değişik koşullara uyarlanabilir. Seçimlik olarak kaldıraç algoritmaları ve uzman sistemleri üçüncü partilerce sağlanır.
+Veri değişim dili olarak agroXML kullanmakla bu işler kolaylaştırılır ve
+iletişim ortakları arasındaki bireysel arayüzler evrensel olanlarla
+değiştirilir.
+</dd></dt>
+<dt class="koyu"> agroXML tasarısı, Profiles ve İçerik Listeleri
+<dd>
+The agroXML schema is a model of the real-world objects and their attributes
+and of the processes in agricultural production.
+Gerçek hayat nesneleri ve zirai üretimin işlemlerine ilişkin nitelikler agroXML tasarısında vardır.
+XML[1] tabanına dayanır.
+Belge yapılarının tanımı W3C'deki XML tasarısı kullanılarak yapılır[2].
+Mimarisi veri merkezlidir ve şu anda yekparedir.
+Şu anda, agroXML bitki üretimi için verileri tanımlar.
+Bir agroXML belgesi dört bölüme ayrılır:
+Çiftlik hakkında genel başlık içeren bilgi, adres, çiftlik yöneticisinin
+(kahya gibi) adı vb.,
+Alanlar hakkında öbek biçiminde veriler, alan ve coğrafya koordinatları gibi,
+daha başka öbeklenmiş bilgi değişik alanların tarımı, bitki türleri, mahsul
+alma vb ve son olarak bireysel ölçümlerin verileri hakkında bilgileri içerir.
+Bunlar tarım, tohumlama, bitki böceklerinin denetimi, tarlayı sürme gibi.
+<br><br>
+Diğer bir taraftan agroXML kendi başına tutarlı XML belgeler hazırlamak için
+de kullanılır. XML'in yapısındaki esnekliği izleyerek, birçok veri türü ve
+başka belgelerdeki yeniden kullanılabilen öğelerle bilgi toplanır.
+<br><br>
+Coğrafya hizmetleriyle tümleşmeyi sağlayınca uzaysal vektör verisi agroXML
+içinde modellenir. GML (Geography Markup Language) kesitinin [3] yeniden
+kullanılmasının amacı GML ad alanını da kesitle birlikte agroXML altına
+almaktır.
+<br><br>
+Vektör verisi olarak GML seçilmesi yalnız geniş kabullü XML tabanlı kalıp
+olmasındandır. Diğer az ya da çok açık ikili kalıplar (Biçim dosyaları
+(Shapefiles) ya da ABD'deki TIGER gibi) vardır. BUnları agroXML altındaki
+verilerle tümleşik sıkı ilişki içine sokmak çok zordur.
+
+Değişik hesaplama ortamlarında diğer XML sözcük dağarcıklarını birleştirmenin pratik olurluğu önemli bir ölçüdür. Çiftlik yönetimi bilgi sistemleri değişik programlama dillerinde yazılmıştır.
+Bu yönetim sistemlerinin parçalarının sağlanmasında bazı işlevsellikler
+değişik donanım ortamlarındaki çalışmalarına bakarak elle oluşturulandan güçlü
+web uygulamalarına değin oldukça geniş bir yelpazede zorluklar içerir.
+Kuramda değişik sözcük dağarcığı istenir gözükse de, alışıla gelen XML
+araçlarıyla toplu yapıları yönetmek zordur. Basitlik, açıklık ve genellik çok
+kolay genişletilebilir ve GML gibi kısıtlamalaarı da yoktur. Bu durum şu anda
+agroXML kapsamı dışındadır.
+<br><br>
+Tasarı http://www.agroxml.de/schema adresinde vardır. W3C açık kaynak kod
+lisansı ile kullanıma sunulmuştur. Haziran 2007'den beri tasarı Ingilizce
+yürütülmüştür.
+<br><br>
+Özel veri değişim durumu için, uygulama kesitleri zorunlu öğeler tanımlar. Onlar öğe toplama ve daha geniş veri türünün alt kümesinin seçilmesi için izin verirler. Bir kesit yaratmak için öğeler agroXML  tasarısından seçilir ve gerekli sınırlamalar veri türlerine uygulanır. Basit kural şöyledir: Bir kesite uygulanan örnek (anlık durum) tüm tasarıya da uygulanır. Seçimlik öğeleri zorunlu öğelere değiştirmek mümkündür. Nitelikler değişmez değerlere çevrilir. Bu işlem [3]'de anlatılmıştır.
+<br><br>
+argoXML parçalarından biri de içerik listeleridir. XML tasarısı sayılarının
+işlevselliğini sunarlar. Bunların tasarı içine yerleştirilmesi içeriğe
+devinimli eklenmesiyle olur. Bunlar yalnız sayısalların değerlerinin eklenmesi
+değil öğenin adı ve tanımı da buna eklene olur. Açıklanan tasarıyla uyumlu
+olan listeler http://www.agroxml.de/content adresindedir. Birkaç tane liste
+vardır, örneğin toprak türü, makine türü, gübreleme türleri, zararlı böcekler
+için kimyasal ilaçlar. Bu listeler olanak varda en yakın resmi ajanslardan
+temin edilebilir.
+agroXML uyarlayan yazılım sistemlerinde içerik listesinin yerel bir kopyası
+olmalıdır. Ya da web'deki kopya kullanılır. Değişik saklama stratejileri en
+son veri havuzundaki bilgilerden oluşur. Böylece Internet eski olsa bile
+yöntem işe yarar.
+Liste içeriğini örneklerin ve provizyonların en son listelerine
+birleştirilmesinin teknik ayrıntıları [5]'de anlatılmıştır.
+<br><br>
+XML örneklerine devinimli uyarlamada (listelerde açık yer bulur),
+http://www.agroxml.de/content adresinde belirtilenden daha değişik
+listeleri ekleme olanağı vardır. Ülkeye özgü içerikler ya da özel amaçlı
+işlemler bu başlığa girer.
+</dd></dt>
+<dt class="koyu"> Uygulamalar
+<dd>
+agroXML'e yazan ya da okuyan arayüz zorunlu uygulamalardır. Enstantanenin taşıması Internet uzerinde standart protokollarla sağlanır (HTTP, FTP, SMTP gibi). 
+Değişim belgeye gore yapılmaktadır. agroXML belgesi bir dosya içinde taşınır.
+Seçilen öğelerin değişiminde etkileşimli sistemlerde sorgu düzeneği istenir.
+Bu nedenle, Web tabanlı SOA (service oriented architecture) kullanılabilir.
+Ama bu tür sistemler hem çok karmaşık hem de çalışırken çok kaynak tüketirler.
+Daha kolay bir seçenek standartlaştırılmış XML sorgu dili olabilir. Örneğin
+XQuery [6] ya da REST [7].
+<br><br>
+KTBL tarafından geliştirilen sistem hem agroXML hem de coğrayfa verilerini
+kullanan sistemlere güzel bir örnektir. Parasal olarak sistem Federal Tarım
+bakanlığı ve Landwirtschaftliche Rentenbank tarafından desteklenmektedir [8].
+Prototip uygulama bir dizi harita sunucusu adreslerin kataloğundan oluşur. Bu
+haritalar toprak kullanımındaki sakıncalı alanları gösterdiği için çok
+önemlidir.
+<br><br>
+Çiftçilerin kendi tarlalarıyla ilgili jeospatial verilerine erişmelerini ve
+toplamalarını sağlar. Böylece tarlalar resmi makamlarca agroXML belgelerinde
+okunabilir duruma gelmiş olur.
+</dd></dt>
+<dt class="koyu"> Dış Görünüş
+<dd>
+İşlerde jeo-veri (aynı zamanda hücresel veri) işlevselliği güncellenirken yeni
+öğeler de sisteme eklenir (canlı stok üreticiliği, sebzelerin tarımı ve
+meyvacılık gibi).
+Tarım sektöründen gelen bu artan arz, bitki üretiminden farklı olarak teknik
+yayınları da etkileyerek içine alır.
+Özellikle, tasarı mimarisi ve tasarım, içsel koruma altında modülerlik ve genişletilebirlik gerekir.
+Bu çalışmanın hedefi uyarlana veri türlerin kullanıldığı tasarıyı hazırlayarak
+özel uygulamalara aktarmaktır. Bu arada uygulamanın içsel işlerliği kırılmamış
+olur.
+<br><br>
+İşletim destek öğelerine ilişkin veriler (gübreleme ya da zararlı böcek
+ilaçlaması gibi) çiftlik yönetim sistemleri tarafından XML örneklerine kopyalanır.
+Diyelim ki bir firma, gübrede nitrojen miktarını değiştirdi. Eğer çiftçi bu
+değişiklikten haberli değilse, daha sonraki işlerinde geçersiz veri gönderir.
+<br><br>
+Böylece pekçok durumda, daha iyi bir model bu bilgiyi üretildiği yerde bu
+bilginin tutulmasıdır. Yani gübre üreticisindeki web sunucusu ve soysal ağ
+işlevi (XLink Standart [9] gibi) yalnız bu bilgiye erişmek için kullanılır. 
+URI'ler evrensel olarak tekil olan tanımlayıcılar için biçilmiş kaftandır.
+<br><br>
+Yalnız bunlar gerçekten dağıtılmış verileri kullanıma açmakla kalmaz, veri
+sakalam ve en son bilgiye erişimi de bilgi tabanına eklemiş olur.
+Buradaki sistemin başarısındaki en önemli anahtar standartı sisteme
+eklemektir.
+</dd></dt>
+</dl>
+<hr>
+<h3>Referanslar</h3>
+<ol>
+<li> World Wide Web Consortium: Extensible Markup Language (XML) 1.1. 2nd
+edn.<br>
+    (2006) http://www.w3.org/TR/xml11/.
+<li> World Wide Web Consortium: XML Schema Part 0: Primer. 2. edn. (2004)<br>
+    http://www.w3.org/TR/xmlschema-0/.
+<li> Open GIS Consortium, Inc.: OpenGIS Geography Markup Language (GML)
+Im-<br>
+    plementation Specification. (2004)
+<li> Kernighan, B.W., Pike, R.: The Practice of Programming. Professional Computing<br>
+    Series. Addison-Wesley (1999)
+<li> Martini, D., Frisch, J., Kunisch, M.: agroXML-Inhaltslisten – Konzeption und In-<br>
+    halte. In: Proceedings 27. GIL-Jahrestagung. (2007) 139–142
+<li> World Wide Web Consortium: XQuery 1.0: An XML Query Language. (2007)<br>
+    http://www.w3.org/TR/xquery/.
+<li> Fielding, R.T.: Architectural Styles and the Design of Network-based Software<br>
+    Architectures. PhD thesis, University of California, Irvine (2000)
+<li> Geißner, G., Grimm, S., Frisch, J.: Geodaten in der Landwirtschaft – Bereitstel-<br>
+    lung mit agroXML. In: agroXML – Informationstechnik f ̈r die zukunftsorientierteu<br>
+    Landwirtschaft. Volume 454 of KTBL-Schrift. Munich (2007) 103–118
+<li> World Wide Web Consortium: XML Linking Language (XLink) Version 1.0. (2001)<br>
+    http://www.w3.org/TR/xlink/.
+</ol>
+      </div>
+  </div>
+</td></tr></table>
+</bodY>
+</html>

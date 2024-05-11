@@ -1,0 +1,111 @@
+<html>
+<body>
+<div id="sag"><span class="yazi">3 Aralık 2007</span></div>
+<h2>Window size and scrolling</h2>
+<div class="yazi">
+Finding the size of the browser window
+
+    * Clue browser can only work out window width.
+    * Tkhtml Hv3 has the body/documentElement clientHeight/Width values reversed - versions before September 2007 also do not support innerHeight/Width, so they cannot work with this script.
+
+There are some constants available that give the document area of the window that is available for writing to. These will not be available until after the document has loaded and the method used for referencing them is browser specific. The available constants are:
+
+window.innerHeight/Width
+    Provided by most browsers, but importantly, not Internet Explorer.
+document.body.clientHeight/Width
+    Provided by many browsers, including Internet Explorer.
+document.documentElement.­clientHeight/Width
+    Provided by most DOM browsers, including Internet Explorer.
+
+This is a little messy because the clientHeight/Width properties can mean different things in different browsers, and even different things in the same browser, depending on whether the document type declaration triggers the browser's strict mode or quirks mode. In some cases, they refer to the dimensions of the window, and sometimes they refer to the dimensions of the contents of the document. The table below shows what the properties mean in different browsers, and different modes:
+Properties and what they relate to Browser 	window.
+innerHeight 	document.
+body.
+clientHeight 	document.
+documentElement.
+clientHeight
+Opera 9.5+ strict	window	document	window
+Opera 9.5+ quirks	window	window	document
+Opera 7-9.2	window	window	document
+Opera 6	window	window	N/A
+Mozilla strict	window	document	window
+Mozilla quirks	window	window	document
+KHTML	window	document	document
+Safari	window	document	document
+iCab 3	window	document	document
+iCab 2	window	window	N/A
+IE 6+ strict	N/A	document	window
+IE 5-7 quirks	N/A	window	0
+IE 4	N/A	window	N/A
+ICEbrowser	window	window	document
+Tkhtml Hv3	window	window	document
+Netscape 4	window	N/A	N/A
+
+As you can see, the browsers seem to have settled on at least one reliable property; innerHeight. Internet Explorer is the only one that cannot make up its mind. Its influence may mean that other browsers change their clientHeight behaviour later. For now, almost all browsers provide window.innerHeight/Width so that can be used. Internet Explorer has chosen to swap the values around when it is in strict mode. Fortunately, it gives 0 in quirks mode. This means that if we see a value on the documentElement's properties, and the browser does not provide the properties on the window object, we can assume it is Internet Explorer in strict mode.
+
+The most accurate method I could come up with uses the following algorithm, although it may have problems with future browsers, a situation which I am definitely not happy with:
+
+   1. If window.innerHeight/Width is provided, that is fully trustworthy, use that (Hooray!).
+   2. Else if document.documentElement.clientHeight/Width is provided and either one is greater than 0, use that.
+   3. Else use document.body.clientHeight/Width.
+
+This algorithm will fail with IE 6+ in 'standards compliant mode' if the window is shrunk to 0px by 0px. This is only possible when the user actively shrinks the window to hide the page within it. Even then, it will just give the height of the document instead, so it should not be a problem. The following code performs the algorithm as described.
+
+function alertSize() {
+  var myWidth = 0, myHeight = 0;
+  if( typeof( window.innerWidth ) == 'number' ) {
+    //Non-IE
+    myWidth = window.innerWidth;
+    myHeight = window.innerHeight;
+  } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+    //IE 6+ in 'standards compliant mode'
+    myWidth = document.documentElement.clientWidth;
+    myHeight = document.documentElement.clientHeight;
+  } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+    //IE 4 compatible
+    myWidth = document.body.clientWidth;
+    myHeight = document.body.clientHeight;
+  }
+  window.alert( 'Width = ' + myWidth );
+  window.alert( 'Height = ' + myHeight );
+}
+
+Test it here: get the inner dimensions of this window.
+
+Note that browsers may take the width either inside or outside the scrollbar (if there is one). I do not cover any way to work with these differences.
+Finding how far the window has been scrolled
+
+    * OmniWeb 4.2-, NetFront 3.3- and Clue browser do not provide any way to do this.
+    * Safari and OmniWeb 4.5+ have bugs that do not affect this script - see below.
+
+When trying to produce document effects like falling snow, or more serious things like menus that remain in the same place relative to the browser window when the user scrolls, it is essential to be able to obtain the scrolling offsets in both the horizontal and vertical direction.
+
+There are also three ways to find this out, but it is easier than finding the size of the window. Most browsers provide window.pageXOffset/pageYOffset. These are completely reliable. Once again, Internet Explorer is the odd one out, as it does not provide these properties. Internet Explorer and some other browsers will provide document.body.scrollLeft/Top. In strict mode, IE 6 and a few other browsers, provide document.documentElement.scrollLeft/Top.
+
+If the scrollLeft/Top properties are provided on either the document.body or document.documentElement, they are reliable in everything except Safari and OmniWeb 4.5+, which return -8 if the scrolling is 0, but get all other scrolling offsets correct. However, as they correctly provide window.pageXOffset/pageYOffset, this script will not have any problems.
+
+The following script will obtain the scrolling offsets.
+
+function getScrollXY() {
+  var scrOfX = 0, scrOfY = 0;
+  if( typeof( window.pageYOffset ) == 'number' ) {
+    //Netscape compliant
+    scrOfY = window.pageYOffset;
+    scrOfX = window.pageXOffset;
+  } else if( document.body && ( document.body.scrollLeft || document.body.scrollTop ) ) {
+    //DOM compliant
+    scrOfY = document.body.scrollTop;
+    scrOfX = document.body.scrollLeft;
+  } else if( document.documentElement && ( document.documentElement.scrollLeft || document.documentElement.scrollTop ) ) {
+    //IE6 standards compliant mode
+    scrOfY = document.documentElement.scrollTop;
+    scrOfX = document.documentElement.scrollLeft;
+  }
+  return [ scrOfX, scrOfY ];
+}
+
+
+</div>
+<br />
+</body>
+</html>

@@ -1,0 +1,207 @@
+body {
+	margin-top: 0px;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	background-color: #d9d9d9;
+	background-image: url(img/arka.jpg);
+        background-repeat: repeat-y;
+	text-align: left;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+        height: auto;
+}
+#taban {
+	margin-top: 0px;
+	margin-left: 0px;
+}
+#soltaraf {
+	margin-top: 30px;
+	margin-left: 10px;
+        text-align: left;
+        width: 110px;
+        padding-bottom:20px;
+}
+.box {
+        margin: 0 0 0 0;
+        width: 110px;
+        height: auto;
+}
+#ortataraf {
+        top: 0px;
+	margin-top: 30px;
+        text-align: left;
+}
+#sagtaraf {
+	margin-top: 30px;
+	margin-right: 5px;
+        text-align: left;
+        width: 130px;
+}
+.ybaslik {
+	margin-top: 30px;
+	margin-left: 10px;
+       color: #000000;
+       font-size: 14px;
+       text-align: left;
+}
+.byazi {
+       color: #ffffff;
+       font-size: 12px;
+       text-align: center;
+}
+.syazi {
+       color: #000000;
+       font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+       font-size: 12px;
+       text-align: center;
+}
+.ssyazi {
+       color: #000000;
+       font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+       font-size: 9px;
+       text-align: left;
+}
+.yazi {
+       color: #000000;
+       font-size: 100%;
+       font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+       text-align: left;
+}
+#banner {
+        position	: absolute;
+        top		: 38px;
+	left		: 30px;
+	width		: 788px;
+}
+#mycontainer {
+        position	: relative;
+        top		: 0px;
+	width		: 788px;
+	height		: auto;
+        padding-left: 30px;
+        padding-right: 30px;
+	background : url(img/sayfa.gif) repeat-y;
+}
+
+#content {
+	position	: relative;
+        padding-left: 5px;
+        padding-right: 40px;
+	width		: 680px;
+}
+
+#bdy {
+     font-size: 9px;
+}
+
+
+#banner1 {
+        position	: fixed;
+        top		: 38px;
+        left		: 100px;
+	width		: 539px;
+	height		: 15px;
+	background : url(img/banner.png) no-repeat;
+}
+#contains1 {
+        position	: fixed;
+        top		: 53px;
+        left		: 100px;
+	width		: 539px;
+	height		: 408px;
+        padding-left: 7px;
+	background : url(img/pencere2.png) repeat-y;
+	overflow	: auto;
+	border-left     : 2px solid #000000;
+	border-right    : 0px;
+}
+
+#content1 {
+	position	: relative;
+	width		: 494px;
+	margin-left	: 10px;
+	margin-right	: 10px;
+}
+
+#sag {
+	margin-top: 0px;
+	margin-left: 0px;
+	text-align: right;
+}
+
+.nav{
+      color: #000000;
+      display: block;
+      font-size: 1.1em;
+      font-weight: 700;
+      padding: 0 0 0 0;
+      position: relative;
+      text-decoration: none;
+}
+
+.nav:hover{
+      color: #8e9ccb;
+      padding: 0 0 0 0;
+}
+
+p {
+	font		: 10px/14px arial,helevetica,san-serif;
+}
+
+h4 {
+	font		: 12px arial,helevetica,san-serif;
+}
+
+.fyazi {
+       color: #000000;
+       background-color: #C9C9C9;
+       font-size: 100%;
+       text-align: left;
+}
+
+.blpic {
+        float:left;
+        border:1px dotted black;
+        margin:0px 10px 15px 20px;
+}
+.brpic {
+        float:right;
+        border:1px dotted black;
+        margin:0px 0px 15px 20px;
+}
+
+.lpic {
+        float:left;
+        margin:0px 10px 15px 20px;
+}
+.rpic {
+        float:right;
+        margin:0px 0px 15px 20px;
+}
+
+.button {
+	color: #ffffff;
+	background-color: #E9E9E9;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	text-decoration: none;
+	vertical-align: middle;
+	border: thin;
+	border-color: #000000;
+        float:right;
+}
+.button a {
+padding: 2px 0.5em;
+	background-color: #898989;
+text-decoration: none;
+float: left;
+	color: #ffffff;
+border: 2px solid #000000;
+}
+.button a:hover {
+background-color: #4f4f64;
+border-style: outset;
+color: #ffffff;
+}
+

@@ -1,0 +1,359 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Hyperlink Preprocessor </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">29 Mart 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>Flash için Ming işlevleri</h2>
+
+<h3>Uyarı</h3>
+
+Bu uzantı DENEYSELDİR. Bu uzantının davranışı -- işlevlerin adları ve burada
+yazılan hemen herşey -- uyarılmadan değişebilir.
+
+<h3>Giriş</h3>
+
+Herşeyden önce: Ming bir kısaltma değil. Ming açık kaynak (LGPL) kitaplıktır.
+Böyle ki bununla SWF ("Flash") kalıplı filminler yaratılabilir. Ming Flash 4
+özelliklerinin hemen hepsini destekler. Ek olarak: biçimler, eğimler,
+bitmap'ler (png ve jpeg gibi), biçimler ("çift biçimler"), yazı, düğmeler,
+işlemler, hayalet ("film klipleri"), akan mp3 ve renk çevirimleri -- ses
+etkileri yalnız eksik olan şeydir.
+<br /><br />
+Dikkat edin ki boy, uzaklık, boyut vb. olanlar "twips" piksel başına 20
+birimdir. Bu oldukça keyfidir. Oynatıcı filmi hangi piksel boyutunda olursa
+olsun embeded/object biçimlerinde değiştirir. Ya da tüm çerçeve gömülü
+(embedded) olmaz.
+<br /><br />
+Ming var olan PHP/libswf kitaplığına oranla daha çok avantaj sağlar. Kodu
+derleyebildiğiniz her yerde ming kullanabilirsiniz. Buna karşın libswf kodu
+kapalıdır ve ancak bazı ortamlarda vardır. Windows bunlardan biri değildir.
+Ming SWF dosya ayrıntılarını içermeyen bazı yalıtımları sağlar. Aynı zamandan
+Ming hala bakım görmektedir.  http://ming.sourceforge.net/ adresinde son sürüm
+bulunur.
+<br /><br />
+PHP 4.0.5 sürümünde Ming eklenmiştir.
+
+<h3>Gereksinim</h3>
+
+Ming'i PHP ile kullanmak için önce Ming kitaplığını hazırlayıp kurmanız
+gerekir. Kaynak kodlar ve kurulum adımları  http://ming.sourceforge.net/
+adresinde bulabilirsiniz.
+<br /><br />
+ming arşivini indirip açın. Ming yoluna geçin ve:
+<pre>
+  make
+  make install
+</pre>
+
+Bu işlemle libming.so /usr/lib altına yaratılmış olur. ming.h ise
+/usr/include/ altında taşınmış olur. 
+
+<h3>Kurulum</h3>
+
+Örnek-1 PHP içine hazırlama (Unix)
+<pre>
+    mkdir <phpdir>/ext/ming
+    cp php_ext/* <phpdir>/ext/ming
+    cd <phpdir>
+    ./buildconf 
+    ./configure --with-ming <diğer ayar seçenekleri>
+</pre>
+    
+
+PHP hazırlama ve kurma her zamanki gibi olur. Web sunucuyu gerek varsa yeniden
+başlatın.
+<br /><br />
+Ya extension=php_ming.so satırını php.ini dosyasına ekleyin, ya da
+<pre>
+   put dl(!php_ming.so');
+</pre>
+satırını Ming kodlamanızın önüne yazın.
+
+<h3>Önceden Tanımlanan Değişmezler</h3>
+
+Aşağıdaki değişmezler bu uzantıyla tanımlanır ve bu uzantı yüklenince
+kullanılır.
+<pre>
+MING_NEW (tamsayı)
+MING_ZLIB (tamsayı)
+SWFBUTTON_HIT (tamsayı)
+SWFBUTTON_DOWN (tamsayı)
+SWFBUTTON_OVER (tamsayı)
+SWFBUTTON_UP (tamsayı)
+SWFBUTTON_MOUSEUPOUTSIDE (tamsayı)
+SWFBUTTON_DRAGOVER (tamsayı)
+SWFBUTTON_DRAGOUT (tamsayı)
+SWFBUTTON_MOUSEUP (tamsayı)
+SWFBUTTON_MOUSEDOWN (tamsayı)
+SWFBUTTON_MOUSEOUT (tamsayı)
+SWFBUTTON_MOUSEOVER (tamsayı)
+SWFFILL_RADIAL_GRADIENT (tamsayı)
+SWFFILL_LINEAR_GRADIENT (tamsayı)
+SWFFILL_TILED_BITMAP (tamsayı)
+SWFFILL_CLIPPED_BITMAP (tamsayı)
+SWFTEXTFIELD_HASLENGTH (tamsayı)
+SWFTEXTFIELD_NOEDIT (tamsayı)
+SWFTEXTFIELD_PASSWORD (tamsayı)
+SWFTEXTFIELD_MULTILINE (tamsayı)
+SWFTEXTFIELD_WORDWRAP (tamsayı)
+SWFTEXTFIELD_DRAWBOX (tamsayı)
+SWFTEXTFIELD_NOSELECT (tamsayı)
+SWFTEXTFIELD_HTML (tamsayı)
+SWFTEXTFIELD_ALIGN_LEFT (tamsayı)
+SWFTEXTFIELD_ALIGN_RIGHT (tamsayı)
+SWFTEXTFIELD_ALIGN_CENTER (tamsayı)
+SWFTEXTFIELD_ALIGN_JUSTIFY (tamsayı)
+SWFACTION_ONLOAD (tamsayı)
+SWFACTION_ENTERFRAME (tamsayı)
+SWFACTION_UNLOAD (tamsayı)
+SWFACTION_MOUSEMOVE (tamsayı)
+SWFACTION_MOUSEDOWN (tamsayı)
+SWFACTION_MOUSEUP (tamsayı)
+SWFACTION_KEYDOWN (tamsayı)
+SWFACTION_KEYUP (tamsayı)
+SWFACTION_DATA (tamsayı)
+</pre>
+
+<h3>Önceden Tanımlı Sınıflar</h3>
+
+Aşağıdaki sınıflar bu uzantıyla tanımlanır ve uzantı yüklenince
+kullanılabilir.
+
+<h3>Sınıflar (Classes)</h3>
+<ul>
+    <li> SWFAction
+    <li> SWFBitmap
+    <li> SWFButton
+    <li> SWFDisplayItem
+    <li> SWFFill
+    <li> SWFFont
+    <li> SWFFontChar
+    <li> SWFGradient
+    <li> SWFMorph
+    <li> SWFMovie
+    <li> SWFPrebuiltClip
+    <li> SWFShape
+    <li> SWFSound
+    <li> SWFSoundInstance
+    <li> SWFSprite
+    <li> SWFText
+    <li> SWFTextField
+    <li> SWFVideoStream
+</ul>
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> SWFAction — SWFAction Sınıfı (Class)
+    <li> SWFAction->__construct() — Yeni SWFAction yaratır
+    <li> SWFBitmap — SWFBitmap Sınıfı (Class)
+    <li> SWFBitmap->__construct() — Bitmap nesneyi yükler
+    <li> SWFBitmap->getHeight() — Bitmap yüksekliğini döndürür
+    <li> SWFBitmap->getWidth() — Bitmap enini döndürür
+    <li> SWFButton — SWFButton Sınıf (Class)
+    <li> SWFButton->__construct() — Yeni düğüm yaratır
+    <li> SWFButton->addAction() — Bir işlem (Action) ekler
+    <li> SWFButton->addASound() — düğme işlemini bir sese bağlar (ilişkilendirir)
+    <li> SWFButton->addShape() — bir düğmeye çizim ekle
+    <li> SWFButton->setAction() — işlemi ayarlar
+    <li> SWFButton->setDown() — addShape(shape, SWFBUTTON_DOWN) eşdeğeridir
+    <li> SWFButton->setHit() — addShape(shape, SWFBUTTON_HIT) eşdeğeridir
+    <li> SWFButton->setMenu() — enable track as menu button behaviour
+    <li> SWFButton->setOver() — addShape(shape, SWFBUTTON_OVER) eşdeğeridir
+    <li> SWFButton->setUp() — addShape(shape, SWFBUTTON_UP) eşdeğeridir
+    <li> SWFDisplayItem — SWFDisplayItem Sınıfı (Class)
+    <li> SWFDisplayItem->addAction() — verilen SWFSprite kopyasına SWFAction eklenir
+    <li> SWFDisplayItem->addColor() — Verilen rengi öğenin renk çevirimine ekler
+    <li> SWFDisplayItem->endMask() — MASK katmaının belirtmenin başka bir
+yoludur
+    <li> SWFDisplayItem->getRot() — Açıklama
+    <li> SWFDisplayItem->getX() — Açıklama
+    <li> SWFDisplayItem->getXScale() — Açıklama
+    <li> SWFDisplayItem->getXSkew() — Açıklama
+    <li> SWFDisplayItem->getY() — Açıklama
+    <li> SWFDisplayItem->getYScale() — Açıklama
+    <li> SWFDisplayItem->getYSkew() — Açıklama
+    <li> SWFDisplayItem->move() — Nesneyi göreceli koordinatlarda gezdirir
+    <li> SWFDisplayItem->moveTo() — Nesneyi evrensel koordinatlarda gezdirir
+    <li> SWFDisplayItem->multColor() — Öğenin renk çevirimini çarpar
+    <li> SWFDisplayItem->remove() — filmden nesneyi çıkarır
+    <li> SWFDisplayItem->rotate() — Göreceli koordinatlarda çevirir
+    <li> SWFDisplayItem->rotateTo() — Nesneyi evrensel koordinatlarda çevirir
+    <li> SWFDisplayItem->scale() — Göreceli koordinatlarda nesneyi ölçüler
+    <li> SWFDisplayItem->scaleTo() — Evrensel koordinatlarda nesneyi ölçüler
+    <li> SWFDisplayItem->setDepth() — z-sırayı (z-order) ayarlar
+    <li> SWFDisplayItem->setMaskLevel() — Düzeyde/Katmanda MASK düzeyi ayarlar
+    <li> SWFDisplayItem->setMatrix() — Öğenin çevirirm matriksini belirtir
+    <li> SWFDisplayItem->setName() — Nensnenin adını belirler
+    <li> SWFDisplayItem->setRatio() — Nesnenin oranını ayarlar
+    <li> SWFDisplayItem->skewX() — X-sıkıştırmasını ayarlar
+    <li> SWFDisplayItem->skewXTo() — X-sıkıştırmasını ayarlar
+    <li> SWFDisplayItem->skewY() — Y-sıkıştırmasını ayarlar
+    <li> SWFDisplayItem->skewYTo() — Y-sıkıştırmasını ayarlar
+    <li> SWFFill — SWFFill Sınıfı (Class)
+    <li> SWFFill->moveTo() — Orjinal doldurmayı hareket ettirir
+    <li> SWFFill->rotateTo() — Dordurmanın dönüşünü ayarlar
+    <li> SWFFill->scaleTo() — Doldurmanın ölçüsünü ayarlar
+    <li> SWFFill->skewXTo() — Doldurmanın x-sıkıştırmasını ayarlar
+    <li> SWFFill->skewYTo() — Doldurmanın y-sıkıştırmasını ayarlar
+    <li> SWFFont — SWFFont Sınıfı (Class)
+    <li> SWFFont->__construct() — yazı tipi tanımını yükler
+    <li> SWFFont->getAscent() — yazı tipinin yükselenenini döndürür, yoksa 0
+döndürür
+    <li> SWFFont->getDescent() — yazı tipinin alçalananını döndürür, yoksa 0
+döndürür
+    <li> SWFFont->getLeading() — yazı tipinin öncüsünü döndürür, yoksa 0 döndürür
+    <li> SWFFont->getShape() — Bir karakterin glyph çizimini yazı dizisi olarak döndürür
+    <li> SWFFont->getUTF8Width() — Verilen yazı dizisini bu yazı tipi ve tam yüksekliğiyle olduğunda enini hesaplar
+    <li> SWFFont->getWidth() — Yazı dizisinin enini döndürür
+    <li> SWFFontChar — SWFFontChar Sınıfı (Class)
+    <li> SWFFontChar->addChars() — Yazı tipine karakterler ekler ya da karakterleri dışa verir
+    <li> SWFFontChar->addUTF8Chars() — Yazı tipine karakterler ekler ya da karakterleri dışa verir
+    <li> SWFGradient — SWFGradient Sınıfı (Class)
+    <li> SWFGradient->__construct() — eğimli nesne yaratır
+    <li> SWFGradient->addEntry() — giriş noktasını eğimli listeye ekler
+    <li> SWFMorph — SWFMorph Sınıfı (Class)
+    <li> SWFMorph->__construct() — yeni SWFMorph nesnesi yaratır
+    <li> SWFMorph->getShape1() — başlangıç çizim için bir ellik al
+    <li> SWFMorph->getShape2() — bitiş çizimine bir ellik al
+    <li> SWFMovie — SWFMovie Sınıfı (Class)
+    <li> SWFMovie->__construct() — yeni movie nesnesi yaratır, SWF sürüm 3 filmini tanımlar
+    <li> SWFMovie->add() — Bir filime herhangi bir veri tipini ekler
+    <li> SWFMovie->addExport() — Açıklama
+    <li> SWFMovie->addFont() — Açıklama
+    <li> SWFMovie->importChar() — Açıklama
+    <li> SWFMovie->importFont() — Açıklama
+    <li> SWFMovie->labelFrame() — Bir çerçeveyi etiketler
+    <li> SWFMovie->nextFrame() — Animasyonun bir sonraki karesine geçilir.
+    <li> SWFMovie->output() — Severek hazırladığınız filmi dışarı döker
+    <li> SWFMovie->remove() — Görüntüleme listesinden nesne kopyasını kaldırır
+    <li> SWFMovie->save() — SWF filmini bir dosyaya saklar
+    <li> SWFMovie->saveToFile() — Açıklama
+    <li> SWFMovie->setbackground() — Artalan rengini ayarlar
+    <li> SWFMovie->setDimension() — Filimin yüksekliğini ve enini ayarlar
+    <li> SWFMovie->setFrames() — Animasyonda toplam çerçeve sayısını atar
+    <li> SWFMovie->setRate() — Animasyonun çerçeve hızını ayarlar
+    <li> SWFMovie->startSound() — Açıklama
+    <li> SWFMovie->stopSound() — Açıklama
+    <li> SWFMovie->streamMP3() — MP3 dosyasını akıtır
+    <li> SWFMovie->writeExports() — Açıklama
+    <li> SWFPrebuiltClip — SWFPrebuiltClip Sınıfı (Class)
+    <li> SWFPrebuiltClip->__construct() — SWFPrebuiltClip nesnesini döndürür
+    <li> SWFShape — SWFShape Sınıfı (Class)
+    <li> SWFShape->__construct() — Yeni çizim nesnesini yaratır
+    <li> SWFShape->addFill() — Çizime katı doldurucu ekler
+    <li> SWFShape->drawArc() — yarı çapı r olan bir yay çizer. Merkezi o anki nokta olur. Başlama açısı startAngle bitiş açısı endAngle saat 12'den başlayarak açı saat yönünde hesaplanır.
+    <li> SWFShape->drawCircle() — Yarı çapı r olan çember çiz. Merkezi o anki nokta olur ve saat yönünün tersine çizilir.
+    <li> SWFShape->drawCubic() — küb biçiminde bezier eğrisi çizer. O anki noktayı ve üç kontrol noktasını kullanır.
+    <li> SWFShape->drawCubicTo() — küp biçiminde bezier eğrisini çizer. O anki noktayı ve üç noktayı kontrol noktası olarak kullanır.
+    <li> SWFShape->drawCurve() — Eğri çiz (göreceli)
+    <li> SWFShape->drawCurveTo() — Eğri çiz
+    <li> SWFShape->drawGlyph() — yazı dizisindeki ilk karakteri glyph tanımındaki çizim gibi çizer. Verilen yazı tipini kullanır.
+    <li> SWFShape->drawLine() — Çizgi çizer (göreceli)
+    <li> SWFShape->drawLineTo() — Çizgi çizer
+    <li> SWFShape->movePen() — Çizim kalemini hareket ettirir (göreceli)
+    <li> SWFShape->movePenTo() — Çizim kalemini hareket ettirir
+    <li> SWFShape->setLeftFill() — Sol ızgara rengini ayarlar
+    <li> SWFShape->setLine() — Çizimlerin çizgi stilini ayarlar
+    <li> SWFShape->setRightFill() — Sağ ızgara rengini ayarlar
+    <li> SWFSound — SWFSound Sınıfı (Class)
+    <li> SWFSound — Verilen dosyadan yeni SWFSound inesnesini döndürür
+    <li> SWFSoundInstance — SWFSoundInstance Sınıfı (Class)
+    <li> SWFSoundInstance->loopCount() — Açıklama
+    <li> SWFSoundInstance->loopInPoint() — Açıklama
+    <li> SWFSoundInstance->loopOutPoint() — Açıklama
+    <li> SWFSoundInstance->noMultiple() — Açıklama
+    <li> SWFSprite — SWFSprite Sınıfı (Class)
+    <li> SWFSprite->__construct() — Filim klibi yaratır (bir hayalet)
+    <li> SWFSprite->add() — Hayalete bir nesne ekler
+    <li> SWFSprite->labelFrame() — çerçeveyi adlandırır
+    <li> SWFSprite->nextFrame() — Animasyonun sonraki çerçevesine gider
+    <li> SWFSprite->remove() — Bir nesneyi hayalete kaldırır
+    <li> SWFSprite->setFrames() — Animasyonda toplam kaç çerçeve olacağını belirtir.
+    <li> SWFSprite->startSound() — Açıklama
+    <li> SWFSprite->stopSound() — Açıklama
+    <li> SWFText — SWFText Class
+    <li> SWFText->__construct() — Yeni SWFText nesnesi yaratır
+    <li> SWFText->addString() — yazı dizisi çizer
+    <li> SWFText->addUTF8String() — SWFText nesnesine verilen yazıyı yazar. O anki kalem yerini, yazı tipini, yüksekliği, boşluk vermeyi ve rengi kullanır.
+    <li> SWFText->getAscent() — o anki yazı tipinin o anki boyutunun yükseleneni döndürür ya da 0 döndürür
+    <li> SWFText->getDescent() — o anki yazı tipinin o anki boyutunun azalanını döndürür ya da yoksa 0 döndürür
+    <li> SWFText->getLeading() — o anki yazı tipinin o anki boyutunun önderliğini döndürür ya da yoksa 0 döndürür
+    <li> SWFText->getUTF8Width() — Bu yazı nesnesi içinde o anki yazı tipi ve boyutlarıyla verilen yazı dizisinin enini hesaplar
+    <li> SWFText->getWidth() — Yazı dizisinin enini hesaplar
+    <li> SWFText->moveTo() — Kalemi taşır
+    <li> SWFText->setColor() — O anki yazı rengini ayarlar
+    <li> SWFText->setFont() — O anki yazı tipini ayarlar
+    <li> SWFText->setHeight() — Yazı tipinin yüksekliğini ayarlar
+    <li> SWFText->setSpacing() — Yazı tipindeki boşluğu ayarlar
+    <li> SWFTextField — SWFTextField Sınıfı (Class)
+    <li> SWFTextField->__construct() — Yazı alanı nesnesi yaratır
+    <li> SWFTextField->addChars() — Yazı alanında kullanıma açık yazı tipine karakterler ekler
+    <li> SWFTextField->addString() — Yazı alanına verilen yazı dizisini ekler
+    <li> SWFTextField->align() — Yazı alanaı yerleştirilişini ayarlar
+    <li> SWFTextField->setBounds() — Yazı alanı en ve yüksekliğini ayarlar
+    <li> SWFTextField->setColor() — Yazı alanı rengini ayarlar
+    <li> SWFTextField->setFont() — Yazı alanı yazı tipini ayarlar
+    <li> SWFTextField->setHeight() — Bu yazı alanı yazı tipinin yüksekliğini ayarlar
+    <li> SWFTextField->setIndentation() — İlk satırın içerlek yazılışını ayarlar
+    <li> SWFTextField->setLeftMargin() — Yazı alanının sol marjin enini ayarlar
+    <li> SWFTextField->setLineSpacing() — Yazı alanının satır aralığını ayarlar
+    <li> SWFTextField->setMargins() — Yazı alanının marjinlerinin enini ayarlar
+    <li> SWFTextField->setName() — Değişken adını ayarlar
+    <li> SWFTextField->setPadding() — bu yazı alanı boşluklrını ayarlar
+    <li> SWFTextField->setRightMargin() — Yazı alanının sağ marjin enini ayarlar
+    <li> SWFVideoStream — SWFVideoStream Sınıfı (Class)
+    <li> SWFVideoStream->__construct() — SWFVideoStream nesnesini döndürür
+    <li> SWFVideoStream->getNumFrames() — Açıklama
+    <li> SWFVideoStream->setDimension() — Açıklama
+    <li> ming_keypress — keyPress(char) için işlem durum kodunu döndürür
+    <li> ming_setcubicthreshold — kübün alt sınırlarını ayarlar
+    <li> ming_setscale — Ölçüyü ayarlar
+    <li> ming_setswfcompression — SWF çıktı sıkıştırmasını ayarlar
+    <li> ming_useconstants — Değişmez havuzu kullanır
+    <li> ming_useswfversion — SWF sürümünü ayarlar
+</ul>
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<HTML>
+<HEAD>
+<TITLE>AYBIM - INETD</TITLE>
+</HEAD>
+<BODY BGCOLOR="white" LEFTMARGIN=50>
+<TABLE WIDTH="100%" CELLSPACING=10 CELLPADDING=5>
+<TR><TD WIDTH="10%" BGCOLOR="black" VALIGN="TOP">
+&nbsp;
+</TD>
+<TD>
+<H4>INETD HİZMETLERİ KÜTÜĞÜ</H4>
+<P>
+Aynı <A HREF="etcsrv.html">/etc/services</A> kütüğünde olduğu gibi burada da /etc/inetd.conf kütüğü
+başlangıç için yeterli bilgilerle donatılmıştır. Bir düzeltme yapma
+gereği duymadan LINUX bilgisayaraınızı kullanabilirsiniz.
+
+<P>
+<TABLE>
+<TR><TD COLSPAN=7>  # /etc/inetd.conf: </TD></TR>
+<TR><TD COLSPAN=7>  #</TD></TR>
+<TR><TD COLSPAN=7>  # Internet hizmet sunucusu tanımları veri tabanı </TD></TR>
+<TR><TD COLSPAN=7>  #</TD></TR>
+<TR><TD COLSPAN=7>  # &lt;hizmet adı&gt; &lt;sock_tipi&gt; &lt;protokol&gt; &lt;değerler&gt; &lt;kullanıcı&gt; &lt;sunucu_yolu&gt; &lt;parametreler&gt;</TD></TR>
+<TR><TD COLSPAN=7>  #</TD></TR>
+<TR><TD COLSPAN=7>  # Bilgisayar içi hizmetler</TD></TR>
+<TR><TD COLSPAN=7>  #</TD></TR>
+<TR><TD>  #echo           </TD><TD>stream  </TD><TD>tcp     </TD><TD>nowait  </TD><TD>root    </TD><TD>internal</TD></TR>
+<TR><TD>  #echo           </TD><TD>dgram   </TD><TD>udp     </TD><TD>wait    </TD><TD>root    </TD><TD>internal</TD></TR>
+<TR><TD>  discard         </TD><TD>stream  </TD><TD>tcp     </TD><TD>nowait  </TD><TD>root    </TD><TD>internal</TD></TR>
+<TR><TD>  discard         </TD><TD>dgram   </TD><TD>udp     </TD><TD>wait    </TD><TD>root    </TD><TD>internal</TD></TR>
+<TR><TD>  daytime         </TD><TD>stream  </TD><TD>tcp     </TD><TD>nowait  </TD><TD>root    </TD><TD>internal</TD></TR>
+<TR><TD>  daytime         </TD><TD>dgram   </TD><TD>udp     </TD><TD>wait    </TD><TD>root    </TD><TD>internal</TD></TR>
+<TR><TD>  #chargen        </TD><TD>stream  </TD><TD>tcp     </TD><TD>nowait  </TD><TD>root    </TD><TD>internal</TD></TR>
+<TR><TD>  #chargen        </TD><TD>dgram   </TD><TD>udp     </TD><TD>wait    </TD><TD>root    </TD><TD>internal</TD></TR>
+<TR><TD>  time            </TD><TD>stream  </TD><TD>tcp     </TD><TD>nowait  </TD><TD>root    </TD><TD>internal</TD></TR>
+<TR><TD>  time            </TD><TD>dgram   </TD><TD>udp     </TD><TD>wait    </TD><TD>root    </TD><TD>internal</TD></TR>
+<TR><TD COLSPAN=7>  #</TD></TR>
+<TR><TD COLSPAN=7>  # Bunlar standart Hizmetlerdir.</TD></TR>
+<TR><TD COLSPAN=7>  #</TD></TR>
+<TR><TD>  telnet  </TD><TD>stream  </TD><TD>tcp     </TD><TD>nowait  </TD><TD>root    </TD><TD>/usr/sbin/tcpd  </TD><TD>/usr/sbin/in.telnetd</TD></TR>
+<TR><TD>  ftp     </TD><TD>stream  </TD><TD>tcp     </TD><TD>nowait  </TD><TD>root    </TD><TD>/usr/sbin/tcpd  </TD><TD>/usr/sbin/in.ftpd</TD></TR>
+<TR><TD>  #fsp    </TD><TD>dgram   </TD><TD>udp     </TD><TD>wait    </TD><TD>root    </TD><TD>/usr/sbin/tcpd  </TD><TD>/usr/sbin/in.fspd</TD></TR>
+<TR><TD COLSPAN=7>  #</TD></TR>
+<TR><TD COLSPAN=7>  # Shell, login, exec ve talk BSD protokollarıdır</TD></TR>
+<TR><TD COLSPAN=7>  #</TD></TR>
+<TR><TD>  shell   </TD><TD>stream  </TD><TD>tcp     </TD><TD>nowait  </TD><TD>root    </TD><TD>/usr/sbin/tcpd  </TD><TD>/usr/sbin/in.rshd</TD></TR>
+<TR><TD>  login   </TD><TD>stream  </TD><TD>tcp     </TD><TD>nowait  </TD><TD>root    </TD><TD>/usr/sbin/tcpd  </TD><TD>/usr/sbin/in.rlogind</TD></TR>
+<TR><TD>  #exec   </TD><TD>stream  </TD><TD>tcp     </TD><TD>nowait  </TD><TD>root    </TD><TD>/usr/sbin/tcpd  </TD><TD>/usr/sbin/in.rexecd</TD></TR>
+<TR><TD>  talk    </TD><TD>dgram   </TD><TD>udp     </TD><TD>wait    </TD><TD>root    </TD><TD>/usr/sbin/tcpd  </TD><TD>/usr/sbin/in.talkd</TD></TR>
+<TR><TD>  ntalk   </TD><TD>dgram   </TD><TD>udp     </TD><TD>wait    </TD><TD>root    </TD><TD>/usr/sbin/tcpd  </TD><TD>/usr/sbin/in.ntalkd</TD></TR>
+<TR><TD COLSPAN=7>  #</TD></TR>
+<TR><TD COLSPAN=7>  # Mail (ileti), news(haber) ve uucp hizmetleri.</TD></TR>
+<TR><TD COLSPAN=7>  #</TD></TR>
+<TR><TD>  smtp    </TD><TD>stream  </TD><TD>tcp     </TD><TD>nowait  </TD><TD>root    </TD><TD>/usr/sbin/tcpd  </TD><TD>/usr/sbin/in.smtpd</TD></TR>
+<TR><TD>  #nntp   </TD><TD>stream  </TD><TD>tcp     </TD><TD>nowait  </TD><TD>news    </TD><TD>/usr/sbin/tcpd  </TD><TD>/usr/sbin/in.nntpd</TD></TR>
+<TR><TD>  #uucp   </TD><TD>stream  </TD><TD>tcp     </TD><TD>nowait  </TD><TD>uucp    </TD><TD>/usr/sbin/tcpd  </TD><TD>/usr/lib/uucp/uucico</TD></TR>
+<TR><TD>  #comsat </TD><TD>dgram   </TD><TD>udp     </TD><TD>wait    </TD><TD>root    </TD><TD>/usr/sbin/tcpd  </TD><TD>/usr/sbin/in.comsat</TD></TR>
+<TR><TD COLSPAN=7>  #</TD></TR>
+<TR><TD COLSPAN=7>  # Posta Ofisi Protokolları (İletiler için)</TD></TR>
+<TR><TD COLSPAN=7>  #</TD></TR>
+<TR><TD>  #pop-2  </TD><TD>stream  </TD><TD>tcp     </TD><TD>nowait  </TD><TD>root    </TD><TD>/usr/sbin/tcpd  </TD><TD>/usr/sbin/in.pop2d</TD></TR>
+<TR><TD>  #pop-3  </TD><TD>stream  </TD><TD>tcp     </TD><TD>nowait  </TD><TD>root    </TD><TD>/usr/sbin/tcpd  </TD><TD>/usr/sbin/in.pop3d</TD></TR>
+<TR><TD COLSPAN=7>  #</TD></TR>
+<TR><TD>  #cfinger </TD><TD>stream </TD><TD>tcp     </TD><TD>nowait  </TD><TD>root    </TD><TD>/usr/sbin/tcpd  </TD><TD>/usr/sbin/in.cfingerd</TD></TR>
+<TR><TD>  #finger </TD><TD>stream  </TD><TD>tcp     </TD><TD>nowait  </TD><TD>root    </TD><TD>/usr/sbin/tcpd  </TD><TD>/usr/sbin/in.fingerd</TD></TR>
+<TR><TD>  #netstat        </TD><TD>stream  </TD><TD>tcp     </TD><TD>nowait  </TD><TD>nobody  </TD><TD>/usr/sbin/tcpd  </TD><TD>/bin/netstat</TD></TR>
+<TR><TD>  #systat </TD><TD>stream  </TD><TD>tcp     </TD><TD>nowait  </TD><TD>nobody  </TD><TD>/usr/sbin/tcpd  </TD><TD>/bin/ps -auwwx</TD></TR>
+<TR><TD COLSPAN=7>  #</TD></TR>
+<TR><TD COLSPAN=7>  # Tftp hizmeti boot işlemi sırasında kullanılır.  Pekçok yerde</TD></TR>
+<TR><TD COLSPAN=7>  # bu hizmet "boot sunucular" tarafından kullanılır</TD></TR>
+<TR><TD COLSPAN=7>  #</TD></TR>
+<TR><TD>  #tftp   </TD><TD>dgram   </TD><TD>udp     </TD><TD>wait    </TD><TD>nobody  </TD><TD>/usr/sbin/tcpd  </TD><TD>/usr/sbin/in.tftpd</TD></TR>
+<TR><TD>  #tftp   </TD><TD>dgram   </TD><TD>udp     </TD><TD>wait    </TD><TD>nobody  </TD><TD>/usr/sbin/tcpd  </TD><TD>/usr/sbin/in.tftpd /boot</TD></TR>
+<TR><TD>  #bootps </TD><TD>dgram   </TD><TD>udp     </TD><TD>wait    </TD><TD>root    </TD><TD>/usr/sbin/bootpd       </TD><TD> bootpd -i -t 120</TD></TR>
+<TR><TD COLSPAN=7>  #</TD></TR>
+<TR><TD COLSPAN=7>  # Kerberos onaylama hizmeti</TD></TR>
+<TR><TD COLSPAN=7>  #</TD></TR>
+<TR><TD>  #klogin         </TD><TD>stream  </TD><TD>tcp     </TD><TD>nowait  </TD><TD>root    </TD><TD>/usr/sbin/tcpd  </TD><TD>/usr/sbin/in.rlogind -k</TD></TR>
+<TR><TD>  #eklogin        </TD><TD>stream  </TD><TD>tcp     </TD><TD>nowait  </TD><TD>root    </TD><TD>/usr/sbin/tcpd  </TD><TD>/usr/sbin/in.rlogind -k -x</TD></TR>
+<TR><TD>  #kshell         </TD><TD>stream  </TD><TD>tcp     </TD><TD>nowait  </TD><TD>root    </TD><TD>/usr/sbin/tcpd  </TD><TD>/usr/sbin/in.rshd -k</TD></TR>
+<TR><TD COLSPAN=7>  #</TD></TR>
+<TR><TD COLSPAN=7>  # Kerberos sunucu üzerinde çalışan hizmetler</TD></TR>
+<TR><TD COLSPAN=7>  #</TD></TR>
+<TR><TD>  #krbupdate      </TD><TD>stream </TD><TD>tcp      </TD><TD>nowait  </TD><TD>root    </TD><TD>/usr/sbin/tcpd  </TD><TD>/usr/sbin/registerd</TD></TR>
+<TR><TD>  #kpasswd        </TD><TD>stream  </TD><TD>tcp     </TD><TD>nowait  </TD><TD>root    </TD><TD>/usr/sbin/tcpd  </TD><TD>/usr/sbin/kpasswdd</TD></TR>
+<TR><TD COLSPAN=7>  #</TD></TR>
+<TR><TD COLSPAN=7>  # RPC tabanlı hizmetler</TD></TR>
+<TR><TD COLSPAN=7>  #</TD></TR>
+<TR><TD>  #mountd/1       </TD><TD>dgram   </TD><TD>rpc/udp </TD><TD>wait    </TD><TD>root    </TD><TD>/usr/sbin/tcpd  </TD><TD>/usr/sbin/rpc.mountd</TD></TR>
+<TR><TD>  #rstatd/1-3     </TD><TD>dgram   </TD><TD>rpc/udp </TD><TD>wait    </TD><TD>root    </TD><TD>/usr/sbin/tcpd  </TD><TD>/usr/sbin/rpc.rstatd</TD></TR>
+<TR><TD>  #rusersd/2-3    </TD><TD>dgram   </TD><TD>rpc/udp </TD><TD>wait    </TD><TD>root    </TD><TD>/usr/sbin/tcpd  </TD><TD>/usr/sbin/rpc.rusersd</TD></TR>
+<TR><TD>  #walld/1        </TD><TD>dgram   </TD><TD>rpc/udp </TD><TD>wait    </TD><TD>root    </TD><TD>/usr/sbin/tcpd  </TD><TD>/usr/sbin/rpc.rwalld</TD></TR>
+<TR><TD COLSPAN=7>  #</TD></TR>
+<TR><TD COLSPAN=7>  # inetd.conf kütüğü sonu.</TD></TR>
+<TR><TD>  ident           </TD><TD>stream  </TD><TD>tcp     </TD><TD>nowait  </TD><TD>nobody  </TD><TD>/usr/sbin/identd        </TD><TD>identd -i</TD></TR>
+</TABLE>
+</TD></TR>
+<TR>
+<TD COLSPAN=2>
+<HR>
+<A HREF="http://www.aybim.com.tr/">Ana Sayfaya</A>
+&nbsp;&nbsp;<A HREF="index.html">Teknik Bilgiler Sayfasina</A>
+</TD></TR></TABLE>
+</BODY>
+</HTML>

@@ -1,0 +1,272 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Hyperlink Preprocessor </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">28 Mart 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>Mcrypt Kriptolama İşlevleri</h2>
+
+<h3>Giriş</h3>
+
+Bu mcrypt kitaplığına bir arayüzdür. Çok geniş bloklu algoritmaları da içerir
+(DES, TripleDES, Blowfish (varsayılan), 3-WAY, SAFER-SK64, SAFER-SK128, TWOFISH,
+TEA, CBC içinde RC2 ve GOST, OFB, CFB ve ECB şifreleme konumları gibi). Ayrıca
+RC6 ve IDEA da desteklenir. Bunlar "açık-kod" değildir.
+
+<h3>Gereksinim</h3>
+
+Bu işlevler mcrypt kullanır. Kullanabilmek için libmcrypt-x.x.tar.gz 
+http://mcrypt.sourceforge.net/ adresinden indirilmeli ve belirtildiği biçimde
+kurulmalıdır. Windows kullanıcıları http://files.edin.dk/php/win32/mcrypt/
+adresinde derlenmiş mcrypt ikililerini bulabilirler.
+
+PHP 5.0.0 sürümünden sonra libmcrypt 2.5.6 ya da fazlası sürümü
+kullanmalısınız.
+
+Eğer libmcrypt 2.4.x ya da daha yüksek sürümüyle bağlantı kurduysanız
+aşağıdaki blok algoritmalar da desteklenir:
+<pre>
+  CAST, LOKI97, RIJNDAEL, SAFERPLUS, SERPENT
+</pre>
+ve aşağıdaki akar şifrelemeleri:
+<pre>
+  ENIGMA (crypt), PANAMA, RC4 ve WAKE
+</pre>
+libmcrypt 2.4.x ve yükseğiyle nOFB şifreleme konumu da açıktır.
+
+<h3>Kurulum</h3>
+
+PHP "--with-mcrypt[=DIR] değişgeçiyle derlenmelidir. libmcrypt derlenirken
+--disable-posix-threads seçeneği kullanılmış olmalıdır.
+
+<h3>Çalışma Zamanı Ayarları</h3>
+
+php.ini ayarlarıyla bu işlevlerin davranışları değişir.
+
+<h3>Mcrypt ayar seçenekleri</h3>
+
+<table class="yazi">
+<tr><td>Adı</td><td>Varsayılan</td><td>Değişebilir</td><td>DeğişmeKaydı
+<tr><td>mcrypt.algorithms_dir</td><td>NULL</td><td>PHP_INI_ALL</td><td>PHP 4.0.2. den beri var</td></tr>
+<tr><td>mcrypt.modes_dir</td><td>NULL</td><td>PHP_INI_ALL</td><td>PHP 4.0.2. den beri var</td></tr>
+</table>
+For further details and definitions of the PHP_INI_* constants, see the php.ini directives.
+
+<h3>Kaynak Türleri</h3>
+
+mcrypt_module_open() kodlama tanımlayıcısını döndürür
+
+<h3>Önceden Tanımlı Değişmezler</h3>
+
+Bu uzantı ile tanımlanan değişmezler aşağıdadır. Yalnız bu uzantıyla
+kullanılabilir.
+
+Mcrypt dört bloklu şifreleme konumuyla çalışır (CBC, OFB, CFB ve ECB). Eğer
+libmcrypt-2.4.x ya da daha yükseğiyle derlenip bağlanmışsa hem nOFB blok
+konumunda hem de STREAM konumunda çalışabilir. Aşağıdaki listede tüm
+desteklenen kodlama konumlarını ve kodlama konumlarını tanımlayan
+değişmezlerini bulabilirsiniz. Daha geniş tartışma için Applied Cryptography
+by Schneier (ISBN 0-471-11709-9) bakınız.
+<ul>
+    <li> MCRYPT_MODE_ECB (elekronik kod kitabı) 
+rastgele veri için uygundur. Diğer anahtarları kriptolar. O veri kısa ve
+rastgele olduğundan, ECB sakıncası ters etki yapar.
+    <li> MCRYPT_MODE_CBC (şifreleme blok zinciri) 
+Dosyaları kriptolamada oldukça uygundur. ECB ile güvenliğin arttığı durumlarda
+da kullanılır.
+    <li> MCRYPT_MODE_CFB (şifreleme geri beslemesi) 
+bayt akarını kriptolamak için en iyi konumdur. Burada tek bayt da kriptolanır.
+    <li> MCRYPT_MODE_OFB (çıktı geri beslemesi, 8bitlik) 
+CFB ile karşılaştırılabilir ama hata çoğalmasının kaldırılamadığı
+uygulamalarda kullanışlıdır. Güvenli değildir (çünkü 8bitlik konumda çalışır).
+Bu nedenle kullanımı önerilmez.
+    <li> MCRYPT_MODE_NOFB (çıktı geri beslemesi, nbitlik) 
+OFB ile karşılaştırılabilir ama daha güvenlidir. Çünkü blok boylarla
+algoritmayı kullanır.
+    <li> MCRYPT_MODE_STREAM 
+Ek konum olarak akar algoritmalarından WAKE ya da RC4 gibi olanları içerir.
+</ul>
+Bazı diğer konum ve rastgele donanım değişmezleri:
+<pre>
+MCRYPT_ENCRYPT (tamsayı)
+MCRYPT_DECRYPT (tamsayı)
+MCRYPT_DEV_RANDOM (tamsayı)
+MCRYPT_DEV_URANDOM (tamsayı)
+MCRYPT_RAND (tamsayı)
+</pre>
+
+<h3>Mcrypt şifreleri (ciphers)</h3>
+
+Aşağıdaki şifrelemeler şu anki mcrypt uzantısıyla desteklenmektedir.
+Desteklenen şifreler için mcrypt sonundaki tanımlara bakın. Genel kural olarak
+mcrypt-2.2.x API ile PHP'de MCRYPT_ciphername ile şifrelemeye erişebilirsiniz.
+libmcrypt-2.4.x ve libmcrypt-2.5.x API  ile bu değişmezler yine çalışır ama
+mcrypt_module_open() çağırmada şifrelemenin adını belirtmek olanağı da vardır.
+<ul>
+    <li> MCRYPT_3DES
+    <li> MCRYPT_ARCFOUR_IV (yalnız libmcrypt > 2.4.x)
+    <li> MCRYPT_ARCFOUR (yalnız libmcrypt > 2.4.x)
+    <li> MCRYPT_BLOWFISH
+    <li> MCRYPT_CAST_128
+    <li> MCRYPT_CAST_256
+    <li> MCRYPT_CRYPT
+    <li> MCRYPT_DES
+    <li> MCRYPT_DES_COMPAT (yalnız libmcrypt 2.2.x)
+    <li> MCRYPT_ENIGMA (yalnız libmcrypt > 2.4.x, MCRYPT_CRYPT için eşdeğeri)
+    <li> MCRYPT_GOST
+    <li> MCRYPT_IDEA (ücretsiz değil)
+    <li> MCRYPT_LOKI97 (yalnız libmcrypt > 2.4.x)
+    <li> MCRYPT_MARS (yalnız libmcrypt > 2.4.x, ücretsiz değil)
+    <li> MCRYPT_PANAMA (yalnız libmcrypt > 2.4.x)
+    <li> MCRYPT_RIJNDAEL_128 (yalnız libmcrypt > 2.4.x)
+    <li> MCRYPT_RIJNDAEL_192 (yalnız libmcrypt > 2.4.x)
+    <li> MCRYPT_RIJNDAEL_256 (yalnız libmcrypt > 2.4.x)
+    <li> MCRYPT_RC2
+    <li> MCRYPT_RC4 (yalnız libmcrypt 2.2.x)
+    <li> MCRYPT_RC6 (yalnız libmcrypt > 2.4.x)
+    <li> MCRYPT_RC6_128 (yalnız libmcrypt 2.2.x)
+    <li> MCRYPT_RC6_192 (yalnız libmcrypt 2.2.x)
+    <li> MCRYPT_RC6_256 (yalnız libmcrypt 2.2.x)
+    <li> MCRYPT_SAFER64
+    <li> MCRYPT_SAFER128
+    <li> MCRYPT_SAFERPLUS (yalnız libmcrypt > 2.4.x)
+    <li> MCRYPT_SERPENT(yalnız libmcrypt > 2.4.x)
+    <li> MCRYPT_SERPENT_128 (yalnız libmcrypt 2.2.x)
+    <li> MCRYPT_SERPENT_192 (yalnız libmcrypt 2.2.x)
+    <li> MCRYPT_SERPENT_256 (yalnız libmcrypt 2.2.x)
+    <li> MCRYPT_SKIPJACK (yalnız libmcrypt > 2.4.x)
+    <li> MCRYPT_TEAN (yalnız libmcrypt 2.2.x)
+    <li> MCRYPT_THREEWAY
+    <li> MCRYPT_TRIPLEDES (yalnız libmcrypt > 2.4.x)
+    <li> MCRYPT_TWOFISH (eski mcrypt 2.x sürümleri için, ya da mcrypt > 2.4.x )
+    <li> MCRYPT_TWOFISH128 (TWOFISHxxx daha yeni sürümlerde -2.x sürümü gibi- vardır, ama 2.4.x sürümünde yoktur)
+    <li> MCRYPT_TWOFISH192
+    <li> MCRYPT_TWOFISH256
+    <li> MCRYPT_WAKE (yalnız libmcrypt > 2.4.x)
+    <li> MCRYPT_XTEA (yalnız libmcrypt > 2.4.x)
+</ul>
+Siz şifreleme işlevini karşılamak için ilkleme vektörünü desteklemelisiniz (CFB ve OFB konumunda) ya da ilkleme vektörü destekleyebilirsiniz (CBC konumunda).
+IV tekil olmalıdır ve kod açma/kodlamada aynı değeri olmalıdır.
+ Kriptolanarak saklanan veriyle işlevin çıktısını verinin saklandığı dizin
+olarak alabilirsiniz (dosya adının MD% anahtarı). Bu konunun taştışmaları için
+bölüm 9.3, Applied Cryptography by Schneier (ISBN 0-471-11709-9) kitabına bakınız.
+
+<h3>Örnekler</h3>
+
+Mcrypt can be used to encrypt and decrypt using the above mentioned ciphers. If you linked against libmcrypt-2.2.x, the four important mcrypt commands (mcrypt_cfb(), mcrypt_cbc(), mcrypt_ecb(), and mcrypt_ofb()) can operate in both modes which are named MCRYPT_ENCRYPT and MCRYPT_DECRYPT, respectively.
+
+Örnek-1 Giriş değerini Üçlü-DES (TripleDES) ile 2.2.x ECB konumunda kodlamak
+<pre>
+&lt;?php
+$key = "Bu gizli anahtardir";
+$input = "Haydi saat 9'da gizli yerde buluşalım";
+
+$encrypted_data = mcrypt_ecb (MCRYPT_3DES, $key, $input, MCRYPT_ENCRYPT);
+?&gt;
+</pre>
+Bu örnek kriptolanmış veriyi yazı dizisi olarak $encrypted_data içine yazar.
+
+Eğer libmcrypt 2.4.x ya da 2.5.x ile derleyince, bu işlevler hala geçerlidir
+ama daha gelişkinlerini kullanmanızı öneririz.
+
+Örnek-2 Giriş değerini Üçlü-DES (TripleDES) ile 2.4.x ve daha yukarısı ECB konumunda kodlamak
+<pre>
+&lt;?php
+    $key = "bu gizli anahtardir";
+    $input = "Haydi saat 9'da gizli yerde buluşalım";
+
+    $td = mcrypt_module_open('tripledes', '', 'ecb', '');
+    $iv = mcrypt_create_iv (mcrypt_enc_get_iv_size($td), MCRYPT_RAND);
+    mcrypt_generic_init($td, $key, $iv);
+    $encrypted_data = mcrypt_generic($td, $input);
+    mcrypt_generic_deinit($td);
+    mcrypt_module_close($td);
+?&gt;
+</pre>
+Bu örnek kriptolanmış veriyi yazı dizisi olarak $encrypted_data içine yazar.
+Tüm örnek için mcrypt_module_open() işlevine bakın.
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> mcrypt_cbc — CBC konumunda veriyi kriptolama/kriptosunu açma
+    <li> mcrypt_cfb — CFB konumunda veriyi kriptolama/kriptosunu açma
+    <li> mcrypt_create_iv — Rastgele kaynaktan ilkleme vektörü (IV) yarat
+    <li> mcrypt_decrypt — kriptolu yazının verilen değişgeçlerle kriptosunu açma
+    <li> mcrypt_ecb — Deprecated: ECB konumunda veriyi kodlama/kod açma
+    <li> mcrypt_enc_get_algorithms_name — Açık algoritmanın adını döndürür
+    <li> mcrypt_enc_get_block_size — Açık algoritmanın blok boyunu döndürür
+    <li> mcrypt_enc_get_iv_size — Açık algoritmanın IV boyunu döndürür
+    <li> mcrypt_enc_get_key_size — Açık konumun anahtar boyunun en büyük desteklenen değerini döndürür
+    <li> mcrypt_enc_get_modes_name — Açık konumun adını döndürür
+    <li> mcrypt_enc_get_supported_key_sizes — Açık algoritmanın desteklenen anahtar boyunu içeren dizi döndürür
+    <li> mcrypt_enc_is_block_algorithm_mode — açık konumun kodlaması bloklar üzerinde çalışır mı ona bakar.
+    <li> mcrypt_enc_is_block_algorithm — Açık konumun algoritması blok algoritmadır bakar
+    <li> mcrypt_enc_is_block_mode — Açık konumun bloklar yazıp yazmayacağına bakar
+    <li> mcrypt_enc_self_test — Bu işlev açılan modül üzerinde kendi denemesini çalıştırır
+    <li> mcrypt_encrypt — Açık yazıyı verilen değişgeçlerle kodlar
+    <li> mcrypt_generic_deinit — Bu işlev kodlama modülünü ilklemez
+    <li> mcrypt_generic_end — Bu işlev kodlamayı bitirir
+    <li> mcrypt_generic_init — Bu işlev kodlama için gereken tüm tampon alanları ilkler
+    <li> mcrypt_generic — Bu işlev veriyi kodlar
+    <li> mcrypt_get_block_size — Belirtilen şifrelemenin blok boyunu döndürür
+    <li> mcrypt_get_cipher_name — Belirtilen şifrelemenin adını döndürür
+    <li> mcrypt_get_iv_size — Belirtilen şifreleme/konum birleşimiyle ilgili olan IV boyunu döndürür
+    <li> mcrypt_get_key_size — Belirtilen şifrelemenin anahtar bıyunu al
+    <li> mcrypt_list_algorithms — Desteklenen şifrelemenin dizisini al
+    <li> mcrypt_list_modes — Desteklenen tüm konumların dizisini al
+    <li> mcrypt_module_close — mcrypt modülünü kapatır
+    <li> mcrypt_module_get_algo_block_size — Belirtilen algoritmanın blok boylarını döndürür
+    <li> mcrypt_module_get_algo_key_size — Açılan konum için desteklenen en büyük anahtar boyunu döndürür
+    <li> mcrypt_module_get_supported_key_sizes — açılan algoritmanın desteklenen anahtar boylarını içeren diziyi döndürür
+    <li> mcrypt_module_is_block_algorithm_mode — belirtilen algoritmanın blok algoritma olup olmadığına bakar
+    <li> mcrypt_module_is_block_algorithm — Bu işlev belirtilen algoritmanın blok algoritma olup olmadığına bakar
+    <li> mcrypt_module_is_block_mode — Belirtilen konumun çıktıları bloklu olup olmadığını döndürür
+    <li> mcrypt_module_open — algoritmanın modülünü ve konumunu açar
+    <li> mcrypt_module_self_test — Bu işlev belirtilen modül üzerinde kendi denemesini yapar
+    <li> mcrypt_ofb — Veri için OFB konumunda Kodla/Kod Aç
+    <li> mdecrypt_generic — Verinin kodunu aç
+</ul>
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

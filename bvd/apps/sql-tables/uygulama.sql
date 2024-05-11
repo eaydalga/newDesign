@@ -1,0 +1,8 @@
+DROP TABLE `uygulama`;
+CREATE TABLE `uygulama` (
+  `uygSecNo` INT UNSIGNED NOT NULL,
+  `uygSecAdi` CHAR(100) UNICODE NOT NULL,
+  `uygSecBilgi` VARCHAR(2048) BINARY NOT NULL,
+  PRIMARY KEY (`uygSecNo`)
+)
+ENGINE = MyISAM;

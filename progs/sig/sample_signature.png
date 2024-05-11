@@ -1,0 +1,24 @@
+<?php
+$image_info = array(
+    'image'    => 'sample_signature.gif'
+);
+
+$image_text = array(
+    array(
+        'x'     => 8,
+        'y'     => 6,
+        'color' => array(50, 100, 180),
+        'font'  => 9,
+        'text'  => " This is my first dynamic signature!"
+    ),
+    array(
+        'x'     => 8,
+        'y'     => 22,
+        'color' => array(50, 100, 180),
+        'font'  => 9,
+        'text'  => " Nice, isn't it?  :-)"
+    )
+);
+
+include('./includes/dynamic_gd_image.php');
+?> 

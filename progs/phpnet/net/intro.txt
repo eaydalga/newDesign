@@ -1,0 +1,8 @@
+
+.NET Functions
+Introduction
+Warning
+
+This extension is EXPERIMENTAL. The behaviour of this extension -- including the names of its functions and anything else documented about this extension -- may change without notice in a future release of PHP. Use this extension at your own risk.
+
+

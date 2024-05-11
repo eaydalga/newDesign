@@ -1,0 +1,178 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP FTP İşlevleri</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">18 Şubat 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>FTP İşlevleri</h2>
+
+<h3>Giriş</h3>
+
+Bu uzantıdaki işlevler, istemcinin FTP protokolü ile dosya sunucusuna erişimini uyarlar. Ayrıntılı bilgi  http://www.faqs.org/rfcs/rfc959 adresinde vardır.
+
+<h3>Kurulum</h3>
+
+FTP işlevlerini PHP ayarlarıyla kullanmak için "--enable-ftp" seçeneğini
+kullanmanız gerekir (PHP 4 ve üstü için geçerlidir).
+<br /><br />
+Windows sürümü bu uzantıyı içerecek biçimde kurulmuştur. Başka bir eke gerek
+yoktur.
+
+<h3>Kaynak Türleri</h3>
+
+Bu uzantı bir kaynak türü kullanır. O da FTP bağlantısında ftp_connect() ya da
+ftp_ssl_connect() işlevlerinden dönen bağ tanımlayıcısıdır.
+
+<h3>Önceden Tanımlanan Değişmezler</h3>
+
+Aşağıdaki değişmezler yalnız bu uzantı için geçerlidir.
+<dl>
+<dt>FTP_ASCII (integer)</dt>
+<dt>FTP_TEXT (integer)</dt>
+<dt>FTP_BINARY (integer)</dt>
+<dt>FTP_IMAGE (integer)</dt>
+<dt>FTP_TIMEOUT_SEC (integer)</dt>
+    <dd>Bilgi için ftp_set_option() işlevine bakın.</dd></dt>
+</dl>
+
+PHP 4.3.0 sürümünde kullanıcıya sunulan değişmezler.
+
+<dl>
+<dt>FTP_AUTOSEEK (integer)
+    <dd>Bilgi için ftp_set_option() işlevine bakın.</dd></dt>
+<dt>FTP_AUTORESUME (integer)
+    <dd>GET ve PUT isteklerinin başlama ya da bekleme parçalarını otomatik olarak belirleme (eğer FTP_AUTOSEEK açıksa geçerlidir)
+</dd></dt>
+<dt>FTP_FAILED (integer)
+    <dd>Asenkron transferde hata olduğundan kesildi
+    </dd></dt>
+<dt>FTP_FINISHED (integer)
+    <dd>Asenkron transferbitti
+    </dd></dt>
+<dt>FTP_MOREDATA (integer)
+    <dd>Asenkron transfer hala etkin</dd></dt>
+</dl>
+
+<h3>Örnekler</h3>
+
+Örnek#1 FTP örneği
+<pre>
+&lt;?php
+// ana bağlantıyı kur
+$conn_id = ftp_connect($ftp_server); 
+
+// kullanıcı adı ve şifreyle bağlan
+$login_result = ftp_login($conn_id, $ftp_user_name, $ftp_user_pass); 
+
+// başlantıyı kontrol et
+if ((!$conn_id) || (!$login_result)) { 
+        echo "FTP bağlantısı hatalı!";
+        echo "$ftp_server sunucusuna $ftp_user_name" .
+             " kullanıcı adıyla bağlanma işlemi denemesi başarısız"; 
+        exit; 
+    } else {
+        echo "$ftp_user_name kullanıcısı ile".
+             " $ftp_server sunucusuna bağlanma";
+    }
+
+// dosya yükleme
+$upload = ftp_put($conn_id, $destination_file, $source_file, FTP_BINARY); 
+
+// yükleme durumunu kontrol etme
+if (!$upload) { 
+        echo "FTP yükleme hatalı oldu!";
+    } else {
+        echo "$ftp_server sunucusuna $source_file".
+             " kaynak dosyanın $destination_file dosyası olarak yüklenmesi";
+    }
+
+// FTP akarını kapama
+ftp_close($conn_id); 
+?&gt;
+</pre>
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> ftp_alloc — Yüklenecek dosya için alan açma
+    <li> ftp_cdup — Bab yolunu değiştirme
+    <li> ftp_chdir — FTP sunucusunda o anki yolu değiştirme
+    <li> ftp_chmod — FTP ile dosya erişimlerini ayarlama
+    <li> ftp_close — FTP bağlantısını kapama
+    <li> ftp_connect — FTP bağlantısını açma
+    <li> ftp_delete — FTP sunucudaki dosyayı silme
+    <li> ftp_exec — FTP sunucusundaki bir komutun çalışmasını isteme
+    <li> ftp_fget — FTP sunucudan bir dosyayı indirme ve açılan bir dosyaya yazma
+    <li> ftp_fput — Açılan bir dosyadan FTP sunucuya yükleme
+    <li> ftp_get_option — O anki FTP akarının çeşitli çalışma zamanı davranışlarını alma
+    <li> ftp_get — FTP sunucudan bir dosya indirme
+    <li> ftp_login — Bir FTP bağlantısına giriş yapma
+    <li> ftp_mdtm — Bir dosyanın son değişim tarihini döndürür
+    <li> ftp_mkdir — Bir dosya yolu yaratır
+    <li> ftp_nb_continue — Bir dosyayı (bloklu değil) almaya/göndermeye devam
+eder.
+    <li> ftp_nb_fget — FTP sunucudan bir dosya alır ve açık bir doayaya yazar (bloklu değil)
+    <li> ftp_nb_fput — Açık bir dosyadan FTP sunucusunai dosyayı yazar (bloklu değil)
+    <li> ftp_nb_get — FTP sunucudan bir dosya alır ve yerel bir dosyaya yazar (bloklu değil)
+    <li> ftp_nb_put — FTP sunucuda bir dosyayı saklar (bloksuz)
+    <li> ftp_nlist — Bir dosya yolundaki dosyaların listesini verir
+    <li> ftp_pasv — "passive" (edilgen) komunu açar ya da kapar
+    <li> ftp_put — FTP sunucuya bir dosya yükler
+    <li> ftp_pwd — O anki dosya yolunun adını gönderir
+    <li> ftp_quit — ftp_close eşdeğeri
+    <li> ftp_raw — FTP sunucuya rastgele bir komut gönder
+    <li> ftp_rawlist — Bir dosya yolundaki dosyaların ayrıntılı listesini
+verir
+    <li> ftp_rename — FTP sunucudaki dosya ya da dosya yolunun adını
+değiştirir
+    <li> ftp_rmdir — Bir dosyay yolunu kaldırır (siler)
+    <li> ftp_set_option — Çeşitli çalışma zamanı FTP seçeneklerini ayarlar
+    <li> ftp_site — sunucuya SITE komutu gönderir
+    <li> ftp_size — Bir dosyanın boyunu döndürür
+    <li> ftp_ssl_connect — Güvenli SSL-FTP bağlantısı açar
+    <li> ftp_systype — Uzaktaki FTP sunucusunun sistem türünü döndürür
+</ul>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

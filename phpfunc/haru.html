@@ -1,0 +1,401 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Hyperlink Preprocessor </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">11 Mart 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>Haru PDF İşlevleri</h2>
+
+<h3>Giriş</h3>
+
+PECL/haru uzantısı Haru Ücretsiz PDF Kitaplığı için bağlantı sağlar - PDF yaratmak için ücretsiz, ortamdan ortama taşınan, açık kaynak yazılım kitaplığıdır.
+<br /><br />
+Kitaplığı burada bulabilirsiniz: http://libharu.sourceforge.net.
+
+<h3>UYARI</h3>
+
+Bu uzantı deneyseldir. Bu uzantının davranışı -- işlevlerinin adları da dahil
+olmak üzere -- her an değişebilir.
+
+<h3>Gereksinim</h3>
+
+PECL/haru kullanmak için önce libharu kurulmalıdır. PECL/haru libharu 2.0.8
+sürümüyle denenmiştir. Eski sürümler çalışmayabilir. PECL/haru PHP 5.1.3
+sürümü ve sonrasını ister.
+
+<h3>Kurulum</h3>
+
+PECL uzantısının kurulumu için bilgi PECL uzantıları kurulumları adı
+belgelerde bulunur. Yeni sürünler gibi bilgiler için
+http://pecl.php.net/package/haru incelenmelidir.
+En son PECL/haru Win32 DLL kitaplığı: php_haru.dll.
+
+
+<h3>Örnekler</h3>
+
+<br><b>Örnek1: Temel PECL/haru örneği</b><br />
+<pre>
+&lt;?php
+
+$doc = new HaruDoc;
+
+$doc->setPageMode(HaruDoc::PAGE_MODE_USE_THUMBS); /* küçük resim göster*/
+
+$page = $doc->addPage(); /* belgeye sayfa ekle */
+$page->setSize(HaruPage::SIZE_A4, HaruPage::LANDSCAPE);
+       /* sayfayı uzunlamasına A4 kalıbında ayarla */
+
+$courier = $doc->getFont("Courier-Bold"); 
+       /* paketlenmiş yazı tipi aşağıdaki satırlarda bulunur */
+
+$page->setRGBStroke(0, 0, 0); /* renkleri ayarla */
+$page->setRGBFill(0.7, 0.8, 0.9);
+$page->rectangle(150, 150, 550, 250); /* dikdörtgen çizin */
+
+$page->fillStroke(); /* doldur ve çiz */
+
+$page->setDash(array(3, 3), 0);
+       /* bu sayfadaki satırlar  çizgi stilini ayarlama */
+$page->setFontAndSize($courier, 60); /* yazı tipi ve boyutunu belirleme */
+
+$page->setRGBStroke(0.5, 0.5, 0.1); /* satır rengini belirleme */
+$page->setRGBFill(1, 1, 1); /* doldurma renklerini belirle */
+
+$page->setTextRenderingMode(HaruPage::FILL_THEN_STROKE);
+       /* yazıyı doldur ve çiz */
+
+/* yazıyı yazdır */
+$page->beginText();
+$page->textOut(210, 270, "Merhaba Dünya!");
+$page->endText();
+
+$doc->save("/tmp/test.pdf");
+       /* belgeyi dosyaya yaz */
+
+?&gt;
+</pre>
+
+Sonuç belgeyi sık kullandığınız PDF göstericisiyle açın. Açık mavi dikdörtgen
+ortasında beyazla yazılmış "Merhaba Dünya" bulursunuz.
+
+<h3>Önceden tanımlı sınıflar</h3>
+
+<ul>
+    <li> HaruException
+    <li> HaruDoc
+    <li> HaruPage
+    <li> HaruFont
+    <li> HaruImage
+    <li> HaruEncoder
+    <li> HaruOutline
+    <li> HaruAnnotation
+    <li> HaruDestination
+</ul>
+
+<h3>Hazır yazı tipleri ve kodlaması</h3>
+<h3>Hazır yazı tipleri (Fonts)</h3>
+
+Base14 yazı tipleri PDF içine gömülmüştür ve tüm göstericiler onları
+görüntüleyebilir. Bu yazı tiplerini kullanarak sonuç dosyasının boyunu
+azaltabilir ve işlemeyi daha da hızlandırır. Dışsal yazı tiplerinin
+yüklenmesinden vaz geçilir. Yalnız, bu yazı tipleri "latin1" karakter takımını
+destekler, dışsal yazı tiplerini başka karakter takımları için yüklemeniz
+gerekecektir.
+
+<h3>Base14 yazı tipleri:</b3>
+<ul>
+    <li> Courier
+    <li> Courier-Bold
+    <li> Courier-Oblique
+    <li> Courier-BoldOblique
+    <li> Helvetica
+    <li> Helvetica-Bold
+    <li> Helvetica-Oblique
+    <li> Helvetica-BoldOblique
+    <li> Times-Roman
+    <li> Times-Bold
+    <li> Times-Italic
+    <li> Times-BoldItalic
+    <li> Symbol
+    <li> ZapfDingbats
+</ul>
+<h3>Hazır kodlamalar (Encodings)</h3>
+
+Tek bayt karakter takımı kodlaması
+<table class="yazi" width="100%">
+<tr><td>Ad</td><td>Açıklama</td></tr>
+<tr><td>StandardEncoding</td><td>PDF için varsayılan kodlama.</td></tr>
+<tr><td>MacRomanEncoding</td><td>Mac OS için standart kodlama.</td></tr>
+<tr><td>WinAnsiEncoding</td><td>Windows için standart kodlama.</td></tr>
+<tr><td>FontSpecific</td><td>Yazı tipi için hazır kodlama.</td></tr>
+<tr><td>ISO8859-2</td><td>Latin2 (Doğu Avrupa)</td></tr>
+<tr><td>ISO8859-3</td><td>Latin3 (Güney Avrupa)</td></tr>
+<tr><td>ISO8859-4</td><td>Latin4 (Kuzey Avrupa)</td></tr>
+<tr><td>ISO8859-5</td><td>Cyrillic</td></tr>
+<tr><td>ISO8859-6</td><td>Arabic</td></tr>
+<tr><td>ISO8859-7</td><td>Greek</td></tr>
+<tr><td>ISO8859-8</td><td>Hebrew</td></tr>
+<tr><td>ISO8859-9</td><td>Latin5 (Turkçe)</td></tr>
+<tr><td>ISO8859-10</td><td>Latin6 (Nordic)</td></tr>
+<tr><td>ISO8859-11</td><td>Thai</td></tr>
+<tr><td>ISO8859-13</td><td>Latin7 (Baltic Rim)</td></tr>
+<tr><td>ISO8859-14</td><td>Latin8 (Celtic)</td></tr>
+<tr><td>ISO8859-15</td><td>Latin9</td></tr>
+<tr><td>ISO8859-16</td><td>Latin10</td></tr>
+<tr><td>CP1250</td><td>MS Windows Codepage 1250.</td></tr>
+<tr><td>CP1251</td><td>MS Windows Codepage 1251.</td></tr>
+<tr><td>CP1252</td><td>MS Windows Codepage 1252.</td></tr>
+<tr><td>CP1253</td><td>MS Windows Codepage 1253.</td></tr>
+<tr><td>CP1254</td><td>MS Windows Codepage 1254.</td></tr>
+<tr><td>CP1255</td><td>MS Windows Codepage 1255.</td></tr>
+<tr><td>CP1256</td><td>MS Windows Codepage 1256.</td></tr>
+<tr><td>CP1257</td><td>MS Windows Codepage 1257.</td></tr>
+<tr><td>CP1258</td><td>MS Windows Codepage 1258.</td></tr>
+</table>
+KOI8-R 	Cyrillic karakter takımı
+Çok baytlı karakter takımı kodlaması
+<table>
+<tr><td>Name</td><td>Description</td></tr>
+<tr><td>GB-EUC-H</td><td>EUC-CN encoding.</td></tr>
+<tr><td>GB-EUC-V</td><td>Vertical writing version of GB-EUC-H.</td></tr>
+<tr><td>GBK-EUC-H</td><td>Microsoft Code Page 936 (lfCharSet 0x86) GBK encoding.</td></tr>
+<tr><td>GBK-EUC-V</td><td>Vertical writing version of GBK-EUC-H.</td></tr>
+<tr><td>ETen-B5-H</td><td>Microsoft Code Page 950 (lfCharSet 0x88) Big Five character set with ETen extensions.</td></tr>
+<tr><td>ETen-B5-V</td><td>Vertical writing version of ETen-B5-H.</td></tr>
+<tr><td>90ms-RKSJ-H</td><td>Microsoft Code Page 932, JIS X 0208
+character.</td></tr>
+<tr><td>90ms-RKSJ-V</td><td>Vertical writing version of 90ms-RKSJ-V.</td></tr>
+<tr><td>90msp-RKSJ-H</td><td>Microsoft Code Page 932, JIS X 0208 character (proportional).</td></tr>
+<tr><td>EUC-H</td><td>JIS X 0208 character set, EUC-JP encoding.</td></tr>
+<tr><td>EUC-V</td><td>Vertical writing version of EUC-H.</td></tr>
+<tr><td>KSC-EUC-H</td><td>KS X 1001:1992 character set, EUC-KR
+encoding.</td></tr>
+<tr><td>KSC-EUC-V</td><td>Vertical writing version of KSC-EUC-V.</td></tr>
+<tr><td>KSCms-UHC-H</td><td>Microsoft Code Page 949 (lfCharSet 0x81), KS X 1001:1992 character set plus 8822 additional hangul, Unified Hangul Code (UHC) encoding (proportional).</td></tr>
+<tr><td>KSCms-UHC-HW-H</td><td>Microsoft Code Page 949 (lfCharSet 0x81), KS X 1001:1992 character set plus 8822 additional hangul, Unified Hangul Code (UHC) encoding (fixed width).</td></tr>
+<tr><td>KSCms-UHC-HW-V</td><td>Vertical writing version of
+KSCms-UHC-HW-H.</td></tr>
+</table>
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> HaruException — Haru PDF Başkalışım Sınıfı
+    <li> HaruDoc — Haru PDF Belge Sınıfı
+    <li> HaruPage — Haru PDF Sayfa Sınıfı
+    <li> HaruFont — Haru PDF Yazı Tipi Sınıfı
+    <li> HaruImage — Haru PDF Resim Sınıfı
+    <li> HaruEncoder — Haru PDF Kodlama Sınıfı
+    <li> HaruOutline — Haru PDF Özet Sınıfı
+    <li> HaruAnnotation — Haru PDF Açıklama Sınıfı
+    <li> HaruDestination — Haru PDF Gideceği yer Sınıfı
+    <li> HaruAnnotation::setBorderStyle — Açıklamanın çerçeve stilini belirleme
+    <li> HaruAnnotation::setHighlightMode — Açıklamanın aydınlanan konumunu
+    <li> belirleme
+    <li> HaruAnnotation::setIcon — Açıklamanın ikon stilini belirleme
+    <li> HaruAnnotation::setOpened — Açıklamanın ilk konumunu belirleme
+    <li> HaruDestination::setFit — Sayfanın görünüşünü pencereye sığacak biçimde düzenlemek
+    <li> HaruDestination::setFitB — sayfanın görünümünü çerçeveleyen kutunun içine sığacak biçimde düzenlemek
+    <li> HaruDestination::setFitBH — Sınırlayan çerçevenin enine sığacak biçimde sayfayı ayarlamak
+    <li> HaruDestination::setFitBV — Sınırlayan çerçevenin yüksekliğine sığdıracak biçimde sayfayı düzenlemek.
+    <li> HaruDestination::setFitH — Sayfanın görünümünü pencerenin enine göre düzenlemek.
+    <li> HaruDestination::setFitR — Sayfanın görünümünü belirtilen dikdörtgene göre düzenlemek
+    <li> HaruDestination::setFitV — Sayfanın görünümünü pencerenin boyuna göre düzenlemek
+    <li> HaruDestination::setXYZ — Sayfanın görünümünü ayarlamak.
+    <li> HaruDoc::addPage — Belgeye yeni sayfa eklemek.
+    <li> HaruDoc::addPageLabel — Belirtilen sınırlar içindeki sayfaların numaralandırılması stilini belirtmek
+    <li> HaruDoc::__construct — Yeni bir HaruDoc kopyası yapılandırmak.
+    <li> HaruDoc::createOutline — HaruOutline kopyası yaratmak.
+    <li> HaruDoc::getCurrentEncoder — Belgede kullanılan o anki HaruEncoder bilgisini almak.
+    <li> HaruDoc::getCurrentPage — Belgenin o anki sayfasını döndürmek.
+    <li> HaruDoc::getEncoder — Belirtilen kodlama için HaruEncoder kopyasını almak 
+    <li> HaruDoc::getFont — HaruFont kopyasını almak
+    <li> HaruDoc::getInfoAttr — Belirtilen belgenin o anki niteliğinin değerini almak.
+    <li> HaruDoc::getPageLayout — O anki sayfa görünümünü almak
+    <li> HaruDoc::getPageMode — O anki sayfa konumunu almak.
+    <li> HaruDoc::getStreamSize — Geçici akarın boyunu almak.
+    <li> HaruDoc::insertPage — Belirtilen sayfanın hemen önüne yeni bir sayfa eklemek.
+    <li> HaruDoc::loadJPEG — JPEG resmi yükleme ve yeni HaruImage kopyasını döndürme
+    <li> HaruDoc::loadPNG — PNG resmi yükleme ve yeni HaruImage kopyasını döndürme
+    <li> HaruDoc::loadRaw — RAW resmi yükleme ve yeni HaruImage kopyasını döndürme
+    <li> HaruDoc::loadTTC — TTC dosyasının belirtilen dizinle Yazı tipini yüklemek.
+    <li> HaruDoc::loadTTF — TTF yazı tipi dosyası
+    <li> HaruDoc::loadType1 — Type1 yazı tipidir.
+    <li> HaruDoc::output — Belge verisini çıktı tampon alanına yazma
+    <li> HaruDoc::readFromStream — Geçici akardan veri okuma
+    <li> HaruDoc::resetError — Belge göstergesiyle hata konumunu temizleme
+    <li> HaruDoc::resetStream — Geçici akarı geri sarma (Rewind).
+    <li> HaruDoc::save — Belirtilen dosyaya nelgeyi saklama.
+    <li> HaruDoc::saveToStream — Geçici akara belgeyi saklama
+    <li> HaruDoc::setCompressionMode — Belge için sıkıştırma konumunu belirleme.
+    <li> HaruDoc::setCurrentEncoder — Belge için o anki kodlamayı belirleme.
+    <li> HaruDoc::setEncryptionMode — Belge için kriptolama konumunu belirleme.
+    <li> HaruDoc::setInfoAttr — Belgenin info (bilgi) niteliğini belirleme
+    <li> HaruDoc::setInfoDateAttr — Belgenin datetime bilgi niteliğini belirleme.
+    <li> HaruDoc::setOpenAction — Belge açıldığında hangi sayfanın görüntüleneceğini tanımlama.
+    <li> HaruDoc::setPageLayout — Sayfaların nasıl görüntüleneceğini belirleme.
+    <li> HaruDoc::setPageMode — Belgenin nasıl görüntüleneceğini belirleme.
+    <li> HaruDoc::setPagesConfiguration — Sayfa kümesinde yer alacak sayfa sayısını belirleme.
+    <li> HaruDoc::setPassword — Belge için kullanıcının ve sahibinin şifrelerini belirleme.
+    <li> HaruDoc::setPermission — Belge için erişim izinlerini belirleme.
+    <li> HaruDoc::useCNSEncodings — Basit Çin kodlamasını açmak
+    <li> HaruDoc::useCNSFonts — hazır basit Çin yazı tipini açmak
+    <li> HaruDoc::useCNTEncodings — Geleneksel Çin kodlamasını açmak
+    <li> HaruDoc::useCNTFonts — Geleneksel hazır Çin yazı tipini açmak
+    <li> HaruDoc::useJPEncodings — Japon kodlamasını açmak
+    <li> HaruDoc::useJPFonts — Hazır Japon yazı tipini açmak
+    <li> HaruDoc::useKREncodings — Kore kodlamasını açmak
+    <li> HaruDoc::useKRFonts — Hazır Kore yazı tipini açmak
+    <li> HaruEncoder::getByteType — Yazıdaki bayt tipini almak
+    <li> HaruEncoder::getType — Kodlamanın tipini almak
+    <li> HaruEncoder::getUnicode — Belirtilen karakteri "unicode" kodlamaya çevirmek
+    <li> HaruEncoder::getWritingMode — "encoder" yazma konumunu alma
+    <li> HaruFont::getAscent — Yazı tipinin çıkıntılarını alma
+    <li> HaruFont::getCapHeight — Büyük harflerin alt satırından uzaklığı alma.
+    <li> HaruFont::getDescent — Yazı tipinin alt uzantılarını alma.
+    <li> HaruFont::getEncodingName — Kodlamanın adını alma.
+    <li> HaruFont::getFontName — Yazı tipinin adını alma.
+    <li> HaruFont::getTextWidth — Yazının toplam enini, karakter sayısını alma, kelime sayısını alma ve boşlukların sayısını  alma
+    <li> HaruFont::getUnicodeWidth — Yazı tipinde karakterin enini al.
+    <li> HaruFont::getXHeight — Küçük harflerin alt satırından uzaklığı alma.
+    <li> HaruFont::measureText — Belirtilen ene girebilecek karakter sayısını hesaplama.
+    <li> HaruImage::getBitsPerComponent — Resmin her renk parçasının tanımlanmasında kullanılan bit sayısını alma.
+    <li> HaruImage::getColorSpace — Renk uzayının adını alma.
+    <li> HaruImage::getHeight — Resmin yüksekliğini alma.
+    <li> HaruImage::getSize — Resmin boyutunu alma.
+    <li> HaruImage::getWidth — Resmin enini alma.
+    <li> HaruImage::setColorMask — Resmin renk maskesini alma
+    <li> HaruImage::setMaskImage — Resmin maskesini ayarlama.
+    <li> HaruOutline::setDestination — Özet için varış noktasını ayarlama
+    <li> HaruOutline::setOpened — Özetin ilk durumunu ayarlama.
+    <li> HaruPage::arc — O anki yola bir yay ekleme
+    <li> HaruPage::beginText — Yazı nesnesine başlama ve o anki yazı yerini (0,0) alarak ayarla.
+    <li> HaruPage::circle — O anki yola bir çember ekle.
+    <li> HaruPage::closePath — O anki noktadan yoldaki başlangıç noktasına düz çizgi ekle
+    <li> HaruPage::concat — Sayfanın o anki çevirim matriksini ve belirtilen matriksi birleştirme
+    <li> HaruPage::createDestination — Yeni HaruDestination kopyası yaratma.
+    <li> HaruPage::createLinkAnnotation — Yeni HaruAnnotation kopyası yaratma
+    <li> HaruPage::createTextAnnotation — Yeni  HaruAnnotation kopyası yaratma
+    <li> HaruPage::createURLAnnotation — Yeni HaruAnnotation kopyasını yaratma ve döndürme
+    <li> HaruPage::curveTo2 — O anki yola Bezier eğrisi ekleme
+    <li> HaruPage::curveTo3 — O anki yola Bezier eğrisi ekleme
+    <li> HaruPage::curveTo — O anki yola Bezier eğrisi ekleme
+    <li> HaruPage::drawImage — Sayfadaki resmi göster.
+    <li> HaruPage::ellipse — O anki yola elips ekle
+    <li> HaruPage::endPath — İçini doldurmadan ve boyama yapmadan o anki yol nesnesini bitirme
+    <li> HaruPage::endText — O anki yazı  nesnesini bitirme
+    <li> HaruPage::eofill — O anki yolu çift-tek kuralıyla doldurma
+    <li> HaruPage::eoFillStroke — O anki yolu çift-tek kuralıyla doldur ve yolu boya
+    <li> HaruPage::fill — O anki yolu sıfırlanmayan rüzgar sayısı kuralıyla doldur.
+    <li> HaruPage::fillStroke — O anki yolu sıfırlanmayan rüzgar sayısı kuralıyla doldur ve boya.
+    <li> HaruPage::getCharSpace — Karakter boşluğunun o anki değerini alma
+    <li> HaruPage::getCMYKFill — O anki doldurma regini alma
+    <li> HaruPage::getCMYKStroke — O anki çizgi/vuruş rengini alma
+    <li> HaruPage::getCurrentFont — O an kullanılan yazı tipini alma
+    <li> HaruPage::getCurrentFontSize — O anki yazı boyutunu alma
+    <li> HaruPage::getCurrentPos — Yolu boyamak için o anki yeri alma
+    <li> HaruPage::getCurrentTextPos — Yazı yazmak için o anki yeri alma
+    <li> HaruPage::getDash — O anki çizgili deseni alma
+    <li> HaruPage::getFillingColorSpace — O anki doldurma rengleri uzayını alma
+    <li> HaruPage::getFlatness — Sayfanın düzgünlüğünü alma
+    <li> HaruPage::getGMode — O anki grafik konumunu alma
+    <li> HaruPage::getGrayFill — O anki doldurma rengini alma
+    <li> HaruPage::getGrayStroke — O anki çizgi/vuruş rengini alma
+    <li> HaruPage::getHeight — Sayfanın yüksekliğini alma
+    <li> HaruPage::getHorizontalScaling — O anki yatay ölçünün değerini alma
+    <li> HaruPage::getLineCap — O anki çizginin stil özelliğini alma
+    <li> HaruPage::getLineJoin — O anki çizginin birleştirme stilini alma
+    <li> HaruPage::getLineWidth — O anki çizgi enini alma
+    <li> HaruPage::getMiterLimit — Açı açıklığı sınırını al
+    <li> HaruPage::getRGBFill — O anki doldurma rengini alma
+    <li> HaruPage::getRGBStroke — O anki çizgi/vuruş rengini alma
+    <li> HaruPage::getStrokingColorSpace — O anki çizgi/vuruş renk uzayını alma
+    <li> HaruPage::getTextLeading — O anki çizgi aralığının değerini alma
+    <li> HaruPage::getTextMatrix — O anki sayfanın yazı çevirme matriksini alma
+    <li> HaruPage::getTextRenderingMode — O anki yazı döndürme konumunu alma
+    <li> HaruPage::getTextRise — O anki yazı yükseltisinin değerini al
+    <li> HaruPage::getTextWidth — O anki yazı tipini, karakter aralığını ve kelime aralığını kullanarak yazının enini al.
+    <li> HaruPage::getTransMatrix — Sayfanın o anki çevirim matriksini al
+    <li> HaruPage::getWidth — Sayfanın enini al
+    <li> HaruPage::getWordSpace — O anki kelime aralığı değerini al
+    <li> HaruPage::lineTo — O anki noktadan belirtilen noktaya çizgi çiz
+    <li> HaruPage::measureText — Belirtilen en içine girebilecek karakter sayısını hesapla
+    <li> HaruPage::moveTextPos — Belirtilen uzaklığa yazı yerleşimini taşı
+    <li> HaruPage::moveTo — Yeni çizme yolunun başlangıç noktasını ayarla
+    <li> HaruPage::moveToNextLine — Bir sonraki satırın başına yazı yerini ayarla
+    <li> HaruPage::rectangle — O anki yolu dikdürtgen akle
+    <li> HaruPage::setCharSpace — Sayfa için karakter boşluğu ayarla
+    <li> HaruPage::setCMYKFill — Sayfa için dordurma rengi ayarla
+    <li> HaruPage::setCMYKStroke — Sayfa için çizgi/vuruş rengi ayarla
+    <li> HaruPage::setDash — Sayfa için çizgi deseni ayarla
+    <li> HaruPage::setFlatness — Sayfa için düzgünlüğü ayarla
+    <li> HaruPage::setFontAndSize — Sayfa için yazı tipi ve yazı boyutu ayarla
+    <li> HaruPage::setGrayFill — Sayfa için doldurma rengi ayarla
+    <li> HaruPage::setGrayStroke — Sayfa için çizgi/vuruş rengi ayarla
+    <li> HaruPage::setHeight — Sayfanın yüksekliğini ayarla
+    <li> HaruPage::setHorizontalScaling — Sayfanın yatay ölçüsünü ayarla
+    <li> HaruPage::setLineCap — Çizgilerin sonunda kullanılacak şekli ayarla
+    <li> HaruPage::setLineJoin — Sayfa için çizgi birleştirme stilini ayarla
+    <li> HaruPage::setLineWidth — Sayfa için çizgi enini ayarla
+    <li> HaruPage::setMiterLimit — Sayfanın açı açıklığı limitinin değerini ayarla
+    <li> HaruPage::setRGBFill — Sayfanın rengini ayarla
+    <li> HaruPage::setRGBStroke — sayfanın çizgi/vuruş rengini ayarla
+    <li> HaruPage::setRotate — Sayfanın dönme açısını ayarla
+    <li> HaruPage::setSize — Sayfanın boyutunu ve yönünü ayarla
+    <li> HaruPage::setSlideShow — Set transition style for the page
+    <li> HaruPage::setTextLeading — Sayfanın yazı aralığını (satır aralığını) ayarla
+    <li> HaruPage::setTextMatrix — Sayfanın o anki yazı çevirme matriksini ayarla
+    <li> HaruPage::setTextRenderingMode — Sayfanın yazı döndürme konumunu ayarla
+    <li> HaruPage::setTextRise — Yazı yükseltisinin o anki değerini ayarla
+    <li> HaruPage::setWidth — Sayfanın enini ayarla
+    <li> HaruPage::setWordSpace — Sayfanın kelime açıklığını ayarla
+    <li> HaruPage::showText — Sayfanın o anki yerine yazı yaz
+    <li> HaruPage::showTextNextLine — O anki yerleştiriciyi bir sonraki satırın başına ayarla ve yazıyı yaz
+    <li> HaruPage::stroke — O ank yolu boya
+    <li> HaruPage::textOut — Yazıyı belirtilen yerden yaz
+    <li> HaruPage::textRect — Belirtilen bölgenin içine yazıyı yaz
+</ul>>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

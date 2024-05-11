@@ -1,0 +1,84 @@
+<html>
+<body>
+<div id="sag"><span class="yazi">3 Aralık 2007</span></div>
+<h2>Nesnel Tabanlı Programlama</h2>
+<div class="yazi">
+<h3>Nesneler</h3>
+<p class="yazi">
+Bir nesne "şeydir". Örneğin sayı bir nesnedir. Bir dizi bir nesnedir. Tarayıcınız bir nesnedir. Belgenizdeki bir form da nesnedir. Daha binlerce örnek tanımlanabilir.
+</p>
+<p class="yazi">
+Nesnelerin içinde başka nesneler de olabilir. Örneğin belgenizin içinde form olabilir. Bu form belgenin çocuk nesnesidir. Bu durumda belge de formun üst nesnesi olur. İçteki nesneye ulaşmak için üst (dış) nesneden geçmek gerekir (örneğin document.myForm gibi).
+</p>
+<p class="yazi">
+Bir dizinin hücreleri içinde sayılar vardır. Daha önce tartışıldığı gibi dizi bir nesnedir. Aynı biçimde içindeki hücreler de. Dizinin içindeki sayılar da nesne olur. Hücrelere doğrudan erişilemez ama içeriklerine erişilebilir (myArray['hucre_adi' ya da sayısı] gibi).
+</p>
+
+<h3>Sınıflar (Classes) ya da tipler (types)</h3>
+<p class="yazi">
+Bir sınıf, bir biçimiyle aynı olan nesneler topluluğudur. Örneğin bir sayı ve bir yazı bir değişken olarak saklanabilir (Cebirdeki değişkenlerin kullanımı gibi). Bu durumda o sayı ve yazı parçalarına değişkenin sınıfı denebilir.
+</p>
+<p class="yazi">
+Sayılar iki alt gruba ayrılır. Tamsayılar ve gerçek sayılar (kayan noktalı sayılar). Tam sayılar 1,2,3,4,0 -1 gibidir. Gerçek sayılarda ondalık nokta (ondalık virgül) vardır. 1.1, -5.7 gibi sayılar gerçek sayılardır (real numbers). Bu tanımlara göre 3 değişken sınıfının sayı (alt)sınıfının, tamsayı (alt)sınıfındandır.
+</p>
+<p class="yazi">
+Aslında, bir değişken "object" türüdür. "object" sınıfının tüm bileşenleri açık iki yöntemi vardır: toString() ve valueOf(). O halde 3, "object" sınıfının bileşeni, (alt)sınıf değişkeni, (alt)sınıf sayısı, (alt)sınıf tamsayısı ve "object" sınıfından kalıt olan toString() ile valueOf() yöntemleri ile sağlanır.
+</p>
+<p class="yazi">
+Sınıflar javascript ortamında o kadar önemli değildir. Sınıflar kendi nesneleriniz için sınıf tanımlamak istediğinizde tanımlanır. Ama sizin kendi alt-sınıflarınızı yaratmanız çok sık kullanılmaz.
+</p>
+
+<h3>Birikim</h3>
+<p class="yazi">
+Her belgenin içinde bulunan bir çok dizi vardır. Bazı kullanım ortamlarında her belgede bir çok dizi vardır. Bunlardan en açık olanı resim birikimidir. Bir belgedeki resimlere erişmek için document.images['resim_adi'] kullanılır. Bu özel diziye "birikim" denir.
+</p>
+
+<h3>Özellikler</h3>
+<p class="yazi">
+Bir resmi ele alındığında onu HTML'de tanımlamak aşağıdaki gibi olur:
+</p>
+<pre>
+&lt;img src="frog.gif" name="myImage" height="10" width="10" alt="A frog"&gt;
+</pre>
+<p class="yazi">
+Resmin özellikleri (nitelikleri) "src, name, height, width, alt" olur. Eğer stil sayfaları kullanılmıyorsa, biraz daha nitelik eklemek gerekir (örneğin artalan rengi gibi). Tüm özellikler "object" türüdür. Bu durumda "src" değerine erişmek için:
+</p>
+<pre>
+   document.images['myImage'].src
+</pre>
+<p class="yazi">
+kullanılır.
+</p>
+
+<h3>Yöntemler (Methods)</h3>
+<p class="yazi">
+Her zaman bir nesneye bağlı işlemler vardır. Örneğin bir form ya gönderilir ya da silinir. İşlemlere "yöntem" denir. Nesnel olmayan programlarda bir formu göndermek için:
+</p>
+<pre>
+   submit('form_adi')
+</pre>
+yazılır.
+<p class="yazi">
+Bu basit bir işlevdir. Javascript gibi olan nesnel tabanlı programlarda "document.nameOfForm.submit()" biçiminde kullanılır.
+</p>
+<p class="yazi">
+Bunun bir yöntem olması ve yalnız işlev olmaması, her form için ayrı bir "submit" kullanılıyor olmasındandır. Kullanıcı kendi nesnesini yaratmak zorunda kalmazsa, yöntemleri yazması gerekmez. Tarayıcı bunu sizin için yapar.
+</p>
+<p class="yazi">
+Şöyle düşünülebilir:
+</p>
+<ul>
+    <li> Nesnel olmayan yöntemlerle bir işleve, formu göndermesi söylenebilir.</li>
+    <li> Nesnel yöntemlerle forma, kendisini göndermesi söylenir.</li>
+</ul>
+<p class="yazi">
+Eğer isternirse, aynı nesne üzerindeki birkaç yöntemi çalıştırabilirsiniz. Örneğin:
+</p>
+<pre>
+referenceToTheObject.method1().method2().method3().method1again()
+</pre>
+Bu durumda method1 "object" sınıfını döndürür, onun yöntemi de "method2" dir vb...
+</div>
+<br />
+</body>
+</html>

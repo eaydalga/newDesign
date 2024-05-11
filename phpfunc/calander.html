@@ -1,0 +1,123 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Takvim (Calander) İşlevleri</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">18 Şubat 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>Takvim (Calander) İşlevleri</h2>
+<h3>Giriş</h3>
+
+Takvim uzantısı bir sıra işlevi takvimler arasında çevirim için sunar.
+Ortalama ya da standart kavramı julian gün sayısına bağlıdır. Julian gün
+sayısı M.Ö 4713 yılının 1 Ocak tarihinden başlar. Takvimler arası çevirimden
+önce tarih Julian gün sayısına çevrilmeli. Daha sonra istenilen takvime
+çevrilir. Julian gün sayısı Julian takviminden çok farklıdır. Daha çok bilgi
+için http://www.fourmilab.ch/documents/calendar/ adresine bakın.
+
+<h3>Kurulum</h3>
+
+Bu işlevlerin çalışması için PHP --with-clander ile derlenmelidir.
+<br /><br />
+PHP windows sürümünde bu uzantı hazırdır. Ayrıca uzantı yüklemek gerekmez.
+
+<h3>Önceden Tanımlı Değişmezler</h3>
+
+Aşağıdaki değişmezler bu uzantıyla tanımlanır. Kullanımı ya bu uzantının PHP
+ile derlenmesi ya da modul olarak çalışma zamanında yüklenmesi gerekir.
+<dl>
+<dt>CAL_GREGORIAN (integer, tamsayı)</dt>
+<dt>CAL_JULIAN (integer, tamsayı)</dt>
+<dt>CAL_JEWISH (integer, tamsayı)</dt>
+<dt>CAL_FRENCH (integer, tamsayı)</dt>
+<dt>CAL_NUM_CALS (integer, tamsayı)</dt>
+<dt>CAL_DOW_DAYNO (integer, tamsayı)</dt>
+<dt>CAL_DOW_SHORT (integer, tamsayı)</dt>
+<dt>CAL_DOW_LONG (integer, tamsayı)</dt>
+<dt>CAL_MONTH_GREGORIAN_SHORT (integer, tamsayı)</dt>
+<dt>CAL_MONTH_GREGORIAN_LONG (integer, tamsayı)</dt>
+<dt>CAL_MONTH_JULIAN_SHORT (integer, tamsayı)</dt>
+<dt>CAL_MONTH_JULIAN_LONG (integer, tamsayı)</dt>
+<dt>CAL_MONTH_JEWISH (integer, tamsayı)</dt>
+<dt>CAL_MONTH_FRENCH (integer, tamsayı)</dt>
+</dl>
+Aşağıdakiler PHP 4.3.0 sürümden sonra sunulmuştur.
+<dl>
+<dt>CAL_EASTER_DEFAULT (integer, tamsayı)</dt>
+<dt>CAL_EASTER_ROMAN (integer, tamsayı)</dt>
+<dt>CAL_EASTER_ALWAYS_GREGORIAN (integer, tamsayı)</dt>
+<dt>CAL_EASTER_ALWAYS_JULIAN (integer, tamsayı)</dt>
+</dl>
+
+Aşağıdakiler PHP 5.0.0 sürümden sonra sunulmuştur.
+<dl>
+<dt>CAL_JEWISH_ADD_ALAFIM_GERESH (integer, tamsayı)</dt>
+<dt>CAL_JEWISH_ADD_ALAFIM (integer, tamsayı)</dt>
+<dt>CAL_JEWISH_ADD_GERESHAYIM (integer, tamsayı)</dt>
+</dl>
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> cal_days_in_month — Verilen yıl ve takvimin ayındaki günlerin sayısını döndürür.
+    <li> cal_from_jd — Julian gün sayısından desteklenen takvime çevirme yapar.
+    <li> cal_info — Bir takvime ilişkin bilgiyi döndürür.
+    <li> cal_to_jd — Desteklenen takvimden Julian gün sayısına geçişi sağlar.
+    <li> easter_date — Verilen bir yılda paskalya yortusunun gece yarısını UNIX zaman damgası olarak verir.
+    <li> easter_days — Verilen bir yılda 21 Mart'tan sonra içine Paskalya yortusunun girdiği günleri verir.
+    <li> FrenchToJD — Verilen tarihi Fransız Cumhuriyetçiler takviminden Julian günlerine çevirir.
+    <li> GregorianToJD — Gregorian tarihi Julian günlerine çevirir.
+    <li> JDDayOfWeek — Haftanın gününü döndürür.
+    <li> JDMonthName — Bir ayın adını döndürür.
+    <li> JDToFrench — Julian gün sayısından Fransız Cumhuriyetçiler takvimine çevirme.
+    <li> JDToGregorian — Julian gün sayısından Gregorian tarihe çevirir.
+    <li> jdtojewish — Julian gün sayısından Yahudi tarihine çevirir
+    <li> JDToJulian — Julian gün sayısını Julian Takvim tarihine çevirir.
+    <li> jdtounix — Julian günü UNIX zaman damgasına çevirir.
+    <li> JewishToJD — Yahudi takvimindeki günleri Julian gün sayısına çevirir.
+    <li> JulianToJD — Julian Takvim tarihinden Julian gün sayısına çevirme.
+    <li> unixtojd — UNIX zaman damgasını Julian gününe çevirme.
+</ul>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

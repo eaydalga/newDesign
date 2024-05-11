@@ -1,0 +1,841 @@
+<html>
+<body>
+<div id="sag"><span class="yazi">26 Kasım 2007</span></div>
+
+<h2>W3C DOM</h2>
+
+<div class="yazi">
+DOM (Document Object Model) ekrandaki öğelere erişim yöntemidir. "document.layers", "document.all" ve "document.getElementById" tanımları değişik tarayıcılar için öğe erişim yöntemleridir. Değişik kullanım biçimlerini standart altına almak için W3C, var olan tarayıcılardaki özellikleri kullanmıştır. Bu özellikler IE 5 ve NS 6'da vardır (NS 6'daki eksikler aynı sürüm içinde tamamlanmıştır)..
+
+<p class="yazi">Consortium'un hedefi tabi ki standart kurulmasıdır. Burada katmanlara erişim ve değişimleri incelenir. W3C DOM, sayfadaki hemen herşeyle ilgilenir. Bu nedenle sayfadaki herşeyi değiştirebilirsiniz ama önerilen hiçbir zaman "document.write" kullanmamanızdır.</p>
+
+<p class="yazi">Teknik yapı hakkında daha çok bilgi edinmek isterseniz
+  <a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-core.html">Document Object Model Core</a> sayfalarına bakabilirsiniz.
+HTML komutları ve nitelikleri ve bazı HTML komutları için değişik kullanım biçimleri burada sözü edilen sayfalarda anlatılmıştır.
+<a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-html.html">Document Object Model HTML</a>.</p>
+
+<h3>Sıradüzensel Yapı</h3>
+<p class="yazi">DOM için anahtar sıradüzensel yapı ve aile ağacı görünümüdür (&quot;family tree-like&quot; structure). 
+  &quot;document&quot; gerçek sayfayı ve içeriğini tanımlar.
+Ağacın en tepesi burasıdır ve herşey onun altında yer alır. Örneğin
+  &lt;HTML&gt; biçimi document altındadır ve 
+  &lt;HEAD&gt; biçimi &lt;HTML&gt; biçimi altındadır ve o da daha önce belirtildiği gibi 
+   document; altındadır vb....</p>
+
+<p class="yazi">DOM anlamını ve ne olduğu konusunu öğrenmek için burada aile ağacı anlatılır.
+Aile ağacının en tepesinde "document" vardır. DOM ağacının dallarına 
+&quot;nodes.&quot; (düğüm) denir.
+Aslında bir sayfadaki her öğeye düğüm denir. 
+&lt;li&gt;, 
+  &lt;p&gt, ve &lt;td&gt;
+biçimleri düğüm örneklerindendir.
+Aslında
+align=&quot;center&quot;, (bir ölçüye kadar) düğümdür.
+Niteliğin değeri bile
+(&quot;center&quot; gibi) düğümdür.
+
+<h3>Aile Ağacı</h3>
+<p class="yazi">Aşağıda aile ağacı için örnek verilmiştir. Burada bir baba kullanılır çünkü HTML dökümanında da yalnız bir baba vardır.
+</p>
+<p align="center"> 
+<div align="center">
+  <table border=0 cellpadding=0 cellspacing=0>
+    <tr> 
+      <td height=36></td>
+      <td colspan=4></td>
+      <td width=110 height=36 colspan=9 rowspan=1 valign=top align=left> 
+        <table border=0 cellpadding=0 cellspacing=0>
+          <tr> 
+            <td width=3 height=3></td>
+
+            <td width=102></td>
+            <td width=3></td>
+          </tr>
+          <tr> 
+            <td height=28></td>
+            <td width=102 height=28 valign=top align=left> 
+              <p align=center> 
+                <center>
+                  <font face="Verdana" color=#0000ff size=5><B>İsmail<br />(Baba)
+                  </B></font> 
+                </center>
+
+            </td>
+            <td></td>
+          </tr>
+          <tr> 
+            <td height=3></td>
+            <td colspan=2></td>
+          </tr>
+        </table>
+      </td>
+
+      <td colspan=4></td>
+    </tr>
+    <tr> 
+      <td height=18></td>
+      <td colspan=8></td>
+      <td width=1 height=36 colspan=1 rowspan=3 valign=top align=left> <img width=1 height=36 border=0 src="img0.gif"></td>
+      <td colspan=8></td>
+    </tr>
+    <tr> 
+      <td height=6></td>
+
+      <td width=140 height=84 colspan=1 rowspan=7 valign=top align=left> 
+        <table border=0 cellpadding=0 cellspacing=0>
+          <tr> 
+            <td width=3 height=3></td>
+            <td width=132></td>
+            <td width=3></td>
+          </tr>
+          <tr> 
+            <td height=76></td>
+            <td width=132 height=76 valign=top align=left> 
+              <p align=center> 
+                <center>
+
+                  <font face="Verdana" color=#0c884c size=5><B>Mustafa<br />
+                  </B></font> <font face="Verdana" color=#0c884c size=5><B>(Kardeş)</b></font>
+</center>
+            </td>
+            <td></td>
+          </tr>
+          <tr> 
+            <td height=3></td>
+
+            <td colspan=2></td>
+          </tr>
+        </table>
+      </td>
+      <td colspan=7></td>
+      <td colspan=8></td>
+    </tr>
+    <tr> 
+      <td height=12></td>
+
+      <td colspan=7></td>
+      <td colspan=6></td>
+      <td width=144 height=78 colspan=2 rowspan=6 valign=top align=left> 
+        <table border=0 cellpadding=0 cellspacing=0>
+          <tr> 
+            <td width=3 height=3></td>
+            <td width=136></td>
+            <td width=3></td>
+          </tr>
+          <tr> 
+            <td height=70></td>
+
+            <td width=136 height=70 valign=top align=left> 
+              <p align=center> 
+                <center>
+                  <font face="Verdana" color=#0c884c size=5><B>Meryem<br />
+                  (Kardeş)</B></font> 
+                </center>
+            </td>
+            <td></td>
+          </tr>
+
+          <tr> 
+            <td height=3></td>
+            <td colspan=2></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr> 
+      <td height=17></td>
+      <td colspan=3></td>
+
+      <td width=110 height=36 colspan=9 rowspan=3 valign=top align=left> 
+        <table border=0 cellpadding=0 cellspacing=0>
+          <tr> 
+            <td width=3 height=3></td>
+            <td width=102></td>
+            <td width=3></td>
+          </tr>
+          <tr> 
+            <td height=28></td>
+            <td width=102 height=28 valign=top align=left> 
+              <p align=center> 
+                <center>
+
+                  <font face="Verdana" color=#ff6600 size=5><B>Sen</B></font> 
+                </center>
+            </td>
+            <td></td>
+          </tr>
+          <tr> 
+            <td height=3></td>
+            <td colspan=2></td>
+          </tr>
+
+        </table>
+      </td>
+      <td colspan=2></td>
+    </tr>
+    <tr> 
+      <td height=1></td>
+      <td></td>
+      <td width=54 height=1 colspan=1 rowspan=1 valign=top align=left> <img width=54 height=1 border=0 src="img/img1.gif"></td>
+      <td></td>
+
+      <td></td>
+      <td width=36 height=1 colspan=1 rowspan=1 valign=top align=left> <img width=36 height=1 border=0 src="img/img2.gif"></td>
+    </tr>
+    <tr> 
+      <td height=18></td>
+      <td colspan=3></td>
+      <td colspan=2></td>
+    </tr>
+    <tr> 
+      <td height=5></td>
+
+      <td colspan=14></td>
+    </tr>
+    <tr> 
+      <td height=25></td>
+      <td colspan=4></td>
+      <td width=25 height=25 colspan=1 rowspan=1 valign=top align=left> <img width=25 height=25 border=0 src="img/img3.gif"></td>
+      <td colspan=5></td>
+      <td width=25 height=25 colspan=1 rowspan=1 valign=top align=left> <img width=25 height=25 border=0 src="img/img4.gif"></td>
+
+      <td colspan=3></td>
+    </tr>
+    <tr> 
+      <td height=6></td>
+      <td colspan=17></td>
+    </tr>
+    <tr> 
+      <td height=36></td>
+      <td colspan=2></td>
+      <td width=110 height=36 colspan=5 rowspan=1 valign=top align=left> 
+        <table border=0 cellpadding=0 cellspacing=0>
+          <tr> 
+            <td width=3 height=3></td>
+            <td width=102></td>
+            <td width=3></td>
+          </tr>
+          <tr> 
+            <td height=28></td>
+            <td width=102 height=28 valign=top align=left> 
+              <p align=center> 
+                <center>
+                  <font face="Verdana" color=#ffcc00 size=5><B>Aliye<br />(Çocuk)</B></font>
+</center>
+            </td>
+            <td></td>
+          </tr>
+          <tr> 
+            <td height=3></td>
+            <td colspan=2></td>
+          </tr>
+        </table>
+      </td>
+      <td colspan=3></td>
+      <td width=110 height=36 colspan=6 rowspan=1 valign=top align=left> 
+        <table border=0 cellpadding=0 cellspacing=0>
+          <tr> 
+            <td width=3 height=3></td>
+            <td width=102></td>
+            <td width=3></td>
+          </tr>
+          <tr> 
+            <td height=28></td>
+            <td width=102 height=28 valign=top align=left> 
+              <p align=center> 
+                <center>
+                  <font face="Verdana" color=#ffcc00 size=5><B>Yusuf<br />(Çocuk)</B></font>
+</center>
+            </td>
+            <td></td>
+          </tr>
+          <tr> 
+            <td height=3></td>
+
+            <td colspan=2></td>
+          </tr>
+        </table>
+      </td>
+      <td></td>
+    </tr>
+  </table>
+</div>
+<p align="left">
+Bir aile ağacı tanımlandığına göre teknik ayrıntıları bir tarafa bırakıp
+DOM ile ağacı gezelim (Şu anda DOM denince W3C DOM önerilerinden söz edilir)
+Şu ana değin bildiğimize göre bir katmana kimliği bilinirse (id)
+document.getElementById() 
+ile erişilebilir.
+Bir kez bu bilgi elinizde olursa, diğer katmanlara da erişme olanağı vardır. Şimid bazı kodları inceleyelim ve bunları aile ağacı açısında değerlendirelim.</p>
+
+<p align="left"><font color="#9900CC">parentNode</font> baba düğümüne erişir. Örneğin:<br />
+  document.getElementById("myElement").parentNode</p>
+<p align="left"><font color="#9900CC">childNodes</font> çocukların düğüm listesini verir. Örneğin:<br />
+
+document.getElementById("myElement").childNodes<br />
+
+Burada düğüm dizisi oluşur. Bunlardan ilkine şöyle yaklaşılabilir:<br />
+
+document.getElementById("myElement").childNodes.item(0)<br />
+
+Burada childNodes.item(0) ile childNodes[0] aynı şeydir.</p> 
+
+</p>
+<p class="yazi">"firstChild" bizim ilk çocuğun düğümüne erişir. Örneğin:<br />
+  document.getElementById("myElement").firstChild<br /> 
+  document.getElementById("myElement").childNodes[0] ile aynı şeydir</p>
+<p class="yazi">"lastChild" bizim son çocuğun düğümüne erişir. Örneğin:<br />
+  document.getElementById("myElement").lastChild <br />
+  document.getElementById("myElement").childNodes.item(document.getElementById("myElement").childNodes.length) ile aynı şeydir.</p>
+</p>
+<p class="yazi">"previousSibling" bundan önceki kardeşin düğümüne erişimi gösterir. Örneğin:<br />
+  document.getElementById("myElement").previousSibling</p>
+<p class="yazi">"nextSlibling" bundan sonraki kardeşin düğümüne erişir. Örneğin:<br />
+  document.getElementById("myElement").nextSibling</p>
+
+<h3>Aile öğelerine erişim</h3>
+<p class="yazi">
+Öğrendiklerinizle yukarıdaki aile ağacını gezebilir ve aile öğelerine "Sen" öğesinden erişebildiğinizi gösterebilirsiniz. "Sen" öğesine:<br />
+  document.getElementById("Sen") ile erişebilirsiniz.</p>
+<p align="left"><dl><dt><font face="Verdana" color=#ff6600 size=5><B>Sen</B></font></dt><dd>document.getElementById("Sen")</dd></dl>
+<p align="left">
+<dl>
+  <dt><font face="Verdana" color=#0000ff size=5><b>İsmail</b></font><font face="Verdana" color=#ff6600 size=5></font></dt>
+  <dd>document.getElementById("Sen").parentNode</dd>
+</dl>
+<p align="left">
+<dl>
+  <dt><font face="Verdana" color=#0c884c size=5><b>Mustafa</b></font><font face="Verdana" color=#ff6600 size=5></font></dt>
+  <dd>document.getElementById("Sen").previousSibling</dd>
+</dl>
+<p align="left">
+<dl>
+  <dt><font face="Verdana" color=#0c884c size=5><b>Meryem</b></font><font face="Verdana" color=#ff6600 size=5></font></dt>
+  <dd>document.getElementById("Sen").nextSibling</dd>
+</dl>
+<p align="left">
+<dl> 
+  <dt><font face="Verdana" color=#ffcc00 size=5><b>Aliye</b></font><font face="Verdana" color=#ff6600 size=5></font></dt>
+  <dd>document.getElementById("Sen").childNodes.item(0)</dd>
+  <dd>document.getElementById("Sen").firstChild</dd>
+  <dt></dt>
+</dl>
+<p align="left">
+<dl> 
+  <dt><font face="Verdana" color=#ffcc00 size=5><b>Yusuf</b></font></dt>
+  <dd>document.getElementById("Sen").childNodes.item(1)</dd>
+  <dd>document.getElementById("Sen").lastChild</dd>
+</dl>
+</p>
+</div>
+<h3>Öğelere erişimde başka bir yöntem</h3>
+<div class="yazi">
+Bir katmana, onun adıyla (kimliğiyle - ID)
+document.getElementById(ID) kullanarak erişebiliriz.
+Öğenin düğümüne biçim adı (tagName) kullanarak
+document.getElementsByTagName(tagName) da erişebiliriz. Bu kullanımda dönen değer o biçim adının kullanıldığı öğelerden oluşan bir dizidir.<br />
+<br />
+Örnek: document.getElementsByTagName("TD").item(0)<br />
+<br />
+Bu örnekte ilk tablo hücresinin &lt;td&gt; biçimine erişildi. Bir belgedeki tüm biçimlere ulaşmak için :<br />
+<br />
+document.getElementsByTagName("*")<br />
+<br />
+kullanılır. Öyleyse &lt;body&gt; biçimine erişmek için:<br />
+<br />
+document.getElementsByTagName("BODY").item(0)<br />
+<br />
+<p class="yazi">
+Bu bilgileri kullanmadan önce iki önemli başlıkta toplanan bilgileri incelemekte yarar vardır.
+</p>
+<ol class="yazi">
+<li> HTML içinde gerçekçi olarak bir öğeye onun kimliği (id) dışında bir tanımla ulaşmanız olanaksızdır (XML de olabilir). Çünkü IE 5 ve NS 6 gereksiz yazı düğümlerini dizinlerin arasına ekler dururlar (NS 6 IE 5'den daha çok yapar).
+</li>
+<li> &lt;p&gt; öğeleri HTML 4.1 tanımlarına göre diziye alınmaz. Consortium tanımına göre "P öğesi paragraf başlangıcıdır ve blok öğeler içeremez (bir başka p bile)."
+</li>
+</ol>
+<p class="yazi">
+Burada söylenmek istenen bir öğeyi yakınındaki başka öğelerle tanımlamak pek gerçekçi olmaz. Ve son olarak bir &lt;p&gt; öğesi bir başkasının içinde olmamalıdır.
+</p>
+</div>
+<h3>Örneğe bakarak</h3>
+
+<div class="yazi">
+<p class="yazi">Her öğeye değişik açılardan bakan örnekten bu sayfa incelendiğinde:
+</p>
+<fieldset class="fyazi">
+<pre>
+  &lt;body&gt;
+    &lt;ol id=&quot;ol1&quot;&gt;
+        &lt;li id=&quot;li1&quot;&gt;
+            &lt;span id=&quot;span1&quot;&gt;
+                Buradaki Yazı 1
+            &lt;/span&gt;
+        &lt;/li&gt;
+        &lt;li id=&quot;li2&quot;&gt;
+            &lt;span id=&quot;span2&quot;&gt;
+                Buradaki Yazı 2
+            &lt;/span&gt;
+        &lt;/li&gt;
+        &lt;li id=&quot;li3&quot;&gt;
+            &lt;span id=&quot;span3&quot;&gt;
+                Buradaki Yazı 3
+            &lt;/span&gt;
+        &lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/body&gt;
+</pre>
+</fieldset>
+<p class="yazi">
+Buradaki ol1 biçimine sayıyla da erişebiliriz (unutmayın anlamsız düğümlerle sayıları değişebilir)</p>
+<ul>
+  <li>document.getElementById("ol1")</li>
+  <li>document.getElementsById("li1").parentNode</li>
+  <li>document.getElementsByTagName("ol").item(0)</li>
+  <li>document.getElementsByTagName("li").item(0).parentNode</li>
+  <li>document.getElementsByTagName("li").item(1).parentNode</li>
+  <li>document.getElementsByTagName("l1").item(2).parentNode</li>
+  <li>document.getElementsByTagName("span").item(2).parentNode.parentNode</li>
+  <li>document.getElementsByTagName("body").item(0).childNodes.item(0)</li>
+  <li>document.body.childNodes.item(0)</li>
+</ul>
+<p class="yazi">&lt;body&gt; biçimine çok erişeceğimizde yerine bir kısa tanım
+kullanabiliriz ( document.getElementsByTagName("BODY").item(0) kullanmak yerine) ya da ona bir kimlik tanımlayıp onu kullanabiliriz:</p>
+<p class="yazi"> Yukarıda kullanıldığı gibi "document.body."</p>
+<p class="yazi">l2'ye erişmek için:</p>
+<ul>
+  <li>document.getElementById("l2")</li>
+  <li>document.getElementById("l1").nextSibling</li>
+  <li>document.getElementById("l3").previousSibling</li>
+  <li>document.getElementsByTagName("li").item(1)</li>
+  <li>document.getElementsByTagName("span").item(1).parentNode</li>
+  <li>document.getElementsByTagName("span").item(2).parentNode.previousSibling</li>
+  <li>document.getELementsByTagName("ol").childNodes.item(1).parentNode.childNodes.item(1).parentNode.childNodes.item(1)</li>
+  <li>document.getElementsByTagName("body").item(0).firstChild.firstChild.nextSibling</li>
+  <li>document.body.childNodes.item(0).lastChild.previousSibling</li>
+</ul>
+
+<p class="yazi">İçeriğinde &quot;Buradaki Yazı 3.&quot; olan yazı düğümünü bulmaya çalışın</p>
+<p class="yazi">Onu önce span3 kimlik adına erişip daha sonra onun
+  <font color="#9900CC">firstChild</font> (ilk çocuk) değerinden bulabiliriz. Örneğin: </p>
+<pre>
+    document.getElementById("span3").firstChild
+</pre>
+</div>
+
+<h3>Düğüm özellikleri ve metodlar</h3>
+<div class="yazi">
+<p class="yazi">Yukarıdaki örneği ele alarak başlayalım.</p>
+
+<p class="yazi">"hasChildNodes()" mantıksal değer olan doğru yanlış değerlerini döndürür.<br />
+Örneğin:</p>
+<pre>
+   document.getElementById("span3").hasChildNodes()
+</pre>
+dersek doğru değer döndürür ama:<br />
+<pre>
+   document.getElementById("span3").firstChild.hasChildNodes()
+</pre>
+dersek yanlış değeri döndürür. Çünkü çocukları yoktur (yazı düğümünün hiçbir zaman çocukları olmaz).<br />
+<br />
+nodeName düğümün "adını" döndürür:<br />
+<pre>
+   document.getElementById("span3").nodeName
+</pre>
+bize "SPAN" döndürür.<br />
+<br />
+tagName öğenin biçim adını döndürür.<br />
+<pre>
+   document.getElementById("span3").tagName
+</pre>
+"SPAN" döndürür.<br />
+
+<p class="yazi">Dönen değer aynı olunca nodeName ve tagName arasındaki fark nedir diye sorabilirsiniz. Bir yazı düğümünün biçim adına erişmek isterseniz yooktur.Çünkü bir biçimi yoktur (biçim adı öğeler için geçerlidir) ama, yazı düğümüne düğüm adıyla erişmek isterseniz size "#text" dönecektir. Yani:</p>
+<pre>
+    document.getElementById("span3").firstChild.nodeName
+</pre>
+"#text" döndürür ama<br />
+<pre>
+    document.getElementById("span3").firstChild.tagName
+</pre>
+"undefined" döndürür.<br />
+<br />
+
+<p class="yazi">
+"nodeType" düğümün nasıl bir düğüm olduğunu söyler. Dönene değer 1, 2 ya da 3'dür.
+</p>
+<ol class="yazi">
+   <li>. Öğe ise 1 döner</li>
+   <li>. Nitelikse ise 2 döner</li>
+   <li>. Yazı ise 3 döner</li>
+</ol>
+<pre>
+   document.getElementById("span3").nodeType
+</pre>
+1 döndürür halbuki:<br />
+<pre>
+   document.getElementById("span3").firstChild.nodeType
+</pre>
+3 döndürür.<br />
+<p class="yazi">
+"nodeValue" düğümün değerini döndürür. Bunu düğüme erişmek ya da içeriğini değiştirmek için kullanabilirisiniz. Eğer düğüm yazı tipiyse, yazıyı döndürür. Eğer nitelik türü düğümse niteliği döndürür. Eğer öğe ise dönen değer null'dur.
+</p>
+<pre>
+   document.getElementById("span3").firstChild.nodeValue
+</pre>
+"Buradaki Yazı 3" döndürür<br />
+<pre>
+   document.getElementById("span3").nodeValue
+</pre>
+null değerini döndürür.
+</div>
+<h3>Nitelik değerlerini al, ata ve sil</h3>
+<div class="yazi">
+Daha önce söylendiği gibi bir sayfadaki her şey (nitelikler de dahil) düğümdür. Nitelikler uygunlandığı öğenin bir çocuğu olarak yorumlanamaz (zaten öyle de değildir). Burada niteliklere nasıl erişileceği, değiştirileceği ya da silineceği anlatılır. Aşağıdaki öğeyi ele alalım:<br />
+<pre>
+  &lt;iframe id="myIFrame" src="aDog.html" align="center"
+             width="400" height="200"&gt;&lt;/iframe&gt;
+</pre>
+Bu öğeye:<br />
+<pre>
+  document.getElementById("myIFrame")
+</pre>
+ile erişilebilir. Bu öğenin niteliklerine erişim nasıl olur?<br />
+<br />
+"getAttribute(attribute)" bir parametresi vardır. Erişilecek niteliğin adı verilir değeri döner. Örneğin:<br />
+<pre>
+   document.getElementById("myIFrame").getAttribute("width")
+</pre>
+Dönen değer "400"dür.<br />
+<br />
+"setAttribute(attribute, newValue)" iki parametresi vardır. Değeri değiştirilecek niteliğin adı ve değeri bu parametreleri oluşturur. Örneğin:<br />
+<pre>
+   document.getElementById("myIFrame").setAttribute("width","200")
+</pre>
+Bu komutla myIFrame adlı öğenin eni 200 olur. Tamsayı kullansanız bile mutlaka tırnak içinde kullanılmalıdır (tarayıcılar böyle kullanılmasa bile sayıları kabul ederler).
+&lt;iframe&gt; kaynak niteliğini değiştirmek için:<br />
+<pre>
+   document.getElementById("myIFrame").setAttribute("src","someNewPage.html")
+</pre>
+girebiliriz.<br />
+<br />
+"removeAttribute(attribute)" bir parametre alır. Silinecek niteliğin adı burada  belirtilir. Örneğin:<br />
+<pre>
+    document.getElementById("myIFrame").removeAttribute("width")
+</pre>
+Bu komut "en" niteliğini kaldırır ve tarayıcının enini iframe adılı öğeye atar.<br />
+<br />
+</div>
+<h2>Yeni Düğümler</h2>
+<div class="yazi">
+<p class="yazi">Var olan düğüm işlemlerinden başka yeni düğüm ekleme olanağı da vardır.</p>
+
+<p class="yazi">"document.createElement(tagName)" ibelirtilen biçim adıyla yeni bir öğe düğümü yaratır. Bir parametresi olur. Yaratılacak biçim adıdır. Örneğin:</p>
+<pre>
+    newSPAN = document.createElement("SPAN");
+</pre>
+<p class="yazi">
+Unutmayın ki "createElement()" yalnız döküman içinden kullanılabilir ve yeni öğenin değeri bir değişkene atanmalıdır.
+</p>
+<p class="yazi">
+Daha sonra bu değeri dökümana nasıl ekleyeceğimizi göreceğiz.
+</p>
+<p class="yazi">
+"document.createTextNode(text)" yeni bir yazı düğümü yaratmak için kullanılır. Düğüm için bir parametre kullanır. Örnek:
+</p>
+<pre>
+    newText = document.createTextNode("Buradaki yeni bir yazıdır");
+</pre>
+<p class="yazi">
+Burada HTML kullanılmaz. Yalnız yazıya yer verilir (Diğer bir deyimle HTML biçimleri de yazı gibi değerlendirilir).
+</p>
+<p class="yazi">
+Şimdi yaratılan yazı düğümü ve yeni öğeyi kullanalım.
+</p>
+<h3>Düğümleri dökümanlara eklemek</h3>
+<p class="yazi">
+"appendChild(newNode)" yeni bir düğümü bulunduğu yerdeki çocukların listesinin sonuna ekler. 
+ inserts the new node to the end of the list of children of the node where this is run from.
+Aşağıdaki örnekte yer alan öğelerin düğümlerinden sonra eklenecek yeni düğümle ilgili bilgi vardır.
+</p>
+<pre>
+  &lt;body&gt;
+     &lt;div align="center" id="div1"&gt;
+         &lt;span id="span1"&gt;Buradaki SPAN1 yazısıdır&lt;/span&gt;
+         Buradaki yazı span biçim içinde değildir.
+     &lt;/div&gt;
+  &lt;/body&gt;
+
+     newSPAN.appendChild(newText);
+     document.getElementById("div1").appendChild(newSPAN);
+     alert(document.getElementById("div1").lastChild.nodeName);
+</pre>
+<p class="yazi">
+Burada yaptığımız, yazı düğümünü newSPAN düğümünün son çocuğu olarak eklemektir. Sonra newSPAN düğümünü div1 düğümünün son çocuğu olarak ekledik. Yeni düğümü eklemeden önce "#text" alert mesajımız varken şimdi "SPAN" üretir. Yarattığımız yazı düğümünü &lt;span&gt; biçiminin sonuna eklemiş olduk. Eğer "div1" içine hem span hem de yazı düğümünü eklemek isteseydik:
+</p>
+<pre>
+    document.getElementById("div1").appendChild(newSPAN);
+    document.getElementById("div1").lastChild.appendChild(newText);
+    alert(document.getElementById("div1").lastChild.nodeName);
+</pre>
+<p class="yazi">
+"insertBefore(newNode, beforeNode)" aynı "appendChild()" gibidir yalnız düğümü son çocuk olarak eklemek yerine belirttiğiniz diğer düğümün önüne eklenmesi için kullanılır. Bu nedenle iki parametresi vardır.
+</p>
+<ol class="yazi">
+   <li>. Eklenecek yeni düğüm</li>
+   <li>. Önüne ekleyeceğimiz düğüm</li>
+</ol>
+<p class="yazi">
+Yani yukarıdaki örneğimizde yeni öğemiz SPAN2'yi SPAN!'in hemen önüne eklemek istiyor olsak:
+</p>
+<pre>
+  SPAN2 = document.createElement("SPAN");
+</pre>
+<p class="yazi">
+Şimdi "SPAN1" öğesine erişmemiz gerekir. Çünkü onun önüne yeni bir düğüm eklememiz söz konusudur.
+</p>
+<pre>
+   SPAN1 = document.getElementById("div1").lastChild
+</pre>
+Buradan insertBefore() metodunu kullanarak doğru yere ekleme yapabiliriz:
+<pre>
+   document.getElementById("div1").insertBefore(SPAN2,SPAN1);
+ya da
+   document.getElementById("div1").insertBefore(SPAN2,
+           document.getElementById("div1").lastChild);
+ya da
+   document.getElementById("div1").insertBefore(document.createElement("SPAN"),
+      document.getElementById("div1").lastChild);
+</pre>
+<p class="yazi">
+Burada insertBefore() metodu baba düğümden çalıştırıldı. Çünkü bu düğümün çocuklarının listesi değişmektedir.
+</p>
+<h3>Klonlama</h3>
+
+"cloneChild(node)" işlevi bir düğümü kopyalar ve değer olarak o düğümü döndürür.
+Bir parametresi vardır. O da kopyalanacak düğümün derin (deep) olup olmadığını belirtir. Örnek:
+
+<pre>
+   &lt;body&gt;
+       &lt;div id="div1"&gt;
+           &lt;span id="span1"&gt;This is the text of SPAN1&lt;/span&gt;
+           &lt;span id="span2"&gt;This is the text of SPAN2&lt;/span&gt;
+           This text is not in a span tag.
+       &lt;/div&gt;
+   &lt;/body&gt;
+
+   div2=document.getElementById("div1").cloneNode(false)
+</pre>
+<p class="yazi">
+Burada yalnız &lt;div id="div1"&gt;&lt;/div&gt; kopyalanır ve başka birşey kopyalamaz. Düğümün nitelikleri de kopyalanmaktadır. Şimdi bu düğüme yeni nitelikler ekleyebilir ya da düğümü istediğimiz yere taşıtabiliriz.
+</p>
+<pre>
+    div2=document.getElementById("div1").cloneNode(true)
+</pre>
+Kullanmış olsaydık "div1" altındaki çocuk düğümleri de kopyalardı:
+
+<pre>
+  &lt;div id="div1"&gt;
+      &lt;span id="span1"&gt;This is the text of SPAN1&lt;/span&gt;
+      &lt;span id="span2"&gt;This is the text of SPAN2&lt;/span&gt;
+      This text is not in a span tag.
+  &lt;/div&gt;
+</pre>
+
+"derin" (deep) parametresini tanımlamazsak varsayılan değer "false" olur.
+
+<h3>Kaybolma</h3>
+
+"removeChild(node)" parametresinde geçirilmiş olan düğümü siler. Unutmayın bu metod da baba düğümde çalıştırılmalıdır. Örnek:
+
+<pre>
+   &lt;div id="div1"&gt;
+       &lt;span id="span1"&gt;This is the text of SPAN1&lt;/span&gt;
+       &lt;span id="span2"&gt;This is the text of SPAN2&lt;/span&gt;
+       This text is not in a span tag.
+   &lt;/div&gt;
+</pre>
+Eğer aşağıdaki satırı çalıştırırsak:
+<pre>
+   document.getElementById("div1").removeChild(document.getElementById("span2"))
+</pre>
+"span2" düğümünü ve çocuklarını siler ve dökümanımızı:
+<pre>
+   &lt;div id="div1"&gt;
+       &lt;span id="span1"&gt;This is the text of SPAN1&lt;/span&gt;
+       This text is not in a span tag.
+   &lt;/div&gt;
+</pre>
+görünümünde bırakırız.
+<p class="yazi">
+"replaceChild(newChildNode, oldChildNode)" eski çocuğun dügümünü yeni çocuk düğümüyle değiştirir. Örnek:
+</p>
+<pre>
+    &lt;div id="div1"&gt;
+        &lt;span id="span1"&gt;This is the text of SPAN1&lt;/span&gt;
+        This text is not in a span tag.
+    &lt;/div&gt;
+</pre>
+
+Şimdi aşağıdaki komutları çalıştırırsak:
+
+<pre>
+    newSPAN = document.createElement("SPAN");
+    newSPAN.setAttribute("id","span2");
+    newSPAN.setAttribute("align","center");
+    newText = document.createTextNode("This is the text of SPAN2");
+    newSPAN.appendChild(newText);
+    div1 = document.getElementById("div1");
+    div1.replaceChild(newSPAN,div1.firstChild);
+</pre>
+
+değiştirdiğimiz döküman şöyle gözükür:
+<pre>
+    &lt;div id="div1"&gt;
+        &lt;span id="span2" align="center" &gt;This is the text of SPAN2&lt;/span&gt;
+        This text is not in a span tag.
+    &lt;/div&gt;
+</pre>
+Bunlar W3C DOM Düzey 1 özellikleridir. Aynı biçimde Düzey 2 özelliklerine bakabiliriz.
+</div>
+<h3>Buradan Oraya</h3>
+<div class="yazi">
+NS 6'da innerHTML kullanarak yazıyı değiştirmek istediğimizde çalışmıştı. Ama bu W3C'nin önerdiği biçimde değildi. Aslında NS 6 innerText, outerText ve outerHTML desteklemez, NS 6 yoğun istek karşısında yalnız innerHTML desteklemiştir.
+İçeriği W3C önerilerine göre verimli bir biçimde değiştirmek için küçük öğeler yaratıl ardına yazı ekleyebiliriz. Örneğin aşağıdaki HTML kodunu başka bir öğeye yerleştirmek için çok iş yapmamız gerekir. Eklemek istediğimiz kod aşağıdadır:
+
+<pre>
+   Buradaki &lt;b&gt;Koyulaştırılmış&lt;/b&gt; yazıdır.
+</pre>
+
+Ve bunu yaratmak için kullanmamız gereken aşağıdakidir:
+
+<pre>
+    text1 = document.createTextNode("This is ");
+    bTag = document.createElement("b");
+    textB = document.createTextNode("some bolded");
+    text2 = document.createTextNode(" text.");
+    bTag.appendChild(textB);
+    document.body.appendChild(text1);
+    document.body.appendChild(bTag);
+    document.body.appendChild(text2);
+</pre>
+
+Bu kadar basit bir şey için gerçekten çok fazla bir iş. Halbuki biz:
+
+<pre>
+document.body.innerHTML="This is <b>some bolded</b> text.";
+</pre>
+deyip işi bitirecektir.
+<p class="yazi">
+Görüldüğü gibi herbir öğeyi yaratmak çok zaman alıcı olacaktır. Sırf bu yüzden sınırlara gereksinim vardır. Sınır (range) bir HTML ya da XML içeriğinin belirli bir bölümüdür.
+Yazı düğümleri arasındaki birçok biçimi içerebilir. Bu ikinci düzeyin en önemli eklerindendir.
+NS 6'da düzgün çalışan ama IE 5'de çalışmayan sınır tanımını kullanan W3C DOM Standardıyla yazılmış kod aşağıdadır:
+</p>
+<pre>
+     function writeLayerNSSix(node,txtHTML){
+         var newRange = document.createRange();
+         newRange.selectNodeContents(node);
+         newRange.deleteContents();
+         var newHTML = newRange.createContextualFragment(txtHTML);
+         node.appendChild(newHTML);
+     }
+</pre>
+
+Şimdi bu işlevi "span1" içindeki yazıyı değiştirmekte kullanalım:
+
+<pre>
+     &lt;div id="div1"&gt;
+          &lt;span id="span1"&gt;Buradaki SPAN1 yazısıdır&lt;/span&gt;
+          Buradaki span biçimi içinde olmayan yazıdır.
+     &lt;/div&gt;
+     &lt;script&gt;
+          writeLayerNSSix(document.getElementById("span1"),"Şimdi, buradaki 
+&lt;i&gt;SPAN1&lt;/i&gt;&lt;b&gt;!&lt;/b&gt; için &lt;b&gt;YENI&lt;/b&gt; yazıdır");
+     &lt;/script&gt;
+</pre>
+
+Dökümanımız bu işlemden sonra aşağıdaki gibi olur:
+
+<pre>
+      &lt;div id="div1"&gt;
+            &lt;span id="span1"&gt;Şimdi, buradaki &lt;i&gt;SPAN1&lt;/i&gt;&lt;b&gt;!&lt;/b&gt; için &lt;b&gt;YENI&lt;/b&gt; yazıdır&lt;/span&gt;
+            Buradaki span biçimi içinde olmayan yazıdır.
+      &lt;/div&gt;
+</pre>
+
+<h3>Soysal writeLayer() işlevini yeniden yazma.</h3>
+
+Katman içeriğini değiştirmek için daha önce yazdığımız işlev NS 6'da çalışıyor olsa bile W3C standartlarına uyumlu değildi. Şimdi kodumuz biraz daha uzun olacaktır.
+Başlamadan önce IE 5 ve NS 6 tarayıcılarını ayır edici bir yol bulmamız gerekecektir. 
+"if(document.getElementById&amp;&amp;!document.all)" kullanabiliriz ve çalışır da... Ama IE 6' ya ne yapalım? IE 6 "document.all" desteklemektedir ve eski innerHTML metodunu kullanınca, NS 6 gibi W3C uyumlu çalışırken eski koda hata vermek durumunda kalacaktır.
+Böylece IE 5 ve IE 5.5 getAttributeNode() işlemini desteklemediğine göre
+"if(document.body.getAttributeNode)" kullanarak IE 6 ve NS 6 tarayıcılarını ayırmış oluruz.
+Şimdi katman içeriğini değiştirecek işlevi yazalım:
+
+<pre>
+   function writeLayer(layerID,txt){
+       if(document.body.getAttributeNode){
+             node = document.getElementById(layerID);
+             var newRange = document.createRange();
+             newRange.selectNodeContents(node);
+             newRange.deleteContents();
+             var newHTML = newRange.createContextualFragment(txtHTML);
+             node.appendChild(newHTML);
+       }else if(document.getElementById){
+             document.getElementById(layerID).innerHTML=txt;
+       }else if(document.all){
+             document.all[layerID].innerHTML=txt;
+       }else if(document.layers){
+             with(document.layers[layerID].document){
+                   open();
+                   write(txt);
+                   close();
+             }
+       }
+   }
+</pre>
+
+Burada düğüm geçirmek yerine parametrede katman kimliğini geçirdik. Bunu uyumluluk için yaptık ve aşağıdaki satırı yine uyumluluklar adına writeLayerNSSix() işlevine ekledik (eskiden bunlar yoktu):
+<pre>
+    node = document.getElementById(layerID);
+</pre>
+</div>
+
+<div class="yazi">
+Olaylar kullanıcıların yaptıklarına karşı çalışacak işlemlere denir. "olay yakalama" (Event handling) için aşağıdaki örnek çok kolay anlaşılacak türdendir:
+<br />
+<pre>
+  &lt;a href=&quot;javascript:void(0)&quot; id=&quot;link1&quot;
+        onMouseOver=&quot;alert('Hey, üzerimden çekil')&quot;&gt;
+           Yanıma yaklaşma&lt;/a&gt;
+</pre>
+çalışan kod ise burada:
+<p class="yazi"><a href="javascript:void(0)" id="link1" onMouseOver="alert('Hey, üzerimden çekil')">Yanıma yaklaşma</a></p>
+
+<p class="yazi">Bağın üzerine fareyle gelindiğinde "alert" (dikkat) mesajı veririz. Bu en temel/basit "olay yakalama" işlemidir.
+Önce IE 5'de olay nasıl yakalanıyor bakalım sonra DOM Düzey 2'ye geçeriz.
+</p>
+
+<h1>Internet Explorer 5</h1>
+<p class="yazi">IE 5'de, olayları "attachEvent()" işlemiyle düğümlere atayabilirsiniz. Bu işlemin iki parametresi vardır. İşlenecek olay ve bu olayla çalışacak işlev. Örnek olması açısından aşağıdaki koda bakalım:
+</p>
+<fieldset class="fyazi">
+<pre>
+
+&lt;a href=&quot;javascript:void(0)&quot;
+          id=&quot;link1&quot;&gt;Yanıma yaklaşma&lt;/a&gt;
+  &lt;script&gt;
+  function alertMessage(){
+       alert('Hey, üzerimden çekil');
+  }
+
+  document.getElementById(&quot;link1&quot;).attachEvent(&quot;onmouseover&quot;, 
+  alertMessage);
+
+  &lt;/script&gt;
+</pre>
+</fieldset>
+<p class="yazi">Burada &quot;onmouseover.&quot; kullanıldı. &quot;onMouseOver,&quot; kullansam çalışmazdı. Hepsinin küçük harflerle olması gerekiyor. Bu örnekte "alerMessage()" işlemini çalıştırırken parantezleri kullanmadık.</p>
+</div>
+</body>
+</html>

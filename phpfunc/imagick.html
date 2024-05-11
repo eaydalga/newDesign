@@ -1,0 +1,539 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Hyperlink Preprocessor </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">27 Mart 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>Imagick Resim Kitaplığı</h2>
+
+<h3>Giriş</h3>
+
+<h3>Uyarı</h3>
+
+Bu uzantı deneyseldir. Bu nedenle herşeyi değişebilir. Kullanacaksanız değişeceğini bilerek kullanmanız gerekir.
+<br />
+Imagick yerel php uzantısıdır. Resimleri ImageMagick API kullanarak yaratılır ve değiştirilebilir.
+<br /><br />
+ImageMagick® bitmap resim yaratmak, düzeltmek ve oluşturmak için kullanılan yazılım paketidir. Resimleri okur, çevirir ve çeşitli kalıplarda yazar (100'den çok). DPX, EXR, GIF, JPEG, JPEG-2000, PDF, PhotoCD, PNG, Postscript, SVG, ve TIFF bunlardan bazılarıdır.
+<br /><br />
+Copyright 1999-2007 ImageMagick Studio LLC, kazanç gütmeyen bir organizasyondur resim konusundanki yazılımı herkese açık yapmıştır.
+
+<h3>Örnek</h3>
+
+Imagick resim işlemlerini PHP'de OO arayüzüyle çok kolaylaştırmıştır. Aşağıda küçük resim yapma örneği vardır:
+
+<h3>Örnek-1 Imagick içinde küçük resim yarat</h3>
+<pre>
+&lt;?php
+
+header('Content-type: image/jpeg');
+
+$image = new Imagick('image.jpg');
+
+// Eğer 0 en ve boy değiştirgeç olarak sağlanıyorsa
+// görünüş oranı korunur
+$image->thumbnailImage(100, 0);
+
+echo $image;
+
+?&gt;
+</pre>
+
+Imagick içinde desteklenen SPL ve diğer OO özellikleri kullanılarak, bir yol
+altındaki tüm dosyaları yeniden boyutlandırmak çok basittir (Büyük kamera
+resimlerinin toplu işlemler web'de görünebilecek biçime getirilmesi açısından
+kullanışlıdır). Burada yeniden boyulandırma kullanılmıştır:
+<br /><br />
+Örnek-2 Yoldaki JPG resimlerin küçüklerin yapma
+<pre>
+&lt;?php
+
+$images = new Imagick(glob('images/*.JPG'));
+
+foreach($images as $image) {
+
+    // 0 sunmak, görünüm oranının korunmasını zorlar
+    $image->thumbnailImage(1024,0);
+
+}
+
+$images->writeImages();
+
+?&gt;
+</pre>
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> Constants — Imagick sınıf değişkenleri
+    <li> Installation — Imagick uzantısının kurulumu
+    <li> Imagick — Imagick Sınıf
+    <li> Imagick::adaptiveBlurImage — Resme bulanıklık filitresini ekler
+    <li> Imagick::adaptiveResizeImage — Resmi yeniden boyutlandırır. Veri bağımlı üçgeni kuruyarak bunu yapar.
+    <li> Imagick::adaptiveSharpenImage — Resmi keskinleştirir
+    <li> Imagick::adaptiveThresholdImage — Her piksel için yoğunluk sınırı içinde kalan alt sınır seçme
+    <li> Imagick::addImage — Yeni bir resmi Imagick nesnesinde resim listesine ekler
+    <li> Imagick::addNoiseImage — Resme rastgele gürültü ekler
+    <li> Imagick::affineTransformImage — Bir resmi çevirir
+    <li> Imagick::annotateImage — Bir resmi yazıla birleştirir
+    <li> Imagick::appendImages — Bir küme resmi peşine ekler
+    <li> Imagick::averageImages — Ortalama resim kümesi
+    <li> Imagick::blackThresholdImage — alt sınır altındaki tüm pikselleri siyaha zorlar.
+    <li> Imagick::blurImage — Resme bulanıklık filitresi ekler
+    <li> Imagick::borderImage — Resmin çevresini çerçeveyle çevirir
+    <li> Imagick::charcoalImage — Odun kömürüyle çizimi benzetir
+    <li> Imagick::chopImage — Bir resmin bazı bölgelerini kaldırır ve uçlarını
+temizler
+    <li> Imagick::clear — Imagick nesneyle ilgili tüm kaynakları temizler
+    <li> Imagick::clipImage — Clips along the first path from the 8BIM profile
+    <li> Imagick::clipPathImage — Clips along the named paths from the 8BIM profile
+    <li> Imagick::clone — Imagick nesnesini tam kopyasını yapar
+    <li> Imagick::coalesceImages — resim kümesi bileşimi
+    <li> Imagick::colorFloodfillImage — Hedefe uyan her pikselin rengini değiştirme
+    <li> Imagick::colorizeImage — resimle doldurma rengiini karışıtırma
+    <li> Imagick::clutImage — renk bakma tablosundaki renklerle resimdekileri değiştirme
+    <li> Imagick::combineImages — bir ya da daha çok resmi bir resimde bişleştirir
+    <li> Imagick::commentImage — Resminize bir açıklama ekler
+    <li> Imagick::compareImageChannels — Bir ya da daha çok resmindeki farkı döndürür
+    <li> Imagick::compareImageLayers — Resimler arasında en çok uyumlu olan bölümü döndürür
+    <li> Imagick::compositeImage — bir resmi diğerine birleştir
+    <li> Imagick::__construct — Imagick yapıcısı
+    <li> Imagick::contrastImage — Resimdeki kontrası değiştir
+    <li> Imagick::contrastStretchImage — renkli resmin kontrasını geliştir
+    <li> Imagick::convolveImage — Resime kişiselleştirilimiş kıvrımlı çekirdek uygulanır.
+    <li> Imagick::cropImage — Bir resmin bir bölümünü ayıklar.
+    <li> Imagick::current — Resim göstergesini doğru sıraya ayarlar
+    <li> Imagick::cycleColormapImage — Bir resmin renk haritasını çıkartır
+    <li> Imagick::deconstructImages — Resimler arasında bazı piksel farklarını döndürür
+    <li> Imagick::despeckleImage — Resimdeki ufak benekleri azaltır.
+    <li> Imagick::destroy — Imagick nesneyi bozar/yok eder.
+    <li> Imagick::drawImage — ImagickDrawing nesnesini o anki resimde oluşturur
+    <li> Imagick::edgeImage — Resimdeki köşeleri geliştir.
+    <li> Imagick::embossImage — Üç boyutlu etkiyle gri ölçülü resim döndürür.
+    <li> Imagick::enhanceImage — Gürültülü bir resmin kalitesini geliştirir
+    <li> Imagick::equalizeImage — Resim çizelgesini eşitler
+    <li> Imagick::evaluateImage — Bir resme i(aritmetik) deyim uygular.
+    <li> Imagick::flattenImages — Bir sıra resmi birleştirir
+    <li> Imagick::flipImage — düşey ayna görüntüsü yaratır
+    <li> Imagick::flopImage — Yatay ayna görüntüsü yaratır
+    <li> Imagick::frameImage — Benzetilmiş üç boyutlu sınır üretir
+    <li> Imagick::fxImage — Resimdeki her piksel için bir atrikmetik deyim
+hesaplar
+    <li> Imagick::gammaImage — Bir resme Gamma-cwdüzeltmesi uygular
+    <li> Imagick::gaussianBlurImage — Bir resmi bulanıklaştırır
+    <li> Imagick::getCompressionQuality — Nesne sıkıştırma kalitesini alır
+    <li> Imagick::getCompression — Nesne sıkıştırma türünü alır
+    <li> Imagick::getCopyright — ImageMagick API copyright bilgisini yazı dizisi değişmezi olarak alır
+    <li> Imagick::getFilename — Resim sırasıyla ilişkili dosyadır
+    <li> Imagick::getFormat — Imagick nesnesinin kalıbını döndürür
+    <li> Imagick::getHomeURL — ImageMagick URL adresini döndürür
+    <li> Imagick::getImageBackgroundColor — Resmin arka alan rengini döndürür
+    <li> Imagick::getImageBlob — blob olarak resim sıralarını döndürür
+    <li> Imagick::getImageBluePrimary — İlk kromik mavi noktayı döndürür
+    <li> Imagick::getImageBorderColor — Resim çevçevesi rengini döndürür
+    <li> Imagick::getImageChannelDepth — Belirli resim kanalının derinliğini alır
+    <li> Imagick::getImageChannelDistortion — Bir resmin resim kanallarını yeniden oluşturulan resimle karşılaştır
+    <li> Imagick::getImageChannelExtrema — bir ay da daha çok resim kanallı için uç nokta alır
+    <li> Imagick::getImageChannelMean — ortalama ve standart sapmayı al
+    <li> Imagick::getImageChannelStatistics — resimdeki her kanal için istatistikleri döndürür
+    <li> Imagick::getImageColormapColor — Belirtilen renk haritası dizininin renklerini döndürür
+    <li> Imagick::getImageColorspace — Resmin renk uzayını alır
+    <li> Imagick::getImageColors — Resimdeki tekil renkleri alır
+    <li> Imagick::getImageCompose — Resimle ilişkili bileşik işlemleri döndürür
+    <li> Imagick::getImageDelay — Resim duraksamasını al
+    <li> Imagick::getImageDepth — Resmin derinliğini al
+    <li> Imagick::getImageDispose — Resmin bozulma yöntemini alır
+    <li> Imagick::getImageDistortion — Bir resmi yenilenen resmin karşılaştırılması
+    <li> Imagick::getImageExtrema — Resim için uç nokta alır
+    <li> Imagick::getImageFilename — Returns the filename of a particular image in a sequence
+    <li> Imagick::getImageSize — Resim boyutunu bayt olarak döndürür
+    <li> Imagick::getImageLength — Resim uzunluğunu bayt olarak döndürür
+    <li> Imagick::getImageFormat — Bazı resimlerin sırayla kalıbını döndürür
+    <li> Imagick::getImageGamma — Resmin gamma'sını alır
+    <li> Imagick::getImageGeometry — Ilgili dizi olarak en ve boyu alır
+    <li> Imagick::getImageGreenPrimary — ilk kromatik yeşil noktasını döndürür
+    <li> Imagick::getImageHeight — Resmin yüksekliğini alır.
+    <li> Imagick::getImageHistogram — Resmin çizelgesini al
+    <li> Imagick::getImageIndex — o anki etkin resmin dizinini alır
+    <li> Imagick::getIteratorIndex — o anki etkin resmin dizinini alır
+    <li> Imagick::getImageInterlaceScheme — Resmin birbirine geçme çizelgesini alır
+    <li> Imagick::getImageInterpolateMethod — Düzgünleştirme yöntemini döndürür
+    <li> Imagick::getImageIterations — Resim yinelemesini alır
+    <li> Imagick::getImageMatteColor — Resmin donuk rengini alır
+    <li> Imagick::getImageMatte — Resmin mat kanalı varsa döndürür
+    <li> Imagick::getImagePage — Sayfa geometrisini döndürür
+    <li> Imagick::getImagePixelColor — Belirtilen piksel rengini döndürür
+    <li> Imagick::getImageProfile — Adlandırılan resim profilini döndürür
+    <li> Imagick::getImageProfiles — Resim profillerini döndürür
+    <li> Imagick::getImageProperty — Adlandırılan resim özelliklerini döndürür
+    <li> Imagick::getImageProperties — Resim özelliklerini döndürür
+    <li> Imagick::getImageRedPrimary — ilk krom kırmızısı noktayı döndürür
+    <li> Imagick::getImageRegion — Bir resmin bir bölümünü çıkarır
+    <li> Imagick::getImageRenderingIntent — resim yapılışında niyeti alma
+    <li> Imagick::getImageResolution — Resmin X ve Y çözünürlüğünü alır
+    <li> Imagick::getImageScene — Resim dekoruna bakar
+    <li> Imagick::getImageSignature — SHA-256 mesaj sindirimini yaratır
+    <li> Imagick::getImageTicksPerSecond — Resmin saniyedeki tiklerini alır
+    <li> Imagick::getImageTotalInkDensity — Resmin toplam boya yoğunluğunu alır
+    <li> Imagick::getImageType — Potensiyal resim türünü alır
+    <li> Imagick::getImageUnits — resimde çözünürlüğün birimini alır
+    <li> Imagick::getImageVirtualPixelMethod — Sanal piksel yöntemini döndürür
+    <li> Imagick::getImageWhitePoint — Kromik beyaz noktayı döndürür
+    <li> Imagick::getImageWidth — Resmin enini döndürür
+    <li> Imagick::getImage — yeni Imagick nesneyi döndürür
+    <li> Imagick::getInterlaceScheme — nesnenin  birbirine geçme çizelgesini alır
+    <li> Imagick::getImageOrientation — Resmin yönlendirilmesini al
+    <li> Imagick::getNumberImages — Nesnede kaç tane resim olduğunu döndürür
+    <li> Imagick::getOption — belirtilen anahtarla ilişkili değeri döndürür
+    <li> Imagick::getPackageName — ImageMagick paket adını döndürür
+    <li> Imagick::getPage — Sayfa geometrisini döndürür
+    <li> Imagick::getPixelIterator — MagickPixelIterator döndürür
+    <li> Imagick::getPixelRegionIterator — Resmin bir bölümü için ImagickPixelIterator al
+    <li> Imagick::getQuantumDepth — nicem derinliğini al
+    <li> Imagick::getQuantumRange — Imagick nicem sınırlarını döndür
+    <li> Imagick::getReleaseDate — ImageMagick sürüm tarihini döndürür
+    <li> Imagick::getResourceLimit — Belirtilen kaynak limitlerini döndürür
+    <li> Imagick::getResource — Belirtilen kaynakların bellek kullanımını
+döndürür
+    <li> Imagick::getSamplingFactors — Yatay ve Düşey örnekleme faktörünü al
+    <li> Imagick::getSizeOffset — Boyut uzaklığını döndür
+    <li> Imagick::getSize — Imagick nesneyle ilişkili boyut döndürür
+    <li> Imagick::getVersion — ImageMagick API sürümü döndürür
+    <li> Imagick::hasNextImage — Nesnenin daha başka resimleri var mı bak.
+    <li> Imagick::hasPreviousImage — Nesnenin önceki resmi var mı bak
+    <li> Imagick::identifyImage — Bir resmi tanımlar ve niteliklerini alır
+    <li> Imagick::implodeImage — Yeni resmi kopya olarak yaratır
+    <li> Imagick::labelImage — Bir resme etiket ekler
+    <li> Imagick::levelImage — Resmin katmanlarını ayarlar
+    <li> Imagick::linearStretchImage — Resim yoğunluğunu doyuma ulaştırarak uzatır
+    <li> Imagick::magnifyImage — orantılı olarak resmi ölçüle
+    <li> Imagick::matteFloodfillImage — rengin saydamlık değerini değiştir
+    <li> Imagick::medianFilterImage — Sayısal bir filitre uygular.
+    <li> Imagick::minifyImage — Bir resmi orantılı olarak yarı boyutuna ölçüle
+    <li> Imagick::modulateImage — Parlaklığı, doyumu ve renk özünü denetle
+    <li> Imagick::montageImage — Karmaşık resim yarat
+    <li> Imagick::morphImages — morphs yöntemi birçok resmi ayarlar
+    <li> Imagick::compareImages — Bir resmin yeniden yapılanmış resimle
+karşılaştırır
+    <li> Imagick::mosaicImages — Resimlerde bir mozaik yapar
+    <li> Imagick::motionBlurImage — Bulanıklaştırmayı benzetir
+    <li> Imagick::negateImage — Verilen resimde renkleri ters çevirir
+    <li> Imagick::distortImage — Birçok bozma yöntemlerini kullanarak resmi bozar
+    <li> Imagick::newImage — Yeni resim yaratır
+    <li> Imagick::setImage — Nesnedeki resmi değiştirir
+    <li> Imagick::setImageOpacity — Resim geçirgenlik düzeyini ayarlar
+    <li> Imagick::newPseudoImage — Yeni resim yaratır
+    <li> Imagick::nextImage — Bir sonraki resme geçer
+    <li> Imagick::normalizeImage — renkli resmin kontrasını geliştirir
+    <li> Imagick::oilPaintImage — yağlı boyaya benzetir
+    <li> Imagick::optimizeImageLayers — resmin yinelenen bölümlerini iyileştirme açısından kaldırır
+    <li> Imagick::paintOpaqueImage — Change any pixel that matches color
+    <li> Imagick::paintTransparentImage — "fill" ile belirtilen renge uyan tüm piksellerin renklerini değiştirir.
+    <li> Imagick::pingImageBlob — Hızla nitelikleri al
+    <li> Imagick::pingImageFile — Yüzeysel anlanımda temel resim niteliklerini al
+    <li> Imagick::pingImage — Resim hakkında temel nitelikleri al
+    <li> Imagick::posterizeImage — Resmi sınırlı sayıda renk katmanına indirger
+    <li> Imagick::previousImage — Nesne içinde önceki resme git
+    <li> Imagick::profileImage — Bir resimden bir profili çıkarır ya da bir
+profili resme ekler
+    <li> Imagick::queryFormats — Imagick tarafından desteklenen kalıpları döndürür
+    <li> Imagick::radialBlurImage — Resimde radyal bulanıklıktır
+    <li> Imagick::raiseImage — 3-düğme gibi etkide benzetme yaratır
+    <li> Imagick::randomThresholdImage — Yüksek kontraslı iki renkli resim yaratır
+    <li> Imagick::readImageBlob — İkili yazı dizisinden resimi okur
+    <li> Imagick::readImageFile — Açık dosya göstergesinden resmi okur
+    <li> Imagick::readImage — Bir dosya adından resmi okur
+    <li> Imagick::reduceNoiseImage — Bir resmin köşelerini yumuşatır
+    <li> Imagick::removeImageProfile — adlandırılan resim profilini siler ve onu döndürür
+    <li> Imagick::removeImage — Resim listesinden bir resmi siler
+    <li> Imagick::render — Tüm önceki çizme komutlarını yeniden işler
+    <li> Imagick::resampleImage — İstenen çözünürlüğe göre resmi örnekler
+    <li> Imagick::resizeImage — Bir resmi ölçüler
+    <li> Imagick::rollImage — Bir resmin uzaklığını saptar
+    <li> Imagick::rotateImage — Resmi döndürür
+    <li> Imagick::sampleImage — Bir resmi piksel örneklemesiyle ölçüler
+    <li> Imagick::scaleImage — Resmin boyutlarını ölçüler
+    <li> Imagick::separateImageChannel — Bir kanalı resimden ayırır
+    <li> Imagick::sepiaToneImage — Bir resimde Sepia tonları
+    <li> Imagick::setBackgroundColor — Nesnenin varsayılan art alan rengini ayarlar
+    <li> Imagick::setCompressionQuality — Nesnenin varsayılan sıkıştırma kalitesini ayarlar
+    <li> Imagick::setCompression — Nesnenin varsayılan sıkıştırma türünü
+ayarlar
+    <li> Imagick::setFilename — Resmi okumadan ya da yazmadan dosya adını ayarlar
+    <li> Imagick::setFirstIterator — Imagick yineleyiciyi ilk resime ayarla
+    <li> Imagick::setLastIterator — Imagick yineleyiciyi son resme ayarla
+    <li> Imagick::setFormat — Imagick nesnesinin kalıbını ayarla
+    <li> Imagick::setImageBackgroundColor — Resmin art alan rengini ayarlar
+    <li> Imagick::setImageBias — Resmi eviştiren herhangi bir yöntem için resim eyimini ayarlar
+    <li> Imagick::setImageBluePrimary — resmin kromatik mavi olan ilk noktasını ayarlar
+    <li> Imagick::setImageBorderColor — Resmin çevre rengini ayarlar
+    <li> Imagick::setImageChannelDepth — Özel resim kanalının derinliğini ayarlar
+    <li> Imagick::setImageColormapColor — Belirtilen renk haritası dizininin rengini ayarlar
+    <li> Imagick::setImageColorspace — Resmin renk uzayını ayarlar
+    <li> Imagick::setImageCompose — Resmin bileşik işlem ayarı
+    <li> Imagick::setImageCompression — Resim sıkıştırmayı ayarlar
+    <li> Imagick::setImageDelay — Resmin geçikmesini ayarlar
+    <li> Imagick::setImageDepth — Resim derinliğini ayarlar
+    <li> Imagick::setImageDispose — Resmi elden çıkartma yöntemini ayarlar
+    <li> Imagick::setImageExtent — Resmin boyutunu ayarlar
+    <li> Imagick::setImageFilename — Belirli bir resim dosyasını ayarlar
+    <li> Imagick::setImageFormat — Belirli bir resmin kalıbını ayarlar
+    <li> Imagick::setImageGamma — Resmin gammasını ayarlar
+    <li> Imagick::setImageGreenPrimary — resmin ilk kromatik yeşil noktasını ayarlar
+    <li> Imagick::setImageIndex — yineleme yerini ayarlar
+    <li> Imagick::setIteratorIndex — yineleme yerini ayarlar
+    <li> Imagick::setImageInterlaceScheme — Resim sıkıştırmayı ayarlar
+    <li> Imagick::setImageInterpolateMethod — resim birleştirme piksel yöntemini ayarlar
+    <li> Imagick::setImageIterations — Resim yinelemesini ayarlar
+    <li> Imagick::setImageMatteColor — Resim donuk rengini ayarlar
+    <li> Imagick::setImageMatte — resmin donuk kanalını ayarlar
+    <li> Imagick::setImagePage — Sets the page geometry of the image
+    <li> Imagick::setImageProfile — Imagick nesneye adlandırılmış profil ekler
+    <li> Imagick::setImageProperty — Resim özelliğini ayarlar
+    <li> Imagick::setImageRedPrimary — resmin ilk kromik kırmızı noktasını ayarlar
+    <li> Imagick::setImageRenderingIntent —  resim yapılışında niyeti ayarlama
+    <li> Imagick::setImageResolution — Resim çözünürlüğünü ayarlar
+    <li> Imagick::setImageScene — Resim dekorunu ayarlar
+    <li> Imagick::setImageTicksPerSecond — Resmin saniyedeki tik sayısını
+ayarlar
+    <li> Imagick::setImageType — Resmin türünü ayarlar
+    <li> Imagick::setImageUnits — Resmin çözünürlüğünün birimini ayarlar
+    <li> Imagick::setImageVirtualPixelMethod — Resmin sanal piksel yöntemini ayarlar
+    <li> Imagick::setImageWhitePoint — Resmin kromatik beyaz noktasını ayarlar
+    <li> Imagick::setInterlaceScheme — Resmin sıkıştırılmasını ayarlar
+    <li> Imagick::setImageOrientation — Resmin yönlendirilmesini ayarlar
+    <li> Imagick::setOption — Bir seçeneği ayarlar
+    <li> Imagick::setPage — Imagick nesnenin sayfa geometrisini ayarlar
+    <li> Imagick::setResolution — Sayfa çözünürlüğünü ayarlar
+    <li> Imagick::setResourceLimit — megabayt türünden belirli bir kaynağın sınırlarını ayarlar
+    <li> Imagick::setSamplingFactors — Resmin örneklenme faktörünü ayarlar
+    <li> Imagick::setSizeOffset — Imagick nesnenin boyunu ve uzaklığını ayarlar
+    <li> Imagick::setSize — Imagick nesnesinin boyutunu ayarlar
+    <li> Imagick::setType — Resim türü niteliğini ayarlar
+    <li> Imagick::shadeImage — 3D etki yaratır
+    <li> Imagick::shadowImage — Resim gölgesini benzetir
+    <li> Imagick::sharpenImage — Resmi keskinleştirir
+    <li> Imagick::shaveImage — Resim köşelerinden pikselleri traşlar
+    <li> Imagick::shearImage — paralel kenar yaratır
+    <li> Imagick::sigmoidalContrastImage — Resmin kontrasını ayarlar
+    <li> Imagick::sketchImage — kurşun kalem karalamasına benzetir
+    <li> Imagick::solarizeImage — Resme güneş ışığı etkisini uygular
+    <li> Imagick::spliceImage — katı bir rengi resme bağlamak
+    <li> Imagick::spreadImage — Bir öbeğe pikselleri rast gele yerleştirir
+    <li> Imagick::steganoImage — Resimin içinde sayısal fligram (watermark) saklar
+    <li> Imagick::stereoImage — İki resmi birleştirir
+    <li> Imagick::stripImage — Bir resimden tüm profilleri ve açıklamaları
+soyar/çıkarır
+    <li> Imagick::swirlImage — Resmin ortasına doğru pikselleri girdap gibi
+döndürür
+    <li> Imagick::textureImage — deseni yineleyerek döşer
+    <li> Imagick::thresholdImage — altsınır değerine göre piksellerin değerini değiştirir
+    <li> Imagick::thumbnailImage — Bir resmin boyutlarını değiştirir
+    <li> Imagick::tintImage — Resimdeki her piksel için renk vektörünü uygular.
+    <li> Imagick::transverseImage — Yatay ayna görüntüsü yaratır
+    <li> Imagick::trimImage — Resimden köşeleri kaldırır
+    <li> Imagick::uniqueImageColors — Bir renk dışındaki piksel renklerini
+atar/kullanmaz
+    <li> Imagick::unsharpMaskImage — Bir resmi keskinleştirir
+    <li> Imagick::valid — O anki öğe geçerli mi bakar.
+    <li> Imagick::vignetteImage — Resme örtü (vignette) filitresi ekler
+    <li> Imagick::waveImage — Resme dalga (wave) filitresi ekler
+    <li> Imagick::whiteThresholdImage — altsınır üzerindeki tüm pikselleri beyaz yapmaya zorlar
+    <li> Imagick::writeImages — resim ya da resim sırasını yazar
+    <li> Imagick::writeImage — resmi belirtilen dosya adına yazar
+    <li> Imagick::displayImage — resmi görüntüler
+    <li> Imagick::displayImages — bir resmi ya da resim sırasını görüntüler
+    <li> Imagick::cropThumbnailImage — kesilmiş vesikalık yaratır
+    <li> Imagick::roundCorners — Resim köşelerini yuvarlar
+    <li> Imagick::polaroidImage — Polaroid resmi benzet
+    <li> Imagick::queryFonts — ayarlanan yazı tipini döndürür
+    <li> Imagick::queryFontMetrics — yazı tipi metriğini gösteren diziyi döndürür
+    <li> ImagickDraw::affine — o anki lineer çevirim matriksini ayarlar
+    <li> ImagickDraw::annotation — resmin üzerine yazıyı çizer
+    <li> ImagickDraw::arc — Yay çizer
+    <li> ImagickDraw::bezier — bezier eğrisi çizer
+    <li> ImagickDraw::circle — çember çizer
+    <li> ImagickDraw::clear — ImagickDraw temizlenir
+    <li> ImagickDraw::clone — Belirtilen ImagickDraw nesnesinin tam kopyasını alır
+    <li> ImagickDraw::color — Resim üzerine renk ekler
+    <li> ImagickDraw::comment — Açıklama ekler
+    <li> ImagickDraw::composite — o anki resim üzerine bir resim birleştirir
+    <li> ImagickDraw::__construct — ImagickDraw yapıcısı
+    <li> ImagickDraw::destroy — Tüm ilişkili kaynakları boşaltır
+    <li> ImagickDraw::ellipse — Resim üzerine elips çizer
+    <li> ImagickDraw::getClipPath — o anki kırpmanın yol tanıtımını alır
+    <li> ImagickDraw::getClipRule — O anki çokgen doldurma kuralı
+    <li> ImagickDraw::getClipUnits — kırpma yolu biriminin uygulanmasını döndürür
+    <li> ImagickDraw::getFillColor — doldurma rengini döndürür
+    <li> ImagickDraw::getFillOpacity — Çizim yapılırken saydamlığı döndürür
+    <li> ImagickDraw::getFillRule — Doldurma kuralını döndürür
+    <li> ImagickDraw::getFontFamily — Yazı tipini döndürür
+    <li> ImagickDraw::getFontSize — Yazı tipinin punto büyüklüğünü döndürür
+    <li> ImagickDraw::getFontStyle — Yazı tipi stilini döndürür
+    <li> ImagickDraw::getFontWeight — Yazı tipi ağırlığını döndürür
+    <li> ImagickDraw::getFont — Yazı tipini döndürür
+    <li> ImagickDraw::getGravity — Yazı yerleştirme merkezini döndürür
+    <li> ImagickDraw::getStrokeAntialias — o anki çizginin eşdeğeri olmayan ayarını döndürür
+    <li> ImagickDraw::getStrokeColor — nesnelerin çevresini çizmek için kullanılan rengi döndürür
+    <li> ImagickDraw::getStrokeDashArray — Çizgi yolunda kullanılan çizgi ve boşluk ile gösterilen diziyi döndürür
+    <li> ImagickDraw::getStrokeDashOffset — çizgi deseninde çizgiyle başlayan uzaklığı döndürür
+    <li> ImagickDraw::getStrokeLineCap — Açık alt yolların birleştirildiğinde oluşan biçimi döndürür
+    <li> ImagickDraw::getStrokeLineJoin — yolların birleştirilmesinde köşelerinde kullanılacak biçimi döndürür
+    <li> ImagickDraw::getStrokeMiterLimit — çizgi birleştirme üst sınırını
+döndürür
+    <li> ImagickDraw::getStrokeOpacity — çizilen nesnelerin çevresinin saydamlığını döndürür
+    <li> ImagickDraw::getStrokeWidth — nesne çevrelerinin birleştirilmesinde kullanılacak çizginin kalınlığını döndürür
+    <li> ImagickDraw::getTextAlignment — yazı ayarlamasını döndürür
+    <li> ImagickDraw::getTextAntialias — o anki yazının eşdeğer olmayan ayarlarlarını döndürmek
+    <li> ImagickDraw::getTextDecoration — Yazı dekorasyonunu döndürür
+    <li> ImagickDraw::getTextEncoding — Yazı içinde kod takımını döndürür
+    <li> ImagickDraw::getTextUnderColor — renk altındaki yazıyı döndürür
+    <li> ImagickDraw::getVectorGraphics — Vektör grafik bilgisi içeren yazı dizisini döndürür
+    <li> ImagickDraw::line — Çizgi çizer
+    <li> ImagickDraw::matte — Resmin saydamlık kanalını boyar
+    <li> ImagickDraw::pathClose — o anki yolu yeni bir yol ekler
+    <li> ImagickDraw::pathCurveToAbsolute — küp biçiminde Bezier eyrisi çizer
+    <li> ImagickDraw::pathCurveToQuadraticBezierAbsolute — dörtköşeli Bezier eyrisi çizer
+    <li> ImagickDraw::pathCurveToQuadraticBezierRelative — dörtköşeli Bezier eyrisi çizer
+    <li> ImagickDraw::pathCurveToQuadraticBezierSmoothAbsolute — dörtköşeli Bezier eyrisi çizer
+    <li> ImagickDraw::pathCurveToQuadraticBezierSmoothRelative — dörtköşeli Bezier eyrisi çizer
+    <li> ImagickDraw::pathCurveToRelative — dörtköşeli Bezier eyrisi çizer
+    <li> ImagickDraw::pathCurveToSmoothAbsolute — dörtköşeli Bezier eyrisi çizer
+    <li> ImagickDraw::pathCurveToSmoothRelative — dörtköşeli Bezier eyrisi çizer
+    <li> ImagickDraw::pathEllipticArcAbsolute — Eliptik yay çizer
+    <li> ImagickDraw::pathEllipticArcRelative — Eliptik yaya çizer
+    <li> ImagickDraw::pathFinish — O anki path bitirir
+    <li> ImagickDraw::pathLineToAbsolute — Çizgi yolu çizer
+    <li> ImagickDraw::pathLineToHorizontalAbsolute — Yatay çizgi yolu çizer
+    <li> ImagickDraw::pathLineToHorizontalRelative — Yatay çizgi çizer
+    <li> ImagickDraw::pathLineToRelative — Çizgi yolu çizer
+    <li> ImagickDraw::pathLineToVerticalAbsolute — Düşey yol çizer
+    <li> ImagickDraw::pathLineToVerticalRelative — Düşey çizgi yolu çizer
+    <li> ImagickDraw::pathMoveToAbsolute — Yeni bir alt yola başlar
+    <li> ImagickDraw::pathMoveToRelative — Yeni bir alt yola başlar
+    <li> ImagickDraw::pathStart — Yol çizme listesinin başlamasını tanımlar
+    <li> ImagickDraw::point — nokta çizer
+    <li> ImagickDraw::polygon — çokgen çizer
+    <li> ImagickDraw::polyline — çoklu çizgi (polyline) çizer
+    <li> ImagickDraw::popClipPath — kesim yolu tanımını bitirir
+    <li> ImagickDraw::popDefs — Tanımlama listesini bitirir
+    <li> ImagickDraw::pop — o anki ImagickDraw bozulur, ve daha önce saklanan ImagickDraw'a dönülür.
+    <li> ImagickDraw::popPattern — Desen tanımını bitirir
+    <li> ImagickDraw::pushClipPath — Kesim yolu tanımını başlatır
+    <li> ImagickDraw::pushDefs — Aşağıdaki komutlar adlandırılan öğeleri erken işlemek yaratır demektedir
+    <li> ImagickDraw::push — O anki ImagickDraw kopyalanır ve saklanır (stack)
+    <li> ImagickDraw::pushPattern — ImagickDraw::opPattern() komutunun ardından gelen diğer komutlar adlandırıan desenin birleştirilesini belirtir.
+    <li> ImagickDraw::rectangle — Dikdörtgen çizer
+    <li> ImagickDraw::render — Resme tüm önceki çizim komutlarını işler
+    <li> ImagickDraw::rotate — o anki koordinatların uzayına belirtilen çevirmeyi uygular
+    <li> ImagickDraw::roundRectangle — yuvaklanmış dikdörtgeni çizer
+    <li> ImagickDraw::scale — ölçü oranını ayarlar
+    <li> ImagickDraw::setClipPath — adlandırılan kesim yolunu resimle ilişkilendirir
+    <li> ImagickDraw::setClipRule — çokgen doldurma kuralını ayarla. (Kesim yolunda kullanılacaktır)
+    <li> ImagickDraw::setClipUnits — Kesim yolu biriminin uygulanmasını ayarla
+    <li> ImagickDraw::setFillAlpha — Desen ya da renkle doldurma kullanıldığında saydamlığı ayarlar
+    <li> ImagickDraw::setFillColor — Doldurulan nesnelerin çiziminde kullanılan doldu rengini ayarla
+    <li> ImagickDraw::setFillOpacity — Desen ya da renkle doldurma kullanıldığında saydamlığı ayarlar
+    <li> ImagickDraw::setFillPatternURL — nesneleri doldurmada, doldu deseni olarak kullanılacak URL adresini ayarlar
+    <li> ImagickDraw::setFillRule — Çokgenler çizerken doldu kuralını ayarlar
+    <li> ImagickDraw::setFontFamily — Sets the font family to use when annotating with text
+    <li> ImagickDraw::setFontSize — Sets the font pointsize to use when annotating with text
+    <li> ImagickDraw::setFontStretch — Sets the font stretch to use when annotating with text
+    <li> ImagickDraw::setFontStyle — Sets the font style to use when annotating with text
+    <li> ImagickDraw::setFontWeight — Yazı tipi ağırlığını ayarlar
+    <li> ImagickDraw::setFont — Sets the fully-specified font to use when annotating with text
+    <li> ImagickDraw::setGravity — Yazı yerleştirme ağırlık noktasını ayarlar
+    <li> ImagickDraw::setStrokeAlpha — seçilen nesnenin çevresinin saydamlığını ayarlar
+    <li> ImagickDraw::setStrokeAntialias — Çizilen çerçevenin eşdeğer olmadığına bakar
+    <li> ImagickDraw::setStrokeColor — Çizilen nesnenin rengini ayarlar
+    <li> ImagickDraw::setStrokeDashArray — yol çizmede kullanılan çizgi ve boşluk deseninin belirtilmesi
+    <li> ImagickDraw::setStrokeDashOffset — Çizgili desenin uzaklığının başlama noktasını belirtir.
+    <li> ImagickDraw::setStrokeLineCap — Açık alt yolun işaretlenmesi anında kullanılacak biçimi belirtir
+    <li> ImagickDraw::setStrokeLineJoin — yolun köşelerinde işaretleme olunca kullanılacak biçimin belirtilmesi
+    <li> ImagickDraw::setStrokeMiterLimit — Açıölçer sınırını belirtir
+    <li> ImagickDraw::setStrokeOpacity — işaretlenen nesnenin çevresinin saydamlığını belirtir
+    <li> ImagickDraw::setStrokePatternURL — nesnenin çevresini işaretlerken kullanılan deseni belirtir
+    <li> ImagickDraw::setStrokeWidth — nesnenin çevresinin işaret enini ayarlar
+    <li> ImagickDraw::setTextAlignment — Yazı ayarlamayı belirtir
+    <li> ImagickDraw::setTextAntialias — Yazının eşdeğeri olmadığını denetler
+    <li> ImagickDraw::setTextDecoration — bir dekorasyonu belirtir
+    <li> ImagickDraw::setTextEncoding — Ayarlanan yazı kodunu belirtir
+    <li> ImagickDraw::setTextUnderColor — artalan dikdörtgeninin rengini belirtir
+    <li> ImagickDraw::setVectorGraphics — Vektör grafiğini ayarlar
+    <li> ImagickDraw::setViewbox — Tüm kanvas boyutunu ayarlar
+    <li> ImagickDraw::skewX — o anki koordinat sistemini yatay yönde sıkıştırır
+    <li> ImagickDraw::skewY — o anki koordinat sistemini düşey yönde sıkıştırır
+    <li> ImagickDraw::translate — o anki koordinat sistemine çevirmeyi uygular
+    <li> ImagickPixel::clear — Bu nesneyle ilişkili kaynakları temizler
+    <li> ImagickPixel::__construct — ImagickPixel yapıcısı
+    <li> ImagickPixel::destroy — Bu nesneyle ilişkili kaynakları boşalt
+    <li> ImagickPixel::getColor — rengi döndürür
+    <li> ImagickPixel::getColorCount — Bu renkle ilişkili renk sayılarını döndürür
+    <li> ImagickPixel::getColorValue — Sağlanan renk kanalından düzenlenmiş değeri alır
+    <li> ImagickPixel::getHSL — ImagickPixel nesnesinin düzenlenmiş HSL rengini döndürür
+    <li> ImagickPixel::isSimilar — Bu resimle diğeri arasındaki farkı denetler
+    <li> ImagickPixel::setColorValue — Kanalların birine düzenlenmiş değeri ayarlar
+    <li> ImagickPixel::setColor — Rengi ayarlar
+    <li> ImagickPixel::setHSL — düzenlenmiş HSL rengi ayarlar
+    <li> ImagickPixelIterator::clear — PixelIterator ile ilişkilendirilmiş kaynakları temizler
+    <li> ImagickPixelIterator::__construct — ImagickPixelIterator yapıcısı
+    <li> ImagickPixelIterator::destroy — PixelIterator ilişkilendirilen kaynakları boşaltır
+    <li> ImagickPixelIterator::getCurrentIteratorRow — ImagickPixel nesnesinin o anki satırını döndürür
+    <li> ImagickPixelIterator::getIteratorRow — o anki piksel yinelenme satırı döndürür
+    <li> ImagickPixelIterator::getNextIteratorRow — piksel yinelemesinin bir sonraki satırını döndürür
+    <li> ImagickPixelIterator::getPreviousIteratorRow — Önceki satırı döndürür
+    <li> ImagickPixelIterator::newPixelIterator — Yeni piksel yinelemesini döndürür
+    <li> ImagickPixelIterator::newPixelRegionIterator — Yeni piksel yinelemesini döndürür
+    <li> ImagickPixelIterator::resetIterator — Piksel yinelemesini yeniden
+temizler
+    <li> ImagickPixelIterator::setIteratorFirstRow — piksel yinelemesini ilk piksel satırına ayarlar
+    <li> ImagickPixelIterator::setIteratorLastRow — piksel yinelemesini son piksel satırına ayarlar
+    <li> ImagickPixelIterator::setIteratorRow — Piksel yineleme satırını
+ayarlar
+    <li> ImagickPixelIterator::syncIterator — Piksel yinelemeyi senkronize
+eder
+</ul>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

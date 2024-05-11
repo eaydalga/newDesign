@@ -1,0 +1,250 @@
+body {
+	margin-top: 0px;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	background-color: #f6f6f6;
+	text-align: left;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+        height: auto;
+}
+#taban {
+	margin-top: 0px;
+	margin-left: 0px;
+	background-image: url(img/arka.jpg);
+        background-repeat: no-repeat;
+        height: 462px;
+}
+#soltaraf {
+	margin-top: 30px;
+	margin-left: 10px;
+        text-align: left;
+        width: 160px;
+        padding-bottom:20px;
+}
+#ysoltaraf {
+	margin-top: 30px;
+	margin-left: 10px;
+        text-align: left;
+        width: 240px;
+        padding-bottom:20px;
+}
+.box {
+        margin: 0 0 0 0;
+        width: 90px;
+        height: auto;
+}
+#ortataraf {
+        top: 0px;
+	margin-top: 30px;
+        text-align: left;
+        height: auto;
+}
+#alttaraf {
+        top: 0px;
+        height: 100%;
+}
+#canvas {
+	padding-left: 45px;
+	padding-right: 35;
+        font-size: 9px;
+        width: 480px;
+}
+#sagtaraf {
+	margin-top: 30px;
+	margin-right: 5px;
+        text-align: right;
+        width: 160px;
+}
+
+#bdy {
+     font-size: 9px;
+}
+
+.menublock{
+      margin-left: 10px;
+      margin-right: 5px;
+      margin-bottom:10px;
+      padding: 8px 0.5em;
+      padding-top: 12px;
+      font-size: 1.1em;
+}
+
+.ymenublock{
+      margin-left: 0px;
+      margin-right: 15px;
+      margin-bottom:10px;
+      padding: 8px 0.5em;
+      padding-top: 12px;
+      font-size: 1.1em;
+      text-align: left;
+}
+
+.nav{
+      color: #8e9ccb;
+      display: block;
+      font-size: 0.9em;
+      font-weight: 700;
+      margin-bottom: 1px;
+      padding: 2px 2px 2px 10px;
+      position: relative;
+      text-decoration: none;
+}
+
+.ynav{
+      color: #8e9ccb;
+      display: block;
+      font-size: 0.9em;
+      font-weight: 700;
+      margin-bottom: 1px;
+      padding: 2px 2px 2px 10px;
+      position: relative;
+      text-decoration: none;
+}
+
+.nav:hover{
+      /* color: #cadaf3; */
+      color: #000000;
+      padding: 2px 2px 2px 10px;
+}
+
+.ynav:hover{
+      color: #000000;
+      padding: 2px 2px 2px 10px;
+}
+
+.sub{
+      font-size: 0.7em;
+      margin-left: 6px;
+      padding: 1px 1px 1px 9px;
+      width: auto;
+      color: #9C9C9C;
+}
+
+.sub:hover{
+      color: #C9C9C9;
+      padding: 1px 1px 1px 9px;
+      width: auto;
+}
+
+.ybaslik {
+	margin-top: 30px;
+	margin-left: 10px;
+       color: #000000;
+       font-size: 14px;
+       text-align: left;
+}
+.byazi {
+       color: #ffffff;
+       font-size: 12px;
+       text-align: center;
+}
+.syazi {
+       color: #000000;
+       font-size: 12px;
+       text-align: center;
+}
+.fyazi {
+       color: #000000;
+       background-color: #C9C9C9;
+       font-size: 100%;
+       text-align: left;
+}
+.yazi {
+       color: #000000;
+       font-size: 100%;
+       text-align: left;
+}
+.yfix {
+       color: #000000;
+       font-size: 100%;
+	font-family: lucidatypewriter, courier;
+       text-align: left;
+}
+#banner {
+        position	: absolute;
+        top		: 38px;
+	left		: 230px;
+	width		: 539px;
+	height		: 15px;
+	background : url(img/banner.png) no-repeat;
+}
+#container {
+        position	: absolute;
+        top		: 53px;
+	left		: 230px;
+	width		: 530px;
+	height		: 408px;
+        padding-left: 7px;
+	background : url(../img/pencere2.png) repeat-y;
+	overflow	: auto;
+	border-left     : 2px solid #000000;
+	border-right    : 0px;
+}
+
+#content {
+	position	: relative;
+	width		: 494px;
+	left		: 10px;
+}
+
+#sag {
+        margin-top: 0px;
+        margin-left: 0px;
+        text-align: right;
+}
+
+p {
+	font		: 10px/14px arial,helevetica,san-serif;
+}
+
+h4 {
+	font		: 12px arial,helevetica,san-serif;
+}
+
+.blpic {
+        float:left;
+        border:1px dotted black;
+        margin:0px 10px 15px 20px;
+}
+.brpic {
+        float:right;
+        border:1px dotted black;
+        margin:0px 0px 15px 20px;
+}
+
+.lpic {
+        float:left;
+        margin:0px 10px 15px 20px;
+}
+.rpic {
+        float:right;
+        margin:0px 0px 15px 20px;
+}
+
+.button {
+	color: #ffffff;
+	background-color: #E9E9E9;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	text-decoration: none;
+	vertical-align: middle;
+        float:right;
+	border: thin;
+	border-color: #000000;
+}
+.button a {
+padding: 2px 0.5em;
+	background-color: #898989;
+text-decoration: none;
+float: left;
+	color: #ffffff;
+border: 2px solid #000000;
+}
+.button a:hover {
+background-color: #4f4f64;
+border-style: outset;
+color: #ffffff;
+}
+

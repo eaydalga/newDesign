@@ -1,0 +1,599 @@
+#
+#  The MEDICI Electronic Data Interchange Library
+#  Copyright (C) 2002  David Coles
+#  
+#  This library is free software; you can redistribute it and/or
+#  modify it under the terms of the GNU Lesser General Public
+#  License as published by the Free Software Foundation; either
+#  version 2.1 of the License, or (at your option) any later version.
+#  
+#  This library is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#  Lesser General Public License for more details.
+#  
+#  You should have received a copy of the GNU Lesser General Public
+#  License along with this library; if not, write to the Free Software
+#  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+
+# This code is absolute gibberish. But it does seem to work.
+# Mostly it's just horrid nested #defines - one day I'll document it ;)
+
+@CCODE	#include <stdio.h>
+
+@CCODE	#include "internal.h"
+
+@CCODE	#define	Error		return EDI_ECORRUPT
+@CCODE	#define	Ok		return EDI_ENONE
+
+@CCODE	#define Tokeniser	((edi_tokeniser_t *) this)
+
+@CCODE	#define Token		((edi_token_t *) &(Tokeniser->token))
+@CCODE	#define Advice		((edi_advice_t *) &(Tokeniser->advice))
+
+@CCODE	#define MyTA		EDI_TOKEN_APPEND (Token, SYMBOL, 1)
+@CCODE	#define MyRI		EDI_TOKEN_APPEND (Token, SYMBOL, 0)
+
+@CCODE	#define DoTA		if(MyTA)edi_tokeniser_handle_token(Tokeniser,0)
+@CCODE	#define DoRI		if(MyRI)edi_tokeniser_handle_token(Tokeniser,0)
+
+@CCODE	#define	DoTT(tt)	Token->type = tt
+@CCODE	#define	DoHT		edi_tokeniser_handle_token(Tokeniser, 1)
+@CCODE	#define DoES		DoHT; DoTA; DoTT(EDI_ES); DoHT
+@CCODE	#define DoSS		DoHT; DoTA; DoTT(EDI_SS); DoHT
+@CCODE	#define DoST		DoHT; DoTA; DoTT(EDI_ST); DoHT
+@CCODE	#define DoTS		DoTT(EDI_TG); DoHT; DoTA; DoTT(EDI_TS); DoHT
+@CCODE	#define DoSA		DoTA; DoTT(EDI_SA); DoHT
+
+@CCODE	#define StSS		edi_advice_set_ss(Advice, 1, SYMBOL);
+@CCODE	#define StES		edi_advice_set_es(Advice, 1, SYMBOL);
+@CCODE	#define StST		edi_advice_set_st(Advice, 1, SYMBOL);
+@CCODE	#define StRI		edi_advice_set_ri(Advice, 1, SYMBOL);
+
+
+
+
+
+
+#STATE  EVENT   TRANS   ACTION
+START   U	UN1	DoTA; Ok;
+START   S	STX1	DoTA; Ok;
+START   I	ISA2    DoTA; Ok;
+
+
+
+
+#STATE  EVENT   TRANS   ACTION
+UN1	N	UN2	DoTA; Ok;
+UN2	B	UNB4    DoTA; Ok;
+UN2	A	SSA1    DoTA; Ok;
+
+UNB1    U	UNB2    DoTA; Ok;
+UNB2    N	UNB3    DoTA; Ok;
+UNB3    B	UNB4    DoTA; Ok;
+UNB4    ES	DATA    DoTS; Ok;
+
+SSA1    DEFAULT SSA2	DoTA; StSS; Ok;
+SSA2    DEFAULT SSA3	DoTA; StES; Ok;
+SSA3    DEFAULT SSA4	DoTA; /**/; Ok;
+SSA4    DEFAULT SSA5	DoTA; StRI; Ok;
+SSA5    DEFAULT SSA6	DoTA; /**/; Ok;
+SSA6    DEFAULT UNB1	DoSA; StST; Ok;
+
+TAG     ES	DATA    DoTS; Ok;
+TAG     DEFAULT TAG     DoTA; Ok;
+
+DATA    RI      RELEASE DoRI; Ok;
+DATA    ES	DATA    DoES; Ok;
+DATA    SS	DATA    DoSS; Ok;
+DATA    ST      TAG     DoST; Ok;
+DATA    DEFAULT DATA    DoTA; Ok;
+RELEASE DEFAULT DATA    DoTA; Ok;
+
+
+
+
+
+
+#STATE  EVENT   TRANS   ACTION
+STX1	T	STX2	DoTA; Ok;
+STX2	X	STX3	DoTA; Ok;
+STX3	TS	UDAT	DoTS; Ok;
+                        
+UTAG	TS	UDAT	DoTS; Ok;
+UTAG	DEFAULT UTAG	DoTA; Ok;
+
+UDAT    RI      UREL	DoRI; Ok;
+UDAT    ES	UDAT	DoES; Ok;
+UDAT    SS	UDAT	DoSS; Ok;
+UDAT    ST      UTAG	DoST; Ok;
+UDAT    DEFAULT UDAT	DoTA; Ok;
+UREL	DEFAULT UDAT	DoTA; Ok;
+
+
+
+
+
+
+
+
+
+
+
+
+#STATE	EVENT	TRANS	ACTION
+ISA2    S	ISA3    DoTA; Ok;
+ISA3    A	ISA4    DoTA; Ok;
+ISA4    DEFAULT ISA5    DoTS; StES; Ok;
+ISA5    DEFAULT ISA6    DoTA; Ok;
+ISA6    DEFAULT ISA7    DoTA; Ok;
+ISA7    ES      ISA8    DoES; Ok;
+ISA8    DEFAULT ISA9    DoTA; Ok;
+ISA9    DEFAULT ISA10   DoTA; Ok;
+ISA10   DEFAULT ISA11   DoTA; Ok;
+ISA11   DEFAULT ISA12   DoTA; Ok;
+ISA12   DEFAULT ISA13   DoTA; Ok;
+ISA13   DEFAULT ISA14   DoTA; Ok;
+ISA14   DEFAULT ISA15   DoTA; Ok;
+ISA15   DEFAULT ISA16   DoTA; Ok;
+ISA16   DEFAULT ISA17   DoTA; Ok;
+ISA17   DEFAULT ISA18   DoTA; Ok;
+ISA18   ES      ISA19   DoES; Ok;
+ISA19   DEFAULT ISA20   DoTA; Ok;
+ISA20   DEFAULT ISA21   DoTA; Ok;
+ISA21   ES      ISA22   DoES; Ok;
+ISA22   DEFAULT ISA23   DoTA; Ok;
+ISA23   DEFAULT ISA24   DoTA; Ok;
+ISA24   DEFAULT ISA25   DoTA; Ok;
+ISA25   DEFAULT ISA26   DoTA; Ok;
+ISA26   DEFAULT ISA27   DoTA; Ok;
+ISA27   DEFAULT ISA28   DoTA; Ok;
+ISA28   DEFAULT ISA29   DoTA; Ok;
+ISA29   DEFAULT ISA30   DoTA; Ok;
+ISA30   DEFAULT ISA31   DoTA; Ok;
+ISA31   DEFAULT ISA32   DoTA; Ok;
+ISA32   ES      ISA33   DoES; Ok;
+ISA33   DEFAULT ISA34   DoTA; Ok;
+ISA34   DEFAULT ISA35   DoTA; Ok;
+ISA35   ES      ISA36   DoES; Ok;
+ISA36   DEFAULT ISA37   DoTA; Ok;
+ISA37   DEFAULT ISA38   DoTA; Ok;
+ISA38   DEFAULT ISA39   DoTA; Ok;
+ISA39   DEFAULT ISA40   DoTA; Ok;
+ISA40   DEFAULT ISA41   DoTA; Ok;
+ISA41   DEFAULT ISA42   DoTA; Ok;
+ISA42   DEFAULT ISA43   DoTA; Ok;
+ISA43   DEFAULT ISA44   DoTA; Ok;
+ISA44   DEFAULT ISA45   DoTA; Ok;
+ISA45   DEFAULT ISA46   DoTA; Ok;
+ISA46   DEFAULT ISA47   DoTA; Ok;
+ISA47   DEFAULT ISA48   DoTA; Ok;
+ISA48   DEFAULT ISA49   DoTA; Ok;
+ISA49   DEFAULT ISA50   DoTA; Ok;
+ISA50   DEFAULT ISA51   DoTA; Ok;
+ISA51   ES      ISA52   DoES; Ok;
+ISA52   DEFAULT ISA53   DoTA; Ok;
+ISA53   DEFAULT ISA54   DoTA; Ok;
+ISA54   ES      ISA55   DoES; Ok;
+ISA55   DEFAULT ISA56   DoTA; Ok;
+ISA56   DEFAULT ISA57   DoTA; Ok;
+ISA57   DEFAULT ISA58   DoTA; Ok;
+ISA58   DEFAULT ISA59   DoTA; Ok;
+ISA59   DEFAULT ISA60   DoTA; Ok;
+ISA60   DEFAULT ISA61   DoTA; Ok;
+ISA61   DEFAULT ISA62   DoTA; Ok;
+ISA62   DEFAULT ISA63   DoTA; Ok;
+ISA63   DEFAULT ISA64   DoTA; Ok;
+ISA64   DEFAULT ISA65   DoTA; Ok;
+ISA65   DEFAULT ISA66   DoTA; Ok;
+ISA66   DEFAULT ISA67   DoTA; Ok;
+ISA67   DEFAULT ISA68   DoTA; Ok;
+ISA68   DEFAULT ISA69   DoTA; Ok;
+ISA69   DEFAULT ISA70   DoTA; Ok;
+ISA70   ES      ISA71   DoES; Ok;
+ISA71   DEFAULT ISA72   DoTA; Ok;
+ISA72   DEFAULT ISA73   DoTA; Ok;
+ISA73   DEFAULT ISA74   DoTA; Ok;
+ISA74   DEFAULT ISA75   DoTA; Ok;
+ISA75   DEFAULT ISA76   DoTA; Ok;
+ISA76   DEFAULT ISA77   DoTA; Ok;
+ISA77   ES      ISA78   DoES; Ok;
+ISA78   DEFAULT ISA79   DoTA; Ok;
+ISA79   DEFAULT ISA80   DoTA; Ok;
+ISA80   DEFAULT ISA81   DoTA; Ok;
+ISA81   DEFAULT ISA82   DoTA; Ok;
+ISA82   ES      ISA83   DoES; Ok;
+ISA83   DEFAULT ISA84   DoTA; Ok;
+ISA84   ES      ISA85   DoES; Ok;
+ISA85   DEFAULT ISA86   DoTA; Ok;
+ISA86   DEFAULT ISA87   DoTA; Ok;
+ISA87   DEFAULT ISA88   DoTA; Ok;
+ISA88   DEFAULT ISA89   DoTA; Ok;
+ISA89   DEFAULT ISA90   DoTA; Ok;
+ISA90   ES      ISA91   DoES; Ok;
+ISA91   DEFAULT ISA92   DoTA; Ok;
+ISA92   DEFAULT ISA93   DoTA; Ok;
+ISA93   DEFAULT ISA94   DoTA; Ok;
+ISA94   DEFAULT ISA95   DoTA; Ok;
+ISA95   DEFAULT ISA96   DoTA; Ok;
+ISA96   DEFAULT ISA97   DoTA; Ok;
+ISA97   DEFAULT ISA98   DoTA; Ok;
+ISA98   DEFAULT ISA99   DoTA; Ok;
+ISA99   DEFAULT ISA100  DoTA; Ok;
+ISA100  ES      ISA101  DoES; Ok;
+ISA101  DEFAULT ISA102  DoTA; Ok;
+ISA102  ES      ISA103  DoES; Ok;
+ISA103  DEFAULT ISA104  DoTA; Ok;
+ISA104  ES      ISA105  DoES; Ok;
+ISA105  DEFAULT ISA106  DoTA; StSS; Ok;
+ISA106  DEFAULT XTAG    DoST; StST; Ok;
+
+# FIXME - These next two lines are a hack.
+# I have no idea what the X12 spec says about how cr/lf chars are handled.
+# At least this allows them to be transparently ignored.
+XTAG	CR	XTAG	Ok;
+XTAG	LF	XTAG	Ok;
+
+XTAG	ES      XDAT	DoTS; Ok;
+XTAG	DEFAULT XTAG	DoTA; Ok;
+                                                      
+XDAT	DEFAULT XDAT	DoTA; Ok;
+XDAT	ES      XDAT	DoES; Ok;
+XDAT	SS      XDAT	DoSS; Ok;
+XDAT	ST      XTAG	DoST; Ok;
+
+
+
+DEFAULT DEFAULT DEFAULT Error;
+
+@AUTOMATON SYNTAX void* char
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Determine if an EDIFACT numeric value meets the spec
+## FIXME - _READ_ the spec, don't just guess ;)
+@CCODE  #define Eval ((edi_evaluation *) this)
+
+START	NUMBER	IPART	Eval->length  = 1; Ok;
+START	MINUS	SIGNED	Eval->pending = 1; Ok;
+START	DEFAULT	DFAULT	Eval->failure = 1; Error;
+
+SIGNED	NUMBER	IPART	Eval->length  = 1; Ok;
+
+IPART	NUMBER	IPART	Eval->pending = 0; Eval->length++; Ok;
+IPART	DECMARK	FPART	Eval->pending = 1; Ok;
+
+FPART	NUMBER	FPART	Eval->pending = 0; Eval->length++; Ok;
+
+DEFAULT	DEFAULT	DEFAULT	Eval->failure = 1; Error;
+
+@AUTOMATON EDIFACTNumeric void* char
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# OLD STUFF ...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@CCODE	void nothing(void) {}
+
+@CCODE	#define advc	(((edi_parser_t *) this)->advice)
+
+@CCODE	#define	AddToBuffer		edi_parser_add_to_buffer (this, SYMBOL)
+@CCODE	#define	ClearBuffer		edi_parser_clear_buffer  (this)
+@CCODE	#define	EndTag			edi_parser_end_tag	 (this)
+@CCODE	#define	EndElement		edi_parser_end_element	 (this)
+@CCODE	#define	EndSubelement		edi_parser_end_subelement(this)
+@CCODE	#define	NewSegment		edi_parser_new_segment	 (this)
+
+@CCODE	#define	SetHasSSA		advc.has_ssa = 1
+@CCODE	#define	SetElementSeparator	edi_advice_set_es(&advc, 1, SYMBOL)
+@CCODE	#define	SetSubelementSeparator	edi_advice_set_ss(&advc, 1, SYMBOL)
+@CCODE	#define	SetSegmentTerminator	edi_advice_set_st(&advc, 1, SYMBOL)
+@CCODE	#define	SetDecimalNotation	edi_advice_set_dn(&advc, 1, SYMBOL)
+@CCODE	#define	SetReleaseIndicator	edi_advice_set_ri(&advc, 1, SYMBOL)
+@CCODE	#define	SetRepetitionSeparator	edi_advice_set_rs(&advc, 1, SYMBOL)
+
+@CCODE	#define	EDIFACTParse		/*edi_edifact_segment(this)*/
+@CCODE	#define	UNGTDIParse		/*edi_ungtdi_parse(this)*/
+@CCODE	#define	X12Parse		/*edi_x12_parse(this)*/
+
+
+
+#STATE  EVENT   TRANS   ACTION
+START   U	UN1	AddToBuffer; Ok;
+UN1	N	UN2	AddToBuffer; Ok;
+UN2	B	UNB4    AddToBuffer; Ok;
+UN2	A	SSA1    SetHasSSA; AddToBuffer; Ok;
+
+UNB1    U	UNB2    ClearBuffer; AddToBuffer; Ok;
+UNB2    N	UNB3    AddToBuffer; Ok;
+UNB3    B	UNB4    AddToBuffer; Ok;
+UNB4    ES	DATA    EndTag;	Ok;
+
+SSA1    DEFAULT SSA2	SetSubelementSeparator; AddToBuffer; Ok;
+SSA2    DEFAULT SSA3	SetElementSeparator; AddToBuffer; Ok;
+SSA3    DEFAULT SSA4	SetDecimalNotation; AddToBuffer; Ok;
+SSA4    DEFAULT SSA5	SetReleaseIndicator; AddToBuffer; Ok;
+SSA5    DEFAULT SSA6	SetRepetitionSeparator; AddToBuffer; Ok;
+SSA6    DEFAULT UNB1	SetSegmentTerminator; AddToBuffer; Ok;
+
+TAG     ES	DATA    EndTag; Ok;
+TAG     DEFAULT TAG     AddToBuffer; Ok;
+
+DATA    RI      RELEASE
+DATA    ES	DATA    EndElement; Ok;
+DATA    SS	DATA    EndSubelement; Ok;
+DATA    ST      TAG     EndElement; /*EDIFACTParse;*/ NewSegment; Ok;
+DATA    DEFAULT DATA    AddToBuffer; Ok;
+RELEASE DEFAULT DATA    AddToBuffer; Ok;
+
+DEFAULT DEFAULT DEFAULT Error;
+
+@AUTOMATON EDIFACT void* char
+
+
+
+
+
+
+
+
+
+#STATE  EVENT   TRANS   ACTION
+START   S	STX1	AddToBuffer; Ok;
+STX1	T	STX2	AddToBuffer; Ok;
+STX2	X	STX3	AddToBuffer; Ok;
+STX3	TS	DATA	EndTag; Ok;
+                        
+TAG     TS	DATA    EndTag; Ok;
+TAG     DEFAULT TAG     AddToBuffer; Ok;
+
+DATA	RI	RELEASE
+DATA    DES     DATA	EndElement; Ok;
+DATA    SES	DATA	EndSubelement; Ok;
+DATA    ST      TAG	EndElement; UNGTDIParse; NewSegment; Ok;
+DATA	DEFAULT	DATA	AddToBuffer; Ok;
+RELEASE	DEFAULT	DATA	AddToBuffer; Ok;
+                        
+DEFAULT	DEFAULT	DEFAULT	Error;
+
+@AUTOMATON UNGTDI void* char
+
+
+
+
+
+
+
+
+
+
+
+
+
+#STATE	EVENT	TRANS	ACTION
+START   I	ISA2    AddToBuffer; Ok;
+ISA2    S	ISA3    AddToBuffer; Ok;
+ISA3    A	ISA4    AddToBuffer; Ok;
+ISA4    DEFAULT ISA5    EndTag; SetElementSeparator; Ok;
+ISA5    DEFAULT ISA6    AddToBuffer; Ok;
+ISA6    DEFAULT ISA7    AddToBuffer; Ok;
+ISA7    ES      ISA8    EndElement;  Ok;
+ISA8    DEFAULT ISA9    AddToBuffer; Ok;
+ISA9    DEFAULT ISA10   AddToBuffer; Ok;
+ISA10   DEFAULT ISA11   AddToBuffer; Ok;
+ISA11   DEFAULT ISA12   AddToBuffer; Ok;
+ISA12   DEFAULT ISA13   AddToBuffer; Ok;
+ISA13   DEFAULT ISA14   AddToBuffer; Ok;
+ISA14   DEFAULT ISA15   AddToBuffer; Ok;
+ISA15   DEFAULT ISA16   AddToBuffer; Ok;
+ISA16   DEFAULT ISA17   AddToBuffer; Ok;
+ISA17   DEFAULT ISA18   AddToBuffer; Ok;
+ISA18   ES      ISA19   EndElement;  Ok;
+ISA19   DEFAULT ISA20   AddToBuffer; Ok;
+ISA20   DEFAULT ISA21   AddToBuffer; Ok;
+ISA21   ES      ISA22   EndElement;  Ok;
+ISA22   DEFAULT ISA23   AddToBuffer; Ok;
+ISA23   DEFAULT ISA24   AddToBuffer; Ok;
+ISA24   DEFAULT ISA25   AddToBuffer; Ok;
+ISA25   DEFAULT ISA26   AddToBuffer; Ok;
+ISA26   DEFAULT ISA27   AddToBuffer; Ok;
+ISA27   DEFAULT ISA28   AddToBuffer; Ok;
+ISA28   DEFAULT ISA29   AddToBuffer; Ok;
+ISA29   DEFAULT ISA30   AddToBuffer; Ok;
+ISA30   DEFAULT ISA31   AddToBuffer; Ok;
+ISA31   DEFAULT ISA32   AddToBuffer; Ok;
+ISA32   ES      ISA33   EndElement;  Ok;
+ISA33   DEFAULT ISA34   AddToBuffer; Ok;
+ISA34   DEFAULT ISA35   AddToBuffer; Ok;
+ISA35   ES      ISA36   EndElement;  Ok;
+ISA36   DEFAULT ISA37   AddToBuffer; Ok;
+ISA37   DEFAULT ISA38   AddToBuffer; Ok;
+ISA38   DEFAULT ISA39   AddToBuffer; Ok;
+ISA39   DEFAULT ISA40   AddToBuffer; Ok;
+ISA40   DEFAULT ISA41   AddToBuffer; Ok;
+ISA41   DEFAULT ISA42   AddToBuffer; Ok;
+ISA42   DEFAULT ISA43   AddToBuffer; Ok;
+ISA43   DEFAULT ISA44   AddToBuffer; Ok;
+ISA44   DEFAULT ISA45   AddToBuffer; Ok;
+ISA45   DEFAULT ISA46   AddToBuffer; Ok;
+ISA46   DEFAULT ISA47   AddToBuffer; Ok;
+ISA47   DEFAULT ISA48   AddToBuffer; Ok;
+ISA48   DEFAULT ISA49   AddToBuffer; Ok;
+ISA49   DEFAULT ISA50   AddToBuffer; Ok;
+ISA50   DEFAULT ISA51   AddToBuffer; Ok;
+ISA51   ES      ISA52   EndElement;  Ok;
+ISA52   DEFAULT ISA53   AddToBuffer; Ok;
+ISA53   DEFAULT ISA54   AddToBuffer; Ok;
+ISA54   ES      ISA55   EndElement;  Ok;
+ISA55   DEFAULT ISA56   AddToBuffer; Ok;
+ISA56   DEFAULT ISA57   AddToBuffer; Ok;
+ISA57   DEFAULT ISA58   AddToBuffer; Ok;
+ISA58   DEFAULT ISA59   AddToBuffer; Ok;
+ISA59   DEFAULT ISA60   AddToBuffer; Ok;
+ISA60   DEFAULT ISA61   AddToBuffer; Ok;
+ISA61   DEFAULT ISA62   AddToBuffer; Ok;
+ISA62   DEFAULT ISA63   AddToBuffer; Ok;
+ISA63   DEFAULT ISA64   AddToBuffer; Ok;
+ISA64   DEFAULT ISA65   AddToBuffer; Ok;
+ISA65   DEFAULT ISA66   AddToBuffer; Ok;
+ISA66   DEFAULT ISA67   AddToBuffer; Ok;
+ISA67   DEFAULT ISA68   AddToBuffer; Ok;
+ISA68   DEFAULT ISA69   AddToBuffer; Ok;
+ISA69   DEFAULT ISA70   AddToBuffer; Ok;
+ISA70   ES      ISA71   EndElement;  Ok;
+ISA71   DEFAULT ISA72   AddToBuffer; Ok;
+ISA72   DEFAULT ISA73   AddToBuffer; Ok;
+ISA73   DEFAULT ISA74   AddToBuffer; Ok;
+ISA74   DEFAULT ISA75   AddToBuffer; Ok;
+ISA75   DEFAULT ISA76   AddToBuffer; Ok;
+ISA76   DEFAULT ISA77   AddToBuffer; Ok;
+ISA77   ES      ISA78   EndElement;  Ok;
+ISA78   DEFAULT ISA79   AddToBuffer; Ok;
+ISA79   DEFAULT ISA80   AddToBuffer; Ok;
+ISA80   DEFAULT ISA81   AddToBuffer; Ok;
+ISA81   DEFAULT ISA82   AddToBuffer; Ok;
+ISA82   ES      ISA83   EndElement;  Ok;
+ISA83   DEFAULT ISA84   AddToBuffer; Ok;
+ISA84   ES      ISA85   EndElement;  Ok;
+ISA85   DEFAULT ISA86   AddToBuffer; Ok;
+ISA86   DEFAULT ISA87   AddToBuffer; Ok;
+ISA87   DEFAULT ISA88   AddToBuffer; Ok;
+ISA88   DEFAULT ISA89   AddToBuffer; Ok;
+ISA89   DEFAULT ISA90   AddToBuffer; Ok;
+ISA90   ES      ISA91   EndElement;  Ok;
+ISA91   DEFAULT ISA92   AddToBuffer; Ok;
+ISA92   DEFAULT ISA93   AddToBuffer; Ok;
+ISA93   DEFAULT ISA94   AddToBuffer; Ok;
+ISA94   DEFAULT ISA95   AddToBuffer; Ok;
+ISA95   DEFAULT ISA96   AddToBuffer; Ok;
+ISA96   DEFAULT ISA97   AddToBuffer; Ok;
+ISA97   DEFAULT ISA98   AddToBuffer; Ok;
+ISA98   DEFAULT ISA99   AddToBuffer; Ok;
+ISA99   DEFAULT ISA100  AddToBuffer; Ok;
+ISA100  ES      ISA101  EndElement;  Ok;
+ISA101  DEFAULT ISA102  AddToBuffer; Ok;
+ISA102  ES      ISA103  EndElement;  Ok;
+ISA103  DEFAULT ISA104  AddToBuffer; Ok;
+ISA104  ES      ISA105  EndElement;  Ok;
+ISA105  DEFAULT ISA106  AddToBuffer; SetSubelementSeparator; Ok;
+ISA106  DEFAULT TAG     EndElement; \
+			SetSegmentTerminator; \
+			X12Parse; \
+			NewSegment; \
+			Ok;
+
+TAG     ES      DATA	EndTag; Ok;
+TAG     DEFAULT TAG	AddToBuffer; Ok;
+                                                      
+DATA    DEFAULT DATA    AddToBuffer; Ok;
+DATA    ES      DATA	EndElement; Ok;
+DATA    SS      DATA	EndSubelement; Ok;
+DATA    ST      TAG	EndElement; \
+			X12Parse; \
+			NewSegment; \
+			Ok;
+
+DEFAULT DEFAULT DEFAULT Error;
+
+@AUTOMATON X12 void* char
+
+
+
+
+
+
+@CCODE #define Success	*((int *) this) = 1;
+@CCODE #define Pending	*((int *) this) = 0;
+
+START	NUMBER	IPART	Success; Ok;
+START	MINUS	IPART	Pending; Ok;
+
+IPART	NUMBER	IPART	Success; Ok;
+IPART	DECMARK	FPART	Pending; Ok;
+
+FPART	NUMBER	FPART	Success; Ok;
+
+DEFAULT	DEFAULT	DEFAULT	Error;
+
+@AUTOMATON ISO9735Decimal void* char
+
+
+
+
+

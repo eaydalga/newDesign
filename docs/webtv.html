@@ -1,0 +1,319 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Aybim - Internet TV</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script language="JavaScript" src="../js/email.js"> </script>
+<script language="JavaScript" src="../js/date.js"> </script>
+<script language="JavaScript" src="../js/float.js"> </script>
+<script language="JavaScript" src="../js/baslik.js"> </script>
+<script language="JavaScript" src="../js/XHConn.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+
+function isteme(t)
+{
+var myConn5 = new XHConn();
+var body="bweb="+t;
+htop();
+resim();
+var fnIsteme = function (oXML) {
+   if(document.getElementById) {
+      target1=document.getElementById('sec5');
+      if(target1) {
+            target1.style.display = "none";
+      }
+      target=document.getElementById('sec11');
+      if(target) {
+            target.innerHTML=oXML.responseText;
+            target.style.display = "inline";
+      }
+   }
+ };
+myConn5.connect("../isteme.php", "GET", body, fnIsteme);
+}
+
+function isteme2()
+{
+var myConn6 = new XHConn();
+var errstr = "";
+var body = "bweb=0&";
+var err;
+htop();
+for(i=0; i < document.forms['wf_Enquiry'].elements.length; i++) {
+    var aa = document.forms['wf_Enquiry'].elements[i].name;
+    if ( aa != "undefined" ) {
+        wff=document.forms['wf_Enquiry'].elements[i].value;
+        err = mycheck(wff,document.forms['wf_Enquiry'].elements[i].className);
+        if (err.length > 0) {
+            errstr += document.forms['wf_Enquiry'].elements[i].name+ ":" + err + "\n";
+        }
+        else {
+            if (!(aa == "sayfa" || aa == "submit" || aa == "undefined")) {
+               body += aa + "=" + wff + "&";
+            }
+        }
+    }
+}
+if(errstr.length > 0) {
+    alert(errstr);
+    return false;
+}
+var fnIsteme2 = function (oXML) {
+   if(document.getElementById) {
+      target1=document.getElementById('sec11');
+      if(target1) {
+            target1.style.display = "none";
+      }
+      target=document.getElementById('sec12');
+      if(target) {
+            target.innerHTML=oXML.responseText;
+            target.style.display = "inline";
+      }
+   }
+ };
+myConn6.connect("../isteme.php", "GET", body, fnIsteme2);
+}
+function bitsin(n)
+{
+   if(document.getElementById) {
+      xx = 'sec'+n;
+      target1=document.getElementById(xx);
+      if(target1) {
+            target1.style.display = "none";
+      }
+   }
+   kapat();
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="ortataraf">
+           <span><img src="../img/transparent.gif" width="1" height="50">
+           <img src="../img/transparent.gif" width="780" height="1"></span>
+           <div id="banner">
+             <img src="img/baslik.gif"><br />
+             <div id="mycontainer">
+               <div id="content">
+<div id="bdy">
+<br>
+<br>
+<div id="sag"><span class="yazi">20 Kasım 2007</span></div>
+<h2>Internet TV</h2>
+<p class="yazi">
+Internet üzerinden canlı TV yayınlarını izleyebilirsiniz. 2100'den çok TV istasyonu Internet üzerinden yayın yapmaktadır. Hemen hepsinin bir programı var. İstediğiniz sitenin yayınını o andan başlayarak izleyebiliyorsunuz. Bazen eski yayınları, arşivleri, müzik ve film birikimlerini inceleyip aralarından istediğinizi seçebiliyorsunuz.
+<br />
+<br />
+Bilgi edinmek için aşağıdaki adresi tıklayın:
+<a href="http://wwitv.com/portal.htm">wwitv.com/portal.htm</a>
+<br />
+<br />
+Internet TV Wikipedia'da yazıldığı kadarıyla WEB ara yüzü kullanılarak kolaylıkla erişilen TV izleme sayfalarıdır. Internet TV yayımları, WEB sayfalarının izlenmesi prensibini kullanır. Ücretsiz görüntüleme ortamında gelir; Yayınlanan reklamlardan, Üyelik gerektiren yayınlardan ve Benzeri modellerden kazanılır.
+<br />
+<br />
+BBC iPlayer adlı bir yazılımla ücretli yayınların Internet üzerinden üyelerince izlenmesini sağlamaktadır. Bu sisteme yeni geçti (27 Temmuz 2007).
+</p>
+<p class="yazi">
+Internet TV programları hazırlıyorsanız Ogg Theora video kalıplarını kullanmanız gerekir. Internet TV prodüksiyonu yapıyorsanız, iPod kullanıcıları için .m4v desteklemelisiniz, PSP kullanıcıları için .mp4 desteklemelisiniz, Windows kullanıcıları için .wmv desteklemelisiniz ama doğrusu için ve herkesin izlemesini sağlamak için Ogg Theora video kalıbında ürün yapmalısınız...
+<br />
+<br />
+Bu açıklamayı <a href="http://maketelevision.com/log/why_ogg_theora_matters_for_internet_tv">http://maketelevision.com/log/why_ogg_theora_matters_for_internet_tv</a> sitesinden aldık. Filmler başlıklı belgelerimizde bulunan video kalıp biçimlerini incelediğinizde herkese ulaşabilmek için her tür kalıbı destekleyebilmeniz gerekir. Sayısız kalıp seçeneği, beraberinde Lisans sorunlarını getirir. Her video kalıbını lisans sorunlarını aşmadan doğrudan kullanamazsınız. Bu nedenle yukarıdaki açıklamada biraz gerçek payı vardır...
+</p>
+<p class="yazi">
+Democracy Player 1.0, Internet TV ortamıdır. Linux işletim sisteminde de kullanılabilmektedir.
+</p>
+<h2>Internet TV Yapımı</h2>
+<p class="yazi">
+Internet TV yapımının nasılları <a href="http://makeinternettv.org/equipment/video.php">http://makeinternettv.org/equipment/video.php</a> adresinde ayrıntılarıyla anlatılmıştır. Biz burada kısa bir özetle yetineceğiz... 
+<br />
+<br />
+Öncelikle çekim yapmak için ya DV Camcorder ya da Digital Camera yeterlidir. Digital Camera ucuz ve hafif olması nedeniyle tercih edilebilir. Tripod kullanmak daha güzel resim kalitesi için gereklidir. Olmadan da çekim yapılabilir.
+<br />
+<br />
+Şimdi çekimin temel noktalarından söz edelim. Elle yapılan çekimlerde kamerayı taşıyan kol bedenimize yaslı olmalıdır. Kamera için kol hareketi dirsekten olmalıdır. İki elle kamera tutarken yine kollarınızın üst bölümü bedenimize yapışık olmalıdır. İki elle ya da tek elle çekim tamamen kişisel tercihe dayanır. Teknik açıdan önemli değildir. Başınızın üzerinde kamerayı tutmak istediğinizde (kalabalık içinde bu biçimde çekim yapmanız söz konusu olabilir) odağınızı doğru tutturmak bayağı emek ve deneyim gerektirecektir.
+Blog örneklerindeki gibi söyleşi yaptığınızda kamerayı kol uzaklığında tutabilirsiniz. Özellikle küçük dijital kameralar için bu en kullanışlı yöntemdir.
+<br />
+<br />
+Düşündüğünüzden biraz daha uzun süre kayıt yapmayı sürdürün. Filminizin montajını yaparken kullanmayacağınız bölümler olabilir.
+<br />
+<br />
+Kamerayı sabitlemek için tripot kullanmak, doğa çekimlerinde oldukça önemlidir.
+<br />
+<br />
+Ses kaydı için ne tür seslerin kayıt yapılacağına karar vermeniz gerekecektir. Bu sesleri olanak oldukça diğer seslerden arındırmak gerekeçektir. Örneğin bir söyleşi yapıyorsanız ses üreten tüm fanları kapatın. Temelde üç değişik tür mikrofon bulunmaktadır. Bunlar sesin yön özelliğine göre yönsüz, kardioit ve çift-uçlu mikrofonlardır. Yönsüz mikrofonlar her yönden gelen sesleri kayıt eder, atmosfer sesleri için iyidir. Yönlendirilmiş mikrofon yönlendirildiği yerleri sesleri algılar. Yönlendirilmiş mikrofonun arkasında hangi seslerin olduğunu bilmelisiniz.
+<br />
+<br />
+Işıklandırma konusunda birkaç temel bilgi şöyledir:
+<br />
+<br />
+Çekim yaparken genelde en güçlü ışıkları kameranın arkasına alırız. Reflökterler kullanarak ışığı çekim ortamına çekirmek tüm gölgeleri yok etmek önemlidir.
+Doğal ve yapay ışıklandırma söz konusu olduğunda en kolayı ya tümüyle doğal ışık kullanın ya da tümüyle yapay ışık kullanın. Öğle ışığında kayıt yapmak en iyisidir. Yapay ışık kullanırken önden gelen tek ışık demetiyle gölgeli görüntü elde ederiz. İki ışık demeti kullanılırsa gölgeler kalkar. Arkadan gelen bir başka ışık demetiyle kusursuza yakın görüntü elde edilir.
+</p>
+<p class="yazi">
+Kompozisyon ve Hareket konusunda kullanılabilecek yöntemler şöyle sıralanabilir:
+<li class="yazi"> Çekim yaparken ekran eşit aralıklı üç çizgiyle düşey ve yatay olarak bölünür ve obje tam ortadaki dikdörtgen içine gelecek biçimde yerleştirilir.</li>
+<li class="yazi"> Internet video genelde küçük ekranlarda oynatıldığından çekim yapılan objeye yakın olunmalıdır. Bu da kameranın eksenlerinin oynamamasını gerektirir (bir tripot kullanmak gibi).</li>
+<li class="yazi"> Çekim yapılan obje durağan olduğunda kamerayı kaydırarak çekimi sürdürmek gerekirse kaykay gibi tekerlekli cisim kullanabilirsiniz (ofisteyseniz tekerlekli sandalye de olabilir).</li> 
+</p>
+<p class="yazi">
+Planlama konusuna geldiğimizde:
+</p>
+<p class="yazi">
+Sonunda ne elde edeceğinizi ve parçaları nasıl birleştirerek ne elde edeceğinizi bilmeniz gerekir. Hatta izleyicinizin gözüyle video'nun nasıl olduğunu da görmek isteyebilirsiniz.
+</p>
+<p class="yazi">
+Çekimi yapmadan önce ekrandaki görüntüyü çizmekte yarar vardır (Objeler nerede olacak, nasıl hareket edilecek ve neler söylenecek gibi). Yapılacaklar listesinde neler olduğu sıralanırken tamamlananlar ve hazır olanlar da belirtilmelidir. Örneğin, özel beceri isteyen konulardaki söyleşiler için önceden çalışmış olmak yararlıdır.
+</p>
+<p class="yazi">
+Montaj aşamasında hangi işletim sistemi kullanacağınızı belirlemelisiniz. Windows ortamında "Windows Movie Maker" herkesin kullanabileceği bir programdır. Eğer Mac OS kullanıyorsanız her zaman iMovie programının ücretsiz bir kopyasını montaj için kullanabilirsiniz. GNU/Linux ortamında açık kaynak yazılımlar kullanabilirsiniz ama bu yazılımlar hala olgunlaşmamıştır.
+</p>
+<h3>Gider Tabloları</h3>
+<div class="yazi">
+Internet TV kurulum giderlerini sunarken çekim odası, işyeri giderleri, idari personel, teknik personel ve donanım giderlerinden oluşan bir tablo hazırlanmıştır. Amacımız abartmadan gider bütçesinin hangi boyutlarda olabileceğini sunmaktır. Aşağıdaki verilerden de anlaşılacağı gibi giderler bir kerelik ilk yatırım giderleri ve aylık işletim giderleri olarak ikiye ayrılmıştır. Doğal olarak gider adımlarında ayrıntıya girilmemiştir. Tablodaki parasal değerler ABD Doları olarak tanımlanmıştır.
+</div>
+<br />
+<br />
+<table class="yazi" cellpadding="0" cellspacing="0">
+<tr><th colspan="3" align="left">Donanım</th><th align="right">En Az</th><th align="right">En Çok</th></tr>
+<tr><td colspan="5"><hr></td></tr>
+<tr><td>&nbsp;</td><td>Oda</td><td colspan="3">&nbsp;</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td><td>Boyama</td><td align="right">200</td><td align="right">500</td><tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td><td>Döşeme</td><td align="right">400</td><td align="right">800</td><tr>
+<tr><td>&nbsp;</td><td>Aydınlatma</td><td colspan="3">&nbsp;</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td><td>Tavan</td><td align="right">150</td><td align="right">350</td><tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td><td>Spotlar</td><td align="right">300</td><td align="right">600</td><tr>
+<tr><td>&nbsp;</td><td>Çekim Aparatı</td><td colspan="3">&nbsp;</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td><td>Kamera</td><td align="right">250</td><td align="right">600</td><tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td><td>Tripot</td><td align="right">35</td><td align="right">50</td><tr>
+<tr><td>&nbsp;</td><td>Bilgisayar</td><td colspan="3">&nbsp;</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td><td>Geliştirme</td><td align="right">600</td><td align="right">1100</td><tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td><td>LCD Ekran</td><td align="right">200</td><td align="right">400</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td><td>WEB Kamera</td><td align="right">50</td><td align="right">120</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td><td>Mikrofon</td><td align="right">5</td><td align="right">70</td><tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td><td>Diğer</td><td align="right">130</td><td align="right">310</td></tr>
+<tr><td>&nbsp;</td><td>Yazılım</td><td colspan="3">&nbsp;</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td><td>Movie Maker</td><td align="right">80</td><td align="right">500</td><tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td><td>Converter</td><td align="right">100</td><td align="right">300</td></tr>
+<tr><td colspan="5">============================================</td></tr>
+<tr><td colspan="3">İlk Yatırım Toplami</td><td align="right">2500</td><td align="right">5100</td></tr>
+</table>
+<br />
+<span class="syazi">
+Not : İlk yatırım giderleri arasında firmamızdan istenecek kuruluş hizmet bedeli yoktur. Bu hizmet istenirse karşılıklı anlaşmayla sağlanır.
+</span>
+<br />
+<br />
+<div class="yazi">
+Aylık işletme giderlerini iki ayrı tabloda ele alırken yıllık gider bütçeleri de gösterilmiştir. Burada amacımız kurumlaşma sürecinde yayın giderlerinin ne ölçüde değiştiğini göstermektir. Tablodaki parasal değerler ABD Doları olarak tanımlanmıştır.
+</div>
+<br />
+<table class="yazi" cellpadding="0" cellspacing="0">
+<tr><td>
+    <table class="yazi">
+    <tr><th align="left">En Az</th><th align="left">İşletim Masrafı</th><th>&nbsp;</th><th align="right">Birim</th><th align="right">Aylık</th><th align="right">Yıllık</th></tr>
+    <tr><td colspan="6"><hr></td></tr>
+    <tr><td>&nbsp;</td><td>Alan Adı</td><td align="right">1</td><td align="right">3</td><td align="right">3</td><td align="right">36</td></tr>
+    <tr><td>&nbsp;</td><td>Sunucu</td><td align="right">1</td><td align="right">3</td><td align="right">3</td><td align="right">36</td></tr>
+    <tr><td>&nbsp;</td><td>Personel</td><td align="right">3</td><td align="right">850</td><td align="right">2550</td><td align="right">30600</td></tr>
+    <tr><td>&nbsp;</td><td>İdari Giderler</td><td align="right">1</td><td align="right">2500</td><td align="right">2500</td><td align="right">30000</td></tr>
+    <tr><td>&nbsp;</td><td>Diğer</td><td align="right">1</td><td align="right">44</td><td align="right">44</td><td align="right">528</td></tr>
+    <tr><td colspan="6"><hr></td></tr>
+    <tr><td>&nbsp;</td><td>Genel Toplam</td><td align="right"></td><td align="right"></td><td align="right">5100</td><td align="right">61200</td></tr>
+    </table>
+</td><td>
+    <table class="yazi">
+    <tr><th align="left">En Çok</th><th align="left">İşletim Masrafı</th><th>&nbsp;</th><th align="right">Birim</th><th align="right">Aylık</th><th align="right">Yıllık</th></tr>
+    <tr><td colspan="6"><hr></td></tr>
+    <tr><td>&nbsp;</td><td>Alan Adı</td><td align="right">1</td><td align="right">3</td><td align="right">3</td><td align="right">36</td></tr>
+    <tr><td>&nbsp;</td><td>Sunucu</td><td align="right">1</td><td align="right">10</td><td align="right">10</td><td align="right">120</td></tr>
+    <tr><td>&nbsp;</td><td>Personel</td><td align="right">7</td><td align="right">850</td><td align="right">5950</td><td align="right">71400</td></tr>
+    <tr><td>&nbsp;</td><td>İdari Giderler</td><td align="right">1</td><td align="right">4500</td><td align="right">4500</td><td align="right">54000</td></tr>
+    <tr><td>&nbsp;</td><td>Diğer</td><td align="right">1</td><td align="right">1537</td><td align="right">1537</td><td align="right">18444</td></tr>
+    <tr><td colspan="6"><hr></td></tr>
+    <tr><td>&nbsp;</td><td>Genel Toplam</td><td></td><td></td><td align="right">12000</td><td align="right">144000</td></tr>
+    </table>
+</td></tr>
+</table>
+<br />
+<span class="syazi">
+Not : Aylık işletim giderleri arasında firmamızdan istenecek hizmet bedeli yoktur. Bu hizmet istenirse karşılklı anlaşmayla sağlanır.
+</span>
+<br />
+<br />
+<span class="button">
+<a href="javascript:isteme(5)" title="İhtiyacınızı belirtin">Bana da kurulsun</a>
+</span>
+<br />
+<div id="sayfaac" style="display: none;">
+     <div id="banner1"><img src="img/banner.png" title="Kapat" onclick="javascript:kapat();"></div>
+        <div id="contains1">
+           <div id="content1">
+              <div id="sec5" style="display: none;">
+              </div>
+              <div id="sec11" style="display: none;">
+              </div>
+              <div id="sec12" style="display: none;">
+              </div>
+           </div>
+        </div>
+     </div>
+</div>
+<br />
+</div>
+               </div>
+             </div>
+           </div>
+
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+          <table cellspacing="5">
+          <tr><td align="center">
+            <img src="../img/aybim.png"><br /><br />
+            <a href="index.html" class="box"><img src="img/sand_glass.gif" alt="" title="" border="0" /></a><br />
+            <span class="syazi">Belgeler</span>
+          </td></tr>
+          <tr><td align="center">
+            <a href="kullanici.html" class="box"><img src="img/user.gif" alt="" title="" border="0" /></a><br />
+            <span class="syazi">Kullanıcılar</span>
+          </td></tr>
+          <tr><td align="center">
+           <a href="blog.html" class="box"><img src="img/clipboard.gif" alt="" title="" border="0" /></a><br />
+           <span class="syazi">Blog</span>
+          </td></tr>
+           <tr><td align="center">
+           <a href="filmler.html" class="box"><img src="img/bb_mov.gif" alt="" title="" border="0" /></a><br />
+           <span class="syazi">filmler</span>
+           </td></tr>
+          <tr><td align="center">
+            <a href="webtv.html" class="box"><img src="img/webcam.gif" alt="" title="" border="0" /></a><br />
+            <span class="syazi">Internet TV</span>
+          </td></tr>
+          <tr><td align="center">
+           <a href="bvd.html" class="box"><img src="img/bb_pckg.gif" alt="" title="Bağımsız Veri Değişimi" border="0" /></a><br />
+           <span class="syazi">BVD</span>
+          </td></tr>
+          <tr><td align="center">
+            <a href="swy.html" class="box"><img src="img/news.gif" alt="Sürekli Web Yayımı" title="" border="0" /></a><br />
+            <span class="syazi">SWY</span>
+          </td></tr>
+          <tr><td align="center">
+            <a href="pg.html" class="box"><img src="img/pg.gif" alt="Panoramik Görüntü" title="" border="0" /></a><br />
+            <span class="syazi">PG</span>
+          </td></tr>
+          </table>
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

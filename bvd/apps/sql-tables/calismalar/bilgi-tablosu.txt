@@ -1,0 +1,11 @@
+bilgiNo Bilgi Adi     BilgiLen 
+1	Is Adresi	5:40
+2	Ev Adresi	5:40
+3	Is Tel		1:20
+4	Cep Tel		1:20
+5	Ev Tel		1:20
+6	Faks		1:20
+7	Son Okul	1:50
+8	Dip Turu	1:20
+9	Resim		1:50
+

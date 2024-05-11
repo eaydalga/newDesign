@@ -1,0 +1,188 @@
+
+<h2>Hyperwave Functions</h2>
+<h3>Giriş</h3>
+
+Hyperwave has been developed at » IICM in Graz. It started with the name Hyper-G and changed to Hyperwave when it was commercialised (in 1996).
+
+Hyperwave is not free software. The current version, 5.5 is available at » http://www.hyperwave.com/. A time limited version can be ordered for free (30 days).
+
+See also the Hyperwave API module.
+
+Hyperwave is an information system similar to a database (HIS, Hyperwave Information Server). Its focus is the storage and management of documents. A document can be any possible piece of data that may as well be stored in file. Each document is accompanied by its object record. The object record contains meta data for the document. The meta data is a list of attributes which can be extended by the user. Certain attributes are always set by the Hyperwave server, other may be modified by the user. An attribute is a name/value pair of the form name=value. The complete object record contains as many of those pairs as the user likes. The name of an attribute does not have to be unique, e.g. a title may appear several times within an object record. This makes sense if you want to specify a title in several languages. In such a case there is a convention, that each title value is preceded by the two letter language abbreviation followed by a colon, e.g. 'en:Title in English' or 'ge:Titel in deutsch'. Other attributes like a description or keywords are potential candidates. You may also replace the language abbreviation by any other string as long as it separated by colon from the rest of the attribute value.
+
+Each object record has native a string representation with each name/value pair separated by a newline. The Hyperwave extension also knows a second representation which is an associated array with the attribute name being the key. Multilingual attribute values itself form another associated array with the key being the language abbreviation. Actually any multiple attribute forms an associated array with the string left to the colon in the attribute value being the key. (This is not fully implemented. Only the attributes Title, Description and Keyword are treated properly yet.)
+
+Besides the documents, all hyper links contained in a document are stored as object records as well. Hyper links which are in a document will be removed from it and stored as individual objects, when the document is inserted into the database. The object record of the link contains information about where it starts and where it ends. In order to gain the original document you will have to retrieve the plain document without the links and the list of links and reinsert them. The functions hw_pipedocument() and hw_gettext() do this for you. The advantage of separating links from the document is obvious. Once a document to which a link is pointing to changes its name, the link can easily be modified accordingly. The document containing the link is not affected at all. You may even add a link to a document without modifying the document itself.
+
+Saying that hw_pipedocument() and hw_gettext() do the link insertion automatically is not as simple as it sounds. Inserting links implies a certain hierarchy of the documents. On a web server this is given by the file system, but Hyperwave has its own hierarchy and names do not reflect the position of an object in that hierarchy. Therefore creation of links first of all requires a mapping from the Hyperwave hierarchy and namespace into a web hierarchy respective web namespace. The fundamental difference between Hyperwave and the web is the clear distinction between names and hierarchy in Hyperwave. The name does not contain any information about the objects position in the hierarchy. In the web the name also contains the information on where the object is located in the hierarchy. This leads to two possibles ways of mapping. Either the Hyperwave hierarchy and name of the Hyperwave object is reflected in the URL or the name only. To make things simple the second approach is used. Hyperwave object with name my_object is mapped to http://host/my_object disregarding where it resides in the Hyperwave hierarchy. An object with name parent/my_object could be the child of my_object in the Hyperwave hierarchy, though in a web namespace it appears to be just the opposite and the user might get confused. This can only be prevented by selecting reasonable object names.
+
+Having made this decision a second problem arises. How do you involve PHP? The URL http://host/my_object will not call any PHP script unless you tell your web server to rewrite it to e.g. http://host/php_script/my_object and the script php_script evaluates the $PATH_INFO variable and retrieves the object with name my_object from the Hyperwave server. Their is just one little drawback which can be fixed easily. Rewriting any URL would not allow any access to other document on the web server. A PHP script for searching in the Hyperwave server would be impossible. Therefore you will need at least a second rewriting rule to exclude certain URLs like all e.g. starting with http://host/Hyperwave This is basically sharing of a namespace by the web and Hyperwave server.
+
+Based on the above mechanism links are insert into documents.
+
+It gets more complicated if PHP is not run as a server module or CGI script but as a standalone application e.g. to dump the content of the Hyperwave server on a CD-ROM. In such a case it makes sense to retain the Hyperwave hierarchy and map in onto the file system. This conflicts with the object names if they reflect its own hierarchy (e.g. by choosing names including '/'). Therefore '/' has to be replaced by another character, e.g. '_'.
+
+The network protocol to communicate with the Hyperwave server is called » HG-CSP (Hyper-G Client/Server Protocol). It is based on messages to initiate certain actions, e.g. get object record. In early versions of the Hyperwave Server two native clients (Harmony, Amadeus) were provided for communication with the server. Those two disappeared when Hyperwave was commercialised. As a replacement a so called wavemaster was provided. The wavemaster is like a protocol converter from HTTP to HG-CSP. The idea is to do all the administration of the database and visualisation of documents by a web interface. The wavemaster implements a set of placeholders for certain actions to customise the interface. This set of placeholders is called the PLACE Language. PLACE lacks a lot of features of a real programming language and any extension to it only enlarges the list of placeholders. This has led to the use of JavaScript which IMO does not make life easier.
+
+Adding Hyperwave support to PHP should fill in the gap of a missing programming language for interface customisation. It implements all the messages as defined by the HG-CSP but also provides more powerful commands to e.g. retrieve complete documents.
+
+Hyperwave has its own terminology to name certain pieces of information. This has widely been taken over and extended. Almost all functions operate on one of the following data types.
+<ul>
+    <li> object ID: A unique integer value for each object in the Hyperwave server. It is also one of the attributes of the object record (ObjectID). Object ids are often used as an input parameter to specify an object.
+    <li> object record: A string with attribute-value pairs of the form attribute=value. The pairs are separated by a carriage return from each other. An object record can easily be converted into an object array with hw_object2array(). Several functions return object records. The names of those functions end with obj.
+    <li> object array: An associative array with all attributes of an object. The keys are the attribute names. If an attribute occurs more than once in an object record it will result in another indexed or associative array. Attributes which are language depended (like the title, keyword, description) will form an associative array with the keys set to the language abbreviations. All other multiple attributes will form an indexed array. PHP functions never return object arrays.
+    <li> hw_document: This is a complete new data type which holds the actual document, e.g. HTML, PDF etc. It is somewhat optimized for HTML documents but may be used for any format.
+</ul>
+Several functions which return an array of object records do also return an associative array with statistical information about them. The array is the last element of the object record array. The statistical array contains the following entries:
+<dl>
+<dt>Hidden
+    <dd>Number of object records with attribute PresentationHints set to Hidden. 
+</dd></dt>
+<dt>CollectionHead
+    <dd>Number of object records with attribute PresentationHints set to CollectionHead. 
+</dd></dt>
+<dt>FullCollectionHead
+    <dd>Number of object records with attribute PresentationHints set to FullCollectionHead. 
+</dd></dt>
+<dt>CollectionHeadNr
+    <dd>Index in array of object records with attribute PresentationHints set to CollectionHead. 
+</dd></dt>
+<dt>FullCollectionHeadNr
+    <dd>Index in array of object records with attribute PresentationHints set to FullCollectionHead. 
+</dd></dt>
+<dt>Total
+    <dd>Total: Number of object records. 
+</dd></dt>
+</dl>
+
+<h3>Gereksinim</h3>
+
+This extension needs a Hyperwave server downloadable from » http://www.hyperwave.com/.
+<h3>Kurulum</h3>
+
+This » PECL extension is not bundled with PHP.
+
+In order to use these functions you must compile PHP with Hyperwave support by using the --with-hyperwave[=DIR] configure option.
+
+Windows users will enable php_hyperwave.dll inside of php.ini in order to use these functions. The DLL for this PECL extension may be downloaded from either the » PHP Downloads page or from » http://pecl4win.php.net/
+Integration with Apache
+
+The Hyperwave extension is best used when PHP is compiled as an Apache module. In such a case the underlying Hyperwave server can be hidden from users almost completely if Apache uses its rewriting engine. The following instructions will explain this.
+
+Since PHP with Hyperwave support built into Apache is intended to replace the native Hyperwave solution based on Wavemaster, we will assume that the Apache server will only serve as a Hyperwave web interface for these examples. This is not necessary but it simplifies the configuration. The concept is quite simple. First of all you need a PHP script which evaluates the $_ENV['PATH_INFO'] variable and treats its value as the name of a Hyperwave object. Let's call this script 'Hyperwave'. The URL http://your.hostname/Hyperwave/name_of_object would than return the Hyperwave object with the name 'name_of_object'. Depending on the type of the object the script has to react accordingly. If it is a collection, it will probably return a list of children. If it is a document it will return the mime type and the content. A slight improvement can be achieved if the Apache rewriting engine is used. From the users point of view it would be more straight forward if the URL http://your.hostname/name_of_object would return the object. The rewriting rule is quite easy:
+
+RewriteRule ^/(.*) /usr/local/apache/htdocs/HyperWave/$1 [L]
+
+Now every URL relates to an object in the Hyperwave server. This causes a simple to solve problem. There is no way to execute a different script, e.g. for searching, than the 'Hyperwave' script. This can be fixed with another rewriting rule like the following:
+
+RewriteRule ^/hw/(.*) /usr/local/apache/htdocs/hw/$1 [L]
+
+This will reserve the directory /usr/local/apache/htdocs/hw for additional scripts and other files. Just make sure this rule is evaluated before the one above. There is just a little drawback: all Hyperwave objects whose name starts with 'hw/' will be shadowed. So, make sure you don't use such names. If you need more directories, e.g. for images just add more rules or place them all in one directory. Before you put those instructions, don't forget to turn on the rewriting engine with
+
+<h3>RewriteEngine on</h3>
+
+You will need scripts:
+<ul>
+    <li> to return the object itself
+    <li> to allow searching
+    <li> to identify yourself
+    <li> to set your profile
+    <li> one for each additional function like to show the object attributes, to show information about users, to show the status of the server, etc.
+</ul>
+As an alternative to the Rewrite Engine, you can also consider using the Apache ErrorDocument directive, but be aware, that ErrorDocument redirected pages cannot receive POST data.
+<h3>Çalışma Zamanı Ayarları</h3>
+
+The behaviour of these functions is affected by settings in php.ini.
+
+Hyperwave configuration options
+<table class="yazi">
+<tr><td>Name</td><td>Default</td><td>Changeable</td><td>Changelog</td></tr>
+<tr><td>hyperwave.allow_persistent</td><td>"0"</td><td>PHP_INI_SYSTEM</td><td>Available since PHP 4.3.2. Removed in PHP 5.0.0.</td></tr>
+<tr><td>hyperwave.default_port</td><td>"418"</td><td>PHP_INI_ALL</td><td>Removed in PHP 5.0.0.</td></tr>
+</table>
+For further details and definitions of the PHP_INI_* constants, see the php.ini directives.
+
+<h3>Önceden Tanımlı Değişmezler</h3>
+
+The constants below are defined by this extension, and will only be available when the extension has either been compiled into PHP or dynamically loaded at runtime.
+
+HW_ATTR_LANG (integer)
+HW_ATTR_NR (integer)
+HW_ATTR_NONE (integer)
+
+<h3>Yapılması Gerekenler</h3>
+
+There are still some things to do:
+<ul>
+    <li> The hw_InsertDocument has to be split into hw_insertobject() and hw_putdocument().
+    <li> The names of several functions are not fixed, yet.
+    <li> Most functions require the current connection as its first parameter. This leads to a lot of typing, which is quite often not necessary if there is just one open connection. A default connection will improve this.
+    <li> Conversion form object record into object array needs to handle any multiple attribute.
+</ul>
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> hw_Array2Objrec — Convert attributes from object array to object record
+    <li> hw_changeobject — Changes attributes of an object (obsolete)
+    <li> hw_Children — Object ids of children
+    <li> hw_ChildrenObj — Object records of children
+    <li> hw_Close — Closes the Hyperwave connection
+    <li> hw_Connect — Opens a connection
+    <li> hw_connection_info — Prints information about the connection to Hyperwave server
+    <li> hw_cp — Copies objects
+    <li> hw_Deleteobject — Deletes object
+    <li> hw_DocByAnchor — Object id object belonging to anchor
+    <li> hw_DocByAnchorObj — Object record object belonging to anchor
+    <li> hw_Document_Attributes — Object record of hw_document
+    <li> hw_Document_BodyTag — Body tag of hw_document
+    <li> hw_Document_Content — Returns content of hw_document
+    <li> hw_Document_SetContent — Sets/replaces content of hw_document
+    <li> hw_Document_Size — Size of hw_document
+    <li> hw_dummy — Hyperwave dummy function
+    <li> hw_EditText — Retrieve text document
+    <li> hw_Error — Error number
+    <li> hw_ErrorMsg — Returns error message
+    <li> hw_Free_Document — Frees hw_document
+    <li> hw_GetAnchors — Object ids of anchors of document
+    <li> hw_GetAnchorsObj — Object records of anchors of document
+    <li> hw_GetAndLock — Return object record and lock object
+    <li> hw_GetChildColl — Object ids of child collections
+    <li> hw_GetChildCollObj — Object records of child collections
+    <li> hw_GetChildDocColl — Object ids of child documents of collection
+    <li> hw_GetChildDocCollObj — Object records of child documents of collection
+    <li> hw_GetObject — Object record
+    <li> hw_GetObjectByQuery — Search object
+    <li> hw_GetObjectByQueryColl — Search object in collection
+    <li> hw_GetObjectByQueryCollObj — Search object in collection
+    <li> hw_GetObjectByQueryObj — Search object
+    <li> hw_GetParents — Object ids of parents
+    <li> hw_GetParentsObj — Object records of parents
+    <li> hw_getrellink — Get link from source to dest relative to rootid
+    <li> hw_GetRemote — Gets a remote document
+    <li> hw_getremotechildren — Gets children of remote document
+    <li> hw_GetSrcByDestObj — Returns anchors pointing at object
+    <li> hw_GetText — Retrieve text document
+    <li> hw_getusername — Name of currently logged in user
+    <li> hw_Identify — Identifies as user
+    <li> hw_InCollections — Check if object ids in collections
+    <li> hw_Info — Info about connection
+    <li> hw_InsColl — Insert collection
+    <li> hw_InsDoc — Insert document
+    <li> hw_insertanchors — Inserts only anchors into text
+    <li> hw_InsertDocument — Upload any document
+    <li> hw_InsertObject — Inserts an object record
+    <li> hw_mapid — Maps global id on virtual local id
+    <li> hw_Modifyobject — Modifies object record
+    <li> hw_mv — Moves objects
+    <li> hw_New_Document — Create new document
+    <li> hw_objrec2array — Convert attributes from object record to object array
+    <li> hw_Output_Document — Prints hw_document
+    <li> hw_pConnect — Make a persistent database connection
+    <li> hw_PipeDocument — Retrieve any document
+    <li> hw_Root — Root object id
+    <li> hw_setlinkroot — Set the id to which links are calculated
+    <li> hw_stat — Returns status string
+    <li> hw_Unlock — Unlock object
+    <li> hw_Who — List of currently logged in users
+</ul>
+

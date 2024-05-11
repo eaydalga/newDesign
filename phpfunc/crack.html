@@ -1,0 +1,130 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Kırma İşlevleri (Crack Functions)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">18 Şubat 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>Kırma İşlevleri (Crack Functions)</h2>
+
+<h3>Giriş</h3>
+
+Bu işlevler CrackLib kitaplığını kullanarak şifrenizin gücünü denetlemenize
+yardımcı olur. Şifre gücü uzunluğu, büyük küçük harf kullanımı ve CrackLib
+kitaplığıyla karşılaştırılması sonucu belirlenir. CrackLib kitaplığı şifreyi
+güçlendirebilecek yardımcı mesajlar verilmesini sağlar.
+
+    Not: Bu uzantı PHP 5.0.0 sürümünden sonra PECL havuzuna alında ve PHP paketde artık yok.
+
+<h3>Gereksinim</h3>
+
+CrackLib kitaplığıyla ilgili daha çok bilgi
+http://sourceforge.net/projects/cracklib adresinde bulunabilir.
+
+<h3>Kurulum</h3>
+
+Bu PECL uzantısı PHP ile paketlenmemiştir. Bu nedenle PECL kurulumuyla ilgili
+bölümlere bakılması yararlıdır. Diğer bilgiler için
+http://pecl.php.net/package/crack adresine bakınız.
+
+PHP 4 sürümünde, PECL uzantıları kaynakları "ext/" dosya yolunda bulunurdu. Bu
+işlevleri kullanabilmek için "--with-crack[=DIR]" ayar seçeneği kullanılır.
+
+Windows kullanıcıları php.ini içinden crack.dll kitaplığını açabilirler. PHP 4
+sürümünde bu kitaplık "extensions/" klasöründe bulunur. Bu uzantı için DLL
+http://pecl4win.php.net/ adresinden yüklenebilir.
+
+<h3>Çalışma zamanı Ayarları</h3>
+
+php.ini değerleriyle bu işlevlerin davranışı etkilenir.
+
+<h3>"Crack" ayar seçenekleri</h3>
+<table class="yazi">
+<tr><td>Ad</td><td>Varsayılan</td><td>Değişebilen</td><td>Değişiklik</td></tr>
+<tr><td>crack.default_dictionary</td><td>NULL</td><td>PHP_INI_PERDIR</td><td>PHP_INI_SYSTEM kırılım sürümü &lt;= 0.2. PHP 4.0.5 sürümünden beri vardır. PHP 5.0.0 dan sonra kaldırıldı.</td></tr>
+</table>
+Daha başka ayrıntılar ve tanımlar için PHP_INI_* değişmezlerini ve php.ini
+yönelticilerini inceleyin.
+
+<h3>Kaynak Türleri</h3>
+
+CrackLib uzantısı crack_opendict() işlevinden dönen sözlük kaynak belirticisiyle kullanılır.
+
+<h3>Örnekler</h3>
+
+Bu örnek CrackLib kitaplığının nasıl açılacağını, verilen şifrenin nasıl
+denetleneceğini, mesajların nasıl alınacağını ve kitaplığın nasıl kapanacağını
+gösterir.
+
+<h3>CrackLib örneği</h3>
+<pre>
+&lt;?php
+// CrackLib kitaplığını aç
+$dictionary = crack_opendict('/usr/local/lib/pw_dict')
+     or die('Unable to open CrackLib dictionary');
+
+// Şifre kontrolu yap
+$check = crack_check($dictionary, 'gx9A2s0x');
+
+// Mesajı al
+$diag = crack_getlastmessage();
+echo $diag; // 'strong password'
+
+// Kitaplığı kapat
+crack_closedict($dictionary);
+?&gt;
+</pre>
+
+    Not: Eğer crack_check() TRUE döndürürse, crack_getlastmessage() 'strong password' (güçlü şifre) döndürür.
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> crack_check — Verilen şifreyle eskimişlik denetimi yapar.
+    <li> crack_closedict — Açılmış bir CrackLib kitaplığını kapatır.
+    <li> crack_getlastmessage — Son eskimişlik denetiminden çıkan mesajın alınmasını sağlar.
+    <li> crack_opendict — Yeni bir CrackLib kitaplığını açar.
+</ul>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

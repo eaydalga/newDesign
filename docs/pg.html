@@ -1,0 +1,235 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Aybim - Panoramik Görüntü</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script language="JavaScript" src="../js/email.js"> </script>
+<script language="JavaScript" src="../js/date.js"> </script>
+<script language="JavaScript" src="../js/float.js"> </script>
+<script language="JavaScript" src="../js/baslik.js"> </script>
+<script language="JavaScript" src="../js/XHConn.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+
+function isteme(t)
+{
+var myConn5 = new XHConn();
+var body="bweb="+t;
+htop();
+resim();
+var fnIsteme = function (oXML) {
+   if(document.getElementById) {
+      target1=document.getElementById('sec5');
+      if(target1) {
+            target1.style.display = "none";
+      }
+      target=document.getElementById('sec11');
+      if(target) {
+            target.innerHTML=oXML.responseText;
+            target.style.display = "inline";
+      }
+   }
+ };
+myConn5.connect("../isteme.php", "GET", body, fnIsteme);
+}
+
+function isteme2()
+{
+var myConn6 = new XHConn();
+var errstr = "";
+var body = "bweb=0&";
+var err;
+htop();
+for(i=0; i < document.forms['wf_Enquiry'].elements.length; i++) {
+    var aa = document.forms['wf_Enquiry'].elements[i].name;
+    if ( aa != "undefined" ) {
+        wff=document.forms['wf_Enquiry'].elements[i].value;
+        err = mycheck(wff,document.forms['wf_Enquiry'].elements[i].className);
+        if (err.length > 0) {
+            errstr += document.forms['wf_Enquiry'].elements[i].name+ ":" + err + "\n";
+        }
+        else {
+            if (!(aa == "sayfa" || aa == "submit" || aa == "undefined")) {
+               body += aa + "=" + wff + "&";
+            }
+        }
+    }
+}
+if(errstr.length > 0) {
+    alert(errstr);
+    return false;
+}
+var fnIsteme2 = function (oXML) {
+   if(document.getElementById) {
+      target1=document.getElementById('sec11');
+      if(target1) {
+            target1.style.display = "none";
+      }
+      target=document.getElementById('sec12');
+      if(target) {
+            target.innerHTML=oXML.responseText;
+            target.style.display = "inline";
+      }
+   }
+ };
+myConn6.connect("../isteme.php", "GET", body, fnIsteme2);
+}
+function bitsin(n)
+{
+   if(document.getElementById) {
+      xx = 'sec'+n;
+      target1=document.getElementById(xx);
+      if(target1) {
+            target1.style.display = "none";
+      }
+   }
+   kapat();
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="ortataraf">
+           <span><img src="../img/transparent.gif" width="1" height="50">
+           <img src="../img/transparent.gif" width="780" height="1"></span>
+           <div id="banner">
+             <img src="img/baslik.gif"><br />
+             <div id="mycontainer">
+               <div id="content">
+<div id="bdy">
+<br>
+<br>
+<div id="sag"><span class="yazi">20 Ekim 2007</span></div>
+<h2>Panoramik Görüntü</h2>
+
+<h4>Building Panoramic Images in The GIMP</h4>
+<p class="yazi">
+Küçük resimlerinizden büyük bir panomara yaratmak çok zor bir iş değildir. GIMP programının eklentisi ya da Photoshop CS3 içindeki bir özellik bu sorunu kolaylaştırmaktadır.
+<br />
+<br />
+Panoramik manzaralar çok hoş resimler oluşturmaktadır. Örnek bir resim bilgi için burada görüşlerinize sunulmuştur:
+<br />
+<br />
+<img src="img/panorama.png">
+</p>
+
+<h4>Software tools for creating panoramic images</h4>
+<p class="yazi">
+Açık kaynak kodların en ünlüsü kuşkusuz <a href="http://hugin.sourceforge.net/">Hugin</a> adlı programdır. Hugin yazılımını kullanarak küçük resimlerden büyük bir bütün elde etmek ve daha çoğunu da yapmak mümkündür.
+<br />
+<br />
+Hugin panorama üreten uygulamaların iyileri arasındadır. Asıl panoramik araçların yenileri üretilmiyor ama Hugin gibilerin türevleri üretilmektedir. Ayrıntılar için <a href="http://wiki.panotools.org/">PanoTools</a> wiki sayfalarına bakınız.
+<br />
+<br />
+Bu uygulama ailesi tek seçiminiz olamaz. Eğer bazı Hugin seçeneklerini çok karmaşık buluyorsanız daha temel seçenekleri olan Enblend ile başlayabilirsiniz.
+Enblend komut satırından çalışan araçlardan oluşur.
+<br />
+<br />
+Mono kullanıcıları <a href="http://user.cs.tu-berlin.de/~nowozin/autopano-sift/">autopano-SIFT</a> programını deneyebilirler. Scale-Invariant Feature Transform (SIFT) uygulamasıdır. SIFT'nin özelliği bir görüntünün ilginç özelliklerini ortaya çıkarır. Resimleri birbirlerine birleştirirken bu ilginç özellikler kontrol noktaları olur. Bu özellikler iki ya da daha çok yakın resmin sınır çizgisi olur öyle ki bu çizgilerden bağlanan resimler sürekli büyük resim oluşmasına yardımcı olur.
+<br />
+<br />
+Eğer kontrol noktalarını kendiniz belirlemek isterseniz <a href="http://panopoints.sourceforge.net/">PanoPointsi</a> yazılımını deneyin. Bir perl-GTK programı olarak sizin ilginç noktaları belirlemenizi bekler.
+PanoPoints bazen otomatik iş yapan programlardan daha başarılı olabilir.
+<br />
+<br />
+Sırada Steve Mann'nin araştırmacılarının ürünü VideoOrbits var. Bu araç beklenenin üstünde gelişti. Bütünleşik resimleri gerçeğe yakın sunmak için çok başarılı olmuştur.
+</p>
+<h2>Sanal Tur</h2>
+<p class="yazi">
+<a href="http://360dof.com/store/cart.php?target=product&product_id=16158&category_id=250">VRbrochure FX Professional</a>
+<br />
+<br />
+elektronik broşürde sanal tur yaratmak, 3D objeler, fotograflar, slayt gösterileri, haritalar ve planlar ve sonra düzeltilebilir HTML tasarımlarına dönüştürülebilen java ya da flash görüntüler...
+</p>
+<p class="yazi">
+<a href="http://www.easypano.com/">Flash Virtual Tour Software - Tourweaver</a>
+<br />
+<br />
+Tourweaver 3.00 flash sanal tur yazılımıdır. Bu yazılımla etkileşimli birçok planlarla 360 derecelik sanal tur görüntüleri elde edebilir, sıcak nokta, radar, yürüyüp gitme, ses, görüntü, dinamik yazı gibi eklentilerle ürünü süsleyebilirsiniz.
+</p>
+<p class="yazi">
+<a href="http://www.3dvista.com/">3Dvista virtual tour technology</a>
+<br />
+<br />
+Fotoğrafçılar, çoklu ortam WEB içerik hazırlayıcılar için bir sanal tur ürünüdür.
+</p>
+<p class="yazi">
+</p>
+<br />
+<span class="button">
+<a href="javascript:isteme(4)" title="İhtiyacıınızı belirtin">Benim İhtiyacım</a>
+</span>
+<br />
+<div id="sayfaac" style="display: none;">
+     <div id="banner1"><img src="img/banner.png" title="Kapat" onclick="javascript:kapat();"></div>
+        <div id="contains1">
+           <div id="content1">
+              <div id="sec5" style="display: none;">
+              </div>
+              <div id="sec11" style="display: none;">
+              </div>
+              <div id="sec12" style="display: none;">
+              </div>
+           </div>
+        </div>
+     </div>
+</div>
+<br />
+</div>
+               </div>
+             </div>
+           </div>
+
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+          <table cellspacing="5">
+          <tr><td align="center">
+            <img src="../img/aybim.png"><br /><br />
+            <a href="index.html" class="box"><img src="img/sand_glass.gif" alt="" title="" border="0" /></a><br />
+            <span class="syazi">Belgeler</span>
+          </td></tr>
+          <tr><td align="center">
+            <a href="kullanici.html" class="box"><img src="img/user.gif" alt="" title="" border="0" /></a><br />
+            <span class="syazi">Kullanıcılar</span>
+          </td></tr>
+          <tr><td align="center">
+           <a href="blog.html" class="box"><img src="img/clipboard.gif" alt="" title="" border="0" /></a><br />
+           <span class="syazi">Blog</span>
+          </td></tr>
+           <tr><td align="center">
+           <a href="filmler.html" class="box"><img src="img/bb_mov.gif" alt="" title="" border="0" /></a><br />
+           <span class="syazi">filmler</span>
+           </td></tr>
+          <tr><td align="center">
+            <a href="webtv.html" class="box"><img src="img/webcam.gif" alt="" title="" border="0" /></a><br />
+            <span class="syazi">Internet TV</span>
+          </td></tr>
+          </td></tr>
+          <tr><td align="center">
+            <a href="bvd.html" class="box"><img src="img/bb_pckg.gif" alt="" title="" border="0" /></a><br />
+            <span class="syazi">BVD</span>
+          </td></tr>
+          <tr><td align="center">
+            <a href="swy.html" class="box"><img src="img/news.gif" alt="Sürekli Web Yayımı" title="" border="0" /></a><br />
+            <span class="syazi">SWY</span>
+          </td></tr>
+          <tr><td align="center">
+            <img src="img/pg.gif" alt="Panoramik Görüntü" title="" border="0" /><br />
+            <span class="syazi">PG</span>
+          </td></tr>
+          </table>
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

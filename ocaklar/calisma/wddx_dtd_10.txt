@@ -1,0 +1,332 @@
+<!-- ************************************************************************
+     WDDX DTD
+ 
+     Editor:               Simeon Simeonov (simeons@allaire.com)
+     
+     Contributing authors: Hussain Chinoy (hussain@granularity.com)
+                           Nate Weiss (nweiss@icesinc.com)
+ 
+     Last modified:        October 19, 1999
+ 
+     Copyright (c) 1998, 1999 Allaire Corp. http://www.allaire.com
+-->
+ 
+<!-- ************************************************************************
+     Introductory Notes:
+ 
+ 
+     What is WDDX:
+ 
+     WDDX stands for Web Distributed Data Exchange. WDDX is a mechanism for
+     exchanging complex data structures between application environments. It
+     has been designed with web applications in mind. WDDX consists of a 
+     language and platform neutral representation of instantiated data based
+     on XML 1.0 (which is defined using this DTD) and a set of serializer/
+     deserializer modules for every environment that uses WDDX. The process 
+     of creating an XML representation of application data is called
+     serialization. The process of instantiating application data from a 
+     WDDX XML representation is called deserialization.
+ 
+     WDDX packets:
+ 
+     The WDDX DTD can be used to validate WDDX packets. Packets are
+     representations of instantiated data structures in application 
+     environments. The following is an example of a WDDX packet:
+ 
+         <?xml version='1.0'?>
+         <!DOCTYPE wddxPacket SYSTEM 'wddx_0100.dtd'>
+         <wddxPacket version='1.0'>
+             <header/>
+             <data>
+                 <struct>
+                     <var name='aNull'>
+                         <null/>
+                     </var>
+                     <var name='aString'>
+                         <string>a string</string>
+                     </var>
+                     <var name='aNumber'>
+                         <number>-12.456</number>
+                     </var>
+                     <var name='aDateTime'>
+                         <dateTime>1998-06-12T04:32:12</dateTime>
+                     </var>
+                     <var name='aBoolean'>
+                         <boolean value='true'/>
+                     </var>
+                     <var name='anArray'>
+                         <array length='2'>
+                             <number>10</number>
+                             <string>second element</string>
+                        </array>
+                     </var>
+                     <var name='aBinary'>
+                         <binary length='8'>MIIBJASHETASV==</binary>
+                     </var>
+                     <var name='anObject'>
+                         <struct>
+                             <var name='s'>
+                                 <string>a string</string>
+                             </var>
+                             <var name='n'>
+                                 <number>-12.456</number>
+                             </var>
+                         </struct>
+                     </var>
+                     <var name='aRecordset'>
+                         <recordset rowCount='2' fieldNames='NAME,AGE'>
+                             <field name='NAME'>
+                                 <string>John Doe</string>
+                                 <string>Jane Doe</string>
+                             </field>
+                             <field name='AGE'>
+                                 <number>34</number>
+                                 <number>31</number>
+                             </field>
+                         </recordset>
+                     </var>
+                 </struct>
+             </data>
+         </wddxPacket>
+     
+     It defines a root level object that is a structure (also known as 
+     an associative array) of eight properties:
+ 
+     - aNull which is a null value,
+     - aString which is the string 'a string',
+     - aNumber which is the number -12.456,
+     - aDateTime which is the date-time value June 12, 1998 4:32:12am,
+     - aBoolean which is the boolean value true,
+     - anArray which is an array of two elements (10 and 'second element'),
+     - aBinary which contains 8 bytes of binary data encoded in base64,
+     - anObject which is a structure with two properties s and n, and
+     - aRecordset which is a recordset of two rows with fields NAME and AGE.
+          
+     Basic data types:
+     
+     WDDX supports the following basic data types: null, boolean (true/false), 
+     number, date-time, and string. 
+     
+     Null-
+     Null values in WDDX are not associated with a type such as number or 
+     string. Languages that do not have the concept of a null value should
+     deserialize nulls as empty strings.
+ 
+     Numbers-
+     Numbers are internally represented with floating point numbers. Because 
+     of differences between WDDX-enabled languages, the range of numbers has 
+     been restricted to +/-1.7E+/-308. The precision has been restricted to 
+     15 digits after the decimal point. These requirements are consistent 
+     with an 8-byte floating-point representation.
+ 
+     Date-time values-
+     Date-time values are encoded according to the full form of ISO8601,
+     e.g., 1998-9-15T09:05:32+4:0. Note that single-digit values for months,
+     days, hours, minutes, or seconds do not need to be zero-prefixed. 
+     While timezone information is optional, it must be successfully parsed
+     and used to convert to local date-time values. Efforts should me made 
+     to ensure that the internal representation of date-time values does not 
+     suffer from Y2K problems and covers a sufficient range of dates. In 
+     particular, years must always be represented with four digits.
+ 
+     Strings-
+     Strings can be of arbitrary length and must not contain embedded nulls.
+     To facilitate the inclusion of control characters in strings, the
+     <string> element can contain <char code='??'/> elements. The value of
+     the code attribute is a two-character representation of the UTF-8 hex 
+     code for a given control character. For example, <char code='0C'/>
+     represents the form feed character. Control characters are characters
+     in the UTF-8 range 00-1F. Note that tab (09) and newline (0A) characters
+     can be included directly in XML text. The XML 1.0 specification Section
+     2.11 requires XML processors to not pass carriage return (0D) characters
+     to applications. 
+     
+     Note on end-of-line handling-
+     End-of-line characters have platform and programming language specific 
+     representations. Different application environments may use either a 
+     single newline (0A), a single carriage return (0D), or a carriage return 
+     and newline combination (0D0A). For the purposes of successful data 
+     encoding and translation the elements <char code='0A'/> and 
+     <char code='0D'/> must be used to encode newline and carriage return 
+     characters when they should be preserved in the deserialized string. 
+     Note that Section 2.11 of the XML 1.0 specification requires XML 
+     processors to translate all occurrences of carriage returns and the 
+     carriage return, newline combination to a single newline character. 
+     Therefore, for the purposes of XML, end-of-line is represented by a 
+     single newline character.
+ 
+     Complex data types:
+ 
+     WDDX supports the following complex data types: arrays, structures,
+     recordsets, and binary.
+ 
+     Arrays-
+     Arrays are integer-indexed collections of objects of arbitrary type. 
+     The starting index value is usually 0 with the notable exception of 
+     CFML whose arrays have an initial index value of 1. Because of these
+     differences working with array indices can lead to non-portable data.
+ 
+     Structures-
+     Structures are string-indexed collections of objects of arbitrary type.
+     In many languages they are known as associative arrays, dictionaries, or
+     maps. Structures contain one or more variables. Because some of the 
+     languages supported by WDDX are not case-sensitive, no two variable names
+     can differ only by their case. In the case where two variables have the 
+     same names or differ only by their case the final deserialized value would
+     be the value of the last variable.
+ 
+     Recordsets-
+     Recordsets are tabular data encapsulations: a set of named fields with 
+     the same number of rows of data. Only simple data types can be stored in
+     recordsets. For tabular data storage of complex data types, an array of 
+     structures should be used. Because some of the languages supported by WDDX
+     are not case-sensitive, no two field names can differ only by their case.
+     In the case where two fields have the same names or differ only by their
+     case the final deserialized values will be the values from the last field. 
+     Field names must satisfy the regular expression [_A-Za-z][_.0-9A-Za-z]* 
+     where the '.' stands for a period, not 'any character'.
+ 
+     Binary-
+     The binary datatype represents strings (blobs) of binary data. The WDDX 
+     DTD allows for multiple encodings of binary data. In this version only 
+     MIME style base64 encoding is supported by the specification. Optionally,
+     the length of the encoded binary object can be provided as a hint to
+     WDDX deserializers. It can be used to validate the length of the binary
+     object after decoding. It can also be used for efficient allocation of
+     memory during the decoding process.
+ 
+     Data type comparisons:
+ 
+     The following table compares the basic WDDX data types with those of 
+     languages/technologies/specifications commonly used on the Web.
+     
+     WDDX            XMLSchema       Java                         ECMAScript     COM Type
+     **************  **************  ***************************  *************  ****************  
+     null            N/A             null                         null           VT_NULL
+     boolean         boolean         java.lang.Boolean            boolean        VT_BOOL         
+     number          number          java.lang.Double             number         VT_R8           
+     dateTime        dateTime        java.lang.Date               Date           VT_DATE         
+     string          string          java.lang.String             string         VT_BSTR         
+     array           N/A             java.lang.Vector             Array          VT_ARRAY | VT_VARIANT
+     struct          N/A             java.lang.Hashtable          Object         IWDDXStruct     
+     recordset       N/A             com.allaire.util.RecordSet   WddxRecordset  IWDDXRecordset  
+     binary          binary          com.allaire.util.Binary      WddxBinary     V_ARRAY | UI1   
+ 
+     More on data types:
+ 
+     Reserved properties-
+     For the purposes of efficiently implementing WDDX platform modules in
+     a variety of languages, and to facilitate the representation of
+     arbitrary datatypes, WDDX reserves all object/structure/recordset
+     property/var/field names beginning with '_wddx'. (The prefix is case-
+     insensitive because some of the languages WDDX works with are case-
+     insensitive.) WDDX serializers can treat such names in a special, 
+     language and platform specific manner. WDDX deserializers can do the 
+     same with the name attributes of the var and field elements.
+     
+     Serialization model-
+     WDDX serializes data using a model of pure aggregation. It has no 
+     mechanism for handling object references. Aliased references will result
+     in multiple object instances being deserialized. WDDX serialization 
+     applied to a data structure that has cyclical references will most 
+     likely result in infinite iteration/recursion, depending on the 
+     serializer implementation. Object references support is another area of 
+     future investigation.
+ 
+     Multiple object types-
+     WDDX provides no built-in mechanism for representing objects of 
+     arbitrary type. This is done on purpose to enable interoperability
+     between application environments using a minimal yet functional set of
+     datatypes. In some special cases, however, particularly when WDDX is 
+     used to exchange data between identical application environments, there
+     is a need for preserving object type in the serialization/
+     deserialization process. To facilitate this, the top-level elements
+     representing all datatypes can have an optional 'type' attribute whose 
+     value is platform-specific. Upon serialization this attribute can be 
+     used to provide information about the type of the serialized object. If
+     provided, the value of this attribute can be used by a deserializer to 
+     instantiate a particular type of object. To facilitate the 
+     representation of arbitrary objects the _wddx_structAttributes_type 
+     property is reserved to contain the value of the type attribute of the 
+     struct element. Neither sererializers nor deserializers are required to
+     use or populate this reserved property, but it is recommended that they
+     provide the capability. However, if they do provide it, it is required 
+     (on both sides) that this behavior is optional and that it defaults to 
+     "Off".
+     
+     DTD verbosity:
+ 
+     This DTD is purposefully made verbose to aid the readability of WDDX
+     packets. If packet size becomes an issue, compressing WDDX packets
+     using an HTTP-safe real time compression algorithm is likely to be a
+     much more appropriate solution than, for example, a DTD that uses one
+     character element and attribute names. Some experiments conducted at
+     Allaire suggest that 5 - 15 fold compression rates are achievable.
+ 
+-->
+ 
+<!ELEMENT wddxPacket (header, data)>
+<!ATTLIST wddxPacket
+          version CDATA #FIXED "1.0">
+ 
+<!ELEMENT header (comment?)>
+ 
+<!ELEMENT comment (#PCDATA)>
+ 
+<!ELEMENT data (null | boolean | number | dateTime | string | array | struct | recordset | binary)>
+ 
+<!ELEMENT null EMPTY>
+<!ATTLIST null
+          type CDATA #IMPLIED>
+          
+<!ELEMENT boolean EMPTY>
+<!ATTLIST boolean 
+          value (true | false) #REQUIRED
+          type CDATA #IMPLIED>
+ 
+<!ELEMENT string (#PCDATA | char)*>
+<!ATTLIST string
+          type CDATA #IMPLIED>
+ 
+<!ELEMENT char EMPTY>
+<!ATTLIST char 
+          code CDATA #REQUIRED>
+ 
+<!ELEMENT number (#PCDATA)>
+<!ATTLIST number
+          type CDATA #IMPLIED>
+ 
+<!ELEMENT dateTime (#PCDATA)>
+<!ATTLIST dateTime
+          type CDATA #IMPLIED>
+ 
+<!ELEMENT array (null | boolean | number | dateTime | string | array | struct | recordset | binary)*>
+<!ATTLIST array 
+          length CDATA #REQUIRED
+          type CDATA #IMPLIED>
+ 
+<!ELEMENT struct (var*)>
+<!ATTLIST struct
+          type CDATA #IMPLIED>
+ 
+<!ELEMENT var (null | boolean | number | dateTime | string | array | struct | recordset | binary)>
+<!ATTLIST var
+          name CDATA #REQUIRED>
+ 
+<!ELEMENT recordset (field*)>
+<!ATTLIST recordset 
+          rowCount CDATA #REQUIRED
+          fieldNames CDATA #REQUIRED
+          type CDATA #IMPLIED>
+ 
+<!ELEMENT field (null | boolean | number | dateTime | string | binary)*>
+<!ATTLIST field
+          name CDATA #REQUIRED>
+ 
+<!ELEMENT binary (#PCDATA)>
+<!ATTLIST binary
+          encoding CDATA #FIXED "base64"
+          length CDATA #IMPLIED
+          type CDATA #IMPLIED>
+ 
+ 

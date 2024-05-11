@@ -1,0 +1,367 @@
+<html>
+<body>
+<div id="sag"><span class="yazi">26 Kasım 2007</span></div>
+<h2>GİRİŞ/DOM (Document Object Modelling)</h2>
+<div class="yazi">
+DHTML konusunda bir şeyler yapabilmek için öncelikle DOM (Belge Nesne Modellemesi) konusunda bilginiz olmalıdır. DOM, temelde formlar, resimler, düzeyler gibi görüntülenen nesnelerin çerçevesini oluşturur. Üreticiler bu yapıyı kullanarak ekrandaki değişiklikleri gerçekleştirirler. Aşağıdaki örneklerde bir formda yer alan bilgi alanlarının nasıl tanımlandığı incelenir.<br />
+<br />
+<pre>
+  document.form-adi.input-adi
+</pre>
+<br />
+biçiminde bir tanımda "form-adi" kullanılan formun adını, "input-adi" ise giriş alanının adını belirtir.<br />
+<br />
+ya da
+<br />
+<pre>
+  document.form-adi.elements[i]
+</pre>
+tanımında "form-adi" kullanılan formun adını, i ise o formdaki bilgi alanının sıra numarasını belirtir.<br />
+<br />
+ya da
+<br />
+<pre>
+  document.forms[i].input-adi
+</pre>
+tanımında, i formun sıra numarasını, input-adi ise o formdaki bilgi alanını tanımlar.<br />
+<br />
+Bu tanımda bilgi alanına erişmeden onun öncesideki öğeye (formun kendisine) erişmek gerekir. Javascript nesnel tabanlı bir yazılım olduğundan bu iş için "." (nokta) kullanılır.<br />
+
+<h3>Bir forma erişim</h3>
+
+Şimdi bir form tanımını inceleyelim:
+
+<pre>
+&lt;form name=&quot;myForm&quot;&gt;<br />
+&lt;input type=&quot;text&quot; name=&quot;textBox1&quot;&gt;<br />
+&lt;/form&gt;
+</pre>
+
+<span class="yazi">
+Ekranda görünüş biçimi şöyledir:
+</span>
+
+<form name="myForm">
+  <input type="text" name="textBox1">
+</form>
+
+<span class="yazi">
+Bu giriş alanına bir çok biçimlerde erişmek olanağı vardır.
+</span>
+
+<form name="form1">
+  <select name="select" onchange="alert(eval(this[this.selectedIndex].text))">
+    <option selected>document.forms[0].textBox1</option>
+    <option>document.forms[0].elements[0]</option>
+    <option>document.myForm.textBox1</option>
+    <option>document.myForm.elements[0]</option>
+  </select>
+</form>
+<br />
+Bu biçimde yazılınca, bir çok nesneye erişilmiş olunur. Daha sonra döküman (belge) nesnesine erişilir. Bunun içindeki "myForm" nesnesine, daha sonra onun altındaki "textBox1" nesnesine erişilir.<br />
+<br />
+<p class="yazi">
+<img src="img/DOM.gif" width="500" height="249" alt="Image of DOM hierarchal structure" />
+</p>
+<p class="yazi">
+  Bir kez textBox1 nesnesine ulaşıldığında, onun özelliklerini kullanabilme olanağı doğar.
+</p>
+
+<h3>Bir resime erişim</h3>
+
+<p class="yazi">
+Aşağıdaki gibi tanımlarla resimlere erişebiliriz:
+</p>
+<pre>
+   document.images[i]
+
+ya da 
+
+   document.images['image-adi']
+
+ya da
+
+   document.image-adi
+</pre>
+
+<p class="yazi">
+  DOM, Belge Nesne Modellemesi tarayıcıya çok bağımlıdır. Bu nedenle Netscape ile Microsoft arasında tutarsızlıklar ya da uyumsuzluklar vardır. Bazen bir ürünün değişik sürümlerinde bile farklılık olabilir.<br />
+<br />
+Bu nedenle W3C standartları geliştirmiştir. Yeni tarayıcılarda öğelere erişmek için kullanılan yöntem daha sonra ele alınacaktır.
+</p>
+<p class="yazi">
+"form" ve "resim" gibi temel öğelere erişim oldukça sıradandır. Katmanlara erişim aşağıda anlatılmıştır:
+</p>
+
+<h3>Katman (layer) için DOM</h3>
+
+<div class="yazi">
+Tüm sorunların altında tarayıcı uyumsuzlukları yatar. Her birimin katmanlara erişimi farklıdır. Netscape Navigator (NN 4) ilk DHTML tarayıcısıydı. Daha o zaman DOM standartı bile yoktu. Daha sonra çıkan IE 4 (Microsoft Internet Explorer 4) daha gelişkin DOM özellikleri içeriyordu. Neredeyse her HTML öğesi programlanabilir durumdaydı. W3C standartlarıyla NS 6 ve IE 5 çıktı. Artık DHTML daha güçlü ve daha kullanışlı olmuştu. Artık yazılan sayfalar hemen her tür tarayıcıda görüntülenebilir olmuştu.
+</div>
+<p class="yazi">
+Aşağıdaki örnek ele alındığında önce mutlak konumlu katmanlar incelenir. Daha sonra göreceli katmanların konumları incelenir.
+</p>
+<pre>
+  <span>&lt;div id=&quot;myLayer1&quot; style=&quot;position:absolute;top:100;left:150;z-index:3&quot;&gt;&lt;/div&gt;</span>
+</pre>
+
+<h3>Netscape 4</h3>
+
+<p class="yazi">
+NN 4 de, katmalara erişim şöyledir:
+</p>
+<pre>
+    document.layers[i]
+ ya da
+    document.layers[layerID]
+ ya da 
+    document.layers.layerID
+ ya da
+    document.layerID
+</pre>
+<p class="yazi">
+  Burada daha çok <span>document.layers[layerID]</span> kullanma biçimine odaklanılır.
+  örneklerde ele alınan katman için kullanılan kod: <span>document.layers["myLayer1"]</span> olacaktır.
+</p>
+
+<h3>Internet Explorer 4</h3>
+
+<p class="yazi">
+IE 4 kullanıldığında:
+</p>
+<pre>
+   document.all[layerID]
+ya da
+   document.all(layerID)
+ya da
+   document.all.layerID
+ya da
+   layerID
+</pre>
+<p class="yazi">
+  Burada daha çok ilk metod kullanılır. Örneklerdeki kodlama:
+  <span>document.all["myLayer1"]</span> biçimindedir.
+</p>
+
+<h3>W3C DOM (Internet Explorer 5 and Netscape 6)</h3>
+
+<p class="yazi">
+Sonuçta W3C DOM önerileriyle IE 5 ve NS 6'daki tanımlar:
+</p>
+<pre>
+  <span>document.getElementById(layerID)</span>
+  Yani:
+  <span>document.getElementById("myLayer1")</span>
+</pre>
+<p class="yazi">
+biçimindedir.
+</p>
+
+<p class="yazi">
+  Bu yöntemlerin hepsinde tarayıcı seçimi yapılarak uygun kodlama kullanabilir. Aşağıdaki kodlama ayrımın nasıl olacağını kısaca gösterir.<br />
+</p>
+<pre>
+  if(document.getElementById){
+        // Netscape 6 and IE 5 kodu buraya girer<br />
+  }else if(document.all){
+        // IE 4 kodu buraya girer<br />
+  }else if(document.layers){
+        //Netscape 4 kodu buraya girer<br />
+  }
+</pre>
+
+<h3>Eskiye uyumluluk</h3>
+<p class="yazi">
+Burada not alınması gereken en önemli özellik IE 5 eskiye uyumludur. Yani:
+</p>
+<pre>
+  <span>document.getElementById</span> ve <span>document.all</span> 
+</pre>
+<p class="yazi">
+sayfaya erişmek için uygundur:
+</p>
+<pre>
+  <span>if(document.all){<br />
+  // IE 4 and IE 5 için geçerlidir<br />
+  }</span>
+</pre>
+<p class="yazi">
+  Daha önceki örnekte IE 5 ve IE 4 if-else kodları yerine tek if komutu kullanmak yeterlidir. Burada NS 6 için söylenmesi gereken bir özellik, NS eskiye uyumlu değildir. Yani:
+</p>
+<pre>
+  <span>document.layers</span> 
+</pre>
+<p class="yazi">
+NS 6'da kullanılamaz.
+</p>
+<br />
+
+<h3>CSS</h3>
+
+<div id="yazi">
+
+  İlk zamanlar CSS, içerikten kalıplama komutlarını ayırmak için yaratıldı. Aslında WEB sayfası üretiminde ve bakımında çok büyük kolaylıkları vardır. Bu olanağın bir başka
+güzel tarafı ise güçlü CSS olanaklarından bazılarının DHTML içinde de kullanılabiliyor olmasıdır. Bunlar göreceli olarak daha tarayıcı uyumludurlar.
+</div>
+
+<h3>Sıradan bir örnek</h3>
+
+<p class="yazi">
+Bir resim kaynağına erişme konusunda şu sıradan örnekle başlayalım:
+<pre>
+  <span>&lt;img src="someImage.gif" name="myImage"&gt;</span>
+</pre>
+<p class="yazi">
+  Bu resim kaynağına DOM altında şu biçimde erişebiliriz:
+</p>
+<pre>
+  <span>document.images['myImage'].src</span>
+</pre>
+<p class="yazi">
+Bir kez öğeye erişince, onu değiştirebiliriz, bir değişkende saklayabiliriz, uyarı mesajında görüntüleyebiliriz v.b...
+</p>
+
+<h3>Bir katmandaki CSS'ye erişim</h3>
+<p class="yazi">
+Katmanlardaki CSS özelliklerine de aynı şeyi yapabiliriz. Resim kaynağına erişmek kadar kolay olmasa da (tarayıcı uyumsuzluklarından) katmanlara erişim olabilmektedir.
+<p class="yazi">
+
+<p class="yazi">
+  Bir katmanda CSS özelliklerini tanımlayabilmek için 
+</p>
+
+<pre>
+   <span>style=&quot;*properties*&quot;</span> 
+</pre>
+
+<p class="yazi">
+kullanmaktayız. Bizim örneğimizdeki nitelik için kodlama şöyledir:
+</p>
+<pre>
+  <span>&lt;div id=&quot;myLayer1&quot; style=&quot;position:absolute;top:100;left:150;z-index:3&quot;&gt;&lt;/div&gt;</span>
+</pre>
+
+<p class="yazi">
+Değişiklik yapabilmek için önce erişim tamamlanmalı daha sonra katman
+</p>
+<pre>
+  <span>.style.propertyName</span> (NN 4 hariç).
+</pre>
+<p class="yazi">
+ile kullanılmalıdır.
+</p>
+<p class="yazi">
+  Bu yöntemler aşağıdaki tabloda gösterilmiştir:
+</p>
+
+<div align="center" class="yazi">
+  <table width="98%" border="1" cellspacing="3" cellpadding="0" class="yazi">
+    <tr> 
+      <th style="font-size:Verdana;font-weight:600;text-align:center;font-size:16px" width="17%">Tarayıcı</th>
+
+      <th style="font-size:Verdana;font-weight:600;text-align:center;font-size:16px" width="43%">CSS Özelliği</th>
+      <th style="font-size:Verdana;font-weight:600;text-align:center;font-size:16px" width="40%">Örnek</th>
+    </tr>
+    <tr> 
+      <td width="17%">Netscape 6 and IE 5 (W3C)</td>
+      <td width="43%"><span>document.getElementById(layerID).style.<em>propertyName</em></span></td>
+      <td width="40%"><span>document.getElementById(&quot;myLayer1&quot;).style.top</span></td>
+
+    </tr>
+    <tr> 
+      <td width="17%">Internet Explorer 4 (IE 5 dahil)</td>
+      <td width="43%"><span>document.all[layerID].style.<em>propertyName</em></span></td>
+      <td width="40%"><span>document.all[&quot;myLayer1&quot;].style.top</span></td>
+    </tr>
+
+    <tr> 
+      <td width="17%">Netscape 4</td>
+      <td width="43%"><span>document.layers[layerID].<em>propertyName</em></span></td>
+      <td width="40%"><span>document.layers[&quot;myLayer1&quot;].top</span></td>
+    </tr>
+  </table>
+</div>
+
+<h3>Tireli Stiller</h3>
+
+<p class="yazi">
+Tabi ki burada bazı tuhaflıklar var. Örneğin "z-index" biçimindeki bir CSS özelliğinin bilgisine erişmek için tire ("-") kaldırılmalı sonraki harf büyük harfe çevrilmelidir (z-index için zIndex kullanılır).
+</p>
+<p class="yazi">
+Aşağıda katmanın z-index değerini belirleyen kodlama vardır.
+</p>
+  
+<script language="javascript" type="text/javascript">
+  function alertFF(){
+  	if(document.getElementById){
+  		alert(document.getElementById("myLayer1").style.zIndex);
+	}else if(document.all){
+		alert(document.all["myLayer1"].style.zIndex);
+	}else if(document.layers){
+		alert(document.layers["myLayer1"].zIndex);
+	}
+  }
+</script>
+
+<pre>
+  <span>
+  &lt;script language=&quot;javascript&quot; type=&quot;text/javascript&quot;&gt;
+    function alertFF(){
+         if(document.getElementById){
+            alert(document.getElementById(&quot;myLayer1&quot;).style.zIndex);
+       }else if(document.all){
+            alert(document.all[&quot;myLayer1&quot;].style.zIndex);
+       }else if(document.layers){
+            alert(document.layers[&quot;myLayer1&quot;].zIndex);
+       }
+  }
+  &lt;/script&gt;
+
+  &lt;form&gt;&lt;p&gt;&lt;input type=&quot;button&quot; onclick=&quot;alertFF()&quot; 
+  value=&quot;Click Here to alert the layer's z-index&quot;&gt;&lt;/p&gt;&lt;/form&gt;
+  </span>
+</pre>
+
+<form>
+<p class="yazi">
+<input type="button" onclick="alertFF()" value="Katmanın z-index değeri için burayı tıklayın">
+</p>
+</form>
+
+<h3>Konum</h3>
+<p class="yazi">
+  Katmanların koordinatlarını ayarlarken de tuhaflık olmaktadır. Bazı tarayıcılarda "sol" ve "üst"
+&quot;px&quot;
+türünde değer döndürür (&quot;300px.&quot; de olduğu gibi) . Eğer bu değere ekleme yapmak istenirse değeri
+parseInt() işleminden geçirilip &quot;px&quot; değeri düşürmelidir. Sonra ekleme yapmalıdır. Yani bu değere bir sayı eklenecekse, önce değeri sayısal yapılmalıdır.
+<br />
+Bazıları pixelLeft ya da pixelTop kullanırlar. Ama tarayıcı uyumsuzluklarından olduğu için top ve left özelliklerini parseInt() ile kullanılması önerilir.<br />
+<br />
+Aşağıdaki örnekte konu anlatılmıştır:
+</p>
+<pre>
+  <span>
+       if(document.getElementById){
+            document.getElementById("myLayer1").style.left = 
+              parseInt(document.getElementById("myLayer1").style.left) +3;
+            document.getElementById("myLayer1").style.top =
+              parseInt(document.getElementById("myLayer1").style.top) +3;
+       }else if(document.all){
+            document.all["myLayer1"].style.left = 
+              parseInt(document.all["myLayer1"].style.left) +3;
+            document.all["myLayer1"].style.top = 
+              parseInt(document.all["myLayer1"].style.top) +3;
+       }else if(document.layers){
+            document.layers["myLayer1"].left = 
+              parseInt(document.layers["myLayer1"].left) +3;
+            document.layers["myLayer1"].top = 
+              parseInt(document.layers["myLayer1"].top) +3;
+       } 
+  </span>
+</pre>
+<p class="yazi">
+Şu ana değin yazılanların tümü DHTML konusunda gerekenlerin sıradan özetidir.
+Bu bilgi istediklerinizi yapmaya yeter. Doğal öğrenmenin sonu yoktur. Ama en azından bu kadarcık bilgi bile DHTML anlatımı için yeterli olabilir.
+</p>
+</body>
+</html>

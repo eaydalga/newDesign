@@ -1,0 +1,40 @@
+
+#bdy {
+     font-size: 9px;
+}
+
+
+#banner1 {
+        position	: fixed;
+        top		: 38px;
+        left		: 100px;
+	width		: 539px;
+	height		: 15px;
+	background : url(img/banner.png) no-repeat;
+}
+#contains1 {
+        position	: fixed;
+        top		: 53px;
+        left		: 100px;
+	width		: 539px;
+	height		: 408px;
+        padding-left: 7px;
+	background : url(img/pencere2.png) repeat-y;
+	overflow	: auto;
+	border-left     : 2px solid #000000;
+	border-right    : 0px;
+}
+
+#content1 {
+	position	: relative;
+	width		: 494px;
+	margin-left	: 10px;
+	margin-right	: 10px;
+}
+
+#sag {
+	margin-top: 0px;
+	margin-left: 0px;
+	text-align: right;
+}
+

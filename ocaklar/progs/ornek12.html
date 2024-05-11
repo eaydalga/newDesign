@@ -1,0 +1,154 @@
+<html>
+<head>
+<title>Ornek 12: DOM Ornegi</title>
+</head>
+
+<body>
+<style type="text/style">
+input {
+   font-family:Arial;
+}
+.table {
+   background-color:black;
+}
+</style>
+<script language="JavaScript" type="text/javascript">
+	var item, copiedCell;
+	function clickTD(){
+		this.style.backgroundColor=="purple" ? change = false : change = true;
+		for(i=0;i<document.getElementsByTagName("TD").length;i++){
+			elem = document.getElementsByTagName("TD").item(i);
+			elem.style.backgroundColor="purple";
+		}
+		if(!change){
+			this.style.backgroundColor="blue";
+			document.getElementsByTagName("FORM").item(0).setAttribute("style","display:block");
+			item = this;
+		}else{
+			document.getElementsByTagName("FORM").item(0).setAttribute("style","display:none");
+		}
+		attributeList();
+	}
+
+	DIV = document.createElement("DIV");
+	DIV.setAttribute("align","center");
+	table = document.createElement("TABLE");
+	table.setAttribute("border","3");
+	table.setAttribute("class","table");
+	for(i=0;i<5;i++){
+		TR = document.createElement("TR");
+		TD = document.createElement("TD");
+		TD.setAttribute("width","300");
+		TD.setAttribute("align","center");
+		TD.setAttribute("style","background-color:purple;color:white;font-family:Arial");
+		text = document.createTextNode("Hücre içindeki yazıdır "+parseInt(i+1)+".");
+		TD.appendChild(text);
+		TR.appendChild(TD);
+		table.appendChild(TR);
+	}
+	DIV.appendChild(table)
+	document.body.appendChild(DIV);
+	for(i=0;i<document.getElementsByTagName("TD").length;i++){
+		document.getElementsByTagName("TD").item(i).addEventListener("click",clickTD,0);
+	}
+
+	function deleteR(){
+		item.parentNode.parentNode.removeChild(item.parentNode);
+		document.getElementsByTagName("FORM").item(0).setAttribute("style","display:none");
+	}
+
+	function changeText(){
+		if(document.forms[0].newTextInput.value=="")return false;
+		newRange = document.createRange();
+		newRange.selectNodeContents(item);
+		newRange.deleteContents();
+		newHTML = newRange.createContextualFragment(document.forms[0].newTextInput.value);
+		item.appendChild(newHTML);
+	}
+
+	function insertNR(){
+		TR = document.createElement("TR");
+		TD = document.createElement("TD");
+		TD.setAttribute("width","300");
+		TD.setAttribute("align","center");
+		TD.setAttribute("style","background-color:purple;color:white;font-family:Arial");
+		text = document.createTextNode("Hücre içindeki yazıdır "+parseInt(document.getElementsByTagName("TD").length+1)+".");
+		TD.appendChild(text);
+		TR.appendChild(TD);
+		document.getElementsByTagName("TABLE").item(0).insertBefore(TR,item.parentNode.nextSibling);
+		item.parentNode.nextSibling.firstChild.addEventListener("click",clickTD,0);
+	}
+
+	function newAttribute(){
+		frm = document.forms[0];
+		item.setAttribute(frm.attributeName.value,frm.attributeValue.value);
+		attributeList();
+	}
+	
+
+	function attributeList(){
+		AL = document.forms[0].attributeList;
+		for(i=0;i<AL.options.length;i++){
+			AL.options[i] = null;
+		}
+		for(i=0;i<item.attributes.length;i++){
+			AL.options[i] = new Option(item.attributes.item(i).name,item.attributes.item(i).value);
+		}
+		document.forms[0].attributeListValue.value = AL.options[0].value;
+	}
+
+	function changeAttribute(){
+		AL = document.forms[0].attributeList;
+		item.setAttribute(AL.options[AL.selectedIndex].text,document.forms[0].attributeListValue.value);
+		attributeList();
+	}
+
+	function copyCell(){
+		copiedCell = item.parentNode.cloneNode(true);
+		copiedCell.firstChild.setAttribute("style","background-color:purple;color:white;font-family:Arial");
+	}
+
+	function pasteCell(){
+		table.insertBefore(copiedCell,item.parentNode.nextSibling);
+		item.parentNode.nextSibling.firstChild.addEventListener("click",clickTD,0);
+		copiedCell = item.parentNode.nextSibling.cloneNode(true);
+	}
+</script>
+<br>
+<form style="display:none">
+  <div align="center">
+    <input type="button" value="Sil" onclick="deleteR()">
+    &nbsp; <font face="Arial, Helvetica, sans-serif"> 
+    <input type="button" value="Yeni Satır Ekle" onClick="insertNR()">
+    <input type="button" value="Hücre Kopyala" onClick="copyCell()">
+    <input type="button" value="Hücre Yapıştır" onClick="pasteCell()">
+    <br>
+    Yazıyı Değiştir:</font> 
+    <input name="newTextInput" type="text" size="27">
+    <input type="button" value="Yazıyı Değiştir" onclick="changeText()">
+    <br>
+    <select name="attributeList" onChange="this.form.attributeListValue.value = this.options[this.selectedIndex].value">
+    </select>
+    &nbsp; 
+    <input type="text" name="attributeListValue" size="15">
+    <input type="button" value="Nitelik Degistir" onClick="changeAttribute()">
+    <br>
+    <font face="Arial, Helvetica, sans-serif">Yeni Nitelik: </font> 
+    <input type="text" name="attributeName" size="15">
+    <font face="Arial, Helvetica, sans-serif">Değer: </font> 
+    <input type="text" name="attributeValue" size="15">
+    <input type="button" value="Nitelik Ekle" onclick="newAttribute()">
+    <br>
+    <br>
+  </div>
+</form>
+
+<P>&nbsp;
+<P>&nbsp;
+<P>&nbsp;
+<P>&nbsp;
+<P>
+<B><A HREF="javascript:history.back()">Dönüş</A></B>
+
+</body>
+</html>

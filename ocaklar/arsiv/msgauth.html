@@ -1,0 +1,217 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Aybim </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onload="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+          <a href="../index.php" class="box"><img src="../img/aybim.png" border="0"></a><br /><br />
+          <a href="aglar.html" class="nav">Aglar</a>
+          <a href="aglink.html" class="nav">Aglink</a>
+          <a href="agteknik.html" class="nav">Agteknik</a>
+          <a href="ccode.html" class="nav">C-Kodlama</a>
+          <a href="cprep.html" class="nav">C-Önişleme</a>
+          <a href="crclrc.html" class="nav">CRC/LRC</a>
+          <a href="dea.html" class="nav">DEA</a>
+          <a href="etcsrv.html" class="nav">etcsrv</a>
+          <a href="fork.html" class="nav">Çatal (fork)</a>
+          <a href="ilet.html" class="nav">ilet</a>
+          <a href="inetd.html" class="nav">inetd</a>
+          <a href="make.html" class="nav">Make</a>
+          <a href="msgauth.html" class="nav">Msg Auth</a>
+          <a href="recur.html" class="nav">Özyinelemeli</a>
+          <a href="robots.html" class="nav">Robotlar için</a>
+          <a href="sdlc.html" class="nav">SDLC</a>
+          <a href="secure.html" class="nav">Güvenlik</a>
+          <a href="seri.html" class="nav">Seri uçlar</a>
+          <a href="snalu0.html" class="nav">SNA LU0</a>
+          <a href="snalu62.html" class="nav">SNA LU6.2</a>
+          <a href="tcpip.html" class="nav">tcp/ip</a>
+          <a href="tcpprg.html" class="nav">tcp Programı</a>
+          <a href="unix.html" class="nav">Unix</a>
+          <a href="vi.html" class="nav">vi Editör</a>
+       </div>
+       </td>
+       <td valign="top">
+       <div id="ortataraf">
+           <span><img src="../img/transparent.gif" width="1" height="50">
+           <img src="../img/transparent.gif" width="780" height="1"></span>
+           <div id="banner">
+             <img src="img/baslik.gif"><br />
+             <div id="mycontainer">
+               <div id="content">
+<div id="bdy" class="yazi">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8541306787668208";
+//728x90, created 1/16/08
+google_ad_slot = "7459135715";
+google_ad_width = 728;
+google_ad_height = 90;
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<br>
+<br>
+<div id="sag"><span class="yazi">24 Ocak 2008 / 1 Aralık 1996</span></div>
+<hr>
+<p>
+<h2>MESAJ ONAYLAMA</h2>
+<p>
+Bir bilgisayardan diğerine gönderilen bilginin değişmediğini anlamak
+için kullanılan bu algoritmada en önemli özellik "iletişim" anahtarı
+ile mesajın belli bölümlerinin şifrelenerek mesaj sonuna eklenmesidir.
+Bu işlemde "iletişim" anahtarı, ve mesajın şifrelenen bölümleri
+yalnız ilgili programlar tarafından bilindiği için, mesaj açık ta olsa
+mesajın özellikle parasal bilgisinde bir oynama yapılamaz veya yetkisiz
+bir kullanıcı gerçek mesaj gibi onay merkezine bilgi gönderemez. Bu yöntem
+güvenli olduğu için pekçok ATM (para çekme cihazları) tarafından kullanılır.
+<p>
+Burada yöntemin özellikleri ve iki bilgisayar arasındaki "iletişim" anahtarı
+değişimi anlatılmıştır.
+<p>
+Bir bilgisayar diğerine bağlantı kurarken önce iletişim anahtarını gönderir.
+Diğer bilgisayar gelen iletişim anahtarını sakladığı anahtar ile 
+karşılaştırır. İletişim anahtarı doğru ise, iletişim anahtarını değiştirme
+yetkisi olan bilgisayar (genelde merkez bilgisayardır) rastgele sayı
+üreteci kullanarak yeni bir iletişim anahtarı oluşturur. Mesaj alındısına
+yeni iletişim anahtarını yazar ve ilk oturumu kuran bilgisayara bu anahtarı
+gönderir. Karşı taraf mesajı alınca iletişim anahtarının şifresini açar ve
+bu anahtarı bundan sonraki mesaj onaylama işlemlerinde kullanmak üzere
+saklar. Burada bir önceki oturumdan saklanmış olan iletişim anahtarı
+bir sonraki oturumu başlatmakta kullanılır. Oturum başladıktan sonra yeni
+iletişim anahtarı outurum boyunca kullanılır. Bir sonraki oturumun ilk
+mesajında kullanılmak üzere saklanır. İletişim anahtarının rastgele değişmesi
+mesaj onay kodu hesaplamada programı yazan kişilerin bile mesajın içeriğini
+değiştirme olanağını ortadan kaldırır.
+<p>
+Mesaj onay kodu hesaplanırken mesajın her iki bilgisayar programı tarafından 
+bilinen belirli bölümleri bir diziye taşınır. Bu dizi o anki "iletişim" 
+anahtarı değeri ile şifrelenir. <A HREF="dea.html">DEA</A> bir seferde 
+ençok sekiz byte şifreleyebilir. 
+Her sekiz byte şifrelendiğinde bir sonraki sekiz byte ile
+EXOR yapılır. İşlemlerden elde edilen son sekiz byte mesaj onay kodudur. 
+Bu bilginin
+ilk dört byte'lık bölümü onaltılık yazılabilir sayı biçimine
+dönüştürülür ve işlevi çağıran programa gönderilir. Bu program mesaj
+onay kodunu 8 byte olarak mesajın sonuna ekler ve karşı tarafa iletir.
+<p>
+Mesajı alan bilgisayar aynı bilgi alanlarından oluşturduğu diziyi kendinde
+saklı olan iletişim anahtarı ile aynı yöntemi kullanarak şifreler ve 
+mesaj onay kodu elde eder. 
+Elde edilen mesaj onay kodunu karşı taraftan gelen mesaj onay
+kodu ile karşılaştırır. Bilgiler eşit ise mesaj alındısı doğru olarak
+ilk bilgisayara iletilir. Hata varsa mesajın kabul edilmediği belirtilir ve
+oturum kapatılır.
+<p>
+Bu yöntem, halka açık iletişim şebekelerinden (X.25, Telefon şebekesi gibi)
+mesaj alış verişi yapan kurumlar tarafından kullanılır. Özellikle parasal
+nitelik taşıyan mesajlarda, iletişim anahtarı sayesinde bilginin doğru 
+bilgisayardan gelip gelmediği kolaylıkla anlaşılır.
+<p>
+İletişim anahtarının mesaj onay kodu üretiminde nasıl kullanıldığı aşağıdaki
+çizimde gösterilmiştir. Bu çizimdeki k0 iletişim anahtarı km ise mesaj onay
+kodudur. 
+<p>
+Mesaj onay kodunun hesaplandığı dizi iki yöntemle mesaj onay kodu üretimine
+sokulur. Birinci yöntemde dizideki boşluklar kaldırılır. Alfabetik bilgi
+dizinin başına taşınır, dizinin sonuna sekizin katlarını tamamlayacak
+biçimde '0' taşınır. İkinci yöntemde dizinin içeriği bozulmadan şifrelenir.
+<p>
+<IMG BORDER=1 ALIGN=middle SRC="img/msgauth.gif" ALT="MESAJ ONAY">
+Çizimdeki km değerinin ilk 4 byte'lık bölümünün hex karşılığı 8 onaltılık sayı olarak, 
+mesaj onay kodu biçiminde ilgili programa geri döndürülür.
+<p>
+Aşağıdaki örnek program her iki yöntemin de kolaylıkla kullanıldığı bir C
+dili kodlamasıdır.
+<p>
+<H2>ÖRNEK PROGRAM</H2>
+<p>
+Buradaki örnek programda işleri kolaylaştırmak için iletişim anahtarı 
+yerine değişmez bir değer kullanılmıştır.
+<p>
+<pre>
+    char *comkey = "2222222222222222";
+
+    msgauth(matype,s,nn,p)
+    char matype,*s, *p;
+    int nn;
+    {
+    int n,i,k,m,l;
+    char savrep[16];
+    char s1[148];
+    char px[20];
+
+    n = nn;
+    if(matype == COMPRESS) {
+        l = i = 0;
+        while(i &lt; n) {
+            i = skipblank(s,i,n);        /* bosluklari atla */
+            k = searchblank(s,i,n) + 1;  /* ilk bosluga kadar gec */
+            memcpy(s1 + l,s + i, k - i); /* ascii karakter tasi */
+            l += k - i;
+            i = k;
+            }
+        }
+    else
+    if(matype == PLAINTXT) {
+        memcpy(s1,s,n);
+        l = n;
+        }
+    /* sekizin katlarına tamamla */
+    if((n % 8) != 0) n = (n / 8 + 1) * 8; 
+    for(i = l-1; i &lt; n; i++)
+        s1[i] = '0';   /* mesajın sonuna '0' doldur */
+    s1[n] = 0;
+    for(i = 0; i &lt; 8; i++)
+        savrep[i] = 0;
+
+    /* iletişim anahtarı ile her sekiz byte bilgiyi şifrele */
+    m = 8;
+    memcpy(ppk.key,comkey,16);
+
+    for(i = 0; i &lt; n; i += 8) {
+        memcpy(ppk.txt,s1 + i,8);
+        /* bir önceki sekiz byte ile EXOR yap */
+        for(k = 0; k &lt; 8; k++)
+            ppk.txt[k] = ppk.txt[k] ^ savrep[k];
+        ppk.len = 8;
+        ppk.type = '0';
+        /* DEA ile şifrele */
+        deasub(&ppk);
+        /* şifrelenmiş bilgiyi tasi */
+        strncpy(savrep,ppk.txt,8);
+        }
+    /* ilk dört byte bilgiyi hex sayiya donustur */
+    for(k = 0; k < 8; k++)
+        sprintf(px + (k &lt;&lt; 1), "%02X", ppk.txt[k] & 0377);
+    /* sonucu tasi */
+    memcpy(p,px,8);
+    }
+</pre>
+<HR>
+<br />
+</div>
+               </div>
+             </div>
+           </div>
+
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

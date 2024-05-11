@@ -1,0 +1,280 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Aybim - Bağımsız Veri Değişimi</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script language="JavaScript" src="../js/email.js"> </script>
+<script language="JavaScript" src="../js/date.js"> </script>
+<script language="JavaScript" src="../js/float.js"> </script>
+<script language="JavaScript" src="../js/baslik.js"> </script>
+<script language="JavaScript" src="../js/XHConn.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+
+function isteme(t)
+{
+var myConn5 = new XHConn();
+var body="bweb="+t;
+htop();
+
+resim();
+var fnIsteme = function (oXML) {
+   if(document.getElementById) {
+      target1=document.getElementById('sec5');
+      if(target1) {
+            target1.style.display = "none";
+      }
+      target=document.getElementById('sec11');
+      if(target) {
+            target.innerHTML=oXML.responseText;
+            target.style.display = "inline";
+      }
+   }
+ };
+myConn5.connect("../isteme.php", "GET", body, fnIsteme);
+}
+
+function isteme2()
+{
+var myConn6 = new XHConn();
+var errstr = "";
+var body = "bweb=0&";
+var err;
+htop();
+
+for(i=0; i < document.forms['wf_Enquiry'].elements.length; i++) {
+    var aa = document.forms['wf_Enquiry'].elements[i].name;
+    if ( aa != "undefined" ) {
+        wff=document.forms['wf_Enquiry'].elements[i].value;
+        err = mycheck(wff,document.forms['wf_Enquiry'].elements[i].className);
+        if (err.length > 0) {
+            errstr += document.forms['wf_Enquiry'].elements[i].name+ ":" + err + "\n";
+        }
+        else {
+            if (!(aa == "sayfa" || aa == "submit" || aa == "undefined")) {
+               body += aa + "=" + wff + "&";
+            }
+        }
+    }
+}
+if(errstr.length > 0) {
+    alert(errstr);
+    return false;
+}
+var fnIsteme2 = function (oXML) {
+   if(document.getElementById) {
+      target1=document.getElementById('sec11');
+      if(target1) {
+            target1.style.display = "none";
+      }
+      target=document.getElementById('sec12');
+      if(target) {
+            target.innerHTML=oXML.responseText;
+            target.style.display = "inline";
+      }
+   }
+ };
+myConn6.connect("../isteme.php", "GET", body, fnIsteme2);
+}
+function bitsin(n)
+{
+   if(document.getElementById) {
+      xx = 'sec'+n;
+      target1=document.getElementById(xx);
+      if(target1) {
+            target1.style.display = "none";
+      }
+   }
+   kapat();
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="ortataraf">
+           <span><img src="../img/transparent.gif" width="1" height="50">
+           <img src="../img/transparent.gif" width="780" height="1"></span>
+           <div id="banner">
+             <img src="img/baslik.gif"><br />
+             <div id="mycontainer">
+               <div id="content">
+<div id="bdy">
+<br>
+<br>
+<div id="sag"><span class="yazi">20 Ekim 2007</span></div>
+<h2>Bağımsız Veri Değişimi</h2>
+<h3>Kısaltmalar hakkında:</h3>
+<p class="yazi">
+EDI - Electronic Data Interchange<br/>
+EDI iş belgelerinin standardlaşmış elektronik kalıpla iki değişik uygulama programı arasındaki otomatik değişimine denir. İletişim yöntemi ve veri kalıbı hakkında hiçbir sınırlama olmadığına dikkat edilmelidir.
+</p>
+
+<p class="yazi">
+Teknik olarak siz ve sizin iş ortağınız değiştirilen verinin yapısını biliyor olması sorunları ortadan kaldırır. Ama siz birden çok iş ilişkisi kurmuşsanız ve her iş ortağında değişik bir kalıp kullanılıyorsa sorun büyür, hatta farklı iş ortaklarına farklı bilgiler gönderilme olasıdır. Bu yüzden Ulusal ve Uluslararası EDI Standardları saptanmıştır.
+</p>
+
+<p class="yazi">
+Veri yapısı değişik kurallara göre düzenlenebilir. Bazı örnekler aşağıda tanımlanmıştır:
+</p>
+
+<p class="yazi">
+- Ayıraçlı: Burada veriler kullanıcıların tanımladığı ayıraçlarla ayrılırlar. Veri uzunlukları değişken olabilir ve boşluklarla doldurulmuş değildir. Bu tür veri yapısına uygun bir örnek olarak Elektronik Tablo (Excell gibi) programından elde edilen CVS dosyaları gösterilebilir.
+</p>
+
+<p class="yazi">
+- Düz: Burada bilgi alanları alanın boyuna göre uzatılmıştır ve alan ayıracı hiç kullanılmaz.
+</p>
+
+<p class="yazi">
+- XML: Bilgi alanları anlamlı tanımlarla (TAG) bölünmüştür. Bu özellik verilerin içeriğini bilgilendirme açısından da önemli bir başlangıçtır.
+</p>
+
+<p class="yazi">
+Şimdi EDI Standardlarını koyan kurumları tanıyalım:
+</p>
+
+<p class="yazi">
+<br />- EDIFACT (Ayıraçlı) Birleşmiş Milletlerin onayladığı bir standardıdır. Diğerleri yavaş yavaş buraya dönüşmektedirler.
+<br />- ANSI X12 (Ayıraçlı) ABD'nin temel standardı
+<br />- Tradacoms (Ayıraçlı) İngiltere'nin perakende piyasası standardıdır
+<br />- ODETTE (Ayıraçlı) Avrupa otomativ standardıdır ve EDIFACT'a dönüşmektedir.
+<br />- VDA (Düz) Alman otomotiv standardıdır.
+</p>
+
+<h3>EC - Electronic Commerce</h3>
+
+<p class="yazi">
+EC ve EDI arasındaki fark nedir?
+<br />EC daha sonra çıkarılmış bir deyimdir ve EDI onun alt kümesi gibidir.
+</p>
+
+<p class="yazi">
+Bir başka alt kümede, insanların bilgisayar kullanarak doğrudan sipariş geçebilmesi ve sipariş almasıdır. Birçok Internet elektronik ticareti bu kümeye girer. 
+</p>
+
+<p class="yazi">
+Son olarak bir başka alt kümede, bir firmanın bilgisayar sistemlerinden tedarikçilerine otomatik bilgi göndermeye kalkmasıdır. Tedarikçilerin hepsi donanımlı olmadığından bazılarına mesaj faks ara yüzü kullanılarak gönderilir. Otomatik ya da elle mesaj gönderimi arasında fark yoktur.
+</p>
+
+<p class="yazi">
+
+Bir başka yöntemde tedarikçi, elektronik veriyi aldığında hepsini kendi bilgisayarına otomatik aktaramayabilir. Bu durumda yazıcıdan rapor alıp daha sonra raporu bilgisayara elle girmesi gerekebilir. Buna "oku ve döndür" türü EDI denir. Diğer türü bundan ayırmak için ona gerçek EDI denmektedir.
+</p>
+
+
+<h3>ISO-9735 EDI Standardı</h3>
+
+<p class="yazi">
+ISO-9735 veri değişim standardı (1988 ilk çıkışı, 1990'da ve 1992'de geliştirildi) uygulama düzeyindeki dil kurallarını içerir.
+</p>
+
+<p class="yazi">
+Avrupa standardlarına göre 10 değişik sektörde bu mesajlar kullanılabilir. Bu sektörler: Ticaret, Taşımacılık, Gümrük, Finans, İnşaat, İstatistik, Sigorta, Turizm ve Sağlık sektörüdür.
+</p>
+
+<p class="yazi">
+EC ayrıca bu kavramların veri değişim ve bilgilendirme servislerinde de kullanılmasını desteklemektedir.
+</p>
+
+<p class="yazi">
+Bu standard ortaklar arasında mesaj alış verişinin nasıl sağlanacağının dil kurallarını açıklar.
+</p>
+
+<p class="yazi">
+Bir mesaj içinde kesimler ve öğeler için sınırlama yoktur. Mesaj yapısında kesimler çoğunlukla yinelenen türdendir ya da iç içe girmiştir. Mesajın yapısını belirtmek için DIRDEF (Directory Definition) ya da KUVAUS mesajı kullanılır.
+</p>
+
+<p class="yazi">
+Mesaj şemasında mesaj kalıpları soldan sağa ve yukarıdan aşağıya doğru sıralanır. Böylece veri dosyasında kesimler şöyle sıralanır:
+</p>
+<p class="yazi">
+AAA'BBB'CCC'DDD'DDD'DDD'DDD'CCC'DDD'EEE'FFF'FFF'GGG'GGG'FFF'HHH'III
+</p>
+<p class="yazi">
+Bir veri kesimi başka veri kesimlerini kapsayacak biçimde tanımlanır. Gereksinimler (Zorunlu ya da varsayılanlar gibi) ve yapısı (sayısal, alfa sayısal gibi) da tanımların arasındadır.
+</p>
+
+<p class="yazi">
+<code>
+FTX+OSI+++Bu bir bilgi yazısıdır'</br>
+FTX+OSI+++Yazı parçalara bölünebilir:Aynı bölümler olabilir:Ya da kodlanır.+ENG'</br>
+FTX+ZZZ+A+123:NN:BBB'</br>
+</code>
+</p>
+<br />
+<span class="button">
+<a href="javascript:isteme(1)" title="Nasıl kullanabiliriz?">Nasıl Kullanabilirim</a>
+</span>
+<br />
+<div id="sayfaac" style="display: none;">
+     <div id="banner1"><img src="img/banner.png" title="Kapat" onclick="javascript:kapat();"></div>
+        <div id="contains1">
+           <div id="content1">
+              <div id="sec5" style="display: none;">
+              </div>
+              <div id="sec11" style="display: none;">
+              </div>
+              <div id="sec12" style="display: none;">
+              </div>
+           </div>
+        </div>
+     </div>
+</div>
+<br />
+</div>
+               </div>
+             </div>
+           </div>
+
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+          <table cellspacing="5">
+          <tr><td align="center">
+            <img src="../img/aybim.png"><br /><br />
+            <a href="index.html" class="box"><img src="img/sand_glass.gif" alt="" title="" border="0" /></a><br />
+            <span class="syazi">Belgeler</span>
+          </td></tr>
+          <tr><td align="center">
+            <a href="kullanici.html" class="box"><img src="img/user.gif" alt="" title="" border="0" /></a><br />
+            <span class="syazi">Kullanıcılar</span>
+          </td></tr>
+          <tr><td align="center">
+           <a href="blog.html" class="box"><img src="img/clipboard.gif" alt="" title="" border="0" /></a><br />
+           <span class="syazi">Blog</span>
+          </td></tr>
+           <tr><td align="center">
+           <a href="filmler.html" class="box"><img src="img/bb_mov.gif" alt="" title="" border="0" /></a><br />
+           <span class="syazi">filmler</span>
+           </td></tr>
+          <tr><td align="center">
+            <a href="webtv.html" class="box"><img src="img/webcam.gif" alt="" title="" border="0" /></a><br />
+            <span class="syazi">Internet TV</span>
+          </td></tr>
+          <tr><td align="center">
+           <img src="img/bb_pckg.gif" alt="" title="Bağımsız Veri Değişimi" border="0" /><br />
+           <span class="syazi">BVD</span>
+          </td></tr>
+          <tr><td align="center">
+            <a href="swy.html" class="box"><img src="img/news.gif" alt="Sürekli Web Yayımı" title="" border="0" /></a><br />
+            <span class="syazi">SWY</span>
+          </td></tr>
+          <tr><td align="center">
+            <a href="pg.html" class="box"><img src="img/pg.gif" alt="Panoramik Görüntü" title="" border="0" /></a><br />
+            <span class="syazi">PG</span>
+          </td></tr>
+          </table>
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

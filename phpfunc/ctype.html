@@ -1,0 +1,98 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Karakter Türü (Character Type) İşlevleri</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">18 Şubat 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>Karakter Türü (Character Type) İşlevleri</h2>
+
+<h3>Giriş</h3>
+
+Bu uzantıyla sağlanan işlevler bir karakter ya da yazı dizisinin belirli
+karakter sınıfına girip birmediğine bakar.
+<br /><br />
+Tamsayı parametreyle çağrıldığında bu işlevler C dilindeki ctype.h içindeki
+benzer işlevler gibidir. Yani eğer 256 değerinden küçük sayılarla işlevleri
+çağırırsanız işlev bu değerin ASCII karşılığını kullanır. Eğer sayı -129 ile
+-1 arasındaysa, sayıya 256 eklenerek denetim yapılır.
+<br /><br />
+Yazı dizisi ile çağrıldığında yazı dizisindeki tüm karakterler kritere
+uygunluğu açısındankarşılaştırılır. PHP 5.1 sürümü öncesinde boş yazı
+dizisiyle çağrılırsa TRUE döner. Daha sonraki sürümlerde FALSE döner.
+<br /><br />
+Bunların dışındaki herhangi bir değer geçirildiğinde FALSE döner.
+<br /><br />
+Her zaman ctype işlevleri kurallı deyimlere tercih edilir. Hatta bazı str_* ve
+is_* işlevlerine bile tercih edilebilir. Çünkü ctype yerel C kitaplığı
+kullanır ve diğerlerine göre oldukça hızlıdır.
+
+<h3>Kurulum</h3>
+
+PHP 4.2.0 sürümüyle birlikte varsayılan olarak bu işlevler açıktır. Daha eski
+sürümler için derlerken "--enable-ctype" kullanmak gerekir. Desteği kaldırmak
+için "--disable-ctype" ile derleme yapabilirsiniz.
+<br /><br />
+Bu uzantı için Window PHP sürümünde hazır çözüm ve destek vardır. Ek uzantı
+yüklemeye gerek yoktur.
+<br /><br />
+    Not: PHP 4.3.0 sürümünden beri ctype hazır desteği vardır
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> ctype_alnum — alfasayısal karakterlere bakar
+    <li> ctype_alpha — alfabetic karakterlere bakar
+    <li> ctype_cntrl — Kontrol karakterlerine bakar
+    <li> ctype_digit — Sayısal karakterlere bakar
+    <li> ctype_graph —Boşluk dışındaki yazılabilir karakterlere bakar
+    <li> ctype_lower — Küçük harflere bakar
+    <li> ctype_print — Yazılabilir karakterlere bakar
+    <li> ctype_punct — Alfasayısal ve boşluk olmayan herhangi yazılabilir karaktere bakar
+    <li> ctype_space — Boşluklara bakar
+    <li> ctype_upper — Büyük harflere bakar
+    <li> ctype_xdigit — Onaltılık sayıyı gösteren karakterlere bakar
+</ul>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

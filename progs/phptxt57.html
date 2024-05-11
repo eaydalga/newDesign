@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP - Özellikler Bağlantıyı ele alma </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="javascript:myvoid();" class="nav">Başlarken</a>
+               <a href="phptxt11.html" class="sub">ilk Anlatım</a>
+               <a href="javascript:myvoid();" class="nav">Kurulumlar</a>
+               <a href="phptxt21.html" class="sub">Genel Kurulum</a><br />
+               <a href="phptxt22.html" class="sub">UNIX Kurulumu</a><br />
+               <a href="phptxt23.html" class="sub">OSX Kurulumu</a><br />
+               <a href="phptxt24.html" class="sub">Wins Kurulumu</a>
+               <a href="javascript:myvoid();" class="nav">Dil Kuralları</a>
+               <a href="phptxt31.html" class="sub">Temel yazım</a><br />
+               <a href="phptxt32.html" class="sub">Tipler</a><br />
+               <a href="phptxt33.html" class="sub">Değişkenler</a><br />
+               <a href="phptxt34.html" class="sub">Değişmezler</a><br />
+               <a href="phptxt35.html" class="sub">Deyimler</a><br />
+               <a href="phptxt36.html" class="sub">İşlemler</a><br />
+               <a href="phptxt37.html" class="sub">Kontrol Yapıları</a><br />
+               <a href="phptxt38.html" class="sub">İşlevler</a><br />
+               <a href="phptxt39.html" class="sub">Sınıflar Nesneler</a><br />
+               <a href="phptxt391.html" class="sub">Ad uzayı</a><br />
+               <a href="phptxt392.html" class="sub">İstisnalar</a>
+               <a href="javascript:myvoid();" class="nav">Güvenlik</a>
+               <a href="phptxt41.html" class="sub">Giriş</a><br />
+               <a href="phptxt42.html" class="sub">Genel bilgi</a><br />
+               <a href="phptxt43.html" class="sub">CGI iklisi</a><br />
+               <a href="phptxt44.html" class="sub">Apache modülü</a><br />
+               <a href="phptxt45.html" class="sub">Dosyadüzeni</a><br />
+               <a href="phptxt46.html" class="sub">Veritabanı</a><br />
+               <a href="phptxt47.html" class="sub">Hatalar</a><br />
+               <a href="phptxt48.html" class="sub">Diğerleri</a><br />
+               <a href="javascript:myvoid();" class="nav">Özellikler</a>
+               <a href="phptxt51.html" class="sub">HTTP Şifresi</a><br />
+               <a href="phptxt52.html" class="sub">Çerezler</a><br />
+               <a href="phptxt53.html" class="sub">Oturumlar</a><br />
+               <a href="phptxt54.html" class="sub">XForm</a><br />
+               <a href="phptxt55.html" class="sub">DosyaYükleme</a><br />
+               <a href="phptxt56.html" class="sub">UzakDosyalar</a><br />
+               <a href="phptxt57.html" class="sub">Bağlantılar</a><br />
+               <a href="phptxt58.html" class="sub">VTBağlantısı</a>
+               <font color="#8e9ccb"><h3>Gelişmiş</h3></font>
+               <a href="phptxt7.html" class="nav">Php Kökü</a>
+               <a href="phptxt8.html" class="nav">Ekler</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">2 Şubat 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>Bağlantıyı ele alma</h2>
+
+
+    Not: Aşağıdakiler 3.0.7 ve sonrası için geçerlidir.
+<br /><br />
+PHP içinde bağlantı durumu düzeltilebilir. Üç değişik konum vardır:
+<ul>
+    <li> 0 - NORMAL
+    <li> 1 - ABORTED (kesildi, kırıldı)
+    <li> 2 - TIMEOUT (zaman aşımı)
+</ul>
+PHP kodlaması çalışırken durum NORMAL konumdur ve etkindir. Uzaktaki istemci bağlantısını kapatırsa ABORTED (kesildi) konumuna geçer. Uzaktaki istemcinin bağantısının kesilmesi çoğunlukla kullanıcının "stop" düğmesine basmasındandır. Eğer PHP ile sağlanmış zaman aşımına erişildiğinde, TIMEOUT konumuna geçer.
+<br /><br />
+İsterseniz istemci kesilmesini kontrol edip kodlamanızın kesilmesini sağlayabilirsiniz. Bazen kodlamanın sonuna değin çalışması karşıda yazılanı anlayacak bir tarayıcı olmasa da daha güzel görünebilir.
+
+Sizin kodlamanız için varsayılan davranış , uzaktaki istemci işlemi kesince, kesilmesidir. Bu davranış php.ini içinde ignore_user_abort yönelticisiyle sağlanır. Ayrıca "php_value ignore_user_abort" Apache .conf yönelticisi de kullanılabilir. Eğer PHP'ye kullanıcı kesilmesini dikkate alma demezseniz kodlamanız kesilir. Bir ayrıcalık vardır. Eğer kapanış işlevini kayıt etmişseniz register_shutdown_function() kodlama kesilmez...
+
+Kapanış işleviyle, uzaktaki kullanıcı STOP düğmesine basınca, sizin kodlamanız birşey yazdırmaya kalktığında PHP bağlantının kesildiğini anlar shutdown() işlevini çağırır. Bu işlev kodlamanız normal son bulduğunda da kapanış için çağrılır. İstemcinin kesilmesinde değişik bir şey yapmak için  connection_aborted() işlevi kullanılabilir. Bu işlev bağlantı kesildiyse TRUE döndürür.
+
+Your script can also be terminated by the built-in script timer. The default timeout is 30 seconds. It can be changed using the max_execution_time php.ini directive or the corresponding php_value max_execution_time Apache .conf directive as well as with the set_time_limit() function. When the timer expires the script will be aborted and as with the above client disconnect case, if a shutdown function has been registered it will be called. Within this shutdown function you can check to see if a timeout caused the shutdown function to be called by calling the connection_status() function. This function will return 2 if a timeout caused the shutdown function to be called.
+<br /><br />
+Bilinmesi gereken bir şey daha var. ABORTED ve TIMEOUT konumalrının her ikisi de aynı anda etkin olabilir. Bunun olması sizin HPH için kullanıcı kesilmelerini dikkate alma demenize bağlıdır. PHP kullanıcının bağlantısının kesildiğini bilir ama kodlama hala çalışır. Sonra zaman aşımına takılınca, kodlama kesilir ve sizin shutdown işleviniz (eğer biri varsa) çağrılır. İşte bu noktada bağlantı durumunun değeri size 3 olarak döner (zaman aşımı).
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

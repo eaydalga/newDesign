@@ -1,0 +1,376 @@
+
+MySQL Improved Extension
+Introduction
+
+The mysqli extension allows you to access the functionality provided by MySQL 4.1 and above. More information about the MySQL Database server can be found at » http://www.mysql.com/
+
+Documentation for MySQL can be found at » http://dev.mysql.com/doc/.
+
+Parts of this documentation included from MySQL manual with permissions of MySQL AB.
+
+Gereksinim
+
+In order to have these functions available, you must compile PHP with support for the mysqli extension.
+
+    Note: The mysqli extension is designed to work with the version 4.1.3 or above of MySQL. For previous versions, please see the MySQL extension documentation.
+
+Kurulum
+
+To install the mysqli extension for PHP, use the --with-mysqli=mysql_config_path/mysql_config configuration option where mysql_config_path represents the location of the mysql_config program that comes with MySQL versions greater than 4.1.
+
+If you would like to install the mysql extension along with the mysqli extension you have to use the same client library to avoid any conflicts.
+Installation on Windows Systems
+
+MySQLi is not enabled by default, so the php_mysqli.dll DLL must be enabled inside of php.ini. Also, PHP needs access to the MySQL client library. A file named libmysql.dll is included in the Windows PHP distribution and in order for PHP to talk to MySQL this file needs to be available to the Windows systems PATH. See the FAQ titled "How do I add my PHP directory to the PATH on Windows" for information on how to do this. Although copying libmysql.dll to the Windows system directory also works (because the system directory is by default in the system's PATH), it's not recommended.
+
+    Note: For connecting to MySQL 5, it is recommended to download binaries from » http://dev.mysql.com/downloads/connector/php/.
+
+As with enabling any PHP extension (such as php_mysqli.dll), the PHP directive extension_dir should be set to the directory where the PHP extensions are located. See also the Manual Windows Installation Instructions. An example extension_dir value for PHP 5 is c:\php\ext
+
+    Note: If when starting the web server an error similar to the following occurs: "Unable to load dynamic library './php_mysqli.dll'", this is because php_mysqli.dll and/or libmysql.dll cannot be found by the system.
+
+Çalışma Zamanı Ayarları
+
+The behaviour of these functions is affected by settings in php.ini.
+
+MySQLi Ayarala Seçenekleri
+
+Adı 	Varsayılan 	Değişiklik 	DeğişimKaydı
+mysqli.max_links 	"-1" 	PHP_INI_SYSTEM 	Available since PHP 5.0.0.
+mysqli.default_port 	"3306" 	PHP_INI_ALL 	Available since PHP 5.0.0.
+mysqli.default_socket 	NULL 	PHP_INI_ALL 	Available since PHP 5.0.0.
+mysqli.default_host 	NULL 	PHP_INI_ALL 	Available since PHP 5.0.0.
+mysqli.default_user 	NULL 	PHP_INI_ALL 	Available since PHP 5.0.0.
+mysqli.default_pw 	NULL 	PHP_INI_ALL 	Available since PHP 5.0.0.
+
+For further details and definitions of the above PHP_INI_* constants, see the chapter on configuration changes.
+
+Here's a short explanation of the configuration directives.
+
+<dl>
+<dt>mysqli.max_links integer
+
+    <dd>The maximum number of MySQL connections per process.
+</dd></dt>
+<dt>mysqli.default_port string
+
+    The default TCP port number to use when connecting to the database server if no other port is specified. If no default is specified, the port will be obtained from the MYSQL_TCP_PORT environment variable, the mysql-tcp entry in /etc/services or the compile-time MYSQL_PORT constant, in that order. Win32 will only use the MYSQL_PORT constant.
+</dd></dt>
+<dt>mysqli.default_socket string
+
+    <dd>The default socket name to use when connecting to a local database server if no other socket name is specified.
+</dd></dt>
+<dt>mysqli.default_host string
+
+    The default server host to use when connecting to the database server if no other host is specified. Doesn't apply in safe mode.
+</dd></dt>
+<dt>mysqli.default_user string
+
+    <dd>The default user name to use when connecting to the database server if no other name is specified. Doesn't apply in safe mode.
+</dd></dt>
+<dt>mysqli.default_pw string
+
+    <dd>The default password to use when connecting to the database server if no other password is specified. Doesn't apply in safe mode.
+</dd></dt>
+</dl>
+
+Predefined Classes
+mysqli
+
+Represents a connection between PHP and a MySQL database.
+Constructor
+
+    * mysqli - construct a new mysqli object
+
+Methods
+
+    * autocommit - turns on or off auto-commiting database modifications
+    * change_user - changes the user of the specified database connection
+    * character_set_name - returns the default character set for the database connection
+    * close - closes a previously opened connection
+    * commit - commits the current transaction
+    * connect - opens a new connection to MySQL database server
+    * debug - performs debugging operations
+    * dump_debug_info - dumps debug information
+    * get_client_info - returns client version
+    * get_host_info - returns type of connection used
+    * get_server_info - returns version of the MySQL server
+    * get_server_version - returns version of the MySQL server
+    * init - initializes mysqli object
+    * info - retrieves information about the most recently executed query
+    * kill - asks the server to kill a mysql thread
+    * multi_query - performs multiple queries
+    * more_results - check if more results exist from currently executed multi-query
+    * next_result - reads next result from currently executed multi-query
+    * options - set options
+    * ping - pings a server connection or reconnects if there is no connection
+    * prepare - prepares a SQL query
+    * query - performs a query
+    * real_connect - attempts to open a connection to MySQL database server
+    * escape_string - escapes special characters in a string for use in a SQL statement, taking into account the current charset of the connection
+    * rollback - rolls back the current transaction
+    * select_db - selects the default database
+    * set_charset - sets the default client character set
+    * ssl_set - sets ssl parameters
+    * stat - gets the current system status
+    * stmt_init- initializes a statement for use with mysqli_stmt_prepare
+    * store_result - transfers a resultset from last query
+    * thread_safe - returns whether thread safety is given or not
+    * use_result - transfers an unbuffered resultset from last query
+
+Properties
+
+    * affected_rows - gets the number of affected rows in a previous MySQL operation
+    * client_info - returns the MySQL client version as a string
+    * client_version - returns the MySQL client version as an integer
+    * errno - returns the error code for the most recent function call
+    * error - returns the error string for the most recent function call
+    * field_count - returns the number of columns for the most recent query
+    * host_info - returns a string representing the type of connection used
+    * info - retrieves information about the most recently executed query
+    * insert_id - returns the auto generated id used in the last query
+    * protocol_version - returns the version of the MySQL protocol used
+    * server_info - returns a string that represents the server version number
+    * server_version - returns the version number of the server as an integer
+    * sqlstate - returns a string containing the SQLSTATE error code for the last error
+    * thread_id - returns the thread ID for the current connection
+    * warning_count - returns the number of warnings generated during execution of the previous SQL statement
+
+mysqli_stmt
+
+Represents a prepared statement.
+Methods
+
+    * bind_param - binds variables to a prepared statement
+    * bind_result - binds variables to a prepared statement for result storage
+    * close - closes a prepared statement
+    * data_seek - seeks to an arbitrary row in a statement result set
+    * execute - executes a prepared statement
+    * fetch - fetches result from a prepared statement into bound variables
+    * free_result - frees stored result memory for the given statement handle
+    * prepare - prepares a SQL query
+    * reset - resets a prepared statement
+    * result_metadata - retrieves a resultset from a prepared statement for metadata information
+    * send_long_data - sends data in chunks
+    * store_result - buffers complete resultset from a prepared statement
+
+Properties
+
+    * affected_rows - returns affected rows from last statement execution
+    * errno - returns errorcode for last statement function
+    * error - returns errormessage for last statement function
+    * field_count - returns the number of columns in a result set
+    * id - returns the statement identifier
+    * insert_id - returns the value generated for an AUTO_INCREMENT column by the prepared statement
+    * num_rows - returns the number of rows in the result set
+    * param_count - returns number of parameter for a given prepare statement
+    * sqlstate - returns a string containing the SQLSTATE error code for the last statement function
+
+mysqli_result
+
+Represents the result set obtained from a query against the database.
+Methods
+
+    * close - closes resultset
+    * data_seek - moves internal result pointer
+    * fetch_array - fetches a result row as an associative array, a numeric array, or both.
+    * fetch_assoc - fetches a result row as an associative array
+    * fetch_field - gets column information from a resultset
+    * fetch_fields - gets information for all columns from a resulset
+    * fetch_field_direct - gets column information for specified column
+    * fetch_object - fetches a result row as an object
+    * fetch_row - gets a result row as an enumerated array
+    * field_seek - set result pointer to a specified field offset
+    * free_result - frees result memory
+
+Properties
+
+    * current_field - returns offset of current fieldpointer
+    * field_count - returns number of fields in resultset
+    * lengths - returns an array of columnlengths
+    * num_rows - returns number of rows in resultset
+    * type - returns MYSQLI_STORE_RESULT or MYSQLI_USE_RESULT
+
+Predefined Constants
+MySQLi Constants
+
+Adı 	Açıklama
+MYSQLI_READ_DEFAULT_GROUP (integer) 	Read options from the named group from `my.cnf' or the file specified with MYSQLI_READ_DEFAULT_FILE
+MYSQLI_READ_DEFAULT_FILE (integer) 	Read options from the named option file instead of from my.cnf
+MYSQLI_OPT_CONNECT_TIMEOUT (integer) 	Connect timeout in seconds
+MYSQLI_OPT_LOCAL_INFILE (integer) 	Enables command LOAD LOCAL INFILE
+MYSQLI_INIT_COMMAND (integer) 	Command to execute when connecting to MySQL server. Will automatically be re-executed when reconnecting.
+MYSQLI_CLIENT_SSL (integer) 	Use SSL (encrypted protocol). This option should not be set by application programs; it is set internally in the MySQL client library
+MYSQLI_CLIENT_COMPRESS (integer) 	Use compression protocol
+MYSQLI_CLIENT_INTERACTIVE (integer) 	Allow interactive_timeout seconds (instead of wait_timeout seconds) of inactivity before closing the connection. The client's session wait_timeout variable will be set to the value of the session interactive_timeout variable.
+MYSQLI_CLIENT_IGNORE_SPACE (integer) 	Allow spaces after function names. Makes all functions names reserved words.
+MYSQLI_CLIENT_NO_SCHEMA (integer) 	Don't allow the db_name.tbl_name.col_name syntax.
+MYSQLI_CLIENT_MULTI_QUERIES (integer) 	
+MYSQLI_STORE_RESULT (integer) 	For using buffered resultsets
+MYSQLI_USE_RESULT (integer) 	For using unbuffered resultsets
+MYSQLI_ASSOC (integer) 	Columns are returned into the array having the fieldname as the array index.
+MYSQLI_NUM (integer) 	Columns are returned into the array having an enumerated index.
+MYSQLI_BOTH (integer) 	Columns are returned into the array having both a numerical index and the fieldname as the associative index.
+MYSQLI_NOT_NULL_FLAG (integer) 	Indicates that a field is defined as NOT NULL
+MYSQLI_PRI_KEY_FLAG (integer) 	Field is part of a primary index
+MYSQLI_UNIQUE_KEY_FLAG (integer) 	Field is part of a unique index.
+MYSQLI_MULTIPLE_KEY_FLAG (integer) 	Field is part of an index.
+MYSQLI_BLOB_FLAG (integer) 	Field is defined as BLOB
+MYSQLI_UNSIGNED_FLAG (integer) 	Field is defined as UNSIGNED
+MYSQLI_ZEROFILL_FLAG (integer) 	Field is defined as ZEROFILL
+MYSQLI_AUTO_INCREMENT_FLAG (integer) 	Field is defined as AUTO_INCREMENT
+MYSQLI_TIMESTAMP_FLAG (integer) 	Field is defined as TIMESTAMP
+MYSQLI_SET_FLAG (integer) 	Field is defined as SET
+MYSQLI_NUM_FLAG (integer) 	Field is defined as NUMERIC
+MYSQLI_PART_KEY_FLAG (integer) 	Field is part of an multi-index
+MYSQLI_GROUP_FLAG (integer) 	Field is part of GROUP BY
+MYSQLI_TYPE_DECIMAL (integer) 	Field is defined as DECIMAL
+MYSQLI_TYPE_NEWDECIMAL (integer) 	Precision math DECIMAL or NUMERIC field (MySQL 5.0.3 and up)
+MYSQLI_TYPE_BIT (integer) 	Field is defined as BIT (MySQL 5.0.3 and up)
+MYSQLI_TYPE_TINY (integer) 	Field is defined as TINYINT
+MYSQLI_TYPE_SHORT (integer) 	Field is defined as INT
+MYSQLI_TYPE_LONG (integer) 	Field is defined as INT
+MYSQLI_TYPE_FLOAT (integer) 	Field is defined as FLOAT
+MYSQLI_TYPE_DOUBLE (integer) 	Field is defined as DOUBLE
+MYSQLI_TYPE_NULL (integer) 	Field is defined as DEFAULT NULL
+MYSQLI_TYPE_TIMESTAMP (integer) 	Field is defined as TIMESTAMP
+MYSQLI_TYPE_LONGLONG (integer) 	Field is defined as BIGINT
+MYSQLI_TYPE_INT24 (integer) 	Field is defined as MEDIUMINT
+MYSQLI_TYPE_DATE (integer) 	Field is defined as DATE
+MYSQLI_TYPE_TIME (integer) 	Field is defined as TIME
+MYSQLI_TYPE_DATETIME (integer) 	Field is defined as DATETIME
+MYSQLI_TYPE_YEAR (integer) 	Field is defined as YEAR
+MYSQLI_TYPE_NEWDATE (integer) 	Field is defined as DATE
+MYSQLI_TYPE_ENUM (integer) 	Field is defined as ENUM
+MYSQLI_TYPE_SET (integer) 	Field is defined as SET
+MYSQLI_TYPE_TINY_BLOB (integer) 	Field is defined as TINYBLOB
+MYSQLI_TYPE_MEDIUM_BLOB (integer) 	Field is defined as MEDIUMBLOB
+MYSQLI_TYPE_LONG_BLOB (integer) 	Field is defined as LONGBLOB
+MYSQLI_TYPE_BLOB (integer) 	Field is defined as BLOB
+MYSQLI_TYPE_VAR_STRING (integer) 	Field is defined as VARCHAR
+MYSQLI_TYPE_STRING (integer) 	Field is defined as CHAR
+MYSQLI_TYPE_GEOMETRY (integer) 	Field is defined as GEOMETRY
+MYSQLI_NEED_DATA (integer) 	More data available for bind variable
+MYSQLI_NO_DATA (integer) 	No more data available for bind variable
+MYSQLI_DATA_TRUNCATED (integer) 	Data truncation occurred. Available since PHP 5.1.0 and MySQL 5.0.5.
+
+
+Örnekler
+
+All Examples in the MySQLI documentation use the world database from MySQL AB. The world database can be found at » http://dev.mysql.com/get/Downloads/Manual/world.sql.gz/from/pick
+
+İçindekiler
+<ul>
+    * mysqli_affected_rows — Gets the number of affected rows in a previous MySQL operation
+    * mysqli_autocommit — Turns on or off auto-commiting database modifications
+    * mysqli_bind_param — Alias for mysqli_stmt_bind_param
+    * mysqli_bind_result — Alias for mysqli_stmt_bind_result
+    * mysqli_change_user — Changes the user of the specified database connection
+    * mysqli_character_set_name — Returns the default character set for the database connection
+    * mysqli_client_encoding — Alias of mysqli_character_set_name
+    * mysqli_close — Closes a previously opened database connection
+    * mysqli_commit — Commits the current transaction
+    * mysqli_connect_errno — Returns the error code from last connect call
+    * mysqli_connect_error — Returns a string description of the last connect error
+    * mysqli_connect — Open a new connection to the MySQL server
+    * mysqli_data_seek — Adjusts the result pointer to an arbitary row in the result
+    * mysqli_debug — Performs debugging operations
+    * mysqli_disable_reads_from_master — Disable reads from master
+    * mysqli_disable_rpl_parse — Disable RPL parse
+    * mysqli_dump_debug_info — Dump debugging information into the log
+    * mysqli_embedded_server_end — Description
+    * mysqli_embedded_server_start — Description
+    * mysqli_enable_reads_from_master — Enable reads from master
+    * mysqli_enable_rpl_parse — Enable RPL parse
+    * mysqli_errno — Returns the error code for the most recent function call
+    * mysqli_error — Returns a string description of the last error
+    * mysqli_escape_string — Alias of mysqli_real_escape_string
+    * mysqli_execute — Alias for mysqli_stmt_execute
+    * mysqli_fetch_array — Fetch a result row as an associative, a numeric array, or both
+    * mysqli_fetch_assoc — Fetch a result row as an associative array
+    * mysqli_fetch_field_direct — Fetch meta-data for a single field
+    * mysqli_fetch_field — Returns the next field in the result set
+    * mysqli_fetch_fields — Returns an array of objects representing the fields in a result set
+    * mysqli_fetch_lengths — Returns the lengths of the columns of the current row in the result set
+    * mysqli_fetch_object — Returns the current row of a result set as an object
+    * mysqli_fetch_row — Get a result row as an enumerated array
+    * mysqli_fetch — Alias for mysqli_stmt_fetch
+    * mysqli_field_count — Returns the number of columns for the most recent query
+    * mysqli_field_seek — Set result pointer to a specified field offset
+    * mysqli_field_tell — Get current field offset of a result pointer
+    * mysqli_free_result — Frees the memory associated with a result
+    * mysqli_get_charset — Returns a character set object
+    * mysqli_get_client_info — Returns the MySQL client version as a string
+    * mysqli_get_client_version — Get MySQL client info
+    * mysqli_get_host_info — Returns a string representing the type of connection used
+    * mysqli_get_metadata — Alias for mysqli_stmt_result_metadata
+    * mysqli_get_proto_info — Returns the version of the MySQL protocol used
+    * mysqli_get_server_info — Returns the version of the MySQL server
+    * mysqli_get_server_version — Returns the version of the MySQL server as an integer
+    * mysqli_get_warnings — Description
+    * mysqli_info — Retrieves information about the most recently executed query
+    * mysqli_init — Initializes MySQLi and returns a resource for use with mysqli_real_connect()
+    * mysqli_insert_id — Returns the auto generated id used in the last query
+    * mysqli_kill — Asks the server to kill a MySQL thread
+    * mysqli_master_query — Enforce execution of a query on the master in a master/slave setup
+    * mysqli_more_results — Check if there are any more query results from a multi query
+    * mysqli_multi_query — Performs a query on the database
+    * mysqli_next_result — Prepare next result from multi_query
+    * mysqli_num_fields — Get the number of fields in a result
+    * mysqli_num_rows — Gets the number of rows in a result
+    * mysqli_options — Set options
+    * mysqli_param_count — Alias for mysqli_stmt_param_count
+    * mysqli_ping — Pings a server connection, or tries to reconnect if the connection has gone down
+    * mysqli_prepare — Prepare a SQL statement for execution
+    * mysqli_query — Performs a query on the database
+    * mysqli_real_connect — Opens a connection to a mysql server
+    * mysqli_real_escape_string — Escapes special characters in a string for use in a SQL statement, taking into account the current charset of the connection
+    * mysqli_real_query — Execute an SQL query
+    * mysqli_report — Enables or disables internal report functions
+    * mysqli_rollback — Rolls back current transaction
+    * mysqli_rpl_parse_enabled — Check if RPL parse is enabled
+    * mysqli_rpl_probe — RPL probe
+    * mysqli_rpl_query_type — Returns RPL query type
+    * mysqli_select_db — Selects the default database for database queries
+    * mysqli_send_long_data — Alias for mysqli_stmt_send_long_data
+    * mysqli_send_query — Send the query and return
+    * mysqli_server_end — Shut down the embedded server
+    * mysqli_server_init — Initialize embedded server
+    * mysqli_set_charset — Sets the default client character set
+    * mysqli_set_local_infile_default — Unsets user defined handler for load local infile command
+    * mysqli_set_local_infile_handler — Set callback functions for LOAD DATA LOCAL INFILE command
+    * mysqli_set_opt — Alias of mysqli_options
+    * mysqli_slave_query — Force execution of a query on a slave in a master/slave setup
+    * mysqli_sqlstate — Returns the SQLSTATE error from previous MySQL operation
+    * mysqli_ssl_set — Used for establishing secure connections using SSL
+    * mysqli_stat — Gets the current system status
+    * mysqli_stmt_affected_rows — Returns the total number of rows changed, deleted, or inserted by the last executed statement
+    * mysqli_stmt_attr_get — Description
+    * mysqli_stmt_attr_set — Description
+    * mysqli_stmt_bind_param — Binds variables to a prepared statement as parameters
+    * mysqli_stmt_bind_result — Binds variables to a prepared statement for result storage
+    * mysqli_stmt_close — Closes a prepared statement
+    * mysqli_stmt_data_seek — Seeks to an arbitray row in statement result set
+    * mysqli_stmt_errno — Returns the error code for the most recent statement call
+    * mysqli_stmt_error — Returns a string description for last statement error
+    * mysqli_stmt_execute — Executes a prepared Query
+    * mysqli_stmt_fetch — Fetch results from a prepared statement into the bound variables
+    * mysqli_stmt_field_count — Returns the number of field in the given statement
+    * mysqli_stmt_free_result — Frees stored result memory for the given statement handle
+    * mysqli_stmt_get_warnings — Description
+    * mysqli_stmt_init — Initializes a statement and returns an object for use with mysqli_stmt_prepare
+    * mysqli_stmt_insert_id — Get the ID generated from the previous INSERT operation
+    * mysqli_stmt_num_rows — Return the number of rows in statements result set
+    * mysqli_stmt_param_count — Returns the number of parameter for the given statement
+    * mysqli_stmt_prepare — Prepare a SQL statement for execution
+    * mysqli_stmt_reset — Resets a prepared statement
+    * mysqli_stmt_result_metadata — Returns result set metadata from a prepared statement
+    * mysqli_stmt_send_long_data — Send data in blocks
+    * mysqli_stmt_sqlstate — Returns SQLSTATE error from previous statement operation
+    * mysqli_stmt_store_result — Transfers a result set from a prepared statement
+    * mysqli_store_result — Transfers a result set from the last query
+    * mysqli_thread_id — Returns the thread ID for the current connection
+    * mysqli_thread_safe — Returns whether thread safety is given or not
+    * mysqli_use_result — Initiate a result set retrieval
+    * mysqli_warning_count — Returns the number of warnings from the last query for the given link
+</ul>

@@ -1,0 +1,1151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="content-type">
+<title>YAPISAL SDXF KALIBI</title>
+<link rel="stylesheet" href="mainx.css" type="text/css">
+<script type="text/javascript" src="js/baslik.js"></script>
+<script type="text/javascript" src="js/dizigoster.js"></script>
+<script type="text/javascript" src="js/jsmenu.js"></script>
+</head>
+<body topmargin=0 leftmargin=0 marginheight=0 marginwidth=0>
+<div id="headertop1">
+<div id="headertop">
+<!-- ust banner bolumu -->
+  <table cellpadding="0" cellspacing="0" border="0" width="960">
+  <tr>
+  <td valign="top">
+  <img src="img/bos.gif" width="15" height="63" border="0">
+  <img src="img/aybim.png" width="129" height="43" border="0"><br>
+  <img src="img/bos.gif" width="15" height="1" border="0">
+  Aybim Bilgisayar Tic. Ltd.<br>
+  <img src="img/bos.gif" width="150" height="50" border="0">
+  </td><td valign="top">
+  </td></tr>
+  </table>
+  <table cellpadding="0" cellspacing="0" border="0">
+  <tr>
+  <td valign="top" width="140">
+  <!-- sol tarafin basi -->
+  <div id="soltaraf">
+    <center><div id="yazi"><h3>Veri Değişimi</h3></div></center>
+    <div id="masterdiv">
+        <div class="menutitle" onclick="SwitchMenu('sub2')">Çeşitli Belgeleri</div>
+        <span class="submenu" id="sub2">
+                - <a href="cdisc-odm1.html">CDISC-1</a><br>
+                - <a href="cdisc-odm2.html">CDISC-2</a><br>
+                - <a href="sdxf.html">RFC 3072</a><br>
+                - <a href="edifact.html">UN/EDIFACT</a><br>
+                - <a href="cvd.html">CVD Belgeleri</a><br>
+                - <a href="cvd.html">ZVD Belgeleri</a><br>
+                - <a href="json.html">Veri Değişmi için JSON</a><br>
+                - <a href="eso.html">MIDAS/FITS Kalıbı</a><br>
+        </span>
+        <div class="menutitle">
+             <a href="apps/index.php" class="vnav">Üye Olun</a>
+        </div>
+    </div>
+  </div>
+  </td>
+  <td valign="top" width="800">
+  <div id="header">
+      <div id="baslik">
+
+RFC: 3072                                    Mart 2001
+Sınıflama: Bilgilendirme
+<br><br>
+                 <h3>Yapısal Veri Değişim Kalıbı (SDXF)</h3>
+
+   <b>Copyright (C) The Internet Society (2001).  Tüm hakları saklıdır.</b>
+</center>
+<dl>
+<dt>IESG Note
+
+   <dd>This document specifies a data exchange format and, partially, an API
+   that can be used for creating and parsing such a format.  The IESG
+   notes that the same problem space can be addressed using formats that
+   the IETF normally uses including ASN.1 and XML.  The document reader
+   is strongly encouraged to carefully read section 13 before choosing
+   SDXF over ASN.1 or XML.  Further, when storing text in SDXF, the user
+   is encourage to use the datatype for UTF-8, specified in section 2.5.
+</dd></dt>
+<dt>Özet
+
+   <dd>Bu taslak her amaç için kullanılabilecek bir değişim kalıbını anlatır.
+Dosya kalıbı ya da ağ iletişimi için kullanılabilir. Veri topaklar halindedir.
+</dd></dt>
+</dl>
+Yığınlar sıradüzensel yapıda yerleştirilebilir. Bu kalıp kendini tanımlar ve
+işlemciye bağımlı değildir.
+
+<h3>İçindekiler</h3>
+<ol class="yazi">
+   <li> Giriş <a href="javascript:dizigoster('sec1')">(ayrıntı)</a>
+       <div id="sec1" style="display: none">
+<br>Yapısal Veri Değişimi Kalıbı (SDXF) amacı, değişik verileri (sayısal,
+yazı ya da bit biçimindekiler) yapısal veri öbekleri biçimine getirmektir.
+İletişim Ağı yapılarına bağlı kalınmadan veriler soyut bir bilgisayar
+mimarisine göre ayarlanmış olduğundan, SDXF ağ iletişimindeki veri değiştirme
+kalıbı olarak kullanışlıdır.
+<br><br>
+Bu yapı herhangi bir uygulamaya bağımlı değildir. Bu kalıba istek duyulması,
+kalıbın kelime işlemcide yazı için kullanılmasına, resimlerin kalıplanmasına,
+seslerin kalıplanmasına ve hertür belgenin kalıplanmasına yardımcı olabilir
+olmasıdır. Böylece iş verileri kolaylıkla değiştirilebilmektedir.
+<br><br>
+SDXF kendisini anlatır. Her program içeriğini bilmeden, veri öğelerinin ne
+olduğuna bakmadan paketleri açabilir.
+<br><br>
+Burada veri kalıplarına ek olarak bir dizi işlev de tanıtılmıştır. Bu
+işlevlerin yardımıyla SDXF veri öğelerine erişim sağlanabilir. Burada amaç
+programcının yalnız bu işlevleri kullanmasını sağlamak ve bitlerle baytlarla
+uğraşarak yapı içinde debelenmesini engellemektir (Nesnel programlama dilinde
+bu işlevler bir nesnenin yöntemleridir ve verilen SDXF veri öbeği için bir
+elliktir/tutaçtır).
+<br><br>
+SDXF bir ortamla sınırlı değildir. SDXF işlevlerinin doğru yazılımıyla SDXF
+yapıları değişik mimari yapıların sınırlarını aşarak
+taşımabilir/değiştirilebilir (ASCII, ANSI EBCDIC ve ikili sayıların bayt
+sıralaması gibi değişiklikler)..
+<br><br>
+SDXF verilerinin bazı bölümleri ya da tümü kriptolanabilir ya da
+sıkıştırılabilir.
+       </div>
+   <li> SDXF veri kalıbı tanımı <a href="javascript:dizigoster('sec2','')">(ayrıntı)</a>
+       <div id="sec2" style="display: none">
+         <ol>
+           <li> <a href="javascript:dizigoster('sec21','')">(ayrıntı)</a>
+              <div id="sec21" style="display: none">
+<br>İlk olarak "yığın" (chunk) ile tanışılır. Yığın değişmez sayısa kümeden oluşan veri yapısıdır. Bir yığın "ilkel" ya da "yapısal" olabilir. İkincisinde bir ya da daha çok yığınlar olur.
+
+Bir yığın başlık ve veri gövdesinden (içerik) oluşur:
+
+<pre>
+   +----------+-----+-------+------------------------------------+
+   | Ad       | Uz. | Uzun  | Açıklama                           |
+   +----------+-----+-------+------------------------------------+
+   | Yığın-ID |  1  |   2   | Yığın tanıtım kodu (işaretsiz kısa)|
+   | DurumKodu|  3  |   1   | Bu yığının özellikleri ve türü     |
+   | uzunluk  |  4  |   3   | Bu verinin uzunluğu                |
+   | Icerik   |  7  |   *)  | Net veri ya da yığınların listesi  |
+   +----------+-----+-------+------------------------------------+
+</pre>
+
+   (* uzunlukta belirtildiği gibi, yığının toplam uzunluğu uzunluk+6 olur.
+   yığın-ID değeri sıfır olmayan artı bir sayıdır.
+
+   ya da daha görsel olarak:
+
+<pre>
+   +----+----+----+----+----+----+----+----+----+-...
+   | yığınID | dk | uzunluk      |  içerik
+   +----+----+----+----+----+----+----+----+----+-...
+</pre>
+
+   ya da ASN.1 dil kurallarına göre:
+
+<pre>
+   chunk  ::=  SEQUENCE
+   {
+     yiginID INTEGER (1..65535),
+     dkodu   BIT STRING,
+     uzunluk OCTET STRING SIZE 3, -- or: INTEGER (0..16777215)
+     icerik  OCTET STRING
+   }
+</pre>
+              </div>
+          <li> Yapısal yığın. <a href="javascript:dizigoster('sec22','')">(ayrıntı)</a>
+              <div id="sec22" style="display: none">
+<br>Yapısal yığın, durum kodu ile tanımlanır. İlkel yığınlara göre birden çok yığının listesinden oluşur (ilkel ya da yapısal yığınlar).
+
+<pre>
+   +----+-+---+-------+-------+-------+-----+-------+
+   | id |d|uzn| yigin | yigin | yigin | ... | yigin |
+   +----+-+---+-------+-------+-------+-----+-------+
+</pre>
+
+Bu kavramı kullanarak her tür sıradüzen bir yapıyı SDXF yığınlarıyla
+tanımlayabilirsiniz.
+              </div>
+          <li> Bazı yığın öğerleri hakkında açıklama: <a href="javascript:dizigoster('sec23','')">(ayrıntı)</a>
+              <div id="sec23" style="display: none">
+<br>İkili değerler her zaman büyük-ilk sıradadır (big endian),
+   (IP başlığındaki ikili değerler gibi). örnek olarak
+   300 sayısı  (=256 + 32 + 12) hexadecimal olarak aşağıdaki gibi bulunur:
+
+<pre>
+   +----+----+----+----+----+----+----+----+----+--
+   |         |    | 00   01   2C |  içerik
+   +----+----+----+----+----+----+----+----+----+--
+</pre>
+
+   Bu yığın-ID için de geçerlidir.
+              </div>
+          <li> <a href="javascript:dizigoster('sec24','')">(ayrıntı)</a>
+              <div id="sec24" style="display: none">
+<br>İçerik bölümündeki karakter değerler de uygulamanın bir nesnel değeridir
+(bölüm 4'e bakın).
+              </div>
+          <li> Durum kodlarının anlamı: <a href="javascript:dizigoster('sec25','')">(ayrıntı)</a>
+              <div id="sec25" style="display: none">
+<br>Durum kodunu aşağıdaki gibi gösterelim:
+
+<pre>
+     +-+-+-+-+-+-+-+-+
+     |0|1|2|3|4|5|6|7|
+     +-+-+-+-+-+-+-+-+
+      | | | | | | | |
+      | | | | | | | +-- saklı
+      | | | | | | +---- dizi
+      | | | | | +------ kısa yığın
+      | | | | +-------- kriptolu yığın
+      | | | +---------- sıkıştırılmış yığın
+      | | |
+      +-+-+------------ veri türü (0..7)
+</pre>
+
+   veri türleri:
+
+<pre>
+   0 -- bekleyen yapı (yığın tutarsız 11.1'e de bakın)
+   1 -- yapı
+   2 -- ikili dizi
+   3 -- sayısal
+   4 -- karakter
+   5 -- kayan noktalu (ANSI/IEEE 754-1985)
+   6 -- UTF-8
+   7 -- saklı
+</pre>
+              </div>
+          <li> <a href="javascript:dizigoster('sec26','')">(ayrıntı)</a>
+              <div id="sec26" style="display: none">
+<br> Bir kısa yığının hiç veri gövdesi olmaz. Bunun yerine 3 baytlık uzunluk
+alanı veriler için kullanılır. Bunun yararı çok sayıda kısa yığın olduğunda
+yerden kazanmaktır.
+              </div>
+          <li> Sıkıştırılmış ve kriptolanmış yığınlar 5 ve 6 bölümlerdedir.
+          <li> Diziler Bölüm 7'de anlatılmıştır.
+          <li> UTF-8 ele alınışı bölüm 9'da anlatılmıştır.
+          <li> Bitlerin tüm birleşimlerine izin verilmez ya da anlamlı değildir:
+              <a href="javascript:dizigoster('sec210','')">(ayrıntı)</a>
+              <div id="sec210" style="display: none">
+                 <ul>
+                    <li>  'diziler' ve 'kısa' durum kodları aynı anda kullanılamaz
+                    <li>  'kısa' yapısal ve kayan noktalı veri türü için kullanılamaz.
+                    <li>  'diziler' yapısal veri türleri için uygun değildir.
+                 </ul>
+              </div>
+          </ol>
+       </div>
+   <li> SDXF İşlevlerine giriş <a href="javascript:dizigoster('sec3','')">(ayrıntı)</a>
+       <div id="sec3" style="display: none">
+          <ol>
+          <li> Genel Açıklama <a href="javascript:dizigoster('sec31','')">(ayrıntı)</a>
+              <div id="sec31" style="display: none">
+<br>SDXF kavramının işlevselliği hiçbir programlama diliyle sınırlı değildir. Ama
+işlevlerin bir programlama diliyle yazılmaları gerekir. Burada işlevler C ve
+C++ ile anlatılmıştır. Çünkü hemen her ortamda bu diller vardır.
+<br><br>
+SDXF yığınlarını okuyan ve yazan tüm bu işlevlerin tek parametresi vardır. C++
+altında bu parametre yapısı SDXF sınıfının bir parçasıdır ve SDXF işlevleri de
+bu sınıfın birer yöntemleridir.
+<br><br>
+Bu arayüzün tam anlatımı bölüm 8'de verilmiştir.
+              </div>
+          <li> SDXF tamponuna yazma <a href="javascript:dizigoster('sec32','')">(ayrıntı)</a>
+              <div id="sec32" style="display: none">
+<br>SDXF yığınlarını yazmak için aşağıdaki işlevler gerekir:
+<pre>
+   init    -- parametre yapısını ilkleme
+   create  -- yeni bir yığın yaratma
+   leave   -- yapısal yığını kapatma
+</pre>
+              </div>
+          <li> SDXF tamponunu okuma <a href="javascript:dizigoster('sec33','')">(ayrıntı)</a>
+              <div id="sec33" style="display: none">
+<br>SDXF yığınını okumak için aşağıdaki işlevler gerekir:
+<pre>
+   init    -- parametre yapısını ilkleme
+   enter   -- yapısal yığın içine girme
+   next    -- yapısal yığın içinde sonraki yığına girme
+   extract -- ilkel yığının içeriğini kullanıcı veri alanına alma
+   leave   -- yapısal yığından çıkma
+</pre>
+              </div>
+          <li> Örnekler <a href="javascript:dizigoster('sec34','')">(ayrıntı)</a>
+              <div id="sec34" style="display: none">
+              <ol>
+                <li> Yazma <a href="javascript:dizigoster('sec341','')">(ayrıntı)</a>
+                    <div id="sec341" style="display: none">
+<br>Göstermek amacıyla bu işlevlerin  kısaltılmış C++ yazılışını ve tanımlarını
+sunduk:
+<pre>
+   void create (short chunkID); // yeni bir yapı açar
+   void create (short chunkID, char *string);
+        // yeni bir yığını dataType karakter ile yaratır
+
+   Sıralama:
+
+   SDXF x(new); // yeni yığın için SDXF "x" nesnesi yarat
+                // "init" içerir
+   x.create (3301);   // yeni yapıyı açar
+   x.create (3302, "ilk yığın");
+   x.create (3303, "ikinci yığın");
+   x.create (3304);   // yeni yapı açar
+   x.create (3305, "yapı içinde yığın");
+   x.create (3306, "yapı içinde sonraki yığın");
+   x.leave ();        // iç yapıyı kapat
+   x.create (3307, "üçüncü yığın");
+   x.leave ();        // dışsal yapıyı kapat
+</pre>
+
+Burada yaratılan yığın grafiksel olarak aşağıdaki gibi gösterilebilir:
+
+<pre>
+   3301
+    |
+    +--- 3302 = "ilk yığın"
+    |
+    +--- 3303 = "ikinci yığın"
+    |
+    +--- 3304
+    |      |
+    |      +--- 3305 = "yapıdaki yığın"
+    |      |
+    |      +--- 3306 = "yapıdaki sonraki yığın"
+    |
+    +--- 3307 = "son yığın"
+</pre>
+                  </div>
+                <li> Okuma <a href="javascript:dizigoster('sec342','')">(ayrıntı)</a>
+                  <div id="sec342" style="display: none">
+<br>Yapısal SDXF yığınına erişim tipik olarak bir döngü içinde aşağıdaki gibidir:
+<pre>
+   SDXF x(old); // eski yığın için bir SDXF nesnesi olan "x" tanımlar
+   x.enter ();  // yapıya girer
+
+   while (x.rc == 0) // 0 == tamam, rc SDXF işlevleri tarafından ayarlanır
+   {
+     switch (x.chunkID)
+     {
+       case 3302:
+         x.extract (data1, maxLength1);
+                   // ilk yığın data1 altına alınır
+         break;
+
+       case 3303:
+         x.extract (data2, maxLength2);
+                   // ikinci yığın data2 altına alınır
+         break;
+
+       case 3304:  // bunun bir yapı olduğunu biliyoruz
+         x.enter (); // iç yapıya girer
+
+         while (x.rc == 0) // iç döngü
+         {
+           switch (x.chunkID)
+           {
+             case 3305:
+               x.extract (data3, maxLength3);
+                         // yapı içindeki yığını açar
+
+               break;
+             case 3306:
+               x.extract (data4, maxLength4);
+                         // yapı içindeki ikinci yığını açar
+               break;
+           }
+           x.next (); // yapının sonunda x.rc == 1 döndürür
+         } // end-while döngü sonu
+         break;
+
+       case 3307:
+         x.extract (data5, maxLength5);
+                   // son yığını data içine açar
+         break;
+       // default: yok - bilinmeyen yığınları atla
+
+     } // end-switch işlemi
+     x.next (); // yapı sonunda x.rc = 1 döner
+   } // end-while döngüsü
+</pre>
+
+                  </div>
+                </ol>
+              </div>
+          </ol>
+       </div>
+   <li> Ortamdan Bağımsızlık <a href="javascript:dizigoster('sec4','')">(ayrıntı)</a>
+       <div id="sec4" style="display: none">
+<br>Bugünkü hemen her bilgisayarda bir bayt sekiz bit mimari bulunur. Bu da
+ortamlar arasında veri transferini kolaylaştırır. Ancak ortamlar arasında hala
+önemli değişiklikler vardır:
+<br><br>
+a) ikili sayıların görünümü (kısa ve uzun tamsayı ve kayan noktalı sayılar).
+<br><br>
+b) Karakterlerin gösterilişi (ASCII/ANSI ile EBCDIC arasındaki fark).
+<br><br>
+(a) maddesindeki olay bayt yerleşiminden kaynaklanmaktadır. Yani kısa tamsayı
+259 -> 0x'0103' 4402 adresinde nasıl yerleştirilir?
+<br><br>
+İki yaklaşım şöyledir:
+
+<pre>
+   4402 4403
+   01   03    big-endian
+   03   01    little-endian
+</pre>
+
+(b) maddesi 256 öğeli bir tablo çeviriminden söz eder (ASCII 'A' harfi 0x41 =
+65, EBCDIC kodlamada 0xC1 = 193 olur).
+<br><br>
+Bu sorunların giderilmesi verinin düzgelenmesi (normalleştirilmesi) ile
+sağlanır:
+<br><br>
+Biz şöyle düzeltme yaparız:
+<br><br>
+   (a) ikili sayıların iç gösterilimi büyükten küçüğe sıralamada iki tümleyici
+olarak tanımlanır.
+<br><br>
+   (b) Karakterlerin içsel gösterilimi ISO 8859-1 (latin-1 de denir) olarak da tanımlanır.
+<br><br>
+(b) maddesinin düzeltilmesi ilk anda ele alınır. Bazı koşullarda ISO 8859-1 en
+iyi çözüm olmayabilir, örneğin yunanistan ve rusyada 8859-5 ya da 8859-7 daha
+uygun olabilir.
+<br><br>
+Her neyse, belirli bir sınıf (ya da dünyada) uygulamada, verinin değişimini
+gerektiren uygulamalarda da denebilir, bu içsel karakter tablosu tekil
+olmalıdır.
+<br><br>
+O zaman bir çevirim tablosu ve tersi de sağlanmalıdır.
+<br><br>
+Önemli: Bir SDXF yığını oluşturulduğunda, özel bir adres için değil de tüm
+dünya için kalıplama yapılır.
+<br><br>
+Bu uyarlama programcı tarafından yapılmaz. "create" ve "extract" işlevleri
+tarafından yapılmalıdır. Yönetici doğru çevirimi yapacak tabloyu kullanmak
+durumundadır.
+
+       </div>
+   <li> Sıkıştırma <a href="javascript:dizigoster('sec5','')">(ayrıntı)</a>
+       <div id="sec5" style="display: none">
+<br>Bölüm 2.5'de açıklandığı gibi durum kodu bitlerinden biri verinin (ya da yapının) sıkıştırılmış olduğunu gösterir. Bundan sonraki veri açıladan kullanılamaz. Sıkıştırma geçici olarak SDXF işlevleriyle yapılır. "create" ilkel yığınlar için sıkıştırma yapar, "leave" ise yapısal yığınlar için yapar. İlkel yığınlar için "extract" açılımı yaparken, yapısal yığınlar için aynı işi "enter" gerçekleştirir.
+<br><br>
+Saydamlığın anlamı, programcının SDXF işlevlerine izleyen yığınları
+sıkıştırmak istediğini belirtmesidir.
+<br><br>
+Değişik sıkıştırma yöntemlerinden birini seçmek ve açılımıin uzunluğunu denetlemek ek bir tanım daha vardır:
+<br><br>
+Sıkıştırılmış yığın için yığın başlığından sonra bir sıkıştırma başlığı
+vardır:
+<br><br>
+<pre>
+   +-----------------------+---------------+---------------->
+   |      yığın başlığı    | sıkış. başlığı| sıkıştırılmış veri
+   +---+---+---+---+---+---+---+---+---+---+---------------->
+   |yiginID|dkd|  uzunluk  |md | asıluzun. |
+   +---+---+---+---+---+---+---+---+---+---+---------------->
+</pre>
+<ul>
+   <li>  'asıl uzun' verinin asıl açılmış uzunluğudur.
+
+   <li>  'md' sıkıştırma yöntemidir ve aşağıda tanımlanmıştır:
+</ul>
+<br>
+<dl>
+      <dt># <dd>yöntem 01 ilkel (hızlı ama çok verimli olmayan)
+         "Çalışma Uzunluğu 1" (Run Length 1) ya da "Bayt Çalışma 1" (Byte Run 1) algoritmasıdır.  (Aynı karakterin ardaşık dizilişinde sıkıştırma karakter sayısı ve asıl karakterin kendisi ile gösterilir.)
+<br><br>
+         Daha açık göstermek için:
+<br><br>
+         Sıkıştırılan veri değişik uzunluktaki farklı bölümlerden oluşur. Her
+bölüm uzunluğu içeren sayaç baytı (işaretli ufak 8-bitlik sayı) taşır ve
+uzunluğu tanımlar.
+<br><br>
+         Eğer burada değer "n" ise (n &lt;= 0 ve n &gt; 128), sonraki n+1 bayt değişmemiş olarak kabul edilir.
+<br>
+         Eğer n &lt; 0 (ve n &gt; -128) ise, sonraki byte -n+1 kez tekrarlanır.
+<br>
+         Eğer n = -128 ise dikkate alınmaz.
+<br><br>
+Boşlukları eklemek genelde kesilir. Eğer gerekliyse "extract" işlevinde
+yeniden açılabilir. Parametre alanı "filler" bu amaçla kullanılır (6.2.1
+bölümüne bakın).</dd></dt>
+
+      <dt># <dd>yöntem 02 "zip" adamlarından gelen çok kullanışlı "deflate"
+      algoritması vardır. Yazarları:
+<br><br>
+         Jean-loup Gailly (deflate kodu),
+         Mark Adler (inflate kodu), ve diğerleri.
+<br><br>
+         "deflate" kalıbı [DEFLATE] içinde açıklanır.
+<br><br>
+      Sıkıştırma yöntemi sayısı IANA tarafından düzenlenir (Bak. Bölüm 12.1)
+      </dd></dt>
+</dl>
+       </div>
+   <li> Şifreleme <a href="javascript:dizigoster('sec6','')">(ayrıntı)</a>
+       <div id="sec6" style="display: none">
+<br>Bölüm 2.5'de belirtildiği gibi durum kodunda bulunan bir bit izleyen verinin
+(ilkel ya da yapısal) kriptolu olduğunu gösterir.
+<br><br>
+Bu veri kriptosu açılmadan değerlendirilemez.
+Kriptolama ve açma SDXF işlevleri tarafından saydam olarak yapılır. SDXF
+işlevi "creat" ilkel yığını kriptolar, aynısını "leave" yapısal yığınlar için
+yapar. "extract" ilkel yığın için kriptoyu açarken "enter" aynı işi yapısal
+yığınlar için yapar.
+Birden çok kriptolama yöntemini uygulama sınırları içinde kullanmak pek doğru
+olmaz.
+Bazı kriptolama algoritmaları öbekleme şifreleme algoritmasıyla çalışır.
+Bunun anlamı, kriptolanacak verinin boyunun öbek uzunluğunun katlarına göre
+değiştirilmesi gerekir.
+This blocksize
+Bu öbek uzunluğu (sıfır öbekleme olmadığını belirtir) kriptolama arayüzü
+tarafından "mode=3" ile belirtilir (*encryptProc alanının adresi için bölüm 9.5'e bakın). Eğer öbekleme kullanılmışsa en az bir bayt uzunluğa eklenmiştir. uzunluk sayısının son baytı eklenen baytlar eski bir sayısını gösterir.
+Bununla kripto açma arayüzü verinin gerçek boyunu belirleyebilir.
+<br><br>
+Eğer bir uygulama (ya da ağ bağlantılı el sıkışma protokolü) bir kriptolama
+yöntemiyle uyumlu olmak isterse, IANA tarafından değiştirilebilen yöntemi
+kullanmalıdır.
+<br><br>
+Kriptolama ve açma işlemi saydam olsa da, kriptolama anahtarı (şifre) SDXF
+işlevine verilmelidir. Kriptolama karakter verinin çevirilmesinden sonra
+yapılır. Aynı biçimde kripto açma çevirme işleminden önce yapılır.
+<br><br>
+Aynı yığına hem sıkıştırma hem de kriptolama uygulanırsa, önce sıkıştırma
+yapılır. Çünkü iyi kriptolanmış verinin sıkıştırılması sıfır sıkıştırma oranına
+dönüşür.
+<br><br>
+       </div>
+   <li> Diziler <a href="javascript:dizigoster('sec7','')">(ayrıntı)</a>
+       <div id="sec7" style="display: none">
+<br>Aynı yığın-ID, uzunluk ve veri türü olan yığınlar topluluğuna "array" denir.
+<br><br>
+Başlangıçta bir ip ucu: Prinsip olarak SDXF içinde böyle bir dizi için tanım
+gerçekte gerekli değildir.
+<br><br>
+Aynı yığın-ID ile birden çok yığın olması aynı veri yapısı içinde
+engellenmemiştir.
+<br><br>
+O halde ardaşık SDX_next / SDX_extract işlevi çağırılmasıyla istendiğinde
+hedef dizi adım adım doldurulmuş olur.
+<br><br>
+Eğer aynı yığın_ID ile çok fazla yığın varsa (ve de oldukça kısa boylu), o
+zaman yığın paketlerinin yükü hissedilir ölçüde çok olur
+<br><br>
+Bu nedenle dizi (array) durum kodu tanımlanmıştır. Bir dizi yığının ardaşık
+dizilmiş ilkel yığınlar için yalnız bir başlığı vardır. Dizi yığınının yığın
+başlığından sonra yer alır ve içeriği şöyledir:
+<br><br>
+Bu büyükten küçüğe dizilmiş kısa tamsayı baytlarıdır (big endian) ve içinde
+dizi öğelerinin sayısını tutar (CT). Her öğenin sabit boyu vardır (EL),
+böylece yığın uzunluğu (CL) hesaplanışı aşağıdaki gibi olur:
+<pre>
+   CL = EL * CT + 2.
+</pre>
+Dizi başlığından hemen sonra veri öğeleri bulunur.
+<br><br>
+Dizinin tümü SDX_create ile kurulur, dizinin tümünü okumak SDX_extract ile
+olur.
+<br><br>
+Parametre alanlarından (8.2.1'e bakın) 'datalength' (veri uzunluğu) ve 'count' (sayisi)  SDXF işlevlerinden 'extract' ve 'create' için gereklidir.
+<br><br>
+'datalength' adlı alan dizi öğelerinin ortak uzunluğudur. 'count' i'create'
+için giriş bilgisi olarak dizinin gerçek boyutlarını tanımlar.
+<br><br>
+'extract' işlevi için 'count' hem giriş hem de çıkış parametresi olarak görev
+yapar:
+<pre>
+   Girişte : en büyük boyutu gösterir
+   Çıkışta: Gerçek dizinin boyutunu gösterir
+</pre>
+(Eğer çıkış sayı değeri girişten büyükse, 'veri kesilme' (data cutted) uyarısı
+verilir ve hedef dizi son öğesine değin doldurulur).
+
+       </div>
+   <li> SDXF işlevlerini tanımlanması <a href="javascript:dizigoster('sec8','')">(ayrıntı)</a>
+       <div id="sec8" style="display: none">
+          <ol>
+          <li> Giriş <a href="javascript:dizigoster('sec81','')">(ayrıntı)</a>
+              <div id="sec81" style="display: none">
+<br>Nesnel Tabanlı Programlama prensiplerini izlerken, yalnız verilerin
+tanımlanması yeterli olmaz, veriyi işleyen işlevler (yöntemler) de tanımlanır.
+<br><br>
+Bir programcı için yöntemin bilinmesi veri yapısının bilinmesinden daha
+önemlidir. Çünkü yöntem verinin yanımının tam karşılığı olmalı ve veriyi
+yaratırken bunu düşünmelidir.
+<br><br>
+Bir SDXF nesnesi, programlama arayüzünün parametre yapısının bir anlık görüntüsüdür. Özellikle gerçek SDXF veri yığınını gösterir ve bu veriyi işlerken, içsel yığının göstergesi de bir sonraki işleme odaklanır.
+<br><br>
+Tam karşılıklı arayüz tanımının yararı, standart C kitaplık işlevlerini
+kullanmak gibidir. Standart arayüzler kullanarak kodunuzun ortam bağımsız
+olması sağlanır.
+              </div>
+          <li> Temel tanımlar <a href="javascript:dizigoster('sec82','')">(ayrıntı)</a>
+              <div id="sec82" style="display: none">
+                <ol>
+                <li> SDXF Parametre yapıları
+                    <a href="javascript:dizigoster('sec821','')">(ayrıntı)</a>
+                    <div id="sec821" style="display: none">
+<br>   Tüm SDXF erişim işlevleri yalnız bir parametreye gerek duyar. Bu da SDXF
+parametre yapısına göstergedir:
+<br><br>
+İlk 3 zorunlu tanımlar:
+
+<pre>
+   typedef short int      ChunkID;
+   typedef unsigned char  Byte;
+
+   typedef struct Chunk
+   {
+     ChunkID    chunkID;
+     Byte       flags;
+     char       length [3];
+     Byte       data;
+   } Chunk;
+</pre>
+
+Ve şimdi parametre yapısı:
+
+<pre>
+   typedef struct
+   {
+     ChunkID  chunkID;       // yığın adı (ID)
+     Byte    *container;     // tüm yığına gösterge
+     long     bufferSize;    // tampon alanın boyutu
+     Chunk   *currChunk;     // gerçek yığına gösterge
+     long     dataLength;    // Yığın içindeki verinin boyu
+     long     maxLength;     // SDX_extract için yığının max. boyu
+     long     remainingSize; // SDX_create işlevinden sonra kalan boy
+     long     value;         // sayısal veri türü için
+     double   fvalue;        // kayan noktalı veri için
+     char    *function;      // çalıştırılan SDXF işlevinin adı
+     Byte    *data;          // Veriye gösterge
+     Byte    *cryptkey;      // Kriptolama anahtarına gösterge
+     short    count;         // dizideki (max.) öğe sayısı
+     short    dataType;      // Yığın veri türü / ilkleme açma tür
+     short    ec;            // gelişmiş dönüş kodu
+
+     short    rc;            // dönüş-kodu
+     short    level;         // sıradüzen düzeyi
+     char     filler;        // SDX_extract için doldurma karakteri
+     Byte     encrypt;       // verinin kriptolanması kodu (0 / 1)
+     Byte     compression;   // sıkıştırma yöntemi
+                             //   (00=yok, 01=RL1, 02=zip/deflate)
+   } SDX_obj, *SDX_handle;
+</pre>
+
+Yalnız parametre yapısının "public" alanları SDXF işlevlerinin giriş ve çıkışı
+olarak görev yapar. Verilen bir uygulamada yapıda bazı "private" (özel) alanlar olur.
+                    </div>
+                <li> İlkel İşlevler
+                    <a href="javascript:dizigoster('sec822','')">(ayrıntı)</a>
+                    <div id="sec822" style="display: none">
+Tüm bu işlevler SDX_handle kalıp parametresiyle kullanılır. Her işlev sonuç
+olarak ec ve rc döndürür. ec, rc ve dataType değerleri için 8.4'e bakın.
+<br>
+<ol>
+    <li> SDX_init : parametre yapısını ilkler
+<pre>
+         giriş : container, dataType, bufferSize (yalnız dataType =
+                 SDX_NEW için)
+         çıkış: currChunk, dataLength (yalnız dataType = SDX_OLD için),
+                 ec, rc,
+                 parametre yapısının diğer alanları ilklenecektir.
+</pre>
+    <li> SDX_enter : Yapısal yığına giriş
+<pre>
+       Yapısal yığın içinden ilkine erişirsiniz.
+         giriş : yok
+         çıkış: currChunk, chunkID, dataLength, level, dataType,
+                 ec, rc
+</pre>
+    <li> SDX_leave : Girilmiş olunan yapısal yığından gerçekten çıkmak
+<pre>
+         giriş : yok
+         çıkış: currChunk, chunkID, dataLength, level, dataType,
+                 ec, rc
+</pre>
+    <li> SDX_next : Yapısal yığında bir sonraki yığına gitmek
+<pre>
+         giriş : yok
+         çıkış: currChunk, chunkID, dataLength, dataType, count, ec, rc
+</pre>
+<br><br>
+        Yapısal yığının sonunda SDX_next rc = SDX_RC_failed ve ec = SDX_EC_eoc
+(yığın sonu) döner. Aslında gerçek yığın otomatik olarak SDX_leave ile çıkılmıştır.
+    <li> SDX_extract : Gerçek yığının verisini çıkartmak
+       (Eğer gerçek yığın yapısalsa, bir kopyası tamamlanır, aksi halde
+veri sunucu kalıbına çevrilir.) Giriş / Çıkış dataType (veri türüne) bağlıdır:
+<br><br>
+       Eğer dataType yapısalsa, ikiliyse ya da karakter:
+<pre>
+         giriş : data, maxLength, count, filler
+         çıkış: dataLength, count, ec, rc
+</pre>
+<br><br>
+       Eğer datatype sayısalsa (kayan noktalı):
+<pre>
+         giriş : yok
+         çıkış: değer (kayan noktalı değer), ec, rc
+</pre>
+    <li> SDX_select : Verilen yiginID ile bir sonraki yığına git.
+<pre>
+         giriş : chunkID
+         çıkış: currChunk, dataLength, dataType, ec, rc
+</pre>
+    <li> SDX_create : Yeni bir yığın yaratma (gerçek yapısal yığının arkasına)
+<pre>
+         giriş : chunkID, dataLength, data, (kayan noktalı)değer, dataType,
+                 sıkıştırma, kriptolama, sayı
+         günleme: kalanBoy, düzey
+         çıkış: currChunk, dataLength, ec, rc
+</pre>
+    <li> SDX_append : Tamamlanmış bir yığını gerçek yapısal yığının arkasına
+ekleme
+<pre>
+         giriş : data, maxLength, currChunk
+         günleme: kalanNo, düzey
+         çıkış: chunkID, chunkLength, maxLength, dataType, ec, rc
+</pre>
+</ol>
+<br>
+                    </div>
+                </ol>
+              </div>
+          <li> C++ için tanımlar <a href="javascript:dizigoster('sec83','')">(ayrıntı)</a>
+              <div id="sec83" style="display: none">
+<br>Bu SDXF sınıfının C++ dilindeki tanımlamasıdır (Burada 'Byte' türü 'unsigned
+char' olarak tanımlanmıştır, 'signed char' karakter karşıtıdır
+
+<pre>
+   class C_SDXF
+   {
+     public:
+
+     // yapıcı ve yıkıcı
+     C_SDXF  ();                          // yalancı
+     C_SDXF  (Byte *cont);                // eski tampon
+     C_SDXF  (Byte *cont, long size);     // yeni tampon
+     C_SDXF  (long size);                 // yeni tampon
+     ~C_SDXF ();
+     // yöntemler:
+
+     void init  (void);                   // eski tampon
+     void init  (Byte *cont);             // eski tampon
+     void init  (Byte *cont, long size);  // yeni tampon
+     void init  (long size);              // yeni tampon
+
+     void enter   (void);
+     void leave   (void);
+     void next    (void);
+     long extract (Byte *data, long length);    // chars, bits
+     long extract (void);                       // sayısal veri
+     void create  (ChunkID);                    // yapısal
+     void create  (ChunkID, long value);        // sayısal
+     void create  (ChunkID, double fvalue);     // kayan noktalı
+     void create  (ChunkID, Byte *data, long length);// ikili
+     void create  (ChunkID, char *data);             // karakter
+     void set_compression (Byte compression_method);
+     void set_encryption  (Byte *encryption_key);
+
+     // arayüz:
+
+     ChunkID  id;        // 8.4.1'e bakın
+     short    dataType;  // 8.4.2'e bakın
+     long     length;    // verinin boyu ya da yığın
+
+     long     value;
+     double   fvalue;
+     short    rc;  // ham dönüş değeri 8.4.3'e bak
+     short    ec;  // gelişmiş dönüş değeri 8.4.4'e bak
+
+     protected:
+     // uygulama bağımlı...
+
+   };
+</pre>
+
+              </div>
+          <li> Genel Tanımlar <a href="javascript:dizigoster('sec84','')">(ayrıntı)</a>
+              <div id="sec84" style="display: none">
+                <ol>
+                  <li> ChunkID Tanımları:
+<pre>
+   typedef short ChunkID;
+</pre>
+                  <li> dataType için değerler:
+<pre>
+   SDX_DT_inconsistent     = 0
+   SDX_DT_structured       = 1
+   SDX_DT_binary           = 2
+   SDX_DT_numeric          = 3
+   SDX_DT_char             = 4
+   SDX_DT_float            = 5
+
+   SDX_DT_UTF8             = 6
+</pre>
+    SDX_init için veri türleri:
+<pre>
+   SDX_OLD                 = 1
+   SDX_NEW                 = 2
+</pre>
+
+                  <li> rc için değerler:
+
+<pre>
+   SDX_RC_ok               = 0
+   SDX_RC_failed           = 1
+   SDX_RC_warning          = 1
+   SDX_RC_illegalOperation = 2
+   SDX_RC_dataError        = 3
+   SDX_RC_parameterError   = 4
+   SDX_RC_programError     = 5
+   SDX_RC_noMemory         = 6
+</pre>
+
+                  <li> ec için değerler:
+
+<pre>
+   SDX_EC_ok              =  0
+   SDX_EC_eoc             =  1 // yığın sonu
+   SDX_EC_notFound        =  2
+   SDX_EC_dataCutted      =  3
+   SDX_EC_overflow        =  4
+   SDX_EC_wrongInitType   =  5
+   SDX_EC_comprerr        =  6 // sıkıştırma hatası
+   SDX_EC_forbidden       =  7
+   SDX_EC_unknown         =  8
+   SDX_EC_levelOvflw      =  9
+   SDX_EC_paramMissing    = 10
+   SDX_EC_magicError      = 11
+   SDX_EC_not_consistent  = 12
+   SDX_EC_wrongDataType   = 13
+   SDX_EC_noMemory        = 14
+   SDX_EC_error           = 99 // rc yeterli
+</pre>
+
+                </ol>
+              </div>
+          <li> Özel İşlevler <a href="javascript:dizigoster('sec85','')">(ayrıntı)</a>
+              <div id="sec85" style="display: none">
+   Besides the basic definitions there is a global function
+   (SDX_getOptions) which returns a pointer to a global table of
+   options.
+<br><br>
+   With the help of these options you can adapt the behaviour of SDXF.
+   Especially you can define an alternative pair of translation tables
+   or an alternative function which reads these tables from an external
+   resource (p.e. from disk).
+<br><br>
+   Within this table of options there is also a pointer to the function
+   which is used for encryption / decryption: You can install your own
+   encryption algorithm by setting this pointer.
+<br><br>
+Seçenek gösterge aşağıdaki biçimindedir: 
+<pre>
+   SDX_TOptions *opt = SDX_getOptions ();
+</pre>
+   ile:
+<pre>
+   typedef struct
+   {
+    Byte            *toHost;        // Trans tab net -> host
+    Byte            *toNet;         // Trans tab host -> net
+    int              maxlevel;      // highest possible level
+    int              translation;   // translation net <-> host
+                                    // is in effect=1 or not=0
+    TEncryptProc    *encryptProc;   // alternate encryption routine
+    TGetTablesProc  *getTablesProc; // alternate routine defining
+                                    // translation Tables
+    TcvtUTF8Proc    *convertUTF8;   // routine to convert to/from UTF-8
+   }  SDX_TOptions;
+
+   typedef long TencryptProc (
+     int   mode,   // 1= kripyolamak, 2= kripto açma, 3= kriptolu uzunluk
+     Byte *buffer, // kriptolanack/açılacak veri
+     long  len,    // len: atmpon boyu
+     char *passw); // Şifre
+
+    // kriptolanmış/açılmış veri uzunluğunu döndürür
+    // (tampon parametre ve şifre mode=3 için dikkate alınmaz)
+    // mode=3 ve len=0 için öbekboyunu döndürür
+    // öbeksiz algoritmalar için öbekboyu sıfırdır
+
+   typedef int TGetTablesProc (Byte **toNet, Byte **toHost);
+    // toNet, toHost: çıkış parametrelerine gösterge
+    // her ikisi de 256 baytlık çevirim tanlosuna göstergedir
+    // başarıyı döndürür: 1 = ok, 0 = hata.
+
+   typedef int TcvtUTF8Proc
+   ( int   mode,     // 1 = UTF-8'e, 2 = UTF-8'den
+     Byte *target, int *targetlength,  // çıkış
+     Byte *source, int sourcelength);  // giriş
+   // hedefboyu giriş olarak en büyük boyu içerir
+   // başarı döndürür: 1 = ok, 0 = çevirim yok
+</pre>
+              </div>
+          </ol>
+       </div>
+   <li> UTF-8 Desteği <a href="javascript:dizigoster('sec9','')">(ayrıntı)</a>
+       <div id="sec9" style="display: none">
+<br>Bir çok sistem karakter kalıbı olarak [UTF-8] destekler. Bunun yararı
+özel karakterler için durağanlık olmamasıdır. Bir uygulamada tüm karakterlere
+erişilebilir. UCS-2 [UCS] ikili bayt tanımı ile tüm karakterler içindir.
+<br><br>
+SDXF gerçekte UTF-8 ile kendisi doğrudan ilgilenmez. UTF-8 sıralama dizisini
+yorumlamanın birçok yolu vardır. Uygulama şöyle olabilir:
+<ul>
+   <li>  UCS-2 sıralamasını yeniden yarat,
+   <li>  yalnız saf ASCII karakterleri kabul eder ve ASCII olmayan karakterleri özel işaretle gösteriri
+   <li>  hedef saf ASCIIdir. ASCII olmayanlar hissedilir biçimde değiştirilir
+      (Fransız aksanlı sesliler aksansız seslilerle değiştirilir vb)
+   <li>  hedef özel ASCII karakter takımıdır, ASCII olmayanlar uygumlarla
+      değiştirilir, diğerleri yazılamaz bir karakterle gösterilir.
+   <li>  vb.
+</ul>
+Fakat SDXF 'extract' ve 'create' işlevleri için bir arayüz sunar.
+<br><br>
+Bu olasılığı geliştirmek için işlev göstergesi seçenekler tablosunda belirtilebilir (8.5'e bak). Bu gösterge için varsayılan değer NULL olur. SDXF ile daha fazla çevirim yapılmaz. Veriler olduğu gibi taşınır. Veri ikili veri için bit dizisi gibi yorumlanır.
+<br><br>
+Eğer bu işlev belirtilirse, 'create' işleviyle 'toUTF-8' konumunda kullanılır.
+^extract' işleviyle 'fromUTF-8' konumunda kullanılır. SDXF ile bu işlevlerin
+çağrılışı saydamdır.
+<br><br>
+Eğer işlev sıfır döndürürse (çevirim yoksa) SDXF veriyi çevirim olmadan taşır.
+       </div>
+   <li> Güvenliğin Önemi <a href="javascript:dizigoster('sec10','')">(ayrıntı)</a>
+       <div id="sec10" style="display: none">
+<br>Verideki herhangi bir kırılma/bozulma tümünü etkiler.
+<br><br>
+Kriptolanmış ya da sıkıştırılmış verideki herhangi bir kırılım/bozulma o
+yığını kullanılmaz yapar. Kripto açmadan sonra güvenlik denetimi yapmak
+'enter' işleviyle olur.
+<br><br>
+İletişim ortamı olarak TCP/IP kullanırken (özellikle IP) onun CRC denetimine
+güvenmek zorundayız.
+
+       </div>
+   <li> Bazı genel ip uçları <a href="javascript:dizigoster('sec11','')">(ayrıntı)</a>
+       <div id="sec11" style="display: none">
+<ol>
+   <li>  SDXF yapısının tutarlı kuruluşu her "create" işlevinin "leave" ile
+kapatılmasıyla sağlanır. Bir yapısal yığın oluşturulurken, veri türü sıfır
+yapılır. Bunun anlamı: Yığın tanımsızdır. SDX_leave işlevi veri türünü
+"yapısal" yapar.
+
+   <li>  İlkel yığın yaratırken ortam bağımsız kalıba, ortam bağımlı çevirim
+eklenebilir. Sonunda tampondaki içerik başka siteye taşınabilir durumdadır ve
+daha başka çevirim gerekmez.
+
+   <li>  Görüldüğü gibi programlama dilinde belirgin SDXF yapısı için veri tanımı yapılması gerekmez. İşlevleri çağırdıkça veri alanları dinamik olarak açılır.
+
+   <li>  SDXF ile sunucu/istemci protokolları için temel oluşturabilirsiniz. Bu
+protokollar aşağıdaki iki kuralla uygumlu kalabilir:
+<pre>
+      Kural 1: Bilinmeyen yiginID dikkate alınmaz
+
+      Kural 2: Yığınların sırası belirgin değildir.
+</pre>
+</ol>
+       </div>
+   <li> IANA Önemi <a href="javascript:dizigoster('sec12','')">(ayrıntı)</a>
+       <div id="sec12" style="display: none">
+<br>SDXF için sıkıştırma ve kriptolama algoritmaları durağan değildir. SDXF bazı
+algoritmalara da açıktır. Bu nedenle kullanılan sıkıştırma ve kriptolama
+algoritmalarının numaralarını belirlemek için bir anlaşma olması gerekir.
+(Kriptolama yöntemleri SDXF için dil kuralları arasında yoktur, ama
+bağlantılarda kullanılacak kriptolama kuralı üzerinde karşılıklı anlaşma
+sağlanabilir).
+<br>
+<br>Aşağıdaki iki konu IANA tarafından kaydettirilmiştir:
+         <ol>
+           <li> SDXF için SIKIŞTIRMA YÖNTEMİ
+<br><br>
+   The compressed SDXF chunk starts with a "compression header".  This
+   header contains the compression method as an unsigned 1-Byte integer
+   (1-255).  These numbers are assigned by IANA and listed here:
+<table>
+<tr>
+<th>sıkıştırma 
+    yöntemi</th><th>Açıklama</th><th>İpucu</th>/tr>
+<tr><td align="right">
+         01</td><td>RUN-LENGTH algoritması</td><td>Bölüm 5</td></tr>
+<tr><td align="right">
+         02</td><td>DEFLATE (ZIP)</td><td>[DEFLATE]'e bak</td></tr>
+<tr><td align="right">
+     03-239</td><td>Ataması IANA tarafından</td><td></td></tr>
+<tr><td align="right">
+    240-255</td><td>özel ya da uygulamaya özel
+               yöntemler için yapılacaktır</td><td></td></tr>
+</table>
+           <li> SDXF İÇİN KRIPTOLAMA YÖNTEMİ
+<br><br>
+   An unique encryption method is fixed or negotiated by handshaking.
+   For the latter one a number for each encryption method is necessary.
+   These numbers are unsigned 1-Byte integers (1-255).  These numbers
+   are assigned by IANA and listed here:
+<table>
+<tr><th>
+   kriptolama
+     yöntemi</th><th>Açıklama</th></tr>
+<tr><td align="right">01-239</td><td>özel ya da uygulamaya özel</td></tr>
+<tr><td align="right">240-255</td><td>kriptolar için IANA atama yapar</td></tr>
+</table>
+           12.<li> Bir sayı atamada kullanılacak ip uçları:
+<br><br>
+SDXF için sıkıştırma ve kriptolama algoritmalarını kaydettirmek isteyen
+programcılar doğrudan IANA ile ilişkiye girip yöntem için numara
+isteyebilirler. Atanan sayı yöntem üyelerinin hepsine gönderilir (bakınız
+[IANA]). Kullanılan yöntem RCF Standartlarında yayınlanmış olmalıdır ya da
+standartlaşmış kurumlarca kabul edilmiş olmalıdır (OSI gibi).
+         </ol>
+       </div>
+   <li> Karşılaştırma/Tartışma <a href="javascript:dizigoster('sec13','')">(ayrıntı)</a>
+       <div id="sec13" style="display: none">
+<br>Gerçekten Internet veri değişiminde bazı standartlar vardır. IETF, XML yerine
+ASN.1 kullanmayı tercih eder. Bu nedenle yeni veri kalıbı kurma nedenleri
+burada tartışılır.
+         <ol>
+         <li> SDXF ile ASN.1 karşılaştırması <a href="javascript:dizigoster('sec131','')">(ayrıntı)</a>
+            <div id="sec131" style="display: none">
+<br>ASN.1 için istek ([ASN.1]'e bakın) programlama diline bağlı olmadan veri
+yapıları sunma amacını içerir. Göndermek için gereken gerçek veri kalıbı ASN.1
+tarafından hiç tanımlanmaz ama genelde BER ya da PER (ya da bunların bir
+türevi CER ve DER gibi) bu içerikte yer alır (bakınız [BER] ve [PER]).
+<br><br>
+ASN.1 arkasındaki düşünce: ASN.1 gösterilimindeki veri yapıları tanımının
+her ortamda uygulama geliştirmek için kullanılmasıdır. Bu gösterimler dışında
+kalanlar gerçek dil bağımlı tanımlardır ve ASN.1 derleyici yardımıyla
+geliştirilmiştir.
+<br><br>
+Bu derleyici buradaki veri yapıları için çevirme işlevlerini de yaratır. Amaç
+BER kalıbından ya da BER kalıbına veri aktarmaktır.
+<br><br>
+ASN.1 ve SDXF arasındaki doğrudan karşılaştırma pek doğru olmaz:
+Çünkü SDXF veri kalıpları BER (ve benzerleri) ile ilişkilidir. Veri yapıları
+tanımlarken  ASN.1 kullanmak SDXF ile çelişkili değildir ama SDXF veriyi
+göndermek için tüm veri yapısına gerek duymaz ve alınan mesajda da tüm veri
+yapısının yaratılması gerekmez.
+<br><br>
+Gerçek fark mesajın oluşturulmasında ve yorumunda bulunan kavrama dayanır.
+Bunlara "durağan" ve "devingen" kavramlar diyebiliriz.
+<ul>
+   <li>  ASN.1 "durağan" yolu seçer: Tüm veri yapısı olmadan mesajı yaratmaz.
+
+   <li>  SDXF mesajı "devingen" yolla yaratır ve yorumlar. Mesaj SDXF işlevleri tarafından adım adım paketlenir ya da açılır.
+</ul>
+Durağan yapılar bir dizi uygulama için uygun olabilir ama karmaşık işlerde bir
+mesajı bütün olarak tanımlamak neredeyse olanaksızdır. Örnek olarak XML
+altında göstertilmiş bir yazı belgesini ASN.1 tanımlarıyla oluşturmaya
+çalışın. Bazı bölüm ve parçaların iç içe defalarca tanımlanması gerekecektir.
+            </div>
+         <li> SDXF ile XML karşılaştırması <a href="javascript:dizigoster('sec132','')">(ayrıntı)</a>
+            <div id="sec132" style="display: none">
+<br>SDXF ve XML karmaşık iç içe tanımlanmış yapıları ele alış biçimleri yüzünden
+benzer kabul edilebilirler. En önemli fark, düzenlenecek verinin türüyle
+ilgilidir.
+<ul>
+   <li>  XML saf yazı türü verilerle uğraşır (Karakter görterilimi XML altında standart
+olmadığı da söylenebilir). Ve bir XML belgesi insan tarafından kolayca
+okunabilir. Grafikler gibi ikili veriler doğrudan belge içinde değildir ama
+HTML'de olduğu gibi bağlarla gösterilmiştir.
+<br><br>
+XML içinde denetim verileriyle bilgi arasında güçlü bir ayrın yoktur. Yalnız
+("%lt;" ve &lt;!CDATA[...]]&gt; gibi kurulumlar bu ayrımı yapacak biçimde
+kullanılır.
+
+   <li>  SDXF bilgisayarın okuyabildiği verileri düzenler. Insanlar okusun diye
+tasarlanmamıştır. SDXF verileri yazı düzeltme programları tarafından da
+okunmaz (sıkıştırma ve kriptolama yapılırsa daha da okunaksız olur). SDXF
+işlevleriyle her tür veriye kolayca erişebilirsiniz. SDXF veri yapısının
+standart tarayıcısı çok temel bir kalıbı izler. Bu 3.4.2'de özetlenen çok
+sıradan program akışıdır.
+</ul>
+XML, SDXF (ve hatta ASN.1) arkasındaki tümüyle değişik felsefe olması
+nedeniyle doğrudan karşılaştırma bir anlam taşımayabilir. Her birinin var
+olmalarında kendi doğruları vardır.
+<br><br>
+Ama herşeye rağmen XML verilerini SDXF veri yapılarına çevirme olanağı vardır.
+İlk anda her XML biçimi SDXF yığın ID olur. XML altındaki ilkel &lt;tag&gt;saf
+yazı&lt;/tag&gt; SDXF altında veri türü karakter olan ilkel yığın biçimine dönüşür (yapısal olmayan).  İç içe tanımlanmış biçimler yapısal yığınlar olarak çevrilir. XML her yerde biçimler kullandığından çevirim için yapay bir ilkel SDXF tanımı gerekecektir:
+<br><br>
+   Eğer &lt;t&gt; yazı için biiçimse, yerleşim sırası şöyledir:
+<pre>
+   &lt;t&gt;bu yazı &lt;attr value='bold'&gt;koyu&lt;/attr&gt;
+niteliktedir&lt;/t&gt;
+</pre>
+aklımızda şöyle yerleştirilir:
+<pre>
+   &lt;t&gt;&lt;et&gt;bu yazi &lt;/et&gt;&lt;attr value='bold'&gt;&lt;et&gt;koyu&lt;/et&gt;&lt;/attr&gt;
+   &lt;et&gt; niteliktedir&lt;/et&gt;&lt;/t&gt;
+</pre>
+("et" "ilkel yazı" biçimi olarak kullanılır)
+<br><br>
+Bu aşağıdaki SDXF yapısına dönüşmüş olur:
+<pre>
+   ID_t
+   |
+   +-- ID_et = " bu yazı "
+   |
+   +-- ID_attr
+   |   |
+   |   +-- ID_value = "bold"
+   |   |
+   |   +-- ID_et = "koyu"
+   |
+   +-- ID_et = " niteliktedir"
+</pre>
+ID_t ve ID_et aynı yığın ID ile gösterilebilir ve tek fark veri türlerindedir
+(&lt;t&gt; için yapısal, &lt;et&gt; için karakter).
+<br><br>
+Resim gibi ikili veriler SDXF içine doğrudan eklenebilir ve HTML'de olduüu
+gibi ayrı bir bağ olarak gösterilmesi gerekmez.
+
+            </div>
+         </ol>
+       </div>
+   <li> Referanslar <a href="javascript:dizigoster('sec14','')">(ayrıntı)</a>
+       <div id="sec14" style="display: none">
+<!-- ---------------------------------------------------------------- -->
+<dl>
+   <dt>[ASN.1] <dd>Information processing systems - Open Systems
+             Interconnection, "Specification of Abstract Syntax Notation
+             One (ASN.1)", International Organization for
+             Standardization, International Standard 8824, December
+             1987.
+   </dd></dt>
+   <dt>[BER] <dd>Information Processing Systems - Open Systems
+             Interconnection - "Specification of Basic Encoding Rules
+             for Abstract Notation One (ASN.1)", International
+             Organization for Standardization, International Standard
+             8825-1, December 1987.
+   </dd></dt>
+   <dt>[DEFLATE]<dd>Deutsch, P., "DEFLATE Compressed Data Format Specification
+             version 1.3", RFC 1951, May 1996.
+   </dd></dt>
+   <dt>[IANA] <dd>Internet Assigned Numbers Authority,
+             http://www.iana.org/numbers.htm
+   </dd></dt>
+   <dt>[PER] <dd>Information Processing Systems  - Open Systems
+             Interconnection -"Specification of Packed Encoding Rules
+             for Abstract Syntax Notation One (ASN.1)", International
+             Organization for Standardization, International Standard
+             8825-2.
+   </dd></dt>
+   <dt>[UCS] <dd>ISO/IEC 10646-1:1993. International Standard -- Information
+             technology -- Universal Multiple-Octet Coded Character Set
+             (UCS)
+   </dd></dt>
+   <dt>[UTF8] <dd>Yergeau, F., "UTF-8, a transformation format of ISO 10646",
+             RFC 2279, January 1998.
+   </dd></dt>
+</dl>
+       </div>
+</ol>
+<!-- ------------ tabloyu kapama -------- -->
+       </div>
+</div>
+</td></tr></table>
+</bodY>
+</html>

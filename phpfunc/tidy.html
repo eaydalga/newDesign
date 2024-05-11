@@ -1,0 +1,540 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Hyperlink Preprocessor </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">25 Mart 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>Tidy İşlevi</h2>
+
+<h3>Giriş</h3>
+
+Tidy HTML temizleme ve tamir hazır programına bir bağlantıdı. Yalnız HTML belgelerini temizlemek için değil, aynı zamanda belge ağacını dolaşmak için de kullanılır.
+
+<h3>Gereksinim</h3>
+
+Tidy kullanmak için libtidy kitaplığının kurulmuş olması gerekir. Ayrıntılı
+bilgi için http://tidy.sourceforge.net/ adresine bakın.
+
+<h3>Kurulum</h3>
+
+Tidy şu anda PHP 4.3.x ile kullanılabilir ve PHP 5'de PECL uzantısı olarak
+kullanıma sunulmuştur. Bakınız:  http://pecl.php.net/package/tidy.
+<br /><br />
+    Not: Tidy 1.0 Yalnız PHP 4.3.x içindir. Ama Tidy 2.0 yalnız PHP 5 için
+hazırlanmıştır.
+<br /><br />
+Eğer PEAR *nix-benzeri sisteminizde varsa pear kurucusunu kullanabilirsiniz.
+Kullanılacak komut:
+<pre>
+pecl install tidy
+</pre>
+
+Her zaman tar..gz paketini indirip elle de kurulum yapabilirsiniz:
+
+<h3>Örnek-1 PHP 4.3.x sürümünde elle tidy kurulumu</h3>
+<pre>
+gunzip tidy-xxx.tgz
+tar -xvf tidy-xxx.tar
+cd tidy-xxx
+phpize
+./configure && make && make install
+</pre>
+Wİndows kullanıcıları  http://pecl.php.net/package/php_tidy.dll kitaplığını
+indirip  kullanabilirler.
+<br /><br />
+PHP 5'de "--with-tidy" seçeneğiyle derleme yapabilirsiniz.
+
+<h3>Çalışma Zamanı Ayarları</h3>
+
+Bu işlevlerin davranışı php.ini ayarlarından etkilenir.
+
+<h3>Tidy Ayar Seçenekleri</h3>
+
+<table class="yazi">
+<tr><td>Adı</td><td>Varsayılan</td><td>Değişebilir</td><td>DeğişmeKaydı
+<tr><td>tidy.default_config</td><td>""</td><td>PHP_INI_SYSTEM</td><td>PHP 5.0.0.  sürümünden beri var</td></tr>
+<tr><td>tidy.clean_output</td><td>"0"</td><td>PHP_INI_USER</td><td>PHP_INI_PERDIR in PHP 5. PHP 5.0.0. sürümünden beri var</td></tr>
+</table>
+
+PHP_INI_* değişmezlerinde ve tanımlarında daha ayrıntılı bilgi için php.ini
+yönelticilerine bakın.
+<br /><br />
+Ayar yönelticilerinin kısa açıklaması burada anlatılmıştır.
+<dl>
+<dt>tidy.default_config yazı dizisi
+
+    <dd>tidy ayar dosyasına varsayılan yol
+</dd></dt>
+<dt>tidy.clean_output mantıksal
+
+    <dd>Tidy ile çıktı tamirini kapatıp açar
+    <b>Uyarı</b>
+</dd></dt>
+<br /><br />
+    Eğer html olmayan içerik yaratıyorsanız (dinamik resimler gibi) tidy.clean_output açmayın.
+</dd></dt>
+</dl>
+<h3>Önceden Tanımlı Sınıflar</h3>
+<dl>
+<dt>tidyNode
+<dd>
+<b>Yöntemler (Methods)</b>
+<ul>
+    <li> tidyNode::getParent - O anki düğümün babasını döndürür
+    <li> tidyNode->hasChildren - o anki düğümün çocukları varsa TRUE döndürür
+    <li> tidyNode->hasSiblings - o anki düğümün kardeşleri varsa TRUE döndürür
+    <li> tidyNode->isAsp - o anki düğüm ASP düğümüyse TRUE döndürür
+    <li> tidyNode->isComment - o anki düğüm açıklamaysa TRUE döndürür
+    <li> tidyNode->isHtml - O anki düğüm HTML ise TRUE döndürür
+    <li> tidyNode->isJste - o anki düğüm JSTE ise TRUE döndürür
+    <li> tidyNode->isPhp - o anki düğüm PHP ise TRUE döndürür
+    <li> tidyNode->isText - o anki düğüm yazı ise TRUE döndürür 
+</ul>
+<b>Özellikler (Properties)</b>
+<ul>
+    <li> value - düğümün değeri (örneğin html yazı)
+    <li> name - biçimin adı (örneğin html, a, vb..)
+    <li> type - düğümün tipi (yukarıdaki değişmezlerden biri, örneğin TIDY_NODETYPE_PHP)
+    <li> line* - düğümün başladığı yerdeki satır
+    <li> column* - düğümün başladığı yerdeki kolon
+    <li> proprietary* - TRUE eğer düğüm özel biçimi gösteriyorsa
+    <li> id - biçimin tanıtım kodu (yukarıdaki değişmezlerden biri, örneğin TIDY_TAG_FRAME)
+    <li> attribute - o anki düğümün niteliklerinden oluşan bir dizi ya da hiç nitelik yoksa NULL
+    <li> child - çocuk tidyNode'ların dizisi, ya da NULL eğer hiç bir yoksa
+</ul>
+</dd></dt>
+</dl>
+    Not: * ile işaretlenen özellikler PHP 5.1.0 ile vardı.
+
+<h3>Önceden Tanımlanmış Değişmezler</h3>
+
+Aşağıdaki değişmezler bu uzantıyla tanımlandır ve yalnız uzantı yüklendiğinde anlamı vardır.
+<br /><br />
+Her TIDY_TAG_XXX, bir HTML biçimini belirtir. Örneğin TIDY_TAG_A &lt;a
+href="XX"&gt;link&lt;/a&gt; biçimini gösterir. Her TIDY_ATTR_XXX bir HTML
+niteliğini gösterir. Örneğin TIDY_ATTR_HREF önceki örnekteki href niteliğini
+gösterir.
+
+<h3>Aşağıdaki değişmezler tanımlanmıştır:</h3>
+
+<h3>tidy biçim değişmezleri</h3>
+
+<b>Değişmez</b>
+<pre>
+TIDY_TAG_UNKNOWN
+TIDY_TAG_A
+TIDY_TAG_ABBR
+TIDY_TAG_ACRONYM
+TIDY_TAG_ALIGN
+TIDY_TAG_APPLET
+TIDY_TAG_AREA
+TIDY_TAG_B
+TIDY_TAG_BASE
+TIDY_TAG_BASEFONT
+TIDY_TAG_BDO
+TIDY_TAG_BGSOUND
+TIDY_TAG_BIG
+TIDY_TAG_BLINK
+TIDY_TAG_BLOCKQUOTE
+TIDY_TAG_BODY
+TIDY_TAG_BR
+TIDY_TAG_BUTTON
+TIDY_TAG_CAPTION
+TIDY_TAG_CENTER
+TIDY_TAG_CITE
+TIDY_TAG_CODE
+TIDY_TAG_COL
+TIDY_TAG_COLGROUP
+TIDY_TAG_COMMENT
+TIDY_TAG_DD
+TIDY_TAG_DEL
+TIDY_TAG_DFN
+TIDY_TAG_DIR
+TIDY_TAG_DIV
+TIDY_TAG_DL
+TIDY_TAG_DT
+TIDY_TAG_EM
+TIDY_TAG_EMBED
+TIDY_TAG_FIELDSET
+TIDY_TAG_FONT
+TIDY_TAG_FORM
+TIDY_TAG_FRAME
+TIDY_TAG_FRAMESET
+TIDY_TAG_H1
+TIDY_TAG_H2
+TIDY_TAG_H3
+TIDY_TAG_H4
+TIDY_TAG_H5
+TIDY_TAG_H6
+TIDY_TAG_HEAD
+TIDY_TAG_HR
+TIDY_TAG_HTML
+TIDY_TAG_I
+TIDY_TAG_IFRAME
+TIDY_TAG_ILAYER
+TIDY_TAG_IMG
+TIDY_TAG_INPUT
+TIDY_TAG_INS
+TIDY_TAG_ISINDEX
+TIDY_TAG_KBD
+TIDY_TAG_KEYGEN
+TIDY_TAG_LABEL
+TIDY_TAG_LAYER
+TIDY_TAG_LEGEND
+TIDY_TAG_LI
+TIDY_TAG_LINK
+TIDY_TAG_LISTING
+TIDY_TAG_MAP
+TIDY_TAG_MARQUEE
+TIDY_TAG_MENU
+TIDY_TAG_META
+TIDY_TAG_MULTICOL
+TIDY_TAG_NOBR
+TIDY_TAG_NOEMBED
+TIDY_TAG_NOFRAMES
+TIDY_TAG_NOLAYER
+TIDY_TAG_NOSAVE
+TIDY_TAG_NOSCRIPT
+TIDY_TAG_OBJECT
+TIDY_TAG_OL
+TIDY_TAG_OPTGROUP
+TIDY_TAG_OPTION
+TIDY_TAG_P
+TIDY_TAG_PARAM
+TIDY_TAG_PLAINTEXT
+TIDY_TAG_PRE
+TIDY_TAG_Q
+TIDY_TAG_RP
+TIDY_TAG_RT
+TIDY_TAG_RTC
+TIDY_TAG_RUBY
+TIDY_TAG_S
+TIDY_TAG_SAMP
+TIDY_TAG_SCRIPT
+TIDY_TAG_SELECT
+TIDY_TAG_SERVER
+TIDY_TAG_SERVLET
+TIDY_TAG_SMALL
+TIDY_TAG_SPACER
+TIDY_TAG_SPAN
+TIDY_TAG_STRIKE
+TIDY_TAG_STRONG
+TIDY_TAG_STYLE
+TIDY_TAG_SUB
+TIDY_TAG_TABLE
+TIDY_TAG_TBODY
+TIDY_TAG_TD
+TIDY_TAG_TEXTAREA
+TIDY_TAG_TFOOT
+TIDY_TAG_TH
+TIDY_TAG_THEAD
+TIDY_TAG_TITLE
+TIDY_TAG_TR
+TIDY_TAG_TR
+TIDY_TAG_TT
+TIDY_TAG_U
+TIDY_TAG_UL
+TIDY_TAG_VAR
+TIDY_TAG_WBR
+TIDY_TAG_XMP
+</pre>
+
+<h3>tidy nitelik değişmezleri</h3>
+
+<b>Değişmez</b>
+<pre>
+TIDY_ATTR_UNKNOWN
+TIDY_ATTR_ABBR
+TIDY_ATTR_ACCEPT
+TIDY_ATTR_ACCEPT_CHARSET
+TIDY_ATTR_ACCESSKEY
+TIDY_ATTR_ACTION
+TIDY_ATTR_ADD_DATE
+TIDY_ATTR_ALIGN
+TIDY_ATTR_ALINK
+TIDY_ATTR_ALT
+TIDY_ATTR_ARCHIVE
+TIDY_ATTR_AXIS
+TIDY_ATTR_BACKGROUND
+TIDY_ATTR_BGCOLOR
+TIDY_ATTR_BGPROPERTIES
+TIDY_ATTR_BORDER
+TIDY_ATTR_BORDERCOLOR
+TIDY_ATTR_BOTTOMMARGIN
+TIDY_ATTR_CELLPADDING
+TIDY_ATTR_CELLSPACING
+TIDY_ATTR_CHAR
+TIDY_ATTR_CHAROFF
+TIDY_ATTR_CHARSET
+TIDY_ATTR_CHECKED
+TIDY_ATTR_CITE
+TIDY_ATTR_CLASS
+TIDY_ATTR_CLASSID
+TIDY_ATTR_CLEAR
+TIDY_ATTR_CODE
+TIDY_ATTR_CODEBASE
+TIDY_ATTR_CODETYPE
+TIDY_ATTR_COLOR
+TIDY_ATTR_COLS
+TIDY_ATTR_COLSPAN
+TIDY_ATTR_COMPACT
+TIDY_ATTR_CONTENT
+TIDY_ATTR_COORDS
+TIDY_ATTR_DATA
+TIDY_ATTR_DATAFLD
+TIDY_ATTR_DATAPAGESIZE
+TIDY_ATTR_DATASRC
+TIDY_ATTR_DATETIME
+TIDY_ATTR_DECLARE
+TIDY_ATTR_DEFER
+TIDY_ATTR_DIR
+TIDY_ATTR_DISABLED
+TIDY_ATTR_ENCODING
+TIDY_ATTR_ENCTYPE
+TIDY_ATTR_FACE
+TIDY_ATTR_FOR
+TIDY_ATTR_FRAME
+TIDY_ATTR_FRAMEBORDER
+TIDY_ATTR_FRAMESPACING
+TIDY_ATTR_GRIDX
+TIDY_ATTR_GRIDY
+TIDY_ATTR_HEADERS
+TIDY_ATTR_HEIGHT
+TIDY_ATTR_HREF
+TIDY_ATTR_HREFLANG
+TIDY_ATTR_HSPACE
+TIDY_ATTR_HTTP_EQUIV
+TIDY_ATTR_ID
+TIDY_ATTR_ISMAP
+TIDY_ATTR_LABEL
+TIDY_ATTR_LANG
+TIDY_ATTR_LANGUAGE
+TIDY_ATTR_LAST_MODIFIED
+TIDY_ATTR_LAST_VISIT
+TIDY_ATTR_LEFTMARGIN
+TIDY_ATTR_LINK
+TIDY_ATTR_LONGDESC
+TIDY_ATTR_LOWSRC
+TIDY_ATTR_MARGINHEIGHT
+TIDY_ATTR_MARGINWIDTH
+TIDY_ATTR_MAXLENGTH
+TIDY_ATTR_MEDIA
+TIDY_ATTR_METHOD
+TIDY_ATTR_MULTIPLE
+TIDY_ATTR_NAME
+TIDY_ATTR_NOHREF
+TIDY_ATTR_NORESIZE
+TIDY_ATTR_NOSHADE
+TIDY_ATTR_NOWRAP
+TIDY_ATTR_OBJECT
+TIDY_ATTR_OnAFTERUPDATE
+TIDY_ATTR_OnBEFOREUNLOAD
+TIDY_ATTR_OnBEFOREUPDATE
+TIDY_ATTR_OnBLUR
+TIDY_ATTR_OnCHANGE
+TIDY_ATTR_OnCLICK
+TIDY_ATTR_OnDATAAVAILABLE
+TIDY_ATTR_OnDATASETCHANGED
+TIDY_ATTR_OnDATASETCOMPLETE
+TIDY_ATTR_OnDBLCLICK
+TIDY_ATTR_OnERRORUPDATE
+TIDY_ATTR_OnFOCUS
+TIDY_ATTR_OnKEYDOWN
+TIDY_ATTR_OnKEYPRESS
+TIDY_ATTR_OnKEYUP
+TIDY_ATTR_OnLOAD
+TIDY_ATTR_OnMOUSEDOWN
+TIDY_ATTR_OnMOUSEMOVE
+TIDY_ATTR_OnMOUSEOUT
+TIDY_ATTR_OnMOUSEOVER
+TIDY_ATTR_OnMOUSEUP
+TIDY_ATTR_OnRESET
+TIDY_ATTR_OnROWENTER
+TIDY_ATTR_OnROWEXIT
+TIDY_ATTR_OnSELECT
+TIDY_ATTR_OnSUBMIT
+TIDY_ATTR_OnUNLOAD
+TIDY_ATTR_PROFILE
+TIDY_ATTR_PROMPT
+TIDY_ATTR_RBSPAN
+TIDY_ATTR_READONLY
+TIDY_ATTR_REL
+TIDY_ATTR_REV
+TIDY_ATTR_RIGHTMARGIN
+TIDY_ATTR_ROWS
+TIDY_ATTR_ROWSPAN
+TIDY_ATTR_RULES
+TIDY_ATTR_SCHEME
+TIDY_ATTR_SCOPE
+TIDY_ATTR_SCROLLING
+TIDY_ATTR_SELECTED
+TIDY_ATTR_SHAPE
+TIDY_ATTR_SHOWGRID
+TIDY_ATTR_SHOWGRIDX
+TIDY_ATTR_SHOWGRIDY
+TIDY_ATTR_SIZE
+TIDY_ATTR_SPAN
+TIDY_ATTR_SRC
+TIDY_ATTR_STANDBY
+TIDY_ATTR_START
+TIDY_ATTR_STYLE
+TIDY_ATTR_SUMMARY
+TIDY_ATTR_TABINDEX
+TIDY_ATTR_TARGET
+TIDY_ATTR_TEXT
+TIDY_ATTR_TITLE
+TIDY_ATTR_TOPMARGIN
+TIDY_ATTR_TYPE
+TIDY_ATTR_USEMAP
+TIDY_ATTR_VALIGN
+TIDY_ATTR_VALUE
+TIDY_ATTR_VALUETYPE
+TIDY_ATTR_VERSION
+TIDY_ATTR_VLINK
+TIDY_ATTR_VSPACE
+TIDY_ATTR_WIDTH
+TIDY_ATTR_WRAP
+TIDY_ATTR_XML_LANG
+TIDY_ATTR_XML_SPACE
+TIDY_ATTR_XMLNS
+</pre>
+
+<h3>tidy düğüm tipi değişmezleri</h3>
+<table class="yazi">
+<tr><td>Değişmez</td><td>Açıklama
+<tr><td>TIDY_NODETYPE_ROOT</td><td>kök düğüm
+<tr><td>TIDY_NODETYPE_DOCTYPE</td><td>belge tipi (doctype)
+<tr><td>TIDY_NODETYPE_COMMENT</td><td>HTML açıklaması
+<tr><td>TIDY_NODETYPE_PROCINS</td><td>İşlem konutu
+<tr><td>TIDY_NODETYPE_TEXT</td><td>Yazı
+<tr><td>TIDY_NODETYPE_START</td><td>başlama biçimi
+<tr><td>TIDY_NODETYPE_END</td><td>bitiş biçimi
+<tr><td>TIDY_NODETYPE_STARTEND</td><td>boş biçim
+<tr><td>TIDY_NODETYPE_CDATA</td><td>CDATA
+<tr><td>TIDY_NODETYPE_SECTION</td><td>XML bölümü
+<tr><td>TIDY_NODETYPE_ASP</td><td>ASP kodu
+<tr><td>TIDY_NODETYPE_JSTE</td><td>JSTE kodu
+<tr><td>TIDY_NODETYPE_PHP</td><td>PHP kodu
+<tr><td>TIDY_NODETYPE_XMLDECL</td><td>XML tanımı
+
+<h3>Örnekler</h3>
+
+Bu basit örnek tidy kullanımını gösterir.
+
+<h3>Örnek-2 Temel Tidy kullanımı</h3>
+<pre>
+&lt;?php
+ob_start();
+?&gt;
+&lt;html&gt;a html document&lt;/html&gt;
+&lt;?php
+$html = ob_get_clean();
+
+// Belirtilen ayar
+$config = array(
+           'indent'         => true,
+           'output-xhtml'   => true,
+           'wrap'           => 200);
+
+// Tidy
+$tidy = new tidy;
+$tidy->parseString($html, $config, 'utf8');
+$tidy->cleanRepair();
+
+// Çıktı
+echo $tidy;
+?&gt;
+</pre>
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> ob_tidyhandler — tamponu tamir etmek için ob_start geri alma işlevi
+    <li> tidy_access_count — Belirtilen belgede Tidy erişilebilir uyarıların sayısını döndürür
+    <li> tidy_clean_repair — Execute configured cleanup and repair operations on parsed markup
+    <li> tidy_config_count — Returns the Number of Tidy configuration errors encountered for specified document
+    <li> tidy::__construct — Constructs a new tidy object
+    <li> tidy_diagnose — Run configured diagnostics on parsed and repaired markup
+    <li> tidy_error_count — Returns the Number of Tidy errors encountered for specified document
+    <li> tidy_get_body — tidy tarama ağacının ilk biçiminden başlayarak tidyNode nesnesini döndürür
+    <li> tidy_get_config — O anki tidy ayarlarını al
+    <li> tidy_get_error_buffer — belirtilen belgeyi tararken oluşan hata ve uyarıları döndürür
+    <li> tidy_get_head — tidy tarama ağacının ilk biçiminden başlayarak tidyNode nesnesini döndürür
+    <li> tidy_get_html_ver — Belirtilen belge için bulunan HTML sürümünü al
+    <li> tidy_get_html — tidy tarama ağacının ilk biçiminden başlayarak tidyNode nesnesi döndürür.
+    <li> tidy_get_opt_doc — verilen seçenek adı için belgeyi döndürür
+    <li> tidy_get_output — taranan tidy belgesini (markup) gösteren yazı
+dizisini döndürür
+    <li> tidy_get_release — Tidy kitaplığının sürüm tarihini al
+    <li> tidy_get_root — tidy tarama ağacının kökünü gösteren tidyNode nesnesini döndürür
+    <li> tidy_get_status — Belirtilen belgenin durumunu al
+    <li> tidy_getopt — tidy belgesi için belirtilen ayar değerini döndürür
+    <li> tidy_is_xhtml — Belgenin XHTML belgesi olup olmadığını belirtir
+    <li> tidy_is_xml — belgenin soysal (HTML/XHTML değil) olup olmadığını belirtir
+    <li> tidy_load_config — Belirtilen kodlamayla ASCII Tidy ayar dosyasını yükler
+    <li> tidy_node->get_attr — Sağlanan nitelik tanıtımıyla niteliği döndürür
+    <li> tidy_node->get_nodes — Belirtilen tanıtımla bu düğüm altındaki düğümlerin dizisini döndürür
+    <li> tidy_node->next — Bu düğümün sonraki kardeşini döndürür
+    <li> tidy_node->prev — Bu düğümün önceki kardeşini döndürür
+    <li> tidy_parse_file — dosyadaki ya da URI'deki biçimleri (markup) tara
+    <li> tidy_parse_string — Bir yazı dizisindeki belgeyi tara
+    <li> tidy_repair_file — Bir dosyayı tamir et ve yazı dizisi olarak döndür
+    <li> tidy_repair_string — Seçenek olarak sağlanan ayar dosyasını kullanarak yazı dizisini tarama
+    <li> tidy_reset_config — Tidy ayarlarını varsayılanlara döndür.
+    <li> tidy_save_config — O anki ayarları adlandırılan dosyaya yaz
+    <li> tidy_set_encoding — Giriş/Çıkış karakter kodlamasını biçim (markup) taraması için ayarla
+    <li> tidy_setopt — belirtilen tidy belgesinin ayarlarını günceller
+    <li> tidy_warning_count — Belirtilen belgenin Tidy uyarı sayısını döndürür
+    <li> tidyNode->hasChildren — Bu düğümün çocukları varsa true döndürür
+    <li> tidyNode->hasSiblings — düğümün kardeşleri varsa true döndürür
+    <li> tidyNode->isAsp — Bu düğüm ASP ise true döndürür
+    <li> tidyNode->isComment — Düğüm bir açıklamayı belirtiyorsa true döndür
+    <li> tidyNode->isHtml — Bu düğüm HTML belgesinin bir parçasıysa true döndürür
+    <li> tidyNode->isJste — Eğer düğüm JSTE ise true döndürür
+    <li> tidyNode->isPhp — Eğer düğüm PHP ise true döndürür
+    <li> tidyNode->isText — Eğer bu düğüm yazıyı (biçim değil) gösterirse true döndürür
+    <li> tidyNode::getParent — o anki düğümün babasını döndürür
+</ul>
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP - Başkalıklar (Exceptions) </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="javascript:myvoid();" class="nav">Başlarken</a>
+               <a href="phptxt11.html" class="sub">ilk Anlatım</a>
+               <a href="javascript:myvoid();" class="nav">Kurulumlar</a>
+               <a href="phptxt21.html" class="sub">Genel Kurulum</a><br />
+               <a href="phptxt22.html" class="sub">UNIX Kurulumu</a><br />
+               <a href="phptxt23.html" class="sub">OSX Kurulumu</a><br />
+               <a href="phptxt24.html" class="sub">Wins Kurulumu</a>
+               <a href="javascript:myvoid();" class="nav">Dil Kuralları</a>
+               <a href="phptxt31.html" class="sub">Temel yazım</a><br />
+               <a href="phptxt32.html" class="sub">Tipler</a><br />
+               <a href="phptxt33.html" class="sub">Değişkenler</a><br />
+               <a href="phptxt34.html" class="sub">Değişmezler</a><br />
+               <a href="phptxt35.html" class="sub">Deyimler</a><br />
+               <a href="phptxt36.html" class="sub">İşlemler</a><br />
+               <a href="phptxt37.html" class="sub">Kontrol Yapıları</a><br />
+               <a href="phptxt38.html" class="sub">İşlevler</a><br />
+               <a href="phptxt39.html" class="sub">Sınıflar Nesneler</a><br />
+               <a href="phptxt391.html" class="sub">Ad uzayı</a><br />
+               <a href="phptxt392.html" class="sub">İstisnalar</a>
+               <a href="javascript:myvoid();" class="nav">Güvenlik</a>
+               <a href="phptxt41.html" class="sub">Giriş</a><br />
+               <a href="phptxt42.html" class="sub">Genel bilgi</a><br />
+               <a href="phptxt43.html" class="sub">CGI iklisi</a><br />
+               <a href="phptxt44.html" class="sub">Apache modülü</a><br />
+               <a href="phptxt45.html" class="sub">Dosyadüzeni</a><br />
+               <a href="phptxt46.html" class="sub">Veritabanı</a><br />
+               <a href="phptxt47.html" class="sub">Hatalar</a><br />
+               <a href="phptxt48.html" class="sub">Diğerleri</a><br />
+               <a href="javascript:myvoid();" class="nav">Özellikler</a>
+               <a href="phptxt51.html" class="sub">HTTP Şifresi</a><br />
+               <a href="phptxt52.html" class="sub">Çerezler</a><br />
+               <a href="phptxt53.html" class="sub">Oturumlar</a><br />
+               <a href="phptxt54.html" class="sub">XForm</a><br />
+               <a href="phptxt55.html" class="sub">DosyaYükleme</a><br />
+               <a href="phptxt56.html" class="sub">UzakDosyalar</a><br />
+               <a href="phptxt57.html" class="sub">Bağlantılar</a><br />
+               <a href="phptxt58.html" class="sub">VTBağlantısı</a>
+               <font color="#8e9ccb"><h3>Gelişmiş</h3></font>
+               <a href="phptxt7.html" class="nav">Php Kökü</a>
+               <a href="phptxt8.html" class="nav">Ekler</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">2 Şubat 2008</span></div>
+<div id="bdy" class="yazi">
+<h2>Başkalıklar (Exceptions)</h2>
+
+PHP 5 içinde başka dillerde olduğu gibi başkalık (exception) modeli vardır. Bir başkalık fırlatılabilir (atılır) ya da yakalanır. Kod deneme bloğu içinde yakalanan başkalığa hizmet edebilecek biçimdedir. Her denemenin karşılığı olan en az bir yakalama bloğu vardır. Birden çok yakalama bloğu değişik başkalık sınıflarını yakalamak için kullanılabilir. Normal çalışma (Başkalığın deneme bloğundan hiçbiri fırlatılmamışsa ya da fırlatılana uygun yakalama bloğu yoksa) çalışmaya sıralamadaki son yakalama bloğunun peşinden devam eder. Başkalıklar bir yakalama bloğunda fırlatılır (ya da yine fırlatılır).
+<br /><br />
+Bir başkalık atıldıığında, o deyimi izleyen kod çalıştırılmaz ve PHP ilk uyumlu bloğu bulmaya çalışır. Eğer bir başkalık yakalamazsa, PHP kritik hatası "Uncaught Exceptşon ..." üretilir. Eğer tutacı set_expection_handler() ile tanımlanmışsa bu olmaz.
+<br /><br />
+Başkalığa fırlatma (atlama) örneği
+<pre>
+&lt;?php
+function inverse($x) {
+    if (!$x) {
+        throw new Exception('Sıfıra bölme.');
+    }
+    else return 1/$x;
+}
+
+try {
+    echo inverse(5) . "\n";
+    echo inverse(0) . "\n";
+} catch (Exception $e) {
+    echo 'Başkalık yakalandı: ',  $e-&gt;getMessage(), "\n";
+}
+
+// Çalışmaya devam
+echo 'Merhaba Dünya';
+?&gt;
+</pre>
+Yukarıdaki örneğin çıktısı:
+<pre>
+0.2
+Başkalık yakalandı: Sıfıra bölme.
+Merhaba Dünya
+</pre>
+
+<h3>Başkalığı geliştirme (Extending Exceptions)</h3>
+
+Kullanıcı tanımlı başkalık sınıfı hazır-Başkalık sınıflarını arttırmakla tanımlanır. Aşağıdaki üyelikler ve özellikler çocuk sınıfında hazır-Başkalık sınıflarından nelerin erişilebilir olduğunu anlatır.
+<br /><br />
+Hazır başkalık sınıfı örneği
+<pre>
+&lt;?php
+class Exception
+{
+    protected $message = 'Belirsiz başkalık'; // başkalık mesajı
+    protected $code = 0;             // kullanıcı tanımlı başkalık kodu
+    protected $file;                 // başkalığın kaynak kodu
+    protected $line;                 // başkalığın kaynak satırı
+
+    function __construct($message = null, $code = 0);
+
+    final function getMessage();     // başkalık mesajı
+    final function getCode();        // başkalık kodu
+    final function getFile();        // kaynak dosya adı
+    final function getLine();        // kaynak satırı
+    final function getTrace();       // backtrace() dizisi
+    final function getTraceAsString();  // taramanın kalıplı yazı dizisi
+
+    /* Overrideable */
+    function __toString();           // görüntülemek için kalıplı yazı dizisi
+}
+?&gt;
+</pre>
+Eğer bir sınıf hazır-Başkalık sınıfını genişletirse ve yapıcıyı yeniden tanımlarsa, onun var olan tüm verileri doğru olarak atandığının bilinmesi için "parent::__construct()" çağırması önemle önerilir. nesne bir yazı dizisi gibi gösterildiğinde değiştirilmiş çıktı sağlamak için __toString() yöntemi atlanır.
+<br /><br />
+Başkalık sınıfını geliştirme
+<pre>
+&lt;?php
+/**
+ * Kullanıcı tanımlı başkalık sınıfı
+ */
+class MyException extends Exception
+{
+    // başkalığı yeniden tanımla öyle ki
+    // mesaj seçimli olmasın
+    public function __construct($message, $code = 0) {
+        // bazı kodlar
+        // herşeyin doğru atandığına emin olun
+        parent::__construct($message, $code);
+    }
+
+    // nesnenin kullanıcı yazı dizisi gösterimi
+    public function __toString() {
+        return __CLASS__ . ": [{$this-&gt;code}]: {$this-&gt;message}\n";
+    }
+
+    public function customFunction() {
+        echo "Bu tür başkalık için kullanıcı işlevi\n";
+    }
+}
+
+
+/**
+ * Başkalığı denemek için bir sınıf yarat
+ */
+class TestException
+{
+    public $var;
+
+    const THROW_NONE    = 0;
+    const THROW_CUSTOM  = 1;
+    const THROW_DEFAULT = 2;
+
+    function __construct($avalue = self::THROW_NONE) {
+
+        switch ($avalue) {
+            case self::THROW_CUSTOM:
+                // kullanıcı başkalığı fırlat
+                throw new MyException('1 geçersiz parametredir', 5);
+                break;
+
+            case self::THROW_DEFAULT:
+                // varsayılanı fırlat
+                throw new Exception('2 parametre olarak geçersizdir', 6);
+                break;
+
+            default: 
+                // Başkalık yok, nesne yaratıldı
+                $this-&gt;var = $avalue;
+                break;
+        }
+    }
+}
+
+
+// Örnek 1
+try {
+    $o = new TestException(TestException::THROW_CUSTOM);
+} catch (MyException $e) {      // yakalanır
+    echo "Benim başkalığımı yakalama\n", $e;
+    $e-&gt;customFunction();
+} catch (Exception $e) {        // Atlanır
+    echo "Varsayılan Başkalığı Yakala\n", $e;
+}
+
+// işleme devam
+var_dump($o);
+echo "\n\n";
+
+
+// Örnek 2
+try {
+    $o = new TestException(TestException::THROW_DEFAULT);
+} catch (MyException $e) {      // Bu tür uymadı
+    echo "Benim başkalığımı yakalama\n", $e;
+    $e-&gt;customFunction();
+} catch (Exception $e) {        // yakalanır
+    echo "Varsayılan Başkalığı Yakala\n", $e;
+}
+
+// işleme devam
+var_dump($o);
+echo "\n\n";
+
+
+// Örnek 3
+try {
+    $o = new TestException(TestException::THROW_CUSTOM);
+} catch (Exception $e) {        // yakalanır
+    echo "Varsayılan Başkalığı Yakala\n", $e;
+}
+
+// işleme devam
+var_dump($o);
+echo "\n\n";
+
+
+// Örnek 4
+try {
+    $o = new TestException();
+} catch (Exception $e) {        // atlandı, ibaşkalık yok
+    echo "Varsayılan Başkalığı Yakala\n", $e;
+}
+
+// işleme devam
+var_dump($o);
+echo "\n\n";
+?&gt;
+</pre>
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

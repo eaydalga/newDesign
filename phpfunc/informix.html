@@ -1,0 +1,274 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Hyperlink Preprocessor </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">19 Mart 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>Informix İşlevleri</h2>
+<h3>Giriş</h3>
+
+Informix (IDS) 7.x, SE 7.x, Universal Server (IUS) 9.x ve IDS 2000 için Informix sürücüsü informix uzantı yolunda "ifx.ec" ve "php3_ifx.h" olarak uygulandı. IDS 7.x desteği oldukça tamamlanmıştır. BYTE ve TEXT kolonları tam desteklenir. IUS 9.x desteği yarım tamamlanmıştır. Yeni veri türleri var fakat SLOB ve CLOB desteği yapım aşamasındadır.
+<br /><br />
+    Not: Bu uzantı PECL havuzuna aktarılmıştır. PHP 5.2.1 sürümünden beri pakette yer almaz.
+
+<h3>Gereksinim</h3>
+
+    Not: Ayarlar Notları<br />
+PHP informix sürücüsünü derlemek için ESQL/C sürümüne gereksinim duyarsınız.
+ESQL/C sürüm 7.2x iş görür. ESQL/C, artık Informix istemci SDK paketinin bir
+parçasıdır.
+<br /><br />
+"INFORMIXDIR" değişkeni ayarlanmıştır ve "configure" kodlamasını çalıştırmadan $INFORMIXDIR/bin yolunuzda mıdır bakın
+
+<h3>Kurulum</h3>
+
+Bu modüldeki işlevleri kullanabilmek için PHP "--with-informix[=DIR]" ile
+derlenmiş olmalıdır. DIR, informix ana kurulum yolunu gösterir.
+
+<h3>Çalışma Zamanı Ayarları</h3>
+
+php.ini değerlerini ayarlayarak işlevlerin davranışı değişir.
+<br /><br />
+    Not: Informix çevresel değişkenleri INFORMIXDIR ve INFORMIXSERVER PHP ifx sürücüsüne açıktır ve INFORMIX bin yolu PATH içinde tanımlıdır.
+phpinfo() içeren bir kodlamayı çalıştırarak deneyebilirsiniz. Bu cgi php ve
+Apache mod_php için doğrudur. Bunları Apache başlatma adımında
+tanımlayabilirsiniz.
+<br /><br />
+    Informix paylaşım kitaplığı yükleyiciye açık olmalıdır (LD_LIBRARY_PATH ya
+da ld.so.conf/ldconfig değerlerine bakın)
+<br /><br />
+Not: BLOB kullanımıyla ilgili bazı notlar (TEXT ve BYTE kolonları) <br />
+BLOB'lar normalde BLOB tanıtıcısıyla gösterilir. "Select" sorguları her TEXT
+ve BYTE kolonları için "blob id" döndürür. İçeriğine:
+<pre>
+"string_var = ifx_get_blob($blob_id);"
+</pre>
+ ile erişebilirsiniz. Eğer BLOB'ları belleğe almak istediğinizde
+("ifx_blobinfile(0);" ile), dosyadaki BLOB kolonları için
+"ifx_blobinfile(1);", ve "ifx_get_blob($blob_id);" kullanılır. Bunlar da size
+dosya adını verir. Normal dosya giriş/çıkış işlemini kullanarak blob içeriğine
+erişirsiniz.
+<br /><br />
+Ekleme/değişrime sorgularında, bu "blob id" tanımlarını kendiniz
+yaratmalısınız (ifx_create_blob(); ile). Daha sonra "blob id" bir diziye
+yerleştirilir ve blob kolonları soru işareti (?) ile değiştirilir.
+Değiştirme/eklemeler için blob içeriğinin ifx_update_blob(9 ile ayarlanması
+gerekir.
+<br /><br />
+BLOB kolonlarının davranışı çalışma zamanında da değiştirilebilen
+değişkenlerin ayarlanmasıyla olur.
+<dl>
+<dt><dd>
+    ayarlama değişkeni: ifx.textasvarchar
+    ayarlama değişkeni: ifx.byteasvarchar
+</dd></dt>
+<dt><dd>
+    çalışma zamanı işlevleri:
+    ifx_textasvarchar(0): TEXT kolonlu seçimlik (select) sorgularında blob tanıtıcısı kullanın
+    ifx_byteasvarchar(0): BYTE kolonlu seçimlik (select) sorgularında blob tanıtıcısı (id) kullanın
+    ifx_textasvarchar(1): VARCHAR kolonlarıymış gibi TEXT kolonlar döndürün. Böylece seçimlik sorgularda blob tanıtıcısı kullanmak gerekmez.
+    ifx_byteasvarchar(1): VARCHAR kolonlarıymış gibi BYTE kolonları döndürün. Böylece seçimlik sorgularda blob tanıtıcısını kullanmak gerekmez.
+</dd></dt>
+<dt><dd>
+    ayarlama değişkeni: ifx.blobinfile
+</dd></dt>
+<dt><dd>
+    çalışma zamanı işlevleri:
+    ifx_blobinfile_mode(0): bellekteki BYTE kolonlarını döndürür. blob tanıtıcısı içeriği almanıza yarar.
+    ifx_blobinfile_mode(1): dosyadaki BYTE kolonlarını döndürür. blob tanıtıcısı dosya adını almanızı sağlar.
+<br />
+Eğer ifx_text/byteasvarchar değerrini 1 yaparsanız, TEXT ve BYTE kolonlarını
+sorgularda normal VARCHAR gibi kullanabilirsiniz. PHP'de tüm yazı dizileri
+sayıldığından, bu "ikili güvenli" olur. Bunu doğru kullanmak sizin
+elinizdedir. Dönen değer herhangi bir şey olabilir. Siz içerikten
+sorumlusunuzdur.
+<br />
+Eğer ifx_blobinfile değerini 1 yaparsanız, ifx_get_blob(..) ile dönen dosya
+adını blob içerine erişmek için kullanırsınız. Burada <b>Informix tarafından
+yaratılan geçici dosyaları silmek sizin sorumluluğunuzdadır.</b>. Her alınan
+satır her BYTE kolonu için bir geçici dosya oluşturur.
+<br />
+geçici dosyanın yeri çevresel değişken "blobdir" ile belirtilir (varsayılanı
+"." olur). Örnek şöyle olabilir: putenv("blobdir=tmpblob"); Burada kazayla
+bırakılan geçici dosyalar temizlenir (onların adları hep "blb" ile başlar).
+</dd></dt>
+</dl>
+<br /><br />
+    Not: char verileri otomatik boşluklardan arındırmak (SQLCHAR ve SQLNCHAR) ayar değişkenleriyle atanır
+<br />
+    ifx.charasvarchar: eğer değer 1 olursa sondaki boşluklar otomatik silinir ve kısaltma yapılmış olunur.
+<br /><br />
+    Not: NULL değerler<br />
+Ayarlama değişkeni ifx.nullformat (ve çalışma zamanı işlevi ifx_nullformat()) TRUE değerine ayarlandığında, NULL kolon yazi dizisi "NULL" olarak döner. Değer FALSE olursa dönen değer boşluk olur. Bu NULL ve boş kolonlar arasında ayrım yapabilmenizi sağlar.
+
+<h3>Informix ayarlama seçenekleri</h3>
+
+<table class="yazi">
+<tr><td>Adı</td><td>Varsayılan</td><td>Değişebilir</td><td>Değişme
+Kaydı</td></tr>
+<tr><td>ifx.allow_persistent</td><td>"1"</td><td>PHP_INI_SYSTEM</td><td>PHP 5.2.1. sürümde kaldırıldı</td></tr>
+<tr><td>ifx.max_persistent</td><td>"-1"</td><td>PHP_INI_SYSTEM</td><td>PHP 5.2.1. sürümde kaldırıldı</td></tr>
+<tr><td>ifx.max_links</td><td>"-1"</td><td>PHP_INI_SYSTEM</td><td>PHP 5.2.1. sürümde kaldırıldı</td></tr>
+<tr><td>ifx.default_host</td><td>NULL</td><td>PHP_INI_SYSTEM</td><td>PHP 5.2.1. sürümde kaldırıldı</td></tr>
+<tr><td>ifx.default_user</td><td>NULL</td><td>PHP_INI_SYSTEM</td><td>PHP 5.2.1. sürümde kaldırıldı</td></tr>
+<tr><td>ifx.default_password</td><td>NULL</td><td>PHP_INI_SYSTEM</td><td>PHP 5.2.1. sürümde kaldırıldı</td></tr>
+<tr><td>ifx.blobinfile</td><td>"1"</td><td>PHP_INI_ALL</td><td>PHP 5.2.1. sürümde kaldırıldı</td></tr>
+<tr><td>ifx.textasvarchar</td><td>"0"</td><td>PHP_INI_ALL</td><td>PHP 5.2.1. sürümde kaldırıldı</td></tr>
+<tr><td>ifx.byteasvarchar</td><td>"0"</td><td>PHP_INI_ALL</td><td>PHP 5.2.1. sürümde kaldırıldı</td></tr>
+<tr><td>ifx.charasvarchar</td><td>"0"</td><td>PHP_INI_ALL</td><td>PHP 5.2.1. sürümde kaldırıldı</td></tr>
+<tr><td>ifx.nullformat</td><td>"0"</td><td>PHP_INI_ALL</td><td>PHP 5.2.1. sürümde kaldırıldı</td></tr>
+</table>
+
+Daha ayrıntılı bilgi için php.ini yönelticilerine bakın.
+
+Burada ayar yönetlticilerinin kısa açıklamaları var.
+<dl>
+<dt>ifx.allow_persistent mantıksal
+
+    <dd>Sürekli Informix bağlantısı olsun mu?
+</dd></dt>
+<dt>ifx.max_persistent tamsayı
+
+    <dd>Her işlem için sürekli Informix bağlantı sayısı
+</dd></dt>
+<dt>ifx.max_links tamsayı
+
+    <dd>Her işlem için en çok Informix bağlantısı sayısı (sürekli bağlantılar dahil)
+</dd></dt>
+<dt>ifx.default_host yazı dizisi
+
+    <dd>Sunucu belirtilmeyince varsayılan olarak bağlanılacak sunucu (ifx_connect() ya da ifx_pconnect() işlevlerinde). Güvenli konuma uygulanmaz.
+</dd></dt>
+<dt>ifx.default_user yazı dizisi
+
+    <dd>ifx_connect() ya da ifx_pconnect() içinde belirtilmezse varsayılan kullanıcı adı. Güvenli konuma uygulanmaz.
+</dd></dt>
+<dt>ifx.default_password yazı dizisi
+
+    <dd>ifx_connect() ya da ifx_pconnect() içinde belirtilmezse varsayılan şifre. Güvenli konuma uygulanmaz.
+</dd></dt>
+<dt>ifx.blobinfile mantıksal
+
+    <dd>Eğer blob kolonlarını bir dosyada döndürmek isterseniz TRUE olmalıdır. Eğer bellekte olmalarını isterseniz bu değer FALSE olur.
+</dd></dt>
+<dt>ifx.textasvarchar mantıksal
+
+    <dd>Eğer TEXT kolonlarını seçimlik sorguda normal yazı dizileri gibi döndürmek isterseniz değer TRUE olmalıdır. blob tanıtıcısı değişgeçi kullanacaksanız FALSE olmalıdır. ifx_textasvarchar() ile çalışma zamanında ayarları değiştirebilirisiniz.
+</dd></dt>
+<dt>ifx.byteasvarchar mantıksal
+
+    <dd>Seçimlik sorgularda BYTE kolonlar normal yazı dizisi olarak döndürülecekse değer TRUE olmalıdır. Eğer blob tanıtıcı değişgeçleri kullanacak olursanız bu değer FALSE olmalıdır. ifx_textasvarchar() ile ayarları çalışma zamanında değiştirebilirsiniz.
+</dd></dt>
+<dt>ifx.charasvarchar mantıksal
+
+    <dd>CHAR kolonlardan bilgi alırken arkada kalan boşlukları silme işlemi için TRUE yapılır.
+</dd></dt>
+<dt>ifx.nullformat mantıksal
+
+    <dd>BULL kolonları yazı olarak "NULL" döndürmek istenirse değer TRUE olmalıdır. Eğer boş yazı dizisi dönmesini isterseniz değer FALSE olmalıdır. Çalışma zamanında ifx_nullformat() kullanarak değeri değiştirebilirsiniz.
+</dd></dt>
+</dl>
+
+<h3>Önceden Tanımlı Değişmezler</h3>
+
+Buradaki değişmezler bu uzantıyla tanımlıdır. Uzantı yüklenmezse anlamı
+yoktur.
+<pre>
+IFX_SCROLL (tamsayı)
+IFX_HOLD (tamsayı)
+IFX_LO_RDONLY (tamsayı)
+IFX_LO_WRONLY (tamsayı)
+IFX_LO_APPEND (tamsayı)
+IFX_LO_RDWR (tamsayı)
+IFX_LO_BUFFER (tamsayı)
+IFX_LO_NOBUFFER (tamsayı)
+</pre>
+
+İçindekiler
+<ul>
+    <li> ifx_affected_rows — Sorguyla etkilenen satır sayısını al.
+    <li> ifx_blobinfile_mode — Seçimlik sorguların hepsinde varsayılan blob konumunu ayarla
+    <li> ifx_byteasvarchar — Varsayılan bayt konumunu ayarla
+    <li> ifx_close — Informix bağlantısını kapat
+    <li> ifx_connect — Informix sunucu bağlantısını aç
+    <li> ifx_copy_blob — Verilen blob nesnesini kopyala
+    <li> ifx_create_blob — blob nesnesi yaratır
+    <li> ifx_create_char — char nesnesi yaratır
+    <li> ifx_do — Daha önceden hazırlanmış SQL deyimini çalıştırır
+    <li> ifx_error — Son Informix çağırma işleminin hata sayısını  döndürür
+    <li> ifx_errormsg — Son Informix çağrısının hata mesajını döndürür
+    <li> ifx_fetch_row — İlgili dizi olarak satırı al
+    <li> ifx_fieldproperties — SQL alan özellikleri listesi
+    <li> ifx_fieldtypes — Informix SQL alanları listesi
+    <li> ifx_free_blob — blob nesnesini siler
+    <li> ifx_free_char — char nesnesini siler
+    <li> ifx_free_result — sorgu için kaynakları boşaltır
+    <li> ifx_get_blob — blob nesnesinin içeriğini döndürür.
+    <li> ifx_get_char — char nesnesinin içeriğini döndürür.
+    <li> ifx_getsqlca — Bir sorgudan sonra sqlca.sqlerrd[0..5] içeriğini
+döndürür
+    <li> ifx_htmltbl_result — Sorgunun tüm satırlarını HTML tablosuna
+dönüştürür
+    <li> ifx_nullformat — bulunan satırda varsayılan dönen değeri ayarlar
+    <li> ifx_num_fields — Sorguda kolon sayısını döndürür
+    <li> ifx_num_rows — Sorgudan alınan satırların sayısını verir
+    <li> ifx_pconnect — Sürekli Informix bağlantısını açar
+    <li> ifx_prepare — SQL deyimini çalışmak için hazırlar
+    <li> ifx_query — Informix sorgusu gönderir
+    <li> ifx_textasvarchar — Varsayılan yazı konumunu ayarlar
+    <li> ifx_update_blob — blob nesnesinin içeriğini ayarlar
+    <li> ifx_update_char — char nesnesinin içeriğini değiştirir
+    <li> ifxus_close_slob — slob nesnesini siler
+    <li> ifxus_create_slob — slob nesnesi yaratır ve açar
+    <li> ifxus_free_slob — slob nesnesini siler
+    <li> ifxus_open_slob — slob nesnesi açar
+    <li> ifxus_read_slob — slob nesnesinden n bayt okur
+    <li> ifxus_seek_slob — O anki dosyayı ya da arama noktasını ayarlar
+    <li> ifxus_tell_slob — O anki dosyayı ya da arama noktasını döndürür
+    <li> ifxus_write_slob — slob nesnesine yazı dizisini yazdırır
+</ul>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

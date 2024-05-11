@@ -1,0 +1,130 @@
+<html>
+<head><title>AYBIM - SNA SDLC</title>
+</HEAD>
+<BODY BGCOLOR="white" LEFTMARGIN=50>
+<TABLE WIDTH="100%" CELLSPACING=10 CELLPADDING=5>
+<TR><TD WIDTH="10%" BGCOLOR="black" VALIGN="TOP">
+&nbsp;
+</TD>
+<TD>
+<H2>SDLC (Synchronous Data Link Communication) </H2>
+<HR>
+<p>
+<h3>GİRİŞ</h3>
+<p>
+SDLC protokolune göre SNA ortamında iki tip
+bilgisayar vardır. Bunlardan merkezdekine birincil bilgisayar, uzaktan
+bağlanana ise ikincil bilgisayar denir. Birincil bilgisayar kurulan iletişim
+yöntemini denetleyen bilgisayardır. Fiziksel birimler birbirleri ile
+iletişimi kurduktan sonra, her iki bilgisayarda yer alan mantıksal birimler
+birbirleri ile oturum başlatır. Her mantıksal birim karşısındaki mantıksal
+birimle başka birimlerden bağımsız oturum kurabilir. Bir hat üzerinde 
+birden çok ikincil bilgisayar olabilir. Bu bilgisayarlar fiziksel birimlerdir.
+Aynı hat üzerindeki birden çok fiziksel birim C1, C2 gibi adreslerle
+birbirlerinden ayrılır. Aynı hattı paylaşımlı kullanırlar.
+Bir fiziksel bilgisayarın karşı tarafa bağlantısı için gereken SDLC
+komutları şöyledir :
+<P>
+<table>
+<tr>
+<td valign=top WIDTH=100>
+SNRM<br>(Set Normal Response Mode)
+</td><td>
+İlk bağlantı kurulurken gönderilen
+paketleri karşı taraf aldığında gelen paket bu komutu içerir.
+RR (Read to Receive) : Her iki bilgisayar "Bekleme" konumunda iken veya
+gelen paket alındıktan sonra gönderilen boş pakettir. Bir paketin karşı
+taraftan alındığı, karşıdan gelen RR paketi ile anlaşılır.</td>
+</tr>
+<tr>
+<td valign=top WIDTH=100>
+ACTPU (Activate PU)
+</td><td>
+Birincil bilgisayar iikincil bilgisayarın fiziksel
+biriminin Aktif olmasını istemektedir. Aslında fiziksel bilgisayarın aktif
+duruma gelmesi demek SDLC protokolunda mesaj alış verişini her iki
+bilgisayarında başlatmış olması demektir.
+</td>
+</tr>
+<tr>
+<td valign=top WIDTH=100>
+DACTPU (Deactivate PU)
+</td><td>
+Fiziksel birimi kapat. Bu komut varsa oturumda
+olan mantıksal birimlerin oturumlarının da kapanmasına neden olur. Oturumda
+olsun olmasın tüm mantıksal birimler bu komutla "Deactive" konuma gecer.
+<P>
+Mantıksal birimlerin SDLC protokolunda kullandığı komutlar 
+aşağıda açıklanmıştır.</td></tr>
+<tr>
+<td valign=top WIDTH=100>
+ACTLU (Activate LU)
+</td><td>
+Birincil bilgisayarda karşı bilgisayarda bulunabilecek
+mantıksal birimler tanımlıdır. Bu komut mantıksal birimlerin ikincil
+bilgisayarda da tanımlı olup olmadığını anlamak için kullanılır. İkincil
+bilgisayar gelen her ACTLU komutuna, tanım varsa olumlu yanıt verir. Aksi
+halde DACTLU komutu ile yanıt verilir ve Birincil bilgisayar bu mantıksal
+birim ile bağlantı kurulamayacağını anlar.</td>
+</td></tr><tr><td WIDTH=100>
+XID (Exchange ID)
+</td><td>
+Her iki bilgisayar, birbirleri ile tanım alışverişinde
+bulunur. Max. Mesaj boyu ve bilgisayar tanımları gibi bilgiler bi komut
+ile bilgisayarlar arasında değiş tokuş yapılır.
+</td>
+</tr>
+<tr>
+<td valign=top WIDTH=100>
+INITSELF
+</td><td>
+Bu komut ile ilgili ayrıntılı bilgi protokol arayüzünde
+anlatılmıştır.
+</td>
+</tr>
+<tr>
+<td valign=top WIDTH=100>
+BIND
+</td><td>
+İki uygulama programının birbiri ile bağlantı kurması bu komut
+aracılığı ile yapılır. Kurulan bağlantıda kullanılan kalıp ve sistemlerin
+mesaj algılama biçimleri bu komut ile tanımlanır. Birincil bilgisayar
+komutun içeriğini belirtir, ikincil bilgisayar, bu komutu kabul ediyorsa
+olumlu cevap verir ve oturum kurulmuş olur. Komut kabul edilmiyorsa
+ikincil bilgisayar bağlantının kesilmesi için UNBIND gönderir.
+</td>
+</tr>
+<tr>
+<td valign=top WIDTH=100>
+SSNUM<br>(Set Sequence Number)
+</td><td>
+Oturum kurulduğunda paketlerde yer alan
+paket sıra numarası bu komu ile her iki bilgisayarda da ilk değerine
+getirilir.
+</td></tr><tr>
+<td valign=top WIDTH=100>
+SDT (Start Data Trafic)
+</td>
+<td valign=top>
+Komut alış verişi tamamlandıktan sonra birincil
+bilgisayar, veri iletişiminin başlayabileceğini bu komut ile birdirir.
+Atrık bilgisayarlar uygulama programı bilgilerini birbirlerine 
+gönderebilirler.
+</td></tr><tr>
+<td valign=top WIDTH=100>
+DACTLU (Deactivate LU)
+</td><td>
+Bu komut oturumun kapanması ve mantıksal birimin
+artık merkez tarafından tanınmadığının belirtilmesi anlamına gelir.
+</td>
+</tr>
+</table>
+</TD></TR>
+<TR>
+<TD COLSPAN=2>
+<HR>
+<A HREF="http://www.aybim.com.tr/">Ana Sayfaya</A>
+&nbsp;&nbsp;<A HREF="index.html">Teknik Bilgiler Sayfasina</A>
+</TD></TR></TABLE>
+</body>
+</html>

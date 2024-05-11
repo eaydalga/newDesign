@@ -1,0 +1,119 @@
+<html>
+<body>
+<div id="sag"><span class="yazi">3 Aralık 2007</span></div>
+<h2></h2>
+<div class="yazi">
+Security
+
+JavaScript is designed as an open scripting language. It is not intended to replace proper security measures, and should never be used in place of proper encryption. See also my article about cross site scripting.
+
+JavaScript has its own security model, but this is not designed to protect the Web site owner or the data passed between the browser and the server. The security model is designed to protect the user from malicious Web sites, and as a result, it enforces strict limits on what the page author is allowed to do. They may have control over their own page inside the browser, but that is where their abilities end.
+
+    * JavaScripts cannot read or write files on users' computers. They cannot create files on the server (except by communicating with a server side script that creates files for them). The only thing they can store on the user's computer are cookies.
+    * They are allowed to interact with other pages in a frameset, if those frames originate from the same Web site, but not if they originate from another Web site (the postMessage method from the Web Applications 1.0 specification does safely extend this capability, but I will not cover that here). Some browsers will even treat different port numbers on the same server as a different Web site.
+    * JavaScript cannot be used to set the value attribute of a file input, and will not be allowed to use them to upload files without permission.
+    * JavaScript cannot read what locations a user has visited by reading them from the location object, although it can tell the browser to jump back or forward any number of steps through the browser history. It cannot see what other Web pages the user has open.
+    * JavaScript cannot access the cookies or variables from other sites.
+    * It cannot see when the user interacts with other programs, or other parts of the browser window.
+    * It cannot open windows out of sight from the user or too small for the user to see, and in most browsers, it cannot close windows that it did not open.
+
+Most people who want to know about security with JavaScript are interested in producing password protected pages or sending encrypted data to or from the user's computer. For true security, use SSL/TLS (HTTPS) and put all of your checks on the server. You could also use a security lockout if too many false attempts are made, preventing brute force cracks. JavaScript cannot replace this functionality. The problem lies in the fact that if a person can read what you are sending over the internet, they can also rewrite it. So when you think you are filling in a password to access a protected page, they have changed it so that you are actually filling in a password that will be sent to them. This requires SSL to be sure that you are protected. Still, this tutorial is about JavaScript, so I will now show you what can and cannot be done with JavaScript.
+Protecting the source of your scripts
+
+Oh dear. This is just not possible. Many people make futile attempts to do so, but to be honest, there is no point in trying. In fact, in many developers' opinions, there is no such thing as copyright with JavaScript, although it is theoretically possible. The point with copyright is that you can only copyright something completely new, a new innovation, something that has not been done before. You can almost guarantee that nothing you do with JavaScript will be a new innovation. Someone will have done it before. JavaScript is just not designed for innovative programming. Even if you write something in a 'new' way, it will still be doing something that has already been done, and if you did attempt to take things too far and take the matter to court, you would just be laughed back out of it again.
+
+As for protecting what you send, JavaScript is passed in text, not compiled to a binary first, so the code is always visible. How can you stop people seeing the source when you are sending the source to each viewer? Let me walk through the problem.
+
+If the source of the JavaScript is held in the page you are viewing, a simple 'view source' will show you the script. Looking in the browser's cache will show the scripts that are in header files. Of course you need to check the source first to find the name of the header file.
+
+Many developers have spotted the fact that both of these methods require the 'view source' to be available, so they prevent the viewer from viewing the source. They do this by preventing the context menu from appearing when the user right clicks and by removing menus by using window.open etc. Believe me, both of these are useless. You cannot stop right clicks in Opera, Safari, OmniWeb or iCab like you can in other browsers. So some people try to prevent these browsers from viewing the page by using browser sniffing. This is equally uneffective. All the viewer has to do is swich off script when they get to the page, or view the source of previous pages to find the location of the protected page. In adition, Opera, Mozilla/Firefox and Internet Explorer are all capable of running user scripts that allow the user to override restrictions made by the page.
+
+Some people even try to make sure that the page is only delivered if a referrer header is sent to make sure that the user came from the right page, and is not attempting to type in a location manually. So the user can use Curl, a program that allows them to request a page with referrer header, cookies, form fields etc., and save the download to a text file.
+
+Some people try to encode the script using charCodeAt or escape, but as the decoding technique is provided in the page, only simple modifications are required to make the script appear in text, not as embedded script. I have seen one set of scripts that have been 'protected' by changing their variable names to completely incomprehensible names, and adding several redundant lines of incompressible code and removing all redundant spaces and linebreaks. It does not take too much work to turn this back into understandable code.
+
+You may want to protect your code, but it simply is not possible. Someone who is determined will be able to find it out.
+Password protecting a file
+
+It is best to do this with a server side script, and an encrypted connection. But since this is JavaScript ...
+
+Take the following for example. I want to only allow someone to access my page if they put in the correct password. I want to provide a box for them to write it, and then I want to test if it is correct. If it is, I let them view the page. The problem is that in the source of the page, I have to write the password in the script to test what they have written. For example:
+
+if( document.forms[0].elements[0].value == 'mypassword' ) {
+  location.href = 'protectedpage.html';
+}
+
+As described in the above section, you cannot protect the source of a page, especially from someone who is really determined. There is no point in trying. Once a user managed to see the source, they could see the password or the URL in plain text, or encoded, but again, that is easy to break.
+
+For simple security, try this technique. Name the file to be protected whateverYourPasswordIs.html and make sure there is an index.html file in the same directory. Now use the following:
+
+<form action="" onsubmit="location.href = this.elements[0].value + '.html'; return false;">
+<input type="text">
+<input type="submit" value="Submit">
+</form>
+
+The problem with this technique is that the page is still passed in plain text across the Internet, as is the name of the page that you send. If anyone is snooping at data packets on the Internet, they can retrieve the page's contents. In many places, packet snooping is illegal, but that does not mean that no-one does it.
+
+This protection technique is known as security by obscurity, in other words, it is only secure because no-one knows it is there. If someone was determined, they would find it.
+
+As a more complicated solution, try creating your own encryption technique that uses a password as an encryption key. Encrypt the contents of the file. As the page loads, use window.prompt to ask the user for a key. Try decrypting the page with their key, using document.write to write the page. If your technique is good enough, wrong passwords would only produce an incomprehensible output. With this technique, the password is never transmitted over the internet in plain text, and neither is the content. This technique could be cracked by brute force, trying every possible password until something works. Better passwords and encryption algorithms will help, but if someone was determined, they would break it. One of my readers has submitted a script to do this based on RC4 and Base64.
+
+I have used both of these techniques.
+Encrypting data before it is sent to you
+
+Normally, this cannot be done with JavaScript using the Internet alone. You can encrypt text at the user's end and unencrypt it at your end. The problem is that the user has to encrypt it with a password that you know so that you can unencrypt it. They would have to tell you by telephone or post. Alternatively, you could put the password in the source of the page and get the function to encrypt using that key. But this password would have to be sent over the internet in plain text. Even if you did encode it, it would not be too much work for a snooper to crack it. In fact, the encryption could even be broken with brute force techniques. So what do you do?
+
+The best possible technique would be to create a symmetric encryption key using a twin public/private key pair as with techniques such as Diffie-Hellman or SSL, or use an asymetric public/private key pair and encryption technique as with PGP or RSA. The problem is that in order to prevent brute force cracking techniques, these require the browser to handle numbers as high as 2x10600 or higher. JavaScript is just not natively capable of working with numbers as high as this. As yet, I have found no solution to this, although on http://shop-js.sourceforge.net/ there is an algorithm for emulating large number handling, and an example of JavaScript powered RSA. The technique seems to work and takes only a few seconds to create keys, by using complex mathematics and algorithms (look at the source of crypto.js) to emulate large number handling.
+
+Even so, if doing the equivalent of RSA (etc.), it is still not possible for the user to verify your identity as with SSL certificates, so it would be possible for a third party to inject their own code and have the information sent to them instead, without the user's knowledge. For the best security, stick to real SSL.
+Protecting your email address
+
+This is one of the very useful things that JavaScript can do. For those that don't understand the problem, I will summarise. Search engines 'crawl' the Internet, following the links in pages and requesting other ones so that they can add the pages to their search databases. Using the same technology, spammers crawl the Internet looking for email addresses, whether in mailto: links or just written on the page. These email harvesters are one of the most annoying uses of otherwise useful technologies.
+
+Simply writing your email address on any web page (through newsgroup postings etc) can leave you flooded with unsolicited emails. Many people fall into the trap of replying to these emails asking to be removed from the mailing list, and succeed only in confirming that their email address is valid. The problem is that you may actually want your email address on the page, or a link that automatically opens up a new email to you. There are a couple of steps you can take to prevent the problems with unsolicited emails:
+
+    * Use a throw-away email address like a yahoo or hotmail account when posting to newsgroups, signing online guestbooks, or writing your email address on your Web pages. That way, when you start to get too much spam on that email address, you can just dispose of that email account, and get a new one.
+    * If you can, tell your email client (program) not to send read-confirmations when you read your emails. This way your email client does not automatically confirm your email address.
+    * Be careful when setting up auto-replies.
+    * When you post your email address, change it to read something like myName@REMOVE_THISmydomain.com or myName(replace with @ symbol)mydomain.com and hope that anyone who legitimately replies to it works out what they need to do to turn it back into a proper email address. The problem is that not all of them understand this, and don't understand why the email adress does not just work. So, you can try the next point as well:
+    * Use JavaScript. How? Read on!
+
+Using JavaScript to write your email address
+
+I have never heard of an email harvester that is clever enough to interpret JavaScript. All they can do is read the text that makes up the page. So if you write your email address with JavaScript, they will not be able to read it. Remember that if you write the email address as a single word, even in the JavaScript, they may still interpret it as an email address, so it helps to break it up a little:
+
+var theName = 'myEmailName', theDomain = 'myEmailDomain.com';
+document.write( 'My email address is ' + theName + '@' + theDomain );
+
+This outputs: My email address is myEmailName@myEmailDomain.com
+
+You can also use a mailto link:
+
+var theName = 'myEmailName', theDomain = 'myEmailDomain.com';
+document.write( '<a href="mailto:' + theName + '@' + theDomain + '">Contact me<\/a>' );
+
+This outputs: Contact me
+
+You could even use a combination of both:
+
+var theName = 'myEmailName', theDomain = 'myEmailDomain.com';
+document.write( '<a href="mailto:' + theName + '@' + theDomain + '">' + theName + '@' + theDomain + '<\/a>' );
+
+This outputs: myEmailName@myEmailDomain.com
+
+There is, however, a problem with this approach. It relies on your viewers having JavaScript enabled. Many of your more web-aware viewers will not. In my case, these are often likely to be people who I want to contact me. Fortunately, these viewers are the ones who are likely to understand what to change if you tell them to as I have showed above (in the bullet points). So, you can use a combination of both approaches:
+
+<script type="text/javascript">
+var theName = 'myEmailName', theDomain = 'myEmailDomain.com';
+document.write( '<p><a href="mailto:' + theName + '@' + theDomain + '">' + theName + '@' + theDomain + '<\/a><\/p>' );
+</script>
+<noscript>
+  <p><a href="mailto:myEmailName(replace with @ symbol)myEmailDomain.com">
+  myEmailName(replace with @ symbol)myEmailDomain.com</a></p>
+</noscript>
+
+
+</div>
+<br />
+</body>
+</html>

@@ -1,0 +1,180 @@
+body {
+	margin-top: 0px;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	background-color: #f6f6f6;
+	background-image: url(img/background.png);
+        background-repeat: repeat-y;
+	text-align: left;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+        height: auto;
+}
+#taban {
+	margin-top: 0px;
+	margin-left: 0px;
+	background-image: url(img/background.png);
+        background-repeat: repeat-y;
+        height: 462px;
+}
+#soltaraf {
+	margin-top: 30px;
+	margin-left: 10px;
+        text-align: left;
+        width: 130px;
+        padding-bottom:20px;
+}
+#ysoltaraf {
+	margin-top: 30px;
+	margin-left: 10px;
+        text-align: left;
+        width: 150px;
+        padding-bottom:20px;
+}
+.box {
+        margin: 0 0 0 0;
+        width: 90px;
+        height: auto;
+}
+#ortataraf {
+        top: 0px;
+	margin-top: 30px;
+        text-align: left;
+}
+#yortataraf {
+        top: 0px;
+	margin-top: 30px;
+	background-image: url(img/beyaz.gif);
+        background-repeat: repeat;
+        text-align: left;
+}
+#sagtaraf {
+	margin-top: 30px;
+	margin-right: 5px;
+        text-align: right;
+        width: 90px;
+}
+#bottom2 {
+	margin-top: 0px;
+	margin-left: 0px;
+        background-color: #dddddd;
+	/* background-image: url(img/backgrounddip.png); */
+	background-image: url(img/background.png);
+        background-repeat: repeat-y;
+	height: auto;
+}
+#basla {
+       position: absolute;
+       left: 20px;
+       bottom: 1px;
+       height: auto;
+       background-color: #dddddd;
+}
+.ybaslik {
+	margin-top: 30px;
+	margin-left: 10px;
+       color: #000000;
+       font-size: 14px;
+       text-align: left;
+}
+.byazi {
+       color: #ffffff;
+       font-size: 12px;
+       text-align: center;
+}
+.syazi {
+       color: #000000;
+       font-size: 12px;
+       text-align: center;
+}
+.yazi {
+       color: #000000;
+       font-size: 9px;
+       text-align: left;
+}
+#banner {
+        position	: absolute;
+        top		: 38px;
+	left		: 230px;
+	width		: 539px;
+	height		: 15px;
+	background : url(img/banner.png) no-repeat;
+}
+#container {
+        position	: absolute;
+        top		: 53px;
+	left		: 230px;
+	width		: 539px;
+	height		: 408px;
+        padding-left: 7px;
+	background : url(img/pencere2.png) repeat-y;
+	overflow	: auto;
+	border-left     : 2px solid #000000;
+	border-right    : 0px;
+}
+
+#content {
+	position	: relative;
+	width		: 494px;
+	left		: 10px;
+}
+
+p {
+	font		: 10px/14px Verdana, Geneva, Arial,helevetica,san-serif;
+}
+
+h4 {
+	font		: 12px Verdana, Geneva, Arial,helevetica,san-serif;
+}
+
+.blpic {
+        float:left;
+        border:1px dotted black;
+        margin:3px 3px 3px 3px;
+}
+.brpic {
+        float:right;
+        border:1px dotted black;
+        margin:0px 0px 15px 20px;
+}
+
+.lpic {
+        float:left;
+        margin:0px 10px 15px 20px;
+}
+.rpic {
+        float:right;
+        margin:0px 0px 15px 20px;
+}
+.gyazi {
+  color: #C9C9C9;
+  background-color: #0d224b;
+  font-size: 11px;
+  text-align: left;
+}
+.button {
+	color: #ffffff;
+	background-color: #E9E9E9;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	text-decoration: none;
+	vertical-align: middle;
+        float:right;
+	border: thin;
+	border-color: #000000;
+}
+.button a {
+padding: 2px 0.5em;
+	background-color: #898989;
+text-decoration: none;
+float: left;
+	color: #ffffff;
+border: 2px solid #000000;
+}
+.button a:hover {
+background-color: #4f4f64;
+border-style: outset;
+color: #ffffff;
+}
+

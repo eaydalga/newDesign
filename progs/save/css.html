@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Aybim </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script language="JavaScript" src="../js/XHConn.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+
+function oku(s)
+{
+var myConn = new XHConn();
+
+var fnBitti = function (oXML) {
+   if(document.getElementById) {
+      target1=document.getElementById('canvas');
+      if(target1) {
+            target1.innerHTML = '';
+            target1.innerHTML=oXML.responseText;
+      }
+   }
+ };
+myConn.connect(s, "GET", "", fnBitti);
+}
+function oz(aa)
+{
+ayarla();
+oku(aa);
+}
+</script>
+</head>
+
+<body onLoad="oz('csstxt.html');">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="javascript:oku('csstxt1.html');" class="nav">Dil-Kuralı</a>
+               <a href="javascript:oku('csstxt2.html');" class="nav">Art-Alan</a>
+               <a href="javascript:oku('csstxt3.html');" class="nav">Yazı</a>
+               <a href="javascript:oku('csstxt4.html');" class="nav">Yazı-tipi</a>
+               <a href="javascript:oku('csstxt5.html');" class="nav">Sınır</a>
+               <a href="javascript:oku('csstxt6.html');" class="nav">Dışçizgi</a>
+               <a href="javascript:oku('csstxt7.html');" class="nav">Kenarlar</a>
+               <a href="javascript:oku('csstxt8.html');" class="nav">Dolgu</a>
+               <a href="javascript:oku('csstxt9.html');" class="nav">Liste</a>
+               <a href="javascript:oku('csstxt10.html');" class="nav">Tablo</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>Ardaşık Stil Sayfaları (CSS)</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+         </div>
+         <span><img src="img/notebook1.gif"></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+           <img src="../img/transparent.gif" height="64" width="1"><br /><br />
+           <div class="ymenublock">
+               <font color="#8e9ccb"><h3>Gelişmiş</h3></font>
+               <a href="javascript:oku('acsstxt11.html');" class="ynav">Boyut</a>
+               <a href="javascript:oku('acsstxt12.html');" class="ynav">Sınıflandırma</a>
+               <a href="javascript:oku('acsstxt13.html');" class="ynav">Konumlama</a>
+               <a href="javascript:oku('acsstxt14.html');" class="ynav">Sözde-Sınıf</a>
+               <a href="javascript:oku('acsstxt15.html');" class="ynav">Sözde-Öğe</a>
+               <a href="javascript:oku('acsstxt16.html');" class="ynav">Galeri</a>
+               <a href="javascript:oku('acsstxt17.html');" class="ynav">Donukluk</a>
+               <a href="javascript:oku('acsstxt18.html');" class="ynav">Ortam-Türü</a>
+           </div>
+       </div>
+    </td></tr>
+    </table>
+</div>
+<div id="canvas">
+</div>
+</body>
+</html>

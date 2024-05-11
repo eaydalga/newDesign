@@ -1,0 +1,215 @@
+2007-01-10:
+	-edifactparser.[ch]:
+		-Hide data declarations from edifactparser.h in edifactparser.c.
+	-x12parser.[ch]:
+		-Hide data declarations from x12parser.h in x12parser.c.
+
+2007-01-07:
+	-edival.h:
+		-Enable EDIFACT document type.
+	-edifactparser.[ch]:
+		-Added new parser module to handle EDIFACT messages.
+	-ediparse.c:
+		-Updates to check for EDIFACT headers (UNA/UNB) and pass
+		parsing to the EDIFACT module.
+
+2007-01-03:
+	-edival.[ch]:
+		-Bump micro version to 8 (for pending release 0.1.8)
+		-Add document start/end handlers to signal the beginning and end of a 
+		message in the data stream.
+	-x12parser.c:
+		-Add calls to start/end document handlers for ISA/IEA segments.
+
+2006-12-17:
+	-edival.h:
+		-Add function to retrieve array of a schema node's child nodes.
+	-schema.c:
+		-Fix bug where the root of the schema tree was not being initialized.
+
+2006-12-04:
+	-x12parser.[h]:
+		-Fix bug with size of the delimiter array.  This will fix segmentation faults
+		relating to the saved tag ID on the X12 parser.
+
+2006-12-03:
+	-x12parser.c:
+		-Fix bug with element repetition handling.
+
+2006-11-26:
+	-x12parser.[ch]:
+		-Remove unnecessary version/release information stored on the parser.
+		Replaced with string-version check to assign the repeat seperator for
+		X12 interchanges greater than or equal to version '00402'. 
+
+2006-10-24:
+	-edival.h:
+		-Bump micro version to 7 (for pending release 0.1.7)
+	-schema.c:
+		-Fix bug that incorrectly reset node usage counts while searching
+		for a segment in the schema.
+
+2006-10-22:
+	-complextype.c:
+		-Removed automatic assignment of the schema's root node as the last
+		EDITYPE_TRANSACTION created.  The root node must now be explicitely
+		set via the EDI_SetDocumentRoot function (schema function).
+		-Added EDI_InsertType to attached schema node objects to positions
+		in a parent node's tree other than at the last position.
+	-ediparse.[ch]:
+		-Added a "final" boolean to the parser.  This should be set true
+		for parsing the final piece of data in a stream/file.
+	-edival.h:
+		-Added EDI_DocumentType enumeration, required for schema creation.
+		Added "final" boolean argument to the parsing functions to indicate
+		the end of a buffer/file.
+		-Added EDI_DataElement struct definition.  This will be passed to
+		the element handler in lieu of a const char*.  The handler will now
+		receive validated numeric elements as numeric variables in addition to
+		a notification of the current element's type.
+		-EDITYPE_TRANSACTION renamed to EDITYPE_DOCUMENT.  This should point to
+		represent the root of the EDI document, e.g. ISA/IEA and their contents.
+		-Added Get/Set Document root functions.  Use to anchor a SchemaNode of
+		type EDITYPE_DOCUMENT to be the document root.
+	-x12parser.[ch]:
+		-Major code cleanups/enhancements/simplifications.
+
+2006-10-16:
+	-General:
+		-Code cleanups, removed multiple 'cobwebs' :-).  
+		-WARNING: Several major API changes have taken place.
+		-Bump micro version to 6 (release 0.1.6)
+		-Since this library is still young and the API is fairly unstable and likely
+		to change, I won't be updating the libtool version in the lib/Makefile.  This
+		will probably change once the API becomes more stable. 
+	-ediparse.c:
+		-FIX function name of function used to register binary elements.
+		It now matches the API and should now work for the first time.
+	-complextype.[ch]/edival.h/simpletype.[ch]:
+		-Major API changes.  Multiple functions can now be called without 
+		relying on passing a schema pointer as an argument.  See the edival.h file for new calls.
+		Calls made internally throughout the library were adjusted to account for no longer
+		needing the schema for these calls.
+		-Changed return of EDI_AppendType to be the parent rather than the child.
+
+2006-10-04:
+	ediparse.h:
+		-Add fields for binary element parsing.
+	edival.h:
+		-Add callback setup and function pointer definitions for binary handlers.
+		-Re-enable binary element types and add new type, binary element size which
+		must be used on the element previous to the binary element to qualify its
+		size.
+		-N.B. - Binary elements can ONLY be used when parsing with a schema!!!
+		-Bump micro version to 5 (release 0.1.5)
+	simpletype.c:
+		-Add code to validate elements of type EDI_DATA_BINARY_SIZE and saves the
+		size information to the schema's current parser.
+	x12parser.c:
+		-Added new function for parsing binary elements.
+
+2006-09-20:
+	lib/Makefile.am:
+		-Due to API adds and deletes, the libtool 'current' version has been 
+		incremented by 1.
+
+2006-09-19:
+	ediparse.[ch]:
+		-Add new handlers for start/end composite.
+		-Remove unused parsingStatus struct on parser.
+		-Enforce that all required handlers have been registered before parsing.
+	edival.h
+		-Bump micro version to 4 (release 0.1.4)
+		-Remove integer arguments from segment start handler and element handler.
+		-Remove component handler prototype.
+		-Add start/end composite handler prototypes.
+		-Add start/end loop handler prototypes.  These are set on the schema.
+	schema.[ch]
+		-Changes to accommodate loop and composite start/end handlers.
+	x12parser.c
+		-Changes to accommodate composite start/end handlers.
+	examples/scan837.c
+		-Added loop and composite start/end handlers.
+		-Changed output for the example to be XML (not well formed yet).
+
+2006-09-14:
+	common.[ch]:
+		-Add and convert several internally defined string functions to help with C99 compliance.
+	edival.h:
+		-Bump micro version to 3 (release 0.1.3)
+		-Disallow binary data element types for now.
+	schema.[ch]:
+		-Too many to list... many fixes with segment, element, and syntax node validation.
+		-Improvements in segment error reporting and accuracy.
+	simpletype.c:
+		-Force restriction of date fields to be between 6 and 8 characters.
+		-Force restriction of time fields to be between 4 and 8 characters.
+	x12parser.[ch]:
+		-Cleanup/remove many debugging printf statements.
+		-Added x12 parser INTERNAL schema to validate the elements of the ISA/IEA segments.
+	Other:
+		-Various cleanups and fixes not noted.
+
+2006-08-29:
+	edival.h:
+		-Bump micro version to 2 (release 0.1.2)
+	schema.c:
+		-Fix bug in syntax note validation function, EDI_ValidateSyntax.
+		-Change call to EDI_CheckElementConstraints to pass the schema node directly rather
+		than pass the element ID to do a hash lookup (speed enhancement).
+	simpletype.[ch]:
+		-Change definition for EDI_CheckElementConstraints to receive the schema node directly 
+		rather than the element ID to do a hash lookup (speed enhancement).
+
+2006-08-28:
+	common.[ch]/hashtable.c:
+		-New string comparison function for speedup.  Use for hashtable lookups and segment tag
+		checks in x12parser.c.
+	edival.h:
+		-Remove call for EDI_SetLoopID (also removed from complextype.c).  After consideration,
+		I don't think this function has a place at this level of the EDI parsing stack.  Validation
+		of a loop's implementation should be higher in the application level.  Not to mention the
+		added complexity required to validate this.
+		-Simplify the types of elements allowed for validation.  Many were removed 
+		from "enum EDI_PrimitiveDataType".
+		-Changed EDI_AddSyntaxNote to accept an integer array rather than a variable 
+		length argument list.
+	schema.[ch]:
+		-Added a length argument to EDI_ValidateElement.  This removes the need for strlen and
+		helps remove a performance bottleneck.  The element size is counted while tokenizing.
+		-Added new field to schema to hold previous element pointer.  Minor performance gain.
+		-Added support for date and time field validation.  N.b. the minimum and maximum field sizes
+		for date and time fields will be ignored.  Time elements must be numeric 4-8 and date fields
+		must be numeric 6-8.  Both are checked to hold valid contents once those size/type contraints
+		are met.
+	x12parser.c:
+		-Use new string comparison function where appropriate for speed gains.
+		-Call EDI_ValidateSyntax on segments and composite elements.
+		
+2006-08-19:
+	Many updates and bugfixes through out the library.  Also included a sample program
+	for parsing and validating an 837 file.
+
+2006-08-07:
+	ediparse.c:
+		-Remove dependance of a schema from the parser.
+		-Add function for removal of schema from the parser.
+	schema.(c/h):
+		-Remove dependance of schema from the parser.
+		-Convert allocation/creation functions to accept mem. function pointers or
+		void to use default malloc/alloc/free.
+		-Tightened code in the segment position validation function.
+		-Function SchemaDestroy becomes public -> SchemaFree (edival.h)
+	x12parser:
+		-Add missing component validation call.
+		-Replace element validation calls with macro.
+		-Prevent validation attempts for elements contained in an invalid segment.
+
+2006-08-06:
+	edival.h:
+		Added functions to retrieve a schema's id and to retrieve the current schema from the parser.
+		Added element and component offsets to the callbacks for each type of token.
+	schema.h:
+		Added the identifier attribute to the schema to aid in caching.
+	x12parser:
+		Added segment offset count to the parser.

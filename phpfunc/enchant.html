@@ -1,0 +1,137 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Büyülü söz (enchant) İşlevleri </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">18 Şubat 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>Büyülü söz (enchant) İşlevleri</h2>
+
+<h3>Giriş</h3>
+
+Büyülü sözler, Büyülü sözcük kitaplığına PHP bağlantısıdır. Uyumluluk ve aynılık sunan
+büyülü söz adımları, yazım kitaplıklarının üzerindedir. Bazı özellikleri birçok
+sunucu kitaplığında olmayandır. Herşey tam çalışır.
+
+Büyülü söz (enchant) aşağıdaki artalan uygulamalarını destekler
+<ul>
+    <li> Aspell/Pspell (Ispell'i değiştirecek)
+    <li> Ispell (değişmez standart denebilir çok eski)
+    <li> MySpell/Hunspell (OOo projesi Mozilla tarafından kullanıldı)
+    <li> Uspell (Yahudi Almancası, İbranice ve Doğu Avruba dilleri için - AbiWord CVS altında "uspell" olarak sunulur)
+    <li> Hspell (Ibranice)
+    <li> AppleSpell (Mac OSX)
+</ul>
+
+<h3>Gereksinim</h3>
+
+Bu sürüm büyülü sözcük kitaplığının 1.2.4 sürümündeki işlevlerini kullanır.
+
+<h3>Kurulum</h3>
+
+Information for installing this PECL extension may be found in the manual chapter titled Installation of PECL extensions. Additional information such as new releases, downloads, source files, maintainer information, and a CHANGELOG, can be located here: » http://pecl.php.net/package/enchant.
+
+<h3>Kaynak türleri</h3>
+
+Bu uzantıda iki kaynak türü vardır. Birincisi artalan yöneticisi (broker) ve
+ikincisi ise sözlüktür.
+
+<h3>Örnekler</h3>
+
+Örnek: Büyülü söz (Enchant) kullanım örneği
+<pre>
+&lt;?php
+$tag = 'en_US';
+$r = enchant_broker_init();
+$bprovides = enchant_broker_describe($r);
+echo "Current broker provides the following backend(s):\n";
+print_r($bprovides);
+
+$dicts = enchant_broker_list_dicts($r);
+print_r($dicts);
+if (enchant_broker_dict_exists($r,$tag)) {
+    $d = enchant_broker_request_dict($r, $tag);
+    $dprovides = enchant_dict_describe($d);
+    echo "dictionary $tag provides:\n";
+    $spellerrors = enchant_dict_check($d, "soong");
+    print_r($dprovides);
+    echo "found $spellerrors spell errors\n";
+    if ($spellerrors) {
+        $suggs = enchant_dict_suggest($d, "soong");
+        echo "Suggestions for 'soong':";
+        print_r($suggs);
+    }
+    enchant_broker_free_dict($d);
+} else {
+}
+enchant_broker_free($r);
+?&gt;
+</pre>
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> enchant_broker_describe — Sayı için sözeller ve büyülü söz sağlayıcısı
+    <li> enchant_broker_dict_exists — Bir sözlüğün var olup olmadığına bakar (Boş olmayan biçim kullanarak)
+    <li> enchant_broker_free_dict — Bir sözlük kaynağını serbest bırak
+    <li> enchant_broker_free — Aracı kaynaklarını ve sözlüklerini bırakmak
+    <li> enchant_broker_get_error — Aracı için sonuncu hatayı belirtir.
+    <li> enchant_broker_init — İsteğe açık yeni aracı (broker) yaratma
+    <li> enchant_broker_list_dicts — Var olan sözlükler listesini döndürür
+    <li> enchant_broker_request_dict — biçim kullanarak yeni sözlük yaratma
+    <li> enchant_broker_request_pwl_dict — PWL dosyası kullanarak sözlük yaratır. PWL her satırında bir kelime olan kişisel sözcük dosyasıdır.
+    <li> enchant_broker_set_ordering — Dil için kullanılacak sözlüklerin önceliklerini tanımlar.
+    <li> enchant_dict_add_to_personal — Kişisel kelime dosyasına bir kelime
+ekleme
+    <li> enchant_dict_add_to_session — bu yazım denetim oturumuna yeni bir sözcük ekleme
+    <li> enchant_dict_check — Bir sözcük doğru yazıldı mı bak
+    <li> enchant_dict_describe — Tek sözlük tanımlar
+    <li> enchant_dict_get_error — O anki yazım denetim oturumundaki son hatayı döndürür
+    <li> enchant_dict_is_in_session — yazım denetim oturumunda sözcük var mı bak
+    <li> enchant_dict_quick_check — Sözcük doğru yazılmış mı bak ve varsa öneriler sunulmuş mu
+    <li> enchant_dict_store_replacement — bir sözcük için düzeltme ekle
+    <li> enchant_dict_suggest — ön koşullar sağlandıysa bir öneriler listesi döndürür
+</ul>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

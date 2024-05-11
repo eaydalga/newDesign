@@ -1,0 +1,129 @@
+<html>
+<body>
+<div id="sag"><span class="yazi">30 Kasım 2007</span></div>
+<h2>Temel HTML Biçimleri</h2>
+<span class="yazi">
+HTML biçimlerinde en önemlileri başlıkları, paragrafları ve satır kırılmalarını tanımlayanlardır.<br />
+<br />
+
+<h3>Başlıklar</h3>
+
+Başlıklar &lt;h1&gt; ile &lt;h6&gt; arasındaki biçimlerle tanımlanır.
+Burada &lt;h1&gt; en büyük başlığı, &lt;h6&gt; en küçük başlığı tanımlar.<br />
+<br />
+<fieldset class="fyazi">
+<pre>
+&lt;h1&gt;Bu bir başlıktır&lt;/h1&gt;
+&lt;h2&gt;Bu bir başlıktır&lt;/h2&gt;
+&lt;h3&gt;Bu bir başlıktır&lt;/h3&gt;
+&lt;h4&gt;Bu bir başlıktır&lt;/h4&gt;
+&lt;h5&gt;Bu bir başlıktır&lt;/h5&gt;
+&lt;h6&gt;Bu bir başlıktır&lt;/h6&gt;
+</pre>
+</fieldset>
+
+<span class="yazi">
+HTML başlık tanımının önüne ve arkasına bir boş satır ekler<br />
+</span>
+
+<h3>Paragraflar</h3>
+
+<span class="yazi">
+Paragraflar &lt;p&gt; biçimiyle tanımlanır.<br />
+<br />
+<fieldset class="fyazi">
+<pre>
+&lt;p&gt;Bu bir paragraftır&lt;/p&gt;
+&lt;p&gt;Bu da başka bir paragraftır&lt;/p&gt;
+</pre>
+</fieldset>
+
+<span class="yazi">
+HTML bir paragraftan önce ve sonra bir boş satır ekler.<br />
+<br />
+<h3>Satır kırılması</h3>
+
+<span class="yazi">
+Bir satırı bitirmek istediğinide &lt;br&gt; biçimi kullanılır. Ama bununlar yeni paragraf başlamaz. Kullanıldığı yerde &lt;br &gt; bir satırı zorunlu bitirmeyi sağlar.<br />
+</span>
+<fieldset class="fyazi">
+<pre>
+&lt;p&gt;Bu &lt;br&gt; bir satır kırı&lt;br&gt;lımlı&lt;br&gt; para&lt;br&gt;graftır&lt;/p&gt;
+</pre>
+</fieldset>
+<br />
+<span class="yazi">
+Bu biçim (&lt;br&gt;) boş biçim olduğu için kapanış biçimi yoktur.<br />
+</span>
+<br />
+<h3>HTML içinde açıklama</h3>
+<span class="yazi">
+HTML kaynak kodları arasına açıklama yerleştirmek için kullanılır. Tarayıcı açıklamayı atlar. Açıklamaları kendi kodunuzu açıklamak için kullanılır. Bu size aynı kodu ileride kolaylıkla değiştirebilme olanağı getirir.<br />
+</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+&lt;!-- Bu bir açıklamadır --&gt;
+</pre>
+</fieldset>
+<br />
+<span class="yazi">
+Not: Açıklamaya başlarken &lt; işaretinden sonra (!) işareti gereklidir ama açıklama biterken &gt; işaretinden önce (!) gerekmez (bulunmaz).
+</span>
+<br />
+<h3>Temel Kurallar - Yararlı ipuçları</h3>
+
+<span class="yazi">
+HTML sayfasını oluşturduğunuzda, bir başka tarayıcıda nasıl görüneceğini hiçbir zaman bilemezsiniz. Bazılarının çok geniş ekranları vardır. Bazılarının ekranları daracıktır. Kullanıcı ekranının boyutlarını değiştirdiğinde görüntü yeniden yazdırılır. Yazıyı hazırlarken boş satırlar koyarak, bazı kelimeler arasına boşluklar doldurmaya çalışmayın. Tarayıcılar sayfayı değişik biçimde görüntüler.<br />
+<br />
+HTML dosya içindeki boşlukları kaldırır. Birden çok boşluk bir boşluk olarak değerlendirilir.<br />
+<br />
+Ek bir bilgi: Bir HTML dosyasında boşluk bir satır demektir.<br />
+<br />
+Boş satırlar koymak için &lt;p&gt; kullanmak kötü bir alışkanlıktır. Bunun yerine &lt;br&gt; kullanmak daha iyiydir (Ama listeler üretmek için &lt;gt&gt; kullanmayın. Listeler konusunda gerekli komutları öğrenmeden birşeyler yapmayın).<br />
+<br />
+Paragrafların kapanma biçimi (&lt;/p&gt;) olmadan da yazıldığını dikkat etmiş olmalısınız. Bir sonraki HTML sürümünde kapanışları atlamak olanağı olmayacaktır</br>
+<br />
+Bazı biçimler kullanıldığında, HTML öğelerin önünde ya da arkasında başlıklarda ve paragraflarda olduğu gibi boş satır ekler.<br />
+<br />
+Anlatımlarda bölümleri birbirlerinden ayırmak için yatay çizgi (&lt;hr&gt; biçimi) kullanılır.<br />
+<br />
+<h3>Temel HTML Biçimleri</h3>
+<table class="fyazi" cellspacing="0" border="1">
+<tr>
+<th align="left">Biçim</th>
+<th align="left">Açıklama</th>
+  </tr>
+  <tr>
+<td>&lt;html&gt;</td>
+<td>HTML belgesini tanımlar</td>
+  </tr>
+  <tr>
+<td>&lt;body&gt;</td>
+<td> Belgenin gövdesini tanımlar</td>
+  </tr>
+  <tr>
+<td>&lt;h1&gt; to &lt;h6&gt;</td>
+
+<td> başlık 1'de başlık 6'ya değin başlıkları tanımlar</td>
+  </tr>
+  <tr>
+<td>&lt;p&gt;</td>
+<td>Bir paragrafı belirtir</td>
+  </tr>
+  <tr>
+<td>&lt;br&gt;</td>
+<td> Satır sonu eklenmesini sağlar</td>
+  </tr>
+  <tr>
+<td>&lt;hr&gt;</td>
+<td> Yatay çizgiyi tanımlar</td>
+  </tr>
+  <tr>
+<td>&lt;!--&gt;</td>
+<td>Açıklamayı tamınlar</td>
+  </tr>
+</table>
+<br />
+</body>
+</html>

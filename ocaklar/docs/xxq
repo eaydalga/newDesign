@@ -1,0 +1,80 @@
+function myvoid()
+{
+}
+
+function isteme(t)
+{
+var myConn5 = new XHConn();
+var body="bweb="+t;
+htop();
+
+resim();
+var fnIsteme = function (oXML) {
+   if(document.getElementById) {
+      target1=document.getElementById('sec5');
+      if(target1) {
+            target1.style.display = "none";
+      }
+      target=document.getElementById('sec11');
+      if(target) {
+            target.innerHTML=oXML.responseText;
+            target.style.display = "inline";
+      }
+   }
+ };
+myConn5.connect("../isteme.php", "GET", body, fnIsteme);
+}
+
+function isteme2()
+{
+var myConn6 = new XHConn();
+var errstr = "";
+var body = "bweb=0&";
+var err;
+htop();
+
+for(i=0; i < document.forms['wf_Enquiry'].elements.length; i++) {
+    var aa = document.forms['wf_Enquiry'].elements[i].name;
+    if ( aa != "undefined" ) {
+        wff=document.forms['wf_Enquiry'].elements[i].value;
+        err = mycheck(wff,document.forms['wf_Enquiry'].elements[i].className);
+        if (err.length > 0) {
+            errstr += document.forms['wf_Enquiry'].elements[i].name+ ":" + err + "\n";
+        }
+        else {
+            if (!(aa == "sayfa" || aa == "submit" || aa == "undefined")) {
+               body += aa + "=" + wff + "&";
+            }
+        }
+    }
+}
+if(errstr.length > 0) {
+    alert(errstr);
+    return false;
+}
+var fnIsteme2 = function (oXML) {
+   if(document.getElementById) {
+      target1=document.getElementById('sec11');
+      if(target1) {
+            target1.style.display = "none";
+      }
+      target=document.getElementById('sec12');
+      if(target) {
+            target.innerHTML=oXML.responseText;
+            target.style.display = "inline";
+      }
+   }
+ };
+myConn6.connect("../isteme.php", "GET", body, fnIsteme2);
+}
+function bitsin(n)
+{
+   if(document.getElementById) {
+      xx = 'sec'+n;
+      target1=document.getElementById(xx);
+      if(target1) {
+            target1.style.display = "none";
+      }
+   }
+   kapat();
+}

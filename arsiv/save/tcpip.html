@@ -1,0 +1,164 @@
+<html>
+<head>
+<title>AYBIM - TCP/IP</title>
+</head>
+<BODY BGCOLOR="white" LEFTMARGIN=50>
+<TABLE WIDTH="100%" CELLSPACING=10 CELLPADDING=5>
+<TR><TD WIDTH="10%" BGCOLOR="black" VALIGN="TOP">
+&nbsp;
+</TD>
+<TD>
+<h2>TCP/IP PROGRAMLARI </h2>
+<P><H3>ÖRNEK İŞVEREN (CLIENT) PROGRAMI</H3>
+
+<P>Bu program işgören (Server) bilgisayarda bulunan programla iletişim kurar 
+ve mesaj
+gönderip, bu mesajın yanıtını bekler. Program işlemin bittiğini "son"
+değeri göndererek işgören programa bildirir. İki program arasındaki
+iletişim, "socket" kavramı ile kurulur. Client, "socket" açtıktan sonra
+"socket"i işgören programın adresine "connect" komutu ile bağlar. Daha sonra
+bu socket'e "write" komutu ile mesaj gönderir, "read" komutu ile gelen mesajı 
+okur. İşlem bittiğinde işgören programa "son" mesajı gönderilir ve "socket"
+kapatılır. 
+
+<P>Bu programda, hata kontrol adımları programın boyunu büyütmemek
+ve mantığını bozmamak için çıkarılmıştır. Programın boyu ne kadar kısa
+olursa o kadar kolay anlaşılır. İletişim protokolu olarak TCP/IP yerine
+AF_UNIX kullanılmıştır. Burada işgören program ve müşteri aynı bilgisayarda
+çalışır. TCP/IP kullanıldığında önce, "gethostbyname" komutu ile adres ve
+kullanılan protocol belirlenir. Daha sonra "getservbyname" komutu ile
+TCP/IP servisi için port numarası belirlenir "sockaddr_in" yapısı bu 
+bilgilerle doldurulur. En son "connect" işlemi çalıştırılır.
+<PRE>
+   #include &lt;stdio.h&gt;
+   #include &lt;sys/socket.h&gt;
+   #include &lt;sys/un.h&gt;
+   
+   main()
+   {
+   struct sockaddr_un to;
+   int  s;
+   int  tolen, len, n, maxlen;
+   char msg[512], inbuf[512];
+   maxlen = 512;
+   
+   /********* socket acma islemi ***********/
+   s = socket(AF_UNIX,SOCK_STREAM,0);
+   
+   /********* isgoren programa baglanma *********/
+   to.sun_family = AF_UNIX;       /* socket protocol ailesi */
+   strcpy(to.sun_path,"address"); /* socket adresi */
+   tolen = sizeof(to.sun_family) + sizeof(to.sun_path);
+   connect(s,(struct sockaddr *) &to, tolen);
+   
+   memset(msg,'\0',maxlen);
+   while(strncmp(msg,"son",3)) {  /* gonderilen mesaj son degilse devam et */
+       printf("mesajı girin :");
+       gets(msg);
+       len = strlen(msg);
+       write(s,msg,len);          /* mesaj gonderme */
+       n = read(s,inbuf,maxlen);  /* cevap beklemede okunan n byte olur */
+       inbuf[n] = '\0';
+       puts(inbuf);               /* gelen cevabi ekrana yazma */
+       }
+   close(s);                      /* islem bitti socket kapatildi */
+   }
+</PRE>
+<H3>ÖRNEK İŞGÖREN(SERVER) PROGRAMI</H3>
+<P>
+Server program, Client programlardan gelen bilgileri alır ekrana yazar sonra
+Client programa mesajın alındığını bildirir. Server, açılan bir "socket"i
+"bind" komutu ile adrese bağlar ve client bağlantıları için "listen" konumuna
+geçer. Client'tan gelen "connect" mesajlarını algılamak için "accept"
+komutu kullanılır. Server her zaman bir tane "accept" komutunda boş beklerken
+diğer kopya, bağlantı kurulmuş "socket" ten okuma yapar, okunan bilgiye
+cevap verir. Okunan mesaj "son" ise bu kopya işlemini bitirir.
+<P>
+<PRE>
+   #include &lt;stdio.h&gt;
+   #include &lt;sys/socket.h&gt;
+   #include &lt;sys/un.h&gt;
+   #include &lt;signal.h&gt;
+   
+   jmp_buf jbuf;
+   
+   void bitti()
+   {
+   longjmp(jbuf,-1);
+   }
+   
+   main()
+   {
+   struct sockaddr_un from;
+   int  s, s1;
+   int  fromlen, len, n, maxlen, maxqueue;
+   char inbuf[512];
+   maxlen = 512;
+   maxqueue = 10;
+
+   signal(SIGTERM, bitti);
+   if(setjmp(jbuf) != -1) {
+       /********* socket acma islemi ***********/
+       s = socket(AF_UNIX,SOCK_STREAM,0);
+
+       /********* sockete adres baglama **********/
+       from.sun_family = AF_UNIX;       /* socket protocol ailesi */
+       strcpy(from.sun_path,"address"); /* socket adresi */
+       fromlen = sizeof(from.sun_family) + sizeof(from.sun_path);
+       bind(s,(struct sockaddr *) &from , fromlen);
+   
+       /********* bekleme konumuna alma **********/
+       listen(s,maxqueue);
+   
+       /********* connect bekleme ****************/
+       /* client program connect bekleyen yoksa hata verir
+          bu nedenle server connect bekler durumda olmalidir. */
+          
+       do {
+          s1 = accept(s,(struct sockaddr *) &from , fromlen);
+          
+          /**** connect geldi fork ile bir kopya baslat *****/
+          /* bir baska client connect gonderdiginde, server 
+             accept komutunda degisle, bu komuta gelinceye kadar
+             beklemektedir. Bunun icin yeni bir server
+             kopyasi calismali ve connect beklemelidir. */
+          if(fpid = fork()) {
+              memset(inbuf,'\0',maxlen);
+              while(strncmp(inbuf,"son",3)) {
+                  /*** okumayi eski kopya yapar,
+                       yeni kopya hala connect beklemektedir ****/
+                  n = read(s1,inbuf,maxlen);
+                  inbuf[n] = '\0';
+                  /* gelen bilgiyi isleme alma */
+                  puts(inbuf);
+                  /* mesaj alindi bilgisini gonderme */
+                  write(s1,"OK",2);
+                  }
+              }
+          } while(fpid == 0);
+      }
+   if(fpid == 0) {
+        /*** connect beklerken
+             kill -15 ile server durdurulursa ****/
+        close(s);
+        unlink(from.sun_path);
+        }
+   else close(s1);
+   }
+</PRE>
+Client programda olduğu gibi işgören program da AF_INET protokol ailesi ile
+kullanıldığında "gethostbyname" komutu ile yerel bilgisayarın adresi alınır.
+Daha sonra, "getservbyname" komutu ile INET servisinin port numarası alınır
+ve "sockaddr_in" yapısı bu bilgilerle doldurulur. Diğer komutlarda işlem
+akışı örnek programda anlatıldığı gibidir.
+</TD></TR>
+<TR>
+<TD COLSPAN=2>
+<HR>
+<A HREF="http://www.aybim.com.tr/">Ana Sayfaya</A>
+&nbsp;&nbsp;<A HREF="index.html">Teknik Bilgiler Sayfasina</A>
+</td>
+</tr>
+</table>
+</body>
+</html>

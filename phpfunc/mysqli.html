@@ -1,0 +1,509 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Hyperlink Preprocessor </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">4 Nisan 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>MySQL Geliştirilmiş Uzantı</h2>
+
+<h3>Giriş</h3>
+
+mysqli uzantısı MySQL 4.1 ve sonrasında belirtilen işevselliğe erişmenizi
+sağlar. MySQL veritabanına ilişkin daha çok bilgi için http://www.mysql.com/
+adresine gidin.
+
+MySQL için belgeler http://dev.mysql.com/doc/ adresinde bulunur.
+
+Buradaki belgelerin bir bölümü MySQL içinde de vardır.
+
+<h3>Gereksinim</h3>
+
+Bu işlevlerin var olabilmesi için PHP mysqli uzantısıyla derlenmiş olmalıdır.
+
+    Not: mysqli MySQL 4.1.3 ve üzeriyle çalışmak üzere tasarlanmıştır. Daha
+önceki sürümler için MySQL uzantısına bakın.
+
+<h3>Kurulum</h3>
+
+PHP için mysqli uzantısını kurmak için,
+"--with-mysqli=mysql_config_path/mysql_config" ayarlama seçeneği kullanılarak
+derleme yapılmalıdır.
+
+Eğer mysql uzantısını mysqli uzantısıyla birlikte kurarsanız aynı istemci
+kitaplığını kullanmanız çelişkileri ortadan kaldırmak açısından önemlidir.
+
+<h3>Windows Sistemlerinde Kurulum</h3>
+
+MySQLi varsayılan olarak açık değildir. Bu nedenle php_mysqli.dll DLL php.ini
+içinden açılmalıdır. PHP MySQL istemci kitaplığına da erişebilmelidir.
+libmysql.dll dosyası windows PHP dağıtımında paket içinde vardır. Windows PATH
+çevresel değişkeni ile bu dosyaya erişmek için PATH içinde gereken ayarlar
+yapılmalıdır.
+
+    Not: MySQL 5 bağlantısı için ikililerin http://dev.mysql.com/downloads/connector/php/ adresinden indirilmesi önerilir.
+
+PHP uzantılarını açarken olduğu gibi php_mysqli.dll PHP yönelticisi olan
+extansion_dir ile tanımlanır. PHP 5 için bu yol c:\php\ext olarak varsayılır.
+
+    Not: Eğer web sunucu başlatırken şöyle bir hata olursa:
+"Unable to load dynamic library './php_mysqli.dll'",
+Bunun nedeni php_mysqli.dll ve/ya da libmysql.dll sistem tarafından bulunamadı demektir.
+
+<h3>Çalışma Zamanı Ayarları</h3>
+
+php.ini ayarları bu işlevlerin davranışını etkiler.
+
+<h3>MySQLi Ayarlama Seçenekleri</h3>
+
+<table class="yazi">
+<tr><td>Adı</td><td>Varsayılan</td><td>Değişiklik</td><td>DeğişimKaydı
+<tr><td>mysqli.max_links</td><td>"-1"</td><td>PHP_INI_SYSTEM</td><td>PHP 5.0.0.</td></tr>
+<tr><td>mysqli.default_port</td><td>"3306"</td><td>PHP_INI_ALL</td><td>PHP 5.0.0. den beri var</td></tr>
+<tr><td>mysqli.default_socket</td><td>NULL</td><td>PHP_INI_ALL</td><td>PHP 5.0.0. den beri var</td></tr>
+<tr><td>mysqli.default_host</td><td>NULL</td><td>PHP_INI_ALL</td><td>PHP 5.0.0. den beri var</td></tr>
+<tr><td>mysqli.default_user</td><td>NULL</td><td>PHP_INI_ALL</td><td>PHP 5.0.0. den beri var</td></tr>
+<tr><td>mysqli.default_pw</td><td>NULL</td><td>PHP_INI_ALL</td><td>PHP 5.0.0. den beri var</td></tr>
+</table>
+PHP_INI_* değişmezleri hakkında daha başka tanım ve ayrıntılar için ayarların
+değiştirilmesine bakın.
+
+Ayarların yöneltilmesi için kısa açıklamalar buradadır.
+
+<dl>
+<dt>mysqli.max_links tamsayı
+
+    <dd>Her işlem için en çok MySQL bağlanma sayısıdır
+</dd></dt>
+<dt>mysqli.default_port yazı dizisi
+
+    <dd>Veritabanı sunucusuna bağlanırken eğer başka port tanımı yapılmamışsa, varsayılan TCP port numarası kullanılır. Eğer hiç port tanımı yoksa MYSQL_TCP_PORT çevre değişkeninin değeri kullanılır. /etc/services içindeki mysql-tcp entry değeri, derleme zamanındaki MYSQL_PORT değişmezi de kullanılabilir. Win32 yalnız MYSQL_PORT değişmezini kullanabilir.
+</dd></dt>
+<dt>mysqli.default_socket yazı dizisi
+
+    <dd>Yerel veritabanı sunucusuna bağlanırken eğer socket adı belirtilmemişse
+varsayılan socket adı kullanılır.
+</dd></dt>
+<dt>mysqli.default_host yazı dizisi
+
+    <dd>Veritabanı sunucusuna bağlanırken, bilgisayar belirtilmemişse varsayılan bilgisayar adı kullanılır. Güvenli konuma uygulanamaz.
+</dd></dt>
+<dt>mysqli.default_user yazı dizisi
+
+    <dd>Veritabanına bağlanırken kullanıcı adı belirtilmemişse varsayılan kullanıcı adı kullanılır. Güvenli konuma uygulanamaz.
+</dd></dt>
+<dt>mysqli.default_pw yazı dizisi
+
+    <dd>Veritabanına bağlanırken şifre tanımlanmamışsa varsayılan şifre kullanılır. Bu güvenli konuma uygulanmaz.
+</dd></dt>
+</dl>
+
+<h3>Önceden tanımlı Sınıflar</h3>
+<h3>mysqli</h3>
+
+PHP ve MySQL arasındaki bağlantıyı belirtir.
+
+<h3>Yapıcı (Constructor)</h3>
+<ul>
+    <li> mysqli - yeni mysqli nesnesi yapılandırır
+</ul>
+<h3>Yöntemler (Methods)</h3>
+
+<ul>
+    <li> autocommit - veritabanı düzeltmesinde otomatik onay açık mı kapalı mı
+    olacak onu belirtir.
+    <li> change_user - belirtilen veritabanı bağlantısının kullanıcısını
+    değiştirir.
+    <li> character_set_name - Veritabanı bağlantısı için varsayılan karakter takımı adını döndürürü
+    <li> close - daha önce açılan bir bağlantıyı kapatır.
+    <li> commit - o anki işlemi onaylar
+    <li> connect - MySQL veritabanı sunucusuna yeni baplantı açar.
+    <li> debug - hata yazdırma işlemini yapar
+    <li> dump_debug_info - hata yazma bilgisini döker
+    <li> get_client_info - istemcinin sürümünü döndürür
+    <li> get_host_info - kullanılan bağlantı türünü döndürür
+    <li> get_server_info - MySQL sunucusunun sürümünü döndürür
+    <li> get_server_version - MySQL sunucusunun sürümünü döndürür
+    <li> init - mysqli nesnesini ilkler
+    <li> info - en son çalıştırılan sorgu hakkındaki bilgiye erişir
+    <li> kill - Sunucuya mysql parçasını öldürmesini bildirir
+    <li> multi_query - çoklu sorgulama yap
+    <li> more_results - çoklu sorgulamadan kalan daha başka sonuç var mı bak
+    <li> next_result - o an çalıştırılmış çoklu sorgulamadan sonraki sonucu okur
+    <li> options - seçenekleri ayarlar
+    <li> ping - sunucu bağlantısını ping'ler ya da başka bağlantı yoksa yeniden
+     bağlantı kurar.
+    <li> prepare - SQL sorgusu hazırlar
+    <li> query - sorgu yapar
+    <li> real_connect - MySQL veritabanı sunucusuna bağlantı kurmaya kalkar
+    <li> escape_string - SQL deyiminde kullanmak üzere yazı dizisi içindeki özel karakterleri atlatır (o anki bağlantının karakter takımını dikkate alarak atlatmayı yapar)
+    <li> rollback - o anki işlemi geri alır
+    <li> select_db - varsayılan veritabanını seçer
+    <li> set_charset - varsayılan istemci karakter takımını ayarlar
+    <li> ssl_set - ssl edğişgeçlerini ayarlar
+    <li> stat - o anki sistem durumunu alır
+    <li> stmt_init- mysqli_stmt_prepare ile kullanılacak deyimi ilkler
+    <li> store_result - son sorgudan sonuç takımını aktarır
+    <li> thread_safe - program parçası güvenliğinin verilip verilmediğine
+bakar.
+    <li> use_result - son sorgudan tamponlanmamış sonuç takımını aktarır
+</ul>
+
+<h3>Özellikler (Properties)</h3>
+
+    <li> affected_rows - önceki MySQL işleminden etkilenen satırların sayısını alır
+    <li> client_info - MySQL istemci sürümünü yazı dizisi olarak alır.
+    <li> client_version - MySQL istemci sürümünü sayı olarak döndürür
+    <li> errno - en son yapılan işlev çağırmanın hata kodunu döndürür
+    <li> error - en son yapılan işlev çağırmanın hata mesajını döndürür
+    <li> field_count - En son sorgu için kaç kolon olduğunu döndürür
+    <li> host_info - kurulan bağlantının türünü gösteren yazı dizisini
+döndürür
+    <li> info - en son çalıştırılan sorguya ilişkin bilgiyi döndürür
+    <li> insert_id - Son sorguda kullanılan otomatik üretilmiş tanıtımı (ID)
+döndürür
+    <li> protocol_version - Kullanılan MySQL protokolünün sürümünü döndürür
+    <li> server_info - Sunucu sürüm numarasını gösteren yazı dizisi döndürür
+    <li> server_version - Sunucunun sürüm numarasını tamsayı olarak döndürür
+    <li> sqlstate - Son oluşan hatanın SQLSTATE hata kodunu yazı dizisi olarak döndürür
+    <li> thread_id - o anki bağlantının program parçası tanıtımını döndürür (thread ID)
+    <li> warning_count - önceki SQL deyiminden üretilen urayıların sayısını döndürür
+
+<h3>mysqli_stmt</h3>
+
+hazırlanmış bir deyimi tanımlar.
+
+<h3>Yöntemler (Methods)</h3>
+<ul>
+    <li> bind_param - hazırlanan deyime değişkenleri bağlar
+    <li> bind_result - sonuç bellek alanı için hazırlana deyime değişkenleri bağlar
+    <li> close - hazırlanan deyimi kapatır
+    <li> data_seek - deyim sonuç kümesindeki rastgele satırı arar
+    <li> execute - hazırlanan deyimi çalıştırır
+    <li> fetch - hazırlanan deyimden bağlı değişkenlere sunucu alır
+    <li> free_result - verilen deyim elliği için kullanılan sonuç belleğini boşaltır
+    <li> prepare - SQL sorgusunu hazırlar
+    <li> reset - hazırlanan deyimi temizler
+    <li> result_metadata - metadata bilgisi için hazırlanan deyimden sonuç kümseine erişir
+    <li> send_long_data - öbekler halinde veriyi gönderir
+    <li> store_result - hazırlanan deyimden sonuç kümesinin tümünü tamponlar
+</ul>
+
+<h3>Özellikler (Properties)</h3>
+<ul>
+    <li> affected_rows - son çalıştırılan deyiminden etkilenen satırları
+döndürür
+    <li> errno - son deyim işlevinin hata kodunu döndürür
+    <li> error - son deyim işlevinin hata mesajını döndürür
+    <li> field_count - sonuç kümesindeki kolon sayısını döndürür
+    <li> id - deyimin tanıtımını döndürür
+    <li> insert_id - hazırlanan deyimde AUTO_INCREMENT kolon için yaratılan değeri döndürür
+    <li> num_rows - sonuç kümesindeki satır sayısını döndürür
+    <li> param_count - hazırlanan deyim için değişgeç sayısını döndürür
+    <li> sqlstate - Deyim işlevi için SQLSTATE hata kodunun bulunduğu yazı dizisini döndürür
+</ul>
+
+<h3>mysqli_result</h3>
+
+veritabanına yapıtan sorgulamadan elde edilen sonuç kümesini belirtir.
+
+<h3>Yöntemler (Methods)</h3>
+<ul>
+    <li> close - sonuç kümesini kapatır
+    <li> data_seek - içsel sonuç göstergesini taşır
+    <li> fetch_array - Bir sonuç satırını ilgili dizi, sayısal dizi ya da her ikisi olarak alır
+    <li> fetch_assoc - Sonuç satırını ilgili dizi olarak alır
+    <li> fetch_field - Sonuç kümesinden kolon bilgisini alır
+    <li> fetch_fields - sonuç kümesinden tüm kolonların bilgisini alır
+    <li> fetch_field_direct - Belirtilen kolon için kolon bilgisini alır
+    <li> fetch_object - Sonuç satırını nesne olarak alır
+    <li> fetch_row - sonuç satırını sıralı dizi olarak alır
+    <li> field_seek - Belirtilen alanın uzaklığı olrak sonuç göstergesini ayarlar
+    <li> free_result - Sonuç belleğini boşaltır
+</ul>
+
+<h3>Özellikler (Properties)</h3>
+
+<ul>
+    <li> current_field - returns offset of current fieldpointer
+    <li> field_count - returns number of fields in resultset
+    <li> lengths - returns an array of columnlengths
+    <li> num_rows - returns number of rows in resultset
+    <li> type - returns MYSQLI_STORE_RESULT or MYSQLI_USE_RESULT
+</ul>
+
+<h3>Önceden Tanımlı Değişmezler</h3>
+
+<h3>MySQLi Değişmezleri</h3>
+
+<table class="yazi">
+<tr><td>Adı</td><td>Açıklama</td></tr>
+<tr><td>MYSQLI_READ_DEFAULT_GROUP (tamsayı)</td><td>
+Seçenekleri "my.cnf" ad sınıfından okur
+ya da MYSQLI_READ_DEFAULT_FILE ile belirtilen dosyayı okur.</td></tr>
+<tr><td>MYSQLI_READ_DEFAULT_FILE (tamsayı)</td><td>Seçenekleri my.cnf yerine adlandırılan seçenek dosyasından alır</td></tr>
+<tr><td>MYSQLI_OPT_CONNECT_TIMEOUT (tamsayı)</td><td>Bağlantı zaman aşımı saniye türündendir</td></tr>
+<tr><td>MYSQLI_OPT_LOCAL_INFILE (tamsayı)</td><td>LOAD LOCAL INFILE komutu açılır</td></tr>
+<tr><td>MYSQLI_INIT_COMMAND (tamsayı)</td><td>MySQL sunucuya bağlanınca çalıştırılacak komut. Yeniden bağlantı kurulduğunda otomatik olarak çalıştırılır</td></tr>
+<tr><td>MYSQLI_CLIENT_SSL (tamsayı)</td><td>SSL (kodlanmış protokol) kullan. Bu seçenek uygulama programları tarafından ayarlanmaz. MySQL istemci kitaplığı içsel olarak ayarlar</td></tr>
+<tr><td>MYSQLI_CLIENT_COMPRESS (tamsayı)</td><td>Sıkıştırma protokolü
+kullan</td></tr>
+<tr><td>MYSQLI_CLIENT_INTERACTIVE (tamsayı)</td><td>
+Etkileşimli zaman aşımının saniye olmasına izin verir (wait_timeout saniyeleri
+yerine) Etkileşimli olması bağlantı kapanmadan vardır. istemcinin oturumunda
+wait_timeout değişkeni interactive_timeout değişkeninin değeri olarak
+ayarlar.</td></tr>
+<tr><td>MYSQLI_CLIENT_IGNORE_SPACE (tamsayı)</td><td>
+işlev adından sonra boşluğa izin verir. Tüm işlev adlarını saklı sözcük
+yap</td></tr>
+<tr><td>MYSQLI_CLIENT_NO_SCHEMA (tamsayı)</td><td>db_name.tbl_name.col_name
+yazımına izin verme</td></tr>
+<tr><td>MYSQLI_CLIENT_MULTI_QUERIES (tamsayı)</td><td></td></tr>
+<tr><td>MYSQLI_STORE_RESULT (tamsayı)</td><td>sonuç kümesi için tampon
+vardır</td></tr>
+<tr><td>MYSQLI_USE_RESULT (tamsayı)</td><td>sonuç kümesi
+tamponsuzdur</td></tr>
+<tr><td>MYSQLI_ASSOC (tamsayı)</td><td>Kolonlar dönerken alan adları dizi dizini olur</td></tr>
+<tr><td>MYSQLI_NUM (tamsayı)</td><td>Kolonlar sıralı diziye dönüştü</td></tr>
+<tr><td>MYSQLI_BOTH (tamsayı)</td><td>Kolonlar dizi olarak döndürülür. Dizi sayısal dizin ve alan adı dizinini ilişkili dizini olarak kullanır.</td></tr>
+<tr><td>MYSQLI_NOT_NULL_FLAG (tamsayı)</td><td>Alan NOT NULL olarak tanımlanmış olduğu belirtilir</td></tr>
+<tr><td>MYSQLI_PRI_KEY_FLAG (tamsayı)</td><td>Alan birincil dizinin bir
+parçasıdır</td></tr>
+<tr><td>MYSQLI_UNIQUE_KEY_FLAG (tamsayı)</td><td>Alan tekil dizinin bir parçasıdır</td></tr>
+<tr><td>MYSQLI_MULTIPLE_KEY_FLAG (tamsayı)</td><td>Alan dizinin bir
+parçasıdır</td></tr>
+<tr><td>MYSQLI_BLOB_FLAG (tamsayı)</td><td>Alan BLOB olarak
+tanımlandı</td></tr>
+<tr><td>MYSQLI_UNSIGNED_FLAG (tamsayı)</td><td>Alan UNSIGNED olarak
+tanımlandı</td></tr>
+<tr><td>MYSQLI_ZEROFILL_FLAG (tamsayı)</td><td>Alan ZEROFILL olarak
+tanımlandı</td></tr>
+<tr><td>MYSQLI_AUTO_INCREMENT_FLAG (tamsayı)</td><td>Alan AUTO_INCREMENT olarak tanımlandı</td></tr>
+<tr><td>MYSQLI_TIMESTAMP_FLAG (tamsayı)</td><td>Alan TIMESTAMP olarak
+tanımlandı</td></tr>
+<tr><td>MYSQLI_SET_FLAG (tamsayı)</td><td>Alan SET olarak tanımlandı</td></tr>
+<tr><td>MYSQLI_NUM_FLAG (tamsayı)</td><td>Alan NUMERIC olarak
+tanımlandı</td></tr>
+<tr><td>MYSQLI_PART_KEY_FLAG (tamsayı)</td><td>Alan çoklu-dizin
+parçasıdır</td></tr>
+<tr><td>MYSQLI_GROUP_FLAG (tamsayı)</td><td>Alan GROUP BY parçasıdır</td></tr>
+<tr><td>MYSQLI_TYPE_DECIMAL (tamsayı)</td><td>Alan DECIMAL olarak
+tanımlandı</td></tr>
+<tr><td>MYSQLI_TYPE_NEWDECIMAL (tamsayı)</td><td>Duyarlılık matematiği DECIMAL ya da  NUMERIC olan alan (MySQL 5.0.3 ve üstü)</td></tr>
+<tr><td>MYSQLI_TYPE_BIT (tamsayı)</td><td>Alan BIT olarak tanımlandı (MySQL 5.0.3 ve üstünde)</td></tr>
+<tr><td>MYSQLI_TYPE_TINY (tamsayı)</td><td>Alan TINYINT olarak
+tanımlandı</td></tr>
+<tr><td>MYSQLI_TYPE_SHORT (tamsayı)</td><td>Alan INT olarak
+tanımlandı</td></tr>
+<tr><td>MYSQLI_TYPE_LONG (tamsayı)</td><td>Alan INT olarak
+tanımlandı</td></tr>
+<tr><td>MYSQLI_TYPE_FLOAT (tamsayı)</td><td>Alan FLOAT olarak
+tanımlandı</td></tr>
+<tr><td>MYSQLI_TYPE_DOUBLE (tamsayı)</td><td>Alan DOUBLE olarak tanımlandı
+</td></tr>
+<tr><td>MYSQLI_TYPE_NULL (tamsayı)</td><td>Alan DEFAULT NULL olarak
+tanımlandı</td></tr>
+<tr><td>MYSQLI_TYPE_TIMESTAMP (tamsayı)</td><td>Alan TIMESTAMP olarak
+tanımlandı</td></tr>
+<tr><td>MYSQLI_TYPE_LONGLONG (tamsayı)</td><td>Alan BIGINT olarak
+tanımlandı</td></tr>
+<tr><td>MYSQLI_TYPE_INT24 (tamsayı)</td><td>Alan MEDIUMINT olarak
+tanımlandı</td></tr>
+<tr><td>MYSQLI_TYPE_DATE (tamsayı)</td><td>Alan DATE olarak
+tanımlandı</td></tr>
+<tr><td>MYSQLI_TYPE_TIME (tamsayı)</td><td>Alan TIME olarak
+tanımlandı</td></tr>
+<tr><td>MYSQLI_TYPE_DATETIME (tamsayı)</td><td>Alan DATETIME olarak
+tanımlandı</td></tr>
+<tr><td>MYSQLI_TYPE_YEAR (tamsayı)</td><td>Alan YEAR olarak
+tanımlandı</td></tr>
+<tr><td>MYSQLI_TYPE_NEWDATE (tamsayı)</td><td>Alan DATE olarak
+tanımlandı</td></tr>
+<tr><td>MYSQLI_TYPE_ENUM (tamsayı)</td><td>Alan ENUM olarak
+tanımlandı</td></tr>
+<tr><td>MYSQLI_TYPE_SET (tamsayı)</td><td>Alan SET olarak tanımlandı</td></tr>
+<tr><td>MYSQLI_TYPE_TINY_BLOB (tamsayı)</td><td>Alan TINYBLOB olarak tanımlandı</td></tr>
+<tr><td>MYSQLI_TYPE_MEDIUM_BLOB (tamsayı)</td><td>Alan MEDIUMBLOB olarak tanımlandı</td></tr>
+<tr><td>MYSQLI_TYPE_LONG_BLOB (tamsayı)</td><td>Alan LONGBLOB olarak tanımlandı</td></tr>
+<tr><td>MYSQLI_TYPE_BLOB (tamsayı)</td><td>Alan BLOB olarak
+tanımlandı</td></tr>
+<tr><td>MYSQLI_TYPE_VAR_STRING (tamsayı)</td><td>Alan VARCHAR olarak
+tanımlandı </td></tr>
+<tr><td>MYSQLI_TYPE_STRING (tamsayı)</td><td>Alan CHAR olarak
+tanımlandı</td></tr>
+<tr><td>MYSQLI_TYPE_GEOMETRY (tamsayı)</td><td>GEOMETRY olarak tanımlanan
+alan</td></tr>
+<tr><td>MYSQLI_NEED_DATA (tamsayı)</td><td>bağlanan değişkenler için daha çok veri var</td></tr>
+<tr><td>MYSQLI_NO_DATA (tamsayı)</td><td>bağlanan değişken için veri kalmadı</td></tr>
+<tr><td>MYSQLI_DATA_TRUNCATED (tamsayı)</td><td>Veri kesme oluştu. PHP 5.1.0 ve MySQL 5.5.5 den beri</td></tr>
+</table>
+
+<h3>Örnekler</h3>
+
+Tüm MySQLI belgelerindeki örnekler dünya veritabanında MySQL AB. Dünya
+veritabanı http://dev.mysql.com/get/Downloads/Manual/world.sql.gz/from/pick
+adresinde bulunur.
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> mysqli_affected_rows — önceki MySQL işleminden etkilenen satır sayısını alır
+    <li> mysqli_autocommit — veritabanı uyarılarını otomatik onaylayıp onaylamama açma ya da kapama kodu
+    <li> mysqli_bind_param — mysqli_stmt_bind_param eşdeğeri
+    <li> mysqli_bind_result — mysqli_stmt_bind_result eşdeğeri
+    <li> mysqli_change_user — Belirtilen veritabanı bağlantısında kullanıcıyı değiştirir
+    <li> mysqli_character_set_name — Veritabanı bağlantısının varsayılan karakter takımını döndürür
+    <li> mysqli_client_encoding — mysqli_character_set_name eşdeğeri
+    <li> mysqli_close — Önceden açılmış veritabanı bağlantısını kapatır
+    <li> mysqli_commit — O anki işlemi onaylar
+    <li> mysqli_connect_errno — önceki bağlantı işlemle oluşan hata kodunu döndürür
+    <li> mysqli_connect_error — Son bağlantı hatasının yazı dizisi biçimini döndürür
+    <li> mysqli_connect — MySQL sunucusuna yeni bağlantı açar
+    <li> mysqli_data_seek — sonuç göstergesini sonuç kümesinde rastgele bir satıra ayarlar
+    <li> mysqli_debug — Hata yazma işlemini yapar
+    <li> mysqli_disable_reads_from_master — Ana'dan okumayı durdurur
+    <li> mysqli_disable_rpl_parse — RPL taramayı durdurur
+    <li> mysqli_dump_debug_info — hata yazma işlemini "log" dosyasına döker
+    <li> mysqli_embedded_server_end — Description
+    <li> mysqli_embedded_server_start — açıklama
+    <li> mysqli_enable_reads_from_master — Ana'dan okumaları açar
+    <li> mysqli_enable_rpl_parse — RPL taramayı açar
+    <li> mysqli_errno — Son işlevle oluşan hata kodunu döndürür
+    <li> mysqli_error — Son hatanın yazı dizisini döndürür
+    <li> mysqli_escape_string — mysqli_real_escape_string eşdeğeridir
+    <li> mysqli_execute — mysqli_stmt_execute eşdeğeridir
+    <li> mysqli_fetch_array — Sonuç satırını ilişkili dizi, sayısal dizi ya da her ikisi olarak alır
+    <li> mysqli_fetch_assoc — sonuç satırını ilişkili dizi olarak alır
+    <li> mysqli_fetch_field_direct — Bir alan için meta-data bul
+    <li> mysqli_fetch_field — Sonuç kümesinden sonraki alanı döndürür
+    <li> mysqli_fetch_fields — Sonuç kümesindeki alanları belirten nesneler dizisini döndürür
+    <li> mysqli_fetch_lengths — Sonuç kümesindeki o anki satırın kolonlarının uzunluklarını döndürür
+    <li> mysqli_fetch_object — Sonuç kümesindeki o anki satırı nesne olarak döndürür
+    <li> mysqli_fetch_row — Sonuç satırını sıralı dizi olarak alır.
+    <li> mysqli_fetch — mysqli_stmt_fetch eşdeğeri
+    <li> mysqli_field_count — en son sorgu için kolon sayısını döndürür
+    <li> mysqli_field_seek — Sonuç göstergesi belirtilen alan uzaklığına
+ayarlanır
+    <li> mysqli_field_tell — sonuç göstergesinin o anki alan uzaklığını verir
+    <li> mysqli_free_result — Sonuçla ilgili belleği boşaltır
+    <li> mysqli_get_charset — Karakter takımı nesnesini döndürür
+    <li> mysqli_get_client_info — MySQL istemci sürümünü yazı dizisi olarak
+döndürür
+    <li> mysqli_get_client_version — MySQL istemci bilgisini alır
+    <li> mysqli_get_host_info — Kullanılan bağlantı türünü döndürür
+    <li> mysqli_get_metadata — mysqli_stmt_result_metadata eşdeğeri
+    <li> mysqli_get_proto_info — Kullanılan MySQL protokolünü sürümünü döndürür
+    <li> mysqli_get_server_info — MySQL sunucu sürümünü döndürür
+    <li> mysqli_get_server_version — MySQL sunucu sürümünü tamsayı olarak döndürür
+    <li> mysqli_get_warnings — Açıklama
+    <li> mysqli_info — En son çalıştırılan sorgunun bilgisine erişir
+    <li> mysqli_init — MySQLi ilklenir ve mysqli_real_connect() ile kullanılan kaynakları döndürür
+    <li> mysqli_insert_id — Son sorguda kullanılan otomatik üretilmiş tanıtım (id) döner
+    <li> mysqli_kill — Sunucuya MySQL program parçasını öldürmesi istenir
+    <li> mysqli_master_query — Sunucu/İstemci sisteminde Ana/Sunucu'da sorgunun çalışmasını zorlar
+    <li> mysqli_more_results — Çoklu sorguda daha başka sorgu sonucu var mı bakar
+    <li> mysqli_multi_query — Veritabanında sorgu çalıştırır
+    <li> mysqli_next_result — Çoklu sorguda sonraki sonucu hazırlar
+    <li> mysqli_num_fields — Sonuçtaki alanların sayısını al
+    <li> mysqli_num_rows — Sonuçtaki satırların sayısını alır
+    <li> mysqli_options — Seçenekleri ayarlar
+    <li> mysqli_param_count — mysqli_stmt_param_count eşdeğeridir
+    <li> mysqli_ping — sunucu bağlantısını ping'ler ya da bağlantı yoksa yeniden kurmaya çalışır
+    <li> mysqli_prepare — SQL deyimini çalışmak için hazırlar
+    <li> mysqli_query — veritabanında sorguyu çalıştırır
+    <li> mysqli_real_connect — mysql sunucuya bağlantı açar
+    <li> mysqli_real_escape_string — SQL deyiminde kullanılacak yazı dizisindeki özel karakterleri atlatır (bağlantının o anki karakter takımını dikkate alarak)
+    <li> mysqli_real_query — SQL sorgusunu çalıştır
+    <li> mysqli_report — İçsel raporlama işlevlerini açma ve kapama
+    <li> mysqli_rollback — o anki işlemi geri alır
+    <li> mysqli_rpl_parse_enabled — RPL tarama açık mı bak
+    <li> mysqli_rpl_probe — RPL kontrol et (probe)
+    <li> mysqli_rpl_query_type — RPL sorgu türünü döndürür
+    <li> mysqli_select_db — Veritabanı sorguları için varsayılan veritabanını
+seçer
+    <li> mysqli_send_long_data — mysqli_stmt_send_long_data eşdeğeridir
+    <li> mysqli_send_query — sorguyu gönderir ve döner
+    <li> mysqli_server_end — gömülü sunucuyu kapatır
+    <li> mysqli_server_init — gömülü sunucuyu ilkler
+    <li> mysqli_set_charset — Varsayılan istemci karakter takımını ayarlar
+    <li> mysqli_set_local_infile_default — "load local infile" komutu için tanımlanan elliği kullanılmaz yapar
+    <li> mysqli_set_local_infile_handler — LOAD DATA LOCAL INFILE komutu için işlevi geri çağırmayı ayarlar
+    <li> mysqli_set_opt — mysqli_options eşdeğeridir
+    <li> mysqli_slave_query — Sunucu/İstemci ortamında sorgunun istemcide çalışmasını zorlar
+    <li> mysqli_sqlstate — MySQL işleminden SQLSTATE hatasını döndürür
+    <li> mysqli_ssl_set — SSL kullanarak güvenli bağlantı kurulması için
+kullanılır
+    <li> mysqli_stat — o anki sistem durumunu alır
+    <li> mysqli_stmt_affected_rows — Son çalıştırılan deyimle değişen, silinen ya da eklenen satırların toplam sayısını döndürür
+    <li> mysqli_stmt_attr_get — Açıklama
+    <li> mysqli_stmt_attr_set — Açıklama
+    <li> mysqli_stmt_bind_param — Hazırlanan deyime değişkenleri değişgeç olarak bağlama
+    <li> mysqli_stmt_bind_result — Sonuç belleği için hazırlanan deyime değişkenleri bağlamak
+    <li> mysqli_stmt_close — Hazırlanan deyimi kapatır
+    <li> mysqli_stmt_data_seek — Sonuç kümesinden rastgele bir satırı bulur
+    <li> mysqli_stmt_errno — En son deyimin çağrılışındaki hata kodunu döndürür
+    <li> mysqli_stmt_error — En son deyimin hatasının yazı dizisindeki açıklamasını döndürür
+    <li> mysqli_stmt_execute — Hazırlanan sorguyu çalıştırır
+    <li> mysqli_stmt_fetch — Hazırlanan deyimden gelen sonuçları bağlanan değişkenlere almak
+    <li> mysqli_stmt_field_count — Verilen deyimdeki alan sayısını döndürür
+    <li> mysqli_stmt_free_result — Verilen deyim elliği için kullanılan sonuç belleğini boşaltır
+    <li> mysqli_stmt_get_warnings — Açıklama
+    <li> mysqli_stmt_init — Deyimi ilkler ve with mysqli_stmt_prepare ile kullanılacak nesneyi döndürür
+    <li> mysqli_stmt_insert_id — önceki INSERT işlemiyle üretilen tanıtımı (ID) alır
+    <li> mysqli_stmt_num_rows — deyimin sonuç kümesindeki satırların sayısını döndürür
+    <li> mysqli_stmt_param_count — Verilen deyimler için değişgeçlerin sayısını döndürür
+    <li> mysqli_stmt_prepare — SQL deyimi çalışmak için hazırlar
+    <li> mysqli_stmt_reset — Hazırlanan deyimi temizler
+    <li> mysqli_stmt_result_metadata — hazırlanan deyimden sonuç kümesi metadata değerlerini döndürür
+    <li> mysqli_stmt_send_long_data — Öbeklerdeki veriyi döndürür
+    <li> mysqli_stmt_sqlstate — önceki deyim işlemlerinin SQLSTATE hatasını döndürür
+    <li> mysqli_stmt_store_result — Hazırlanan deyimden sonuç takımı taşır
+    <li> mysqli_store_result — Son sorgunun sonuç kümesini taşır
+    <li> mysqli_thread_id — o anki bağlantının program parçası tanımını (ID)
+döndürür
+    <li> mysqli_thread_safe — Program parçası verildi mi verilmedi mi türü güvenliğini döndürür
+    <li> mysqli_use_result — Sonuç takımı erişimini ilkler
+    <li> mysqli_warning_count — Verilen bağ için son sorgunun uyarı mesajlarının sayısını döndürür
+</ul>
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

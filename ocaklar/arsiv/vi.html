@@ -1,0 +1,708 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<TITLE>AYBIM - VI</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onload="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+          <a href="../index.php" class="box"><img src="../img/aybim.png" border="0"></a><br /><br />
+          <a href="aglar.html" class="nav">Aglar</a>
+          <a href="aglink.html" class="nav">Aglink</a>
+          <a href="agteknik.html" class="nav">Agteknik</a>
+          <a href="ccode.html" class="nav">C-Kodlama</a>
+          <a href="cprep.html" class="nav">C-Önişleme</a>
+          <a href="crclrc.html" class="nav">CRC/LRC</a>
+          <a href="dea.html" class="nav">DEA</a>
+          <a href="etcsrv.html" class="nav">etcsrv</a>
+          <a href="fork.html" class="nav">Çatal (fork)</a>
+          <a href="ilet.html" class="nav">ilet</a>
+          <a href="inetd.html" class="nav">inetd</a>
+          <a href="make.html" class="nav">Make</a>
+          <a href="msgauth.html" class="nav">Msg Auth</a>
+          <a href="recur.html" class="nav">Özyinelemeli</a>
+          <a href="robots.html" class="nav">Robotlar için</a>
+          <a href="sdlc.html" class="nav">SDLC</a>
+          <a href="secure.html" class="nav">Güvenlik</a>
+          <a href="seri.html" class="nav">Seri uçlar</a>
+          <a href="snalu0.html" class="nav">SNA LU0</a>
+          <a href="snalu62.html" class="nav">SNA LU6.2</a>
+          <a href="tcpip.html" class="nav">tcp/ip</a>
+          <a href="tcpprg.html" class="nav">tcp Programı</a>
+          <a href="unix.html" class="nav">Unix</a>
+          <a href="vi.html" class="nav">vi Editör</a>
+       </div>
+       </td>
+       <td valign="top">
+       <div id="ortataraf">
+           <span><img src="../img/transparent.gif" width="1" height="50">
+           <img src="../img/transparent.gif" width="780" height="1"></span>
+           <div id="banner">
+             <img src="img/baslik.gif"><br />
+             <div id="mycontainer">
+               <div id="content">
+<div id="bdy" class="yazi">
+<br /><br />
+<script type="text/javascript"><!--
+google_ad_client = "pub-8541306787668208";
+//728x90, created 1/16/08
+google_ad_slot = "7459135715";
+google_ad_width = 728;
+google_ad_height = 90;
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<br>
+<br>
+<div id="sag"><span class="yazi">24 Ocak 2008</span></div>
+<H2>ETKİLİ vi EDİTÖR KULLANIMI </H2>
+<OL>
+<B><LI>TEMEL KONUMLAR<P></B>
+<OL>
+<B><LI> Komut konumu<P></B>
+   Bu konumda basılan bir tuş ekranda görüntülenmez ama bir işlevi
+   vardır. O işlev gerçekleşir.<P>
+   Bir komut başlamadan girilen rakamlar vi editörün o komutu kaç kez
+   tekrarlayacağını belirtir.<P>
+<B><LI> Giriş/Düzeltme konumu<P></B>
+   Bu konuma 'i', 'a', veya 'o' komutları ile girilir.
+   Bu konumda iken basılan her tuş ekranda görüntülenir.
+   Bu konumdan Esc tuşu ile çıkılır.<P>
+<B><LI> Satır Editörü Konumu<P></B>
+   ':' komutu ile bu konuma geçilir. Bu komunda yazılan komutların
+   işlemi bitince vi editör tekrar komut konumuna geri döner.<P>
+</OL>
+<P>
+<B><LI>TEMEL KOMUTLAR<P></B>
+<TABLE>
+<TR><TD><B>Ok tuşları   </B></TD><TD>İmleç (cursor) hareketi</TD></TR>
+<TR><TD><B>h j k l      </B></TD><TD>Ok tuşları yerine imleç hareketi</TD></TR>
+<TR><TD><B>i&lt;text&gt;Esc   </B></TD><TD>bir metini araya girme</TD></TR>
+<TR><TD><B>cw&lt;yeni&gt;Esc  </B></TD><TD>bir sözcüğü değiştirme</TD></TR>
+<TR><TD><B>x            </B></TD><TD>bir karakter silme</TD></TR>
+<TR><TD><B>dw           </B></TD><TD>bir sözcük silme</TD></TR>
+<TR><TD><B>dd           </B></TD><TD>bir satır silme</TD></TR>
+<TR><TD><B>u            </B></TD><TD>son işlemi geri alma</TD></TR>
+<TR><TD><B>ZZ           </B></TD><TD>vi editorden saklayarak çıkma</TD></TR>
+<TR><TD><B>:q!          </B></TD><TD>vi editörden saklamadan çıkma</TD></TR>
+<TR><TD><B>^D ^B ^F     </B></TD><TD>ileri ve geri sayfa kaydırma</TD></TR>
+</TABLE>
+<P>
+<B><LI>KÜTÜK İŞLEMLERİ<P></B>
+<TABLE>
+<TR><TD><B>:w           </B></TD><TD>kütüğe yazma</TD></TR>
+<TR><TD><B>:w!          </B></TD><TD>kütüğü ezerek yazma</TD></TR>
+<TR><TD><B>:q           </B></TD><TD>editörden çıkma</TD></TR>
+<TR><TD><B>:q!          </B></TD><TD>değişiklikleri atarak editörden çıkma</TD></TR>
+<TR><TD><B>:e &lt;ad&gt;      </B></TD><TD>ad adlı kütüğü edit etme</TD></TR>
+<TR><TD><B>:e + &lt;ad&gt; </B></TD><TD>ad adlı kütüğü sonundan edit etme</TD></TR>
+<TR><TD><B>:e + n       </B></TD><TD>kütüğü n. satırdan edit etme</TD></TR>
+<TR><TD><B>:e #         </B></TD><TD>başka bir kütüğü edit etme</TD></TR>
+<TR><TD><B>:e! #        </B></TD><TD>değişiklikleri atarak başka bir kütüğü edit etme</TD></TR>
+<TR><TD><B>:w &lt;ad&gt;      </B></TD><TD>ad adlı kütüğe yazma</TD></TR>
+<TR><TD><B>:w!&lt;ad&gt;      </B></TD><TD>ad adlı kütüğü ekerek yazma</TD></TR>
+<TR><TD><B>:sh          </B></TD><TD>shell komutuna geçiş (exit ile geri dönülür).</TD></TR>
+<TR><TD><B>:!&lt;komut&gt;    </B></TD><TD>bir komutu çalıştırma ve editöre geri dönme</TD></TR>
+<TR><TD><B>:n           </B></TD><TD>bir sonraki kütüğü edit ortamına alma</TD></TR>
+<TR><TD><B>^G           </B></TD><TD>kütük adını ve imleçin satır numarasını görüntüleme</TD></TR>
+<TR><TD><B>:tag &lt;tag&gt;   </B></TD><TD>imleç yerine tag koyma</TD></TR>
+<TR><TD><B>:pop         </B></TD><TD>bir önceki tag yerine dönme</TD></TR>
+</TABLE>
+<P>
+<B><LI>vi EDİTÖRDE İmleç YERİNİ DEĞİŞTİRME KOMUTLARI<P></B>
+<TABLE>
+<TR><TD><B>^F           </B></TD><TD>Bir sayfa ileri kaydır.</TD></TR>
+<TR><TD><B>^B           </B></TD><TD>Bir sayfa geri kaydır.</TD></TR>
+<TR><TD><B>^D           </B></TD><TD>Yarım sayfa ileri kaydır.</TD></TR>
+<TR><TD><B>^U           </B></TD><TD>Yarım sayfa geri kaydır.</TD></TR>
+<TR><TD><B>/pat         </B></TD><TD>verilen karakter dizisini ileriye doğru arama</TD></TR>
+<TR><TD><B>?pat         </B></TD><TD>verilen karakter dizisini geri doğru arama</TD></TR>
+<TR><TD><B>N            </B></TD><TD>arama yönünü değiştirme</TD></TR>
+<TR><TD><B>/pat/+n      </B></TD><TD>ileriye doğru aranan ilk diziden n satır sonrasına gitme</TD></TR>
+<TR><TD><B>?pat/-n      </B></TD><TD>geriye doğru aranan ilk diziden n satır öncesine gitme</TD></TR>
+<TR><TD><B>]]           </B></TD><TD>bir sonraki işleve gitme</TD></TR>
+<TR><TD><B>[[           </B></TD><TD>bir önceki işlev gitme</TD></TR>
+<TR><TD><B>(            </B></TD><TD>cümlenin başına gitme</TD></TR>
+<TR><TD><B>)            </B></TD><TD>cümlenin sonuna gitme</TD></TR>
+<TR><TD><B>{            </B></TD><TD>paragraf başlangıcına gitme</TD></TR>
+<TR><TD><B>}            </B></TD><TD>paragraf sonuna gitme</TD></TR>
+<TR><TD><B>%            </B></TD><TD>birbirine karşıt gelen { } veya ( ) ikilisini bulma</TD></TR>
+<TR><TD><B>^]           </B></TD><TD>imleçden sonraki sözcüğü tag etme</TD></TR>
+<TR><TD><B>^T           </B></TD><TD>bir önceki tag yerine geri dönme.</TD></TR>
+</TABLE>
+<P>
+<B><LI>EKRAN AYARLARINA İLİŞKİN KOMUTLAR<P></B>
+<TABLE>
+<TR><TD><B>^L           </B></TD><TD>sayfayı tekrar görüntüle</TD></TR>
+<TR><TD><B>^R           </B></TD><TD>sayfayı tekrar görüntüle (^L çalışmaz ise)</TD></TR>
+<TR><TD><B>z            </B></TD><TD>imleç satırı en üstte olacak şekilde sayfayı yeniden</TD></TR>
+<TR><TD>             </B></TD><TD>görüntüle</TD></TR>
+<TR><TD><B>z-           </B></TD><TD>imleç satırı en altta olacak şekilde sayfayı yeniden</TD></TR>
+<TR><TD>             </B></TD><TD>görüntüle</TD></TR>
+<TR><TD><B>z.           </B></TD><TD>imleç satırı ortada olacak şekilde sayfayı yeniden</TD></TR>
+<TR><TD>             </B></TD><TD>görüntüle</TD></TR>
+<TR><TD><B>/pat/z-      </B></TD><TD>pat ile bulunan satırı en altta olacak şekilde sayfayı</TD></TR>
+<TR><TD>             </B></TD><TD>yeniden görüntüle.</TD></TR>
+<TR><TD><B>zn.          </B></TD><TD>n satırlık pencere kullan.</TD></TR>
+<TR><TD><B>^E           </B></TD><TD>bir satır aşağıya kaydır.</TD></TR>
+<TR><TD><B>^Y           </B></TD><TD>bir satır yukarıya kaydır.</TD></TR>
+</TABLE>
+<P>
+<B><LI>İŞARETLEME ve İŞARETE GERİ GİTME KOMUTLARI<P></B>
+<TABLE>
+<TR><TD><B>``           </B></TD><TD>imleçin bir önceki işarete geri gönderme</TD></TR>
+<TR><TD><B>''           </B></TD><TD>imleçin bir sonraki ilk boşluk olmayan yere götürme.</TD></TR>
+<TR><TD><B>mx           </B></TD><TD>imleç yerini x küçük harf alanına sakla</TD></TR>
+<TR><TD><B>`x           </B></TD><TD>imleç yerini x alanında saklanan imleç yerine götür.</TD></TR>
+<TR><TD><B>'x           </B></TD><TD>imleçi x alanında saklanan imleç yerindeki satırın</TD></TR>
+<TR><TD>             </B></TD><TD>ilk boşluk olmayan karakterine götür.</TD></TR>
+</TABLE>
+<P>
+<B><LI>SATIR AYARLAMA KOMUTLARI<P></B>
+<TABLE>
+<TR><TD><B>H            </B></TD><TD>imleçi ekrandaki ilk satıra götür.</TD></TR>
+<TR><TD><B>L            </B></TD><TD>imleçi ekrandaki son satıra götür.</TD></TR>
+<TR><TD><B>M            </B></TD><TD>imleçi ekrandaki orta satıra götür.</TD></TR>
+<TR><TD><B>+            </B></TD><TD>bir sonraki satıra git.</TD></TR>
+<TR><TD><B>-            </B></TD><TD>bir önceki satıra git.</TD></TR>
+<TR><TD><B>CR           </B></TD><TD>bir sonraki satırın başına git.</TD></TR>
+<TR><TD><B>Aşağı Ok j   </B></TD><TD>bir sonraki satırın aynı kolonuna git.</TD></TR>
+<TR><TD><B>Yukarı Ok k  </B></TD><TD>bir önceki satırın aynı kolonuna git.</TD></TR>
+</TABLE>
+<P>
+<B><LI>KARAKTER AYARLAMA KOMUTLARI<P></B>
+<TABLE>
+<TR><TD><B>^            </B></TD><TD>satırdaki ilk boşluk olmayan karaktere git.</TD></TR>
+<TR><TD><B>0            </B></TD><TD>satır başına git</TD></TR>
+<TR><TD><B>$            </B></TD><TD>satır sonuna git</TD></TR>
+<TR><TD><B>l Sağ Ok     </B></TD><TD>bir karakter sağa git</TD></TR>
+<TR><TD><B>h Sol Ok     </B></TD><TD>bir karakter sola git</TD></TR>
+<TR><TD><B>^H           </B></TD><TD>bir karakter geri git</TD></TR>
+<TR><TD><B>boşluk       </B></TD><TD>bir karakter sağa git</TD></TR>
+<TR><TD><B>Fx           </B></TD><TD>bir önceki x karaterini bul</TD></TR>
+<TR><TD><B>tx           </B></TD><TD>x karakterinden önceki karaktere git.</TD></TR>
+<TR><TD><B>Tx           </B></TD><TD>x den sonraki karaktere git.</TD></TR>
+<TR><TD><B>;            </B></TD><TD>Fx, tx veya Tx işlemini tekrarla</TD></TR>
+<TR><TD><B>,            </B></TD><TD>Fx, tx veya Tx işleminin tersini tekrarla</TD></TR>
+<TR><TD><B>n|           </B></TD><TD>n. kolona git</TD></TR>
+<TR><TD><B>%            </B></TD><TD>karşıklı { } veya ( ) tipi parantezlere git.</TD></TR>
+</TABLE>
+<P>
+<B><LI>SÖZCÜK, CÜMLE, BÖLÜM ve PARAGRAF AYARLAMA KOMUTLARI<P></B>
+<TABLE>
+<TR><TD><B>w b e       </B></TD><TD>sonraki sözcüğe, önceki sözcüğe, sözcük sonuna git</TD></TR>
+<TR><TD><B>) (          </B></TD><TD>sonraki cümleye, önceki cümleye git.</TD></TR>
+<TR><TD><B>} {          </B></TD><TD>sonraki paragrafa, önceki paragrafa git</TD></TR>
+<TR><TD><B>W B E        </B></TD><TD>sonraki, önceki boşlukla ayrılmış sözcüğe git</TD></TR>
+<TR><TD>             </B></TD><TD>boşlukla ayrılmış sözcüğün son karakterine git.</TD></TR>
+</TABLE>
+<P>
+<B><LI>GİRİŞ KONUMU DÜZELTMELERİ<P></B>
+<TABLE>
+<TR><TD><B>^H           </B></TD><TD>Backspace</TD></TR>
+<TR><TD><B>^W           </B></TD><TD>bir sözcük silme</TD></TR>
+<TR><TD><B>\            </B></TD><TD>"erase", "kill" karakteri için başlangıç</TD></TR>
+<TR><TD><B>Esc, Del     </B></TD><TD>giriş konumundan çıkış</TD></TR>
+<TR><TD><B>^D           </B></TD><TD>bir karakter geri git.</TD></TR>
+<TR><TD><B>^^D 0^D      </B></TD><TD>(^) işaretinden sonra ^D satı başına git demektir.</TD></TR>
+<TR><TD><B>^T           </B></TD><TD>satır başına içerlek boşluk bırak</TD></TR>
+<TR><TD><B>^V           </B></TD><TD>yazılamayan karakterleri görüntülemek veya girmek</TD></TR>
+<TR><TD>             </B></TD><TD>için başlangıç</TD></TR>
+</TABLE>
+<P>
+<B><LI>GİRİŞ ve DÜZELTME KONUMU KOMUTLARI<P></B>
+<TABLE>
+<TR><TD><B>a            </B></TD><TD>imleç sonuna ekle</TD></TR>
+<TR><TD><B>A            </B></TD><TD>satır sonuna ekle</TD></TR>
+<TR><TD><B>i            </B></TD><TD>imleç yerine gir</TD></TR>
+<TR><TD><B>I            </B></TD><TD>satır başına ilk boşluk olmayan karakterden sonra gir</TD></TR>
+<TR><TD><B>o            </B></TD><TD>imleç altına bir boş satır aç</TD></TR>
+<TR><TD><B>O            </B></TD><TD>imleç üzerine bir boş satır aç</TD></TR>
+<TR><TD><B>rx           </B></TD><TD>imleç karakterini x karakteri ile değiştir</TD></TR>
+<TR><TD><B>R&lt;text&gt;Esc   </B></TD><TD>imleç yerinden <B>text</B> kadar metni değiştirme.</TD></TR>
+</TABLE>
+<P>
+<B><LI>İŞLEMLER<P></B>
+<TABLE>
+<TR><TD><B>d           </B></TD><TD>sil</TD></TR>
+<TR><TD><B>c            </B></TD><TD>değiştir</TD></TR>
+<TR><TD><B>y            </B></TD><TD>bir satırı belleğe al</TD></TR>
+<TR><TD><B>&lt;            </B></TD><TD>sol shift</TD></TR>
+<TR><TD><B>&gt;           </B></TD><TD>sağ shift</TD></TR>
+<TR><TD><B>!            </B></TD><TD>bir komut ile filitrele</TD></TR>
+</TABLE>
+<P>
+<B><LI>ÖZEL İŞLEMLER<P></B>
+<TABLE>
+<TR><TD><B>C            </B></TD><TD>satırın kalanını değiştir</TD></TR>
+<TR><TD><B>D            </B></TD><TD>satırın kalanını sil</TD></TR>
+<TR><TD><B>s            </B></TD><TD>bir karakteri değiştir</TD></TR>
+<TR><TD><B>S            </B></TD><TD>satırları değiştir</TD></TR>
+<TR><TD><B>J            </B></TD><TD>satırları birleştir</TD></TR>
+<TR><TD><B>x            </B></TD><TD>bir karakter sil</TD></TR>
+<TR><TD><B>X           </B></TD><TD> imleçden önceki karakteri sil</TD></TR>
+<TR><TD><B>Y            </B></TD><TD>satırları belleğe al</TD></TR>
+</TABLE>
+<P>
+<B><LI>KES ve YAPIŞTIR KOMUTLARI<P></B>
+<TABLE>
+<TR><TD><B>&lt;n&gt;yy        </B></TD><TD>n satırı belleğe al</TD></TR>
+<TR><TD><B>&lt;n&gt;yl        </B></TD><TD>n karakteri belleğe al</TD></TR>
+<TR><TD><B>p            </B></TD><TD>imleçin devamına bellektekini kopyala</TD></TR>
+<TR><TD><B>P            </B></TD><TD>imleçin önüne bellektekini koplaya</TD></TR>
+<TR><TD><B>"xp          </B></TD><TD>x belleğindekini kopyala</TD></TR>
+<TR><TD><B>"xy          </B></TD><TD>x belleğine al</TD></TR>
+<TR><TD><B>"xd          </B></TD><TD>silerken x belleğine al</TD></TR>
+</TABLE>
+<P>
+<B><LI>GERİ ALMA ve YİNELEME KOMUTLARI<P></B>
+<TABLE>
+<TR><TD><B>u            </B></TD><TD>son değişiklik işlemini geri al</TD></TR>
+<TR><TD><B>U            </B></TD><TD>son satırı eski haline getir</TD></TR>
+<TR><TD><B>.            </B></TD><TD>son değişikliği tekrarla</TD></TR>
+<TR><TD><B>"dp          </B></TD><TD>sondan d satır önceki satır silmeyi geri getir.</TD></TR>
+</TABLE>
+</OL>
+<HR>
+<H2>SATIR EDİTÖRÜ KOMUTLARI</H2>
+<HR>
+<P>
+Genelde, bir satır editöründe komut :
+<PRE>
+       ,s/eski/yeni/g
+</PRE>
+biçimindedir. Bu örnekte editör eski karakter dizisini yenisi ile
+değiştirir.
+<P>
+Genel satır editörü komutları kalıbı :
+<PRE>
+       [adres [,adres]]komut[parameterler]
+</PRE>
+biçimindedir. Bu kalıptaki adres'ler işlemin yapılacağı satırların
+numaralarını gösterir.
+<P>
+<B>SATIR ADRESLEMESİ</B>
+<P>
+Bir adres kütük içinde satırın başlangıç satırından uzaklığını tanımlar.
+Komut içinde son satır belirtilmez ise, yalnız virgül kullanımı son
+satırı gösterir. Satır adresleri aşağıdaki listeden oluşturulurken
+satırlara sayısal değerler de verilebilir.
+<P>
+Aşağıdaki tabloda satır adresi olarak kullanılan simgeler gösterilmiştir.
+<P>
+<TABLE>
+<TR><TD>       .       </TD><TD>imleçin bulunduğu satır.</TD></TR>
+<TR><TD>       $       </TD><TD>Kütüğün son satırı.</TD></TR>
+<TR><TD>       n       </TD><TD>Kütüğün n. satırı n [0,$] arasında bir değerdir.</TD></TR>
+<TR><TD>       -<BR>
+       ^       </TD><TD>Önceki satır. Bu değer -1 ile aynı anlama gelir.</TD></TR>
+<TR><TD>       -n<BR>
+       ^n      </TD><TD>Önce n. satır. Burada n sıfırdan büyük bir sayıdır.</TD></TR>
+<TR><TD>       +       </TD><TD>Bir sonraki satır. Bu değer +1 ile aynı anlama gelir.</TD></TR>
+<TR><TD>       +n<BR>
+      boşluk n </TD><TD>Sonraki n. satır. Burada n sıfırdan büyük bir sayıdır.</TD></TR>
+<TR><TD>       ,<BR>
+       %       </TD><TD>İlk satırdan sonuna kadar tüm satırlar.
+               1,$ ile aynı anlama gelir.</TD></TR>
+<TR><TD>       ;       </TD><TD>imleç satırından sonuna kadar tüm satırlar.
+               .,$ ile aynı anlama gelir.</TD></TR>
+<TR><TD>       /re/    </TD><TD>içinde regular expression re olan bir sonraki satır.</TD></TR>
+<TR><TD>       ?re?    </TD><TD>içinde regular expression re olan bir önceki satır.</TD></TR>
+<TR><TD>       'lc     </TD><TD>Daha önce mark komutu ile işaretlenmiş satır.</TD></TR>
+</TABLE>
+<P>
+<B>DÜZENLİ DEYİMLER (REGULAR EXPRESSIONS) </B>
+<P>
+"Düzenli Deyimler" metin içindeki bir karakter dizisini aramak
+için kullanılan deyimlerin genel adıdır.
+<P>
+Düzenli deyimler, yalnız karakter dizisi olmayıp, bir kümede yer
+alan dizileri de tanımlayabilir. Bu durumda kurala uyan karakter
+dizileri aranmış olur. Bir satırda aynı kümeye/sınıfa giren birden
+çok karakter dizisi bulunursa, önce soldan ilki seçilir.
+<P>
+Aşağıdaki simgeler Kurallı Deyim oluşturmada kullanılır.
+<P>
+<TABLE>
+<TR><TD VALIGN=top>       c       </TD><TD>
+              Karakter  c `{',
+              '}', `(', `)', `<' ve `>' değilse
+              kendisini bulur.
+              </TD></TR>
+
+
+<TR><TD VALIGN=top>       \c      </TD><TD>
+               Bu karakter `{',
+               '}',  `(', `)', `<', `>', `b', 'B', `w', `W', `+',
+               ve `?' değilse kendisini bulur.
+              </TD></TR>
+</TABLE>
+<P>
+Herhangi bir karakteri bulmak
+<P>
+<TABLE>
+<TR><TD VALIGN=top>       [char-class]
+               </TD><TD>
+bu karakter kümesine uygun ilk karakteri bulur. Bir karakter kümesi,
+yazılan iki karakter arasındaki artan sırada karakterleri tanımlar.
+Örneğin a'dan z'e tüm küçük harfler kümesi için [a-z] yazmak gerekir.
+<P>
+Aşağıdaki şekilde karakter kümeleri tanımlama olanağı vardır :
+<P>
+[:alnum:]  [:cntrl:]  [:lower:]  [:space:]<BR>
+[:alpha:]  [:digit:]  [:print:]  [:upper:]<BR>
+[:blank:]  [:graph:]  [:punct:]  [:xdigit:]
+<P>
+Eğer küme tanımında ilk karakter '-' ise kendisini arar.
+<P>
+               Patterns in char-class of the form:
+Aşağıdaki gibi tanımlanmış kümelerde
+<P>
+                 [.col-elm.] veya,   [=col-elm=]
+<P>
+"col-elm" ülke kodlamasına göre sıralanmış karakterleri tanımlar.
+</TD></TR>
+<TR><TD VALIGN=top>       [^char-class]
+</TD><TD>
+Yeni satır hariç, belirtilen küme içine girmeyen ilk karakteri bulur.
+</TD></TR>
+<TR><TD VALIGN=top>       ^       </TD><TD>
+Eğer `^' deyimin ilk karakteri ise satır başından arama yapar. Yoksa
+karakterin kendisini arar.
+</TD></TR>
+<TR><TD VALIGN=top>       $       </TD><TD>
+Eğer  `$' deyimin son karakteri ise satır sonuna göre arama
+yapar, yoksa kendisini arar.
+</TD></TR>
+<TR><TD VALIGN=top>       \(re\)  </TD><TD>
+Bir alt deyimi tanımlar. Bazen alt deyim boş olabilir. İçiçe alt
+deyim tanımlanabilir. Örneğin
+`\(a.c\)\1'<BR>
+`abcabc',  fakat `abcadc' bulunamaz.
+</TD></TR>
+<TR><TD VALIGN=top>       *       </TD><TD>
+bir deyimin peşinden gelen ilk karakteri bulur.
+Örneğin `b*' ile `abbb' bulunur, ancak `bbb' bulunamaz.
+</TD></TR>
+<TR><TD VALIGN=top>       \{n,m\}<BR>
+       \{n,\}<BR>
+       \{n\}  </TD><TD>
+bir karakterlik deyimi en az n kez, en çok m kez tekrarlandıktan sonra bulur.
+</TD></TR>
+<TR><TD VALIGN=top>       \&lt;<BR>
+       \&gt;     </TD><TD>
+bir karakterlik deyimi kelime başına (\&lt;) veya kelime sonuna (\&gt;)
+göre arar.
+</TD></TR>
+</TABLE>
+<P>
+Aşağıdaki geliştirilmiş işlem kodlarının başındaki '\', işlemleri
+diğer editör komutlarından ayırmak için konmuştur.
+<P>
+<TABLE>
+<TR><TD VALIGN=top>
+       \` <BR>
+       \'      </TD><TD>
+Koşulsuz olarak satır başını (\`) veya sonunu (\') arar.
+</TD></TR>
+<TR><TD VALIGN=top>
+       \?  </TD><TD>
+kendisinden önce gelen deyim veya altdeyime uygun ilk karakteri bulur.
+</TD></TR>
+<TR><TD VALIGN=top>
+       \+      </TD><TD>
+kendisinden sonra gelen ve birden çok tekrarlanan ilk deyim veya altdeyime
+uygun karakteri bulur.
+</TD></TR>
+<TR><TD VALIGN=top>
+       \b      </TD><TD>
+bir kelimenin başını veya sonunu bulur.
+Yani `\bhello\b' biçimindeki bir deyim `\&lt;hello\&gt;' ile aynıdır.
+Ancak `\b\b'i geçerli bir deyim iken `\&lt;\&gt;'değildir.
+</TD></TR>
+<TR><TD VALIGN=top>
+       \B      </TD><TD>
+Bir kelime içindeki boşluğu arar.
+</TD></TR>
+<TR><TD VALIGN=top>
+       \w      </TD><TD>
+bir kelime içindeki herhangi bir harfi arar.
+</TD></TR>
+<TR><TD VALIGN=top>
+       \W      </TD><TD>
+kelime içinde olmayan bir karakteri bulur.
+</TD></TR>
+</TABLE>
+<P>
+<B>KOMUTLAR (COMMANDS)</B>
+<P>
+Tüm editör komutları tek karakterlidir. Ancak bazıları için
+paramterler tanımlanabilir. Bir komut için bir satır yeterli olmaz ise
+satırın devam ettiğini göstermek için
+(\) kullanılır.
+<P>
+Genelde her satır için bir komut tanımlanabilir. Ancak her komuttan önce
+yazma ve listeleme komutu kullanılabilir.
+<P>
+^C yazılan satırı durdurur ve editörü komut konumuna geri döndürür.
+<P>
+editör için aşağıdaki komutlar kullanılabilir.
+<P>
+<TABLE>
+<TR><TD VALIGN=top>
+       (.)a    
+</TD><TD>
+metni belirtilen satırın arkasına ekler.
+</TD></TR>
+<TR><TD VALIGN=top>
+       (.,.)c  
+</TD><TD>
+Belirtilen satırdaki bilgiyi değiştirir.
+</TD></TR>
+<TR><TD VALIGN=top>
+       (.,.)d  
+</TD><TD>
+adreslenen satırlar arasını siler.
+</TD></TR>
+<TR><TD VALIGN=top>
+       e file  
+</TD><TD>
+bir kütüğü edit ortamına alır ve varsayılan kütük adını belirler.
+</TD></TR>
+<TR><TD VALIGN=top>
+       e !command
+</TD><TD>
+!command komutu ile oluşan çıktı satırını edit ortamına alır.
+</TD></TR>
+<TR><TD VALIGN=top>
+       E file  
+</TD><TD>
+Bir kütüğü koşulsuz olarak edit ortamına alır.
+</TD></TR>
+<TR><TD VALIGN=top>
+       f file  
+</TD><TD>
+Varsayılan kütük adını "file" yapar.
+</TD></TR>
+<TR><TD VALIGN=top>
+       (1,$)g/re/command-list
+</TD><TD>
+Komut listesini belirtilen satırlar arasında, belirtilen deyime
+uygun gelen yerlerde uygular.
+<P>
+komut listesindeki komutların herbiri ayrı satırlarda olmalıdır.
+Ancak en son komut (\) ile son bulmalıdır.
+</TD></TR>
+<TR><TD VALIGN=top>
+       (1,$)G/re/
+</TD><TD>
+adreslenen satırlarda deyime uygun bilgiyi etkileşimli olarak
+edit etmek içinkullanılır.
+<P>
+komut listesi kalıbı 'g' komutundaki gibidir.
+</TD></TR>
+<TR><TD VALIGN=top>
+       H       
+</TD><TD>
+Bir önceki deyimin yazılıp yazılmamasını değiştirir (yaz/yazma gibi)
+</TD></TR>
+<TR><TD VALIGN=top>
+       h       
+</TD><TD>
+Son hata açıklamasını yazmak için kullanılır.
+</TD></TR>
+<TR><TD VALIGN=top>
+       (.)i    
+</TD><TD>
+Aktif satırın önüne yeni satır eklemek için kullanılır.
+</TD></TR>
+<TR><TD VALIGN=top>
+       (.,.+1)j
+</TD><TD>
+adreslenmiş satırları birleştirir.
+</TD></TR>
+<TR><TD VALIGN=top>
+       (.)klc  
+</TD><TD>
+içinde lc ile tanımlanmış küçük harf bulunan satırı işaretler.
+</TD></TR>
+<TR><TD VALIGN=top>
+       (.,.)l  
+</TD><TD>
+Adreslenmiş satırları listeler.
+</TD></TR>
+<TR><TD VALIGN=top>
+       (.,.)m(.)
+</TD><TD>
+adreslenmiş satırları belirtilen satırdan sonrasına taşır.
+</TD></TR>
+<TR><TD VALIGN=top>
+       (.,.)n  
+</TD><TD>
+Satırları satır numaraları ile yazdırır.
+</TD></TR>
+<TR><TD VALIGN=top>
+       (.,.)p  
+</TD><TD>
+Belirtilen satırları yazdırır.
+</TD></TR>
+<TR><TD VALIGN=top>
+       P       
+</TD><TD>
+Komut işaretini kapatır veya açar.
+</TD></TR>
+<TR><TD VALIGN=top>
+       q       
+</TD><TD>
+editörden çıkmak için kullanılır.
+</TD></TR>
+<TR><TD VALIGN=top>
+       Q       
+</TD><TD>
+editörden koşulsuz çıkışı sağlar.
+</TD></TR>
+<TR><TD VALIGN=top>
+       ($)r file
+</TD><TD>
+kütüğü okuyup belirtilen satırdan sonrasına taşır.
+</TD></TR>
+<TR><TD VALIGN=top>
+       ($)r !command
+</TD><TD>
+!command ile çalıştırılan komutun çıktısını belirtilen satırdan
+sonarsına okur.
+</TD></TR>
+<TR><TD VALIGN=top>
+       (.,.)s/re/replacement/<BR>
+       (.,.)s/re/replacement/g<BR>
+       (.,.)s/re/replacement/n<BR>
+</TD><TD>
+Belirtilen satırlar arasında, belirtilen deyime (re) uyan metinleri
+ belirtilen
+deyimle (replacement) değiştirir.
+<P>
+re ve replacement yeni satır karakteri veya boşluk dışında bir karakter
+olabilir.
+<P>
+Escape kullanılmamış & replacement içinde varsa re deyimine uyumlu
+metini tekrarlar.
+<P>
+`\m' karakter sırası kullanılırsa ve burada m [1-9] arasında
+bir değerse, değişiklik m tane önce yapılan değişikliğe uyan metin ile
+değiştirilir.
+<P>
+Eğer replacement bir tane `%' den oluşuyorsa bir önceki
+değiştirmeden kullanılan replacement metni kullanılacaktır.
+Eğer (\) kullanılırsa yeni satır karakteri metin içine yazılabilir.
+</TD></TR>
+<TR><TD VALIGN=top>
+       (.,.)s  
+</TD><TD>
+Son değişikliği tekrarlar.
+</TD></TR>
+<TR><TD VALIGN=top>
+       (.,.)t(.)
+</TD><TD>
+belitilen satırları komuttan sonra gösterilen satırın arkasına kopyalar.
+</TD></TR>
+<TR><TD VALIGN=top>
+       u       
+</TD><TD>
+Son komutu geri alır.
+</TD></TR>
+<TR><TD VALIGN=top>
+       (1,$)v/re/command-list
+</TD><TD>
+Belirtilen satırlar için
+re deyimine uymayan satırlarda komut listesini uygular.
+</TD></TR>
+<TR><TD VALIGN=top>
+       (1,$)V/re/
+</TD><TD>
+Belirtilen satırlar için
+re deyimine uymayan satırlarda etkileşimli düzeltme yapılmasını sağlar.
+</TD></TR>
+<TR><TD VALIGN=top>
+       (1,$)w file
+</TD><TD>
+Belitilen satırların "file" adlı kütüğe yazılmasını sağlar.
+</TD></TR>
+<TR><TD VALIGN=top>
+       (1,$)wq file
+</TD><TD>
+Belitilen satırların "file" adlı kütüğe yazılmasını sağlar. Ve sonra
+editörü bitirir.
+</TD></TR>
+<TR><TD VALIGN=top>
+       (1,$)w !command
+</TD><TD>
+Belirtilen satırların
+!command komutu ile çalışacak programa girdi olmasını sağlar.
+</TD></TR>
+<TR><TD VALIGN=top>
+       (1,$)W file
+</TD><TD>
+Belirtilen satırların "file" adlı kütüğün sonuna yazılmasını sağlar.
+</TD></TR>
+<TR><TD VALIGN=top>
+       (.)x   
+</TD><TD>
+Belirtilen satırdan sonrasına kesme tampon alanındaki bilginin kopyalanmasını
+sağlar.
+</TD></TR>
+<TR><TD VALIGN=top>
+       (.,.)y  
+</TD><TD>
+Belirtilen satırları kesme tampon alanına koplayamaya yarar.
+</TD></TR>
+<TR><TD VALIGN=top>
+       (.+1)zn 
+</TD><TD>
+Belirtilen adresden başlayarak her seferinde n satır kaydırılmasını sağlar.
+</TD></TR>
+<TR><TD VALIGN=top>
+       !command
+</TD><TD>
+shell açarak komutu çalıştırır.
+</TD></TR>
+<TR><TD VALIGN=top>
+       (.,.)#  
+</TD><TD>
+Bir açıklamayı başları. Bu satırda bundan sonra yazılan herşey
+açıklama olarak kullanılır.
+</TD></TR>
+<TR><TD VALIGN=top>
+       ($)=    
+</TD><TD>
+Belirtilen satırın satır numarasını yazdırır.
+</TD></TR>
+<TR><TD VALIGN=top>
+       (.+1)newline
+</TD><TD>
+Adreslenen satırın satır numarasını yazar ve imleç o satıra gider.
+<HR>
+<br />
+</div>
+               </div>
+             </div>
+           </div>
+
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

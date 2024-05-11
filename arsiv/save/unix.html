@@ -1,0 +1,482 @@
+<HTML>
+<HEAD>
+<TITLE>AYBIM - UNIX</TITLE>
+</HEAD>
+<BODY BGCOLOR="white" LEFTMARGIN=50>
+<TABLE WIDTH="100%" CELLSPACING=10 CELLPADDING=5>
+<TR><TD WIDTH="10%" BGCOLOR="black" VALIGN="TOP">
+&nbsp;
+</TD>
+<TD>
+<H2>UNIX OLANAKLARI<BR>
+İŞLEMLER, KOMUT GİRME, YÖNLENDİRME,<BR>
+İŞLEMLER ARASI İLETİŞİM
+</H2>
+<P>
+<B>UNIX ORTAMI</B>
+<P>
+UNIX özet olarak bellekte çalışan çekirdek bir işletim sistemi 
+<B>(kernel)</B> ve bu program
+tarafından başlatılan diğer işlemlerden (programlardan) oluşur. Kavram 
+olarak UNIX için
+her şey bir kütüktür. Ana bellek, disk, terminallerin bağlandığı seri uçlar,
+disket sürücü, yazıcı bağlantısı, CD sürücü ve diğerleri hepsi bir kütük 
+olarak tanımlıdır.<P>
+UNIX ortamında bir kütük, en az bir byte okunabilen ve/veya yazılabilen birime
+verilen addır. Bir kütüğü açmak, kütükten okumak, kütüğe yazmak ve 
+kütüğü kapatmak için kullanılan komutların tümüne <B>sürücü program</B> adı
+verilir. Sürücü program (driver), ya çekirdek işletim sistemi içine gömülüdür, 
+ya da işletim sistemi tarafından bilgisayar açıldığında belleğe yüklenir.<P>
+UNIX işletim sistemi ilk çalıştığında sürücü programları yükledikten, çevre
+birimlerini tanıdıktan sonra kök kütük yapısını (root file sistem) sisteme 
+bağlar ve bu
+yapı içinden <B>init</B> adlı programı çalıştırır. <B>init</B> UNIX ortamında çalışan ilk
+işlem olduğu için işlem numarası 1 dir. UNIX bellekteki her işlemi
+tekil bir numara ile izler. Bu işlemi başlatmak, durdurmak UNIX 
+tarafından bilinen işlem numarası aracılığı ile yapılır. 
+<B>init</B> önce <B>stdin</B>, <B>stdout</B> ve <B>stderr</B> kütüklerini açar. Bu kütüklerin
+kullanım hakkı <B>init</B> tarafından başlatılan tüm programlara devredilir.
+<B>init</B> kök kütük yapısındaki programları
+başlatmak için <B>/etc/inittab</B> kütüğünü okur. Burada hangi programların ne
+zaman başlatılacağı bilgisi vardır. Bir program, sistem ilk açıldığında,
+tek kullanıcılı ortamda veya çok kullanıcılı ortamda çalışabilir. Sistem
+açıldığında ve tek kullanıcılı ortamda çalıştırılan programlar çoğunlukla
+çevre birimi sürücü programları, iletişim protokolu programları olur.
+Çok kullanıcılı ortamda başlatılan programlar ise kullanıcıların 
+terminallerinden ve modemlerden sisteme girişlerine olanak veren programlardır.
+<P>
+Aşağıdaki örnek, bir inittab kütüğünün içeriğinde bulunan bilgileri
+gösterir. Burada her işlem satırındaki bilgilerin anlamı kısaca şöyle
+açıklanabilir. Birinci bilgi alanı işlem adımının adıdır. İkinci alan,
+işlemin, sistemin hangi çalışma düzeyinde, çalışması gerektiğini belirtir.
+Çalışma düzeyleri 0-6 arasında bir değerdir. Üçüncü alan işlemin hangi konumda
+olması gerektiğini gösterir (respawn, wait, off gibi). Dördüncü alan ise
+çalışacak işlemin kök kütük yapısındaki yerini tanımlar.<P>
+<CENTER><B>/etc/inittab</B></CENTER>
+<HR>
+#<BR>
+# inittab  INIT işleminin nasıl çalışacağını gösteren kütüktür<BR>
+#<BR>
+#
+# Default çalışma düzeyi.<BR>
+id:3:initdefault:<BR>
+<BR>
+# sistem başlama zamanı (sistem boot olurken çalışır).<BR>
+si:S:sysinit:/etc/rc.d/rc.S<BR>
+<BR>
+# Tek kullanıcılı ortama geçiş için gereken komut (çalışma düzeyi 1).<BR>
+su:1S:wait:/etc/rc.d/rc.K<BR>
+<BR>
+# Çok kullanıcı ortama geçiş için gereken komut.<BR>
+rc:23456:wait:/etc/rc.d/rc.M<BR>
+<BR>
+# yeniden boot etmek için gereken işlem (Ctrl+Alt+Del).<BR>
+ca::ctrlaltdel:/sbin/shutdown -t5 -rfn now<BR>
+<BR>
+# Çalışma düzeyi 0, Sistemi durdurur (kapatır).<BR>
+l0:0:wait:/etc/rc.d/rc.0<BR>
+<BR>
+# Çalışma düzeyi 6, sistemi yeniden başlatır (reboot).<BR>
+l6:6:wait:/etc/rc.d/rc.6<BR>
+<BR>
+# Güç kaynağı kesildiğinde yapılacak işlem (Sistemi tek kullanıcılı ortama alma).<BR>
+pf::powerfail:/sbin/shutdown -f +5 "THE POWER IS FAILING"<BR>
+<BR>
+# Kapanmadan güç kaynağı gelirse, kapatma işlemini durdurma.<BR>
+pg:0123456:powerokwait:/sbin/shutdown -c "THE POWER IS BACK"<BR>
+<BR>
+# Tek kullanıcılı ortamda elektrik gerilse, çok kullanıcılı ortama geçme.<BR>
+ps:S:powerokwait:/sbin/init 5<BR>
+<BR>
+# Çok kullanıcılı ortamda sistem konsolu ve terminaller için <B>getty</B> işlemi.<BR>
+#<BR>
+c1:1235:respawn:/sbin/agetty 38400 tty1 vt100<BR>
+c2:1235:respawn:/sbin/agetty 38400 tty2 vt100<BR>
+c3:1235:respawn:/sbin/agetty 38400 tty3 vt100<BR>
+<BR>
+<CENTER>***</CENTER><BR>
+# Seri uçlardan terminaller için getty işlemi<BR>
+#s1:12345:respawn:/sbin/agetty 19200 ttyS0 vt100<BR>
+#s2:12345:respawn:/sbin/agetty 19200 ttyS1 vt100<BR>
+<BR>
+<CENTER>***</CENTER><BR>
+# Telefon hattına bağlı modemler için getty işlemi<BR>
+d1:12345:respawn:/sbin/agetty -mt60 38400,19200,9600,2400,1200 ttyS0 vt100<BR>
+d2:12345:respawn:/sbin/agetty -mt60 38400,19200,9600,2400,1200 ttyS1 vt100<BR>
+<CENTER>***</CENTER><BR>
+<HR>
+<P>
+<B>init</B> tarafından başlatılan programlar veya işlemlerle sistem çok kullanıcılı
+ortama geçer. Çok kullanıcılı ortamda sisteme bağlı terminallere <B>login</B> ekranı
+gelir. Modemler telefon çağrısını bekler konuma geçer. Varsa yerel ağ
+donanımı dışarıdan gelen sinyalleri algılacak komunda bekler. Sisteme başka
+sistemlerden giriş yapılabilmesi için kullanılan sürücü programlara (nfs, nis,
+inetd, lpd gibi) servis sunucu programlar veya <B>deamon</B> adı verilir. Bu programlar
+bellekte <B>dinleme</B> konumunda bulunurlar ve ilk gelen bilgiye cevap verecek
+biçimde beklerler. Çoğu zaman yapılan ilk isteği algılar, bu isteğe cevap
+verebilecek programı çalıştırır ve tekrar <B>bekleme</B> konumuna geçerler.
+<P>
+Yalnız <B>getty</B> programının çalışma sistemi farklıdır. Burada terminal ekranına
+<B>login</B> bilgisi gönderilir ve giriş yapılması beklenir. İlk girilen bilgi
+ile <B>getty</B>, <B>login</B> programını çalıştırıp bellekten silinir. <B>Login</B>, kullanıcı
+adını <B>/etc/passwd</B> kütüğünden kontrol eder, bilgi geçerli ise <B>passwd</B>
+programını çalıştırarak, kullanıcı şifresinin girilmesini beklemeye başlar.
+<B>passwd</B> programı geçerli şifreyi aldıktan sonra <B>/etc/passwd</B> kütüğündeki
+kütük yoluna geçiş yapar ve kullanıcı için tanımlanan işlemi, o kullanıcı
+adına çalıştırır. Bu işlem çoğu kez bir kabuk (shell) programıdır. 
+Özel durumlarda
+ise hiç bir kabuk oluşturmadan, doğrudan uygulama programı başlatılabilir.
+<P>
+<B>KABUK (SHELL) ORTAMI</B>
+<P>
+Kabuk (shell), kullanıcının komut girebilmesi, girdiği komutu çalıştırabilmesi için
+hazırlanmış özel bir programdır. <B>/usr/bin/sh</B> kullanılan programın yolunu
+ve programın adını belirtir. Kabuk programı <B>/etc/passwd</B> kütüğünde
+belirtilen kullanıcı yolunu, o kullanıcı için UNIX kütük yapısı altında 
+<B>kullanıcı yurdu</B>
+(HOME) olarak belirler. Burada bulunan <B>profile</B> adlı kütükten ilk tanımları,
+çevre değişkenleri değerlerini ve çalıştırması gereken programları alır ve
+kullanıcıya komut girmesi için komut simgesi (prompt) görüntüler.<P>
+Artık kullanıcı UNIX ortamında komut girebilir, derleme yapabilir, yetkisi
+ölçüsünde çalıştırabileceği her şeyi kullanır.<P>
+Kullanıcı kabuktan çıkmak için Crtl+D tuşlarına basar veya <B>exit</B> yazar.
+Terminal tekrar <B>init</B> programı kontroluna geçer. <B>init</B> 
+programı <B>/etc/inittab</B>
+kütüğünden bu terminal için çalıştırcağı programı bulur (bu getty adlı
+programdır) ve onu çalıştırır. <B>getty</B> ekrana <B>login</B> bilgisini görüntüler
+ve bilgi girişi yapılmasını bekler.<P>
+UNIX ortamında işletim sistemine bir işlem yaptırmak için kullanıcının sisteme
+girmesi, kendi kabuk programı altından ilgili komutu çalıştırması gerekir.
+UNIX ortamında çalıştırılan bir program, kullanıcının ve kullanıcının bağlı olduğu
+grubun sistem kullanma olanakları ve yetkileri ile sınırlıdır. Teorik
+olarak her kullanıcı, her işlemi çalıştıramaz, başlattığı her işlemde her işi
+yaptıramaz.
+<P>
+Özetlemek gerekirse bir işlem, UNIX altında çalışan bir programdır. Her programı
+başlatan bir program bulunur. Başlatan programa <B>veli</B>, başlatılan programa 
+<B>çocuk</B> denir. <B>veli</B> öldüğünde ya <B>çocuk</B> da ölür, ya da <B>çocuk</B> yetim
+kalmasın diye <B>init</B>, <B>vasi</B> olarak görevi üstlenir. Bir işlem kendi altında
+bir başka işlem başlatırsa o işlemin <B>velisi</B> olur ve onun işletim sistemi
+altındaki kontrolunu elinde bulundurur. Veli-çocuk ilişkisi işletim
+sisteminin olanakları (sınırları) içinde derinleşebilir. İşletim sistemi
+bir kullanıcının iç içe başlatabileceği işlem sayısını ve sistemde çalışan
+toplam işlem sayısını sınırlayabilir.
+<P>
+<B>İŞLEMLER ve STANDARD KÜTÜKLER</B>
+<P>
+Bir kabuk altında çalışan her program UNIX açısından bir işlemdir. UNIX
+her işlemi ayrı ve tekil bir işlem numarası ile bellekte tutar. Bir
+komut çalışırken <B>stdin</B>, <B>sdtout</B> ve <B>stderr</B> kütüklerini 
+açmak gerekmez. Çünkü
+bu kütükler <B>veli</B> program tarafından <B>çocuk</B> işlemin 
+kullanımına sunulmuş
+hazır açık kütüklerdir. Bu kütükler sıra ile 0, 1 ve 2 nolu kütükler
+olarak anılır ve programlarda bu kütük numaraları ile kullanılır.
+Bir işlem <B>stdin</B> olarak kullanıcının tuş takımını, 
+<B>stdout</B> ve <B>stderr</B> olarak kullanıcı ekranını bilir.
+<P>
+Bu kütüklerin nereden alınacağı, nasıl yönlendirileceği komut yazılırken
+belirtilebilir. UNIX ortamındaki giriş/çıkış kütüklerini yönlendirme
+özelliği, programı değiştirmeden değişik bilgi saklama ortamlarından
+bilgi okuyabilme veya değişik ortamlara bilgi yazabilme olanağı getirir.
+<P>
+<B>GİRİŞ/ÇIKIŞ KÜTÜKLERİNİ YÖNLENDİRME</B>
+<P>
+Giriş kütüğünü yönlerdirmek için program komutundan sonra '&lt;' simgesi
+kullanılır. Örneğin :
+<UL>
+$ komut &lt; okuma.dat
+</UL>
+Bu örnekte standart giriş kütüğü yerine bilgiler <B>okuma.dat</B> kütüğünden 
+satır satır
+okunarak programa aktarılır.
+<P>
+Çıkış kütüğünü ekrandan bir başka yöne yönlendirmek için :
+<UL>
+$ komut &gt; yazma.dat
+</UL>
+komutu örneği kullanılır. Burada '&gt;' simgesi çıkış bilgisinin <B>yazma.dat</B>
+kütüğüne yazılmasını sağlar.
+Daha önce var olan bir kütüğün sonuna ek yapmak için '&gt;&gt;' simgeleri
+kullanılır.
+<P>
+Çıkış bilgisinin hiç bir kütüğe yazılmadan silinmesi istenirse
+<UL>
+$ komut &gt; /dev/null
+</UL>
+örneğinde olduğu gibi çıkış bilgisi olmayan kütüğe yönlendirilebilir.
+<P>
+<B>stderr</B> kütüğünü yönlerdirme işlemi normal koşullara göre biraz daha
+karmaşıktır. Burada kullanılan örnek :
+<UL>
+$ komut 2&gt;&amp;1 &gt; okuma.dat
+</UL>
+biçiminde olunca 2 nolu kütük (stderr) önce 1 nolu kütüğe (stdout)
+yönlendirilmekte, sonra bir numaralı kütük <B>okuma.dat</B> kütüğüne
+yönlendirilmektedir. Burada "2&gt;&amp;1" simgeleri arasında boşluk
+bırakılmamalıdır.
+<P>
+<B>KOMUT GİRME ve ÇALIŞTIRMA</B>
+<P>
+Kullanıcı, kabuk program çalıştığında, ekranda komut girme simgesi ile
+karşılaşır. Buraya çalıştırılacak programın adını girer. UNIX kullanıcı
+için tanımlanmış PATH çevre değişkenindeki kütük yolu tanımlarını sıra ile
+arar ve yazılan programı ilk bulduğu yerden belleğe yükleyerek çalıştırır.
+<P>
+Çalışan program göreceli kütükleri kullanıcının yurdundaki kütük yolundan
+veya o anda bulunduğu alandan başlayarak okur veya yaratır.
+<P>
+İsterse kullanıcı bir programın kökten başlayarak tüm yolunu vererek
+başlatabilir. Bu durumda UNIX PATH değişkeni değerlerine bakmaksızın
+istenilen programı belirtilen kütük yolundan okuyup belleğe alır ve
+çalıştırır.
+<P>
+Komut satırında programa parametre aktarma olanağı vardır. Eğer bir
+program komut satırındaki parametreleri algılayabilecek biçimde
+yazılmış ise, komut satırına yazılan her parametre programın
+değişen seçeneklerle kullanılmasını sağlar. Komut satırında çift
+tırnak (") kullanılmadan yazılan her parametre arasındaki boşluklar
+kabuk program tarafından bilgi alanı ayıracı olarak kullanılır. Ama
+(") içine yazılan parametreler bir arada (boşluklar dahil edilerek)
+programa gönderilir.
+Örneğin :
+<UL>
+$ komut param_1 param_2 param_3 ... param_n
+</UL>
+çalıştırılan programa :
+<PRE>
+char *argv[] = {
+      "komut",
+      "param_1",
+      "param_2",
+      "param_3",
+        ...
+      "param_n"
+      };
+</PRE>
+tanımındaki gibi aktarılır. Bu tablodaki toplam eleman sayısı (n+1) dir.
+Programa aktarılan
+ilk parametre komut satırında kaç parametre olduğunu belirtir.
+Tablodaki 0 numaralı eleman her zaman programın adını içerir.
+<UL>
+$ komut param_1 "param_2 param_3 ... param_n"
+</UL>
+biçiminde çalıştırılan programda, programa aktarılan parametre tablosu
+<PRE>
+char *argv[] = {
+      "komut",
+      "param_1",
+      "param_2 param_3 ... param_n"
+      };
+</PRE>
+tanımında olduğu gibidir. Bu örnekte toplam parametre sayısı (3) dür.
+<P>
+<B>İŞLEMLER ARASI İLETİŞİM</B>
+<P>
+<B>PIPE</B>
+Bir işlemin çıkışını diğerinin girişine yönlendirme işlemine verilen genel
+addır. Bu işlem komut satırında (|) işareti ile yapılabilir. Örneğin :
+<UL>
+$ komut_1 | komut_2
+</UL>
+Burada komut_1 çalışırken çıktısı komut_2 için giriş bilgisi olur. PIPE
+işlemi aslında aynı komut satırında çıkış ve giriş kütüklerini yönlendirme
+işlemidir.
+<P>
+Bir program içinden bu tür yönlendirme yapmak için <B>popen</B> (pipe open)
+komutu kullanılır. Bu komutta kütük adı yerine çalıştırılacak program
+yazılır ve PIPE işleminin nasıl olacağı okuma/yazma seçeneğinde
+belirtilir. Eğer bu seçenekte "w" kullanılırsa popen komutu ile açılan
+kütük ilgili program için çıktı kütüğüdür. PIPE komutu ile çalıştırılan program
+ise giriş bilgisini kendisini çağıran programdan alır. Eğer bu alana "r"
+yazılırsa, Çağırılan programın çıktısı çağıran program tarafından popen
+komutu ile açılan kütük aracılığı ile okunmuş olur.
+<P>
+<B>ADLANDIRILMIŞ PIPE (NAMED PIPE)</B>
+<P>
+Bu komut UNIX ortamında kullanılan eski bir işlemler arası iletişim yöntemidir.
+Önce adlandırılmış PIPE <B>mknod</B> komutu ile yaratılır. Birbirleri ile
+iletişim kuracak programlardan biri bu adlandırılmış PIPE'ı giriş kütüğü
+diğeri ise çıkış kütüğü olarak açar. Giriş kütüğü olarak açan PIPE'dan
+bilgi okur. Çıkış kütüğü olarak açan ise PIPE'a bilgi yazar. Tek yönlü
+iletişim bir başka adlandırılmış PIPE aracılığı ile diğer yönde de kurulabilir.
+Diğer bir deyimle bir PIPE çıkış kütüğü olarak açılmış ise aynı programda
+diğer PIPE giriş kütüğü olarak açılır. Diğer program ise öncekinin çıkış
+kütüğü olarak açtığını giriş, giriş kütüğü olarak açtığını çıkış kütüğü
+olarak açarsa iki yönlü iletişim kurulmuş olur. 
+<P>
+Adlandırılmış PIPE bir kez yaratıldıktan sonra hep sistemde kalır.
+<P>
+<B>SOCKET (AF_UNIX PROTOKOLÜ)</B>
+<P>
+AF_UNIX protokolü kullanarak açılan <B>socket</B> ler kavram olarak PIPE
+kullanımına benzer. Bir program <B>socket</B> dinlerken diğeri <B>socket</B> aracılığı
+ile mesaj gönderir, sonra cevap bekler. Bu kullanım biçimindeki 
+en önemli değişiklik bir <B>socket</B>'in
+her iki program tarafından hem mesaj okuma hem de mesaj yazma ortamı olarak
+kullanılabilir olmasıdır.
+<P>
+<B>socket</B> dinleyen program önce <B>socket</B> bilgisini yaratır. Diğer program,
+bu <B>socket</B> bilgisini kullanır. İşlem bittiğinde <B>socket</B> yaratan 
+program (dinleyen) <B>socket</B> bilgisini siler. Eğer sistemde aynı adla
+bir <B>socket</B> varsa, program yeni <B>socket</B> yaratamaz. <B>socket</B>
+kullanılıyor diye mesaj verip işlemi bitirir.
+<P>
+<B>İŞLEMLER ARASI İLETİŞİM (IPC)</B>
+<P>
+UNIX System V kavramları ile işletim sistemine gelen bu özellik üç temel
+bilgiden oluşur :
+<UL>
+<LI>İşlemler arası ortak bellek kullanma,
+<LI>işlemler arası mesaj kuyrukları oluşturma,
+<LI>işlemler arası <B>semaphore</B> kullanımı.
+</UL>
+Kavram olarak; ortak bellek, mesaj kuyrukları ve <B>semaphore</B> sistemde
+işletim sistemi tarafından denetlenen bellek alanlarının adlarıdır.
+Bir işlem bu kavramlardan birini kullanmak istediğinde işletim sistemi
+ya ilgili kavram için bellekte yer açar ya da mevcut kavramın adresini,
+adını veya anahtar bilgisini kullanıcının kullanımına sunar. Bellekteki her
+kavramın bir adı veya anahtar bilgisi vardır. Bu kavramı kullanacak
+program, anahtar bilgi aracılığı ile kavrama erişir, okur, değerini değiştirir
+veya kuyruğa yeni bilgi ekler.
+<P>
+Bu bölümde her kavramın nasıl kullanıldığı, anlamı kısaca anlatılmıştır.
+<UL>
+<LI><B>ORTAK BELLEK</B><P>
+    <B>shmget</B>, <B>shmat</B>, <B>shmdt</B> komutları ortak bellek
+    işlemlerinde programlar tarafından kullanılır.<P>
+    <B>shmget</B> Bu komut işletim sisteminin, ortak bellek kesidi
+    ataması yapması için kullanılır. Program hangi anahtar bilgi
+    için ne kadar uzunlukta bellek ataması yapılacağını belirtir. Bu
+    anahtar bilgi için daha önce atanmış alan varsa adresi programa
+    geri dönerken, işletim sistemi hiç bir bilgi bulamaz ise komutun
+    özelliğine göre iki işlem yapar :<P>
+    <UL>
+    <LI>Eğer komutta IPC_CREAT tanımlanmış ise hemen bellek alanı açar ve
+    adını (identifier) programa geri döndürür. 
+    <LI>Eğer komutta IPC_CREAT yoksa, bir başka
+    program alan açıncaya kadar ilk programı bekletir.
+    </UL><P>
+    <B>shmat</B> Bu komut daha önce shmget komutundan alınan ortak bellek
+    adının komutu kullanan programa atanması için gereklidir. Atama
+    ilgili ortak belleğin programdaki veri kesimine bağlanması anlamına
+    gelir.<P>
+    <B>shmdt</B> Bu komut daha önce atanmış ortak belleğin bağlantısını
+    kaldırmak için kullanılır.<P>
+    <P>
+    <B>Örnek :</B><P>
+    <PRE>
+    shmid = shmget((key_t) SUBESHM,
+                   sizeof(struct GDATA),
+                   0666 | IPC_CREAT);
+    shr_ptr = (char *)shmat(shmid, NULL, 0);
+    </PRE><P>
+    Bu komutlarla program adres değişkeni olan <B>shr_ptr</B> işletim
+    sistemi tarafından yaratılan ortak belleği hem okuma hem de yazma
+    amaçlı kullanabilir.<P>
+<LI><B>MESAJ KUYRUĞU</B><P>
+    <B>msgget</B>, <B>msgsnd</B>, <B>msgrcv</B> komutları mesaj kuyruğu
+    kavramları için programlarda kullanılır.
+    <P>
+    <B>msgget</B> Bu komut mesaj kuyruğu adını almak için kullanılır. Eğer
+    daha önce bu mesaj tipi için bellekte kuyruk açılmamış ise işletim
+    sistemi IPC_CREAT seçeneği ile mesaj kuyruğunu açar ve tanımını
+    programa geri gönderir.
+    <P>
+    <B>msgsnd</B> Bu komut bir kez msgget ile alınmış olan mesaj adını
+    kullanarak mesaj kuyruğuna bilgi göndermek için kullanılır. işlem
+    seçeneğinde IPC_NOWAIT varsa, mesajın kuyruklanması yeterlidir.
+    Program işlemlerine devam eder. Eğer IPC_NOWAIT yoksa mesaj
+    kuyruktan okununcaya kadar beklenir.
+    <P>
+    <B>msgrcv</B> Mesaj kuyruğundan bilgi okuyacak program mesaj adını
+    msgget komutu ile alır, daha sonra okuyacağı mesaj numarasını
+    kuyruktan almak için msgrcv komutunu kullanılır. İlgili program
+    mesaj kuyruğuna aynı mesaj numarası ile mesaj koymuş ise onu
+    okur. Eğer IPC_NOWAIT tanımlanmışsa ve mesaj bulunamaz ise okuyan
+    program işlemlerine devam eder. IPC_NOWAIT kullanılmamış ise
+    kuyruğa mesaj yazılıncaya kadar bekler.
+    <P>
+    <B>Örnek :</B>
+    <PRE>
+    struct MSGBUF {
+        long mtype;
+        char msg[MAXMSG];
+        };
+    struct MSGBUF msgbuf;
+             .
+             .
+             .
+    *********** mesaj gonderen program *********
+    msgid = msgget((key_t)SUBEMSG, 0666 | IPC_CREAT);
+    msgtype = no;
+    msgsnd(msgid, &msgbuf, 
+           sizeof(struct MSGBUF), 
+           msgtype, 
+           IPC_WAIT);
+    *********** mesaj okuyan program ***********
+    msgid = msgget((key_t)SUBEMSG, 0666 | IPC_CREAT);
+    msgtype = no;
+    msgrcv(msgid, &msgbuf, 
+           sizeof(struct MSGBUF), 
+           msgtype, 
+           IPC_WAIT);
+    </PRE>
+    Bu örnekte mesaj okuyan program <B>msgrcv</B> komutunda bekler. Aynı
+    şekilde mesaj gönderen program da <B>msgsnd</B> komutunda bekler.
+    Her iki komut işlemini bitirdikten sonra programlar bir sonraki adıma
+    geçer. Eğer IPC_WAIT yerine IPC_NOWAIT kullanılmış olsaydı
+    yukarıdaki örnekte gönderme işlemi yapan program kuyruğa
+    bilgiyi yazıp hemen bir sonraki işleme geçecek, diğer
+    programın mesajı alıp almamasını beklemeyecekti. Aynı mantıkla
+    okuma yapan program msgrcv komutunda beklemeyecek, eğer mesaj
+    yoksa veya daha hazır değilse bir sonraki işlemden program akışına
+    devam edecekti.
+    <P>
+<LI><B>SEMAPHORE</B><P>
+    <B>semget</B>, <B>semop</B> komutları ilgili kavram için
+    programlarda kullanılır.
+    <P>
+    <B>semget</B> Bu komut istenilen anahtar bilgi için işletim sistemi
+    tarafından atanan <B>semaphore</B> kümesinin adını (identifier) döndürür. 
+    Eğer aynı
+    anahtar bilgi ile sistemede tanımlı <B>semaphore</B> kümesi yoksa ve komut
+    kullanımında IPC_CREAT belirtilmiş ise işletim sistemi <B>semaphore</B>
+    kümesi yaratır ve yaratılan <B>semaphore</B>'un adını döndürür.
+    <P>
+    <B>semop</B> Bu komut <B>semaphore</B> kullanımında yapılacak işlemleri
+    tanımlamak için kullanılır. <B>struct sembuf</B> yapısında belirtilen
+    işlemlerin ne amaç için kullanıldığı bu yapı tanımındaki bilgilerin
+    alacağı değerlerle ilişkilidir. Bu yapı tanımında bulunan : <P>
+    <PRE>
+    short sem_num;
+    short sem_op;
+    short sem_flg;
+    </PRE>
+    değişkenleri yapılacak işlemi tanımlamada önemli değerler alır.
+    <B>sem_flg</B> içinde bulunan IPC_NOWAIT ve SEM_UNDO işlev
+    tamamlanmadığında <B>semaphore</B> işlemini geri almak için kullanılır.
+    <B>sem_num</B> ilk değeri 0 ile başlayan ve aynı küme içinde yer alan
+    <B>semaphore</B>'ları tanımlar. <B>sem_op</B> değeri artı bir sayısal
+    değer ise <B>semval</B> değişkenini arttırır. 
+    Eğer <B>sem_flg</B> içinde IPC_NOWAIT tanımlanmamış
+    ise bu işlev aşağıdakilerden biri oluşuncaya kadar bekler : <P>
+    <OL>
+    <LI><B>semval</B> değeri 0 olunca,
+    <LI><B>semaphore</B> kümesi bellekten silinince,
+    <LI>işlevi başlatan program bir sinyal alıp işlemi kesince.
+    </OL><P>
+    <B>sem_op</B> eksi bir değer ise <B>semval</B> değişkeni eksiltilir. Bu
+    işlem için programın <B>semaphore</B> kümesini değiştirebilme 
+    yetkisi olmalıdır.
+    <P>
+</UL>
+</TD></TR>
+<TR>
+<TD COLSPAN=2>
+<HR>
+<A HREF="http://www.aybim.com.tr/">Ana Sayfaya</A>
+&nbsp;&nbsp;<A HREF="index.html">Teknik Bilgiler Sayfasina</A>
+</TD></TR></TABLE>
+</BODY>
+</HTML>

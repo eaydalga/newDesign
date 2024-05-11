@@ -1,0 +1,132 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Hyperlink Preprocessor </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">30 Mart 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>Çeşitli İşlevler</h2>
+
+<h3>Giriş</h3>
+
+Bu işlevler başka sınıflara ve kategorilere uymadığından buraya alındı.
+
+<h3>Çalışma Zamanı Ayarları</h3>
+
+php.ini ayarlarıyla bu işlevlerin davranışı etkilenir.
+
+<h3>Çeşitli Ayar Seçenekleri</h3>
+<table class="yazi">
+<tr><td>Adı</td><td>Varsayılan</td><td>Değişebilir</td><td>DeğişmeKaydı</td></tr>
+<tr><td>ignore_user_abort</td><td>"0"</td><td>PHP_INI_ALL</td><td></td></tr>
+<tr><td>highlight.string</td><td>"#DD0000"</td><td>PHP_INI_ALL</td><td></td></tr>
+<tr><td>highlight.comment</td><td>"#FF8000"</td><td>PHP_INI_ALL</td><td></td></tr>
+<tr><td>highlight.keyword</td><td>"#007700"</td><td>PHP_INI_ALL</td><td></td></tr>
+<tr><td>highlight.bg</td><td>"#FFFFFF"</td><td>PHP_INI_ALL</td><td>PHP 6.0.0. sürümünde kaldırıldı</td></tr>
+<tr><td>highlight.default</td><td>"#0000BB"</td><td>PHP_INI_ALL</td><td></td></tr>
+<tr><td>highlight.html</td><td>"#000000"</td><td>PHP_INI_ALL</td><td></td></tr>
+<tr><td>browscap</td><td>NULL</td><td>PHP_INI_SYSTEM</td><td></td></tr>
+</table>
+
+PHP_INI_* değişmezleri hakkında daha çok bilgi için php.ini yönelticilerine
+bakın.
+
+Ayar yönelticleri hakkında kısa açıklama aşağıda anlatılmıştır.
+<dl>
+<dt>ignore_user_abort mantıksal
+
+    <dd>Varsayılan olarak FALSE. Eğer TRUE olarak değişirse istemci bağlantıyı kesse de kodlama işini bitirmez.
+<br /><br />
+    ignore_user_abort() işlevine de bakın.
+highlight.bg yazı dizisi highlight.comment yazı dizisi highlight.default yazı dizisi highlight.html yazı dizisi highlight.keyword yazı dizisi highlight.string yazı dizisi
+<br /><br />
+    Yazım parlaklık (Highlighting) konumu, renkleri &lt;font color="??????"&gt; gibi yazarak kabul edilebilecek herşeyi çalıştırır.
+<dt>browscap yazı dizisi
+
+   <dd> Adı (örneğin: browscap.ini) ve tarayıcı yetenekleri dosyasının yeri için get_browse() işlevine de bakılmalıdır.
+</dd></dt>
+</dl>
+Önceden Tanımlı Değişmezler
+
+Aşağıdaki değişmezler bu uzantıyla tanımlıdır ve uzantı çaışınca geçerlidir.
+<dl>
+<dt>CONNECTION_ABORTED (tamsayı)</dt>
+<dt>CONNECTION_NORMAL (tamsayı)</dt>
+<dt>CONNECTION_TIMEOUT (tamsayı)</dt>
+<dt>__COMPILER_HALT_OFFSET__ (tamsayı)
+    <dd>PHP 5.1. sürümünde eklendi
+</dd></dt>
+</dl>
+
+İçindekiler
+<ul>
+    <li> connection_aborted — istemcinin bağlantısı kopmuş mudur bak
+    <li> connection_status — Rbağlantı durumu bit alanını döndürür
+    <li> connection_timeout — kodlama zaman aşımına bak
+    <li> constant — Bir değişmezin değerini döndürür
+    <li> define — Adlandırılan değişmezi tanımlar
+    <li> defined — Verilen değişmez var mıdır bak
+    <li> die — çıkış eşdeğeridir
+    <li> eval — Bir yazı dizisini PHP kodu olarak çalıştır
+    <li> exit — bir mesajı çıktıya yazdır ve kodlamayı durdur.
+    <li> get_browser — Kullanıcının tarayıcısının nelere yetenekli olduğunu
+söyler
+    <li> __halt_compiler — Derleyicinin çalışmasını durdurur
+    <li> highlight_file — Bir dosyanın yazım parlaklığı (Syntax highlighting)
+    <li> highlight_string — Yazı dizisinin yazım parlaklığı (Syntax highlighting)
+    <li> ignore_user_abort — istemci bağantısının kesilmesi kodlama çalışmasını durdurur mu ayarlar
+    <li> pack — veriyi ikili diziye paketle
+    <li> php_check_syntax — Belirtilen dosyayı PHP yazımı açısından denetle (ve çalıştır)
+    <li> php_strip_whitespace — kaynak kodlardan açıklamaları ve boşlukları soyarak döndürür
+    <li> show_source — highlight_file eşdeğeri
+    <li> sleep — Geçirtirmeyi çalıştırma
+    <li> sys_getloadavg — Sistem yük ortalamasını alma
+    <li> time_nanosleep — saniye ve nano saniye türünden geçikme olur
+    <li> time_sleep_until — belirtilen zaman için "sleep" kodlaması
+    <li> uniqid — Tekil ID yaratma
+    <li> unpack — İkili diziden verinin pakaetini aç
+    <li> usleep — mikro saniye olarak Delay çalıştırma
+</ul>
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

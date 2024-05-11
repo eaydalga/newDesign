@@ -1,0 +1,79 @@
+<html>
+<body>
+<div id="sag"><span class="yazi">3 Aralık 2007</span></div>
+<h2>Başvuru</h2>
+<div class="yazi">
+<h3>Tarayıcılar Nasıl etkilenir</h3>
+
+Başvuru (gönderim) doğru öğrenmenin en zor kısmıdır.
+Gerekli olan yöntemlerin, değişik tarayıcıların hepsinde çalıştığına emin olunması gerekir. Burada en çok kullanılan tarayıcılardan Javascript kullananların listesi vardır.
+<br />
+<br />
+En yüksek Javascript desteği Opera ve Mozilla tarayıcılarında vardır. Ama pekçok kod çok zayıf yazılmıştır ve uygulanabilirliği birkaç tarayıcı için geçerlidir. Maalesef IE güzel bir Javascript desteğine sahip değildir. Çoğu kez standartlarla uyumlu değildir. Pek çok kişi standart olmayan eklentilere dayanarak kod yazarlar. Pek çoğu kullandıkları özelliklerin standart dışı olduğunu bile bilmezler. Başka tarayıcılar bu eklentilerin bazılarını uyarlamış olabilirler. Belki yalnız kodların çalışmasına yetecek kadarı uyarlanmıştır.
+
+<br />
+<br />
+Burada incelenebilecek kadar çok tarayıcıya bakılmış ve kodlama karşısından nasıl davrandıkları gözlenip sayfalar hazırlanmıştır. Buraya yazılanların pek çoğunda çalışır olabilmesine gayret edilmiştir. Burada standart sürüm kulalnılmış, ancak standart sürüm yetersiz olduğunda dışına çıkılmıştır.
+<h3>Nesne Sıradüzeni</h3>
+
+To reference items (objects) on the page, refer to an object structure or hierarchy. The topmost object is usually 'document' and the next will be different depending on the document structure. Most elements (HTML tags) cannot be referenced in all 4th generation browsers. Those that can are:
+Bir sayfadaki öğelere (nesnelere) erişim, nesnel yapısya ya da sıradüzene göre olur. En üst düzeydeki belge çoğu zaman 'document' olur. Daha sonaki belge yapısına göre değişir. Bir çok öğeye (HTML biçimleri) dördüncü kuşak tarayıcılarda erişilemez bile. Aşağıda hangileri olduğu gösterilmiştir:
+<br />
+<ul class="yazi">
+    <li> body, document olarak erişilir</li>
+    <li> div, tarayıcı bağımlı erişimler vardır, 'id' biçimiyle hedeflenebilir.</li>
+    <li> span, tarayıcı bağımlı erişimler vardır. 'id' biçimiyle hedeflenebilir (bu erişimleri hiç kullanmamak daha doğru olabilir. Dördüncü kuşak tarayıcılarda hatalar vardır. Kullanırsanız ortaya çıkabilir).</li>
+    <li> img, belge nesnesiyle erişilebilir, hedefleme 'name' ile yapılır.</li>
+    <li> a, belge nesnesiyle erişilebilir, hedefleme dizin sırasıyla (index) ile olur.</li>
+    <li> form, belge nesnesiyle erişilebilir, hedefleme 'name' ile yapılır.</li>
+    <li> input, select or textarea, form ile erişilebilir ve hedefleme 'name' ile yapılır</li>
+</ul>
+<br />
+In most browsers, these components will be available to scripts immediately after they have been written. If being written by script, they should be available immediately, but in some older browsers they may not be available until that script has completed executing (after the </script> tag). In some more poorly written old browsers, these document components will only be available after the document has loaded.
+Birçok tarayıcıda, bu bölümler yazıldıktan hemen sonra kodlama kullanıma açıktır, ama bazı eski tarayıcılarda kodlama çalışmasını bitirinceye dek (&lt;/script&gt; biçiminden sonra) açık olmayabilirler.
+
+<br />
+<br />
+You can detect when the document has loaded using the window.onload event (which can also be written in HTML as 
+belgenin ne zaman yüklendiğini window.onload olayıyla öğrenebilirsiniz (HTML'de nasıl yazıldığı aşağıda gösterilmiştir).
+<br />
+<pre>
+&lt;body onload= ...).
+</pre>
+<br />
+Strangely, Gecko browsers (Mozilla/Firefox/Netscape 6+) will need at least one non-entity character to be written between the element's opening tag and the script, even if the element is an image, or the element will not be available to script until after the page loads.
+Tuhaftır ki, Gecko tarayıcılar (Mozilla/Firefox/Netscape 6+) tarayıcılarında öğenin başlangıç biçimi ve kodlama arasında en az bir karakter olmalıdır. Öğe resim bile olsa, ya da kodlama sayfa yüklenmeden açık olmaz.
+<br />
+<br />
+
+There are a few others elements that can be referenced. For a full list of objects, properties, collections and methods, refer to the section on The JavaScript object.
+Başvurulabilen birkaç öğe daha vardır. Tüm nesneler, özellikler, toplamalar ve yöntemler Javascript nesnelerine başvurur.
+<br />
+<br />
+
+I have written a generic referencing function that can be used to reference all document components that can be referenced (except links), but I suggest you work through the next few sections of the tutorial first instead of taking a shortcut. You might actually understand what I am doing, instead of blindly using my code without knowing how it works.
+Tüm belge parçalarına erişebilen (bağlar hariç) soysal başvuru işlevi yazıldığında sonraki yazıları kısa kesmeden inceleyin. Gerçekten anlarsınız ki, incelemeden körü körüne yazılan kodu kullanmamak gerekir.
+<h3>Başvuru çelişkilerini önleme</h3>
+
+Unutmayın ki Javascript adları küçük-büyük harf duyarlıdır. Adlar a-z ve A-Z ya da _ ile başlar ve a-z, A-Z, 0-9 ve _ karakterlerini içerir. Ad kurallarındaki alışkanlık adların yaptığı işe uygun adlandırılmalıdır. Eğer ad bir kelimeden uzunsa, alt çizgi kullanmak iyidir. Genelde herkes ilk kelime dışındaki her kelimenin ilk harfini büyük yazar.
+<br />
+<br />
+
+Örneğin sizin hakkınızda yazı içeren bir değişkenin adı için 'hakkimizdaki yazi' olacaksa, boşlukları kaldırıp, kelimenin ilk harfi büyük yapılınca değişkenin adı 'hakkimizdakiYazi' biçimini alır.
+<br />
+<br />
+
+Başvuru çelikşilerini önlemek için, Javascript nesneler ya da belge öğeleri aynı ad verilmemeli (giriş alan adları hariç).
+<br />
+<br />
+
+Değişkenler, işlevler, HTML biçimlerinin 'names' ve 'id' değerleri için ad seçerken, bir dizi saklı sözcük vardır. Bunlar: 
+abstract, arguments, boolean, break, byte, case, catch, char, class, const, continue, debugger, default, delete, do, double, else, enum, export, extends, false, final, finally, float, for, function, goto, if, implements, import, in, instanceof, int, interface, long, native, new, null, package, private, protected, public, return, short, static, super, switch, synchronized, this, throw, throws, transient, true, try, typeof, var, void, volatile, while, with.
+<br />
+<br />
+
+Ek olarak, var olan  özelliklerin ve yöntemlerin enversel nesnelerin adları kullanılmamalıdır (nesne adlarını ibilhassa ezmek isterseniz aynı adı kullanabilirsiniz).
+</div>
+<br />
+</body>
+</html>

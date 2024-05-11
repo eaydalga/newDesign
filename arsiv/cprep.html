@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<TITLE>AYBIM - C ONDERLEYICI</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onload="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="ortataraf">
+           <span><img src="../img/transparent.gif" width="1" height="50">
+           <img src="../img/transparent.gif" width="780" height="1"></span>
+           <div id="banner">
+             <img src="img/baslik.gif"><br />
+             <div id="mycontainer">
+               <div id="content">
+<div id="bdy" class="yazi">
+<br>
+<br>
+<div id="sag"><span class="yazi">24 Ocak 2008</span></div>
+<H2>C ÖNDERLEYİCİSİ KOMUTLARI</H2>
+<HR>
+<P>
+<B>ÖNDERLEYİCİ ve MACROLAR</B>
+<P>
+Bir program içinde uzun kodlama yapmak yerine kodlamayı kolaylaştırması 
+açısından işlevler veya "macro" kullanmak gerekir. Eğer kısaltmak için
+kullanılacak kodlama bir işlev haline dönüştürülünce daha da uzuyorsa
+"macro" tanımlamak daha iyi olabilir. Bir program içinde aynı değişmezi
+bir adla anmak ve bu adı tanımlamak, ileride değişmezin değerini
+değiştirmek söz konusu olduğunda o değişmezin bulunduğu tüm deyimleri
+arayıp tek tek düzeltmek yerine bu değişmez yerine tanımlanan adın değerini
+değiştirmek daha kolay olur.
+<P>
+Örneğin kullanacağımız değişmez 0 veya 1 ise, program içinde
+DOGRU ve YANLIS için veya EVET ve HAYIR için aynı değişmez kullanılmış olabilir.
+Programda yapılan değişiklikle EVET ve HAYIR yerine kullanılacak 0 ve 1 bundan
+böyle 1 ve 2 olacak denildiğinde, program içindeki 0 ve 1 değişmezlerinin
+tek tek aranması, EVET ve HAYIR için kullanılmış olanların belirlenip yeni
+kurala göre değiştirilmesi yeni hatalara neden olabileceği gibi çok da
+zaman alabilir. Halbuki EVET ve HAYIR adlı tanımlar bulunsa ve bu tanımları
+0 ve 1 değerinden 1 ve 2 değerine değiştirsek, bir derleme ile tüm değişiklik
+hataya neden olmadan uygulanmış olur.<P>
+<H4>ÖN DERLEYİCİ KOMUTLARI</H4>
+<P>
+C dilinde önderleyici için <B>#define</B> deyimi kullanılır. Burada "#"
+satırın ilk kolonundan başlamalıdır. En azından bazı C derleyicileri için bu
+zorunludur.<P>
+Bir değişmeze ad verme işlemi için :<P>
+<UL>
+<PRE>
+#define DEGISMEZ_ADI   {deger}
+</PRE>
+</UL>
+<P>
+tanımı kullanılır. Önderleyici kodlama içinde "DEGISMEZ_ADI" gordüğü 
+her yere bu tanımdaki değeri taşır. <P>
+<UL>
+<PRE>
+örneğin :
+
+#define VAR        1
+#define YOK        0
+</PRE>
+</UL>
+<P>
+Bir değer, kaynak programda bir satıra sığmıyorsa, satırın sonuna konan
+"\" simgesi satır sonundaki '\n' (yenisatır) simgesini kaldırır. 
+Böylece "define" tanımı ilk geçerli yenisatır simgesine kadar uzatılmış olur.<P>
+<B>Define</B> deyimi <B>macro</B> tanımlamakta da kullanılır. <B>Macro</B>
+tanımlarında macro adından sonra yenisatır simgesine kadar olan tüm bilgi
+macro tanımı olarak kabul edilir. Macro tanımlarında da "\" simgesi kuralı
+geçerlidir. Macrolarda parametre kullanılabilir. Parametreler macro adından
+sonra açılan parantezde belirtilir. Parametreler için açılan parantezlerle
+macro adı arasında boşluk olmamalıdır. Yoksa önderleyici parametre tanımını
+macronun kendisi zannederek hatalı açılım yapar. Macroya ait parametreler
+macro içinde kullanılırken mutlaka parantez içinde yazılmalıdır. Yoksa macro
+parametresi olarak bir aritmetik deyim kullanılırsa, macro açıldığında
+işlem önceliği sıralamasında hatalar oluşabilir.
+<P>
+<UL>
+<PRE>
+örnek :
+
+#define my_abs(x)   ((x) >= 0) ? (x) : (-x)
+</PRE>
+</UL>
+<P>
+Bu örnekte "my_abs" macro tanımı parametrenin mutlak değerini kullanmak
+için hazırlanmıştır.
+<P>
+<HR>
+<a href="../index.html">Ana Sayfaya</a>
+&nbsp;&nbsp;<A HREF="index.html">Teknik Bilgiler Sayfasina</A>
+<br />
+</div>
+               </div>
+             </div>
+           </div>
+
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+          <a href="../index.html" class="box"><img src="../img/aybim.png"></a><br /><br />
+          <a href="aglar.html" class="nav">Aglar</a>
+          <a href="aglink.html" class="nav">Aglink</a>
+          <a href="agteknik.html" class="nav">Agteknik</a>
+          <a href="ccode.html" class="nav">C-Kodlama</a>
+          <a href="cprep.html" class="nav">C-Önişleme</a>
+          <a href="crclrc.html" class="nav">CRC/LRC</a>
+          <a href="dea.html" class="nav">DEA</a>
+          <a href="etcsrv.html" class="nav">etcsrv</a>
+          <a href="fork.html" class="nav">Çatal (fork)</a>
+          <a href="ilet.html" class="nav">ilet</a>
+          <a href="inetd.html" class="nav">inetd</a>
+          <a href="make.html" class="nav">Make</a>
+          <a href="msgauth.html" class="nav">Msg Auth</a>
+          <a href="recur.html" class="nav">Özyinelemeli</a>
+          <a href="robots.html" class="nav">Robotlar için</a>
+          <a href="sdlc.html" class="nav">SDLC</a>
+          <a href="secure.html" class="nav">Güvenlik</a>
+          <a href="seri.html" class="nav">Seri uçlar</a>
+          <a href="snalu0.html" class="nav">SNA LU0</a>
+          <a href="snalu62.html" class="nav">SNA LU6.2</a>
+          <a href="tcpip.html" class="nav">tcp/ip</a>
+          <a href="tcpprg.html" class="nav">tcp Programı</a>
+          <a href="unix.html" class="nav">Unix</a>
+          <a href="vi.html" class="nav">vi Editör</a>
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

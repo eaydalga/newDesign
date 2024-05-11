@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Aybim </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script language="JavaScript" src="../js/XHConn.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+
+function oku(s)
+{
+var myConn = new XHConn();
+
+var fnBitti = function (oXML) {
+   if(document.getElementById) {
+      target1=document.getElementById('canvas');
+      if(target1) {
+            target1.innerHTML = '';
+            target1.innerHTML=oXML.responseText;
+      }
+   }
+ };
+myConn.connect(s, "GET", "", fnBitti);
+}
+function oz(aa)
+{
+ayarla();
+oku(aa);
+}
+</script>
+</head>
+
+<body onLoad="oz('htmltxt.html');">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="javascript:oku('htmltxt1.html');" class="nav">Öğeler</a>
+               <a href="javascript:oku('htmltxt2.html');" class="nav">Biçimler</a>
+               <a href="javascript:oku('htmltxt3.html');" class="nav">Kalıplama</a>
+               <a href="javascript:oku('htmltxt4.html');" class="nav">Varlıklar</a>
+               <a href="javascript:oku('htmltxt5.html');" class="nav">Bağlar</a>
+               <a href="javascript:oku('htmltxt6.html');" class="nav">Çerçeveler</a>
+               <a href="javascript:oku('htmltxt7.html');" class="nav">Tablolar</a>
+               <a href="javascript:oku('htmltxt8.html');" class="nav">Listeler</a>
+               <a href="javascript:oku('htmltxt9.html');" class="nav">Formlar</a>
+               <a href="javascript:oku('htmltxt10.html');" class="nav">Resimler</a>
+               <a href="javascript:oku('htmltxt11.html');" class="nav">Art-Alan</a>
+               <a href="javascript:oku('htmltxt12.html');" class="nav">Renkler</a>
+               <a href="javascript:oku('htmltxt13.html');" class="nav">RenkDeğerleri</a>
+               <a href="javascript:oku('htmltxt14.html');" class="nav">RenkAdları</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>HTML</h2></center>
+       <div id="ortataraf">
+<!-- html sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+         </div>
+         <span><img src="img/notebook1.gif"></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+           <img src="../img/transparent.gif" height="64" width="1"><br /><br />
+           <div class="ymenublock">
+               <font color="#8e9ccb"><h3>Gelişmiş</h3></font>
+               <a href="javascript:oku('ahtmltxt1.html');" class="ynav">Yerleşim</a>
+               <a href="javascript:oku('ahtmltxt2.html');" class="ynav">YazıTipleri</a>
+               <a href="javascript:oku('ahtmltxt3.html');" class="ynav">Stiller</a>
+               <a href="javascript:oku('ahtmltxt4.html');" class="ynav">Başlık</a>
+               <a href="javascript:oku('ahtmltxt6.html');" class="ynav">URL-Adresleri</a>
+               <a href="javascript:oku('ahtmltxt7.html');" class="ynav">YazıDüzeni</a>
+               <a href="javascript:oku('ahtmltxt8.html');" class="ynav">Nitelikler</a>
+               <a href="javascript:oku('ahtmltxt9.html');" class="ynav">Olaylar</a>
+               <a href="javascript:oku('ahtmltxt10.html');" class="ynav">URL-Kodlama</a>
+               <a href="javascript:oku('ahtmltxt11.html');" class="ynav">Muzik-Kodu</a>
+               <a href="javascript:oku('ahtmltxt12.html');" class="ynav">Video-Kodu</a>
+               <a href="javascript:oku('ahtmltxt13.html');" class="ynav">WEB-Sunucu</a>
+           </div>
+       </div>
+    </td></tr>
+    </table>
+</div>
+<div id="canvas">
+</div>
+</body>
+</html>

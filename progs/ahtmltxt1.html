@@ -1,0 +1,296 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>HTML - Yerlesim </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="htmltxt1.html" class="nav">Öğeler</a>
+               <a href="htmltxt2.html" class="nav">Biçimler</a>
+               <a href="htmltxt3.html" class="nav">Kalıplama</a>
+               <a href="htmltxt4.html" class="nav">Varlıklar</a>
+               <a href="htmltxt5.html" class="nav">Bağlar</a>
+               <a href="htmltxt6.html" class="nav">Çerçeveler</a>
+               <a href="htmltxt7.html" class="nav">Tablolar</a>
+               <a href="htmltxt8.html" class="nav">Listeler</a>
+               <a href="htmltxt9.html" class="nav">Formlar</a>
+               <a href="htmltxt10.html" class="nav">Resimler</a>
+               <a href="htmltxt11.html" class="nav">Art-Alan</a>
+               <a href="htmltxt12.html" class="nav">Renkler</a>
+               <a href="htmltxt13.html" class="nav">RenkDeğerleri</a>
+               <a href="htmltxt14.html" class="nav">RenkAdları</a>
+               <font color="#8e9ccb"><h3>Gelişmiş</h3></font>
+               <a href="ahtmltxt1.html" class="nav">Yerleşim</a>
+               <a href="ahtmltxt2.html" class="nav">YazıTipleri</a>
+               <a href="ahtmltxt3.html" class="nav">Stiller</a>
+               <a href="ahtmltxt4.html" class="nav">Başlık</a>
+               <a href="ahtmltxt6.html" class="nav">URL-Adresleri</a>
+               <a href="ahtmltxt7.html" class="nav">YazıDüzeni</a>
+               <a href="ahtmltxt8.html" class="nav">Nitelikler</a>
+               <a href="ahtmltxt9.html" class="nav">Olaylar</a>
+               <a href="ahtmltxt10.html" class="nav">URL-Kodlama</a>
+               <a href="ahtmltxt11.html" class="nav">Muzik-Kodu</a>
+               <a href="ahtmltxt12.html" class="nav">Video-Kodu</a>
+               <a href="ahtmltxt13.html" class="nav">WEB-Sunucu</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>HTML</h2></center>
+       <div id="ortataraf">
+<!-- html sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">1 Aralık 2007</span></div>
+<h2>Yerlesim</h2>
+
+<div class="yazi">
+<p class="yazi">HTML Yerleşimi çok basittir. Gövdenin kendisi için fazla seçenek yok denebilir. Ama tablolar HTML sayfalarının ekmekle tereyağı gibidir. Bir tablonun hücresine herhangi bir öğe yerleştirilebilir. Bu bir başka tablo da olabilir.</p>
+<p class="yazi">Kaynak:
+Daha geniş bilgi için <http://www.w3.org/People/Raggett>Gelişmiş Özellikler</a> konulu sayfayı tıklayın.</p>
+
+<h3>Satır kırılmalarını zorlama</h3>
+<p class="yazi">
+Arada sırada satır kırılmaları zorlanmak istenir. Bunu yapmak için "br" biçimi kullanılır. Örneğin posta adresinde bunu kullanırsınız:
+</p>
+<pre>
+&lt;p&gt;The Willows&lt;br&gt;
+21 Runnymede Avenue&lt;br&gt;
+Morton-in-the-marsh&lt;br&gt;
+Oxfordshire OX27 3BQ&lt;/p&gt;
+</pre>
+
+<p class="yazi">
+"br" biçimi hiçbir zaman bitiş biçimi istemez. Bu tür bitiş biçimi istemeyen kodlamaya "empty" (boş) öğe denir.
+</p>
+
+<h3>Boşluklar nasıl eklenebilir</h3>
+<p class="yazi">
+Tarayıcı yazıyı otomatik olarak sağ ve sol kenarlara oturacak biçimde düzenler. Satır kırıcılar boşluk bırakılacak her yere eklenebilir. Bazen tarayıcının iki sözcük arasındaki boşluklar yerine satır kırılması koyması istenmez. Örneğin marka adı olan "Coca Cola" bu tür sözcüklerdendir. Burada "&amp;nbsp;" kullanmak iyi bir çözümdür. "Coca&amp;nbsp;Cola" tek sözcük gibi göründüğünden (bu özelliğini koruduğundan) satır kırılmasına uğramaz. Örneğin:
+</p>
+<pre>
+Tatladırılmış karbonatlı içeceklerden Coca&amp;nbsp;Cola,
+Dünyaca ünlü olmuştur.
+</pre>
+<p class="yazi">
+Satırı içerden yazdırmak için yinelenen kırılamayan boşluk yazmak iyi bir örnek değildir. Yerine "stil" kuralları kullanılmalıdır.
+</p>
+<h3>Önceden kalıplanan yazı</h3>
+
+<p class="yazi">WEB sayfalarının en önemli özelliği satırlar tarayıcı penceresine göre satıra yayılır (yeniden düzenlenir). Bazen bu özellik kaldırılmak istenir. Özellikle program kodlarını görüntülerken kullanmak gerekir. Bu işlem için "pre" biçimi kullanılır. Örneğin:</p>
+<pre>
+&lt;pre&gt;
+    void Node::Remove()
+    {
+        if (prev)
+            prev->next = next;
+        else if (parent)
+            parent->SetContent(null);
+
+        if (next)
+            next->prev = prev;
+
+        parent = null;
+    }
+&lt;/pre&gt;
+</pre>
+<p class="yazi">Aşağıdaki biçimde görünür:</p>
+<pre>
+    void Node::Remove()
+    {
+        if (prev)
+            prev->next = next;
+        else if (parent)
+            parent->SetContent(null);
+
+        if (next)
+            next->prev = prev;
+
+        parent = null;
+    }
+</pre>
+Yazı ve art alan renkleri stil sayfalarıyla belirlenir. Unutmayın ki tüm satır kırılmaları ve boşluklar HTML'de göründüğü biçimde gerçekleşir.
+Bir istisna olarak "&lt;pre&gt;" biçiminden hemen sonra gelen yeni satır ve "&lt;/pre&gt;" biçiminden önceki yeni satır dikkate alınmaz.
+Aşağıdaki yazılımın her ikiside aynı biçimde yorumlanır:
+<pre>
+lt;pre&gt;önceden kalıplanmış yazı&lt;/pre&gt;
+</pre>
+
+<pre>
+&lt;pre&gt;
+önceden kalıplanmış yazı
+&lt;/pre&gt;
+</pre>
+
+<p class="yazi">
+Önceden kalıplanmış yazılarda tekdüze yazı tipleri kullanılır. Bu tür yazılarda boşluklar olsun, harfler olsun hep aynı endedir.
+Eğer "pre" biçimi için stil kurallarında tekdüze yazı tipleri yerine bazı tarayıcılarda değişik yazı tipleri kullanılabilir. Örneğin tüm "pre" biçimlerinde yeşil renk kullanmak istenirse:</p>
+
+<pre>
+&lt;style type="text/css"&gt;
+  pre { color: green; background: white; font-family: monospace; }
+&lt;/style&gt;
+</pre>
+
+Eğer yazı için renk belirlerseniz, art alan için de renk belirtmekte yarar vardır. Bu art alan rengiyle yazı renginin ayrımındaki zorluğu önlemek için gereklidir. "pre" öğesi için art alan rengi belirtmek yerine "body" için bu rengi tanımlamak daha iyidir.
+
+<pre>
+&lt;style type="text/css"&gt;
+  body { color: black; background: white; }
+  pre { color: green; font-family: monospace; }
+&lt;/style&gt;
+</pre>
+</div>
+
+<h3>HTML - Yerleşiminde Tablolar</h3>
+<div class='yazi'>
+<fieldset class="fyazi">
+   <pre>
+&lt;table id="shell" bgcolor="black" border="1" heigh="200" width="300"&gt;
+&lt;tr&gt;&lt;td&gt;
+&lt;table id="inner" bgcolor="white" heigh="100" width="100"&gt;
+&lt;tr&gt;&lt;td&gt;Tables inside tables!&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+   </pre>
+</fieldset>
+</div>
+<h2>Tablo içinde tablolar</h2>
+<div class='yazi'>
+<table ID="shell" BGCOLOR="black" BORDER="1" HEIGH="200" WIDTH="300">
+<tr><td>
+    <table ID="inner" BGCOLOR="white" HEIGH="100" WIDTH="100">
+    <tr><td>Tablo içinde tablolar!</td></tr>
+    </table>
+</td></tr>
+</table>
+</div>
+
+<p class="yazi">Beyaz tablo (iç tablo olarak adlandırılmış) kabuk tablonun (siyah olanın) içinde yer alır. Bu özellik sınırsız yerleşim olanaklarının oluşmasına yardımcı olur.</p>
+
+<h3>HTML - Standart Yerleşim</h3>
+<p class="yazi">Oldukça yaygın bir standart yerleşim, üst bölümde bir logo ve manşet, bağlar ve içerik görüntüleme kutusundan oluşur. Pek çok büyük web sitesinin omurgası bu standart gibidir.</p>
+
+<pre class='fyazi'>
+&lt;table cellspacing="1" cellpadding="0" border="0"
+ bgcolor="black" id="shell" height="250" width="400"&gt;
+&lt;tr height="50"&gt;&lt;td colspan="2" bgcolor="white"&gt;
+&lt;table title="Banner" id="mybanner" border="0"&gt;
+&lt;tr&gt;&lt;td&gt;Manteşi buraya yerleştirin&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr height="200"&gt;&lt;td bgcolor="white"&gt;
+&lt;table id="navigation" title="Navigation" border="0"&gt;
+&lt;tr&gt;&lt;td&gt;Bağlar!&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Bağlar!&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Bağlar!&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;td bgcolor="white"&gt;
+&lt;table title="Content" id="mycontent" border="0"&gt;
+&lt;tr&gt;&lt;td&gt;İçerik buraya gelir&lt;/td&gt;&lt;/tr&gt;
+
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+</pre>
+
+<h2>Temel Yerleşim</h2>
+<div class='yazi'>
+<table CELLSPACING="1" CELLPADDING="0" BORDER="0" BGCOLOR="black" ID="shell" HEIGHT="250" WIDTH="400">
+<tr HEIGHT="50"><td COLSPAN="2" BGCOLOR="white">
+<table TITLE="Banner" ID="mybanner" BORDER="0">
+<tr><td>Manteşi buraya yerleştirin</td></tr>
+</table>
+</td></tr> <tr HEIGHT="200"><td BGCOLOR="white">
+
+<table ID="navigation" TITLE="Navigation" BORDER="0">
+<tr><td>Bağlar!</td></tr>
+<tr><td>Bağlar!</td></tr>
+<tr><td>Bağlar!</td></tr>
+</table>
+</td><td BGCOLOR="white">
+<table TITLE="Content" ID="mycontent" BORDER="0">
+<tr><td>İçerik buraya gelir</td></tr>
+</table>
+</td></tr></table>
+</div>
+
+<p class="yazi">Bu yaklaşım çok temel olsa da çok düzenlidir. WEB sitelerinin pek çoğunda görüntü o kadar karmaşık olur ki görüntüleyen sayfaları izlemekte güçlük çeker.
+Karmaşıklık arttıkça sayfaların görüntülenme hızı ve tabloların enleriyle boyları sorun olmaya başlayabilir. Hatta her tablonun boyutunu önceden ayarlamak zorunda kalabilirsiniz.
+</p>
+
+<pre class='fyazi'>
+&lt;table id="shell" title="Shell" height="250" width="400"
+ border="0" bgcolor="black" cellspacing="1" cellpadding="0"&gt;
+&lt;tr height="50"&gt;&lt;td bgcolor="white"&gt;
+&lt;table title="banner" id="mybanner"&gt;
+&lt;tr&gt;&lt;td&gt;Manteş buraya gelir&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr height="25"&gt;&lt;td bgcolor="white"&gt;
+&lt;table title="Navigation" id="navigation"&gt;
+&lt;tr&gt;&lt;td&gt;Bağlar!&lt;/td&gt;
+&lt;td&gt;Bağlar!&lt;/td&gt;
+
+&lt;td&gt;Bağlar!&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td bgcolor="white"&gt;
+&lt;table title="Content" id="mycontent"&gt;
+&lt;tr&gt;&lt;td&gt;İçerik buraya gelir&lt;/td&gt;&lt;/tr&gt;
+
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+</pre>
+
+
+<h2>Temel Yerleşim 2</h2>
+<div class="yazi">
+<table ID="shell" TITLE="Shell" HEIGHT="250" WIDTH="400" BORDER="0" BGCOLOR="black" CELLSPACING="1" CELLPADDING="0">
+<tr HEIGHT="50"><td BGCOLOR="white">
+	<table TITLE="banner" ID="mybanner">
+	<tr><td>Manşet buraya gelir</td></tr>
+	</table>
+</td></tr>
+<tr HEIGHT="25"><td BGCOLOR="white">
+	<table TITLE="Navigation" ID="navigation">
+	<tr><td>Bağlar!</td><td>Bağlar!</td><td>Bağlar!</td></tr>
+	</table>
+</td></tr>
+<tr><td BGCOLOR="white">
+	<table TITLE="Content" ID="mycontent">
+	<tr><td>İçerik buraya gelir</td></tr>
+	</table>
+</td></tr></table>
+</div>
+
+<p class="yazi">Kod, incelemek için yeterince büyüktür. Bu nedenle ayrıntılarına girilmemiştir. Ama parçalara bölüp incelemek (isteyen için) daha kolay olabilir.</p>
+
+<br />
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

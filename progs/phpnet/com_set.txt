@@ -1,0 +1,23 @@
+
+com_set
+
+(PHP 4)
+
+com_set — Assigns a value to a COM component's property
+Description
+void com_set ( resource $com_object , string $property , mixed $value )
+
+Sets the value of the property of the COM component referenced by com_object . Returns the newly set value if succeeded, FALSE on error.
+
+Example#1 Don't use com_set(), use OO syntax instead
+<?php 
+// do this
+$obj->property = $value;
+// instead of this:
+com_set($obj, 'property', $value);
+?>
+
+    Note: This function does not exist in PHP 5; instead, you should use the regular and more natural OO syntax to access properties or call methods. 
+
+
+

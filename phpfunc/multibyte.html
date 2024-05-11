@@ -1,0 +1,970 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Hyperlink Preprocessor </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">15 Nisan 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>Çoklu bayt yazı dizisi işlevleri (Multibyte String Functions)</h2>
+
+<h3>Giriş</h3>
+
+Dünyadaki pekçok dil 9 bitlik bayt gösterilimiyle tüm yazı karakterlerini
+tanımlayabilirler. Daha birçok dil için 8 bitlik bayt karakter takımlarını
+göstermeye yetmez. Bu nedenle çoklu bayt kodlaması geliştirilmiş, 256
+karakterden daha çok karakteri olan diller için kullanılmıştır.
+<br /><br />
+Çoklu bayt kodlamasında (uçlarda boşlukları silme, ayırma, dilimleme vb)
+işlemler yapılırken karakter tabanına göre işlem yapılır. Böyle olmasa burada
+belirtilen işlevler çoklu bayt karakterleri algılayamaz ve saçma sonuçlar
+üretir.
+<br /><br />
+mbstring provides multibyte specific string functions that help you deal with multibyte encodings in PHP. In addition to that, mbstring handles character encoding conversion between the possible encoding pairs. mbstring is designed to handle Unicode-based encodings such as UTF-8 and UCS-2 and many single-byte encodings for convenience (listed below).
+mbstring çok baytlı yazı dizileri işlevlerinin PHp içinde çok baytlı kodlamayı
+kullanmalarını sağlar. Buna ek olarak mbstring olanaklı iki kodlama arasında karakter kodlama çevirilimini de ele alır (UTF-8 ve UCS-2 arasında olduğu gibi).
+
+<h3>PHP Karakter Kodlama Gereksinimi</h3>
+
+PHP aşadıdaki kodlamalar güvenle kullanılabilir.
+<ul>
+    <li> Tek baytlık kodlama
+         <ul>
+          <li> ASCII uyumludur (ISO646 uyumlu) Karakterler 00h ile 7fh arasındaki sınırda bulunur.
+         </ul>
+    <li> Çok baytlı kodlama
+         <ul>
+          <li> 00h ile 7fh arasındaki karakterler ASCII karşılıklarına çevrilir.
+          <li> ISO2022 atlatma sıralamasını kullanmaz
+          <li> 00h ile 7fh arasındaki değeri taşımayan birleşik baytların tek karakterle gösterilimini kullanmaz.
+         </ul>
+</ul>
+
+Bunlar PHP ile çalışmayacak kodlamalardır.
+<pre>
+    JIS, SJIS, ISO-2022-JP, BIG-5
+</pre>
+Bu kodlamalardan biriyle yazılmış PHP kodu büyük bir olasılıkla
+çalışmayabilir. Özellikle kod içinde tanıtıcı olarak kullanılan kodlanmış yazı dizileri ya da değişmezler sorunu, mbstring saydam kodlama filitresi işlevleriyle giderilir. HTTP'den gelen sorgulamalarda bu çözüm önemlidir.
+<br /><br />
+    Not: içsel kodlamada SJIS, BIG5, CP936, CP949 ve GB18030 kullanılması
+teşvik edilmez. Ama taramayla, karakter kodlamasıyla ve aramayla ilgili
+bilginiz yeterliyse bunları kullanabilirsiniz.
+<br /><br />
+    Not: PHP ile bir veritabanına bağlanırsanız, veritabanı ve içsel kodlamada
+daha verimli olması açısından aynı karakter kodlamasını kullanmanızda yarar
+vardır.
+<br /><br />
+PostgreSQL kullanıyorsanız, veritabanındaki kodlamanızla PHP kodlamanızda
+değişik karakter kodlaması kullanmanız sorun çıkartmaz. Çünkü önyüz ve
+arkayüzde kodlama çevirimi veritabanı için otomatik yapılmaktadır.
+
+<h3>Kurulum</h3>
+
+mbstring varsayılan bir uzantı değildir. Varsayılan olarak açık değildir.
+Modülü "configure" seçeneğiyle açabilirsiniz. Bu konuda kurulum açıklamalarına
+bakın.
+
+Aşağıdaki "configure" seçenekleri mbstring modülüyle ilgilidir.
+<ul>
+    <li> --enable-mbstring: mbstring işlevlerini açar. Bu seçenek mbstring işlevleri için gereklidir.
+<br /><br />
+      libmbfl mbstring için gereklidir. libmbfl mbstring ile paketlenmiştir. Eğer libmbfl sistemde kuruluysa, --with-libmbfl[=DIR] kurulu kitaplığın yerini göstermek için kullanılır.
+<br /><br />
+PHP 4.3.0 sürümünden sonra mbstring uzantısı  basitleşmiş Çince, Geleneksel
+Çince, Korece, ve Rusça ile Japanca dillerini destekler
+<br /><br />
+PHP 4.3.3 ya da öncesinde bu özelliği açmak için LANG değikeçinde
+--enable-mbstring=LANG; kullanılır. Basitleştirilmiş Çince desteği için --enable-mbstring=cn, Geleneksel Çince desteği için  --enable-mbstring=tw,  Korece desteği için --enable-mbstring=kr, Rusça desteği için --enable-mbstring=ru, Japonca desteği için --enable-mbstring=ja bu amaçla kullanılan seçeneklerdir.
+<br /><br />
+          Not: PHP 4.3.4 sürümüyle, libmbfl ile desteklenen tüm kodlamalar --enable-mbstring ile açılır.
+
+    <li> --enable-mbstr-enc-trans : 
+HTTP giriş karakteri kodlama çevirimi mbstring çevirme makinesini kullanır.
+Eğer bu olanak açılırsa, HTTP giriş karakteri kodlaması
+mbstring.internal_encoding içine otomatik çevirme yapar.
+<br /><br />
+          Not: As of PHP 4.3.0, the option --enable-mbstr-enc-trans was eliminated and replaced with the runtime setting mbstring.encoding_translation. HTTP input character encoding conversion is enabled when this is set to On (the default is Off).
+
+    <li> --disable-mbregex: Çoklu bayt desteği olan kurallı deyim işlevlerini kapatır.
+</ul>
+
+<h3>Çalışma Zamanı Ayarları</h3>
+
+php.ini ayarları bu işlevlerin davranışını etkiler.
+
+<h3>mbstring ayarlama seçenekleri</h3>
+
+<table class="yazi">
+<tr><td>Adı</td><td>Varsayılan</td><td>Değişebilir</td><td>DeğişmeKaydı</td></tr>
+<tr><td>mbstring.language</td><td>"neutral"</td><td>PHP_INI_PERDIR</td><td>PHP 4.3.0. den beri var</td></tr>
+<tr><td>mbstring.detect_order</td><td>NULL</td><td>PHP_INI_ALL</td><td>PHP 4.0.6. den beri var</td></tr>
+<tr><td>mbstring.http_input</td><td>"pass"</td><td>PHP_INI_ALL</td><td>PHP 4.0.6. den beri var</td></tr>
+<tr><td>mbstring.http_output</td><td>"pass"</td><td>PHP_INI_ALL</td><td>PHP 4.0.6. den beri var</td></tr>
+<tr><td>mbstring.internal_encoding</td><td>NULL</td><td>PHP_INI_ALL</td><td>PHP 4.0.6. den beri var</td></tr>
+<tr><td>mbstring.script_encoding</td><td>NULL</td><td>PHP_INI_ALL</td><td>PHP 4.3.0. den beri var</td></tr>
+<tr><td>mbstring.substitute_character</td><td>NULL</td><td>PHP_INI_ALL</td><td>PHP 4.0.6. den beri var</td></tr>
+<tr><td>mbstring.func_overload</td><td>"0"</td><td>PHP_INI_PERDIR</td><td>PHP <= 4.2.3. içindeki PHP_INI_SYSTEM PHP 4.2.0. den beri var</td></tr>
+<tr><td>mbstring.encoding_translation</td><td>"0"</td><td>PHP_INI_PERDIR</td><td>PHP 4.3.0. den beri var</td></tr>
+<tr><td>mbstring.strict_detection</td><td>"0"</td><td>PHP_INI_ALL</td><td>PHP 5.1.2. den beri var</td></tr>
+</table>
+
+
+PHP_INI_* değişmezlerinin tanımların için ini_set() konusuna bakın.
+<br /><br />
+Burada ayar yönelticilerinin tanımlanı bulunur.
+<dl>
+<dt>mbstring.language yazı dizisi
+
+    <dd> mbstring içinde kullanılan varsayılan yerel dil ayarı (NLS). Bu seçenek
+otomatik olarak mbstring.internal_encoding ve mbstring.internal_encoding
+tanımlar. Bu nedenler php.ini içinde mbstring.language sonrasında olmalıdır.
+</dd></dt>
+<dt>mbstring.encoding_translation mantıksal
+
+    <dd>Gelen HTTP sorguları için saydam karakter kodlama filitresini açar. Bu
+da geleni anlar ve içsel karakter kodlamasına çevirir.
+</dd></dt>
+<dt>mbstring.internal_encoding yazı dizisi
+
+    <dd>Varsayılan içsel karakter kodlamasını tanımlar.
+</dd></dt>
+<dt>mbstring.http_input yazı dizisi
+
+    <dd>varsayılan HTTP giriş karakteri kodlamasını tanımlar.
+</dd></dt>
+<dt>mbstring.http_output yazı dizisi
+
+    <dd>Varsayılan HTTP çıkış kodlama karakteri.
+</dd></dt>
+<dt>mbstring.detect_order yazı dizisi
+
+    <dd>Varsayılan karakter kodlaması tanıma sırasını tanımlar.  mb_detect_order() konusuna bakın.
+</dd></dt>
+<dt>mbstring.substitute_character yazı dizisi
+
+    <dd>Karakter kodlamasının tanımsız karakteri için tanımlanan karakter.
+</dd></dt>
+<dt>mbstring.func_overload yazı dizisi
+
+    <dd>Overloads a set of single byte functions by the mbstring counterparts. See Function overloading for more information.
+</dd></dt>
+<dt>mbstring.strict_detection mantıksal
+
+    <dd>doğrudan kodlama tanıma işlemini açar.
+</dd></dt>
+</dl>
+HTML 4.01 tanımlamalarına göre, bir sayfaya girilen bilginin kodlaması
+sayfadakinden farklı olsa bile onu değiştirme izini vardır. tarayıcının
+kullandığı karakter kodlamasını anlamak için mb_http_input() işlevine bakın.
+<br /><br />
+Tanınmış tarayıcılar HTML sayfasının kodlaması hakkında doğruya yakın tahminde
+bulunsalar bile, HTML başlığında Content-Type değişgeçine karakter
+kodlamasının değerini yazmak daha iyidir.
+
+<h3>Örnek-1 php.ini örnekleri ayarlama</h3>
+<pre>
+; Varsayılan dili ayarlama
+mbstring.language        = Neutral; Set default language to Neutral(UTF-8) (default)
+mbstring.language        = English; Set default language to English 
+mbstring.language        = Japanese; Set default language to Japanese
+
+;; Varsayılan içsel kodlamayı ayarlama
+;; Not: PHP ile karakter kodlamasının çalıştığını doğrulayın
+mbstring.internal_encoding    = UTF-8  ; İçsel kodlamayı UTF-8'e ayarlayın
+
+;; HTTP giriş kodlaması çevirimi açıldı.
+mbstring.encoding_translation = On
+
+;; HTTP giriş karakteri kodlamasını ayarla
+;; Not: Program kodlaması http_input ayarlarını değiştirmez.
+mbstring.http_input           = pass    ; Çevirim yok
+mbstring.http_input           = auto    ; HTTP girişini auto yap
+         ; "auto" "ASCII,JIS,UTF-8,EUC-JP,SJIS" olarak genişletilir
+mbstring.http_input           = SJIS    ; HTTP2 girişini SJIS olarak ayarla
+mbstring.http_input           = UTF-8,SJIS,EUC-JP ; Sıralamayı belirle
+
+;; Varsayılan HTTP çıktı karakteri kodlamasını ayarlar
+mbstring.http_output          = pass    ; Çevirim yok
+mbstring.http_output          = UTF-8   ; HTTP çıkış kodlamasını UTF-8'e ayarla
+
+;; Varsayılan karakter kodlama tanım sırasını ayarla
+mbstring.detect_order         = auto    ; Tanımlama sırasını auto olarak ayarla
+mbstring.detect_order         = ASCII,JIS,UTF-8,SJIS,EUC-JP ; Sıralı belirle
+
+;; Varsayılan değiştirilecek karakter sırasını belirle
+mbstring.substitute_character = 12307   ; Unicode değerini belirle
+mbstring.substitute_character = none    ; Karakteri yazma
+mbstring.substitute_character = long    ; Uzun örnek: U+3000,JIS+7E7E
+</pre>
+<h3>Örnek-2 php.ini EUC-JP kullanıcıları için ayarlama</h3>
+<pre>
+;; Çıktı tamponlamasını kapat
+output_buffering      = Off
+
+;; HTTP başlık karakterini ayarla
+default_charset       = EUC-JP    
+
+;; Varsayılan dili Japanco yap
+mbstring.language = Japanese
+
+;; HTTP giriş kodlaması çevirimi açıldı
+mbstring.encoding_translation = On
+
+;; HTTP giriş kodlaması çevirimi auto yapıldı
+mbstring.http_input   = auto 
+
+;; HTTP çıkışını EUC-JP koduna çevir
+mbstring.http_output  = EUC-JP    
+
+;; içsel kodlamayı EUC-JP  yap
+mbstring.internal_encoding = EUC-JP    
+
+;; Geçersiz karakterleri yazdırma
+mbstring.substitute_character = none   
+</pre>
+<h3>Örnek-3 php.ini SJIS kullanıcıları için ayarlar</h3>
+<pre>
+;; Çıktı tamponlamasını aç
+output_buffering     = On
+
+;; mb_output_handler değerini çıktı çevirimi yapmaya ayarla
+output_handler       = mb_output_handler
+
+;; HTTP başlık karakter takımını ayarla
+default_charset      = Shift_JIS
+
+;; varsayılan dili Japonca yap
+mbstring.language = Japanese
+
+;; HTTP giriş kodlama çevirimini auto yap
+mbstring.http_input  = auto 
+
+;; SJIS koduna çevir
+mbstring.http_output = SJIS    
+
+;; İçsel kodlamayı EUC-JP yap
+mbstring.internal_encoding = EUC-JP    
+
+;; geçersiz karakterleri yazdırma
+mbstring.substitute_character = none   
+</pre>
+
+<h3>Önceden Tanımlı Değişmezler</h3>
+
+Aşağıdaki değişmezler bu uzantı için geçerlidir ve uzantı yüklendiğinde
+kullanılabilir.
+
+<pre>
+MB_OVERLOAD_MAIL (tamsayı)
+MB_OVERLOAD_STRING (tamsayı)
+MB_OVERLOAD_REGEX (tamsayı)
+MB_CASE_UPPER (tamsayı)
+MB_CASE_LOWER (tamsayı)
+MB_CASE_TITLE (tamsayı)
+</pre>
+
+<h3>HTTP Girdi ve Çıktısı</h3>
+
+HTTP giriş/çıkış karakter kodlaması çevirimi ikili veriyi de çevirebilir. Eğer
+HTTP giriş/çıkışında ikili veri kullanılmışsa çevirimin kontrolu kullanıcılar
+tarafından yapılmalıdır.
+<br /><br />
+    Not: PHP 4.3.2 ya da önceki sürümlerde, bu işlevsellikte bir sınırlama vardı. mbstring POST verilerde eğer "form" öğesi multipart/form-data olarak ayarlanmışsa karakter çevirimini yapmıyordu. Bu durumda gelen verinin çevirimini siz yapmak zorundaydınız.
+PHP 4.3.3'den başlayarak HTML "form" için "enctype" multipart/form-data olarak
+ayarlanmışsa mbstring.encoding_translation değeri php.ini içinde On olarak
+ayarlanır. POST edilen değişkenler ve yüklenen dosyaların adları işsel
+kodlamaya göre çevrilir. Ama çevirim sorgulama anahtarlarına uygulanmaz.
+<ul>
+    <li> HTTP Girdisi
+
+PHP kodlamalarından HTTP giriş karakter çevirimini kontrol etmenin bir yolu
+yoktur. Bunun php.ini içinden yapılması gerekir.
+
+      <h3>Örnek-4 php.ini içindeki giriş çevirimini kapatın</h3>
+<pre>
+      ;; HTTP giriş çevirimini kapatın
+      mbstring.http_input = pass
+      ;; HTTP giriş çevirimini kapatın (PHP 4.3.0 ya da üstü için)
+      mbstring.encoding_translation = Off
+</pre>
+
+PHP Apache modülü olarak kullanıldığında, bu ayarların üzerine yazma olanağı
+her sanal sunucu yönelticisinde vardır. httpd.conf ya da her dosya yolundaki
+.htaccess ile de ayarlar değişebilir.
+    <li> HTTP Çıktısı
+
+Çıktı karakteri kodlaması çevirimi için birkaç yol vardır. Bunlardan biri
+php.ini kullanarak, diğeri on_start() geri besleme işlevi olarak mb_output_handler() ile ob_start() kullanarak.
+<br /><br />
+          Not: PHP3-i18n kullanıcıları mbstring çıktısı çevirimi PHP3-i18n'den farklıdır. Karakter kodlaması çıktı tamponunu kullanarak çevrilir.
+</ul>
+
+<h3>Örnek-5 php.ini ayarları örneği</h3>
+<pre>
+;; Çıktı karakter kodlamasını tüm PHP sayfaları için yapar
+
+;; Çıktı tamponunu aç
+output_buffering    = On
+
+;; çıktı çevirimini açmak için mb_output_handler ayarla
+output_handler      = mb_output_handler
+</pre>
+<h3>Örnek-6 Kodlama örneği</h3>
+<pre>
+&lt;?php
+
+// Yalnız bu sayfa için karakter kodlaması çevirimini açma
+
+// HTTP çıktı karakter kodlamasını SJIS yap
+mb_http_output('SJIS');
+
+// Tamponlamayı başlat ve "mb_output_handler" işlevini
+// geri besleme işlevi olarak belirt
+ob_start('mb_output_handler');
+
+?&gt;
+</pre>
+
+<h3>Desteklenen Karakter Kodlamaları</h3>
+
+Şu anda aşağıdaki karakter kodlamaları mbstring modülüyle desteklenir.
+Bunlardan herhangi biri mbstring işlevinin kodlama değişkeçinde
+tanımlanabilir.
+<br /><br />
+PHP uzantısında aşağıdaki kodlamalar desteklenmiştir.
+<ul>
+    <li> UCS-4
+    <li> UCS-4BE
+    <li> UCS-4LE
+    <li> UCS-2
+    <li> UCS-2BE
+    <li> UCS-2LE
+    <li> UTF-32
+    <li> UTF-32BE
+    <li> UTF-32LE
+    <li> UTF-16
+    <li> UTF-16BE
+    <li> UTF-16LE
+    <li> UTF-7
+    <li> UTF7-IMAP
+    <li> UTF-8
+    <li> ASCII
+    <li> EUC-JP
+    <li> SJIS
+    <li> eucJP-win
+    <li> SJIS-win
+    <li> ISO-2022-JP
+    <li> JIS
+    <li> ISO-8859-1
+    <li> ISO-8859-2
+    <li> ISO-8859-3
+    <li> ISO-8859-4
+    <li> ISO-8859-5
+    <li> ISO-8859-6
+    <li> ISO-8859-7
+    <li> ISO-8859-8
+    <li> ISO-8859-9
+    <li> ISO-8859-10
+    <li> ISO-8859-13
+    <li> ISO-8859-14
+    <li> ISO-8859-15
+    <li> byte2be
+    <li> byte2le
+    <li> byte4be
+    <li> byte4le
+    <li> BASE64
+    <li> HTML-ENTITIES
+    <li> 7bit
+    <li> 8bit
+    <li> EUC-CN
+    <li> CP936
+    <li> HZ
+    <li> EUC-TW
+    <li> CP950
+    <li> BIG-5
+    <li> EUC-KR
+    <li> UHC (CP949)
+    <li> ISO-2022-KR
+    <li> Windows-1251 (CP1251)
+    <li> Windows-1252 (CP1252)
+    <li> CP866 (IBM866)
+    <li> KOI8-R
+</ul>
+Kodlama adını kabul eden bir php.ini giriş noktası, "auto" ve "pass"
+değerlerini de kullanabilir. mbstring işlevi kodlama adını kabul edebilirse
+"auto" değerini de kullanabilir.
+<br /><br />
+Eğer "pass" ayarlanmışsa karakter kodlaması çevirimi yapılmaz.
+<br /><br />
+Eğer "auto" ayarlanmışsa, tanımlı her NLS için kodlamaların listesini açar.
+Örneğin eğer NLS Japonca olarak ayarlanmışsa, değer
+"ASCII,JIS,UTF-8,EUC-JP,SJIS" olur.
+<br /><br />
+mb_detect_order() işlevine de bakın
+
+<h3>İşlevin üzerine yükleme Özelliği </h3>
+
+Verilen bir PHP uygulamasının multibyte ortamda çalışması oldukça zordur.
+Bunun nedeni bir çok PHP uygulamasının substr() gibi standart işlevlerle
+yazılmış olmasıdır. Bu tür işlevler multibyte kodlanmış yazı dizileri için
+elverişli değildir.
+<br /><br />
+mbstring 'işlevin üzerine yüklenmesi' özelliğini destekler. Bu da multibyte
+farkındalığını açar ve uygulamada kodlama değişikliğine gitmeden standart yazı
+dizisi işlevlerinin yerine multibyte eşdeğerlerinin kullanımı sağlanır.
+Örneğin mb_substr() eğer işlevin üzerine yüklemesi açıksa, substr() yerine çağrılır. Bu özellik tek bayt ortamlar için yazılmış kodlamanın multibayt ortamında kullanılmasını sağlar.
+<br /><br />
+İşlev yüklemeyi kullanmak için, php.ini içindeki mbstring.func_overload
+ayarı yapılır. Bu positif değer bit maskelerinin kombinasyonlarının
+belirlediği katagorileri gösterir. Örneğin değer 1 olursa mail() işlevi
+üzerine yükleme yapılabilir. 2 olursa yazı dizisi işlevlerine, 4 olursa
+kurallı deyimlerin işlevlerine yükleme yapılabilir. Örneğin bu değer 7 olursa
+mail, yazı dizisi ve kurallı deyim işlevleri üzerine yükleme yapılabilir.
+Yüklenecek işlevler aşağıda belirtilmiştir.
+
+<h3>Yüklenecek İşlevler</h3>
+<table class="yazi">
+<tr><td>mbstring.func_overload değeri</td><td>Asıl işlev</td><td>yüklenen işlev</td></tr>
+<tr><td>1</td><td>mail()</td><td>mb_send_mail()</td></tr>
+<tr><td>2</td><td>strlen()</td><td>mb_strlen()</td></tr>
+<tr><td>2</td><td>strpos()</td><td>mb_strpos()</td></tr>
+<tr><td>2</td><td>strrpos()</td><td>mb_strrpos()</td></tr>
+<tr><td>2</td><td>substr()</td><td>mb_substr()</td></tr>
+<tr><td>2</td><td>strtolower()</td><td>mb_strtolower()</td></tr>
+<tr><td>2</td><td>strtoupper()</td><td>mb_strtoupper()</td></tr>
+<tr><td>2</td><td>substr_count()</td><td>mb_substr_count()</td></tr>
+<tr><td>4</td><td>ereg()</td><td>mb_ereg()</td></tr>
+<tr><td>4</td><td>eregi()</td><td>mb_eregi()</td></tr>
+<tr><td>4</td><td>ereg_replace()</td><td>mb_ereg_replace()</td></tr>
+<tr><td>4</td><td>eregi_replace()</td><td>mb_eregi_replace()</td></tr>
+<tr><td>4</td><td>split()</td><td>mb_split()</td></tr>
+</table>
+
+    Not: 
+Her dosya yolunda işlev yükleme seçeneğini kullanmak önerilen bir yöntem
+değildir. Çünkü üretim ortamı için hala tam denenmiş değildir.
+
+<h3>Japonca multi-bayt kodlama temelleri</h3>
+
+Japonca karakterler ancak çoklubayt kodlamasıyla gösterilebilir ve çoklu
+kodlama standartları ortama ve amaca göre kullanılır. İşleri daha da
+karıştırmak için bu kodlama standartlarının biri diğerinden azıcık farklıdır.
+Japaonca ortamda kullanışlı olabilecek bir Web uygulaması için geliştirici bu
+karmaşıklığı dikkate almalıdır.
+<ul>
+    <li> Bir karakter en çok altı bayt kadar olabilir.
+    <li> Pekçok Japonca çoklu-bayt karakterleri tek baytlık karakterlerin iki katı kadar görünürler. Buna Japonca'da "zen-kaku" (tam boy) denir. diğer dar karakterlere "han-kaku" (yarım enli) denir. Grafik özellikleri onları görüntülemekte kullanılan yüzün türüne bağımlıdır.
+    <li> Bazı karakter kodlamaları atlatmalı (escape) sıralama kullanır (ISO-2022 de tanımlandığı gibi). Bunların kod alanı 00h ile 7fh arasında olur.
+    <li> ISO-2022-JP SMTP/NNTP ile kullanılmalıdır, ve başlıklarla giriş noktaları RFC gereksinimine göre yeniden kodlanmalıdır. Bunlar gerekli olmasa da kullanmak iyi bir fikirdir.
+    <li> Mobil telefonlar servisleri (i-mode, Vodafone live! ya da EZweb gibi) için hazırlanan Web sayfaları Shift-JIS kullanır.
+</ul>
+
+<h3>Kaynaklar</h3>
+
+Çoklu bayt karakterleri kodlama çizelgesi ve onların ilişkili yayınları biraz
+karmaşıktır ve bu belgenin kapsamı dışındadır. Daha fazla bilgi için aşağıdaki
+URL adreslerine ve diğer kaynaklara bakınız.
+<ul>
+    <li> Unicode belgeleri<br />
+      http://www.unicode.org/
+    <li> Japonca/Korece/Çince karakter bilgisi<br />
+      http://examples.oreilly.com/cjkvinfo/doc/cjk.inf
+
+<h3>Desteklenen kodlamaların özeti</h3>
+
+<fieldset>
+IANA karakter takımı kayıt adı:ISO-10646-UCS-4<br>
+Altındaki karakter takımı:ISO 10646<br>
+Açıklama: Evrensel Karakter takımı 31 bitlik kodlama alanıyla ISO/IEC 10646 tarafından UCS-4 olarak standartlaştırılmıştır. En son Unicode kod haritasıyla uyumludur.<br>
+Ek notlar: Eğer bu ad kodlama çevirim özelliğiyle kullanılırsa, çevirici önceki BOM (bayt sıralama işareti) ile tanımlamaya çalışır. Hangi sırada baytların gösterildiği böyle belirlenir.
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:ISO-10646-UCS-4<br>
+Altındaki karakter takımı:UCS-4<br>
+Açıklama: Yukarıdakine bakın.<br>
+Ek notlar: UCS-4 ile çelişen şey, yazı dizileri her zaman büyük sıralama uyumunu gösterir.
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:ISO-10646-UCS-4<br>
+Altındaki karakter takımı:UCS-4<br>
+Açıklama: Yukarıdakine bakın.<br>
+Ek notlar: UCS-4 ile çelişen şey, yazı dizilerinin her zaman küçük sıralama uyumlu olduğudur.
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:ISO-10646-UCS-2<br>
+Altındaki karakter takımı:UCS-2<br>
+Açıklama: Evrensel Karakter takımı 16 bitlik kodlama alanıyla ISO/IEC 10646 tarafından UCS-2 olarak standartlaştırılmıştır. En son Unicode kod haritasıyla uyumludur.<br>
+Ek notlar: Kodlama çevirme özelliğinde bu ad kullanılırsa, önceki BOM çevirici tarafından tanınmaya çalışılır. Burada hangi bayt sıralaması kullanıldığı gözükür.
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:ISO-10646-UCS-2<br>
+Altındaki karakter takımı:UCS-2<br>
+Açıklama: Yukarıdakine bakın.<br>
+Ek notlar: UCS-2'ye çelişki olarak, yazı dizileri her zaman büyük sıralama uyumlu kabul edilir.<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:ISO-10646-UCS-2<br>
+Altındaki karakter takımı:UCS-2<br>
+Açıklama: Yukarıdakine bakın.<br>
+Ek notlar: UCS-2'ye çelişki olarak, yazı dizileri her zaman küçük sıralama uyumlu kabul edilir.<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:UTF-32<br>
+Altındaki karakter takımı:Unicode<br>
+Açıklama: 32 bitlik Unicode Çevirim Kalıbının kodlama alanı Unicode'un kod kümesi standartına eşittir. Bu kodlama çizelgesi UCS-4 ile eşdeğer değildir. Çünkü Unicode kod alanı 21 bitlik değerlerden oluşur.<br>
+Ek notlar: Eğer bu ad kodlama çevirim özelliğinde kullanılacaksa, önceki BOM bayt sıralamasını tanımaya çalışır.
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:UTF-32BE<br>
+Altındaki karakter takımı:Unicode<br>
+Açıklama: Yukarıdakine bakın.<br>
+Ek notlar: UTF-32 için çelişki de olsa, yazı dizileri büyük sıralamaya
+uyar.<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:UTF-32LE<br>
+Altındaki karakter takımı:Unicode<br>
+Açıklama: Yukarıdakine bakın.<br>
+Ek notlar: UTF-32 için çelişki de olsa, yazı dizileri küçük sıralamaya
+uyar.<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:UTF-16<br>
+Altındaki karakter takımı:Unicode<br>
+Açıklama: Unicode Çevirim Kalıbı 16 bitlik birimlerle çalışır. UTF-16 ile UCS-2 aynı tanımlama türü olmadığının altı çizilmelidir. Çünkü UTF-16 şimdi 21 bitlik kodlama alanını göstermektedir.<br>
+Ek notlar: Eğer bu ad kodlama çevirim özelliğinde kullanılacaksa, önceki BOM bayt sıralamasını tanımaya çalışır.<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:UTF-16BE<br>
+Altındaki karakter takımı:Unicode<br>
+Açıklama: Yukarıdakine bakın.<br>
+Ek notlar: UTF-16 koduna çelişik olarak, yazı dizileri her zaman büyük sıralamaya uyar.<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:UTF-16LE<br>
+Altındaki karakter takımı:Unicode<br>
+Açıklama: Yukarıdakine bakın.<br>
+Ek notlar: UTF-16 koduna çelişkili olarak, yazı dizileri her zaman küçük sıralamaya uyar.<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:UTF-8
+Altındaki karakter takımı:Unicode / UCS
+Açıklama: Unicode Çevirme Kalıbı 8 bitliktir.
+Ek notlar:yok
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:UTF-7<br>
+Altındaki karakter takımı:Unicode<br>
+Açıklama: Bir ileti-özel unicode çevirme kalıbıdır. RCF2152'de
+gösterilmiştir.<br>
+Ek notlar:yok<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:(yok)<br>
+Altındaki karakter takımı:Unicode<br>
+Açıklama: UTF-7'nin bir türüdür ve IMAP protokolünde kullanılmak üzere özelleştirilmiştir.<br>
+Ek notlar:yok<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı: US-ASCII (tercih edilen MIME adı) / iso-ir-6 / ANSI_X3.4-1986 / ISO_646.irv:1991 / ASCII / ISO646-US / us / IBM367 / CP367 / csASCII<br>
+Altındaki karakter takımı:ASCII / ISO 646<br>
+Açıklama: ASCII 7 bitlik genel kodlamadır. ISO 646 ile uluslararası standart kabul edilmiştir.<br>
+Ek notlar:(yok)<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı: EUC-JP (tercih edilen MIME adı) / Extended_UNIX_Code_Packed_Format_for_Japanese / csEUCPkdFmtJapanese<br>
+Altındaki karakter takımı: US-ASCII / JIS X0201:1997 (hankaku kana part) / JIS X0208:1990 / JIS X0212:1990 karışımıdır.<br>
+Açıklama: Gördüğünüz gibi adı Japonca için Extended UNIX Code Packed Format kısaltmasından türetilmiştir. Bu kodlama çoğunlukla UNIX ya da benzeri ortamlarda kullanılır. Asıl kodlama çizelgesi Extended UNIX Code, ISO 2022 temeline göre tasarlanmıştır.<br>
+Ek notlar: EUC-JP karakter takımı IBM932 / CP932 için farklıdır. Bu kodlar by OS/2® ve Microsoft® Windows® ortamlarında kullanılır. Daha çok bilgi için EUCJP-WIN belgelerine bakın<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:Shift_JIS (tercih edilen MIME adı) / MS_Kanji / csShift_JIS<br>
+Altındaki karakter takımı:JIS X0201:1997 / JIS X0208:1997 karışımıdır.<br>
+Açıklama: Shift_JIS 80'lerin başında geliştirilmiştir. Aynı zamanda Japonca kelime işlemciler piyasaya çıkmıştır. Bu eski kodlama (JIS X 0201:1976) çizelgeleriyle uyumludur. IANA tanımlarına göre Shift_JIS kod kümesi IBM932 / CP932 kodlamasından biraz farklıdır. Ama "SJIS" / "Shift_JIS" adları bu kodlamalar için yanlışlıkla kullanılmaktadır.<br>
+Ek notlar:CP932 kod takımı için, SJIS-WIN kullanın.<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:(yok)<br>
+Altındaki karakter takımı: JIS X0201:1997 / JIS X0208:1997 / IBM uzantıları / NEC uzantıları karışımıdır.<br>
+Açıklama: Bu "kodlama" EUC_JP ile aynı kodlama çizelgesini kullanır ama altlarındaki karakter takımları farklıdır. Bunun anlamı, bazı kodlar EUC_JP'den farklı karakterleri gösterirler.<br>
+Ek notlar:yok<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:Windows-31J / csWindows31J<br>
+Altındaki karakter takımı: JIS X0201:1997 / JIS X0208:1997 / IBM uzantıları / NEC uzantıları karışımıdır.<br>
+Açıklama: Bu "kodlama" Shift_JIS ile aynı kodlama çizelgesini kullanır ama altlarındaki karakter takımları farklıdır. Bunun anlamı, bazı kodlar Shift_JIS'den farklı karakterleri gösterirler.<br>
+Ek notlar:(yok)<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:ISO-2022-JP (tercih edilen MIME adı) / csISO2022JP<br>
+Altındaki karakter takımı: US-ASCII / JIS X0201:1976 / JIS X0208:1978 / JIS X0208:1983<br>
+Açıklama: RFC1468 belgesine bakın<br>
+Ek notlar:(yok)<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:JIS<br>
+Altındaki karakter takımı:<br>
+Açıklama:<br>
+Ek notlar:<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:ISO-8859-1<br>
+Altındaki karakter takımı:<br>
+Açıklama:<br>
+Ek notlar:<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:ISO-8859-2<br>
+Altındaki karakter takımı:<br>
+Açıklama:<br>
+Ek notlar:<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:ISO-8859-3<br>
+Altındaki karakter takımı:<br>
+Açıklama:<br>
+Ek notlar:<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:ISO-8859-4<br>
+Altındaki karakter takımı:<br>
+Açıklama:<br>
+Ek notlar:<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:ISO-8859-5<br>
+Altındaki karakter takımı:<br>
+Açıklama:<br>
+Ek notlar:<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:ISO-8859-6<br>
+Altındaki karakter takımı:<br>
+Açıklama:<br>
+Ek notlar:<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:ISO-8859-7<br>
+Altındaki karakter takımı:<br>
+Açıklama:<br>
+Ek notlar:<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:ISO-8859-8<br>
+Altındaki karakter takımı:<br>
+Açıklama:<br>
+Ek notlar:<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:ISO-8859-9<br>
+Altındaki karakter takımı:<br>
+Açıklama:<br>
+Ek notlar:<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:ISO-8859-10<br>
+Altındaki karakter takımı:<br>
+Açıklama:<br>
+Ek notlar:<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:ISO-8859-13<br>
+Altındaki karakter takımı:<br>
+Açıklama:<br>
+Ek notlar:<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:ISO-8859-14<br>
+Altındaki karakter takımı:<br>
+Açıklama:<br>
+Ek notlar:<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:ISO-8859-15<br>
+Altındaki karakter takımı:<br>
+Açıklama:<br>
+Ek notlar:<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:byte2be<br>
+Altındaki karakter takımı:<br>
+Açıklama:<br>
+Ek notlar:<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:byte2le<br>
+Altındaki karakter takımı:<br>
+Açıklama:<br>
+Ek notlar:<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:byte4be<br>
+Altındaki karakter takımı:<br>
+Açıklama:<br>
+Ek notlar:<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:byte4le<br>
+Altındaki karakter takımı:<br>
+Açıklama:<br>
+Ek notlar:<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:BASE64<br>
+Altındaki karakter takımı:<br>
+Açıklama:<br>
+Ek notlar:<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:HTML-ENTITIES<br>
+Altındaki karakter takımı:<br>
+Açıklama:<br>
+Ek notlar:<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:7bit<br>
+Altındaki karakter takımı:<br>
+Açıklama:<br>
+Ek notlar:<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:8bit<br>
+Altındaki karakter takımı:<br>
+Açıklama:<br>
+Ek notlar:<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:EUC-CN<br>
+Altındaki karakter takımı:<br>
+Açıklama:<br>
+Ek notlar:<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:CP936<br>
+Altındaki karakter takımı:<br>
+Açıklama:<br>
+Ek notlar:<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:HZ<br>
+Altındaki karakter takımı:<br>
+Açıklama:<br>
+Ek notlar:<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:EUC-TW<br>
+Altındaki karakter takımı:<br>
+Açıklama:<br>
+Ek notlar:<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:CP950<br>
+Altındaki karakter takımı:<br>
+Açıklama:<br>
+Ek notlar:<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:BIG-5<br>
+Altındaki karakter takımı:<br>
+Açıklama:<br>
+Ek notlar:<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:EUC-KR<br>
+Altındaki karakter takımı:<br>
+Açıklama:<br>
+Ek notlar:<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:UHC (CP949)<br>
+Altındaki karakter takımı:<br>
+Açıklama:<br>
+Ek notlar:<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:ISO-2022-KR<br>
+Altındaki karakter takımı:<br>
+Açıklama:<br>
+Ek notlar:<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:Windows-1251 (CP1251)<br>
+Altındaki karakter takımı:<br>
+Açıklama:<br>
+Ek notlar:<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:Windows-1252 (CP1252)<br>
+Altındaki karakter takımı:<br>
+Açıklama:<br>
+Ek notlar:<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:CP866 (IBM866)<br>
+Altındaki karakter takımı:<br>
+Açıklama:<br>
+Ek notlar:<br>
+</fieldset>
+
+<fieldset>
+IANA karakter takımı kayıt adı:KOI8-R<br>
+Altındaki karakter takımı:<br>
+Açıklama:<br>
+Ek notlar:<br>
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> mb_check_encoding — Yazı dizisinin belirtilen kodlama için uygunluğuna bakılır.
+    <li> mb_convert_case — Yazı dizisinde Büyük harf çevirimini yap
+    <li> mb_convert_encoding — Karakter kodlamasını çevir
+    <li> mb_convert_kana — "kana" kodunu biriden diğerine çevir ("zen-kaku", "han-kaku" ve diğerleri)
+    <li> mb_convert_variables — Değişkenlerdeki karakter kodlamasını çevir
+    <li> mb_decode_mimeheader — MIME başlığındaki alanların kodunu aç
+    <li> mb_decode_numericentity — karakterlere karşılık olan HTML sayısal yazı dizilerinin kodunu aç
+    <li> mb_detect_encoding — Karakter kodlamasını tanı
+    <li> mb_detect_order — Karakter kodlaması tanıma sırasını Ayarla/Al
+    <li> mb_encode_mimeheader — Yazı dizisini MIME başlığına göre kodla
+    <li> mb_encode_numericentity — Karakterleri HTML sayısal yazı dizisi gösterilimine göre çevir
+    <li> mb_ereg_match — Kurallı deyim çoklu byte yazı dizisine uydurulur.
+    <li> mb_ereg_replace — çoklu bayt desteğiyle kurallı deyimi değiştir.
+    <li> mb_ereg_search_getpos — Bir sonraki kurallı deyimin başlangıcını döndürür
+    <li> mb_ereg_search_getregs — Retrieve the result from the last multibyte regular expression match
+    <li> mb_ereg_search_init — yazı dizisini ve kurallı deyimi ayarlama (çoklu kkurallı deyim uygunluğu için)
+    <li> mb_ereg_search_pos — Önceden tanımlanmış çoklu bayt yazı dizisiyle çoklu bayt kurallı deyiminin uyuştuğu noktayı ve uzunluğu döndürür.
+    <li> mb_ereg_search_regs — Çoklu bayt kurallı deyiminin uygan kısmını döndürür
+    <li> mb_ereg_search_setpos — Sonraki kurallı deyim uygunluğunun başlangıcını döndürür
+    <li> mb_ereg_search — Önceden tanımlı yazı dizisi için çoklubayt kurallı deyim uyunumu döndürür
+    <li> mb_ereg — Çoklu bayt desteğiyle kurallı deyim uyumluluğu
+    <li> mb_eregi_replace — Çoklu bayt desteğiyle harf duyarlılığını dikkate
+almadan kurallı deyimi değiştirme
+    <li> mb_eregi — Kurallı deyim uyumu, harf duyarlılığı dikkate alınmaksızın ve çoklu bayt desteğiyle
+    <li> mb_get_info — mbstring içsel ayarının al
+    <li> mb_http_input — HTTP giriş karakter kodlamasını tanıma
+    <li> mb_http_output — HTTP çıktı karater kodlamasını alma/ayarlama
+    <li> mb_internal_encoding — İçsel karakter kodlamasını ayarla/al
+    <li> mb_language — O anki dili al/ayarla
+    <li> mb_output_handler — CÇıktı tamponunda geri besleme işlevi karakter kodlamasının çevirimini yapar.
+    <li> mb_parse_str — GET/POST/COOKIE verilerini tara ve evrensel değişken ata.
+    <li> mb_preferred_mime_name — MIME karakter takımı yazı dizisini al
+    <li> mb_regex_encoding — Çok baytlı yazı dizisi için o anki kodlamayı döndürür
+    <li> mb_regex_set_options — Smbregex işlevi için varsayılan seçeneği ayarlar/alır
+    <li> mb_send_mail — Kodlanmış ileti gönder
+    <li> mb_split — çoklu bayt yazı dizisini kurallı deyimle parçala
+    <li> mb_strcut — Bir yazı dizisinin bir parçasını al
+    <li> mb_strimwidth — Kesilmiş yazı dizisini belirtilen ende al
+    <li> mb_stripos — Büyük küçük harf duyarlı, yazı dizisinin diğeri içinde ilk bulunduğu yeri döndürür
+    <li> mb_stristr — harf duyarlığı olmadan bir yazı dizisinin diğeri içinde ilk bulunduğu yeri döndürür
+    <li> mb_strlen — Yazı dizisinin boyunu döndürür
+    <li> mb_strpos — bir yazı dizisinin diğeri içinde ilk bulunduğu yeri
+döndürür
+    <li> mb_strrchr — bir yazı dizisinin diğeri içinde son bulunduğu yeri döndürür
+    <li> mb_strrichr — harf duyarlılığı olmadan bir yazı dizisinin diğeri içinde son bulunduğu yeri döndürür
+    <li> mb_strripos — harf duyarlılığı olmadan bir yazı dizisinin diğeri içinde son bulunduğu yeri döndürür
+    <li> mb_strrpos — Bir yazı dizisinin diğeri içinde son bulunduğu yeri
+döndürür
+    <li> mb_strstr — Bir yazı dizisinin diğeri içinde ilk bulunduğu yeri
+döndürür
+    <li> mb_strtolower — Bir yazı dizisini küçük harf yap
+    <li> mb_strtoupper — Bir yazı dizisini büyük harf yap
+    <li> mb_strwidth — Bir yazı dizisinin enini döndür
+    <li> mb_substitute_character — Değiştirme karakterini al/ayarla
+    <li> mb_substr_count — Değiştirme sayısını döndürür
+    <li> mb_substr — Bir yazı dizisinin bir parçasını alır
+</ul>
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

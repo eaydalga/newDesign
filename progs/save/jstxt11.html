@@ -1,0 +1,93 @@
+<html>
+<body>
+<div id="sag"><span class="yazi">3 Aralık 2007</span></div>
+<h2>Element contents</h2>
+<div class="yazi">
+
+The DOM provides an easy way to reference all elements, no matter where they are in a document. However, it is possible to reference many elements in a way that works in DOM browsers, and older browsers. This can be useful if you need your scripts to work in browsers like Netscape 4, even though they are not used very much any more.
+
+Layers browsers like Netscape 4 are different to all other browsers. They give each positioned element a new document object. All forms, images, links and child layers inside that layer, must be referenced through this new document object. So instead of document.formname, it becomes myReference.document.formname, etc.
+How to reference anything in a generic way
+
+MacroMedia first came up with a generic 'wysiwyg' reference-all function. It could reference images and forms and all types of layers. This would look for any object with a name or id that matched the required name. Inspired by that, I have written my own (completely separately) that could also reference a few other things. It is a little larger as a result.
+
+The only thing it cannot reference is a link object, because by their nature, link objects are only accessible using their numerical index. Also, unlike anchor objects, the name attribute is not accessible with link objects, even if they have one. If referred to using the anchors collection, the link properties are not available, although the name attribute is. By checking every anchor to see if its name matches the requested name, I can reference the correct anchor. However, I cannot reference the link.
+
+Note that if the name refers to inputs in a form that share the same name, this function will return the collection of inputs sharing that name.
+
+function MWJ_findObj( oName, oFrame, oDoc ) {
+  /* if not working on a layer, document should be set to the
+  document of the working frame
+  if the working frame is not set, use the window object
+  of the current document
+  WARNING: - cross frame scripting will cause errors if
+  your page is in a frameset from a different domain */
+  if( !oDoc ) { if( oFrame ) { oDoc = oFrame.document; } else { oDoc = window.document; } }
+
+  //check for images, forms, layers
+  if( oDoc[oName] ) { return oDoc[oName]; }
+
+  //check for pDOM layers
+  if( oDoc.all && oDoc.all[oName] ) { return oDoc.all[oName]; }
+
+  //check for DOM layers
+  if( oDoc.getElementById && oDoc.getElementById(oName) ) {
+    return oDoc.getElementById(oName); }
+
+  //check for form elements
+  for( var x = 0; x < oDoc.forms.length; x++ ) {
+    if( oDoc.forms[x][oName] ) { return oDoc.forms[x][oName]; } }
+
+  //check for anchor elements
+  //NOTE: only anchor properties will be available,
+  //NOT link properties (in layers browsers)
+  for( var x = 0; x < oDoc.anchors.length; x++ ) {
+    if( oDoc.anchors[x].name == oName ) {
+      return oDoc.anchors[x]; } }
+
+  //check for any of the above within a layer in layers browsers
+  for( var x = 0; document.layers && x < oDoc.layers.length; x++ ) {
+    var theOb = MWJ_findObj( oName, null, oDoc.layers[x].document );
+      if( theOb ) { return theOb; } }
+
+  //check for frames, variables or functions
+  if( !oFrame && window[oName] ) { return window[oName]; }
+  if( oFrame && oFrame[oName] ) { return oFrame[oName]; }
+
+  //if checking through frames, check for any of the above within
+  //each child frame
+  for( var x = 0; oFrame && oFrame.frames && x < oFrame.frames.length; x++ ) {
+    var theOb = MWJ_findObj( oName, oFrame.frames[x], oFrame.frames[x].document ); if( theOb ) { return theOb; } }
+
+  return null;
+}
+
+without comments, this becomes:
+
+function MWJ_findObj( oName, oFrame, oDoc ) {
+  if( !oDoc ) { if( oFrame ) { oDoc = oFrame.document; } else { oDoc = window.document; } }
+  if( oDoc[oName] ) { return oDoc[oName]; } if( oDoc.all && oDoc.all[oName] ) { return oDoc.all[oName]; }
+  if( oDoc.getElementById && oDoc.getElementById(oName) ) { return oDoc.getElementById(oName); }
+  for( var x = 0; x < oDoc.forms.length; x++ ) { if( oDoc.forms[x][oName] ) { return oDoc.forms[x][oName]; } }
+  for( var x = 0; x < oDoc.anchors.length; x++ ) { if( oDoc.anchors[x].name == oName ) { return oDoc.anchors[x]; } }
+  for( var x = 0; document.layers && x < oDoc.layers.length; x++ ) {
+    var theOb = MWJ_findObj( oName, null, oDoc.layers[x].document ); if( theOb ) { return theOb; } }
+  if( !oFrame && window[oName] ) { return window[oName]; } if( oFrame && oFrame[oName] ) { return oFrame[oName]; }
+  for( var x = 0; oFrame && oFrame.frames && x < oFrame.frames.length; x++ ) {
+    var theOb = MWJ_findObj( oName, oFrame.frames[x], oFrame.frames[x].document ); if( theOb ) { return theOb; } }
+  return null;
+}
+
+This function can be called in two ways; to reference an item in the current document:
+
+var theOb = MWJ_findObj( NameOrId );
+
+To reference an item in any other document in a frameset, you can choose how high in the frame structure to start. Remember that if using 'top', someone else may load your page in their frameset, and this will produce an error.
+
+var theOb = MWJ_findObj( NameOrId, ReferenceToTopMostFrameToSearch );
+
+
+</div>
+<br />
+</body>
+</html>

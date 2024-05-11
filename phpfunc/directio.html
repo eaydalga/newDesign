@@ -1,0 +1,135 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Doğrudan IO Giriş/Çıkış İşlevleri </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">18 Şubat 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>Doğrudan IO Giriş/Çıkış İşlevleri</h2>
+
+<h3>Giriş</h3>
+
+PHP doğrudan giriş/çıkış işlevlerini Posix Standartında (Bölüm 6) belirtildiği gibi destekler. Bu işlemler C dilindeki giriş/çıkış işlemlerinden daha da aşağı düzeydedir (fopen(), fread() gibi). DIO işlevleri bir donanım biriminin doğrudan giriş/çıkış işlemlerine gereksinim olduğunda anlamlıdır. Tüm diğer durumlarda standart dosya sistemi işlevleri yeterliden de ötedir.
+
+    Not: Bu uzantı PECL havuzuna taşındı ve artık PHP ile paketlenmiyor. (PHP 5.1.0 sürümünden beri)
+
+Bu uzantı windows ortamında PHP 5.0.0 sürümüyle kullanıma açıktır.
+
+<h3>Gereksinim</h3>
+
+No external libraries are needed to build this extension.
+
+<h3>Kurulum</h3>
+
+Bu işlevlerin çalışması için PHP "--enable-dio" ayarları ile derlenir.
+
+<h3>Önceden Tanımlı Değişmezler</h3>
+
+Aşağıdaki değişmezler bu uzantıyla tanımlanmıştır. Ancak PHP bu uzantıyla
+derlendiğinde ya da ilgili modül çalışma zamanında yüklenince
+kullanılabilirler.
+<dl>
+<dt>c (integer, tamsayı)</dt>
+<dt>F_DUPFD (integer, tamsayı)</dt>
+<dt>F_GETFD (integer, tamsayı)</dt>
+<dt>F_GETFL (integer, tamsayı)</dt>
+<dt>F_GETLK (integer, tamsayı)</dt>
+<dt>F_GETOWN (integer, tamsayı)</dt>
+<dt>F_RDLCK (integer, tamsayı)</dt>
+<dt>F_SETFL (integer, tamsayı)</dt>
+<dt>F_SETLK (integer, tamsayı)</dt>
+<dt>F_SETLKW (integer, tamsayı)</dt>
+<dt>F_SETOWN (integer, tamsayı)</dt>
+<dt>F_UNLCK (integer, tamsayı)</dt>
+<dt>F_WRLCK (integer, tamsayı)</dt>
+<dt>O_APPEND (integer, tamsayı)</dt>
+<dt>O_ASYNC (integer, tamsayı)</dt>
+<dt>O_CREAT (integer, tamsayı)</dt>
+<dt>O_EXCL (integer, tamsayı)</dt>
+<dt>O_NDELAY (integer, tamsayı)</dt>
+<dt>O_NOCTTY (integer, tamsayı)</dt>
+<dt>O_NONBLOCK (integer, tamsayı)</dt>
+<dt>O_RDONLY (integer, tamsayı)</dt>
+<dt>O_RDWR (integer, tamsayı)</dt>
+<dt>O_SYNC (integer, tamsayı)</dt>
+<dt>O_TRUNC (integer, tamsayı)</dt>
+<dt>O_WRONLY (integer, tamsayı)</dt>
+<dt>S_IRGRP (integer, tamsayı)</dt>
+<dt>S_IROTH (integer, tamsayı)</dt>
+<dt>S_IRUSR (integer, tamsayı)</dt>
+<dt>S_IRWXG (integer, tamsayı)</dt>
+<dt>S_IRWXO (integer, tamsayı)</dt>
+<dt>S_IRWXU (integer, tamsayı)</dt>
+<dt>S_IWGRP (integer, tamsayı)</dt>
+<dt>S_IWOTH (integer, tamsayı)</dt>
+<dt>S_IWUSR (integer, tamsayı)</dt>
+<dt>S_IXGRP (integer, tamsayı)</dt>
+<dt>S_IXOTH (integer, tamsayı)</dt>
+<dt>S_IXUSR (integer, tamsayı)</dt>
+</dl>
+
+<h3>Çalışma Zamanı ayarları</h3>
+
+This extension has no configuration directives defined in php.ini.
+
+<h3>Kaynak Türleri</h3>
+
+Bu uzantı için bir kaynak türü tanımlanmıştır: O da dio_open() işlevinden
+dönen dosya tanımlayıcıdır.
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> dio_close — fd ile belirtilen dosya tanımlayıcısını kapatma
+    <li> dio_fcntl —fd üzerinde c kitaplığının fcntl uygulama
+    <li> dio_open — Yeni bir dosya adını yetki izinleri ve yaratılış konumlarıyla açar.
+    <li> dio_read — Bir dosya tanımlayıcısından baytları okumak
+    <li> dio_seek — fd üzerinde göstergeyi ayarlar (başından, bulunduğu yerden, sonundan gibi)
+    <li> dio_stat — fd dosya tanımlayıcıdan durum bilgilerini alır.
+    <li> dio_tcsetattr — Seri uç için terminal niteliklerini ve iletişim hızını kurar
+    <li> dio_truncate — fd dosya tanımlayıcısının belirli yerinden sonrasını kesip atar
+    <li> dio_write — fd tamınlayıcısına veriyi yazar. Uzunlukla sınırlama seçeneği vardır
+</ul>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

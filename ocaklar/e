@@ -1,0 +1,32 @@
+    <div id="smenu" style="display: none;">
+        <ul id="verticalmenu" class="glossymenu">
+            <li><a href="javascript:oku(71)">Yazılım Kitapları</a>
+                <ul>
+                    <li><a href="progs/css.html">CSS Kitabı</a></li>
+                    <li><a href="progs/html.html">HTML Kitabı</a></li>
+                    <li><a href="progs/dhtml.html">DHTML Kitabı</a></li>
+                    <li><a href="progs/js.html">JavaScript Kitabı</a></li>
+                    <li><a href="progs/kopca.html">Kopça</a></li>
+                    <!-- <li><a href="progs/php.html">PHP Örnekleri</a></li> -->
+                    <li><a href="arsiv/index.html">Arşiv Belgeleri</a></li>
+                </ul>
+            </li>
+            <li><a href="docs/index.html">Çeşitli Belgeler</a>
+                <ul>
+                    <li><a href="docs/kullanici.html">Kullanıcılar</a></li>
+                    <li><a href="docs/blog.html">Blog Kurulumu</a></li>
+                    <li><a href="docs/filmler.html">Filmler Uzantılar</a></li>
+                    <li><a href="docs/webtv.html">Internet TV</a></li>
+                    <li><a href="docs/swy.html">Sürekli Yayım</a></li>
+                    <li><a href="docs/pg.html">Panoramik Görüntü</a></li>
+                </ul>
+            </li>
+            <li><a href="javascript:oku(1)">Hakkımızda</a></li>
+            <li><a href="javascript:oku(4)">Adres</a></li>
+            <li><a href="javascript:oku(6)">İletişim</a></li>
+            <li><a href="javascript:oku(3);" >Danışmanlık</a></li>
+            <li><a href="http://localhost/~ergun/aybim/" >İş Ocakları</a></li>
+        </ul>
+    </div>
+    <img src="img/basla.gif" width="187" alt="" border="0" onclick="ackapa(1);">
+  </div>

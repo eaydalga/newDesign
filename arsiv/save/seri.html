@@ -1,0 +1,286 @@
+<HTML>
+<HEAD>
+<TITLE>AYBIM - SERI UCLAR</TITLE>
+</HEAD>
+<BODY BGCOLOR="white" LEFTMARGIN=50>
+<TABLE WIDTH="100%" CELLSPACING=10 CELLPADDING=5>
+<TR><TD WIDTH="10%" BGCOLOR="black" VALIGN="TOP">
+&nbsp;
+</TD>
+<TD>
+<H2> SERİ UÇ PROGRAMLAMA TEKNİKLERİ </H2>
+<P>
+<UL>
+<LI><B>TERMİNALSİZ SERİ UÇLAR İÇİN PROGRAMLAR</B><P>
+Terminalsiz seri uçlar için yazılan programlar, UNIX ortamına 
+program kontrolunda diğer çevre birimlerini bağlayabilme olanağı getirir.
+Yazılan program gün başında çok kullanıcılı ortama geçildikten sonra
+veya bir kullanıcı tarafından istenildiği zaman başlatılabilir. Bu yöntemle
+işletim sisteminin bir parçası olabilecek sürücü program olmadan,
+herhangi bir çevre birimini UNIX ortamına bağlamak mümkün olur.<P>
+<UL>
+<LI>UNIX ortamında Seri Uçların tanımlanma biçimi<P>
+UNIX ortamında, işletim sistemi seri uçları iki biçimde tanımlar :
+Birincisi fiziksel seri uçlar; İkincisi ise <B>pseudo</B> seri uçlardır.
+Fiziksel seri uçlar kullanılan donanıma ilişkin seri uç sürücü
+programlarına bağımlı çevre birimi tanımlarıdır ama çoğu kez <B>/dev/ttynn</B>
+biçiminde tanımlanır. <B>Pseudo</B> seri uçlar gerçekte olmayan ancak TCP/IP
+ve <B>telnet</B> servisi tarafından üretilen sahte seri uçlardır.<P>
+Seri uçlara ait
+çevre birimi tanımlarının sahibi çoğu zaman "root" adlı kullanıcıdır.
+<B>getty</B> programı bir kullanıcı sisteme girdikten sonra bu seri ucun
+erişim haklarını yalnız ilgili kullanıcıya yönlendirir ve diğer
+kullanıcıların bu seri uca erişimini kaldırır.<P>
+Seri uca bağlı bir terminal yoksa <B>getty</B> programı kullanılmamalıdır.
+Bu işlem en güzel, <B>/etc/inittab</B> kütüğündeki ilgili terminal
+bilgilerinde <B>getty</B> tanımının <B>respawn</B> özelliğini <B>off</B>
+konumuna almaktır. Böylece aynı seri uca ileride bir terminal bağlanması
+söz konusu olduğunda <B>/etc/inittab</B> bilgileri bozulmadan <B>off</B>
+konumu <B>respawn</B> yapılarak terminalden <B>login</B> görüntülenmesi
+sağlanmış olur.<P>
+Seri uca terminal bağlanmayacak ve buraya bir başka çevre birimi
+bağlanacaksa, bu çevre biriminde olması gereken en önemli özellik, gönderilen
+mesajları algılayan bir programın ilgili çevre birimi üzerinde çalışır
+durumda olabilmesidir.<P>
+UNIX üzerindeki program, ilgili seri ucu kullanabilmek için bu kütüğü
+<B>open</B> komutu ile açmalıdır. Seri uç kütüğü UNIX için <B>/dev/ttynn</B>
+biçiminde tanımlanır. Program bu kütüğü açarken hem OKUMA hem de YAZMA
+işlemi yapacak biçimde koşullandırılır. UNIX ortamında bu kütük daha
+önce <B>mknod</B> komutu ile yaratılmış olduğundan, kütüğün açılırken yoksa
+yaratılması söz konusu değildir. Çünkü bu tür kütükleri "root" adlı kullanıcı
+yaratabilir. Eğer kullanıcının kütüğe erişme yetkisi
+yoksa kütük açma işlemi başarı ile bitmez.<P>
+Kütük açarken dikkat edilmesi gereken konular :<P>
+<OL>
+<LI>Eğer seri uca bir modem bağlanmış ise, modemler telefon hattından
+karşı taraftaki modemi görmeden DTR ve CD sinyalini yakmazlar. Bu durumda
+program seri uca ait kütüğü açamayabilir. Bu gibi durumlar için
+<B>open</B> komutunda N_DELAY konumu kullanılmalı, modemle iletişim
+kurulup mesaj alış verişi tamamlandıktan sonra N_DELAY <B>fcntl</B>
+komutu ile kaldırılmalıdır.<P>
+<LI>Seri bağlantıda sistemde tanımlı RS-232 uçlardan TX,RX,CTS,DTR ve Toprak
+bağlantıları mutlaka bulunmalıdır. Eğer sistemde seri uç çoklayıcı donanım
+kullanılıyorsa ve bu donanıma ilişkin sürücünün parametrik bilgileri varsa
+UNIX ortamına uyumlu olmaması olasılığına karşın seri uçların tümünde
+protokol tanımı "NO PROTOCOL" biçiminde hazırlanmalıdır. Bu özellikler yoksa
+<B>fcntl</B> komutu ile seri uc, protokolsüz çalışacak biçimde 
+düzenlenmelidir.<P>
+<LI>Seri uç donanımı UART kurallarına uygun ise seri uc iletişim hızı
+en çok 38400 olabilir. Bu hızın üzerinde iletişim kurmak
+söz konusu olduğunda, işletim sisteminin özel komutları varsa kullanılmalıdır.
+Unutulmaması gereken özellik seri uç iletişim hızı 9600, 19200 ve 38400
+olabilir. Diğer ara hızlarda seri uç ile iletişim kurulamayabilir.
+</OL>
+<P>
+<LI>Seri uç parametrelerini düzenleme<P>
+UNIX ortamında seri uçların kullanım biçimi terminal kullanımına göre
+düzenlenmiştir. Burada <B>Break</B> tuşu, yazılamayan karakteri çevirme
+özelliği gibi bazı tanımlar önceden terminal sürücü programı tarafından
+düzenlenmiş filitreler oluşturulmuştur. Bu düzenleme seri uçtan 
+bir bilgi okuma veya seri uca bir bilgi
+yazma adımlarında istenilmeyen sonuçlar verebilir. Özellikle çevre birimini
+kontrol etmeyi amaçlayan karakterler (STX, ETX, NULL gibi), filitrelerden
+geçmeyebilir. Seri uç programları ham veri işleme konumunda iken işletim
+sistemi ve sürücü programlar tarafından düzenlenmiş filitrelerin
+parametrelerini değiştirmelidir. Parametre değiştirme işlemi <B>fcntl</B>
+komutu ile yapılır.<P>
+
+<B>fcntl</B> komutu için kullanılacak parametrik bilgilerin alabileceği
+değerler :<P>
+<PRE>
+c_lflag = 0;
+c_iflag = IGNPAR | IXANY | IGNBRK;
+c_oflag = 0;
+
+for(a=0;a &lt; NCCS;a++)
+    c_cc[a] = 0;
+
+c_cc[4] = 1; /* karakter sayısı            */
+c_cc[5] = 1; /* zaman asımı bekleme süresi */
+
+c_cflag = CLOCAL | CS8 | CREAD | baud_rate;
+</PRE>
+olarak tanımlanabilir.<P>
+<LI>Ham bilgi okuma ve yazma kuralları<P>
+UNIX ortamında bir kütükten ham bilgi okuma <B>read</B> komutu, bir kütüğe
+ham bilgi yazma <B>write</B> komutu ile olur. Seri uçlara ham bilgi (donanım
+karakter tabanlı olduğu için), bir byte gönderme veya bir byte okuma
+biçimindedir. Tamponlanmış giriş/çıkış işlemi yapılmamalıdır. Hız açısından
+(özellikle bilgi gönderirken) tamponlanmış bilgi alış verişi yapılacaksa,
+tampon alan kontrol edilmeli, tampon alan dolduğunda gönderme durdurulmalı,
+boşalınca tekrar başlatılmalıdır. Terminal kullanımına ait olan XON/XOFF
+protokolü ham veri işleme konumunda kesinlikle kullanılmamalıdır. Çünkü
+bu bilgi (XON veya XOFF), gerçekte karşı taraftaki çevre birimine gitmesi
+gereken bir bilgi olabilir.<P>
+Bilgi okurken en çok bir byte bilgi
+tamponlanmalı, mümkünse tampon alan boyu 0 olmalıdır.<P>
+Bilgi okuma işleminde doğrudan <B>read</B> komutu kullanılacak olursa
+program, okuma işlemi yapılmadan bu komuttan çıkmaz. Ama çevre birimine
+bilgi gönderen ve çevre biriminden okuma yapan bu tür progamlara sistem
+içindeki bir başka işlemden bilgi akışı olabilir. Bu durumda çevre biriminden
+okunacak bilgi yoksa program bir başka işleve geçebilmeli, kendisine gelen
+bir başka bilgi veya mesaj olup olmadığını anlayabilmelidir.<P>
+UNIX ortamında
+kesinti (Interrupt) olanağı olmadığından, bu bilgi doğrudan işletim sistemi
+kontrolu altında olduğundan seri uç okuma programında <B>read</B> komutu
+yerine <B>select</B> komutu kullanılmalıdır. Bu komut ile açılmış
+kütüklere ait kütük numaralarından bir küme oluşturulur. Oluşturulan kümeden
+bilgi gelmesi beklenir. Eğer kümenin hiçbir elemanından bilgi gelmiyorsa
+belirtilen zaman aşımında işlev, hata kodu ile programa döner. Eğer bir bilgi
+gelmiş ise, kümedeki kütüğün numarası programa döner. Bu durumda program,
+ilgili kütükten gelen bilgiyi okur.<P>
+<LI>Örnek program tanımı<P>
+Örnek olarak seri uçtan gelecek bilgi protokol gereği 
+<P><UL>
+<B>&lt;STX&gt;&lt;mesaj&gt;&lt;ETX&gt;&lt;LRC&gt;</B>
+</UL><P>
+biçiminde olsun. Program bu mesajı alınca önce LRC denetimi yapacak
+daha sonra mesaj doğru alındı ise ACK gönderecektir. Hata varsa NACK 
+gönderecektir.<P>
+<LI>Örnek program kodu<P>
+<PRE>
+#define NACK 0x15
+#define ACK  0x06
+#define ETX  0x03
+#define UPD_NFDS(x) if(nfds&lt;(x))nfds=(x)
+
+main()
+{
+fd_set fdx;
+struct timeval tv;
+struct termios term;
+int nfds = 0;
+char c;
+int  s, fd, sec, msec;
+
+fd = open("/dev/tty00",2);
+
+/* seri uc tanimlarini duzenleme */
+tcgetattr(fp_prt,&term);
+term.c_lflag = 0;
+term.c_iflag = IGNPAR | IXANY | IGNBRK;
+term.c_oflag = 0;
+for(a=0;a &lt; NCCS;a++)
+    term.c_cc[a] = 0;
+/* karakter sayısı */
+term.c_cc[4] = 1; 
+/* zaman asımı bekleme süresi */
+term.c_cc[5] = 1; 
+term.c_cflag = CLOCAL|CS8|CREAD|B9600;
+tcsetattr(fp_prt,TCSANOW,&term);
+
+sec = 0; msec = 100;
+tv.tv_sec  = sec;
+tv.tv_usec = msec;
+FD_ZERO(&amp;fdx);
+FD_SET(fd,&amp;fdx);
+UPD_NFDS(fd);
+
+while(1) {
+    lrc = 0;
+    s = select(nfds+1, &amp;fdx, NULL, NULL, &tv);
+    if(s &gt;= 0) {
+        /* STX okunur */
+        read(s,&amp;c,1);    
+        /* mesajin kalani ETX dahil
+        okunur ve LRC hesaplanir */
+        while(c != ETX) {
+           read(s,&amp;c,1);
+           lrc = lrc ^ c;
+           }
+        /* LRC okumak icin */
+        read(s,&amp;c,1);
+        /* LRC hatasi varsa NACK gonder */
+        c = (c != lrc) ? NACK : ACK;
+        write(s,&c,1);
+        }
+    }
+}
+</PRE>
+<P>
+Bu örnek programda, kodlamayı kısaltmak için hattan gelen mesajın 
+protokoldaki yapıda sonuna kadar hatasız geleceği varsayılmıştır.
+</UL>
+<P>
+<LI><B>TERMİNALLER İÇİN TÜM EKRAN (FULL SCREEN)<BR>
+PROGRAM YAZMA TEKNİKLERİ</B><P>
+Bu bölümde yer alan anlatım için kullandığınız UNIX program geliştirme
+ortamındaki <B>curses</B> kitaplığı yayınlarına bakmak, varsa diğer özel
+işlevleri de kullanmak gerekebilir.<P>
+<UL>
+<LI>Karakter tabanlı ekranlarda tüm ekran kullanımı (curses)<P>
+UNIX ortamında karakter ekranlar satır satır kayan komundadır. Tüm
+ekranı (24 x 80) karakter biçiminde kullanmak. Yazılan her harfi
+anında algılayabilmek ancak ham bilgi alma ve yazma konumunda
+geçerlidir.<P>
+Ham bilgiyi ekrandan alma ve ekrana yazma işlemi UNIX program
+geliştirme ortamında <B>curses</B> kitaplığı ile mümkündür.<P>
+<B>curses</B> gerçek anlamda bir ekranı ham veri işleme konumunda
+kullanan kitaplıktır. Bu kitaplıkta yer alan işlevlerle uygulama
+programları ekrandan bir karakter okur, ekrana bir karakter
+yazabilir. Halbuki komut konumunda yazılan bilgi UNIX tarafından
+<B>Enter</B> tuşuna basılmadan işleme alınmaz. Komut konumundaki
+bu mantığa tampon alandan okuma tekniği denir. Ham veri işleme
+konumunda ise program yazılan her tuşu anında algılar,
+tuşun gereği olan işlemi anında gerçekleştirir.<P>
+<B>curses</B> önce ekranı ham veri işleme konumuna alır. Daha sonra
+tüm ekranın iki kopya olarak bilgilerini saklar. Birinci kopya görüntülenen
+ekran, diğeri ise program tarafından günlenen ekran alanıdır. Her <B>refresh</B>
+komutu çalıştığında, <B>curses</B> iki kopya arasındaki farklı karakterleri
+belirler ve yalnız bu karakterleri ekrana gönderir. Bu nedenle <B>curses</B>
+ekran üzerindeki bir karakterin nereye yazılabileceğini bilmelidir. Her
+ekranın karakter görüntüleme komutları üretici firmalara göre değiştiğinden,
+ekran özellikleri <B>termlib</B> veya <B>termcap</B> veri tabanındaki
+tanımlardan alınır. <B>curses</B> kitaplığının doğru çalışması için kullanılan
+terminalin özellikleri <B>termlib</B> kitaplığına tanıtılmalıdır. Bu işlem için
+<B>tic</B> komutu kullanılır. <B>curses</B> UNIX kullanıcısının çevre
+değişkenlerinden TERM bilgisini kullanarak hangi terminal ile çalıştığını
+saptar ve ekrana bilgiyi bu terminalin özelliklerine göre gönderir.<P>
+<LI>Ekran tanımlama<P>
+Bir ekranı ham veri işleme konumuna almak için <B>curses</B> kitaplığındaki
+<B>initscr</B>, <B>cbreak</B>, <B>noecho</B>, <B>nonl</B> işlevleri sıra ile
+kullanılır. Bu işlemler ekranı ham veri işleme konumuna alır.<P>
+Ekranı tekrar komut işleme konumuna almak için <B>echo</B> ve <B>endwin</B>
+işlevlerini çalıştırmak gerekir.<P>
+Ekran ham veri işleme konumuna alındığında <B>curses</B> kitaplığı bu ekran
+için bir gösterge tanımlar. Bu göstergenin adı <B>stdscr</B> olarak
+belirlenmiştir. Terminal, ham veri işleme konumuna alındığında tuş takımından
+girilen bilgi iki biçimde algılanabilir. Ya program tuş takımı bilgilerini de
+ham olarak okur uygulama içinde karakterlerin ne anlama geldiğini belirler, 
+ya da <B>curses</B> kitaplığı basılan bir tuşun <B>termlib</B>
+kitaplığındaki karşılığını bulup ilgili tuş değerini çevirilmiş olarak 
+programa döndürür. Bu işlem için <B>keypad</B> işlevi çalıştırılır.<P>
+Yukarıda tanımlanan işlevlerle ekran ham veri işleme konumuna alındığında
+<B>move</B>, <B>getch</B>, <B>addch</B> işlevleri kullanılarak bilgi,
+ekranın istenilen yerine yazdırılır veya tuş takımından okunur.<P>
+Bir ekrana istenilen bilginin çıkması için <B>refresh</B> işlevinin
+çalıştırılması gerekir.<P>
+<LI>Pencere tanımlama<P>
+<B>stdscr</B> altında bir veya daha çok pencere açmak, pencerelere hareket
+ettirmek <B>curses</B> kitaplığı kullanımı ile mümkündür. Pencere açma
+işlevi <B>newwin</B> ile yapılır. Burada pencerenin ekrandaki (<B>stdscr</B>)
+başlangıç noktası ve boyutları belirtilir. Açılan pencere <B>werease, delwin</B>
+gibi işlevlerle kapatılır.<P>
+Bir pencere kapatılınca ekrandan silinmesi için daha önce açılmış pencereler
+<B>touch</B> işlevi ile yenilenmeli, böylece kapanan pencerenin bıraktığı
+boşluk değir pencereler ile doldurulmalıdır.<P>
+<LI>Pencereden bilgi okuma, pencereye bilgi yazma<P>
+Pencereye bilgi yazarken pencerenin içindeki imleç adreslemesi pencerenin sol
+üst kösesine göre (0,0) kabul edilerek hesaplanır. Böylece pencerenin
+hareket ettirilmesi, yerinin değişmesi programlarda yeniden hesaplama 
+yapmayı gerektirmez.<P>
+Bir pencereden bilgi okurken <B>wgetch</B> işlevi kullanılır. Aynı pencereye
+bilgi yazmak için <B>waddch</B> işlevi kullanmak gerekir. <B>move</B>
+işlevi yerine imleç hareketi için <B>wmove</B> işlevi kullanılır.<P>
+</UL>
+</UL>
+<P>
+</TD></TR>
+<TR>
+<TD COLSPAN=2>
+<HR>
+<A HREF="http://www.aybim.com.tr/">Ana Sayfaya</A>
+&nbsp;&nbsp;<A HREF="index.html">Teknik Bilgiler Sayfasina</A>
+</TD></TR></TABLE>
+</BODY>
+</HTML>

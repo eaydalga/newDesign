@@ -1,0 +1,132 @@
+<HTML>
+<HEAD>
+<TITLE>AYBIM - RECURSIVE</TITLE>
+</HEAD>
+<BODY BGCOLOR="white" LEFTMARGIN=50>
+<TABLE WIDTH="100%" CELLSPACING=10 CELLPADDING=5>
+<TR><TD WIDTH="10%" BGCOLOR="black" VALIGN="TOP">
+&nbsp;
+</TD>
+<TD>
+<H2> ÖZDEVİNLİ (RECURSIVE) PROGRAMLAR </H2>
+<P>
+<B>BİRAZ TARİHÇE</B>
+<P>
+Bilgisayarların ilk yapıldığı yıllarda, program kodu ve veri aynı alanda
+saklanırdı. O zamanlar çok kullanıcı ortam yerine tek kullanıcılı ortamda
+çalışma olduğundan bu tür kodlama sorun çıkartmıyordu. İşletim Sistemleri
+gelişip çok kullanıcılı ortama geçiş başlayınca bellekte aynı programdan
+birkaç kopya bulunması zamanında en pahalı donanım olan belleğin lüzumsuz
+harcanmasına neden oluyordu. Bilimsel açıdan bakıldığında derleyicilerin
+ürettiği kod üç ana bölümden oluşuyordu. Program komutları, değişmez değerler
+ve kullanıcıya göre değişen bilgiler. Donanım bu yapıya göre gelişirken,
+yani bellek kesimlere bölünürken işletim sistemleri de programları belleğe
+yüklerken bu ayrımı göze aldı. Bir programın değişmeyen bölümlerinden
+yalnız bir kopya saklandı. Yalnızca değişen bölümler için aynı programı
+kullanan değişik kullanıcılara ayrı bellek kesimleri açıldı. Bu yapı
+derleyicilerde tekrar girilebilen (reentrant) program kodu üretilmesini
+zorunlu kıldı. Tekrar girilebilen program kodunda her kullanıcı için
+son yapılan işlem, program durum bilgisi (program status word) adlı
+bir alanda saklandı. Aynı kod paylaşımlı olarak birden çok kullanıcı
+tarafından kullanılabilir oldu. Her kullanıcı kendi verileri için
+açılan kesimde bilgilerini sakladı. İşletim Sistemlerinin bu olanağı
+kullanıcıların özdevinli (recursive) program yazmalarına olanak verdi.<P>
+<H4>ÖZDEVİNLİ PROGRAM</H4>
+<P>
+Özdevinli programlarda bir işlev çalışırken bitmeden kendisini çağırır. Çağırılan
+işlevin sonucu, çağıran işlevde kullanılır. Görünüşte karmaşık olan bu olay,
+aslında donanımın, işlemcinin "stack" bilgilerinin program içinde verimli
+bir biçimde kullanılmasını sağlar. Örneklemek gerekirse,
+Matematikte :<P>
+<PRE>
+    f(n) = f(n-1) + f(n-2)
+</PRE>
+<P>
+biçiminde yazılan Fibonacci seri açılımı bu tür programların anlatımı için
+en kolay örnektir. Burada f(n) değerini hesaplamak için önce f(n-2) ve sonra
+f(n-1) değerlerini bilmek gerekir. Yazilan bir programda f işlevi aşağıdaki
+gibi kodlanırsa :<P>
+<PRE>
+    f(int n)
+    {
+    return (f(n-1) + f(n-2));
+    }
+</PRE>
+<P>
+Bu işlev kendisini bir kez n-1 için bir kez de n-2 için çağırır. Aynı
+işlev n-1 değeri için kendisini bir kez n-2 ve bir kez de n-3 için
+çağırır. Burada her çağırma işleminde n değeri bir azalmaktadır. Sonunda
+n=0 ve n=1 değerlerine gelindiğinde işlev değişmez bir değer döndürmeli
+kendi çağırmayı durdurmalıdır. Yani <P>
+<PRE>
+    f(int n)
+    {
+    if(n == 0 || n == 1) return 1;
+    return (f(n-1) + f(n-2));
+    }
+</PRE>
+<P>
+Biçiminde kodlama değiştirilirse, işlev n=0 ve n=1 için kendini çağırmayı
+durdurur. Örneklemek açısından n=4 için işlevin durumunu göstermeye 
+çalışalım : <P>
+<PRE>
+              f(4)
+               (5)
+       f(3)    +     f(2)
+        (3)           (2)
+    f(2) + f(1)   f(1) + f(0)
+     (2)     1      1      1
+ f(1)+f(0)
+   1    1
+</PRE>
+<P>
+<H4>ÖZDEVİNLİ PROGRAMLARDA DEĞİŞKENLER</H4>
+<P>
+Bu tür programlarda değişkenler otomatik değişken olmalıdır. İşlev
+dışında tanımlanan değişkenleri kullanmak istemeyen sonuçlar alınmasına
+neden olabilir. Özellikle işleve parametre olarak geçirilen değer, işlev
+dışında "global" tanımlanmamalı, "stack" üzerinde bulunan otomatik
+değişkenler olmalıdır. Bilindiği gibi otomatik değişkenler işlev
+bitince bellekten silinmektedir. Özdevinli işlevlerde, çağırılan işlevin
+sonucu bir önceki işleve geri dönecek biçimde bir otomatik değişkene
+atanmalı veya atama işlemini gerçekleştiren bir deyimde kullanılmalıdır.
+<P>
+<H4>UYGULAMADA ÖZDEVİNLİ İŞLEV KULLANIMI</H4>
+<P>
+Bir seriden her seferinde bir byte okuyup işleme almak bu tür programlar için
+güzel bir örnektir. Örneğin hattan gelen mesaj analizinde
+bu tür işlev kolaylıkla kullanılır. Özellikle mesaj boyu bilinmiyor ancak
+mesajın nasıl biteceği biliniyorsa özdevinli işlev kullanmak programın
+akışını kolaylaştırması açısından önemlidir.
+<P>
+Aşağıdaki örnek program okunan mesajın sonunda "newline" karakterini
+bulunca sonucu yazdırır.<P>
+<PRE>
+#include &lt;stdio.h&gt;
+main()
+{
+char buf[300];
+mesaj_oku(buf);
+puts(buf);
+}
+
+mesaj_oku(char *p)
+{
+char c;
+if((c = getchar()) != '\n') {
+    *p = c;
+    mesaj_oku(++p);
+    }
+else *p = '\0';
+return;
+}
+</PRE>
+</TD></TR>
+<TR>
+<TD COLSPAN=2>
+<HR>
+<A HREF="http://www.aybim.com.tr/">Ana Sayfaya</A>
+&nbsp;&nbsp;<A HREF="index.html">Teknik Bilgiler Sayfasina</A>
+</TD></TR></TABLE>
+</BODY>
+</HTML>

@@ -1,0 +1,2714 @@
+#ifndef FSA
+#define FSA
+typedef struct
+{
+  int trans;
+  int (*ccode) (void *, char, int);
+}
+FSARule;
+typedef struct
+{
+  int state, states, events;
+  FSARule *rules;
+}
+FSAutomaton;
+
+void FSAInit (FSAutomaton *, FSARule *, int, int, int);
+int FSAProcess (FSAutomaton *, void *, char, int);
+#endif
+
+/*                                                                        */
+/* The MEDICI Electronic Data Interchange Library                         */
+/* Copyright (C) 2002  David Coles                                        */
+/*                                                                        */
+/* This library is free software; you can redistribute it and/or          */
+/* modify it under the terms of the GNU Lesser General Public             */
+/* License as published by the Free Software Foundation; either           */
+/* version 2.1 of the License, or (at your option) any later version.     */
+/*                                                                        */
+/* This library is distributed in the hope that it will be useful,        */
+/* but WITHOUT ANY WARRANTY; without even the implied warranty of         */
+/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU      */
+/* Lesser General Public License for more details.                        */
+/*                                                                        */
+/* You should have received a copy of the GNU Lesser General Public       */
+/* License along with this library; if not, write to the Free Software    */
+/* Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA */
+/*                                                                        */
+/* This code is absolute gibberish. But it does seem to work.             */
+/* Mostly it's just horrid nested #defines - one day I'll document it ;)  */
+#include <stdio.h>
+#include "internal.h"
+#define	Error		return EDI_ECORRUPT
+#define	Ok		return EDI_ENONE
+#define Tokeniser	((edi_tokeniser_t *) this)
+#define Token		((edi_token_t *) &(Tokeniser->token))
+#define Advice		((edi_advice_t *) &(Tokeniser->advice))
+#define MyTA		EDI_TOKEN_APPEND (Token, SYMBOL, 1)
+#define MyRI		EDI_TOKEN_APPEND (Token, SYMBOL, 0)
+#define DoTA		if(MyTA)edi_tokeniser_handle_token(Tokeniser,0)
+#define DoRI		if(MyRI)edi_tokeniser_handle_token(Tokeniser,0)
+#define	DoTT(tt)	Token->type = tt
+#define	DoHT		edi_tokeniser_handle_token(Tokeniser, 1)
+#define DoES		DoHT; DoTA; DoTT(EDI_ES); DoHT
+#define DoSS		DoHT; DoTA; DoTT(EDI_SS); DoHT
+#define DoST		DoHT; DoTA; DoTT(EDI_ST); DoHT
+#define DoTS		DoTT(EDI_TG); DoHT; DoTA; DoTT(EDI_TS); DoHT
+#define DoSA		DoTA; DoTT(EDI_SA); DoHT
+#define StSS		edi_advice_set_ss(Advice, 1, SYMBOL);
+#define StES		edi_advice_set_es(Advice, 1, SYMBOL);
+#define StST		edi_advice_set_st(Advice, 1, SYMBOL);
+#define StRI		edi_advice_set_ri(Advice, 1, SYMBOL);
+/* STATE  EVENT   TRANS   ACTION                                          */
+/* STATE  EVENT   TRANS   ACTION                                          */
+/* STATE  EVENT   TRANS   ACTION                                          */
+/* STATE	EVENT	TRANS	ACTION                                               */
+/* FIXME - These next two lines are a hack.                               */
+/* I have no idea what the X12 spec says about how cr/lf chars are handled. */
+/* At least this allows them to be transparently ignored.                 */
+#define SYNTAX_DEFAULT  0
+#define SYNTAX_A        1
+#define SYNTAX_B        2
+#define SYNTAX_CR       3
+#define SYNTAX_ES       4
+#define SYNTAX_I        5
+#define SYNTAX_LF       6
+#define SYNTAX_N        7
+#define SYNTAX_RI       8
+#define SYNTAX_S        9
+#define SYNTAX_SS       10
+#define SYNTAX_ST       11
+#define SYNTAX_T        12
+#define SYNTAX_TS       13
+#define SYNTAX_U        14
+#define SYNTAX_X        15
+#define SYNTAX_DATA     1
+#define SYNTAX_ISA10    2
+#define SYNTAX_ISA100   3
+#define SYNTAX_ISA101   4
+#define SYNTAX_ISA102   5
+#define SYNTAX_ISA103   6
+#define SYNTAX_ISA104   7
+#define SYNTAX_ISA105   8
+#define SYNTAX_ISA106   9
+#define SYNTAX_ISA11    10
+#define SYNTAX_ISA12    11
+#define SYNTAX_ISA13    12
+#define SYNTAX_ISA14    13
+#define SYNTAX_ISA15    14
+#define SYNTAX_ISA16    15
+#define SYNTAX_ISA17    16
+#define SYNTAX_ISA18    17
+#define SYNTAX_ISA19    18
+#define SYNTAX_ISA2     19
+#define SYNTAX_ISA20    20
+#define SYNTAX_ISA21    21
+#define SYNTAX_ISA22    22
+#define SYNTAX_ISA23    23
+#define SYNTAX_ISA24    24
+#define SYNTAX_ISA25    25
+#define SYNTAX_ISA26    26
+#define SYNTAX_ISA27    27
+#define SYNTAX_ISA28    28
+#define SYNTAX_ISA29    29
+#define SYNTAX_ISA3     30
+#define SYNTAX_ISA30    31
+#define SYNTAX_ISA31    32
+#define SYNTAX_ISA32    33
+#define SYNTAX_ISA33    34
+#define SYNTAX_ISA34    35
+#define SYNTAX_ISA35    36
+#define SYNTAX_ISA36    37
+#define SYNTAX_ISA37    38
+#define SYNTAX_ISA38    39
+#define SYNTAX_ISA39    40
+#define SYNTAX_ISA4     41
+#define SYNTAX_ISA40    42
+#define SYNTAX_ISA41    43
+#define SYNTAX_ISA42    44
+#define SYNTAX_ISA43    45
+#define SYNTAX_ISA44    46
+#define SYNTAX_ISA45    47
+#define SYNTAX_ISA46    48
+#define SYNTAX_ISA47    49
+#define SYNTAX_ISA48    50
+#define SYNTAX_ISA49    51
+#define SYNTAX_ISA5     52
+#define SYNTAX_ISA50    53
+#define SYNTAX_ISA51    54
+#define SYNTAX_ISA52    55
+#define SYNTAX_ISA53    56
+#define SYNTAX_ISA54    57
+#define SYNTAX_ISA55    58
+#define SYNTAX_ISA56    59
+#define SYNTAX_ISA57    60
+#define SYNTAX_ISA58    61
+#define SYNTAX_ISA59    62
+#define SYNTAX_ISA6     63
+#define SYNTAX_ISA60    64
+#define SYNTAX_ISA61    65
+#define SYNTAX_ISA62    66
+#define SYNTAX_ISA63    67
+#define SYNTAX_ISA64    68
+#define SYNTAX_ISA65    69
+#define SYNTAX_ISA66    70
+#define SYNTAX_ISA67    71
+#define SYNTAX_ISA68    72
+#define SYNTAX_ISA69    73
+#define SYNTAX_ISA7     74
+#define SYNTAX_ISA70    75
+#define SYNTAX_ISA71    76
+#define SYNTAX_ISA72    77
+#define SYNTAX_ISA73    78
+#define SYNTAX_ISA74    79
+#define SYNTAX_ISA75    80
+#define SYNTAX_ISA76    81
+#define SYNTAX_ISA77    82
+#define SYNTAX_ISA78    83
+#define SYNTAX_ISA79    84
+#define SYNTAX_ISA8     85
+#define SYNTAX_ISA80    86
+#define SYNTAX_ISA81    87
+#define SYNTAX_ISA82    88
+#define SYNTAX_ISA83    89
+#define SYNTAX_ISA84    90
+#define SYNTAX_ISA85    91
+#define SYNTAX_ISA86    92
+#define SYNTAX_ISA87    93
+#define SYNTAX_ISA88    94
+#define SYNTAX_ISA89    95
+#define SYNTAX_ISA9     96
+#define SYNTAX_ISA90    97
+#define SYNTAX_ISA91    98
+#define SYNTAX_ISA92    99
+#define SYNTAX_ISA93    100
+#define SYNTAX_ISA94    101
+#define SYNTAX_ISA95    102
+#define SYNTAX_ISA96    103
+#define SYNTAX_ISA97    104
+#define SYNTAX_ISA98    105
+#define SYNTAX_ISA99    106
+#define SYNTAX_RELEASE  107
+#define SYNTAX_SSA1     108
+#define SYNTAX_SSA2     109
+#define SYNTAX_SSA3     110
+#define SYNTAX_SSA4     111
+#define SYNTAX_SSA5     112
+#define SYNTAX_SSA6     113
+#define SYNTAX_START    114
+#define SYNTAX_STX1     115
+#define SYNTAX_STX2     116
+#define SYNTAX_STX3     117
+#define SYNTAX_TAG      118
+#define SYNTAX_UDAT     119
+#define SYNTAX_UN1      120
+#define SYNTAX_UN2      121
+#define SYNTAX_UNB1     122
+#define SYNTAX_UNB2     123
+#define SYNTAX_UNB3     124
+#define SYNTAX_UNB4     125
+#define SYNTAX_UREL     126
+#define SYNTAX_UTAG     127
+#define SYNTAX_XDAT     128
+#define SYNTAX_XTAG     129
+
+static int
+SYNTAX_DEFAULT_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  Error;
+}
+static int
+SYNTAX_DATA_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_DATA_ES (void *this, char SYMBOL, int EVENT)
+{
+  DoES;
+  Ok;
+}
+static int
+SYNTAX_DATA_RI (void *this, char SYMBOL, int EVENT)
+{
+  DoRI;
+  Ok;
+}
+static int
+SYNTAX_DATA_SS (void *this, char SYMBOL, int EVENT)
+{
+  DoSS;
+  Ok;
+}
+static int
+SYNTAX_DATA_ST (void *this, char SYMBOL, int EVENT)
+{
+  DoST;
+  Ok;
+}
+static int
+SYNTAX_ISA10_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA100_ES (void *this, char SYMBOL, int EVENT)
+{
+  DoES;
+  Ok;
+}
+static int
+SYNTAX_ISA101_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA102_ES (void *this, char SYMBOL, int EVENT)
+{
+  DoES;
+  Ok;
+}
+static int
+SYNTAX_ISA103_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA104_ES (void *this, char SYMBOL, int EVENT)
+{
+  DoES;
+  Ok;
+}
+static int
+SYNTAX_ISA105_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  StSS;
+  Ok;
+}
+static int
+SYNTAX_ISA106_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoST;
+  StST;
+  Ok;
+}
+static int
+SYNTAX_ISA11_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA12_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA13_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA14_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA15_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA16_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA17_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA18_ES (void *this, char SYMBOL, int EVENT)
+{
+  DoES;
+  Ok;
+}
+static int
+SYNTAX_ISA19_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA2_S (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA20_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA21_ES (void *this, char SYMBOL, int EVENT)
+{
+  DoES;
+  Ok;
+}
+static int
+SYNTAX_ISA22_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA23_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA24_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA25_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA26_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA27_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA28_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA29_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA3_A (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA30_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA31_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA32_ES (void *this, char SYMBOL, int EVENT)
+{
+  DoES;
+  Ok;
+}
+static int
+SYNTAX_ISA33_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA34_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA35_ES (void *this, char SYMBOL, int EVENT)
+{
+  DoES;
+  Ok;
+}
+static int
+SYNTAX_ISA36_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA37_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA38_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA39_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA4_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTS;
+  StES;
+  Ok;
+}
+static int
+SYNTAX_ISA40_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA41_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA42_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA43_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA44_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA45_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA46_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA47_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA48_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA49_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA5_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA50_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA51_ES (void *this, char SYMBOL, int EVENT)
+{
+  DoES;
+  Ok;
+}
+static int
+SYNTAX_ISA52_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA53_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA54_ES (void *this, char SYMBOL, int EVENT)
+{
+  DoES;
+  Ok;
+}
+static int
+SYNTAX_ISA55_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA56_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA57_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA58_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA59_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA6_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA60_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA61_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA62_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA63_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA64_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA65_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA66_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA67_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA68_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA69_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA7_ES (void *this, char SYMBOL, int EVENT)
+{
+  DoES;
+  Ok;
+}
+static int
+SYNTAX_ISA70_ES (void *this, char SYMBOL, int EVENT)
+{
+  DoES;
+  Ok;
+}
+static int
+SYNTAX_ISA71_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA72_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA73_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA74_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA75_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA76_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA77_ES (void *this, char SYMBOL, int EVENT)
+{
+  DoES;
+  Ok;
+}
+static int
+SYNTAX_ISA78_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA79_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA8_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA80_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA81_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA82_ES (void *this, char SYMBOL, int EVENT)
+{
+  DoES;
+  Ok;
+}
+static int
+SYNTAX_ISA83_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA84_ES (void *this, char SYMBOL, int EVENT)
+{
+  DoES;
+  Ok;
+}
+static int
+SYNTAX_ISA85_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA86_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA87_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA88_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA89_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA9_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA90_ES (void *this, char SYMBOL, int EVENT)
+{
+  DoES;
+  Ok;
+}
+static int
+SYNTAX_ISA91_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA92_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA93_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA94_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA95_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA96_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA97_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA98_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_ISA99_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_RELEASE_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_SSA1_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  StSS;
+  Ok;
+}
+static int
+SYNTAX_SSA2_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  StES;
+  Ok;
+}
+static int
+SYNTAX_SSA3_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  /**/;
+  Ok;
+}
+static int
+SYNTAX_SSA4_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  StRI;
+  Ok;
+}
+static int
+SYNTAX_SSA5_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  /**/;
+  Ok;
+}
+static int
+SYNTAX_SSA6_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoSA;
+  StST;
+  Ok;
+}
+static int
+SYNTAX_START_I (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_START_S (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_START_U (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_STX1_T (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_STX2_X (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_STX3_TS (void *this, char SYMBOL, int EVENT)
+{
+  DoTS;
+  Ok;
+}
+static int
+SYNTAX_TAG_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_TAG_ES (void *this, char SYMBOL, int EVENT)
+{
+  DoTS;
+  Ok;
+}
+static int
+SYNTAX_UDAT_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_UDAT_ES (void *this, char SYMBOL, int EVENT)
+{
+  DoES;
+  Ok;
+}
+static int
+SYNTAX_UDAT_RI (void *this, char SYMBOL, int EVENT)
+{
+  DoRI;
+  Ok;
+}
+static int
+SYNTAX_UDAT_SS (void *this, char SYMBOL, int EVENT)
+{
+  DoSS;
+  Ok;
+}
+static int
+SYNTAX_UDAT_ST (void *this, char SYMBOL, int EVENT)
+{
+  DoST;
+  Ok;
+}
+static int
+SYNTAX_UN1_N (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_UN2_A (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_UN2_B (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_UNB1_U (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_UNB2_N (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_UNB3_B (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_UNB4_ES (void *this, char SYMBOL, int EVENT)
+{
+  DoTS;
+  Ok;
+}
+static int
+SYNTAX_UREL_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_UTAG_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_UTAG_TS (void *this, char SYMBOL, int EVENT)
+{
+  DoTS;
+  Ok;
+}
+static int
+SYNTAX_XDAT_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_XDAT_ES (void *this, char SYMBOL, int EVENT)
+{
+  DoES;
+  Ok;
+}
+static int
+SYNTAX_XDAT_SS (void *this, char SYMBOL, int EVENT)
+{
+  DoSS;
+  Ok;
+}
+static int
+SYNTAX_XDAT_ST (void *this, char SYMBOL, int EVENT)
+{
+  DoST;
+  Ok;
+}
+static int
+SYNTAX_XTAG_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  DoTA;
+  Ok;
+}
+static int
+SYNTAX_XTAG_CR (void *this, char SYMBOL, int EVENT)
+{
+  Ok;
+}
+static int
+SYNTAX_XTAG_ES (void *this, char SYMBOL, int EVENT)
+{
+  DoTS;
+  Ok;
+}
+static int
+SYNTAX_XTAG_LF (void *this, char SYMBOL, int EVENT)
+{
+  Ok;
+}
+
+static FSARule SYNTAX_rules[130][16] = {
+  /* DEFAULT                                   A                                         B                                         CR                                        ES                                        I                                         LF                                        N                                         RI                                        S                                         SS                                        ST                                        T                                         TS                                        U                                         X                                        */
+  {{SYNTAX_DEFAULT, SYNTAX_DEFAULT_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*  DEFAULT */
+  {{SYNTAX_DATA, SYNTAX_DATA_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DATA, SYNTAX_DATA_ES}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_RELEASE, SYNTAX_DATA_RI}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DATA, SYNTAX_DATA_SS}, {SYNTAX_TAG, SYNTAX_DATA_ST}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*     DATA */
+  {{SYNTAX_ISA11, SYNTAX_ISA10_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA10 */
+  {{SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_ISA101, SYNTAX_ISA100_ES}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*   ISA100 */
+  {{SYNTAX_ISA102, SYNTAX_ISA101_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*   ISA101 */
+  {{SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_ISA103, SYNTAX_ISA102_ES}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*   ISA102 */
+  {{SYNTAX_ISA104, SYNTAX_ISA103_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*   ISA103 */
+  {{SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_ISA105, SYNTAX_ISA104_ES}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*   ISA104 */
+  {{SYNTAX_ISA106, SYNTAX_ISA105_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*   ISA105 */
+  {{SYNTAX_XTAG, SYNTAX_ISA106_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*   ISA106 */
+  {{SYNTAX_ISA12, SYNTAX_ISA11_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA11 */
+  {{SYNTAX_ISA13, SYNTAX_ISA12_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA12 */
+  {{SYNTAX_ISA14, SYNTAX_ISA13_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA13 */
+  {{SYNTAX_ISA15, SYNTAX_ISA14_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA14 */
+  {{SYNTAX_ISA16, SYNTAX_ISA15_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA15 */
+  {{SYNTAX_ISA17, SYNTAX_ISA16_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA16 */
+  {{SYNTAX_ISA18, SYNTAX_ISA17_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA17 */
+  {{SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_ISA19, SYNTAX_ISA18_ES}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA18 */
+  {{SYNTAX_ISA20, SYNTAX_ISA19_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA19 */
+  {{SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_ISA3, SYNTAX_ISA2_S}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*     ISA2 */
+  {{SYNTAX_ISA21, SYNTAX_ISA20_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA20 */
+  {{SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_ISA22, SYNTAX_ISA21_ES}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA21 */
+  {{SYNTAX_ISA23, SYNTAX_ISA22_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA22 */
+  {{SYNTAX_ISA24, SYNTAX_ISA23_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA23 */
+  {{SYNTAX_ISA25, SYNTAX_ISA24_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA24 */
+  {{SYNTAX_ISA26, SYNTAX_ISA25_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA25 */
+  {{SYNTAX_ISA27, SYNTAX_ISA26_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA26 */
+  {{SYNTAX_ISA28, SYNTAX_ISA27_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA27 */
+  {{SYNTAX_ISA29, SYNTAX_ISA28_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA28 */
+  {{SYNTAX_ISA30, SYNTAX_ISA29_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA29 */
+  {{SYNTAX_DEFAULT, NULL}, {SYNTAX_ISA4, SYNTAX_ISA3_A}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*     ISA3 */
+  {{SYNTAX_ISA31, SYNTAX_ISA30_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA30 */
+  {{SYNTAX_ISA32, SYNTAX_ISA31_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA31 */
+  {{SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_ISA33, SYNTAX_ISA32_ES}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA32 */
+  {{SYNTAX_ISA34, SYNTAX_ISA33_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA33 */
+  {{SYNTAX_ISA35, SYNTAX_ISA34_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA34 */
+  {{SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_ISA36, SYNTAX_ISA35_ES}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA35 */
+  {{SYNTAX_ISA37, SYNTAX_ISA36_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA36 */
+  {{SYNTAX_ISA38, SYNTAX_ISA37_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA37 */
+  {{SYNTAX_ISA39, SYNTAX_ISA38_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA38 */
+  {{SYNTAX_ISA40, SYNTAX_ISA39_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA39 */
+  {{SYNTAX_ISA5, SYNTAX_ISA4_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*     ISA4 */
+  {{SYNTAX_ISA41, SYNTAX_ISA40_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA40 */
+  {{SYNTAX_ISA42, SYNTAX_ISA41_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA41 */
+  {{SYNTAX_ISA43, SYNTAX_ISA42_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA42 */
+  {{SYNTAX_ISA44, SYNTAX_ISA43_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA43 */
+  {{SYNTAX_ISA45, SYNTAX_ISA44_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA44 */
+  {{SYNTAX_ISA46, SYNTAX_ISA45_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA45 */
+  {{SYNTAX_ISA47, SYNTAX_ISA46_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA46 */
+  {{SYNTAX_ISA48, SYNTAX_ISA47_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA47 */
+  {{SYNTAX_ISA49, SYNTAX_ISA48_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA48 */
+  {{SYNTAX_ISA50, SYNTAX_ISA49_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA49 */
+  {{SYNTAX_ISA6, SYNTAX_ISA5_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*     ISA5 */
+  {{SYNTAX_ISA51, SYNTAX_ISA50_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA50 */
+  {{SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_ISA52, SYNTAX_ISA51_ES}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA51 */
+  {{SYNTAX_ISA53, SYNTAX_ISA52_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA52 */
+  {{SYNTAX_ISA54, SYNTAX_ISA53_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA53 */
+  {{SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_ISA55, SYNTAX_ISA54_ES}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA54 */
+  {{SYNTAX_ISA56, SYNTAX_ISA55_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA55 */
+  {{SYNTAX_ISA57, SYNTAX_ISA56_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA56 */
+  {{SYNTAX_ISA58, SYNTAX_ISA57_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA57 */
+  {{SYNTAX_ISA59, SYNTAX_ISA58_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA58 */
+  {{SYNTAX_ISA60, SYNTAX_ISA59_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA59 */
+  {{SYNTAX_ISA7, SYNTAX_ISA6_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*     ISA6 */
+  {{SYNTAX_ISA61, SYNTAX_ISA60_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA60 */
+  {{SYNTAX_ISA62, SYNTAX_ISA61_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA61 */
+  {{SYNTAX_ISA63, SYNTAX_ISA62_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA62 */
+  {{SYNTAX_ISA64, SYNTAX_ISA63_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA63 */
+  {{SYNTAX_ISA65, SYNTAX_ISA64_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA64 */
+  {{SYNTAX_ISA66, SYNTAX_ISA65_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA65 */
+  {{SYNTAX_ISA67, SYNTAX_ISA66_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA66 */
+  {{SYNTAX_ISA68, SYNTAX_ISA67_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA67 */
+  {{SYNTAX_ISA69, SYNTAX_ISA68_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA68 */
+  {{SYNTAX_ISA70, SYNTAX_ISA69_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA69 */
+  {{SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_ISA8, SYNTAX_ISA7_ES}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*     ISA7 */
+  {{SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_ISA71, SYNTAX_ISA70_ES}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA70 */
+  {{SYNTAX_ISA72, SYNTAX_ISA71_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA71 */
+  {{SYNTAX_ISA73, SYNTAX_ISA72_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA72 */
+  {{SYNTAX_ISA74, SYNTAX_ISA73_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA73 */
+  {{SYNTAX_ISA75, SYNTAX_ISA74_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA74 */
+  {{SYNTAX_ISA76, SYNTAX_ISA75_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA75 */
+  {{SYNTAX_ISA77, SYNTAX_ISA76_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA76 */
+  {{SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_ISA78, SYNTAX_ISA77_ES}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA77 */
+  {{SYNTAX_ISA79, SYNTAX_ISA78_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA78 */
+  {{SYNTAX_ISA80, SYNTAX_ISA79_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA79 */
+  {{SYNTAX_ISA9, SYNTAX_ISA8_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*     ISA8 */
+  {{SYNTAX_ISA81, SYNTAX_ISA80_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA80 */
+  {{SYNTAX_ISA82, SYNTAX_ISA81_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA81 */
+  {{SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_ISA83, SYNTAX_ISA82_ES}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA82 */
+  {{SYNTAX_ISA84, SYNTAX_ISA83_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA83 */
+  {{SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_ISA85, SYNTAX_ISA84_ES}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA84 */
+  {{SYNTAX_ISA86, SYNTAX_ISA85_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA85 */
+  {{SYNTAX_ISA87, SYNTAX_ISA86_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA86 */
+  {{SYNTAX_ISA88, SYNTAX_ISA87_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA87 */
+  {{SYNTAX_ISA89, SYNTAX_ISA88_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA88 */
+  {{SYNTAX_ISA90, SYNTAX_ISA89_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA89 */
+  {{SYNTAX_ISA10, SYNTAX_ISA9_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*     ISA9 */
+  {{SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_ISA91, SYNTAX_ISA90_ES}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA90 */
+  {{SYNTAX_ISA92, SYNTAX_ISA91_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA91 */
+  {{SYNTAX_ISA93, SYNTAX_ISA92_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA92 */
+  {{SYNTAX_ISA94, SYNTAX_ISA93_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA93 */
+  {{SYNTAX_ISA95, SYNTAX_ISA94_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA94 */
+  {{SYNTAX_ISA96, SYNTAX_ISA95_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA95 */
+  {{SYNTAX_ISA97, SYNTAX_ISA96_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA96 */
+  {{SYNTAX_ISA98, SYNTAX_ISA97_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA97 */
+  {{SYNTAX_ISA99, SYNTAX_ISA98_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA98 */
+  {{SYNTAX_ISA100, SYNTAX_ISA99_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*    ISA99 */
+  {{SYNTAX_DATA, SYNTAX_RELEASE_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*  RELEASE */
+  {{SYNTAX_SSA2, SYNTAX_SSA1_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*     SSA1 */
+  {{SYNTAX_SSA3, SYNTAX_SSA2_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*     SSA2 */
+  {{SYNTAX_SSA4, SYNTAX_SSA3_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*     SSA3 */
+  {{SYNTAX_SSA5, SYNTAX_SSA4_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*     SSA4 */
+  {{SYNTAX_SSA6, SYNTAX_SSA5_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*     SSA5 */
+  {{SYNTAX_UNB1, SYNTAX_SSA6_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*     SSA6 */
+  {{SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_ISA2, SYNTAX_START_I}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_STX1, SYNTAX_START_S}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_UN1, SYNTAX_START_U}, {SYNTAX_DEFAULT, NULL},},	/*    START */
+  {{SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_STX2, SYNTAX_STX1_T}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*     STX1 */
+  {{SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_STX3, SYNTAX_STX2_X},},	/*     STX2 */
+  {{SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_UDAT, SYNTAX_STX3_TS}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*     STX3 */
+  {{SYNTAX_TAG, SYNTAX_TAG_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DATA, SYNTAX_TAG_ES}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*      TAG */
+  {{SYNTAX_UDAT, SYNTAX_UDAT_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_UDAT, SYNTAX_UDAT_ES}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_UREL, SYNTAX_UDAT_RI}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_UDAT, SYNTAX_UDAT_SS}, {SYNTAX_UTAG, SYNTAX_UDAT_ST}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*     UDAT */
+  {{SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_UN2, SYNTAX_UN1_N}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*      UN1 */
+  {{SYNTAX_DEFAULT, NULL}, {SYNTAX_SSA1, SYNTAX_UN2_A}, {SYNTAX_UNB4, SYNTAX_UN2_B}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*      UN2 */
+  {{SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_UNB2, SYNTAX_UNB1_U}, {SYNTAX_DEFAULT, NULL},},	/*     UNB1 */
+  {{SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_UNB3, SYNTAX_UNB2_N}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*     UNB2 */
+  {{SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_UNB4, SYNTAX_UNB3_B}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*     UNB3 */
+  {{SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DATA, SYNTAX_UNB4_ES}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*     UNB4 */
+  {{SYNTAX_UDAT, SYNTAX_UREL_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*     UREL */
+  {{SYNTAX_UTAG, SYNTAX_UTAG_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_UDAT, SYNTAX_UTAG_TS}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*     UTAG */
+  {{SYNTAX_XDAT, SYNTAX_XDAT_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_XDAT, SYNTAX_XDAT_ES}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_XDAT, SYNTAX_XDAT_SS}, {SYNTAX_XTAG, SYNTAX_XDAT_ST}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*     XDAT */
+  {{SYNTAX_XTAG, SYNTAX_XTAG_DEFAULT}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_XTAG, SYNTAX_XTAG_CR}, {SYNTAX_XDAT, SYNTAX_XTAG_ES}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_XTAG, SYNTAX_XTAG_LF}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL}, {SYNTAX_DEFAULT, NULL},},	/*     XTAG */
+};
+
+void
+SYNTAX_init (FSAutomaton * fsa)
+{
+  FSAInit (fsa, &SYNTAX_rules[0][0], 130, 16, SYNTAX_START);
+}
+
+/* # Determine if an EDIFACT numeric value meets the spec                 */
+/* # FIXME - _READ_ the spec, don't just guess ;)                         */
+#define Eval ((edi_evaluation *) this)
+#define EDIFACTNumeric_DEFAULT  0
+#define EDIFACTNumeric_DECMARK  1
+#define EDIFACTNumeric_MINUS    2
+#define EDIFACTNumeric_NUMBER   3
+#define EDIFACTNumeric_DFAULT   1
+#define EDIFACTNumeric_FPART    2
+#define EDIFACTNumeric_IPART    3
+#define EDIFACTNumeric_SIGNED   4
+#define EDIFACTNumeric_START    5
+
+static int
+EDIFACTNumeric_DEFAULT_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  Eval->failure = 1;
+  Error;
+}
+static int
+EDIFACTNumeric_FPART_NUMBER (void *this, char SYMBOL, int EVENT)
+{
+  Eval->pending = 0;
+  Eval->length++;
+  Ok;
+}
+static int
+EDIFACTNumeric_IPART_DECMARK (void *this, char SYMBOL, int EVENT)
+{
+  Eval->pending = 1;
+  Ok;
+}
+static int
+EDIFACTNumeric_IPART_NUMBER (void *this, char SYMBOL, int EVENT)
+{
+  Eval->pending = 0;
+  Eval->length++;
+  Ok;
+}
+static int
+EDIFACTNumeric_SIGNED_NUMBER (void *this, char SYMBOL, int EVENT)
+{
+  Eval->length = 1;
+  Ok;
+}
+static int
+EDIFACTNumeric_START_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  Eval->failure = 1;
+  Error;
+}
+static int
+EDIFACTNumeric_START_MINUS (void *this, char SYMBOL, int EVENT)
+{
+  Eval->pending = 1;
+  Ok;
+}
+static int
+EDIFACTNumeric_START_NUMBER (void *this, char SYMBOL, int EVENT)
+{
+  Eval->length = 1;
+  Ok;
+}
+
+static FSARule EDIFACTNumeric_rules[6][4] = {
+  /* DEFAULT                                   DECMARK                                   MINUS                                     NUMBER                                   */
+  {{EDIFACTNumeric_DEFAULT, EDIFACTNumeric_DEFAULT_DEFAULT}, {EDIFACTNumeric_DEFAULT, NULL}, {EDIFACTNumeric_DEFAULT, NULL}, {EDIFACTNumeric_DEFAULT, NULL},},	/*  DEFAULT */
+  {{EDIFACTNumeric_DEFAULT, NULL}, {EDIFACTNumeric_DEFAULT, NULL}, {EDIFACTNumeric_DEFAULT, NULL}, {EDIFACTNumeric_DEFAULT, NULL},},	/*   DFAULT */
+  {{EDIFACTNumeric_DEFAULT, NULL}, {EDIFACTNumeric_DEFAULT, NULL}, {EDIFACTNumeric_DEFAULT, NULL}, {EDIFACTNumeric_FPART, EDIFACTNumeric_FPART_NUMBER},},	/*    FPART */
+  {{EDIFACTNumeric_DEFAULT, NULL}, {EDIFACTNumeric_FPART, EDIFACTNumeric_IPART_DECMARK}, {EDIFACTNumeric_DEFAULT, NULL}, {EDIFACTNumeric_IPART, EDIFACTNumeric_IPART_NUMBER},},	/*    IPART */
+  {{EDIFACTNumeric_DEFAULT, NULL}, {EDIFACTNumeric_DEFAULT, NULL}, {EDIFACTNumeric_DEFAULT, NULL}, {EDIFACTNumeric_IPART, EDIFACTNumeric_SIGNED_NUMBER},},	/*   SIGNED */
+  {{EDIFACTNumeric_DFAULT, EDIFACTNumeric_START_DEFAULT}, {EDIFACTNumeric_DEFAULT, NULL}, {EDIFACTNumeric_SIGNED, EDIFACTNumeric_START_MINUS}, {EDIFACTNumeric_IPART, EDIFACTNumeric_START_NUMBER},},	/*    START */
+};
+
+void
+EDIFACTNumeric_init (FSAutomaton * fsa)
+{
+  FSAInit (fsa, &EDIFACTNumeric_rules[0][0], 6, 4, EDIFACTNumeric_START);
+}
+
+/* OLD STUFF ...                                                          */
+void
+nothing (void)
+{
+}
+
+#define advc	(((edi_parser_t *) this)->advice)
+#define	AddToBuffer		edi_parser_add_to_buffer (this, SYMBOL)
+#define	ClearBuffer		edi_parser_clear_buffer  (this)
+#define	EndTag			edi_parser_end_tag	 (this)
+#define	EndElement		edi_parser_end_element	 (this)
+#define	EndSubelement		edi_parser_end_subelement(this)
+#define	NewSegment		edi_parser_new_segment	 (this)
+#define	SetHasSSA		advc.has_ssa = 1
+#define	SetElementSeparator	edi_advice_set_es(&advc, 1, SYMBOL)
+#define	SetSubelementSeparator	edi_advice_set_ss(&advc, 1, SYMBOL)
+#define	SetSegmentTerminator	edi_advice_set_st(&advc, 1, SYMBOL)
+#define	SetDecimalNotation	edi_advice_set_dn(&advc, 1, SYMBOL)
+#define	SetReleaseIndicator	edi_advice_set_ri(&advc, 1, SYMBOL)
+#define	SetRepetitionSeparator	edi_advice_set_rs(&advc, 1, SYMBOL)
+#define	EDIFACTParse		/*edi_edifact_segment(this) */
+#define	UNGTDIParse		/*edi_ungtdi_parse(this) */
+#define	X12Parse		/*edi_x12_parse(this) */
+/* STATE  EVENT   TRANS   ACTION                                          */
+#define EDIFACT_DEFAULT  0
+#define EDIFACT_A        1
+#define EDIFACT_B        2
+#define EDIFACT_ES       3
+#define EDIFACT_N        4
+#define EDIFACT_RI       5
+#define EDIFACT_SS       6
+#define EDIFACT_ST       7
+#define EDIFACT_U        8
+#define EDIFACT_DATA     1
+#define EDIFACT_RELEASE  2
+#define EDIFACT_SSA1     3
+#define EDIFACT_SSA2     4
+#define EDIFACT_SSA3     5
+#define EDIFACT_SSA4     6
+#define EDIFACT_SSA5     7
+#define EDIFACT_SSA6     8
+#define EDIFACT_START    9
+#define EDIFACT_TAG      10
+#define EDIFACT_UN1      11
+#define EDIFACT_UN2      12
+#define EDIFACT_UNB1     13
+#define EDIFACT_UNB2     14
+#define EDIFACT_UNB3     15
+#define EDIFACT_UNB4     16
+
+static int
+EDIFACT_DEFAULT_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  Error;
+}
+static int
+EDIFACT_DATA_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+EDIFACT_DATA_ES (void *this, char SYMBOL, int EVENT)
+{
+  EndElement;
+  Ok;
+}
+static int
+EDIFACT_DATA_SS (void *this, char SYMBOL, int EVENT)
+{
+  EndSubelement;
+  Ok;
+}
+static int
+EDIFACT_DATA_ST (void *this, char SYMBOL, int EVENT)
+{
+  EndElement;			/*EDIFACTParse; */
+  NewSegment;
+  Ok;
+}
+static int
+EDIFACT_RELEASE_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+EDIFACT_SSA1_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  SetSubelementSeparator;
+  AddToBuffer;
+  Ok;
+}
+static int
+EDIFACT_SSA2_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  SetElementSeparator;
+  AddToBuffer;
+  Ok;
+}
+static int
+EDIFACT_SSA3_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  SetDecimalNotation;
+  AddToBuffer;
+  Ok;
+}
+static int
+EDIFACT_SSA4_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  SetReleaseIndicator;
+  AddToBuffer;
+  Ok;
+}
+static int
+EDIFACT_SSA5_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  SetRepetitionSeparator;
+  AddToBuffer;
+  Ok;
+}
+static int
+EDIFACT_SSA6_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  SetSegmentTerminator;
+  AddToBuffer;
+  Ok;
+}
+static int
+EDIFACT_START_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  Eval->failure = 1;
+  Error;
+}
+static int
+EDIFACT_START_U (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+EDIFACT_TAG_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+EDIFACT_TAG_ES (void *this, char SYMBOL, int EVENT)
+{
+  EndTag;
+  Ok;
+}
+static int
+EDIFACT_UN1_N (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+EDIFACT_UN2_A (void *this, char SYMBOL, int EVENT)
+{
+  SetHasSSA;
+  AddToBuffer;
+  Ok;
+}
+static int
+EDIFACT_UN2_B (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+EDIFACT_UNB1_U (void *this, char SYMBOL, int EVENT)
+{
+  ClearBuffer;
+  AddToBuffer;
+  Ok;
+}
+static int
+EDIFACT_UNB2_N (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+EDIFACT_UNB3_B (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+EDIFACT_UNB4_ES (void *this, char SYMBOL, int EVENT)
+{
+  EndTag;
+  Ok;
+}
+
+static FSARule EDIFACT_rules[17][9] = {
+  /* DEFAULT                                   A                                         B                                         ES                                        N                                         RI                                        SS                                        ST                                        U                                        */
+  {{EDIFACT_DEFAULT, EDIFACT_DEFAULT_DEFAULT}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL},},	/*  DEFAULT */
+  {{EDIFACT_DATA, EDIFACT_DATA_DEFAULT}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DATA, EDIFACT_DATA_ES}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_RELEASE, NULL}, {EDIFACT_DATA, EDIFACT_DATA_SS}, {EDIFACT_TAG, EDIFACT_DATA_ST}, {EDIFACT_DEFAULT, NULL},},	/*     DATA */
+  {{EDIFACT_DATA, EDIFACT_RELEASE_DEFAULT}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL},},	/*  RELEASE */
+  {{EDIFACT_SSA2, EDIFACT_SSA1_DEFAULT}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL},},	/*     SSA1 */
+  {{EDIFACT_SSA3, EDIFACT_SSA2_DEFAULT}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL},},	/*     SSA2 */
+  {{EDIFACT_SSA4, EDIFACT_SSA3_DEFAULT}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL},},	/*     SSA3 */
+  {{EDIFACT_SSA5, EDIFACT_SSA4_DEFAULT}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL},},	/*     SSA4 */
+  {{EDIFACT_SSA6, EDIFACT_SSA5_DEFAULT}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL},},	/*     SSA5 */
+  {{EDIFACT_UNB1, EDIFACT_SSA6_DEFAULT}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL},},	/*     SSA6 */
+  {{EDIFACT_DEFAULT, EDIFACT_START_DEFAULT}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_UN1, EDIFACT_START_U},},	/*    START */
+  {{EDIFACT_TAG, EDIFACT_TAG_DEFAULT}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DATA, EDIFACT_TAG_ES}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL},},	/*      TAG */
+  {{EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_UN2, EDIFACT_UN1_N}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL},},	/*      UN1 */
+  {{EDIFACT_DEFAULT, NULL}, {EDIFACT_SSA1, EDIFACT_UN2_A}, {EDIFACT_UNB4, EDIFACT_UN2_B}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL},},	/*      UN2 */
+  {{EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_UNB2, EDIFACT_UNB1_U},},	/*     UNB1 */
+  {{EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_UNB3, EDIFACT_UNB2_N}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL},},	/*     UNB2 */
+  {{EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_UNB4, EDIFACT_UNB3_B}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL},},	/*     UNB3 */
+  {{EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DATA, EDIFACT_UNB4_ES}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL}, {EDIFACT_DEFAULT, NULL},},	/*     UNB4 */
+};
+
+void
+EDIFACT_init (FSAutomaton * fsa)
+{
+  FSAInit (fsa, &EDIFACT_rules[0][0], 17, 9, EDIFACT_START);
+}
+
+/* STATE  EVENT   TRANS   ACTION                                          */
+#define UNGTDI_DEFAULT  0
+#define UNGTDI_DES      1
+#define UNGTDI_RI       2
+#define UNGTDI_S        3
+#define UNGTDI_SES      4
+#define UNGTDI_ST       5
+#define UNGTDI_T        6
+#define UNGTDI_TS       7
+#define UNGTDI_X        8
+#define UNGTDI_DATA     1
+#define UNGTDI_RELEASE  2
+#define UNGTDI_START    3
+#define UNGTDI_STX1     4
+#define UNGTDI_STX2     5
+#define UNGTDI_STX3     6
+#define UNGTDI_TAG      7
+
+static int
+UNGTDI_DEFAULT_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  Error;
+}
+static int
+UNGTDI_DATA_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+UNGTDI_DATA_DES (void *this, char SYMBOL, int EVENT)
+{
+  EndElement;
+  Ok;
+}
+static int
+UNGTDI_DATA_SES (void *this, char SYMBOL, int EVENT)
+{
+  EndSubelement;
+  Ok;
+}
+static int
+UNGTDI_DATA_ST (void *this, char SYMBOL, int EVENT)
+{
+  EndElement;
+  UNGTDIParse;
+  NewSegment;
+  Ok;
+}
+static int
+UNGTDI_RELEASE_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+UNGTDI_START_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  Eval->failure = 1;
+  Error;
+}
+static int
+UNGTDI_START_S (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+UNGTDI_STX1_T (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+UNGTDI_STX2_X (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+UNGTDI_STX3_TS (void *this, char SYMBOL, int EVENT)
+{
+  EndTag;
+  Ok;
+}
+static int
+UNGTDI_TAG_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+UNGTDI_TAG_TS (void *this, char SYMBOL, int EVENT)
+{
+  EndTag;
+  Ok;
+}
+
+static FSARule UNGTDI_rules[8][9] = {
+  /* DEFAULT                                   DES                                       RI                                        S                                         SES                                       ST                                        T                                         TS                                        X                                        */
+  {{UNGTDI_DEFAULT, UNGTDI_DEFAULT_DEFAULT}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL},},	/*  DEFAULT */
+  {{UNGTDI_DATA, UNGTDI_DATA_DEFAULT}, {UNGTDI_DATA, UNGTDI_DATA_DES}, {UNGTDI_RELEASE, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DATA, UNGTDI_DATA_SES}, {UNGTDI_TAG, UNGTDI_DATA_ST}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL},},	/*     DATA */
+  {{UNGTDI_DATA, UNGTDI_RELEASE_DEFAULT}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL},},	/*  RELEASE */
+  {{UNGTDI_DEFAULT, UNGTDI_START_DEFAULT}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_STX1, UNGTDI_START_S}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL},},	/*    START */
+  {{UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_STX2, UNGTDI_STX1_T}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL},},	/*     STX1 */
+  {{UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_STX3, UNGTDI_STX2_X},},	/*     STX2 */
+  {{UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DATA, UNGTDI_STX3_TS}, {UNGTDI_DEFAULT, NULL},},	/*     STX3 */
+  {{UNGTDI_TAG, UNGTDI_TAG_DEFAULT}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DEFAULT, NULL}, {UNGTDI_DATA, UNGTDI_TAG_TS}, {UNGTDI_DEFAULT, NULL},},	/*      TAG */
+};
+
+void
+UNGTDI_init (FSAutomaton * fsa)
+{
+  FSAInit (fsa, &UNGTDI_rules[0][0], 8, 9, UNGTDI_START);
+}
+
+/* STATE	EVENT	TRANS	ACTION                                               */
+#define X12_DEFAULT  0
+#define X12_A        1
+#define X12_ES       2
+#define X12_I        3
+#define X12_S        4
+#define X12_SS       5
+#define X12_ST       6
+#define X12_DATA     1
+#define X12_ISA10    2
+#define X12_ISA100   3
+#define X12_ISA101   4
+#define X12_ISA102   5
+#define X12_ISA103   6
+#define X12_ISA104   7
+#define X12_ISA105   8
+#define X12_ISA106   9
+#define X12_ISA11    10
+#define X12_ISA12    11
+#define X12_ISA13    12
+#define X12_ISA14    13
+#define X12_ISA15    14
+#define X12_ISA16    15
+#define X12_ISA17    16
+#define X12_ISA18    17
+#define X12_ISA19    18
+#define X12_ISA2     19
+#define X12_ISA20    20
+#define X12_ISA21    21
+#define X12_ISA22    22
+#define X12_ISA23    23
+#define X12_ISA24    24
+#define X12_ISA25    25
+#define X12_ISA26    26
+#define X12_ISA27    27
+#define X12_ISA28    28
+#define X12_ISA29    29
+#define X12_ISA3     30
+#define X12_ISA30    31
+#define X12_ISA31    32
+#define X12_ISA32    33
+#define X12_ISA33    34
+#define X12_ISA34    35
+#define X12_ISA35    36
+#define X12_ISA36    37
+#define X12_ISA37    38
+#define X12_ISA38    39
+#define X12_ISA39    40
+#define X12_ISA4     41
+#define X12_ISA40    42
+#define X12_ISA41    43
+#define X12_ISA42    44
+#define X12_ISA43    45
+#define X12_ISA44    46
+#define X12_ISA45    47
+#define X12_ISA46    48
+#define X12_ISA47    49
+#define X12_ISA48    50
+#define X12_ISA49    51
+#define X12_ISA5     52
+#define X12_ISA50    53
+#define X12_ISA51    54
+#define X12_ISA52    55
+#define X12_ISA53    56
+#define X12_ISA54    57
+#define X12_ISA55    58
+#define X12_ISA56    59
+#define X12_ISA57    60
+#define X12_ISA58    61
+#define X12_ISA59    62
+#define X12_ISA6     63
+#define X12_ISA60    64
+#define X12_ISA61    65
+#define X12_ISA62    66
+#define X12_ISA63    67
+#define X12_ISA64    68
+#define X12_ISA65    69
+#define X12_ISA66    70
+#define X12_ISA67    71
+#define X12_ISA68    72
+#define X12_ISA69    73
+#define X12_ISA7     74
+#define X12_ISA70    75
+#define X12_ISA71    76
+#define X12_ISA72    77
+#define X12_ISA73    78
+#define X12_ISA74    79
+#define X12_ISA75    80
+#define X12_ISA76    81
+#define X12_ISA77    82
+#define X12_ISA78    83
+#define X12_ISA79    84
+#define X12_ISA8     85
+#define X12_ISA80    86
+#define X12_ISA81    87
+#define X12_ISA82    88
+#define X12_ISA83    89
+#define X12_ISA84    90
+#define X12_ISA85    91
+#define X12_ISA86    92
+#define X12_ISA87    93
+#define X12_ISA88    94
+#define X12_ISA89    95
+#define X12_ISA9     96
+#define X12_ISA90    97
+#define X12_ISA91    98
+#define X12_ISA92    99
+#define X12_ISA93    100
+#define X12_ISA94    101
+#define X12_ISA95    102
+#define X12_ISA96    103
+#define X12_ISA97    104
+#define X12_ISA98    105
+#define X12_ISA99    106
+#define X12_START    107
+#define X12_TAG      108
+
+static int
+X12_DEFAULT_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  Error;
+}
+static int
+X12_DATA_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_DATA_ES (void *this, char SYMBOL, int EVENT)
+{
+  EndElement;
+  Ok;
+}
+static int
+X12_DATA_SS (void *this, char SYMBOL, int EVENT)
+{
+  EndSubelement;
+  Ok;
+}
+static int
+X12_DATA_ST (void *this, char SYMBOL, int EVENT)
+{
+  EndElement;
+  X12Parse;
+  NewSegment;
+  Ok;
+}
+static int
+X12_ISA10_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA100_ES (void *this, char SYMBOL, int EVENT)
+{
+  EndElement;
+  Ok;
+}
+static int
+X12_ISA101_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA102_ES (void *this, char SYMBOL, int EVENT)
+{
+  EndElement;
+  Ok;
+}
+static int
+X12_ISA103_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA104_ES (void *this, char SYMBOL, int EVENT)
+{
+  EndElement;
+  Ok;
+}
+static int
+X12_ISA105_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  SetSubelementSeparator;
+  Ok;
+}
+static int
+X12_ISA106_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  EndElement;
+  SetSegmentTerminator;
+  X12Parse;
+  NewSegment;
+  Ok;
+}
+static int
+X12_ISA11_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA12_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA13_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA14_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA15_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA16_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA17_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA18_ES (void *this, char SYMBOL, int EVENT)
+{
+  EndElement;
+  Ok;
+}
+static int
+X12_ISA19_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA2_S (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA20_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA21_ES (void *this, char SYMBOL, int EVENT)
+{
+  EndElement;
+  Ok;
+}
+static int
+X12_ISA22_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA23_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA24_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA25_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA26_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA27_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA28_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA29_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA3_A (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA30_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA31_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA32_ES (void *this, char SYMBOL, int EVENT)
+{
+  EndElement;
+  Ok;
+}
+static int
+X12_ISA33_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA34_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA35_ES (void *this, char SYMBOL, int EVENT)
+{
+  EndElement;
+  Ok;
+}
+static int
+X12_ISA36_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA37_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA38_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA39_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA4_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  EndTag;
+  SetElementSeparator;
+  Ok;
+}
+static int
+X12_ISA40_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA41_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA42_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA43_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA44_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA45_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA46_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA47_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA48_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA49_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA5_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA50_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA51_ES (void *this, char SYMBOL, int EVENT)
+{
+  EndElement;
+  Ok;
+}
+static int
+X12_ISA52_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA53_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA54_ES (void *this, char SYMBOL, int EVENT)
+{
+  EndElement;
+  Ok;
+}
+static int
+X12_ISA55_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA56_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA57_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA58_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA59_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA6_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA60_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA61_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA62_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA63_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA64_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA65_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA66_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA67_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA68_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA69_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA7_ES (void *this, char SYMBOL, int EVENT)
+{
+  EndElement;
+  Ok;
+}
+static int
+X12_ISA70_ES (void *this, char SYMBOL, int EVENT)
+{
+  EndElement;
+  Ok;
+}
+static int
+X12_ISA71_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA72_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA73_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA74_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA75_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA76_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA77_ES (void *this, char SYMBOL, int EVENT)
+{
+  EndElement;
+  Ok;
+}
+static int
+X12_ISA78_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA79_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA8_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA80_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA81_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA82_ES (void *this, char SYMBOL, int EVENT)
+{
+  EndElement;
+  Ok;
+}
+static int
+X12_ISA83_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA84_ES (void *this, char SYMBOL, int EVENT)
+{
+  EndElement;
+  Ok;
+}
+static int
+X12_ISA85_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA86_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA87_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA88_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA89_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA9_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA90_ES (void *this, char SYMBOL, int EVENT)
+{
+  EndElement;
+  Ok;
+}
+static int
+X12_ISA91_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA92_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA93_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA94_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA95_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA96_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA97_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA98_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_ISA99_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_START_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  Eval->failure = 1;
+  Error;
+}
+static int
+X12_START_I (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_START_S (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_TAG_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  AddToBuffer;
+  Ok;
+}
+static int
+X12_TAG_ES (void *this, char SYMBOL, int EVENT)
+{
+  EndTag;
+  Ok;
+}
+
+static FSARule X12_rules[109][7] = {
+  /* DEFAULT                                   A                                         ES                                        I                                         S                                         SS                                        ST                                       */
+  {{X12_DEFAULT, X12_DEFAULT_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*  DEFAULT */
+  {{X12_DATA, X12_DATA_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DATA, X12_DATA_ES}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DATA, X12_DATA_SS}, {X12_TAG, X12_DATA_ST},},	/*     DATA */
+  {{X12_ISA11, X12_ISA10_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA10 */
+  {{X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_ISA101, X12_ISA100_ES}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*   ISA100 */
+  {{X12_ISA102, X12_ISA101_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*   ISA101 */
+  {{X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_ISA103, X12_ISA102_ES}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*   ISA102 */
+  {{X12_ISA104, X12_ISA103_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*   ISA103 */
+  {{X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_ISA105, X12_ISA104_ES}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*   ISA104 */
+  {{X12_ISA106, X12_ISA105_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*   ISA105 */
+  {{X12_TAG, X12_ISA106_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*   ISA106 */
+  {{X12_ISA12, X12_ISA11_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA11 */
+  {{X12_ISA13, X12_ISA12_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA12 */
+  {{X12_ISA14, X12_ISA13_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA13 */
+  {{X12_ISA15, X12_ISA14_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA14 */
+  {{X12_ISA16, X12_ISA15_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA15 */
+  {{X12_ISA17, X12_ISA16_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA16 */
+  {{X12_ISA18, X12_ISA17_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA17 */
+  {{X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_ISA19, X12_ISA18_ES}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA18 */
+  {{X12_ISA20, X12_ISA19_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA19 */
+  {{X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_ISA3, X12_ISA2_S}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*     ISA2 */
+  {{X12_ISA21, X12_ISA20_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA20 */
+  {{X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_ISA22, X12_ISA21_ES}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA21 */
+  {{X12_ISA23, X12_ISA22_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA22 */
+  {{X12_ISA24, X12_ISA23_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA23 */
+  {{X12_ISA25, X12_ISA24_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA24 */
+  {{X12_ISA26, X12_ISA25_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA25 */
+  {{X12_ISA27, X12_ISA26_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA26 */
+  {{X12_ISA28, X12_ISA27_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA27 */
+  {{X12_ISA29, X12_ISA28_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA28 */
+  {{X12_ISA30, X12_ISA29_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA29 */
+  {{X12_DEFAULT, NULL}, {X12_ISA4, X12_ISA3_A}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*     ISA3 */
+  {{X12_ISA31, X12_ISA30_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA30 */
+  {{X12_ISA32, X12_ISA31_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA31 */
+  {{X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_ISA33, X12_ISA32_ES}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA32 */
+  {{X12_ISA34, X12_ISA33_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA33 */
+  {{X12_ISA35, X12_ISA34_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA34 */
+  {{X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_ISA36, X12_ISA35_ES}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA35 */
+  {{X12_ISA37, X12_ISA36_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA36 */
+  {{X12_ISA38, X12_ISA37_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA37 */
+  {{X12_ISA39, X12_ISA38_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA38 */
+  {{X12_ISA40, X12_ISA39_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA39 */
+  {{X12_ISA5, X12_ISA4_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*     ISA4 */
+  {{X12_ISA41, X12_ISA40_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA40 */
+  {{X12_ISA42, X12_ISA41_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA41 */
+  {{X12_ISA43, X12_ISA42_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA42 */
+  {{X12_ISA44, X12_ISA43_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA43 */
+  {{X12_ISA45, X12_ISA44_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA44 */
+  {{X12_ISA46, X12_ISA45_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA45 */
+  {{X12_ISA47, X12_ISA46_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA46 */
+  {{X12_ISA48, X12_ISA47_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA47 */
+  {{X12_ISA49, X12_ISA48_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA48 */
+  {{X12_ISA50, X12_ISA49_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA49 */
+  {{X12_ISA6, X12_ISA5_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*     ISA5 */
+  {{X12_ISA51, X12_ISA50_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA50 */
+  {{X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_ISA52, X12_ISA51_ES}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA51 */
+  {{X12_ISA53, X12_ISA52_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA52 */
+  {{X12_ISA54, X12_ISA53_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA53 */
+  {{X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_ISA55, X12_ISA54_ES}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA54 */
+  {{X12_ISA56, X12_ISA55_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA55 */
+  {{X12_ISA57, X12_ISA56_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA56 */
+  {{X12_ISA58, X12_ISA57_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA57 */
+  {{X12_ISA59, X12_ISA58_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA58 */
+  {{X12_ISA60, X12_ISA59_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA59 */
+  {{X12_ISA7, X12_ISA6_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*     ISA6 */
+  {{X12_ISA61, X12_ISA60_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA60 */
+  {{X12_ISA62, X12_ISA61_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA61 */
+  {{X12_ISA63, X12_ISA62_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA62 */
+  {{X12_ISA64, X12_ISA63_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA63 */
+  {{X12_ISA65, X12_ISA64_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA64 */
+  {{X12_ISA66, X12_ISA65_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA65 */
+  {{X12_ISA67, X12_ISA66_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA66 */
+  {{X12_ISA68, X12_ISA67_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA67 */
+  {{X12_ISA69, X12_ISA68_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA68 */
+  {{X12_ISA70, X12_ISA69_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA69 */
+  {{X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_ISA8, X12_ISA7_ES}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*     ISA7 */
+  {{X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_ISA71, X12_ISA70_ES}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA70 */
+  {{X12_ISA72, X12_ISA71_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA71 */
+  {{X12_ISA73, X12_ISA72_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA72 */
+  {{X12_ISA74, X12_ISA73_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA73 */
+  {{X12_ISA75, X12_ISA74_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA74 */
+  {{X12_ISA76, X12_ISA75_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA75 */
+  {{X12_ISA77, X12_ISA76_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA76 */
+  {{X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_ISA78, X12_ISA77_ES}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA77 */
+  {{X12_ISA79, X12_ISA78_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA78 */
+  {{X12_ISA80, X12_ISA79_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA79 */
+  {{X12_ISA9, X12_ISA8_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*     ISA8 */
+  {{X12_ISA81, X12_ISA80_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA80 */
+  {{X12_ISA82, X12_ISA81_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA81 */
+  {{X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_ISA83, X12_ISA82_ES}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA82 */
+  {{X12_ISA84, X12_ISA83_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA83 */
+  {{X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_ISA85, X12_ISA84_ES}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA84 */
+  {{X12_ISA86, X12_ISA85_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA85 */
+  {{X12_ISA87, X12_ISA86_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA86 */
+  {{X12_ISA88, X12_ISA87_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA87 */
+  {{X12_ISA89, X12_ISA88_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA88 */
+  {{X12_ISA90, X12_ISA89_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA89 */
+  {{X12_ISA10, X12_ISA9_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*     ISA9 */
+  {{X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_ISA91, X12_ISA90_ES}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA90 */
+  {{X12_ISA92, X12_ISA91_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA91 */
+  {{X12_ISA93, X12_ISA92_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA92 */
+  {{X12_ISA94, X12_ISA93_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA93 */
+  {{X12_ISA95, X12_ISA94_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA94 */
+  {{X12_ISA96, X12_ISA95_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA95 */
+  {{X12_ISA97, X12_ISA96_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA96 */
+  {{X12_ISA98, X12_ISA97_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA97 */
+  {{X12_ISA99, X12_ISA98_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA98 */
+  {{X12_ISA100, X12_ISA99_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    ISA99 */
+  {{X12_DEFAULT, X12_START_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_ISA2, X12_START_I}, {X12_DEFAULT, X12_START_S}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*    START */
+  {{X12_TAG, X12_TAG_DEFAULT}, {X12_DEFAULT, NULL}, {X12_DATA, X12_TAG_ES}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL}, {X12_DEFAULT, NULL},},	/*      TAG */
+};
+
+void
+X12_init (FSAutomaton * fsa)
+{
+  FSAInit (fsa, &X12_rules[0][0], 109, 7, X12_START);
+}
+
+#define Success	*((int *) this) = 1;
+#define Pending	*((int *) this) = 0;
+#define ISO9735Decimal_DEFAULT  0
+#define ISO9735Decimal_DECMARK  1
+#define ISO9735Decimal_MINUS    2
+#define ISO9735Decimal_NUMBER   3
+#define ISO9735Decimal_FPART    1
+#define ISO9735Decimal_IPART    2
+#define ISO9735Decimal_START    3
+
+static int
+ISO9735Decimal_DEFAULT_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  Error;
+}
+static int
+ISO9735Decimal_FPART_NUMBER (void *this, char SYMBOL, int EVENT)
+{
+  Success;
+  Ok;
+}
+static int
+ISO9735Decimal_IPART_DECMARK (void *this, char SYMBOL, int EVENT)
+{
+  Pending;
+  Ok;
+}
+static int
+ISO9735Decimal_IPART_NUMBER (void *this, char SYMBOL, int EVENT)
+{
+  Success;
+  Ok;
+}
+static int
+ISO9735Decimal_START_DEFAULT (void *this, char SYMBOL, int EVENT)
+{
+  Eval->failure = 1;
+  Error;
+}
+static int
+ISO9735Decimal_START_MINUS (void *this, char SYMBOL, int EVENT)
+{
+  Pending;
+  Ok;
+}
+static int
+ISO9735Decimal_START_NUMBER (void *this, char SYMBOL, int EVENT)
+{
+  Success;
+  Ok;
+}
+
+static FSARule ISO9735Decimal_rules[4][4] = {
+  /* DEFAULT                                   DECMARK                                   MINUS                                     NUMBER                                   */
+  {{ISO9735Decimal_DEFAULT, ISO9735Decimal_DEFAULT_DEFAULT}, {ISO9735Decimal_DEFAULT, NULL}, {ISO9735Decimal_DEFAULT, NULL}, {ISO9735Decimal_DEFAULT, NULL},},	/*  DEFAULT */
+  {{ISO9735Decimal_DEFAULT, NULL}, {ISO9735Decimal_DEFAULT, NULL}, {ISO9735Decimal_DEFAULT, NULL}, {ISO9735Decimal_FPART, ISO9735Decimal_FPART_NUMBER},},	/*    FPART */
+  {{ISO9735Decimal_DEFAULT, NULL}, {ISO9735Decimal_FPART, ISO9735Decimal_IPART_DECMARK}, {ISO9735Decimal_DEFAULT, NULL}, {ISO9735Decimal_IPART, ISO9735Decimal_IPART_NUMBER},},	/*    IPART */
+  {{ISO9735Decimal_DEFAULT, ISO9735Decimal_START_DEFAULT}, {ISO9735Decimal_DEFAULT, NULL}, {ISO9735Decimal_IPART, ISO9735Decimal_START_MINUS}, {ISO9735Decimal_IPART, ISO9735Decimal_START_NUMBER},},	/*    START */
+};
+
+void
+ISO9735Decimal_init (FSAutomaton * fsa)
+{
+  FSAInit (fsa, &ISO9735Decimal_rules[0][0], 4, 4, ISO9735Decimal_START);
+}
+
+#include <stdlib.h>
+
+void FSAInit
+  (FSAutomaton * this, FSARule * rules, int states, int events, int state)
+{
+  this->events = events;
+  this->states = states;
+  this->rules = rules;
+  this->state = state;
+}
+
+int
+FSAProcess (FSAutomaton * this, void *user, char symbol, int event)
+{
+  FSARule *rules = this->rules;
+  int state = this->state;
+  int events = this->events;
+  int states = this->states;
+  int trans = 0;
+  int (*ccode) (void *, char, int) = 0;
+
+  if (state < 0 || state >= states || event < 0 || event >= events)
+    {
+      trans = rules[0].trans;
+      ccode = rules[0].ccode;
+    }
+  else if ((trans = rules[events * state + event].trans))
+    ccode = rules[events * state + event].ccode;
+  else if ((trans = rules[events * state].trans))
+    ccode = rules[events * state].ccode;
+  else
+    {
+      trans = rules[0].trans;
+      ccode = rules[0].ccode;
+    }
+
+  this->state = trans;
+
+  return ccode ? ccode (user, symbol, event) : 0;
+}

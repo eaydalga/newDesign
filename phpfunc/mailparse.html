@@ -1,0 +1,115 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Hyperlink Preprocessor </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">21 Mart 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>Mailparse İşlevleri</h2>
+<h3>Giriş</h3>
+
+Mailparse e-posta mesajlarının taranması ve işlenmesi için kullanılan uzantıdır.
+RFC 822 ve RFC 2045 (MIME) mesajleriyle uğraşır.
+<br /><br />
+Mailparse akar tabanlıdır. işlediği dosyaların bellekte kopyalarını saklamaz. Bu nedenle çok kaynak verimlidir ve büyük mesajlarla uğraşabilir.
+<br /><br />
+    Not: Mailparse mbstring uzantısına gerek duyar ve mbstring mailparse öncesinde yüklanmiş olmalıdır.
+<br /><br />
+Bu uzantı PECL havuzuna PHP 4.2.0 sürümünden sonra aktarılmıştır.
+
+<h3>Kurulum</h3>
+
+PHP ile paketlenmemiştir. PECL uzantıları kurulumunda bu konuya ilişkin bilgi
+bulunur. Ek bilgi için http://pecl.php.net/package/mailparse adresine bakın.
+<br /><br />
+Bu işlevleri kullanabilmek için PHP'yi "--enable-mailparse" ayar seçeneğiyle
+derlemelisiniz.
+<br />
+Windows kullanıcıları php.ini içinden php_mailparse.dll kullanıma açarlar. Bu
+PECL uzantısı için DLL http://pecl4win.php.net/ adresinden sağlanır.
+
+<h3>Çalışma Zamanı Ayarları</h3>
+
+php.ini ayarları işlevlerin davranışını etkiler.
+<br /><br />
+<h3>Mailparse ayarlama seçenekleri</h3>
+
+<table class="yazi">
+<tr><td>Adı</td><td>Varsayılan</td><td>Değişebilir</td><td>DeğişimKaydı</td></tr>
+<tr><td>mailparse.def_charset</td><td>"us-ascii"</td><td>PHP_INI_ALL</td><td>PHP 4.1.0. sürümünden beri var PHP 4.2.0. sürümünde kaldırıldı.</td></tr>
+</table>
+
+php.ini yönelticilerini PHP_INI_* değişmezleri için inceleyebilirsiniz.
+
+<h3>Önceden Tanımlı Değişmezler</h3>
+
+Bu uzantıyla kullanılan değişmezler aşağıda gösterilmiştir. Yalnız bu
+uzantıyla kullanılabilirler.
+<pre>
+MAILPARSE_EXTRACT_OUTPUT (tamsayı)
+MAILPARSE_EXTRACT_STREAM (tamsayı)
+MAILPARSE_EXTRACT_RETURN (tamsayı)
+</pre>
+<h3>İçindekiler</h3>
+<ul>
+    <li> mailparse_determine_best_xfer_encoding — kodlamanın en iyi yolunu al
+    <li> mailparse_msg_create — mime posta kaynağı yarat
+    <li> mailparse_msg_extract_part_file — Bir mesajın bölümünü açar/kodlamayı
+kaldırır
+    <li> mailparse_msg_extract_part — Bir mesaj bölümünü açar/kodlamayı
+kaldırır
+    <li> mailparse_msg_extract_whole_part_file — Başlıklarla birlikte bir mesaj bölümünü açar gönderme kodlamasını kaldırmadan kullanır.
+    <li> mailparse_msg_free — MIME kaynağını boşaltır
+    <li> mailparse_msg_get_part_data — Mesaj hakkında ilgili bilgileri içeren bir dizi döndürür
+    <li> mailparse_msg_get_part — verilen mime mesajla ilgili gösterge döndürür.
+    <li> mailparse_msg_get_structure — Sunulan mesajda mime bölüm adlarının bulunduğu diziyi döndürür
+    <li> mailparse_msg_parse_file — Bir dosyayı tarar.
+    <li> mailparse_msg_parse — Veriyi tampon alana adım adım tarayarak aktarır
+    <li> mailparse_rfc822_parse_addresses — RFC 822 uyumlu adresileri tarar
+    <li> mailparse_stream_encode — Kaynak dosya göstergesinden veriyi akıtır, kodlama uygular ve destfp göstergesindeki dosyaya yazar
+    <li> mailparse_uudecode_all — fp'den alınan dosyayı tarar ve her birini gömülmüş uuencoded dosyaya açar.
+</ul>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

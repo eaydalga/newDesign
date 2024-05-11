@@ -1,0 +1,167 @@
+<html>
+<body>
+<div id="sag"><span class="yazi">30 Kasım 2007</span></div>
+<h2>HTML Forms and Input</h2>
+<br />
+<h3>Doldurulacak Belgeler</h3>
+
+<span class="yazi">
+Bir doldurulacak belge, belge öğelerini içeren bir alandır.<br />
+</span>
+
+<span class="yazi">
+Doldurulacak belge öğeleri, kullanıcıya bilgi girmesini sağlayan bilgi giriş alanlarıdır (yazı alanları, açılabilen menüler, radyo düğmeleri, seçme kutusu vb).<br />
+</span>
+<br />
+<span class="yazi">
+Doldurulacak belge &lt;form&gt; biçimiyle tanımlanır.<br />
+</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+&lt;form&gt;
+  &lt;input&gt;
+  &lt;input&gt;
+&lt;/form&gt;
+</pre>
+</fieldset>
+
+<h3>Giriş Alanı (Input)</h3>
+
+<span class="yazi">
+Doldurulacak belge alanında en çok kullanılan biçim &lt;input&gt; olarak belirtilebilir.<br />
+</span>
+
+<h3>Yazı Alanları (Text Fields) </h3>
+
+<span class="yazi">
+Yazı alanları, kullanıcıların harfler, sayılar vb bilgiler yazmaları için kullanılır.<br />
+</span>
+<br />
+
+<fieldset class="fyazi">
+<pre>
+&lt;form&gt;
+Ad: 
+&lt;input type="text" name="firstname"&gt;
+&lt;br&gt;
+Soyad: 
+&lt;input type="text" name="lastname"&gt;
+&lt;/form&gt;
+</pre>
+</fieldset>
+<br />
+<span class="yazi">
+Bir tarayıcıda şöyle görünür:<br />
+</span>
+<form>
+Ad: 
+<input type="text" name="firstname">
+<br>
+Soyad: 
+<input type="text" name="lastname">
+</form>
+<br />
+<span class="yazi">
+Dikkat ettiyseniz "form" kendisi görünmez. Bir çok tarayıcıda, yazı alanının varsayılan eni 20 karakter olur.<br />
+</span>
+<br />
+<h3>Radyo Düğmesi (Radio Buttons)</h3>
+
+<span class="yazi">
+Bir kullanıcının sınırlı sayıda seçeneklerden birini işaretlemek gerektiğinde kullanılır<br />
+</span>
+
+<fieldset class="fyazi">
+<pre>
+&lt;form&gt;
+&lt;input type="radio" name="sex" value="male"&gt; Erkek
+&lt;br&gt;
+&lt;input type="radio" name="sex" value="female"&gt; Kadın
+&lt;/form&gt;
+</pre>
+</fieldset>
+
+<span class="yazi">
+Tarayıcıda nasıl göründüğünü anlamak için:<br />
+</span>
+<br />
+<form>
+<input type="radio" name="sex" value="male"> Erkek
+<br>
+<input type="radio" name="sex" value="female"> Kadın
+</form>
+<br />
+<span class="yazi">
+Burada yalnız bir seçenek işaretlenebilir.<br />
+</span>
+
+<h3>Seçme kutusu (Checkboxes)</h3>
+
+<span class="yazi">
+Seçme kutusu, kullanıcının bir ya da daha çok sınırlı sayıdaki seçenek arasından birini seçmesini istendiğinde kullanılır.
+</span>
+
+<fieldset class="fyazi">
+<pre>
+&lt;form&gt;
+Bisikletim var:
+&lt;input type="checkbox" name="vehicle" value="Bisiklet" /&gt;
+&lt;br /&gt;
+Arabam var:
+&lt;input type="checkbox" name="vehicle" value="Araba" /&gt;
+&lt;br /&gt;
+Uçağım var:
+&lt;input type="checkbox" name="vehicle" value="Uçak" /&gt;
+&lt;/form&gt;
+</pre>
+</fieldset>
+
+Tarayıcıda nasıl göründüğü aşağıda gösterilmiştir.<br />
+<br />
+<form>
+Bisikletim var:
+<input type="checkbox" name="vehicle" value="Bisiklet" />
+<br />
+Arabam var:
+<input type="checkbox" name="vehicle" value="Araba" />
+<br />
+Uçağım var:
+<input type="checkbox" name="vehicle" value="Uçak" />
+</form>
+
+<h3>Dordurulacak belgede işlem (action) niteliği ve Gönder (Submit) düğmesi</h3>
+
+<span class="yazi">
+Kullanıcı "Gönder" düğmesini tıkladığında, doldurulacak belge alanındaki bilgi alanları başka bir dosyaya iletilir. Doldurulacak belgenin işlem niteliği, içeriğin gönderileceği dosyanın adını taşır. Bu dosya gelen giriş bilgisiyle işlem yapacak biçimde düzenlenmiştir.<br />
+<br />
+</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+&lt;form name="input" action="html_form_action.asp"
+method="get"&gt;
+Kullanıcı Adı: 
+&lt;input type="text" name="user"&gt;
+&lt;input type="submit" value="Gönder"&gt;
+&lt;/form&gt;
+</pre>
+</fieldset>
+
+<span class="yazi">
+Tarayıcıda bu kodun nasıl göründüğü aşağıda belirtilmiştir.<br />
+</span>
+<br />
+<form name="input" action="#"
+method="get">
+Kullanıcı Adı: 
+<input type="text" name="user">
+<input type="submit" value="Gönder">
+</form>
+<br />
+<span class="yazi">
+Eğer yukarıdaki yazı alanına bazı karakterler yazarsanız ve "Gönder" düğmesini tıklarsanız, giriş bilgilerini "html_form_action.asp" dosyasına iletirsiniz. O dosya gelen bilgileri WEB sayfasına yazar. (Bilgi için: Bu örnekte işlem tamamlanmaz).<br />
+</span>
+<br />
+</body>
+</html>

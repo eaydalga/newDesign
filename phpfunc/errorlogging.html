@@ -1,0 +1,353 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Hata kaydetmek (Error Logging)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">20 Şubat 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>Hata ele alma ve Kaydetme İşlevleri<br />
+(Error Handling and Logging Functions)</h2>
+
+<h3>Giriş</h3>
+
+Bunlar hata ele alma ve kaydetme işlevleridir. Bunlar sizin kendi hata ele alma işlevlerinizi oluşturmanızı sağlar. Bu hata raporlamasını geliştirmenizi ve değiştirmenizi sağlar.
+<br /><br />
+HAta raporlama işlevlerinden başka bilgisayarlara doğrudan mesaj iletebilirsiniz, e-posta adresine gönderebilirsiniz, sistem kayıtlarına ekleyebilirsiniz. Böylece web sitenizin önemli özelliklerini değişik yerlere aktarabilirsiniz.
+<br /><br />
+Hata raporlama işlevlerine hangi düzeyde ve türde gereksinim duyduğunuzu ayarlayabilirsiniz. Basit uyarıdan karmaşık kişisel hata işlevi sonuçlarına değin pek çok seçenek kulalnabilirsiniz.
+
+<h3>Çalışma Zamanı Ayarları</h3>
+
+Bu işlevlerin davranışları php.ini ayarlarına bağımlıdır.
+
+<br /><br />
+<h3>Hatalar (Errors) ve Kaydetme Ayarları</h3>
+
+<table class="yazi" width="100%">
+<tr><td>Şeçenek Adı</td><td>Varsayılan</td><td>Değiştirilebilir</td><td>Değişme kaydı</td><tr>
+<tr><td>error_reporting</td><td>NULL</td><td>PHP_INI_ALL</td><td></td><tr>
+<tr><td>display_errors</td><td>"1"</td><td>PHP_INI_ALL</td><td></td><tr>
+<tr><td>display_startup_errors</td><td>"0"</td><td>PHP_INI_ALL</td><td>PHP 4.0.3. sürümünden beri var</td><tr>
+<tr><td>log_errors</td><td>"0"</td><td>PHP_INI_ALL</td><td></td><tr>
+<tr><td>log_errors_max_len</td><td>"1024"</td><td>PHP_INI_ALL</td><td>PHP 4.3.0. sürümünden beri var</td><tr>
+<tr><td>ignore_repeated_errors</td><td>"0"</td><td>PHP_INI_ALL</td><td>PHP 4.3.0. sürümünden beri var</td><tr>
+<tr><td>ignore_repeated_source</td><td>"0"</td><td>PHP_INI_ALL</td><td>PHP 4.3.0.</td><tr>
+<tr><td>report_memleaks</td><td>"1"</td><td>PHP_INI_ALL</td><td>PHP 4.3.0. sürümünden beri var</td><tr>
+<tr><td>track_errors</td><td>"0"</td><td>PHP_INI_ALL</td><td></td><tr>
+<tr><td>html_errors</td><td>"1"</td><td>PHP_INI_ALL</td><td>PHP 4.2.3 sürümü öncesinde PHP_INI_SYSTEM, PHP 4.0.2. sürümünden beri bu haliyle var</td><tr>
+<tr><td>docref_root</td><td>""</td><td>PHP_INI_ALL</td><td>PHP 4.3.0. sürümünden beri var</td><tr>
+<tr><td>docref_ext</td><td>""</td><td>PHP_INI_ALL</td><td>PHP 4.3.2. sürümünden beri var</td><tr>
+<tr><td>error_prepend_string</td><td>NULL</td><td>PHP_INI_ALL</td><td></td><tr>
+<tr><td>error_append_string</td><td>NULL</td><td>PHP_INI_ALL</td><td></td><tr>
+<tr><td>error_log</td><td>NULL</td><td>PHP_INI_ALL</td><td></td><tr>
+<tr><td>warn_plus_overloading</td><td>NULL</td><td>PHP 4.0.0 sürümünden sonra yok</td><tr>
+</table>
+PHP_INI_* tanımları ve ayrıntıları için php.ini yönelticilerine bakın
+<br /><br />
+Ayar yönelticilerinin kısa açıklaması burada anlatılmıştır.
+<dl>
+<dt>error_reporting tamsayısı
+
+    <dd>
+Hata raporlama düzeyini ayarlama. Parametre ya bir alanını tamınlayan bir tam sayı ya da adlandırılmış değişmezdir. Hata raporlama düzeyleri ve değişmezler "Önceden Tanımlanan Değişmezler" bölümünde anlatılmıştır. Onları php.ini altında da bulabilirsiniz. Çalışma zamanında ayarlamak için error_reporting() işlevini kullanabilirsiniz.
+<br /><br />
+PHP 4 ve PHP 5 içinde varsayılan değer E_ALL & E_NOTICE olur. Bu ayarlama E_NOTICE düzeyi hataları göstermez. Onları geliştirme sırasında görmek isteyebilirsiniz.
+<br /><br />
+        Not: Geliştirme sırasında E_NOTICE açmanın bazı yararları vardır. Hata ayıklama amacıyla: NOTICE mesajları kodunuzdaki olası hataları uyarır. Örneğin işaretsiz değerlerin kullanımı uyarılır. Buradan hataları ayıklamak çok kullanışlıdır. NOTICE mesajları sizi kötü kodlama stili konusunda da uyarır. Örneğin $arr[item] yerine $arr['item'] yazmak daha iyidir. Eğer değişmez değilse PHP onu dizinin yazı biçimindeki dizini olarak algılar.
+<br /><br />
+        Not: PHP 5 sürümünde yeni bir hata düzeyi E_STRICT vardır. E_STRICT, E_ALL içinde değildir. Bu tür hata düzeylerini açıktan tanımlamanız gerekir. Geliştirme sırasında kullanmanın yararları vardır. STRICT yöntemi en son ve en çok kullanılan kodlamaya uymanıza yardım eder. Örneğin eskiyen işlevler konusunda uyarılırsınız.
+<br /><br />
+        Not: PHP Dışındaki PHP Değişmezleri<br />
+PHP dışındaki PHP değişmezleri httpd.conf gibi yerlerde bulunur. Bunların pek anlamlı kullanımı yoktur. Değişmez adları yerine tamsayı değerleri kullanılır. Zama içinde hata düzeyleri eklendikçe en üst değer olan E_ALL da değişecektir. O zaman E_ALL yerine çok büyük bir tamsayı değer kullanmak (2147483647 gibi) tüm hata kodları toplamını içereceği için iyi bir yöntemdir.
+<br /><br />
+    PHP 3 içinde, varsayılan ayar (E_ERROR | E_WARNING | E_PARSE) olur. Değişmezler php3.ini içinde desteklenmediğinden "error_reporting" ayarları sayısal olmalıdır. Bu da onun değerinin 7 olduğunu gösterir.
+</dd></dt>
+<dt>display_errors yazı dizisi
+<dd>Bu hataların çıktının bir parçası olarak ekrana yazılıp yazılmayacağının kararıdır. Yazılmaması kullanıcıdan saklanması anlamına gelir.
+<br /><br />
+    "stderr" değeri hataları "stdout" yerine "stderr" ortamına gönderir. Eskiden bu yöneltici mantıksaldı bu haline PHP 5.2.4 sürümünde kavuşmuştur.
+<br /><br />
+        Not: Bu sizin geliştirme adımınızı desteklemek için kullanışlıdır üretim alanında kullanımamalıdır.
+<br /><br />
+        Not: "display_errors" ayarı çalışma zamanında da yapılabilir (ini_set() işleviyle). Eğer kodlamanın kritik hataları varsa etkisi olmaz. Bunun nedeni istenen çalışma zamanı işlemi hiç başlamaz.
+</dd></dt>
+<dt>display_startup_errors mantıksalı (boolean)
+
+    <dd>
+"display_errors" ayarı "on" olsa bile PHP başlama anında karşılaşılan hatalar görüntülenmez. "display_startup_errors" değerinin "off" olması şiddetle önerilir (hata düzeltme durumları hariç).
+</dd></dt>
+<dt>log_errors boolean
+    <dd>Kodlama hatası mesajının sunucunun hata kayıtlarına mı yoksa "error_log" kayıtlarına mı yazılacağını belirler. Bu seçenek sunucu bağımlıdır.
+<br /><br />
+        Not: Üretim alanındaki sayfalarda hata görüntüleme yerine hata kaydetme kullanımı önerilir.
+</dd></dt>
+<dt>log_errors_max_len tamsayısı
+
+    <dd>"log_errors" uzunluğunun en üst değerini ayarlar. "error_log" bilgisi içine kaynakla ilgili şeyler de eklenir. Varsayılan değer 1024 olur. 0 en çok uzunluk kullanılmayacağını belirtir. Bu uzunluk kaydedilen hatalar için geçerlidir. Bu değer $php_errormsg uzunluğuna da uyarlanır.
+<br /><br />
+    Bir tamsayı kullanılırsa, değer bayt olarak döner. 
+</dd></dt>
+<dt>ignore_repeated_errors mantıksalı (boolean)
+
+    <dd>Tekrarlanan mesajları kaydetmeyin. Tekrarlanan hatalar aynı dosyada yer alır. "ignore_repeated_source" değeri true olarak ayarlanırsa bu dosyada yer almaz.
+</dd></dt>
+<dt>ignore_repeated_source mantıksalı (boolean)
+
+    <dd>Tekrarlanan mesajlar atlanırsa, mesajın kaynağı dikkate alınmaz. Bu ayar "on" ise tekrarlanan hataları kaydetmezsiniz. 
+</dd></dt>
+<dt>report_memleaks mantıksalı (boolean)
+
+    <dd>Eğer bu parametre değeri "off" olursa, bellek açıklıkları gösterilmez (stdout ya da kayıtta). Bunun hata görüntülemeli derlemede anlamı vardır. İzin verilen listede, "error_reporting" E_WARNING içerirse anlamlıdır.
+</dd></dt>
+<dt>track_errors mantıksalı (boolean)
+
+    <dd>Eğer açılırsa son hata mesajı $php_errormsg içinde bulunur.
+</dd></dt>
+<dt>html_errors mantıksalı (boolean)
+
+    <dd>Hata mesajlarında HTML biçimleri kapatılır.
+HTMl hataları için yeni kalıp tıklanabilen mesajlar üretir. Bunlar hatanın oluştuğu sayfaya ya da işleve götürür. Bu gösteriliş biçimi docref_root ve docref_ext değerleriyle ilişkilidir.
+</dd></dt>
+<dt>docref_root yazı dizisi
+
+    <dd>
+Yeni hata kalıbı, hatayı tanımlayan sayfaya gösterge ya da hataya neden olan işleve gösterge içerir. Belge sayfaları durumunda, kendi dilinizde belgeleri indirebilir ve bunu "ini" dosyasındaki yönelticiyle yerel kopyanızın URL adresiyle belirtirsiniz. Eğer yerel belge kopyanıza '/manual/' ile erişilirse, kolaylıkla docref_root=/manual/ kullanabilirsiniz. Ek olarak docref_ext değerini de kurmanız gerekir. Kendi kopyanızdaki dosya uzantıları için gereklidir (docref_ext=.html). Dışsal göstergeleri kullanma olanağı vardır. Örneğin:
+<pre>
+docref_root=http://manual/en ya da
+docref_root="http://landonize.it/?how=url&theme=classic&filter=Landon
+                    &url=http%3A%2F%2Fwww.php.net%2F".
+</pre>
+<br /><br />
+Çoğu zaman docref_root değerinin "/" ile bitmesi istenir. Ama yukarıdaki ikinci örnekte kesme yoktur ve gerekmemektedir.
+<br /><br />
+        Not: Bu gelirtirmenizi desteklemek için bir özelliktir, çünkü işlev tanımına bakmayı kolaylaştırır. Ama Internete bağlı üretim sistemlerinde hiç kullanılmamalıdır.
+</dd></dt>
+
+<dt>docref_ext yazı dizisi
+
+    <dd>docref_root anlatımına bakın.
+<br /><br />
+        Not: docref_ext değeri "." işaretiyle başlamalıdır.
+</dd></dt>
+
+<dt>error_prepend_string yazı dizisi
+
+    <dd>Hata mesajından önce yazdırılan yazı dizisi
+</dd></dt>
+<dt>error_append_string yazı dizisi
+
+    <dd>Hatadan sonra yazılan yazı dizisi.
+</dd></dt>
+<dt>error_log yazı dizisi
+
+    <dd> Kodlama hatalarının saklanabileceği dosya adı. Dosya sunucu kullanıcısı açısından yazılabilir yetkide olmalıdır. Eğer "syslog" özel değeri kullanılırsa hatalat sistemin syslog dosyasına yazılır. Bu UNIX ortamında "syslog", Windows T ortamında ise "event log" olarak adlandırılır. Eğer bu yönlendirici kurulmazsa, hatalar SAPI hata kaydedicisine gönderilir. Bu da Apache altında "error log" ya da CLI altında "stderr" olur.
+</dd></dt>
+<dt>warn_plus_overloading mantıksalı (boolean)
+
+    <dd> Eğer açılırsa bu seçenek PHP çıktılarını yazılarda (+) işlemi kullanılırsa uyarıya dönüştürür. Bu yazıları birleştirme işlemi olan (.) kullanarak yeniden yazılması gereken kodlamaları kolay bulmak için gerekir. PHP 4 den sonra bu seçenek kullanılmaz
+</dd></dt>
+</dl>
+
+<h3>Önceden Tanımlı Değişmezler</h3>
+
+Aşağıdaki değişmezler PHP çekirdeğinde vardır
+<br /><br />
+    Not: Bu değişmez adlarını php.ini ile kullanabilirsiniz ama PHP dışında olmaz (httpd.conf gibi). Orada bit maskesi değerlerini kullanabilirsiniz.
+
+<h3>Hatalar ve Kayıtları</h3>
+<table class="yazi" width="100%">
+<tr><td valign="top">Değer</td><td valign="top">Değişmez</td><td valign="top">Açıklama</td><td valign="top">Not</td></tr>
+<tr><td valign="top">1</td><td valign="top">E_ERROR (integer)</td><td valign="top">Kritik çalışma zamanı hataları. Bunlar bellek açma sorunları gibi geri alınamayan hataları gösterir. Kodlamanın çalışması durur. </td><td valign="top"></td></tr>
+<tr><td valign="top">2</td><td valign="top">E_WARNING (integer)</td><td valign="top">Çalışma zamanı uyarıları (krtik olmayan hatalar). Kodlamanın çalışması durmaz.</td><td valign="top"></td></tr>
+<tr><td valign="top">4</td><td valign="top">E_PARSE (integer)</td><td valign="top">Derleme zamanı tarama hatası. Tarama hataları yalnız tarama sırasında üretilmelidir. </td><td valign="top"></td></tr>
+<tr><td valign="top">8</td><td valign="top">E_NOTICE (integer)</td><td valign="top">Çalışma zamanı duyuruları. Kodlama birşeyle karşılaştı ve hata olabilir anlamındadır ama kodlamanın normal akışında da olabilir. </td><td valign="top"></td></tr>
+<tr><td valign="top">16</td><td valign="top">E_CORE_ERROR (integer)</td><td valign="top">PHP ilk başlamasında çıkan kritik hatalar. Bu E_ERROR gibidir, tek farkı PHP çekirdeği tarafından üretilir.</td><td valign="top">PHP 4 den beri</td></tr>
+<tr><td valign="top">32</td><td valign="top">E_CORE_WARNING (integer)</td><td valign="top">Uyarılar (kritik olmayan hatalar) PHP başlarken oluşur. E_WARNING gibidir, tek farkı PHP çekirdeği tarafından üretilmiştir.</td><td valign="top">PHP 4 den beri</td></tr>
+<tr><td valign="top">64</td><td valign="top">E_COMPILE_ERROR (integer)</td><td valign="top">Kritik derleme zamanı hatalarıdır. E_ERROR hatası gibidir, etek farkı Zend kodlama makinesince üretilmesidir. </td><td valign="top">PHP 4 den beri</td></tr>
+<tr><td valign="top">128</td><td valign="top">E_COMPILE_WARNING (integer)</td><td valign="top">Derleme zamanı uyarıları (kritik değildir). E_WARNING gibidir, tek farkı Zend kodlama makinesince üretilmesidir.</td><td valign="top">PHP 4 den beri</td></tr>
+<tr><td valign="top">256</td><td valign="top">E_USER_ERROR (integer)</td><td valign="top">Kulalnıcının ürettiği hata mesajı. E_ERROR gibidir, tek farkı trigger_error() kullanan PHP kodlaması tarafından üretilir.</td><td valign="top">PHP 4 den beri</td></tr>
+<tr><td valign="top">512</td><td valign="top">E_USER_WARNING (integer)</td><td valign="top">Kullanıcının ürettiği uyarı mesajı. E_WARNING gibidir, tek farkı trigger_error() kullanana PHP kodlaması tarafından üretilmesidir.</td><td valign="top">PHP 4 den beri</td></tr>
+<tr><td valign="top">1024</td><td valign="top">E_USER_NOTICE (integer)</td><td valign="top">Kullanıcının ürettiği duyuru mesajıdır. E_NOTICE gibidir, tek farkı trigger_error() kullanan PHP kod tarafından üretilmesidir.</td><td valign="top">PHP 4 den beri</td></tr>
+<tr><td valign="top">2048 </td><td valign="top">E_STRICT (integer)</td><td valign="top">Çalışma zamanı duyurusu. PHP tarafından önerilen değişikliklere izin verir. Bu en uygun çalışabilirlik ve ileriye yönelik becerilerle donatılmasını sağlar.</td><td valign="top">PHP 5 den beri</td></tr>
+<tr><td valign="top">4096</td><td valign="top">E_RECOVERABLE_ERROR (integer)</td><td valign="top">Yakalanabilir kritik hatalardır. Büyük bir olasılıkla çok tehlikeli bir hata yakalandığını belirtir. Ama makineyi belirsiz bir konumda bırakmaz. Eğer hata kullanıcı tarafından tanımlı ele alma işlemitle yakalanmazsa, uygulama E_ERROR ile kesilir. </td><td valign="top">PHP 5.2.0 den beri</td></tr>
+<tr><td valign="top">8191</td><td valign="top">E_ALL (integer)</td><td valign="top">Tüm hata ve uyarılar (desteklendikleri biçimde) E_STRICT düzeyinde olanlar dışındakiler. </td><td valign="top">PHP 5.2.xiçinde 6143 ve daha önce 2047</td></tr>
+</table>
+
+Yukarıdaki değerler (sayısal ya da simgesel) bit maskesi kurmak için kullanılır. Bu değer hangi hataların raporlanacağını belirtir. Bit işlemleriyle bu değerlerin birleştirilmesini sağlayabilirsiniz. Unutmayın ki php.ini içinde yalnız '|', '~', '!', '^' ve '&' anlaşılabilir. php3.ini içinde bit işlemlerinin hiç biri anlaşılmaz.
+
+<h3>Örnek</h3>
+
+Below we can see an example of using the error handling capabilities in PHP. We define an error handling function which logs the information into a file (using an XML format), and e-mails the developer in case a critical error in the logic happens.
+
+Örnek: kodlamada hata ele alma örneği
+<pre>
+&lt;?php
+// kendimizin hatayı ele alma işlemi
+error_reporting(0);
+
+// user defined error handling function
+function userErrorHandler($errno, $errmsg, $filename, $linenum, $vars) 
+{
+    // hata satırı için zaman damgası
+    $dt = date("Y-m-d H:i:s (T)");
+
+    // ilişkili hata yazısı dizisi tanımlama
+    // Gerçekte dikkate almamız gereken
+    // tek varlık E_WARNING, E_NOTICE, E_USER_ERROR,
+    // E_USER_WARNING ve E_USER_NOTICE
+    $errortype = array (
+                E_ERROR              =&gt; 'Hata',
+                E_WARNING            =&gt; 'Uyarı',
+                E_PARSE              =&gt; 'Tarama Hatası',
+                E_NOTICE             =&gt; 'Duyuru',
+                E_CORE_ERROR         =&gt; 'Çekirdek Hata',
+                E_CORE_WARNING       =&gt; 'Çekirdek Uyarı',
+                E_COMPILE_ERROR      =&gt; 'Derleme Hatası',
+                E_COMPILE_WARNING    =&gt; 'Derleme Uyarısı',
+                E_USER_ERROR         =&gt; 'Kullanıcı Hatası',
+                E_USER_WARNING       =&gt; 'Kullanıcı Uyarısı',
+                E_USER_NOTICE        =&gt; 'Kulalncı Duyurusu',
+                E_STRICT             =&gt; 'Çalışma zamanı duyurusu',
+                E_RECOVERABLE_ERROR  =&gt; 'Yakalanabilir kritik hata'
+                );
+    // set of errors for which a var trace will be saved
+    $user_errors = array(E_USER_ERROR, E_USER_WARNING, E_USER_NOTICE);
+    
+    $err = "&lt;errorentry&gt;\n";
+    $err .= "\t&lt;datetime&gt;" . $dt . "&lt;/datetime&gt;\n";
+    $err .= "\t&lt;errornum&gt;" . $errno . "&lt;/errornum&gt;\n";
+    $err .= "\t&lt;errortype&gt;" . $errortype[$errno] . "&lt;/errortype&gt;\n";
+    $err .= "\t&lt;errormsg&gt;" . $errmsg . "&lt;/errormsg&gt;\n";
+    $err .= "\t&lt;scriptname&gt;" . $filename . "&lt;/scriptname&gt;\n";
+    $err .= "\t&lt;scriptlinenum&gt;" . $linenum . "&lt;/scriptlinenum&gt;\n";
+
+    if (in_array($errno, $user_errors)) {
+        $err .= "\t&lt;vartrace&gt;" . 
+                wddx_serialize_value($vars, "Variables") . "</vartrace>\n";
+    }
+    $err .= "&lt;/errorentry&gt;\n\n";
+    
+    // denemeler için
+    // echo $err;
+
+    // hata kayıdında sakla ve
+    // kritik kullanıcı hatası varsa bana e-postayla gönder
+    error_log($err, 3, "/usr/local/php4/error.log");
+    if ($errno == E_USER_ERROR) {
+        mail("phpdev@example.com", "Kritik Kullanıcı Hatası", $err);
+    }
+}
+
+
+function distance($vect1, $vect2) 
+{
+    if (!is_array($vect1) || !is_array($vect2)) {
+        trigger_error("Geçersiz parametreler, dizi beklendi", E_USER_ERROR);
+        return NULL;
+    }
+
+    if (count($vect1) != count($vect2)) {
+        trigger_error("Vektörler aynı boyda olmalıdır", E_USER_ERROR);
+        return NULL;
+    }
+
+    for ($i=0; $i&lt;count($vect1); $i++) {
+        $c1 = $vect1[$i]; $c2 = $vect2[$i];
+        $d = 0.0;
+        if (!is_numeric($c1)) {
+            trigger_error(
+             "vektör 1 içindeki $i koordinatı sayı değil, sıfır kullanıldı", 
+             E_USER_WARNING);
+            $c1 = 0.0;
+        }
+        if (!is_numeric($c2)) {
+            trigger_error(
+             "vektör 2 içindeki $i koordinatı sayı değil, sıfır kullanıldı", 
+             E_USER_WARNING);
+            $c2 = 0.0;
+        }
+        $d += $c2*$c2 - $c1*$c1;
+    }
+    return sqrt($d);
+}
+
+$old_error_handler = set_error_handler("userErrorHandler");
+
+// tanımsız değişmez, uyarı mesajı üretir
+$t = I_AM_NOT_DEFINED;
+
+// bazı "vektörler" tanımlar
+$a = array(2, 3, "foo");
+$b = array(5.5, 4.3, -1.6);
+$c = array(1, -3);
+
+// Kullanıcı hatası üretir
+$t1 = distance($c, $b) . "\n";
+
+// bir başka kullanıcı hatası üretir
+$t2 = distance($b, "Ben bir dizi değilim") . "\n";
+
+// uyarı üretir
+$t3 = distance($a, $b) . "\n";
+
+?&gt;
+</pre>
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> debug_backtrace — Geri tarama üretir
+    <li> debug_print_backtrace — Geri taramayı yazdırır
+    <li> error_get_last — Son oluşan hatayı alır
+    <li> error_log — Hata mesajını bir yere gönderir
+    <li> error_reporting — Hangi PHP hatalarının raporlandığını belirler
+    <li> restore_error_handler — Önceki hatayı ele alma işlevini yeni baştan başlatır
+    <li> restore_exception_handler — Daha önce tamınlanmış başkalığı ele alma işlevini yeniden başlatır
+    <li> set_error_handler — Kullanıcının tanımladığı hatayı ele alma işlevini belirler
+    <li> set_exception_handler — Kullanıcı tanımlı başkalığı ele alma işlevini belirler
+    <li> trigger_error — Kullanıcı düzeyinde hata/uyarı/duyuru mesajı üretir
+    <li> user_error — trigger_error eşdeğeridir
+</ul>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

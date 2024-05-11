@@ -1,0 +1,57 @@
+<html>
+<body>
+<div id="sag"><span class="yazi">3 Aralık 2007</span></div>
+<h2></h2>
+<div class="yazi">
+Creating time delays
+
+There are two ways of creating time delays with JavaScript. The first is more simple and will simply wait for a specified amount of time before executing a function. The second does the same but will repeatedly execute the function.
+
+Note, most browsers have a minimum delay length of between 25 and 75 ms. If a shorter delay is specified, the actual delay will be the minimum delay length. Even with higher numbers, the delay is never perfect. Most browsers will take slightly longer than the time you ask for, typically just a few miliseconds error. Some may correct their errors over time with interval timers. Also note, setting many timers with short delays on one page will cause the browser to become slow and somewhat unresponsive. Three or four timers is usually the reliable limit.
+setTimeout
+
+The first method uses a window method called setTimeout(). The method waits for a specified number of milliseconds then executes the specified code. The code can either be a direct reference to a function, or it can be a string that will be evaluated as if it contained source code.
+
+window.setTimeout(referenceToFunction,timeInMilliseconds);
+
+window.setTimeout('runMoreCode()',timeInMilliseconds);
+
+Wherever possible, you should use a durect function reference as it is much more efficient. Using a string requires the browser to create a new script environment so it can process the script.
+
+If you create a timeout, the code after the call to setTimeout will continue to run as normal. After the specified delay, the timeout will start a new thread, and the code specified in the call to setTimeout will be run in the new thread, along side any code that is still running in the initial thread. Unlike with many more complex languages, JavaScript does not offer any way to control when those threads sleep, wake, or yield. The JavaScript engine handles all of that, and you must accept that your new thread could be executing at any time next to another thread. Many JavaScript engines will simply allow one thread to complete before allowing the other thread to start. The same applies to events, which run in their own threads, and can be triggered at any time.
+
+To pass variables to a timeout, you can use either format. To use a string, it is necessary to make sure the variables you want to pass can be represented in one of the primitive data types, and do not contain any characters that will break the string format (such as quotes). If possible, you should avoid this format, but this is an example, just in case you need to:
+
+window.setTimeout('runMoreCode(\''+someString+'\','+someNumber+')',10);
+
+The direct function reference is much more easy, as you can pass variables as extra parameters to the setTimeout method. In addition to being more easy, it is also able to accept any type of variable. Be careful with browsers that use the Mozilla Gecko engine (such as Firefox and Netscape 6+) as they will always pass an extra parameter to the function - the number of miliseconds error. This example uses an inline anonymous function, and is equivalent to using a direct function reference:
+
+window.setTimeout(function (a,b) {
+  //do something with a and b
+},10,someString,someObject);
+
+The variables that are passed to the function will be the values held by the variables at the time that the method was called. For example, assume you had a variable called myVar and it contained the number 5. You then called a timeout, passing it the variable myVar, and set it for a delay of 1 second. Immediately you change the value of myVar to 7. When the timeout fires, it will run the function, and pass it the number 5, since that was the value myVar contained when you called the function.
+setInterval
+
+The setInterval method is identical in syntax to setTimeout(). The difference is that as well as firing after the specified delay, it will fire again after the same delay, and will continue to fire at the specified interval until it is cancelled.
+
+window.setInterval(function (a,b) {
+  //do something with a and b
+},10,someString,someObject);
+
+Clearing timeouts and intervals
+
+You can cancel a timeout or interval by calling the relevant clearTimeout or clearInterval method, passing it a reference to the interval object. The code specified in the timer will not be run. In this example, an interval timer will be set to fire once every second (it will perform a useless task of incrementing a number, just as an example), and a timeout will be set to cancel the interval after 3.5 seconds:
+
+var myInterval = window.setInterval(function (a,b) {
+  myNumber++;
+},1000);
+window.setTimeout(function (a,b) {
+  clearInterval(myInterval);
+},3500);
+
+You can obtain the timeout object in the same way as shown here for the interval, and you can cancel it in the same way, using clearTimeout.
+</div>
+<br />
+</body>
+</html>

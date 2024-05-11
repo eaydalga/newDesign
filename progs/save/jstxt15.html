@@ -1,0 +1,66 @@
+<html>
+<body>
+<div id="sag"><span class="yazi">3 Aralık 2007</span></div>
+<h2></h2>
+<div class="yazi">
+Using cookies
+
+Cookies are variables that can be stored on a user's computer and be picked up by any other web pages in the correct domain and path. Cookies are set to expire after a certain length of time. They are limited to storing string values only.
+
+Be warned that many users (including me) will not permit cookies on their computers. Do not make your web sites rely on them. The reason for this is that many web sites only use cookies as part of advert tracing systems, which they use to track your movement around the Internet. I would not want anyone to follow me around a city while I was shopping, taking notes of every shop I visit and whether I look in the lingerie section, as that would be an invasion of my privacy. Many people feel the same applies to the Internet. You may find it helps to firstly display a message saying what you are going to use the cookie for, for example to store a username and password for the next time they visit the site.
+
+Some browsers will have a limit to how many cookies they can store, usually 300 cookies or more, of which there may be 20 cookies per domain name. A total of 4 KB (after encoding) of cookies can be stored for any domain or path.
+
+The document.cookie object is a string representation of all cookies available to the current web page. The document.cookie object is somewhat unusual in that when you assign string values to it, it does not become the value that you assign to it. Instead, it takes a part of that value and appends its current value to that, so making a string containing several pairs of variableName=variableValue.
+Creating / modifying and deleting cookies
+
+I have also written a cookie script to handle all of this for you.
+
+Cookies are created or modified by assigning a name=value pair to the document.cookie object:
+
+document.cookie = cookieString;
+
+The cookieString is more than just a single value. As well as a value, it can contain other information, such as when you want the cookie to expire, and what file paths it should apply to. Any of these values that you want to specify should be put together in a string as keyword=value;keyword=value;etc. and assigned as a single string to document.cookie. Only the cookie name and value are required, all other values are optional. The format of a complete cookie string is:
+
+cookieName=cookieValue[;expires=dataAsString[;path=pathAsString[;domain=domainAsString[;secure]]]]
+
+This is an example of how to set a cookie called mycookie, and assigning it a value of hello, with an expiry date of 17 December 2010, at 10:00 in the morning:
+
+document.cookie = 'mycookie=hello;expires=Fri, 17 Dec 2010 10:00:00 GMT';
+
+cookieName and cookieValue
+    These are strings, and must be URL encoded. They and can contain any characters. To URL encode a cookie name or value, you can use the escape method. Unfortunately, this cannot cope with unicode characters. Newer browsers will also provide the encodeURIComponent method that is able to cope with unicode, but if you use this, you will lose support for older browsers.
+expires
+    This must be written in full. The Date.toGMTString() method can return dates in the correct format for you. For example:
+
+    var theDate = new Date();
+    var oneYearLater = new Date( theDate.getTime() + 31536000000 );
+    var expiryDate = oneYearLater.toGMTString();
+
+    Once the specified date is reached, the cookie expires and is deleted. If expires is not specified, the cookie will be deleted when the browser is closed. If expires is set to a date in the past, the cookie is deleted immediately. This is how to delete a cookie (some browsers may take a few seconds to actually delete the cookie). In theory, computers should be able to accept any future date but in reality, UNIX computers will not currently accept a date after 03:14 on 18 Jan 2038 and many Macintosh computers will not currently accept a date after 06:28 6 Feb 2040 or the same date as that for UNIX. These are the UNIX and Macintosh equivalent of the millennium bug.
+path
+    This gives the path or directories that the cookie should be accessible from. The default is the current path. Alter this using '../' (up one directory), '/' starting at the base directory and 'subdirectoryName/' to start from the 'currentDirectory/subdirectoryName/'. NOTE, if two cookies are set with the same name but different paths, both cookies will be permitted. If the script is in a directory where both those paths are satisfied, both cookies are available, and may be returned in any order. There is no way to distinguish between them. This can make scripts difficult to write so be careful!
+domain
+    gives the domain that the cookie is accessible from. The default is the current domain. The rules reguarding what may be put here were originally written very strictly. Domain names ending in com, edu, net, org, gov, mil, and int must contain at least 2 '.' characters (eg. www.google.com). Any other domain names must contain at least 3 '.' characters (eg. www.howtocreate.co.uk). The domain should only be the current domain or a subdomain of it. Many browsers will now accept any valid domain name.
+secure
+    Having this written means the cookie is only accessible on sites with a secure (https) connection.
+
+Reading cookies
+
+When document.cookie is used to retrieve cookies, they are returned in the following format:
+
+cookieName4=value; cookieName3=value; cookieName2=value; cookieName1=value
+
+Note that the final variable value does not end with a semicolon. If there is no value for a variable, some browsers will give 'cookieName=' but some will only give 'cookieName'. Cookies are only available through the document.cookie object and cannot be accessed by simply typing their name (unless you retrieve the cookie and define that as a variable yourself).
+
+When trying to retrieve values from this string, it is important to ensure that you do not mistake cookies for each other. For example, when searching for 'myname' it is important that you do not find a cookie called 'notmyname' or 'mynamehere'. There are many scripts that get this wrong, but the algorithm I will show you below does not make these mistakes.
+
+The simple way to do this is to use the split method, to split on the cookie separation value '; ' (including the space). This will return an array of strings, each of which represents a name=value pair. You can then use a 'for' loop to cycle through all the array cells, splitting each of them on the '=' string. This returns an array containing one or two cells. The first will be the cookie name, and the second (if it exists) will be the cookie value.
+
+Use either the unescape or decodeURIComponent methods to decode the contents of the first cell, containing the cookie name. If that matches the desired name, then you have found the correct cookie. Use if(!arrayname[1]) to check if the second cell has a value. If not, the cookie's value is an empty string. If it does have a value, then you can decode it to work out what it is. You can then break out of the 'for' loop.
+
+If you reach the end of the first array without discovering the required cookie, then the cookie does not exist.
+</div>
+<br />
+</body>
+</html>

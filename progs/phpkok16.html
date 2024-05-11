@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP kökler - Programlama</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+function ackapa(no)
+{
+var bolum="secim"+no;
+    target=document.getElementById(bolum);
+    if(target.style.display == "inline") {
+         target.style.display = "none";
+    } else {
+         target.style.display = "inline";
+    }
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <a href="phptxt7.html" class="nav">Php Kök</a>
+               <a href="phpkok1.html" class="sub">ext_skel</a><br 7>
+               <a href="phpkok2.html" class="sub">UNIX:config.m4</a><br 7>
+               <a href="phpkok3.html" class="sub">Win:config.w32</a><br 7>
+               <a href="phpkok4.html" class="sub">zend_module</a><br 7>
+               <a href="phpkok8.html" class="sub">Zorunluluklar</a><br 7>
+               <a href="phpkok9.html" class="sub">Hazırlama</a><br 7>
+               <a href="phpkok10.html" class="sub">İskelet doldurma</a><br 7>
+               <a href="phpkok11.html" class="sub">Hazılama</a><br 7>
+               <a href="phpkok12.html" class="sub">Denemeler</a><br 7>
+               <a href="phpkok13.html" class="sub">Paket Yaratma</a><br 7>
+               <a href="phpkok14.html" class="sub">pdo_dbh_t</a><br 7>
+               <a href="phpkok15.html" class="sub">pdo_stmt_t</a><br 7>
+               <a href="phpkok16.html" class="sub">Değişmezler</a><br 7>
+               <a href="phpkok17.html" class="sub">Hatalar</a><br 7>
+               <a href="phpkok18.html" class="sub">PHP uzantı API</a><br 7>
+               <a href="phpkok19.html" class="sub">Zend API: </a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">10 Mart 2008</span></div>
+<div id="bdy" class="yazi">
+<h3>Değişmezler</h3>
+<h3>Veritabanı ve Deyim nitelikleri tablosu</h3>
+
+<table class="yazi">
+<tr><td>Nitelikler </td><td> Geçerli değer(ler) </td></tr>
+<tr><td>PDO_ATTR_AUTOCOMMIT </td><td> BOOL <br />
+Eğer autocommit değeri varsa TRUE, aksi halde FALSE.
+<br />
+dbh->auto_commit değeri içerir. PDO'dan doğrudan gönderilir.  </td></tr>
+<tr><td>PDO_ATTR_PREFETCH </td><td> LONG <br />
+Sürücüde onu destekleyen önalma (prefetch) değeri.  </td></tr>
+<tr><td>PDO_ATTR_TIMEOUT </td><td> LONG <br />
+Zaman aşımından önce db işlemi için ne kadar bekleneceğini belirtir. </td></tr>
+<tr><td>PDO_ATTR_ERRMODE </td><td> LONG <br />
+PDO tarafından ele alınır ve işlenir </td></tr>
+<tr><td>PDO_ATTR_SERVER_VERSION </td><td> STRING <br />
+Bu sürücünün bağlı olduğu Sunucu/Sürüm bilgisini gösteren "insanın okuyabileceği" yazı dizisidir.</td></tr>
+<tr><td>PDO_ATTR_CLIENT_VERSION </td><td> STRING <br />
+Bu sürücünün desteklediği İstemci/Sürüm bilgisini içeren "insanın okuyabileceği" yazı dizisidir.</td></tr>
+<tr><td>PDO_ATTR_SERVER_INFO </td><td> STRING <br />
+Sunucunun "insanın okuyabileceği" açıklaması </td></tr>
+<tr><td>PDO_ATTR_CONNECTION_STATUS </td><td> LONG <br />
+Henüz tanımlanmamış değerler </td></tr>
+<tr><td>PDO_ATTR_CASE </td><td> LONG <br />
+PDO tarafından ele alma ve işleme.  </td></tr>
+<tr><td>PDO_ATTR_CURSOR_NAME </td><td> STRING <br />
+Veritabanı imgeci için yazı dizisi adını gösterir. Bu ad 
+"where current in &lt;yazi_dizisi_adi&gt;" SQL deyiminde kullanılır.  
+</td></tr>
+<tr><td>PDO_ATTR_CURSOR </td><td> LONG </td></tr>
+<tr><td>PDO_CURSOR_FWDONLY </td><td>
+    imleci ileri (Forward) yalnız ilerlet</td></tr>
+<tr><td>PDO_CURSOR_SCROLL </td><td>
+    Kaydırılabilen imleç (cursor) </td></tr>
+</table>
+Yukarıdaki niteliklerin değerleri Zend API kurallarına göre tanımlanmıştır. *zval değerini çevirmede kullanılan makrolar Zend API içindedir. Bu makrolar Zend başlık dosyasında bulunur. PHP hazırlama yolundaki Zend yolunda zend_API.h dosyasıdır. Bu niteliklerin bazıları deyim niteliklerini ele almada kullanılabilir (PDO_ATTR_CURSOR ve PDO_ATTR_CURSOR_NAME gibi). Ayrıntılar için deyim niteliklerini ele alma işlevlerine bakın.
+
+         </div>
+<div id="sag"> <B><A HREF="javascript:history.back()">Dönüş</A></B> </div>
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

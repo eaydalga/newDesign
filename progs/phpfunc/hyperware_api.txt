@@ -1,0 +1,121 @@
+
+<h2>Hyperwave API İşlevleri</h2>
+<h3>Giriş</h3>
+
+Hyperwave has been developed at » IICM in Graz. It started with the name Hyper-G and changed to Hyperwave when it was commercialised (in 1996).
+<br /><br />
+Hyperwave is not free software. The current version, 5.5, is available at » http://www.hyperwave.com/. A time limited version can be ordered for free (30 days).
+<br /><br />
+Hyperwave modülüne de bakın.
+<br /><br />
+Hyperwave is an information system similar to a database (HIS, Hyperwave Information Server). Its focus is the storage and management of documents. A document can be any possible piece of data that may as well be stored in file. Each document is accompanied by its object record. The object record contains meta data for the document. The meta data is a list of attributes which can be extended by the user. Certain attributes are always set by the Hyperwave server, other may be modified by the user.
+<br /><br />
+    Note: This extension has been moved to the » PECL repository and is no longer bundled with PHP as of PHP 5.2.0.
+
+<h3>Gereksinim</h3>
+
+Since 2001 there is a Hyperwave SDK available. It supports Java, JavaScript and C++. This PHP Extension is based on the C++ interface. In order to activate the hwapi support in PHP you will have to install the Hyperwave SDK first.
+<h3>Kurulum</h3>
+
+After installing the Hyperwave SDK, configure PHP with --with-hwapi[=DIR].
+
+<h3>Apache ile bütünleşme</h3>
+
+The integration with Apache and possible other servers is already described in the Hyperwave module which has been the first extension to connect a Hyperwave Server.
+
+<h3>Çalışma zamanı ayarları</h3>
+
+The behaviour of these functions is affected by settings in php.ini.
+<br /><br />
+Hyperwave API configuration options
+<table class="yazi">
+<tr><td>Ad</td><td>Varsayılan</td><td>Değişebilir</td><td>Değişme
+kaydı</td></tr>
+<tr><td>hwapi.allow_persistent</td><td>"0"</td><td>PHP_INI_SYSTEM
+</td></tr>
+</table>
+For further details and definitions of the PHP_INI_* constants, see the php.ini directives.
+
+<h3>Sınıflar</h3>
+
+The API provided by the HW_API extension is fully object oriented. It is very similar to the C++ interface of the Hyperwave SDK. It consist of the following classes.
+<ul>
+    <li> HW_API
+    <li> HW_API_Object
+    <li> HW_API_Attribute
+    <li> HW_API_Error
+    <li> HW_API_Content
+    <li> HW_API_Reason
+</ul>
+Some basic classes like HW_API_String, HW_API_String_Array, etc., which exist in the Hyperwave SDK have not been implemented since PHP has powerful replacements for them.
+<br /><br />
+Each class has certain method, whose names are identical to its counterparts in the Hyperwave SDK. Passing arguments to this function differs from all the other PHP extensions but is close to the C++ API of the HW SDK. Instead of passing several parameters they are all put into an associated array and passed as one parameter. The names of the keys are identical to those documented in the HW SDK. The common parameters are listed below. If other parameters are required they will be documented if needed.
+<ul>
+    <li> objectIdentifier The name or id of an object, e.g. "rootcollection", "0x873A8768 0x00000002".
+    <li> parentIdentifier The name or id of an object which is considered to be a parent.
+    <li> object An instance of class HW_API_Object.
+    <li> parameters An instance of class HW_API_Object.
+    <li> version The version of an object.
+    <li> mode An integer value determine the way an operation is executed.
+    <li> attributeSelector Any array of strings, each containing a name of an attribute. This is used if you retrieve the object record and want to include certain attributes.
+    <li> objectQuery A query to select certain object out of a list of objects. This is used to reduce the number of objects which was delivered by a function like hw_api->children() or hw_api->find().
+</ul>
+    Note: Methods returning boolean can return TRUE, FALSE or HW_API_Error object.
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> hw_api_attribute->key — Returns key of the attribute
+    <li> hw_api_attribute->langdepvalue — Returns value for a given language
+    <li> hw_api_attribute->value — Returns value of the attribute
+    <li> hw_api_attribute->values — Returns all values of the attribute
+    <li> hw_api_attribute — Creates instance of class hw_api_attribute
+    <li> hw_api->checkin — Checks in an object
+    <li> hw_api->checkout — Checks out an object
+    <li> hw_api->children — Returns children of an object
+    <li> hw_api_content->mimetype — Returns mimetype
+    <li> hw_api_content->read — Read content
+    <li> hw_api->content — Returns content of an object
+    <li> hw_api->copy — Copies physically
+    <li> hw_api->dbstat — Returns statistics about database server
+    <li> hw_api->dcstat — Returns statistics about document cache server
+    <li> hw_api->dstanchors — Returns a list of all destination anchors
+    <li> hw_api->dstofsrcanchor — Returns destination of a source anchor
+    <li> hw_api_error->count — Returns number of reasons
+    <li> hw_api_error->reason — Returns reason of error
+    <li> hw_api->find — Search for objects
+    <li> hw_api->ftstat — Returns statistics about fulltext server
+    <li> hwapi_hgcsp — Returns object of class hw_api
+    <li> hw_api->hwstat — Returns statistics about Hyperwave server
+    <li> hw_api->identify — Log into Hyperwave Server
+    <li> hw_api->info — Returns information about server configuration
+    <li> hw_api->insert — Inserts a new object
+    <li> hw_api->insertanchor — Inserts a new object of type anchor
+    <li> hw_api->insertcollection — Inserts a new object of type collection
+    <li> hw_api->insertdocument — Inserts a new object of type document
+    <li> hw_api->link — Creates a link to an object
+    <li> hw_api->lock — Locks an object
+    <li> hw_api->move — Moves object between collections
+    <li> hw_api_content — Create new instance of class hw_api_content
+    <li> hw_api_object->assign — Clones object
+    <li> hw_api_object->attreditable — Checks whether an attribute is editable
+    <li> hw_api_object->count — Returns number of attributes
+    <li> hw_api_object->insert — Inserts new attribute
+    <li> hw_api_object — Creates a new instance of class hw_api_object
+    <li> hw_api_object->remove — Removes attribute
+    <li> hw_api_object->title — Returns the title attribute
+    <li> hw_api_object->value — Returns value of attribute
+    <li> hw_api->object — Retrieve attribute information
+    <li> hw_api->objectbyanchor — Returns the object an anchor belongs to
+    <li> hw_api->parents — Returns parents of an object
+    <li> hw_api_reason->description — Returns description of reason
+    <li> hw_api_reason->type — Returns type of reason
+    <li> hw_api->remove — Delete an object
+    <li> hw_api->replace — Replaces an object
+    <li> hw_api->setcommittedversion — Commits version other than last version
+    <li> hw_api->srcanchors — Returns a list of all source anchors
+    <li> hw_api->srcsofdst — Returns source of a destination object
+    <li> hw_api->unlock — Unlocks a locked object
+    <li> hw_api->user — Returns the own user object
+    <li> hw_api->userlist — Returns a list of all logged in users
+</ul>
+

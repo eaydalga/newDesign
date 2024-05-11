@@ -1,0 +1,282 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Hyperlink Preprocessor </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">21 Mart 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>IMAP, POP3 ve NNTP İşlevleri</h2>
+<h3>Giriş</h3>
+
+Bu işlevler IMAP protokolü ile işlem yapmanızı sağlar. NNTP, POP3 ve yerel
+posta kutusu erişim yöntemleri de kullanılır.
+<br /><br />
+Bilmeniz gerekir ki bazı IMAP işlevleri POP protokolünde doğru çalışmaz.
+
+<h3>Gereksinim</h3>
+
+Bu uzantı c-istemci kitaplığının kurulmuş olmasını gerektirir. En son sürümü
+ftp://ftp.cac.washington.edu/imap/ adresinden sağlayabilirsiniz.
+<br /><br />
+Önemli olan IMAP kaynak kodlarının doğrudan sistem ekleme yoluna kopyalanması
+değildir. Çelişkiler olabilir. Yerine sistem ekleme yolu içine yeni bir dosya yolu yaratın (/usr/local/imap-2000b/ gibi) ve bunun içine lib/ ve include/ adlı dosya yollarını ekleyin. Sizin IMAP kaynak kod ağacından, c-istemci yolundan *.h dosyaları include/ altına kopyalanır. Ek olarak bunlar derlendiğinde c-client.a adlı dosya da üretilir. Bu dosyayı lib/ altında kopyalayıp adını libc-client.a olarak değiştirin.
+<br /><br />
+    Not: c-istemci kitaplığını SSL ya da Kerberos desteğiyle ile yaratmak için bu paketle verilen belgeleri okuyun.
+<br /><br />
+    Not: Mandrake Linux içinde IMAP kitaplığı (libc-client.a) Kerberos desteği
+olmadan derlenir. SSL içeren ayrı bir sürüm (client-PHP4.a) kurulur. Kerberos
+desteğini eklemek için kitaplık yeniden derlenmelidir.
+
+<h3>Kurulum</h3>
+
+Bu işlevlerin çalışabilmesi için "--with-imap[=DIR]" ile derleme yapılmalıdır.
+Burada DIR, c-client kurulum ön ekidir. Bizim yukarıdaki örneğimiz için
+"--with-imap=/usr/local/imap-2000b" kullanmak gerekir. Windows kullanıcıları
+php_imap.dll kitaplığını php.ini ile eklemelidir. Windows 2000 öncesi
+sistemlerde IMAP desteklenmemektedir. Çünkü kriptolama işlevleri SSL
+bağlantıyla posta sunucusuna bağlanır.
+<br /><br />
+    Not: c-client nasıl ayarlandığına bağımlı olarak,
+"--with-imap-ssl=/path/to/openssl/" ya da "--with-kerberos=/path/to/kerberos"
+seçeneğini PHP komut satırına eklemelidir.
+
+<h3>Uyarı</h3>
+
+IMAP, recode, YAZ ve Cyrus uzantıları birlikte kullanılamaz, çünkü hepsi de
+aynı içsel simgeyi kullanırlar.
+
+<h3>Önceden Tanımlı Değişmezler</h3>
+
+Aşağıdaki değişmezler yalnız bu uzantılya kullanılabilir.
+
+<pre>
+NIL (tam sayı)
+OP_DEBUG (tam sayı)
+OP_READONLY (tam sayı)
+    posta kutusunu yalnız okur aç
+OP_ANONYMOUS (tam sayı)
+    Haberler (news) için .newsrc kullanma ya da güncelleme (yalnız NNTP)
+OP_SHORTCACHE (tam sayı)
+OP_SILENT (tam sayı)
+OP_PROTOTYPE (tam sayı)
+OP_HALFOPEN (tam sayı)
+    IMAP ve NNTP adları için, bir bağlantı kur ama posta kutusu açma
+OP_EXPUNGE (tam sayı)
+OP_SECURE (tam sayı)
+CL_EXPUNGE (tam sayı)
+    imap_close() işlevini çağırırken kapanışta sessizce posta kutusunu sil.
+FT_UID (tam sayı)
+    UID (kullanıcı kodu) değişgeçtir.
+FT_PEEK (tam sayı)
+    Eğer ayarlanmamışsa \Seen durum kodunu ayarlama
+FT_NOT (tam sayı)
+FT_INTERNAL (tam sayı)
+    Dönen yazı dizisi içsel kalıbtadır, CRLF ayarlaması yapılmamıştır
+FT_PREFETCHTEXT (tam sayı)
+ST_UID (tam sayı)
+    Sıra numarası yerine, sıralı başka değişken UID'leri içerir.
+ST_SILENT (tam sayı)
+ST_SET (tam sayı)
+CP_UID (tam sayı)
+    Sıra numraları UID'leri içerir
+CP_MOVE (tam sayı)
+    imap_mail_copy() ile kopyaladıktan sonra mesajı
+    o anki posta kutusundan sil.
+SE_UID (tam sayı)
+    Sıra numarası yerine UID döndür.
+SE_FREE (tam sayı)
+SE_NOPREFETCH (tam sayı)
+    Aranan mesajları önceden seçip alma
+SO_FREE (tam sayı)
+SO_NOSERVER (tam sayı)
+SA_MESSAGES (tam sayı)
+SA_RECENT (tam sayı)
+SA_UNSEEN (tam sayı)
+SA_UIDNEXT (tam sayı)
+SA_UIDVALIDITY (tam sayı)
+SA_ALL (tam sayı)
+LATT_NOINFERIORS (tam sayı)
+    Bu posta kutusunun "çocukları" yok
+    (Bunun altında başka posta kutuları yok)
+LATT_NOSELECT (tam sayı)
+    Bu bir toplayıcıdır, posta kutusu değil - açamazsınız.
+LATT_MARKED (tam sayı)
+    Bu posta kutusu işaretli. Yalnız UW-IMAPD ile kullanılır. 
+LATT_UNMARKED (tam sayı)
+    Bu posta kutusu işaretli. Yalnız UW-IMAPD ile kullanılır. 
+SORTDATE (tam sayı)
+    imap_sort() için sıralama kriteri: Mesaj tarihi
+SORTARRIVAL (tam sayı)
+    imap_sort() için sıralama kriteri: Geliş zamanı
+SORTFROM (tam sayı)
+    imap_sort() için sıralama kriteri: İlk Gönderen adresi
+SORTSUBJECT (tam sayı)
+    imap_sort() için sıralama kriteri: mesaj konusu
+SORTTO (tam sayı)
+    imap_sort() için sıralama kriteri: Kime adresi
+SORTCC (tam sayı)
+    imap_sort() için sıralama kriteri: ilk cc adresi
+SORTSIZE (tam sayı)
+    imap_sort() için sıralama kriteri: mesajın boyu (oktet olarak)
+TYPETEXT (tam sayı)
+TYPEMULTIPART (tam sayı)
+TYPEMESSAGE (tam sayı)
+TYPEAPPLICATION (tam sayı)
+TYPEAUDIO (tam sayı)
+TYPEIMAGE (tam sayı)
+TYPEVIDEO (tam sayı)
+TYPEOTHER (tam sayı)
+ENC7BIT (tam sayı)
+ENC8BIT (tam sayı)
+ENCBINARY (tam sayı)
+ENCBASE64 (tam sayı)
+ENCQUOTEDPRINTABLE (tam sayı)
+ENCOTHER (tam sayı)
+IMAP_OPENTIMEOUT (tam sayı)
+IMAP_READTIMEOUT (tam sayı)
+IMAP_WRITETIMEOUT (tam sayı)
+IMAP_CLOSETIMEOUT (tam sayı)
+LATT_REFERRAL (tam sayı)
+LATT_HASCHILDREN (tam sayı)
+LATT_HASNOCHILDREN (tam sayı)
+TYPEMODEL (tam sayı)
+</pre>
+
+<h3>Bunlara da bakın</h3>
+
+Bu döküman adları verilen başlıklardan öteye gidemez. Daha çok bilgi edinmek
+için c-client kitaplık kaynaklarından (docs/internal.txt) ve aşağıda belirtilen
+RFC belgelerinden yararlanılabilir:
+<ul>
+    <li> » RFC2821: Basit Posta Gönderme Protokolü (Simple Mail Transfer Protocol - SMTP).
+    <li> » RFC2822: ARPA Internet yazı mesajları için standart.
+    <li> » RFC2060: Internet mesaj erişim Protokolü (Internet Message Access Protocol - IMAP) Sürüm: 4rev1.
+    <li> » RFC1939: Posta Ofisi Protokolü sürüm 3 (Post Office Protocol Version 3 - POP3).
+    <li> » RFC977: Ağda Haber Gönderme Protokolü (Network News Transfer Protocol - NNTP).
+    <li> » RFC2076: Ortak Internet Mesaj Başlıkları
+    <li> » RFC2045 , RFC2046 , RFC2047 , RFC2048 ve RFC2049: Çok amaçlı Internet Posta Uzantıları (Multipurpose Internet Mail Extensions - MIME).
+</ul>
+
+Geniş bir özet kitaplarda da vardır (Programming Internet Email - David Wood
+ve Managing IMAP - Dianna Mullet ve Kevin Mullet).
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> imap_8bit — 8 bitlik bir yazı dizisini tırnaklanmış yazılabilir bir
+yazı dizisine çevir
+    <li> imap_alerts — Oluşan tüm IMAP uyarı mesajlarını döndürür
+    <li> imap_append — Belirtilen posta kutusuna yazı dizisi mesajını ekle
+    <li> imap_base64 — BASE64 kodlu yazının kodunu açma
+    <li> imap_binary — 6 bitlik yazı dizisini base64 yazı dizisine çevir
+    <li> imap_body — Herhangi bir mesajın gövdesini oku
+    <li> imap_bodystruct — Belirtilen mesajın belirtilen gövde yapısını oku
+    <li> imap_check — O anki posta kutusunu denetle
+    <li> imap_clearflag_full — Mesaj üzerindeki durum kodlarını temizler
+    <li> imap_close — IMAP akarını kapatır.
+    <li> imap_createmailbox — Yeni bir posta kutusu açar
+    <li> imap_delete — O anki posta kutusundan bir mesajı silinecek diye
+işaretle
+    <li> imap_deletemailbox — Bir posta kutusunu sil
+    <li> imap_errors — Oluşan tüm IMAP hatalarını döndür.
+    <li> imap_expunge — Silinmek için işaretlenmiş tüm mesajları sil
+    <li> imap_fetch_overview — Verilen bir mesajın başlığındaki bilgilerin özetini okur
+    <li> imap_fetchbody — Bir mesajın gövdesinde belirli bölümlerin seçilmesi
+    <li> imap_fetchheader — Bir mesajın başlığının döndürmesi
+    <li> imap_fetchstructure — Belirli bir mesajın yapısının dönmesi
+    <li> imap_get_quota — Tırnak düzeyi ayarlara erişim ve her posta kutusu
+kullanım istatistiklerine erişim
+    <li> imap_get_quotaroot — Her kullanıcı için tırnak ayarlarına erişim
+    <li> imap_getacl — Verilen posta kutusu için ACL alır
+    <li> imap_getmailboxes — Posta kutusu listesini oku ve her biri hakkında ayrıntılı bilgi döndür
+    <li> imap_getsubscribed — Tüm abone olunan posta kutularını listele
+    <li> imap_header — imap başlık bilgisi eşdeğeri
+    <li> imap_headerinfo — Mesajın başlığını oku
+    <li> imap_headers — Posta kutusundaki tüm mesajların başlıklarını döndür
+    <li> imap_last_error — Bu sayfanın istendiği zamanda oluşan son IMAP hatasını al
+    <li> imap_list — Posta Kutularının listesini oku
+    <li> imap_listmailbox — imap_list listesinin eşdeğeridir.
+    <li> imap_listscan — Verilen yazıyla uyumlu postakutularının listesini döndür
+    <li> imap_listsubscribed — imap_lsub eşdeğeridir.
+    <li> imap_lsub — Abone olunan posta kutularının listesi
+    <li> imap_mail_compose — Verilen zarf ve gövde bölümleri içinde MIME mesajı yarat.
+    <li> imap_mail_copy — Bir mesajı belirtilen Posta kutusuna kopyala
+    <li> imap_mail_move — Bir mesajı belirtilen Posta kutusuna taşıma
+    <li> imap_mail — Bir e-posta mesajı gönder
+    <li> imap_mailboxmsginfo — O anki posta kutusu hakkında bilgi al
+    <li> imap_mime_header_decode — MIME başlık öğesinin kodunu aç
+    <li> imap_msgno — Verilen UID için mesaj sıra numarasını al
+    <li> imap_num_msg — O anki posta kutusundaki mesajların sayısını al
+    <li> imap_num_recent — O anki posta kutusundaki en son mesajların sayısını al
+    <li> imap_open — IMAP akarını bir posta kutusuna aç
+    <li> imap_ping — IMAP akarı hala etkin midir bak
+    <li> imap_qprint — Tırnaklı yazılabilir yazı dizisini 8 bitlik yazı
+dizisine çevir.
+    <li> imap_renamemailbox — Eski posta kutusunu yeni posta kutusuna çevir
+    <li> imap_reopen — IMAP akarını yeni posta kutusuna yeniden aç
+    <li> imap_rfc822_parse_adrlist — Adres yazı dizisini tara
+    <li> imap_rfc822_parse_headers — Bir yazı dizisinden mektup başlığını tara
+    <li> imap_rfc822_write_address — Düzgün kalıplanmış e-posta adresini posta kutusu, sunucu ve kişisel bilgilerle döndür
+    <li> imap_savebody — Özel gövde bölümünü bir dosyaya sakla
+    <li> imap_scanmailbox — imap liste tarama (listscan) eşdeğeridir
+    <li> imap_search — Bu işlev arama kriterlerine uyan mesajalrın dizisini döndürür
+    <li> imap_set_quota — Bir posta kutusu için kota ayarlar
+    <li> imap_setacl — Verilen bir posta kutusu için ACL ayarlar
+    <li> imap_setflag_full — Mesajlar üzerindeki durum kodlarını ayarlar
+    <li> imap_sort — Mesajları alır ve sıralar
+    <li> imap_status — Bir posta kutusu bilgilerinin durumunu döndürür
+    <li> imap_subscribe — Bir posta kutusuna abone yapar
+    <li> imap_thread — Parçalanmış mesajlar ağacını döndürür
+    <li> imap_timeout — imap zaman aşımını seç ya da ayarla
+    <li> imap_uid — Verilen mesaj sıra numarası için bu işlev UID döndürür.
+    <li> imap_undelete — Silinecek diye işaretlenmiş mesajın işaretini kaldır.
+    <li> imap_unsubscribe — Posta kutusu  üyeliğinden çık.
+    <li> imap_utf7_decode — Değiştirilmiş UTF-7 kodlu bir yazı dizisinin
+kodunu açar.
+    <li> imap_utf7_encode — ISO-8859-1 yazı dizisini değiştirilmiş UTF-7
+yazısına çevirir.
+    <li> imap_utf8 — MIME-kodlanmış yazıyı UTF-8 kodlamasına çevirir.
+</ul>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

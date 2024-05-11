@@ -1,0 +1,256 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+</head>
+<body>
+<div id="sag"><span class="yazi">26 Ekim 2007</span></div>
+<h2>Sözde sınıflar (pseudo-classes)</h2>
+<span class="yazi">
+Sözde sınıflar seçicilere özel etkiler vermek için kullanılır.<br />
+<h3>Dil Kuralı (Syntax)</h3>
+Sözde sınıflar için dil kuralı şöyledir:<br />
+</span>
+<fieldset class="fyazi">
+<pre>
+selector:pseudo-class {property: value}
+</pre>
+</fieldset>
+<br />
+<span class="yazi">
+CSS Sınıflarının sözde sınıflarla da kullanımı olasıdır.<br />
+</span>
+<fieldset class="fyazi">
+<pre>
+selector.class:pseudo-class {property: value}
+</pre>
+</fieldset>
+<br />
+<h3>Demirli Sözde-sınıflar (Anchor Pseudo-classes)</h3>
+<span class="yazi">
+Etkin olan bir bağ, gezilmiş, gezilmemiş ya da fareniz bir bağın üzerine geldiğinde CSS destekleyen tarayıcılarda başka biçimlerde görüntülenmesi:<br />
+</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+a:link {color: #FF0000}     /* unvisited link */
+a:visited {color: #00FF00}  /* visited link */
+a:hover {color: #FF00FF}   /* mouse over link */
+a:active {color: #0000FF}   /* selected link */
+</pre>
+</fieldset>
+<br />
+<span class="yazi">
+Not: CSS tanımında a:hover, etkin olması için a:link ve a:visited tanımlarından sonra gelmelidir.<br />
+<br />
+Not: CSS tanımında a:active, etkin olması için a:hover tanımından sonra gelmelidir.<br />
+<br />
+Not: Sözde sınıf adları büyük-küçük harflere duyarlı değildir.<br />
+</span>
+<br />
+<h3>Sözde-sınıflar (Pseudo-classes) ve CSS Sınıfları (CSS Classes)</h3>
+<span class="yazi">
+Sözde sınıflar CSS sınıflarla birleştirilebilir: <br />
+</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+a.red:visited {color: #FF0000}
+&lt;a class="red" href="css_syntax.asp"&gt;CSS Syntax&lt;/a&gt;
+</pre>
+</fieldset>
+<br />
+<span class="yazi">
+Eğer yukarıdaki örnekte bağ gezilirse kırmızı görüntülenebilir<br />
+</span>
+<br />
+<h3>CSS2 - :first-child (ilk-çocuk) Sözde Sınıfı</h3>
+<span class="yazi">
+<br />
+:first-child sözde sınıfı bir öğenin ilk çocuğu olan belirtilen bir başka öğeyi bulur.
+<br />
+Not: :first-child sözde sınıfının IE ile çalışması için &lt;!DOCTYPE&gt; tanımlanmalıdır.
+</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+Bu örnekte seçici, div öğesinin ilk çocuğu
+olan herhangi p öğesini arar ve div içindeki
+ilk paragrafı içerden yazdırır:
+
+div &gt; p:first-child
+{
+text-indent:25px
+}
+
+Bu seçici aşağıdaki HTML'de bulunan
+div içindeki ilk paragrafı arar:
+
+&lt;div&gt;
+&lt;p&gt;
+First paragraph in div.
+This paragraph will be indented.
+&lt;/p&gt;
+&lt;p&gt;
+Second paragraph in div.
+This paragraph will not be indented.
+&lt;/p&gt;
+&lt;/div&gt;
+
+fakat bu HTML içinde aradığımı bulamaz:
+
+&lt;div&gt;
+&lt;h1&gt;Header&lt;/h1&gt;
+&lt;p&gt;
+The first paragraph inside the div.
+This paragraph will not be indented.
+&lt;/p&gt;
+&lt;/div&gt;
+</pre>
+</fieldset>
+<br />
+<fieldset class="fyazi">
+<pre>
+Bu örnekte seçici, p öğesinin
+içindeki herhangi em öğesini arar ve
+bulduğu ilk em'nin yazı-tipi ağırlığını koyulaştırır:
+
+p:first-child em
+{
+font-weight:bold
+}
+
+Örneğin, aşağıdaki HTML içindeki em paragrafın ilk çocuğudur:
+
+&lt;p&gt;I am a &lt;em&gt;strong&lt;/em&gt; man.&lt;/p&gt;
+
+</pre>
+</fieldset>
+<br />
+<fieldset class="fyazi">
+<pre>
+Bu örnekte, herhangi bir öğenin
+içindeki aranan ilk a öğesini bulur ve
+yazı dekorasyonunu none yapar:
+
+a:first-child
+{
+text-decoration:none
+}
+
+Örneğin, aşağıdaki HTML'de
+bulunan ilk a bu paragrafın ilk çocuğudur ve
+altı çizilmeyecektir. Bulunan ikinci a
+ilk çocuk olmadığından altı çizili olacaktır:
+
+&lt;p&gt;
+Visit &lt;a href="http://www.w3schools.com"&gt;W3Schools&lt;/a&gt;
+and learn CSS!
+Visit &lt;a href="http://www.w3schools.com"&gt;W3Schools&lt;/a&gt;
+and learn HTML!
+&lt;/p&gt;
+</pre>
+</fieldset>
+<br />
+<h3>CSS2 - :lang (dil) sözde sınıfı</h3>
+<br />
+<span class="yazi">
+:lang sözde sınıfı farklı diller için değişik kurallar tanımlamanızı sağlar. Aşağıdaki örnekte :lan sınıfı çift tırnağın tipini q öğeleri ve dil kodu "no" için tanımlar.
+</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+&lt;html&gt;
+&lt;head&gt;
+&lt;style type="text/css"&gt;
+q:lang(no)
+{
+quotes: "~" "~"
+}
+&lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;p&gt;Some text &lt;q lang="no"&gt;A quote in a paragraph&lt;/q&gt;
+Some text.&lt;/p&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+</pre>
+</fieldset>
+<br />
+<h3>Sözde Sınıflar (Pseudo-classes)</h3>
+<br />
+<table class="yazi">
+<tr><td>Destekleyen Tarayıcılar:</td><td>IE: Internet Explorer, F: Firefox, N: Netscape.</td></tr>
+<tr><td></td><td>W3C: Buradaki sayısal değer CSS türünü (CSS1 ya da CSS2) gösterir.</td></tr>
+</table>
+<br />
+<table cellspacing="0" border="1" cellpadding="3" class="fyazi">
+  <tr>
+    <th align="left" valign="top" width="25%">Sözde-sınıf</th>
+    <th align="left" valign="top" width="55%">Amacı</th>
+    <th align="left" valign="top" width="5%">IE</th>
+    <th align="left" valign="top" width="4%">F</th>
+    <th align="left" valign="top" width="4%">N</th>
+    <th align="left" valign="top" width="7%">W3C</th>
+  </tr>
+  <tr>
+    <td valign="top">:active</td>
+    <td valign="top">Etkinleşen öğeye özel stil ekleme</td>
+    <td valign="top">4</td>
+    <td valign="top">1</td>
+    <td valign="top">8</td>
+    <td valign="top">1</td>
+  </tr>
+  <tr>
+    <td valign="top">:focus</td>
+    <td valign="top">Öğe üzerine odaklandığında özel stil eklenmesi </td>
+    <td valign="top">-</td>
+    <td valign="top">1.5</td>
+    <td valign="top">8</td>
+    <td valign="top">2</td>
+  </tr>
+  <tr>
+    <td valign="top">:hover</td>
+    <td valign="top">Fareniz üzerine geldiğinde öğeye özel stil vermesi</td>
+    <td valign="top">4</td>
+    <td valign="top">1</td>
+    <td valign="top">7</td>
+    <td valign="top">1</td>
+  </tr>
+  <tr>
+    <td valign="top">:link</td>
+    <td valign="top">Gezilmemiş bağa özel stil vermesi</td>
+    <td valign="top">3</td>
+    <td valign="top">1</td>
+    <td valign="top">4</td>
+    <td valign="top">1</td>
+  </tr>
+  <tr>
+    <td valign="top">:visited</td>
+    <td valign="top">Gezilen bağa özel bir stil eklenmesi</td>
+    <td valign="top">3</td>
+    <td valign="top">1</td>
+    <td valign="top">4</td>
+    <td valign="top">1</td>
+  </tr>
+  <tr>
+    <td valign="top">:first-child</td>
+    <td valign="top">bir başka öğenin ilk çocuğu olan bir öğeye özel stil eklenmesi</td>
+    <td valign="top">7</td>
+    <td valign="top">1</td>
+    <td valign="top">7</td>
+    <td valign="top">2</td>
+  </tr>
+  <tr>
+    <td valign="top">:lang</td>
+    <td valign="top">Belirtilen öğede özel bir dil kullanılması</td>
+    <td valign="top">-</td>
+    <td valign="top">1</td>
+    <td valign="top">8</td>
+    <td valign="top">2</td>
+  </tr>
+</table>
+<br />
+</body>
+</html>

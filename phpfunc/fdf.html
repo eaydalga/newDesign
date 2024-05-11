@@ -1,0 +1,194 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP FDF Veri Bilgi Giriş Kalıbı İşlevleri</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">21 Şubat 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>Veri Bilgi Giriş Kalıbı İşlevleri<br/>
+Forms Data Format Functions</h2>
+
+<h3>Giriş</h3>
+
+Veri Bilgi Giriş Kalıbı PDF belgeleri içindeki Bilgi Girişini ele alan kalıptır.
+http://partners.adobe.com/asn/acrobat/forms.jsp URL adresideki belgeyi okumalısınız. Burada FDF'nin ne olduğu ve genelde nasıl kullanıldığı anlatılır.
+<br /><br />
+FDF genel anlamda HTML bilgi giriş formlarına benzer. Fark temelde verinin nasıl sunucuya gönderildiği konusundadır. Gönderme düğmesine basılır (Bu aslında Veri bilgi giriş kalıbı olur) ve bilgi giriş formunun kendisi (taşınabilir belge kalıbındadır) gönderilir. Bu veriyi işlemek fdf işlevlerinin işidir. Ama fazlası da vardır. Bririsi var olan bir PDF formunu alır ve formu değiştirmeden içini veriyle doldurabilir. Bu durumda FDF formu yaratılmalıdır (fdf_create()). Form içindeki her giri alanına değer yazılır (fdf_set_value()) ve bu bilgi PDF formuna ilişkilendirilir (fdf_set_file()). Son olarak bu bilgi tarayıcıya mime tipi application/vnd.fdf olan belge olarak gönderilir. Tarayıcınıza bağlı "acrobat reader" program eklentisi Mime tipini anlar ve ilgili PDF formunu okuyup içini FDF belgesinden doldurur.
+<br /><br />
+FDF-belgesine bir yazı düzenleyicisiyle bakıldığında, adı FDF olan katalog nesnesi bulunur. Bu tür nesne Alanlar, F, Durum vb bir dizi öğeden oluşur. En sık kullanılan öğe giriş alanlarını gösteren alanlardır. F içindeyse PDF belgesinin dosya adı vardır. Bu öğeler FDF belgesinde /F-Key ya da /Status-Key olarak adlandırılır. Bu öğeleri değiştirmek fdf_set_file() ve fdf_set_status() gibi işlevlerle yapılır. Alanlarsa fdf_set_value(), fdf_set_opt() vb işlevlerle değiştirilir.
+
+<h3>Gereksinim</h3>
+
+http://partners.adobe.com/asn/acrobat/forms.jsp adresinden FDF araç-kiti SDK (yazılım geliştirme kiti) gerekecektir. PHP 4.3.0 sürümü için en az SDK sürüm 5.0 olmalıdır. FDF araç-kiti kitaplığı yalnız ikili biçimdedir. Adobe yalnız Win32, Linux, Solaris ve AIX ortamlarını destekler.
+
+<h3>Kurulum</h3>
+
+PHP "--with-fdftk[=DIR]" ile derlenir.
+<br /><br />
+    Not: Eğer PHP'de fdftk desteğini ayarlarken sorunlar yaşarsanız fdftk.h ve libfdftk.so doğru yerde olduğuna bakın. Ayar kodu FDF SDK dağılımı dosya yolu yapısını ve genelde kullanılan DIR/include ile DIR/lib kavramını destekler. O halde ister dağıtımı doğrudan açıp kullanın, isterseniz paketi açıp dosyaları doğru doya yollarına elinizle taşıyın (söz gelimi /usr/local/include ve /usr/local/lib gibi). Sonra PHP ayarlarını "--with-fdftk=/usr/local" biçimde yazın.
+<br /><br />
+    Not: 
+<b>Win32 Kullanıcıları içindir.</b>
+Bu uzantının çalışabilmesi için, Windows sistem yolunda (PATH) bazı DLL dosyalarının bulunması gerekir. Bunun için ilgili başlığı incelemek gerekir (Windows PATH çevre değişkenine PHP dosya yolunu nasıl ekleyebilirim). Aslında PHP altından DLL dosyalarını Windows sistem klasörüne taşımakla sorun çözülür ama önerilmez. Bu uzantı şu dosyanın PATH değişkeninde tanımlı olmasını ister: fdftk.dll
+
+<h3>Kaynak Türü</h3>
+<dl>
+<dt>fdf
+
+<dd>Pekçok fdf işlevi ilk parametre olarak fdf kaynaklarına gereksinim duyar.
+fdf kaynağı fdf dosyasını açmak için bir tutaçtır. fdf kaynakları fdf_create(), fdf_open() ve fdf_open_string() kullanılarak elde edilir.
+</dd></dt>
+</dl>
+
+<h3>Önceden Tanımlı Değişmezler</h3>
+
+Burada tanımlanan değişmezler bu uzantıyla geçerlidir. Ya PHP derlenerek ya da modül yüklenerek uzantı çalışmaya eklenmelidir.
+<br /><br />
+<dl>
+<dt>FDFValue (integer)</dt>
+<dt>FDFStatus (integer)</dt>
+<dt>FDFFile (integer)</dt>
+<dt>FDFID (integer)</dt>
+<dt>FDFFf (integer)</dt>
+<dt>FDFSetFf (integer)</dt>
+<dt>FDFClearFf (integer)</dt>
+<dt>FDFFlags (integer)</dt>
+<dt>FDFSetF (integer)</dt>
+<dt>FDFClrF (integer)</dt>
+<dt>FDFAP (integer)</dt>
+<dt>FDFAS (integer)</dt>
+<dt>FDFAction (integer)</dt>
+<dt>FDFAA (integer)</dt>
+<dt>FDFAPRef (integer)</dt>
+<dt>FDFIF (integer)</dt>
+<dt>FDFEnter (integer)</dt>
+<dt>FDFExit (integer)</dt>
+<dt>FDFDown (integer)</dt>
+<dt>FDFUp (integer)</dt>
+<dt>FDFFormat (integer)</dt>
+<dt>FDFValidate (integer)</dt>
+<dt>FDFKeystroke (integer)</dt>
+<dt>FDFCalculate (integer)</dt>
+<dt>FDFNormalAP (integer)</dt>
+<dt>FDFRolloverAP (integer)</dt>
+<dt>FDFDownAP (integer)</dt>
+</dl>
+<h3>Örnekler</h3>
+
+Aşağıdaki örnek form verilerinin gelişimini anlatır
+<br /><br />
+Örnek#1 FDF belgesi gelişimi
+<pre>
+&lt;?php
+// Giriş yazı dizisinden uzantıyla sağlanan fdf açın
+// pdf bilgi giriş formu birçok giriş bilgisi içerir:
+//The pdf form contained several input text fields with the names
+// adlar (names), öbek (volume), tarih (date), açıklama (comment),
+// yayıncı (publisher), hazırlayan (prepareer) ve iki kontrol kutusu
+// yayımcı göster ve hazırlayıcı göster (show_publisher ve show_preparer).
+$fdf = fdf_open_string($HTTP_FDF_DATA);
+$volume = fdf_get_value($fdf, "volume");
+echo "Öbek alanının değeri '&lt;b&gt;$volume&lt;/b&gt;'&lt;br /&gt;";
+
+$date = fdf_get_value($fdf, "date");
+echo "Tarih alanının değeri '&lt;b&gt;$date&lt;/b&gt;'&lt;br /&gt;";
+
+$comment = fdf_get_value($fdf, "comment");
+echo "Açıklama alanının değeri '&lt;b&gt;$comment&lt;/b&gt;'&lt;br /&gt;";
+
+if (fdf_get_value($fdf, "show_publisher") == "On") {
+  $publisher = fdf_get_value($fdf, "publisher");
+  echo "Yayıncı alanının değeri '&lt;b&gt;$publisher&lt;/b&gt;'&lt;br /&gt;";
+} else
+  echo "Yayıncı gösterimeyecek.&lt;br /&gt;";
+
+if (fdf_get_value($fdf, "show_preparer") == "On") {
+  $preparer = fdf_get_value($fdf, "preparer");
+  echo "Hazırlayan alanının değeri '&lt;b&gt;$preparer&lt;/b&gt;'&lt;br /&gt;";
+} else
+  echo "Hazırlayan gösterilmeyecek.&lt;br /&gt;";
+fdf_close($fdf);
+?&gt;
+</pre>
+<h3>İçindekiler</h3>
+<ul>
+    <li> fdf_add_doc_javascript — FDF belgesi içine javascript kodu ekler
+    <li> fdf_add_template — FDF belgesine bir kalıp ekler
+    <li> fdf_close — FDF belgesini kapat
+    <li> fdf_create — Yeni FDF belgesi yarat
+    <li> fdf_enum_values — Her belge için kullanıcı tanımlı işlev çağır
+    <li> fdf_errno — Son fdf işlemi için hata kodu döndür
+    <li> fdf_error — FDF hata kodu için hata açıklaması döndür
+    <li> fdf_get_ap — Bir alanın görünüşünü al
+    <li> fdf_get_attachment — FDF içine gömülen yüklenmiş dosyayı çıkarır
+    <li> fdf_get_encoding — /Encoding anahtarının değerini alır
+    <li> fdf_get_file — /F anahtarının değerini alır
+    <li> fdf_get_flags — Bir alanın durum kodlarını alır
+    <li> fdf_get_opt — Bir alanın opt dizisinden bir değer alır
+    <li> fdf_get_status — /STATUS anahtarının değerini alır
+    <li> fdf_get_value — Alanın değerini alır
+    <li> fdf_get_version — FDF API ya da dosya sürüm numarasını alır
+    <li> fdf_header — FDF-özel başlıkları alır
+    <li> fdf_next_field_name — Bir sonraki alan adını alır
+    <li> fdf_open_string — bir yazı dizisinden FDF belgesini okur
+    <li> fdf_open — FDF belgesini açar
+    <li> fdf_remove_item — Form bilgisinden hedefi ayarlar
+    <li> fdf_save_string — FDF belgesini yazı olarak döndürür
+    <li> fdf_save — FDF belgesini saklar
+    <li> fdf_set_ap — Bir alanın görünümünü ayarlar
+    <li> fdf_set_encoding — FDF karakter kodlamasını ayarlar
+    <li> fdf_set_file — PDF belgesinin girilen FDF verisini göstermesini ayarlar
+    <li> fdf_set_flags — Bir alanın durum kodunu ayarlar
+    <li> fdf_set_javascript_action — Bir alana javascript işlem ayarlar
+    <li> fdf_set_on_import_javascript — Acrobat FDF'yi açınca çalışacak javascript kodunu çalıştırır
+    <li> fdf_set_opt — Bir alanın bir seçeneğini ayarlar
+    <li> fdf_set_status — /STATUS anahtarının değerini ayarlar
+    <li> fdf_set_submit_form_action — Bir alanın form gönderme işlemini ayarlar
+    <li> fdf_set_target_frame — Form görüntülenecek hedef çerçeveyi ayarlar
+    <li> fdf_set_value — Bir alanın değerini ayarlar
+    <li> fdf_set_version — FDF dosyayı için sürüm numarası ayarlar
+</ul>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

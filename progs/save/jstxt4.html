@@ -1,0 +1,109 @@
+<html>
+<body>
+<div id="sag"><span class="yazi">3 Aralık 2007</span></div>
+<h2>İşlemler</h2>
+<div class="yazi">
+<p class="yazi">
+En çok bilinen işlemler matematik işlemlerdir: +, -, /, * (toplama, çıkartma, bölme, çarpma). İşlemler iki gruba ayrılır: Karşılaştırma işlemleri ve atama ya da 'aksiyon' işlemleri. Karşılaştırma işlemleri iki değişkenin aralarındaki ilişkiyi belirtir. Diğerleri bir değişken üzerinde yapılan işlemi tanımlar. Örneğin değerini bir arttırmak gibi.
+</p>
+<p class="yazi">
+Aşağıdaki tablo en çok kullanılanları verir. Javascript 1.3 işlemlerinden özdeşlik işlemi (=== işareti) ve benzerleri de vardır. Buradakiler tüm var olan tarayıcılar tarafından desteklenmektedir. Bu tür işlemleri desteklemeyen tarayıcılar zaten hata mesajı vererek duracaklardır.
+</p>
+<table class="yazi" cellpadding="2" cellspacing="0" border="1">
+<tr><th colspan="2">
+JavaScript İşlemleri
+</th></tr>
+<tr><th>İşlem</th><th>Kullanımı</th></tr>
+<tr><td>+</td><td>iki sayıyı toplar ya da iki yazı dizisini birbirine ekler, bir sayıya yazı, bir yazının sonuna sayı eklenebilir ve sonuç her zaman yazıdır</td></tr>
+<tr><td>-</td><td>ikinci syıyı birinciden çıkartma</td></tr>
+<tr><td>/</td><td>ilk sayıyı ikincisine böler</td></tr>
+<tr><td>*</td><td>iki sayıyı çarpar</td></tr>
+<tr><td>%</td><td>birinci sayıyı ikinciye böler ve kalanı döndürür</td></tr>
+<tr><td>=</td><td>sağdaki değeri soldaki nesneye atar</td></tr>
+<tr><td>+=</td><td>soldaki nesne = soldaki nesne + sağdaki değer (bu yazıların sonun yeni yazı eklerken de geçerlidir)</td></tr>
+<tr><td>-=</td><td>soldaki nesne = soldaki nesne - sağdaki değer</td></tr>
+<tr><td>></td><td>sağdaki sayı soldakinden büyük olmalıdır (bu hem yazılarda hem de sayısal değerlerde geçerlidir)</td></tr>
+<tr><td><</td><td>sağdaki sayı soldakinden daha küçük olmalıdır (bu hem yazılarda hem de sayısal değerlerde geçerlidir)</td></tr>
+<tr><td>>=</td><td>sağdaki büyük ya da eşittir soldaki (bu hem yazı hem de sayısal değerlerde geçerlidir)</td></tr>
+<tr><td><=</td><td>sağdaki sayı soldakinden küçük ya da eşit olmalıdır (bu hem yazı hem de sayısal değerlerde geçerlidir)</td></tr>
+<tr><td>++</td><td>sayıyı arttır</td></tr>
+<tr><td>--</td><td>sayıyı eksilt</td></tr>
+<tr><td>==</td><td>sayılar ya da nesneler ya da değerler eşit olmalıdır</td></tr>
+<tr><td>!=</td><td>sayılar ya da nesneler ya da değerler eşit olmamalıdır</td></tr>
+<tr><td><<</td><td>bit türü sola kaydırma</td></tr>
+<tr><td>>></td><td>bit türü sağa kaydırma</td></tr>
+<tr><td>&</td><td>bit türü AND</td></tr>
+<tr><td>|</td><td>bit türü OR</td></tr>
+<tr><td>^</td><td>bit türü XOR</td></tr>
+<tr><td>~</td><td>bit türü NOT</td></tr>
+<tr><td>!</td><td>mantıksal NOT (deyim doğru olmamalı)</td></tr>
+<tr><td>&&</td><td>mantıksal AND (her iki deyim de doğru olmalı)</td></tr>
+<tr><td>||</td><td>mantıksal OR (her iki deyim de doğru olmalı)</td></tr>
+<tr><td>in</td><td>sağdaki nesne ya da dizi soldaki hücre ya da özellikte olmalıdır</td></tr>
+</table>
+<p class="yazi"> Not, Eğer language="javascript1.2" niteliği &lt;script&gt; biçiminde
+atanmazsa 
+</p>
+<pre>
+    0 == false == '' ve undefined == null
+</pre>
+<p class="yazi">
+olur. Eğer "language" niteliğinde 'javascript1.2' yoksa Mozilla/Firefox ve diğer Gecko tarayıcılar (ama diğer çok kullanılanlardan hiçbiri) bunu değiştirmiştir ve hiçbiri birbirine eşit değildir. Zaten dil niteliği kullanılmadığı (artık kullanılmasının bir anlamı kalmadığı) için ve Javascript sürümlerinde hiçbir zaman bir standart olmadığı için, bu özelliğe pek de güvenmemek gerekir.
+</p>
+<p class="yazi">
+Benzer işlevlerde kullanılan birkaç işlem daha vardır:
+</p>
+<dl>
+<dt>void</dt>
+    <dd>void deyimi ya da void(statement)</dd>
+<dt>typof</dt>
+    <dd>typeof değişken ya da typeof(variable) bir değişkenin tipini ya da sınıfını döndürür.</dd>
+<dt>eval</dt>
+    <dd>eval(string) bir yazı dizisini javascript gibi yorumlar.</dd>
+</dl>
+<p class="yazi">
+Daha "var", "new" ve "delete" işlemleri vardır. Değişkenlerin kullanımında bu konuya ilişkin bir çok bilgi bulunabilir. Aynı zamanda aşağıdaki matematik işlemlerine de bakılmalıdır.
+</p>
+<p class="yazi">
+Javascript içinde mantıksal XOR işlemi yoktur. Eğer bu işlevselliğe gerek olursa konuya ilişkin birçok belge ve sayfalar vardır (google'lamak yeterlidir).
+</p>
+<h3>İşlem öncelikleri</h3>
+
+<p class="yazi">
+Birden çok işlemden oluşan bir deyimin işlenmesi istendiğinde Javascript, işlemleri belli bir sırada çözer. Örneğin 3 + 6 * 7 hesaplanırken (6 * 7) + 3 biçimde olacak önce çarpma ve sonra toplama yapılacaktır. Bunların işlenmesinde kullanılan yöntem sıralaması söyledir:
+* / % + - + (burada ikinci + yazı dizilerini eklemekte kullanılır). Sıralama önceliklerini değiştirmek için parantezler kullanılır. Örneğin 3 + 6 * 7 = 45 ama (3 + 6) *7 = 63 olur.
+</p>
+
+<h3>Math nesne yöntemi</h3>
+
+<p class="yazi">
+Aslında, Math nesnesindeki bu yöntemler işlemlerin yerine kullanılır.
+</p>
+
+<table border="1" cellpadding="2" cellspacing="0" class="yazi">
+<tr><th colspan="2">Math object methods</th></tr>
+<tr><th>İşlem</th><th>Açıklaması</th></tr>
+<tr><td>Math.abs(n)</td><td>n sayısının mutlak değerini döndürür</td></tr>
+<tr><td>Math.acos(n)</td><td>n değerinin radyan olarak cos-1 değerini döndürür</td></tr>
+<tr><td>Math.asin(n)</td><td>n değerinin radyan olarak sin-1 değerini döndürür</td></tr>
+<tr><td>Math.atan(n)</td><td>n değerinin radyan olarak tan-1 değerini döndürür</td></tr>
+<tr><td>Math.atan2(n,k)</td><td>Kartezyan koordinatlarından 0,0 dan n,k ya kadar açı (rads) değerini döndürür</td></tr>
+<tr><td>Math.ceil(n)</td><td>n değerinin en yakın yukarı tam sayıya yuvarlanmasını döndürür</td></tr>
+<tr><td>Math.cos(n)</td><td>cos n değerini döndürür (n radian türündendir)</td></tr>
+<tr><td>Math.exp(n)</td><td>e üzeri n değerini döndürür</td></tr>
+<tr><td>Math.floor(n)</td><td>n değerinin en yakın aşağı tam sayıya yuvarlanmasını döndürür</td></tr>
+<tr><td>Math.log(n)</td><td>ln(n) değerini döndürür<br />
+Not, log10(n) değeri için, Math.log(n) / Math.log(10) kullanır</td></tr>
+<tr><td>Math.max(a,b,c,...)</td><td>En büyük sayıyı döndürür</td></tr>
+<tr><td>Math.min(a,b,c,...)</td><td>En küçük sayıyı kullanır</td></tr>
+<tr><td>Math.pow(n,k)</td><td>n yüzeri k değerini döndürür</td></tr>
+<tr><td>Math.random()</td><td>0 ile 1 arasında rastgele sayı üretir</td></tr>
+<tr><td>Math.round(n)</td><td>Yukarı ya da aşağıya en yakın tam sayıya yuvarlanmış değeri döndürür</td></tr>
+<tr><td>Math.sin(n)</td><td>sin n değerini döndürür (n radiandır)</td></tr>
+<tr><td>Math.sqrt(n)</td><td>Kare kök n döndürür</td></tr>
+<tr><td>Math.tan(n)</td><td>tan n değerini döndürür(n değeri radiandır)</td></tr>
+</table>
+</div>
+<br />
+</body>
+</html>

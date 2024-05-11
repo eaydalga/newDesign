@@ -1,0 +1,174 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Aybim </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script language="JavaScript" src="../js/XHConn.js"> </script>
+<script language="JavaScript" src="../js/js10.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="ysoltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="js.html" class="nav">Giriş</a>
+               <a href="jstxt1.html" class="nav">Sayfada Javascript</a>
+               <a href="jstxt2.html" class="nav">Nesnel Programlama</a>
+               <a href="jstxt3.html" class="nav">JS Nesneleri</a>
+               <a href="jstxt4.html" class="nav">İşlemler</a>
+               <a href="jstxt5.html" class="nav">Değişkenler</a>
+               <a href="jstxt6.html" class="nav">Denetim Yapıları</a>
+               <a href="jstxt7.html" class="nav">Script Yazma</a>
+               <a href="jstxt8.html" class="nav">Yazma İşlevleri</a>
+               <a href="jstxt9.html" class="nav">Başvuru</a>
+               <a href="jstxt10.html" class="nav">DHTML</a>
+               <a href="jstxt11.html" class="nav">Öğe İçeriği</a>
+               <a href="jstxt12.html" class="nav">Pencereler</a>
+               <a href="jstxt13.html" class="nav">Olay Bilgisi</a>
+               <a href="jstxt14.html" class="nav">Zaman Ayarı</a>
+               <a href="jstxt15.html" class="nav">Cookie Kullanımı</a>
+               <a href="jstxt16.html" class="nav">Güvenlik</a>
+               <a href="jstxt17.html" class="nav">W3C DOM</a>
+               <a href="jstxt18.html" class="nav">DOM Düğümü</a>
+               <a href="jstxt19.html" class="nav">DOM Tablolar</a>
+               <a href="jstxt20.html" class="nav">DOM CSS</a>
+               <a href="jstxt21.html" class="nav">DOM Stiller</a>
+               <a href="jstxt22.html" class="nav">DOM Events</a>
+               <a href="jstxt23.html" class="nav">DOM Nesneleri</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>Javascript Yazılım Kuralları (JS)</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<h2>DOM tabloları</h2>
+<ul>
+    <li> Konqueror, Safari ve OmiWeb 4.5+ cellIndex özelliğini hatalı alır.
+    <li> Tkhtml Hv3 yalnız table.tBodies, tBodies[].rows, rows[].cells ve childNodes destekler, ama buradaki özelliklerin hiçbirini desteklemez.
+    <li> Pre-alpha Tkhtml Hv3 Pre-alpha sürümü table.tBodies ve childNodes destekler, ama buradaki özelliklerin hiçbirini desteklemez.
+</ul>
+Bir tablo öğesine eriştiniz. Tablo yapısında derinlemesine değişiklikler yapabilirsiniz. Bunun için tabloyu HTMl 4 kurallarına göre görüntülemelisiniz. Bir tabloda 'caption', 'thead' ve bir çok 'tbody' ile 'tfoot' vardır. Eğer belirtilmezse, DOM en az bir tane tbody yaratır ve tüm satırlar içinde olur. Bu konuda kullanılabilecek bir çok yöntem vardır. Çoğunluğu bir tablonun parçalarını yaratmak için kullanılır (tablo parçalarını yaratma konusundaki örnekleri içeren <a href="dhtmltxt5.html">dHTML-Olaylar</a> sayfasına da bakın).
+<ul class="treeview">
+    <li><dfn class="o">table</dfn>
+        <ul>
+            <li><dfn class="o">caption</dfn>
+                <ul>
+                    <li class="last"><dfn class="c">childNodes[]</dfn>
+                </ul>
+            </li>
+            <li><dfn class="o">tHead</dfn>
+                <ul>
+                    <li class="last"><dfn class="c">rows[]</dfn>
+                        <ul>
+                            <li class="last"><dfn class="c">cells[]</dfn>
+                                <ul>
+                                    <li class="last"><dfn class="c">childNodes[]</dfn></li>
+
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li><dfn class="o">tFoot</dfn>
+                <ul>
+                    <li class="last"><dfn class="c">rows[]</dfn>
+                        <ul>
+                            <li class="last"><dfn class="c">cells[]</dfn>
+                                <ul>
+                                    <li class="last"><dfn class="c">childNodes[]</dfn></li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="last"><dfn class="c">tBodies[]</dfn>
+                <ul>
+                    <li class="last"><dfn class="c">rows[]</dfn>
+                        <ul>
+                            <li class="last"><dfn class="c">cells[]</dfn>
+                                <ul>
+                                    <li class="last"><dfn class="c">childNodes[]</dfn></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+DOM ağacı içinde dolanmak gibi DOM tablosu ağacı içinde de dolanılabilir. Her tablonun dört ayrı özelliği bulunur ve bunlarla childNodes erişimi yapılır.
+<dl>
+<dt>caption
+    <dd>tablo başlıklarına erişimi belirtir</dd></dt>
+<dt>thead
+    <dd>tablonun thead bölümünü belirtir (eğer varsa)</dd></dt>
+<dt>tfoot
+    <dd>tablonun tfoot bölümünü belirtir (eğer varsa)</dd></dt>
+<dt>tbodies
+    <dd>her tbody için bir öğelik birikim (çoğunlukla yalnız table.tbodies[0])</dd></dt>
+</dl>
+Her thead, tbody ve tfoot için bir de satırlar birikimi vardır. Her satır için th ve td ile tanımlanan hücreler birikimi bulunur. Her hücrenin içeriğine normal DOM erişim kuralları uygulanabilir.
+<br /><br />
+Her tablonun 'deleteTHead()' ve 'deleteTFoot()' yöntemleri vardır. Her biri başlık öğelerini silme ve tablo dibi öğelerini silmek için kullanılır. Her 'thead' ve 'tfoot' için 'deleteRow(satır_dizini)' yöntemi vardır, satırları siler. Her satır için 'deleteCell(hücre_dizini)' yöntemi vardır, hücreleri siler. Hücrelerin 'cellIndex' özelliği ve satırların da 'rowIndex' özelliği bulunur (Konqueror çok eski sürümleri hariç).
+<h3>Bir tabloya satır eklemek</h3>
+<ul>
+    <li> Mac üzerindeki Internet Explorer tablo öğeleri yaratmak için çok zayıf bir desteği vardır. Burada anlatılan yöntemler kullanılmaz. DOM çekirdeği kullanılır.
+</ul>
+DOM bu iş için özel satır yaratma ve ekleme yöntemleri destekler. Mac üzerindeki Internet Explorer bu yöntemleri kullanamaz.
+<pre>
+var theTable = document.getElementById('tableId');
+theTable.tBodies[0].appendChild(document.createElement('tr'));
+</pre>
+<h3>Tablodaki her satıra bir hücre eklemek</h3>
+<ul>
+    <li> Mac üzerindeki Internet Explorer bu iş için kullanılan yöntemlerde çok zayıf bir desteğe sahiptir. Yerine DOM çekirdek yöntemleri kullanılmalıdır.
+</ul>
+Bu örnek, bir tablonun her satırına bir hücre ekler. Tabloda bir 'thead' ve bir 'tfoot' olduğu varsayılır. Özel yöntemler kullanılmamıştır:
+<pre>
+var theTable = gocument.getElementById('tableId');
+for( var x = 0; x &lt; theTable.tHead.rows.length; x++ ) {
+  var y = document.createElement('td');
+  y.appendChild(document.createTextNode('Thead cell text'));
+  theTable.tHead.rows[x].appendChild(y);
+}
+for( var z = 0; z &lt; theTable.tBodies.length; z++ ) {
+  for( var x = 0; x &lt; theTable.tBodies[z].rows.length; x++ ) {
+    var y = document.createElement('td');
+    y.appendChild(document.createTextNode('Tbody cell text'));
+    theTable.tBodies[z].rows[x].appendChild(y);
+  }
+}
+for( var x = 0; x &lt; theTable.tFoot.rows.length; x++ ) {
+  var y = document.createElement('td');
+  y.appendChild(document.createTextNode('Tfoot cell text'));
+  theTable.tFoot.rows[x].appendChild(y);
+}
+</pre>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

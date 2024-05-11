@@ -1,0 +1,232 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Hyperlink Preprocessor </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">21 Mart 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h3>Memcache İşlevleri</h3>
+
+<h3>Giriş</h3>
+
+memcache modülü işlenebilir ve nesnel tabanlı kullanışlı arayüzler sunar.
+Oldukça etkin bilgi saklama programı, dinamik web uygulamalarında veritabanı
+yükünü azaltmak için özellikle tasarlanmıştır.
+<br /><br />
+Memcache modulü aynı zamanda oturum göstewrgesi de sunar (memcache).
+<br /><br />
+memcached için daha çok bilgi http://www.danga.com/memcached/ adresindedir.
+
+<h3>Gereksinim</h3>
+
+Bu modül zlib işlevlerini havada sıkıştırma yaparken kullanır. Zlib bu modül
+kurulmadan sistemde olmalıdır.
+<br /><br />
+PHP 4.3.3 ya da daha yenisi memcache uzantısını kullanabilir.
+
+<h3>Kurulum</h3>
+
+Bu PECL uzantısı PHP ile paketlenmemiştir. PECL uzantısını kurmak için gereken
+bilgi PECL uzantılarını kurama belgelerinde bulunabilir. Ek bilgi için
+http://pecl.php.net/package/memcache adresine bakın.
+<br /><br />
+Bu işlevleri kullanabilmek için PHP derlemesini Memcache desteği ile yapmak
+gerek. Bunun için "--enable-memcache[=DIR]" seçeneğini kullanın.
+"--disable-memcache-session" kullanarak oturum göstergesini kapatabilirsiniz.
+<br /><br />
+Windows kullanıcıları php_memcache.dll açmayı php.ini'den yapar. Bu PECL
+uzantısı için DLL  http://pecl4win.php.net/ adresinden sağlanır.
+
+<h3>Çalışma Zamanı Ayarları</h3>
+
+php.ini içindekileri ayarlayarak işlevlerin davranışını değiştirirsiniz.
+
+<h3>Memcache Ayar Seçenekleri</h3>
+<table class="yazi">
+<tr><td>Adı</td><td>Varsayılan</td><td>Değişebilir</td><td>DeğişmeKaydı</td></tr>
+<tr><td>memcache.allow_failover</td><td>"1"</td><td>PHP_INI_ALL</td><td>memcache 2.0.2.den beri var</td></tr>
+<tr><td>memcache.max_failover_attempts</td><td>"20"</td><td>PHP_INI_ALL</td><td>memcache 2.1.0.den beri var</td></tr>
+<tr><td>memcache.chunk_size</td><td>"8192"</td><td>PHP_INI_ALL</td><td>memcache 2.0.2.den beri var</td></tr>
+<tr><td>memcache.default_port</td><td>"11211"</td><td>PHP_INI_ALL</td><td>memcache 2.0.2.den beri var</td></tr>
+<tr><td>memcache.hash_strategy</td><td>"standard"</td><td>PHP_INI_ALL</td><td>memcache 2.2.0.den beri var</td></tr>
+<tr><td>memcache.hash_function</td><td>"crc32"</td><td>PHP_INI_ALL</td><td>memcache 2.2.0.den beri var</td></tr>
+<tr><td>session.save_handler</td><td>"files"</td><td>PHP_INI_ALL</td><td>memcache 2.1.2 den beri destekleniyor</td></tr>
+<tr><td>session.save_path</td><td>""</td><td>PHP_INI_ALL</td><td>memcache 2.1.2 den beri destekleniyor</td></tr>
+</table>
+
+Dah başka PHP_INI_* değişmezleri için php.ini yönelticilerine bakın.
+
+Aşağıda ayar yönelticilerinin kısa açıklaması bulunur.
+<dl>
+<dt>memcache.allow_failover mantıksal
+
+    <dd>Hatalarda diğer sunuculara saydam olarak geçişi belirler.
+</dd></dt>
+<dt>memcache.max_failover_attempts tamsayı
+
+    <dd>Veri ayarlamak ve almak için kaç tane sunucu deneneceğini tanımlar. yalnız memcache.allow_failover beraber olur.
+</dd></dt>
+<dt>memcache.chunk_size tamsayı
+
+<dd>Veri buradaki boyu öbekelri biçiminde taşınır. Sayıyı küçük tutmak ağda yazma
+işlemini çoğaltır. Bu değeri 32768 gibi tutmak yavaşlamayı azaltır.
+</dd></dt>
+<dt>memcache.default_port yazı dizisi
+
+    <dd>
+Varsayılan TCP por numarası memcache sunucusuna bağlanırken kullanılır. Eğer
+"no" ise diğer port taımlanır.
+</dd></dt>
+<dt>memcache.hash_strategy yazı dizisi
+
+    <dd>
+Anahtarları sunuculara çevirirken kullanılacak stratejiyi dentler. Bu değeri
+ayarlamak sunucuların karışık tabloda yerleşmesini sağlar. Bu havuza eklemek
+ve havuzdan çıkartmak anahtarları yeniden çevirmeden çözümlenir.
+</dd></dt>
+<dt>memcache.hash_function yazı dizisi
+
+    <dd>
+Sunucuya anahtarları çevirirken hangi karıştırma işleviyle denetleneceği
+ayarlanır. crc32 standart CRC32 karıştırmayı kullanır ama fnv FNV-1a kullanır.
+</dd></dt>
+<dt>session.save_handler yazı dizisi
+
+    <dd>
+bu değer memcacheye ayarlanmalı ve oturum göstergesi olarak memcache
+kullanılır.
+</dd></dt>
+<dt>session.save_path yazı dizisi
+
+    <dd>
+Oturum belleği için virgülle ayrılmış sunucu url adreslerini tanımlar.
+Örneğin, "tcp://host1:11211, tcp://host2:11211".
+<br /><br />
+Her url için başka değişkenleri olabilir. Her biri sunuculara uygulanır.
+Memcache::addServer() yöntemiyle aynıdır. Örneğin:
+<pre>
+   "tcp://host1:11211?persistent=1&weight=1&timeout=1&retry_interval=15"
+</pre>
+</dd></dt>
+</dl>
+
+<h3>Kaynak Türleri</h3>
+
+Memcache modülünde yalnız bir tür kaynak kullanılır. Bu cache sunucu
+bağlantısının göstergesidir.
+<h3>Önceden Tanımlı Değişmezler</h3>
+<h3>Memcache Değişmezleri</h3>
+<table class="yazi">
+<tr><td>Adı</td><td>Açıklama</td></tr>
+<tr><td>MEMCACHE_COMPRESSED (tamsayı)</td><td>Memcache::set(), Memcache::add() ve Memcache::replace() ile bellekte gelen verinin anında sıkıştırılmasında kullanılır.</td></tr>
+<tr><td>MEMCACHE_HAVE_SESSION (tamsayı)</td><td>Eğer bu Memcache göstergesi versa 1, aksi halde 0 olur</td></tr>
+</table>
+<h3>Örnekler</h3>
+
+<h3>Örnek-1 memcache uzantısı özet örneği</h3>
+
+Bu örnekte, nesne cache'de saklanır ve yeniden geri alınır. Nesne ve diğer
+ölçüsüz türler saklamadan önce sıralanır. O zaman kaynakları cache'de 
+saklama olanağı doğar (yani bağlantı göstergesi ve diğerleri).
+<pre>
+&lt;?php
+
+$memcache = new Memcache;
+$memcache->connect('localhost', 11211) or die ("Could not connect");
+
+$version = $memcache->getVersion();
+echo "Server's version: ".$version."<br/>\n";
+
+$tmp_object = new stdClass;
+$tmp_object->str_attr = 'test';
+$tmp_object->int_attr = 123;
+
+$memcache->set('key', $tmp_object, false, 10) or die ("Failed to save data at the server");
+echo "Store data in the cache (data will expire in 10 seconds)<br/>\n";
+
+$get_result = $memcache->get('key');
+echo "Data from the cache:<br/>\n";
+
+var_dump($get_result);
+
+?&gt;
+</pre>
+
+<h3>Örnek-2 memcache oturum göstergesini kullanmak</h3>
+<pre>
+&lt;?php
+
+$session_save_path = 
+ "tcp://$host:$port?persistent=1&weight=2&timeout=2&
+  retry_interval=10,  ,tcp://$host:$port  ";
+ini_set('session.save_handler', 'memcache');
+ini_set('session.save_path', $session_save_path);
+
+?&gt;
+</pre>
+<h3>İçindekiler</h3>
+<ul>
+    <li> Memcache::add — Sunucuya bir öğe ekle
+    <li> Memcache::addServer — memcached sunucuyu bağlantı havuzuna ekleme
+    <li> Memcache::close — memcache'lenmiş sunucu bağlantısını kapama
+    <li> Memcache::connect — memcache'lenmiş sunucu bağlantısını açma
+    <li> memcache_debug — Hata yazma çıktısını açma/kapama
+    <li> Memcache::decrement — Öğenin değerini azaltmak
+    <li> Memcache::delete — Sunucudan öğeyi silme
+    <li> Memcache::flush — Sunucudaki öğeleri aktar
+    <li> Memcache::get — Sunucudan bir öğe al
+    <li> Memcache::getExtendedStats — Havuzdaki tüm sunuculardan istatistik al
+    <li> Memcache::getServerStatus — Sunucu durumunu döndürür
+    <li> Memcache::getStats — Sunucunun istatistiklerini al
+    <li> Memcache::getVersion — Sunucunun sürümünü döndürür
+    <li> Memcache::increment — Öğenin değerini arttırma
+    <li> Memcache::pconnect — memcache'lenmiş sunucunun sürekli
+bağlantısını açma
+    <li> Memcache::replace — Var olan bir öğenin değerini değiştir
+    <li> Memcache::set — Sunucudaki veriyi sakla
+    <li> Memcache::setCompressThreshold — Büyük değerlerin otomatik sıkıştırılmasını açar.
+    <li> Memcache::setServerParams — Sunucunun başka değişkenlerini ve durumunu çalışma zamanında değiştirir.
+</ul>
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

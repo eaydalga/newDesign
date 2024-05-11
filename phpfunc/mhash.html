@@ -1,0 +1,128 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Hyperlink Preprocessor </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">28 Mart 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>Mhash İşlevleri</h2>
+<h3>Giriş</h3>
+
+Bu işlevler mhash ile kullanılmak üzere hazırlandı. Mhash denetim toplamları
+(checksums), mesaj sindiricileri, mesaj yetkilendirme kodları ve daha niceleri
+için kullanılır.
+<br /><br />
+Bu mhash kitaplığına bir arayüzdür. mhash hash algoritmalarından çoğunu
+destekler. Örneğin: MD5, SHA1, GOST, ve daha niceleri. Tüm liste için mhash
+belgesine bakın. Genel kural mhash algoritmalarına PHP'den MHASH_HASHNAME ile
+erişebilirsiniz. Örneğin TIGER erişimi için PHP değişmezi PHP_TIGER olur.
+<br /><br />
+    Not: Bu uzantı PECL havuzuna aktarıldı ve PHP ile paketli değildir.
+
+<h3>Gereksinim</h3>
+
+Kullanabilmek için mhash dağıtımını indirin ve kurun.
+<h3>Kurulum</h3>
+
+PHP "--with-mhash[=DIR] değişgeçiyle derlenince uzantı kullanılabilir. DIR
+mhash kurulum yoludur.
+
+<h3>Önceden Tanımlanan Değişmezler</h3>
+
+Aşağıdaki değişmezler bu uzantıyla tanımlanmıştır. Uzantı yüklü olunca
+kullanılabilir.
+<br /><br />
+Şu anda mhash tarafından desteklenen karışıklıkların listesi şöyledir. Eğer
+karışıklık burada listelenmediyse, ama mhash'ın desteklediği listede varsa,
+belgenin eski olduğuna karar verebilirsiniz.
+<ul>
+    <li> MHASH_ADLER32
+    <li> MHASH_CRC32
+    <li> MHASH_CRC32B
+    <li> MHASH_GOST
+    <li> MHASH_HAVAL128
+    <li> MHASH_HAVAL160
+    <li> MHASH_HAVAL192
+    <li> MHASH_HAVAL256
+    <li> MHASH_MD4
+    <li> MHASH_MD5
+    <li> MHASH_RIPEMD160
+    <li> MHASH_SHA1
+    <li> MHASH_SHA256
+    <li> MHASH_TIGER
+    <li> MHASH_TIGER128
+    <li> MHASH_TIGER160
+</ul>
+<h3>Örnekler</h3>
+
+Örnek-1 MD% sindirimini ve hmac hesapla sonra hex olarak yazdır.
+<pre>
+&lt;?php
+$input = "what do ya want for nothing?";
+$hash = mhash(MHASH_MD5, $input);
+echo "The hash is " . bin2hex($hash) . "<br />\n";
+$hash = mhash(MHASH_MD5, $input, "Jefe");
+echo "The hmac is " . bin2hex($hash) . "<br />\n";
+?&gt;
+</pre>
+
+Bunun çıktısı:
+<pre>
+The hash is d03cb659cbf9192dcd066272249f8412 
+The hmac is 750c783e6ab0b503eaa86e310a5db738 
+</pre>
+
+       
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> mhash_count — Var olan en büyük karışıklık tanımını (id) al
+    <li> mhash_get_block_size — belirtilen karışıklığın blok boyunu al
+    <li> mhash_get_hash_name — Belirtilen karışıklığın adını al
+    <li> mhash_keygen_s2k — Anahtar üretir
+    <li> mhash — karışıklığı hesapla
+</ul>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

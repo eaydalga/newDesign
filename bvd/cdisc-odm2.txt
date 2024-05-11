@@ -1,0 +1,1966 @@
+
+3   Genel Öğeler
+      3.1   ODM
+      3.1.1     Çalışma (Study)
+      3.1.1.1       Evrensel_Değişken (GlobalVariables)
+      3.1.1.1.1         Çalışma_Adı (StudyName)
+      3.1.1.1.2         Çalışma_Açıklaması (StudyDescription)
+      3.1.1.1.3         Protokol_Adı (ProtocolName)
+      3.1.1.2       Ana_Tanım (BasicDefinitions)
+      3.1.1.2.1         Ölçü_Birimi (MeasurementUnit)
+      3.1.1.2.1.1             Sembol (Symbol)
+      3.1.1.2.1.1.1               Çevrilmiş_Yazı (TranslatedText)
+      3.1.1.3       Meta_Veri_Sürümü (MetaDataVersion)
+      3.1.1.3.1      Ekle (Include)
+      3.1.1.3.2      Protokol (Protocol)
+      3.1.1.3.2.1       Tanımlama (Description)
+      3.1.1.3.2.2       Çalışma_Olay_Gösterimi (StudyEventRef)
+      3.1.1.3.3      Çalışma_Olay_Tanımı (StudyEventDef)
+      3.1.1.3.3.1       Giriş_Göstergesi (FormRef)
+      3.1.1.3.4      Giriş_Tanımı (FormDef)
+      3.1.1.3.4.1       Öğe_Sınıf_Göstergesi (ItemGroupRef)
+      3.1.1.3.5      Öğe_Sınıf_Tanımı (ItemGroupDef)
+      3.1.1.3.5.1       Öğe_Göstergesi (ItemRef)
+      3.1.1.3.6      Öğe_Tanımı (ItemDef)
+      3.1.1.3.6.1       Soru (Question)
+      3.1.1.3.6.2       Dışsal_Soru (ExternalQuestion)
+      3.1.1.3.6.3       Ölçü_Birimi_Göstergesi (MeasurementUnitRef)
+      3.1.1.3.6.4       Sınır_Denetimi (RangeCheck)
+      3.1.1.3.6.4.1        Değer_Denetimi (CheckValue)
+      3.1.1.3.6.4.2        Hata_Mesajı (ErrorMessage)
+      3.1.1.3.6.5       Kod_Liste_Göstergesi (CodeListRef)
+      Role   Kullanılmıyor
+      3.1.1.3.6.6       Benzer (Alias)
+      3.1.1.3.7      Kod_Listesi (CodeList)
+      3.1.1.3.7.1       Kod_Liste_Öğesi (CodeListItem)
+      3.1.1.3.7.1.1        Kripto_Açma (Decode)
+      3.1.1.3.7.2       Dışsal_Kod_Listesi (ExternalCodeList)
+      3.1.1.3.7.3       Sayısallaştırılmış_Öğe (EnumeratedItem)
+      3.1.1.3.8      Arşiv_Görünümü (ArchiveLayout)
+      ImputationMethod  Kullanılmıyor
+      3.1.1.3.9      Yöntem_Tanımı (MethodDef)
+      3.1.1.3.10     Sunum (Presentation)
+      3.1.1.3.11     Koşul_Tanımı (ConditionDef)
+      3.1.1.3.11.1      Biçimsel_Deyim (FormalExpression)
+      3.1.2   Yönetim_Verisi (AdminData)
+      3.1.2.1    Kullanıcı (User)
+      3.1.2.1.1      Giriş_Adı (LoginName)
+      3.1.2.1.2      Görünen_Adı (DisplayName)
+      3.1.2.1.3      Tam_Adı (FullName)
+      3.1.2.1.4      İlk_Adı (FirstName)
+      3.1.2.1.5      Son_Adı (LastName)
+      3.1.2.1.6      Kuruluş (Organization)
+      3.1.2.1.7      Adres (Address)
+      3.1.2.1.8      Sokak_Adı (StreetName)
+      3.1.2.1.9      Şehir (City)
+      3.1.2.1.10     Eyalet_Bölge (StateProv)
+      3.1.2.1.11     Ülke (Country)
+      3.1.2.1.12     Posta_Kodu (PostalCode)
+      3.1.2.1.13     Diğer_Yazı (OtherText)
+      3.1.2.1.14     Eposta (Email)
+      3.1.2.1.15     Resim (Picture)
+      3.1.2.1.16     Mesaj_Cihazı (Pager)
+      3.1.2.1.17     Faks (Fax)
+      3.1.2.1.18     Telefon (Phone)
+      3.1.2.1.19     Yerleşim_Tanımı (LocationRef)
+      3.1.2.1.20     Sertifika (Certificate)
+      3.1.2.2    Yerleşim (Location)
+      3.1.2.2.1      Meta_Veri_Sürüm_Göstergesi (MetaDataVersionRef)
+      3.1.2.3    İmza_Tanımı (SignatureDef)
+      3.1.2.3.1      Açıklama (Meaning)
+      3.1.2.3.2        Yasal_Neden (LegalReason)
+      3.1.3   Gösterge_Verisi (ReferenceData)
+      3.1.4   Klinik_Verisi (ClinicalData)
+      3.1.4.1    Konu_Verisi (SubjectData)
+      3.1.4.1.1      Çalışma_Olayı_Verisi (StudyEventData)
+      3.1.4.1.1.1        Giriş_Verisi (FormData)
+      3.1.4.1.1.1.1          Öğe_Sınıf_Verisi (ItemGroupData)
+      3.1.4.1.1.1.1.1            Öğe_Verisi (ItemData)
+      3.1.4.1.1.1.1.2            Öğe_Verisi[TUR] (ItemData[TYPE])
+      3.1.4.1.1.1.2          Arşiv_Görünüm_Göstergesi (ArchiveLayoutRef
+      3.1.4.1.2      Ses_Kaydı (AuditRecord)
+      3.1.4.1.2.1        Kullanıcı_Göstergesi (UserRef)
+      3.1.4.1.2.2       Zaman_Damgası (DateTimeStamp)
+      3.1.4.1.2.3       Değişme_Nedeni (ReasonForChange)
+      3.1.4.1.2.4        Kaynak_Tanımı (SourceID)
+      3.1.4.1.3      İmza (Signature)
+      3.1.4.1.3.1        İmza_Göstergesi (SignatureRef)
+     CryptoBindingManifest   Kullanılmıyor
+      3.1.4.1.4      Ek_Açıklama (Annotation)
+      3.1.4.1.4.1        Açıklama (Comment)
+      3.1.4.1.4.2        Durum_Kodu (Flag)
+      3.1.4.1.4.2.1          Durum_Kodu_Değeri (FlagValue)
+      3.1.4.1.4.2.2          Durum_Kodu_Turu (FlagType)
+      3.1.4.1.5     Araştıran_Göstergesi (InvestigatorRef)
+      3.1.4.1.6     Site_Göstergesi (SiteRef)
+      3.1.4.2    Denetim_Kayıt_Sınıfı (AuditRecordGroup)
+      3.1.4.3    İmzalar (Signatures)
+      3.1.4.4    Ek_Açıklamalar (Annotations)
+      3.1.5   Birlik (Association)
+      3.1.5.1    Anahtar_Takımı (KeySet)
+4  Sayısal_İmzalar (Digital Signatures)
+      4.1   ds:imza (ds:Signature)
+5   Öğe_Dizini (Element Index (non-normative))
+6   Nitelik_Dizini (Attribute Index (non-normative))
+3   General Elements
+
+
+3.1   ODM
+
+Body:
+	(Study*, AdminData*, ReferenceData*, ClinicalData*, Association*, ds:Signature*)
+
+Attributes:
+	Description	text	(optional)	The sender should use the Description attribute to record any information that will help the receiver interpret the document correctly.
+	FileType	( Snapshot | Transactional )		Snapshot means that the document contains only the current state of the data and metadata it describes, and no transactional history. A Snapshot document may include only one instruction per data point. For clinical data, TransactionType in a Snapshot file must be Insert. Transactional means that the document may contain more than one instruction per data point. Use a Transactional document to send both what the current state of the data is, and how it came to be there.
+	Granularity	( All | Metadata | AdminData | ReferenceData | AllClinicalData | SingleSite | SingleSubject )	(optional)	Granularity is intended to give the sender a shorthand way to describe the breadth of the information in the document, for certain common types of documents. All means the entire study; Metadata means the MetaDataVersion element; AdminData and ReferenceData mean the corresponding elements; AllClinicalData, SingleSite, and SingleSubject are successively more tightly focused subset of the study's clinical data. If these shorthand categories are not sufficient, use the Description attribute to give details.
+	Archival	(Yes | No)	(optional)	Set this attribute to Yes to indicate that the file is intended to meet the requirements of an electronic record as defined in 21 CFR 11. See Single Files and Collections for an fuller discussion of the meaning of this attribute, as well as its interaction with other ODM attributes.
+Use this attribute only when FileType is Transactional.
+	FileOID	oid		A unique identifier for this file.
+	CreationDateTime	datetime		Time of creation of the file containing the document.
+	PriorFileOID	oidref	(optional)	Reference to the previous file (if any) in a series.
+	AsOfDateTime	datetime	(optional)	The date/time at which the source database was queried in order to create this document.
+	ODMVersion	text	(optional)	The version of the ODM standard used.
+	Originator	text	(optional)	The organization that generated the ODM file.
+	SourceSystem	text	(optional)	The computer system or database management system that is the source of the information in this file.
+	SourceSystemVersion	text	(optional)	The version of the "SourceSystem" above.
+	ID	ID	(optional)	May be used by the ds:Signature element to refer back to this element.
+
+The AsOfDateTime is the latest date/time of any new data or updates to data included in the current file. This attribute is implied, and if omitted, it is assumed that the AsOfDateTime is equal to the CreationDateTime. It is an error to supply an AsOfDateTime that is later than the CreationDateTime.
+
+The ODMVersion attribute was not defined in ODM 1.1, so a missing ODMVersion should be interpreted as "1.1". Documents based on ODM 1.3 should have ODMVersion="1.3".
+
+There is an extended discussion of these attributes in the section titled Single Files and Collections.
+-------------------------------------------------------------------------------
+3.1.1   Study
+
+Body:
+	(GlobalVariables, BasicDefinitions?, MetaDataVersion*)
+
+Attributes:
+	OID	oid		
+
+Contained in:
+	ODM
+
+This element collects static structural information about an individual study.
+-------------------------------------------------------------------------------
+3.1.1.1   GlobalVariables
+
+Body:
+	(StudyName, StudyDescription, ProtocolName)
+
+Attributes:
+	NONE
+
+Contained in:
+	Study
+
+GlobalVariables includes general summary information about the Study.
+-------------------------------------------------------------------------------
+3.1.1.1   StudyName
+
+Body:
+	name
+
+Attributes:
+	NONE
+
+Contained in:
+	GlobalVariables
+
+This is a short external name for the study.
+-------------------------------------------------------------------------------
+3.1.1.1.2   StudyDescription
+
+Body:
+	text
+
+Attributes:
+	NONE
+
+Contained in:
+	GlobalVariables
+
+This is a free-text description of the study.
+-------------------------------------------------------------------------------
+3.1.1.1.3   ProtocolName
+
+Body:
+	name
+
+Attributes:
+	NONE
+
+Contained in:
+	GlobalVariables
+
+This is the sponsor's internal name for the protocol.
+-------------------------------------------------------------------------------
+3.1.1.2   BasicDefinitions
+
+Body:
+	(MeasurementUnit*)
+
+Attributes:
+	NONE
+
+Contained in:
+	Study
+
+-------------------------------------------------------------------------------
+3.1.1.2.1   MeasurementUnit
+
+Body:
+	(Symbol)
+
+Attributes:
+	OID	oid		
+	Name	text		
+
+Contained in:
+	BasicDefinitions
+
+The physical unit of measure for a data item or value. The meaning of a MeasurementUnit is determined by its Name attribute. Examples include kilograms, centimeters, cells/milliliter, etc.
+
+Note: Standardizing the names of measurement units is beyond the scope of the ODM.
+-------------------------------------------------------------------------------
+3.1.1.2.1.1   Symbol
+
+Body:
+	(TranslatedText+)
+
+Attributes:
+	NONE
+
+Contained in:
+	MeasurementUnit
+
+A human-readable name for a measurement unit.
+-------------------------------------------------------------------------------
+3.1.1.2.1.1.1   TranslatedText
+
+Body:
+	text
+
+Attributes:
+	xml:lang	languageTag	(optional)	
+
+Contained in:
+	Decode, ErrorMessage, Question, Symbol, Description
+
+Human-readable text that is appropriate for a particular language. TranslatedText elements typically occur in a series, presenting a set of alternative textual renditions for different languages.
+
+To find the text appropriate for a target language with tag LT, search for a TranslatedText element whose xml:lang attribute matches LT exactly (ignoring case). If that fails, remove the ending subtag from LT and repeat. A TranslatedText without an xml:lang attribute should be used if no other element is a better match.
+
+To avoid ambiguity, a particular language tag should not occur more than once in a series of TranslatedText elements.
+
+Note: The xml:lang attribute is part of the XML standard.
+3.1.1.3   Metadata Elements
+The metadata for a study is defined in a series of MetaDataVersion elements. Through this mechanism (multiple MetaDataVersion elements), the model supports the incremental deployment of "mid-study changes", and thus can handle a situation where multiple versions of the metadata are being used simultaneously (perhaps due to delays in IRB approval at various sites).
+
+The way metadata versioning works is as follows. An individual Study element may contain multiple MetaDataVersions, reflecting one or more mid-stream study design changes. The initial version contains a full set of metadata. Each subsequent version typically contains only modified or newly added metadata elements, inheriting the previous metadata by an explicit reference. The same metadata elements in different versions will have the same OID. This approach is used to allow the older versions of the metadata to remain intact, while simultaneously providing a concise way to represent changes.
+-------------------------------------------------------------------------------
+3.1.1.3   MetaDataVersion
+
+Body:
+	(Include?, Protocol?, StudyEventDef*, FormDef*, ItemGroupDef*, ItemDef*, CodeList*, ImputationMethod*Deprecated, Presentation*, ConditionDef*, MethodDef*)
+
+Attributes:
+	OID	oid		
+	Name	name		
+	Description	text	(optional)	
+
+Contained in:
+	Study
+
+A metadata version defines the types of study events, forms, item groups, and items that form the study data.
+
+The Include element references a prior metadata version. This causes all the definitions in that prior metadata version to be automatically included in this one. Any of the included definitions can be replaced (overridden) by explicitly giving a new version of the definition (with the same OID) in the new metadata version. New definitions (with new OIDs) can be added in the same way.
+
+Note: The current metadata model does not include any scheduling information such as the time ordering of events, the spacing of events, conditional occurrence of events, and so on. The analogous information for forms is also not included. Future versions of this standard will probably provide such information.
+-------------------------------------------------------------------------------
+3.1.1.3.1  Include
+
+Body:
+	EMPTY
+
+Attributes:
+	StudyOID	oidref		References the Study that provides a prior metadata version.
+	MetaDataVersionOID	oidref		References the prior MetaDataVersion (within the above Study).
+
+Contained in:
+	MetaDataVersion
+
+A reference to a prior metadata version. This version must be present earlier in the same ODM file or in a previous file in the series. See the PriorFileOID attribute of the ODM element.
+
+Note: The StudyOID attribute allows an Include element to reference a metadata version in another study. Thus, it is possible for many studies to share a set of common metadata definitions. In fact, a study that contains nothing but metadata can serve as a metadata library.
+
+Note: By placing this information in a subelement of MetaDataVersion (rather than in attributes) we allow for future evolution of this capability. For example, it might be useful to allow inclusion of two common metadata dictionaries, or to add new common metadata into a previous study-specific metadata version.
+3.1.1.3.2   Protocol
+
+Body:
+	(Description?, StudyEventRef+)
+
+Attributes:
+	none	
+
+Contained in:
+	MetaDataVersion
+
+The Protocol lists the kinds of study events that can occur within a specific version of a Study. All clinical data must occur within one of these study events.
+
+Note: A study whose metadata does not contain a protocol definition cannot have any clinical data. Such studies can serve as "common metadata dictionaries" -- allowing sharing of metadata across studies.
+3.1.1.3.2.1   Description
+
+Body:
+	(TranslatedText+)
+
+Attributes:
+	NONE
+
+Contained in:
+	StudyEventDef, FormDef, ItemGroupDef, ItemDef, ConditionDef, MethodDef
+
+A free-text description of the containing study metadata component.
+3.1.1.3.2.2   StudyEventRef
+
+Body:
+	EMPTY
+
+Attributes:
+	StudyEventOID	oidref		Reference to the StudyEventDef.
+	OrderNumber	integer	(optional)	
+	Mandatory	(Yes | No)		
+	CollectionExceptionConditionOID	oidref	(optional)	Reference to a ConditionDef
+
+Contained in:
+	Protocol
+
+A reference to a StudyEventDef as it occurs within a specific version of a Study. The list of StudyEventRefs identifies the types of study events that are allowed to occur within the study. The StudyEventRefs within a single MetaDataVersion must not have duplicate StudyEventOIDs nor duplicate OrderNumbers.
+
+The OrderNumbers provide an ordering on the StudyEventDefs for use whenever a list of StudyEventDefs is presented to a user. They do not imply anything about event scheduling, time ordering, or data correctness.
+
+The Mandatory flag indicates that the clinical data for the containing study would be incomplete without an instance of this type of study event. ODM clinical data files that are incomplete in this sense may be considered incomplete for study review and analysis purposes.
+
+If the CollectionExceptionConditionOID attribute is provided, it references a ConditionDef that describes the circumstances under which data for this StudyEvent should not be collected.
+3.1.1.3.3   StudyEventDef
+
+Body:
+	(Description?, FormRef+)
+
+Attributes:
+	OID	oid		
+	Name	name		
+	Repeating	(Yes | No)		
+	Type	(Scheduled | Unscheduled | Common)		
+	Category	text	(optional)	
+
+Contained in:
+	MetaDataVersion
+
+A StudyEventDef packages a set of forms. Scheduled Study Events correspond to sets of forms that are expected to be collected for each subject as part of the planned visit sequence for the study. Unscheduled Study Events are designed to collect data that may or may not occur for any particular subject such as a set of forms that are completed for an early termination due to a serious adverse event. A common Study Event is a collection of forms that are used at several different data collection events such as an Adverse Event or Concomitant Medications log.
+
+The Repeating flag indicates that this type of study event can occur repeatedly within the containing study.
+
+The Category attribute is typically used to indicate the study phase appropriate to this type of study event. Examples might include Screening, PreTreatment, Treatment, and FollowUp.
+3.1.1.3.3.1   FormRef
+
+Body:
+	EMPTY
+
+Attributes:
+	FormOID	oidref		Reference to the FormDef.
+	OrderNumber	integer	(optional)	
+	Mandatory	(Yes | No)		
+	CollectionExceptionConditionOID	oidref	(optional)	Reference to a ConditionDef
+
+Contained in:
+	StudyEventDef
+
+A reference to a FormDef as it occurs within a specific StudyEventDef. The list of FormRefs identifies the types of forms that are allowed to occur within this type of study event. The FormRefs within a single StudyEventDef must not have duplicate FormOIDs nor OrderNumbers.
+
+The OrderNumbers provide an ordering on the FormDefs (within the containing StudyEventDef) for use whenever a list of FormDefs is presented to a user. They do not imply anything about event scheduling, time ordering, or data correctness.
+
+The Mandatory flag indicates that the clinical data for an instance of the containing study event would be incomplete without an instance of this type of form. ODM files that are incomplete in this sense are perfectly legal -- just not sufficient for clinical analysis.
+
+The Mandatory flag indicates that the clinical data for an instance of the containing study event would be incomplete without an instance of this type of form. ODM clinical data files that are incomplete in this sense may be considered incomplete for study review and analysis purposes.
+
+If the CollectionExceptionConditionOID attribute is provided, it references a ConditionDef that describes the circumstances under which data for this Form should not be collected.
+3.1.1.3.4   FormDef
+
+Body:
+	(Description?, ItemGroupRef+, ArchiveLayout*)
+
+Attributes:
+	OID	oid		
+	Name	name		
+	Repeating	(Yes | No)		
+
+Contained in:
+	MetaDataVersion
+
+A FormDef describes a type of form that can occur in a study.
+
+The Repeating flag indicates that this type of form can occur repeatedly within the containing study event.
+3.1.1.3.4.1   ItemGroupRef
+
+Body:
+	EMPTY
+
+Attributes:
+	ItemGroupOID	oidref		Reference to the ItemGroupDef.
+	OrderNumber	integer	(optional)	
+	Mandatory	(Yes | No)		
+	CollectionExceptionConditionOID	oidref	(optional)	Reference to a ConditionDef
+
+Contained in:
+	FormDef
+
+A reference to an ItemGroupDef as it occurs within a specific FormDef. The list of ItemGroupRefs identifies the types of item groups that are allowed to occur within this type of form. The ItemGroupRefs within a single FormDef must not have duplicate ItemGroupOIDs nor OrderNumbers.
+
+The OrderNumbers provide an ordering on the ItemGroupDefs (within the containing FormDef) for use whenever a list of ItemGroupDefs is presented to a user. They do not imply anything about event scheduling, time ordering, or data correctness.
+
+The Mandatory flag indicates that the clinical data for an instance of the containing form would be incomplete without an instance of this type of item group. ODM clinical data files that are incomplete in this sense may be considered incomplete for study review and analysis purposes.
+
+If the CollectionExceptionConditionOID attribute is provided, it references a ConditionDef that describes the circumstances under which data for this ItemGroup should not be collected.
+3.1.1.3.5   ItemGroupDef
+
+Body:
+	(Description?, ItemRef+, Alias*)
+
+Attributes:
+	OID	oid		
+	Name	name		
+	Repeating	(Yes | No)		
+	IsReferenceData	(Yes | No)	(optional)	
+	SASDatasetName	sasName	(optional)	
+	Domain	text	(optional)	
+	Origin	text	(optional)	
+	Role	name	(optional)	Deprecated
+	Purpose	text	(optional)	
+	Comment	text	(optional)	
+
+Contained in:
+	MetaDataVersion
+
+An ItemGroupDef describes a type of item group that can occur within a study.
+
+The Repeating flag indicates that this type of item group can occur repeatedly within the containing form (or reference data).
+
+If IsReferenceData is Yes, this type of item group can occur only within a ReferenceData element. If IsReferenceData is No, this type of item group can occur only within a ClinicalData element. The default for this attribute is No.
+
+The Domain, Origin, Purpose, and Comment attributes carry submission information as described in the CDISC Submission Metadata Model.
+
+Note: The Role attribute can be considered a synonym for Purpose. New applications should use Purpose rather than Role.
+3.1.1.3.5.1   ItemRef
+
+Body:
+	EMPTY
+
+Attributes:
+	ItemOID	oidref		Reference to the ItemDef.
+	OrderNumber	integer	(optional)	
+	Mandatory	(Yes | No)		
+	KeySequence	integer	(optional)	
+	ImputationMethodOID	Deprecated		
+	MethodOID	oidref	(optional)	
+	Role	NMTOKENS	(optional)	
+	RoleCodeListOID	oidref	(optional)	
+	CollectionExceptionConditionOID	oidref	(optional)	Reference to a ConditionDef
+
+Contained in:
+	ItemGroupDef
+
+A reference to an ItemDef as it occurs within a specific ItemGroupDef. The list of ItemRefs identifies the types of items that are allowed to occur within this type of item group. The ItemRefs within a single ItemGroupDef must not have duplicate ItemOIDs nor OrderNumbers.
+
+The OrderNumbers provide an ordering on the ItemDefs (within the containing ItemGroupDef) for use whenever a list of ItemDefs is presented to a user. They do not imply anything about event scheduling, time ordering, or data correctness.
+
+The Mandatory flag indicates that the clinical data for an instance of the containing item group would be incomplete without an instance of this type of item. ODM clinical data files that are incomplete in this sense may be considered incomplete for study review and analysis purposes.
+
+The KeySequence (if present) indicates that this item is a key for the enclosing item group. It also provides an ordering for the keys.
+
+The MethodOID references a MethodDef used to derive the value of this item.
+
+The Role attribute provides a set of role names describing the use of this data item. If the Item serves more than one role with the containing ItemGroupDef, more than one Role can be listed. (NMTOKENS is a list of XML names separated by spaces.)
+
+If the set of Roles is defined by a standard terminology, the RoleCodeListOID may be used to reference a CodeList that defines the full set roles from which the Role attribute values are to be taken as a set of EnumeratedItem elements. This attribute should not be present unless the Role attribute is defined. If Role is defined, RoleCodeListOID is still optional.
+
+If the CollectionExceptionConditionOID is provided, it references a ConditionDef that defines the circumstances under which collection of the Item can be omitted i.e. when the FormalExpression evaluates to True. For example, an data collection instrument designed to collect data for an item 'IsPregnant' for an item group 'InclusionCriteria' may be omitted for male subjects. The referenced ConditionDef would be defined as illustrated below. When the FormalExpression evaluates to True, the Item with OID IG.ISPREG will not be collected.
+
+<ItemGroup OID="INCLUSION" Name="Inclusion Criteria" >
+		   ...
+		   <ItemRef OID="IDef.GENDER" Mandatory="Yes"/>
+		   <ItemRef OID="IDef.ISPREG" Mandatory="Yes" CollectionExceptionConditionOID="CECID.ISMALE"/>
+</ItemGroup>
+
+<ConditionDef OID="CECID.ISMALE">
+     <TranslatedText xml:Lang="en">Do not collect data for Male subjects </TranslatedText>
+	 <FormalExpression context="PL/SQL">
+	 	  <!<[CDATA[INCLUSION.IDef.GENDER &eq; 'Male']]>     <!--  <>   means not equal to -->
+	 </FormalExpression>
+</ConditionDef>
+	 
+
+3.1.1.3.6   ItemDef
+
+Body:
+	(Description?, Question?, ExternalQuestion?, MeasurementUnitRef*, RangeCheck*, CodeListRef?, Role* Deprecated, Alias*)
+
+Attributes:
+	OID	oid		
+	Name	name		
+	DataType	(text | integer | float | date | time | datetime | string | boolean | double | hexBinary | base64Binary | hexFloat | base64Float | partialDate | partialTime | partialDatetime | durationDatetime | intervalDatetime | incompleteDatetime | URI )		
+	Length	integer	(optional)	
+	SignificantDigits	integer	(optional)	
+	SASFieldName	sasName	(optional)	
+	SDSVarName	sasName	(optional)	
+	Origin	text	(optional)	
+	Comment	text	(optional)	
+	MethodDefOID	oidref	(optional)	
+
+Contained in:
+	MetaDataVersion
+
+An ItemDef describes a type of item that can occur within a study. Item properties include name, datatype, data size, measurement units, range or codelist restrictions, and several other properties.
+
+The DataType attribute specifies how the corresponding Value elements are to be interpreted for comparison and storage. The Length attribute is required when DataType is text or string and can be ignored for the other datatypes. The SignificantDigits attribute is always optional.
+
+Note: In version 1.2 the SignificantDigits attribute was required for ItemDef elements with data type Float.
+
+If DataType=integer, Length=N is a requirement that the receiving system be able to process and store all whole number values of magnitude less than 10N. Larger values may be rejected.
+
+If DataType=float, Length=N and SignificantDigits=S is a requirement that the receiving system be able to process and store all numeric values of magnitude less than 10N-S that are multiples of 10-S. Larger values may be rejected. Intermediate values may be rounded to the nearest multiple of 10-S.
+
+If DataType=text, Length=N is a requirement that the receiving system be able to process and store all text string values of length less than or equal to N. All characters are allowed in text string values. Data of type Text should be transmitted in an ItemDataString element.
+
+Note: Length and SignificantDigits are statements about an item's data values, not the number of characters used to represent these values in Value elements. For example, the character "<" might be represented as "&lt;".
+
+Note: Data characters that are not included in the encoding character set for a particular ODM file must be represented using XML entities or character references. For example, Æ could be represented as "&#198;".
+
+The SDSVarName, Origin, and Comment attributes carry submission information as described in the CDISC SDTM Version 1.1 .
+
+	
+
+Note: In the ODM model, all internal keys are assumed to be unchangeable. This was done to make the audit trail issues work: if the SubjectKey in the model were the actual external subject identifier (or randomization ID) of a patient, and that value is sent incorrectly in one ODM file, there would be no way to correct the mistake in a followup file. In doing this, we intend that the external subject keys (and other externally visible key variables) should be defined as Items in the metadata. Thus they can be modified through normal modify/audit mechanism. While this solves the problem of supporting modification of study keys, it leaves the user without a way to identify which ItemDefs have special meaning or what the meaning is. The most obvious place where this is a problem is in matching up patients when loading data from an external source. If you can't find the patient id how do you do the matching?
+
+The answer is to use the SDSVarName attribute of ItemDef. SDSVarName is an optional attribute which can be used to tag the Item with a business meaning. Rather than try to enumerate all possible meanings in the ODM model, the ODM working group thought it best to rely on the set of variable names defined in the CDISC SDTM, since this list covers the core variables used in managing clinical data. Software that is processing an ODM-compliant XML instance can therefore use specific values of the SDSVarName attribute to identify standard, frequently used variables. The use of this attribute is restricted to variables defined in the SDS model. In tagging a variable, you are identifying it as being properly defined by the SDS definition for that variable. A partial list of commonly used values includes:
+
+    * USUBJID (Study Identifier Unique within a Submission),
+    * SUBJID (Subject Identifier Unique within a Study),
+    * SITEID (Unique Identifier for a study Site)
+    * SEX (Sex or Gender, coded value),
+    * VISIT (Protocol-defined description of clinical encounter),
+    * VISITNUM (Clinical encounter Number)
+    * VISITDY (Planned study day of VISIT)
+    * STUDYID (Study Identifier Unique within a Submission) 
+
+See the SDTM Specification and Implementation Guide for more information about SDTM variables.
+
+The Question element describes the purpose of the item for a human user. The ExternalQuestion element does the same but refers to an externally defined question. If both are present, they should be consistent.
+
+The MeasurementUnitRefs list the acceptable measurement units for this type of item. Only numeric (integer or float) items should have measurement units. If only one MeasurementUnitRef is present, all items of this type carry this measurement unit by default. If no MeasurementUnitRef is present, the item's value is scalar (i.e., a pure number).
+
+The RangeChecks constrain the acceptable values for items of this type.
+
+The CodeListRef (if present) constrains the acceptable values for items of this type to be members of the referenced codelist.
+
+Note: Items do not repeat within an item group.
+3.1.1.3.6.1   Question
+
+Body:
+	(TranslatedText+)
+
+Attributes:
+	NONE
+
+Contained in:
+	ItemDef
+
+A human-readable label used to name an item on paper or on a screen.
+3.1.1.3.6.2   ExternalQuestion
+
+Body:
+	EMPTY
+
+Attributes:
+	Dictionary	text	(optional)	The name of the external question dictionary.
+	Version	text	(optional)	The version designator of the external question dictionary.
+	Code	text	(optional)	A code selecting the particular question within the external dictionary.
+
+Contained in:
+	ItemDef
+
+A reference to an externally defined question.
+3.1.1.3.6.3   MeasurementUnitRef
+
+Body:
+	EMPTY
+
+Attributes:
+	MeasurementUnitOID	oidref		Reference to the MeasurementUnit definition.
+
+Contained in:
+	ItemData, ItemDef, RangeCheck
+
+A reference to a measurement unit definition.
+3.1.1.3.6.4   RangeCheck
+
+Body:
+	(CheckValue+ | FormalExpression+, MeasurementUnitRef?, ErrorMessage?)
+
+Attributes:
+	Comparator	(LT | LE | GT | GE | EQ | NE | IN | NOTIN)		Comparison operator used to compare the item and value(s). 	(optional)
+	SoftHard	(Soft | Hard)		
+
+Contained in:
+	ItemDef
+
+A RangeCheck defines a constraint on the value of the enclosing item. It may defined as an explicit 1 or 2 sided range or as an expression that evaluates to True when the ItemData value is valid or False when the ItemData value is invalid.
+
+A one-sided constraint on an item value (a full range check will require two RangeCheck elements, one for the lower bound and one for the upper bound). The constraint is equivalent to
+
+	itemValue comparator checkValue(s)
+
+If an actual data value fails the constraint, it is either rejected (a Hard constraint) or a warning is produced (a Soft constraint).
+
+For the following comparison operators, one check value is required.
+	LT	Less than
+	LE	Less than or equal to
+	GT	Greater than
+	GE	Greater than or equal to
+	EQ	Equal to
+	NE	Not equal to
+
+A set of check values is required for these two comparators:
+	IN	One of listed values
+	NOTIN	Not any of list values
+
+Examples:
+	Value must be positive	
+
+<RangeCheck Comparator="GT"><CheckValue>0</CheckValue></RangeCheck>
+
+	Value must be between 18 and 65	
+
+<RangeCheck Comparator="GE"><CheckValue>18</CheckValue></RangeCheck>
+
+<RangeCheck Comparator="LT"><CheckValue>65</CheckValue></RangeCheck>
+
+	Value must be one of (1, 5, 7)	
+
+<RangeCheck Comparator="IN"><CheckValue>1</CheckValue><CheckValue>3</CheckValue><CheckValue>5</CheckValue>
+
+A FormalExpression element may be used in place of a Check Value. In this case, the comparator is ignored and the formal expression shall accept the value of the ItemData element and it shall return a boolean TRUE when the value is valid or a boolean FALSE when the value is invalid.
+
+If a measurement unit is specified, the corresponding item values must have interconvertible measurement units (either explicitly or by default). Proper conversion of units must be done as part of the range check.
+
+If a measurement unit is not specified, the corresponding item values must not have measurement units (either explicitly or by default).
+3.1.1.3.6.4.1   CheckValue
+
+Body:
+	value
+
+Attributes:
+	NONE
+
+Contained in:
+	RangeCheck
+
+A comparison value used in a range check. It must match the value type declared in the containing ItemDef.
+3.1.1.3.6.4.2   ErrorMessage
+
+Body:
+	(TranslatedText+)
+
+Attributes:
+	NONE
+
+Contained in:
+	RangeCheck
+
+Error message to be used when a range check is violated.
+3.1.1.3.6.5   CodeListRef
+
+Body:
+	EMPTY
+
+Attributes:
+	CodeListOID	oidref		Reference to the CodeList definition.
+
+Contained in:
+	ItemDef
+
+A reference to a CodeList definition. The DataType attributes of the referenced CodeList and the containing ItemDef must be the same.
+3.1.1.3.6.6   Alias
+
+Body:
+	EMPTY
+
+Attributes:
+	Context	text		
+	Name	text		
+
+Contained in:
+	ItemDef, ItemGroupDef
+
+An Alias provides an additional name for an ItemDef or an ItemGroupDef. The Context attribute specifies the application domain in which this additional name is relevant.
+3.1.1.3.7   CodeList
+
+Body:
+	(CodeListItem* | ExternalCodeList | EnumeratedItem*)
+
+Attributes:
+	OID	oid		
+	Name	name		
+	DataType	(integer | float | text | string )		
+	SASFormatName	sasFormat	(optional)	
+
+Contained in:
+	MetaDataVersion
+
+Defines a discrete set of permitted values for an item. The definition can be an explicit list of values (CodeListItem+|EnumeratedItem+) or a reference to an externally defined codelist (ExternalCodeList).
+
+The DataType restricts the values that can appear in the CodeList whether internal or external.
+
+The SASFormatName must be a legal SAS format. Like the DataType, it restricts the values that can appear in the CodeList. However it may be more precise.
+3.1.1.3.7.1   CodeListItem
+
+Body:
+	(Decode)
+
+Attributes:
+	CodedValue	value		Value of the codelist item (as it would occur in clinical data).
+	Rank	number	optional	Numeric order of CodedValue relative to CodedValue for other CodedItems in CodeList.
+
+Contained in:
+	CodeList
+
+Defines an individual member value of a codelist including display format. The actual value is given, along with a set of print/display-forms. The CodedValue must be an acceptable value of the DataType of the containing CodeList.
+
+The CodeListItems within a single CodeList element must not have duplicate CodedValues, (as interpreted by the CodeList's DataType).
+
+The Rank attribute may be used where the relative value corresponding to an enumeration cannot or should not be determined by its lexical order. For example, if you have a list of enumerated text values including "Low", "Medium", and "High" and wish to assign these relative numeric values 1, 2, and 3 respectively, you should include a Rank attribute for each EnumeratedItem defined. Without the applied rank attribute, the normal lexical ordering would be "High", "Low", and "Medium".
+3.1.1.3.7.1.1   Decode
+
+Body:
+	(TranslatedText+)
+
+Attributes:
+	NONE
+
+Contained in:
+	CodeListItem
+
+The set of print-forms for a codelist value.
+3.1.1.3.7.2   ExternalCodeList
+
+Body:
+	EMPTY
+
+Attributes:
+	Dictionary	text	(optional)	The name of the external codelist.
+	Version	text	(optional)	The version designator of the external codelist.
+	ref	text	(optional)	Reference to a local instance of the dictionary.
+	href	text	(optional)	URL of an external instance of the dictionary.
+
+Contained in:
+	CodeList
+
+A reference to an externally defined codelist.
+3.1.1.3.7.3   EnumeratedItem
+
+Body:
+	EMPTY
+
+Attributes:
+	CodedValue	value		Text of the enumerated item (as it would occur in clinical data).
+	Rank	number	optional	Numeric order of CodedValue relative to CodedValue for other EnumeratedItems in CodeList.
+
+Contained in:
+	CodeList
+
+Defines an individual member value of a valid value list. Only the coded value is given. If print/display-forms are needed, CodeListItem should be used. CodeListItems and EnumeratedItems may not be mixed within a single codelist. The CodedValue must be an acceptable value of the DataType of the containing CodeList.
+
+The EnumeratedItems within a single CodeList element must not have duplicate CodedValues (as interpreted by the CodeList's DataType).
+
+The Rank attribute may be used where the relative value corresponding to an enumeration cannot or should not be determined by its lexical order. For example, if you have a list of enumerated text values including "Low", "Medium", and "High" and wish to assign these relative numeric values 1, 2, and 3 respectively, you should include a Rank attribute for each EnumeratedItem defined. Without the applied rank attribute, the normal lexical ordering would be "High", "Low", and "Medium".
+3.1.1.3.8   ArchiveLayout
+
+Body:
+	EMPTY
+
+Attributes:
+	OID	oid		
+	PdfFileName	fileName		Name of a Adobe PDF file containing the screen layout.
+	PresentationOID	oidref	(optional)	Reference to a Presentation definition.
+
+Contained in:
+	FormDef
+
+A visual image of the screen layout used to collect the data on a form. Useful in archiving a study.
+3.1.1.3.9   MethodDef
+
+Body:
+	(Description, FormalExpression*)
+
+Attributes:
+	OID	oid		
+	Name	name	
+	Type	(Computation| Imputation| Transpose | Other)
+
+Contained in:
+	MetaDataVersion
+
+A MethodDef describes how a data value can be obtained from a collection of other data values.
+
+A MethodDef must contain a Description element. It may or may not contain a FormalExpression. That is, a text description of actions defined in the Formal Expression whether or not the FormalExpression is provided.
+3.1.1.3.10   Presentation
+
+Body:
+	text
+
+Attributes:
+	OID	oid		
+	xml:lang	languageTag	(optional)	
+
+Contained in:
+	MetaDataVersion
+
+A Presentation defines how information about the study is presented to the user of a system. The xml:lang attribute helps select the appropriate presentation. See TranslatedText.
+
+Note: The Presentation element is not defined further in CDISC ODM V1.2. It is a placeholder for future development.
+3.1.1.3.11   ConditionDef
+
+Body:
+(Description, FormalExpression*)
+
+Attributes:
+	OID	oid		
+	name	name		
+
+Contained in:
+	MetaDataVersion
+
+A ConditionDef defines a boolean condition. The Description element must be provided and should include a prose description. The ConditionDef is referenced by the CollectionExceptionConditionOID attribute within a study metadata component which may be omitted under circumstances defined by the condition i.e. when the FormalExpression evaluates to True.
+
+If a FormalExpression is provided, it must contain a machine-readable expression that will evaluate to True or False.
+
+If an application cannot interpret the FormalExpression or does not normally support conditional data collection, data for the referencing study metadata component should be collected for all subjects.
+3.1.1.3.11.1   FormalExpression
+
+Body:
+	(PCDATA)
+
+Attributes:
+	Context	text	A free-form qualifier to suggest an appropriate computer language to be used when evaluating the FormalExpression content.	
+
+Contained in:
+	ConditionDef, MethodDef, RangeCheck
+
+A FormalExpression used within a ConditionDef or a RangeCheck must evaluate to True or False. A FormalExpression referenced within a MethodDef with MethodType Imputation, Computation or Transpose must evaluate to the correct DataType for an Item that may be imputed or computed using the Method.
+3.1.2   Administrative Elements
+3.1.2   AdminData
+
+Body:
+	(User*, Location*, SignatureDef*)
+
+Attributes:
+	StudyOID	oidref	(optional)	Reference to a StudyDef.
+
+Contained in:
+	ODM
+
+Administrative information about users, locations, and electronic signatures.
+
+If StudyOID is not provided, it is assumed that AdminData definitions apply to all studies defined within the current ODM file and/or to all studies within a sequence of ODM files linked through the PriorFileOID mechanism.
+3.1.2.1   User
+
+Body:
+	(LoginName?, DisplayName?, FullName?, FirstName?, LastName?, Organization?, Address*, Email*, Picture?, Pager?, Fax*, Phone*, LocationRef*, Certificate*)
+
+Attributes:
+	OID	oid		
+	UserType	(Sponsor | Investigator | Lab | Other)	(optional)	
+
+Contained in:
+	AdminData
+
+Information about a specific user of a clinical data collection system. This may be an investigator, a CRA, or data management staff. Study subjects are not users in this sense.
+3.1.2.1.1   LoginName
+
+Body:
+	text
+
+Attributes:
+	NONE
+
+Contained in:
+	User
+
+The user's login identification.
+3.1.2.1.2   DisplayName
+
+Body:
+	text
+
+Attributes:
+	NONE
+
+Contained in:
+	User
+
+A short displayable name for the user.
+3.1.2.1.3   FullName
+
+Body:
+	text
+
+Attributes:
+	NONE
+
+Contained in:
+	User
+
+The user's full formal name.
+3.1.2.1.4   FirstName
+
+Body:
+	text
+
+Attributes:
+	NONE
+
+Contained in:
+	User
+
+The user's initial given name or all given names.
+3.1.2.1.5   LastName
+
+Body:
+	text
+
+Attributes:
+	NONE
+
+Contained in:
+	User
+
+The user's surname (family name).
+3.1.2.1.6   Organization
+
+Body:
+	text
+
+Attributes:
+	NONE
+
+Contained in:
+	User
+
+The user's organization.
+3.1.2.1.7   Address
+
+Body:
+	(StreetName*, City?, StateProv?, Country?, PostalCode?, OtherText?)
+
+Attributes:
+	NONE
+
+Contained in:
+	User
+
+The user's postal address.
+3.1.2.1.8   StreetName
+
+Body:
+	text
+
+Attributes:
+	NONE
+
+Contained in:
+	Address
+
+The street address part of a user's postal address.
+3.1.2.1.9   City
+
+Body:
+	text
+
+Attributes:
+	NONE
+
+Contained in:
+	Address
+
+The city name part of a user's postal address.
+3.1.2.1.10   StateProv
+
+Body:
+	text
+
+Attributes:
+	NONE
+
+Contained in:
+	Address
+
+The state or province name part of a user's postal address.
+3.1.2.1.11   Country
+
+Body:
+	text
+
+Attributes:
+	NONE
+
+Contained in:
+	Address
+
+The country name part of a user's postal address. This must be represented by an ISO 3166 two-letter country code.
+
+Example: FR for France, JP for Japan.
+3.1.2.1.12   PostalCode
+
+Body:
+	text
+
+Attributes:
+	NONE
+
+Contained in:
+	Address
+
+The postal code part of a user's postal address.
+3.1.2.1.13   OtherText
+
+Body:
+	text
+
+Attributes:
+	NONE
+
+Contained in:
+	Address
+
+Any other text needed as part of a user's postal address.
+3.1.2.1.14   Email
+
+Body:
+	text
+
+Attributes:
+	NONE
+
+Contained in:
+	User
+
+The user's email address.
+3.1.2.1.15   Picture
+
+Body:
+	EMPTY
+
+Attributes:
+	PictureFileName	fileName		
+	ImageType	name	(optional)	
+
+Contained in:
+	User
+
+A visual depiction of the user.
+3.1.2.1.16   Pager
+
+Body:
+	text
+
+Attributes:
+	NONE
+
+Contained in:
+	User
+
+The phone number of the user's pager.
+3.1.2.1.17   Fax
+
+Body:
+	text
+
+Attributes:
+	NONE
+
+Contained in:
+	User
+
+The phone number of the user's facsimile machine.
+3.1.2.1.18   Phone
+
+Body:
+	text
+
+Attributes:
+	NONE
+
+Contained in:
+	User
+
+The user's voice phone number.
+3.1.2.1.19   LocationRef
+
+Body:
+	EMPTY
+
+Attributes:
+	LocationOID	oidref		Reference to a Location definition.
+
+Contained in:
+	AuditRecord, Signature, User
+
+A reference to the user's physical location.
+3.1.2.1.20   Certificate
+
+Body:
+	text
+
+Attributes:
+	NONE
+
+Contained in:
+	User
+
+The user's digital signing certificate.
+
+Note: The Certificate element is not defined further in CDISC ODM V1.3. It is a placeholder for future development.
+3.1.2.2   Location
+
+Body:
+	(MetaDataVersionRef+)
+
+Attributes:
+	OID	oid		
+	Name	name		
+	LocationType	(Sponsor | Site | CRO | Lab | Other)	(optional)	
+
+Contained in:
+	AdminData
+
+A physical location -- typically a clinical research site or a sponsor's office.
+3.1.2.2.1   MetaDataVersionRef
+
+Body:
+	EMPTY
+
+Attributes:
+	StudyOID	oidref		References the Study that uses this metadata version.
+	MetaDataVersionOID	oidref		References the MetaDataVersion (within the above Study).
+	EffectiveDate	date		
+
+Contained in:
+	Location
+
+A reference to a MetaDataVersion used at the containing Location. The EffectiveDate expresses the fact that the metadata used at a location can vary over time.
+3.1.2.3   SignatureDef
+
+Body:
+	(Meaning, LegalReason)
+
+Attributes:
+	OID	oid		
+	Methodology	(Digital | Electronic)	(optional)	
+
+Contained in:
+	AdminData
+
+Defines a kind of electronic signature, including the meaning as required by 21 CFR Part 11. If the signature is Digital, it is based on cryptography. Otherwise the signature is Electronic.
+
+Note: Tracking of data edits is done using AuditRecords not signatures.
+3.1.2.3.1   Meaning
+
+Body:
+	text
+
+Attributes:
+	NONE
+
+Contained in:
+	SignatureDef
+
+A short name for this kind of signature (e.g., authorship, approval).
+3.1.2.3.2   LegalReason
+
+Body:
+	text
+
+Attributes:
+	NONE
+
+Contained in:
+	SignatureDef
+
+The responsibility statement associated with a signature (e.g., "The signer accepts responsibility for the accuracy of this data.").
+3.1.3   Reference Data Elements
+3.1.3   ReferenceData
+
+Body:
+	(ItemGroupData*)
+
+Attributes:
+	StudyOID	oidref		References the Study that defines the metadata for this reference data.
+	MetaDataVersionOID	oidref		References the MetaDataVersion (within the above Study) for this reference data.
+
+Contained in:
+	ODM
+
+Reference data provides information on how to interpret clinical data. For example, reference data might include lab normal ranges. Signature elements nested within ReferenceData have no meaning, and should be ignored.
+
+The StudyOID and MetaDataVersionOID attributes select a particular metadata version. All metadata references (OIDs) occurring within this ReferenceData element refer to definitions within the selected metadata version.
+
+The TransactionType attribute behaves the same within ReferenceData as it does within ClinicalData.
+
+Note: Since reference data can be independent of any particular study, it may be desirable to keep the reference metadata separate from clinical metadata. This can be done by creating a Study element with no Protocol, StudyEventDef, or FormDef elements. All the ItemGroupDefs would have IsReferenceData=Yes. Such a study would have no clinical data.
+3.1.4   Clinical Data Elements
+3.1.4   ClinicalData
+
+Body:
+	(SubjectData*, AuditRecords*, Signatures*, Annotations*)
+
+Attributes:
+	StudyOID	oidref		References the Study that uses the data nested within this element.
+	MetaDataVersionOID	oidref		References the MetaDataVersion (within the above Study) that governs the data nested within this element.
+
+Contained in:
+	ODM
+
+Clinical data for multiple subjects.
+
+The StudyOID and MetaDataVersionOID attributes select a particular metadata version. All metadata references (OIDs) occurring within this ClinicalData element refer to definitions within the selected metadata version.
+3.1.4.1   SubjectData
+
+Body:
+	(AuditRecord?, Signature?, InvestigatorRef?, SiteRef?, Annotation*, StudyEventData*)
+
+Attributes:
+	SubjectKey	subjectKey		
+	TransactionType	(Insert | Update | Remove | Upsert | Context)	(optional)	The TransactionType attribute need not be present in a Snapshot document.
+
+Contained in:
+	ClinicalData
+
+Clinical data for a single subject.
+
+The SubjectKey is used to name a specific subject. This key is unique within the parent study. If a subject has data for two or more metadata versions, the subject key must be the same in each.
+
+Example:
+
+<ClinicalData StudyOID="P2006-101" MetadataVersionOID="101.01">
+   <SubjectData SubjectKey="1000" TransactionType="Insert">
+      <StudyEventData StudyEventOID="101.Screen">
+         <FormData FormOID="101.DEMOG">
+            <ItemGroupData ItemGroupOID="101.DM">
+                <ItemDataString ItemOID="101.USUBJID">101-001-001</ItemDataString>
+                <ItemDataString ItemOID="101.SEX">F</ItemDataString>
+            </ItemGroupData>
+        </FormData>
+        <FormData FormOID="101.LABDATA">
+            <ItemGroupData ItemGroupOID="LB.101">
+                <ItemDataDateTime ItemOID="101.LBDTC">2006-07-14T14:48</ItemDataDate>
+                <ItemDataString ItemOID="101.LBTESTCD">ALT</ItemDataString>
+                <ItemDataString ItemOID="101.LBORRES">245</ItemDataString>
+            </ItemGroupData>
+        </FormData>
+      </StudyEventData>
+  </SubjectData>
+</ClinicalData>
+<ClinicalData StudyOID="P2006-101" MetadataVersionOID="101.02">
+  <SubjectData SubjectKey="1000" TransactionType="Insert">
+      <StudyEventData>
+        <FormData FormOID="101.AENONSER">
+            <ItemGroupData ItemGroupOID="AE.101">
+                <ItemDataString ItemOID="101.AETERM">Fever</ItemDataString>
+                <ItemDataDate ItemOID="101.AESTDTC">2006-08-21</ItemDataDate>
+            </ItemGroupData>
+        </FormData>
+        <FormData FormOID="101.LABDATA">
+            <ItemGroupData ItemGroupOID="LB.101">
+                <ItemDataDateTime ItemOID="101.LBDTC">2006-07-14T14:48</ItemDataDateTime>
+                <ItemDataString ItemOID="101.LBTESTCD">ALT</ItemDataString>
+                <ItemDataString ItemOID="101.LBORRES">300</ItemDataString>
+            </ItemGroupData>
+        </FormData>
+      </StudyEventData>
+  </SubjectData>
+</ClinicalData>
+
+3.1.4.1.1   StudyEventData
+
+Body:
+	(AuditRecord?, Signature?, Annotation*, FormData* )
+
+Attributes:
+	StudyEventOID	oidref		Reference to the StudyEventDef.
+	StudyEventRepeatKey	repeatKey	(optional)	A key used to distinguish between repeats of the same type of study event for a single subject.
+	TransactionType	(Insert | Update | Remove | Upsert | Context)	(optional)	The TransactionType attribute need not be present in a Snapshot document.
+
+Contained in:
+	SubjectData
+
+Clinical data for a study event (visit). The model supports repeating study events (for example, when the same set of information is collected for a series of patient visits).
+
+The StudyEventOID and StudyEventRepeatKey are used together to name a particular study event. This pair of values is unique within the parent subject. The StudyEventRepeatKey is present if and only if the StudyEventDef is repeating.
+3.1.4.1.1.1   FormData
+
+Body:
+	(AuditRecord?, Signature?, ArchiveLayoutRef?, Annotation*, ItemGroupData* )
+
+Attributes:
+	FormOID	oidref		Reference to the FormDef.
+	FormRepeatKey	repeatKey	(optional)	A key used to distinguish between repeats of the same type of form within a single study event.
+	TransactionType	(Insert | Update | Remove | Upsert | Context)	(optional)	The TransactionType attribute need not be present in a Snapshot document.
+
+Contained in:
+	StudyEventData
+
+Clinical data for a form (page). The model supports repeating forms in a single study event (for example, when several adverse events are recorded in a single patient visit).
+
+The FormOID and FormRepeatKey are used together to name a particular form. This pair of values is unique within the parent study event. The FormRepeatKey is present if and only if the FormDef is repeating.
+3.1.4.1.1.1.1   ItemGroupData
+
+Body:
+	(AuditRecord?, Signature?, Annotation*, ItemData* , ItemDataTYPE*)
+
+Attributes:
+	ItemGroupOID	oidref		Reference to the ItemGroupDef.
+	ItemGroupRepeatKey	repeatKey	(optional)	A key used to distinguish between repeats of the same type of item group within a single form.
+	TransactionType	(Insert | Update | Remove | Upsert | Context)	(optional)	The TransactionType attribute need not be present in a Snapshot document.
+
+Contained in:
+	FormData, ReferenceData
+
+Clinical data for an item group (record). The model supports repeating item groups in a single form (for example, when several previous hospitalizations are reported in one history), or within reference data.
+
+The ItemGroupOID and ItemGroupRepeatKey are used together to name a particular item group. This pair of values is unique within the parent form. The ItemGroupRepeatKey is present if and only if the ItemGroupDef is repeating.
+
+ItemGroupData can also occur as reference data. In that case, the ItemGroupOID and ItemGroupRepeatKey pair must be unique within the reference data.
+3.1.4.1.1.1.1.1   ItemData
+
+Body:
+	(AuditRecord?, Signature?, MeasurementUnitRef?, Annotation* )
+
+Attributes:
+	ItemOID	oidref		Reference to the ItemDef.
+	TransactionType	(Insert | Update | Remove | Upsert | Context)	(optional)	The TransactionType attribute need not be present in a Snapshot document.
+	Value	text	(optional)	The data collected for an item. This data is represented according to DataType attribute of the ItemDef.
+	IsNull	(Yes | No)	(optional)	IsNull is a flag to signify that an item's value is to be set to null. IsNull is used only under these conditions: Transaction type is Insert or Update or Upsert; the Value attribute is not supplied. In these conditions, if IsNull is "Yes", then this is an instruction to set the item's value to Null. If Value is specified, use it. If the Value is not set and IsNull is No, do not change the item's value. In the interest of creating non-verbose XML instances, one should not use ItemData elements with IsNull set to "Yes" to indicate uncollected data. The better practice is to transmit only collected data.
+
+Contained in:
+	ItemGroupData
+
+The ItemData element may be used for un-typed transmission of the clinical data for an item. The model does not support repeating items within a single item group.
+
+The ItemOID is used to name a particular item definition. This value is unique within the parent item group (no repeats).
+
+The referenced ItemDef defines the DataType of this item. The Value attribute string must obey the rules for that format of data listed in the Data Formats section. For text, string, integer or float datatypes, it must be possible to store the item value within the Length constraint defined in the ItemDef.
+
+ItemData elements and ItemDate[TYPE] elements should not be combined within an ItemGroup.
+3.1.4.1.1.1.1.2   ItemData[TYPE]
+
+Body:
+	(PCDATA)
+
+Attributes:
+	ItemOID	oidref		Reference to the ItemDef.
+	TransactionType	(Insert | Update | Remove | Upsert | Context)	(optional)	The TransactionType attribute need not be present in a Snapshot document.
+	AuditRecordID	idref		Reference to AuditRecord.
+	SignatureID	idref		Reference to Signature.
+	AnnotationID	idref		Reference to Annotation.
+	MeasurementUnitOID	oidref		Reference to the MeasurementUnit definition.
+
+Contained in:
+	ItemGroupData
+
+ItemData[TYPE] elements provide typed data content as element PCDATA. The PCDATA datatype must match the DataType attribute in the corresponding ItemDef. For example, an ItemDataInteger element can be used only for items where the corresponding ItemDef Datatype attribute value is integer. Additionally in this case, the PCDATA content must be a parseable integer value. See also ItemDataAny for content parsing exceptions.
+
+Typed data content should not be mixed with untyped content within a ClinicalData element.
+
+The following ItemData[TYPE] elements are valid:
+	ItemDataAny
+	ItemDataString
+	ItemDataInteger
+	ItemDataFloat
+	ItemDataDate
+	ItemDataTime
+	ItemDataDatetime
+	ItemDataBoolean
+	ItemDataHexBinary
+	ItemDataBase64Binary
+	ItemDataHexFloat
+	ItemDataBase64Float
+	ItemDataPartialDate
+	ItemDataPartialTime
+	ItemDataPartialDatetime
+	ItemDataDurationDatetime
+	ItemDataIntervalDatetime
+	ItemDataIncompleteDatetime
+	ItemDataURI
+To transmit a value that where the DataType does not match the TYPE, an ItemDataAny element can be used.
+
+Example:
+
+[Typed (version 1.3) Data Transmission]
+<ItemDataInteger ItemOID="ID.INT">1</ItemDataInteger>
+
+[Un-typed (version 1.2) Data Transmission]
+<ItemData ItemOID="ID.INT" Value="1"/>
+
+Note 1: An application receiving ItemDataAny data is not required to load non-conforming data values into the corresponding data fields.
+
+Note 2: ItemData and ItemData[TYPE] elements should not be combined within an ItemGroupData element. .
+3.1.4.1.1.1.2   ArchiveLayoutRef
+
+Body:
+	EMPTY
+
+Attributes:
+	ArchiveLayoutOID	oidref		Reference to the ArchiveLayout.
+
+Contained in:
+	FormData
+
+A reference to the archive layout used to collect the form's data.
+
+On Update, a NULL ArchiveLayoutOID is permitted.
+3.1.4.1.2   AuditRecord
+
+Body:
+	(UserRef, LocationRef, DateTimeStamp, ReasonForChange?, SourceID?)
+
+Attributes:
+	EditPoint	(Monitoring | DataManagement | DBAudit)	(optional)	
+	UsedImputationMethod	(Yes | No)	(optional)	
+	ID	ID	(optional*)	
+
+Contained in:
+	FormData, ItemData, ItemGroupData , StudyEventData, SubjectData, AuditRecords
+
+An AuditRecord carries information pertaining to the creation, deletion, or modification of clinical data. This information includes who performed that action, and where, when, and why that action was performed.
+
+The EditPoint attribute identifies the phase of data processing in which action occurred, and the UsedImputationMethod attribute indicates whether the action involved the use of a Method. (Note: In ODM 1.3, the new element Method was introduced and the ImplementationMethod element was deprecated.
+
+*If an AuditRecord is contained within an AuditRecords element, the ID attribute must be provided.
+
+Note: The monitoring phase includes any data collection and correction involving the clinician, study-site personnel, or study monitor. The data management phase includes any changes made for internal data processing reasons (for example, coding or updating derived data) and before database lock. The DB audit phase occurs after database lock.
+
+AuditRecord information describes a change to clinical data, but is not itself clinical data. The value of some clinical data can always be changed by a subsequent transaction, but history cannot be changed -- only added to.
+
+Whenever an element has an TransactionType (either explicit or inherited), an AuditRecord must be provided. However, an AuditRecord has no meaning in a Snapshot transfer.
+
+As with the TransactionType attribute, an AuditRecord is inherited by any subelement that is allowed to have an AuditRecord and does not already have one attached.
+
+Note: Contrast with Signature.
+3.1.4.1.2.1   UserRef
+
+Body:
+	EMPTY
+
+Attributes:
+	UserOID	oidref		Reference to the User definition.
+
+Contained in:
+	AuditRecord, Signature
+3.1.4.1.2.2   DateTimeStamp
+
+Body:
+	datetime
+
+Attributes:
+	NONE
+
+Contained in:
+	AuditRecord, Signature
+
+The date/time that the data entry, modification, or signature was performed. This applies to the initial occurrence of the action, not to subsequent transfers between computer systems.
+
+The DateTimeStamp datatype is datetime. A value conforming to the ISO 8601 Complete Representation must be provided. Partial or incomplete forms are not valid.
+3.1.4.1.2.3   ReasonForChange
+
+Body:
+	text
+
+Attributes:
+	NONE
+
+Contained in:
+	AuditRecord
+
+A user-supplied reason for a data change.
+3.1.4.1.2.4   SourceID
+
+Body:
+	text
+
+Attributes:
+	NONE
+
+Contained in:
+	AuditRecord
+
+Information that identifies the source of the data within an originating system. It is only meaningful within the context of that system.
+
+Example: A SourceID attached to an ItemGroup could be used to carry the originating system's internal record OID for that data.
+3.1.4.1.3   Signature
+
+Body:
+	(UserRef, LocationRef, SignatureRef, DateTimeStamp, CryptoBindingManifest? Deprecated)
+
+Attributes:
+	ID	ID	(optional*)	
+
+Contained in:
+	FormData, ItemData, ItemGroupData , StudyEventData, SubjectData, Signatures
+
+An electronic signature applies to a collection of clinical data. This indicates that some user accepts legal responsibility for that data. See 21 CFR Part 11. The signature identifies the person signing, the location of signing, the signature meaning (via the referenced SignatureDef), the date and time of signing, and (in the case of a digital signature) an encrypted hash of the included data.
+
+An electronic signature applies to the entity to which it is attached (typically a form). The signature covers all clinical data in that entity at the time of the signing, including all clinical data in any subentities. Thus, a signature on a form includes all clinical data at the form, item group, and item levels.
+
+For the purpose of this definition, clinical data includes all attributes and element content except for TransactionType attributes, Signature elements, and AuditRecord elements.
+
+Note: A Signature applies to data at a particular point in time. A Signature cannot be modified. However, new signatures can be applied when clinical data changes.
+
+Note: A Signature applies to the entire contents of the entity, not just the content that is mentioned in the current ODM element. A Signature applies to (static) content, not to a change in content.
+
+Note: The practice of initialing and dating changes on paper forms is a way of maintaining an audit trail. It should not be confused with 21 CFR Part 11 electronic signatures (Signature elements).
+
+*Note: If a Signature element is contained within a Signatures element, the ID attribute is required.
+
+Note: Contrast with AuditRecord, and ds:Signature.
+
+Note: the CryptobindingManifest element has been deprecated.
+3.1.4.1.3.1   SignatureRef
+
+Body:
+	EMPTY
+
+Attributes:
+	SignatureOID	oidref		Reference to the SignatureDef.
+
+Contained in:
+	Signature
+
+3.1.4.1.4   Annotation
+
+Body:
+	(Comment?, Flag*)
+
+Attributes:
+	SeqNum	integer		
+	TransactionType	(Insert | Update | Remove | Upsert | Context)	(optional)	
+	ID	ID	(optional*)	
+
+Contained in:
+	Association, FormData, ItemData , ItemGroupData, StudyEventData , SubjectData, Annotations
+
+A general note about clinical data. If an annotation has both a comment and flags, the flags should be related to the comment.
+
+The SeqNum attribute (a small positive integer) uniquely identifies the annotation within its parent entity.
+
+An empty Annotation (one with no comment and no flags) is not allowed unless the TransactionType is Remove. On Update, the entire value of the annotation is replaced.
+
+*Note:If an Annotation is contained with an Annotations element, the ID attribute is required.
+3.1.4.1.4.1   Comment
+
+Body:
+	text
+
+Attributes:
+	SponsorOrSite	(Sponsor | Site)	(optional)	Source of the comment.
+
+Contained in:
+	Annotation
+
+A free-text (uninterpreted) comment about clinical data. The comment may have come from the Sponsor or the clinical Site.
+3.1.4.1.4.2   Flag
+
+Body:
+	(FlagValue, FlagType?)
+
+Attributes:
+	NONE
+
+Contained in:
+	Annotation
+
+A machine-processable annotation on clinical data.
+3.1.4.1.4.2.1   FlagValue
+
+Body:
+	text
+
+Attributes:
+	CodeListOID	oidref		Reference to the CodeList definition.
+
+Contained in:
+	Flag
+
+The value of the flag. The meaning of this value is typically dependent on the associated FlagType. The actual value must be a member of the referenced CodeList.
+3.1.4.1.4.2.2   FlagType
+
+Body:
+	name
+
+Attributes:
+	CodeListOID	oidref		Reference to the CodeList definition.
+
+Contained in:
+	Flag
+
+The type of flag. This determines the purpose and semantics of the flag. Different applications are expected to be interested in different types of flags. The actual value must be a member of the referenced CodeList.
+3.1.4.1.5   InvestigatorRef
+
+Body:
+	EMPTY
+
+Attributes:
+	UserOID	oidref		Reference to a User definition.
+
+Contained in:
+	SubjectData
+
+On Update, a NULL UserOID is permitted.
+3.1.4.1.6   SiteRef
+
+Body:
+	EMPTY
+
+Attributes:
+	LocationOID	oidref		Reference to a Location definition.
+
+Contained in:
+	SubjectData
+
+On Update, a NULL LocationOID is permitted.
+3.1.4.2   AuditRecords
+
+Body:
+	(AuditRecord*)
+
+Attributes:
+	none	
+
+Contained in:
+	ClinicalData
+
+Groups AuditRecord elements referenced by ItemDataTYPE elements.
+3.1.4.3   Signatures
+
+Body:
+	(Signature*)
+
+Attributes:
+	none		
+
+Contained in:
+	ClinicalData
+
+Groups Signature elements referenced by ItemDataType elements.
+3.1.4.4   Annotations
+
+Body:
+	(Annotation*)
+
+Attributes:
+	none		
+
+Contained in:
+	ClinicalData
+
+Groups Annotation elements referenced by ItemDataType elements.
+3.1.5   Association
+
+Body:
+	(KeySet, KeySet, Annotation)
+
+Attributes:
+	StudyOID	oidref		
+	MetaDataVersionOID	oidref		
+
+Contained in:
+	ODM
+
+An association permits an annotation to be placed on an ordered pair of entities rather than on just one. The first and second KeySets identify the start and end of the annotated "link".
+
+The StudyOID and MetaDataVersionOID provide a context for interpreting CodeList references within the Annotation. They do not effect the meaning of the KeySets.
+3.1.5.1   KeySet
+
+Body:
+	EMPTY
+
+Attributes:
+	StudyOID	oidref		
+	SubjectKey	subjectKey	(optional)	
+	StudyEventOID	oidref	(optional)	
+	StudyEventRepeatKey	repeatKey	(optional)	
+	FormOID	oidref	(optional)	
+	FormRepeatKey	repeatKey	(optional)	
+	ItemGroupOID	oidref	(optional)	
+	ItemGroupRepeatKey	repeatKey	(optional)	
+	ItemOID	oidref	(optional)	
+
+Contained in:
+	Association
+
+A KeySet references a single entity: a study, a subject, a study event, etc. Only the attributes needed to specify the particular entity are required, and all others must be omitted. (See the section on Clinical Data Keys.)
+4   Digital Signatures
+4.1   ds:Signature
+
+Body:
+	(SignedInfo, SignatureValue, KeyInfo?, Object*)
+
+Attributes:
+	xmlns	CDATA		
+	Id	ID	(optional)	
+
+Contained in:
+	ODM
+
+The ds:Signature element provides the ability to protect the integrity of an ODM document with a digital signature. This element and its subelements are taken from the W3C's XML Digital Signature Specification. See that specification for the semantics of digital signatures.
+
+Note: A Signature element expresses the fact that some human being is taking responsibility for the completeness and accuracy of a set of clinical data. In contrast a ds:Signature element is used by applications to ensure that modifications to the document's contents can be detected.
+5   Element Index (non-normative)
+	Address
+	AdminData
+	Alias
+	Annotation
+	Annotations
+	ArchiveLayout
+	ArchiveLayoutRef
+	Association
+	AuditRecord
+	AuditRecords
+	BasicDefinitions
+	Certificate
+	CheckValue
+	City
+	ClinicalData
+	CodeList
+	CodeListItem
+	CodeListRef
+	Comment
+	ConditionDef
+	Country
+	CryptoBindingManifest	deprecated 1.2
+	DateTimeStamp
+	Decode
+	Description
+	DisplayName
+	Email
+	EnumeratedItem
+	ErrorMessage
+	ExternalCodeList
+	ExternalQuestion
+	Fax
+	FirstName
+	Flag
+	FlagType
+	FlagValue
+	FormalExpression
+	FormData
+	FormDef
+	FormRef
+	FullName
+	GlobalVariables
+	ImputationMethod	deprecated 1.3
+	Include
+	InvestigatorRef
+	ItemData
+	ItemDataAny
+	ItemDataBoolean
+	ItemDataString
+	ItemDataInteger
+	ItemDataFloat
+	ItemDataDouble
+	ItemDataDate
+	ItemDataTime
+	ItemDataDatetime
+	ItemDataHexBinary
+	ItemDataBase64Binary
+	ItemDataHexFloat
+	ItemDataBase64Float
+	ItemDataPartialDate
+	ItemDataPartialTime
+	ItemDataPartialDatetime
+	ItemDataDurationDatetime
+	ItemDataIntervalDatetime
+	ItemDataIncompleteDatetime
+	ItemDataURI
+	ItemDef
+	ItemGroupData
+	ItemGroupDef
+	ItemGroupRef
+	ItemRef
+	KeySet
+	LastName
+	LegalReason
+	Location
+	LocationRef
+	LoginName
+	Meaning
+	MeasurementUnit
+	MeasurementUnitRef
+	MetaDataVersion
+	MetaDataVersionRef
+	MethodDef
+	ODM
+	Organization
+	OtherText
+	Pager
+	Phone
+	Picture
+	PostalCode
+	Presentation
+	Protocol
+	ProtocolName
+	Question
+	RangeCheck
+	ReasonForChange
+	ReferenceData
+	Role	deprecated 1.2
+	Signature
+	Signatures
+	SignatureDef
+	SignatureRef
+	SiteRef
+	SourceID
+	StateProv
+	StreetName
+	Study
+	StudyDescription
+	StudyEventData
+	StudyEventDef
+	StudyEventRef
+	StudyName
+	SubjectData
+	Symbol
+	TranslatedText
+	User
+	UserRef
+	ds:Signature
+6   Attribute Index (non-normative)
+
+This index lists all the attributes used, along with the elements that use them.
+
+	Archival	ODM
+	ArchiveLayoutOID	ArchiveLayoutRef
+	AnnotationID	ItemData[TYPE]
+	AuditRecordID	ItemData[TYPE]
+	AsOfDateTime	ODM
+	Category	StudyEventDef
+	Code	ExternalQuestion
+	CodeListOID	CodeListRef, FlagType, FlagValue
+	CodedValue	CodeListItem
+	CollectionExceptionConditionOID	StudyEventRef, FormRef, ItemGroupRef, ItemRef
+	Comment	ItemDef, ItemGroupDef
+	Comparator	RangeCheck
+	Context	Alias,FormalExpression
+	CreationDateTime	ODM
+	DataType	CodeList, ItemDef
+	Description	MetaDataVersion, ODM
+	Dictionary	ExternalCodeList, ExternalQuestion
+	Domain	ItemGroupDef
+	EditPoint	AuditRecord
+	EffectiveDate	MetaDataVersionRef
+	FileOID	ODM
+	FileType	ODM
+	FormOID	FormData, FormRef, KeySet
+	FormRepeatKey	FormData, KeySet
+	Granularity	ODM
+	Href	ExternalCodelist
+	ID	ODM, AuditRecord, Signature, Annotation
+	Id	ds:Signature
+	ImageType	Picture
+	ImputationMethodOID	deprecated 1.3
+	IsNull	ItemData
+	IsReferenceData	ItemGroupDef
+	ItemGroupOID	ItemGroupData, ItemGroupRef, KeySet
+	ItemGroupRepeatKey	ItemGroupData, KeySet
+	ItemOID	ItemData, ItemRef, KeySet
+	KeySequence	ItemRef
+	Length	ItemDef
+	LocationOID	LocationRef, SiteRef
+	LocationType	Location
+	Mandatory	FormRef, ItemGroupRef, ItemRef, StudyEventRef
+	MeasurementUnitOID	MeasurementUnitRef,ItemDataTYPE
+	MetaDataVersionOID	Association, ClinicalData, Include, MetaDataVersionRef, ReferenceData
+	MethodOID	ItemRef
+	Methodology	SignatureDef
+	Name	Alias, CodeList, FormDef, ItemDef, ItemGroupDef, Location, MeasurementUnit, MetaDataVersion, StudyEventDef
+	ODMVersion	ODM
+	OID	ArchiveLayout, CodeList, FormDef, ItemDef, ItemGroupDef, Location, MeasurementUnit, MetaDataVersion, Presentation, SignatureDef, Study, StudyEventDef, User
+	OrderNumber	FormRef, ItemGroupRef, ItemRef, StudyEventRef
+	Origin	ItemDef, ItemGroupDef
+	Originator	ODM
+	PdfFileName	ArchiveLayout
+	PictureFileName	Picture
+	PresentationOID	ArchiveLayout
+	PriorFileOID	ODM
+	Purpose	ItemGroupDef
+	Rank	CodeListItem, EnumeratedItem
+	Ref	ExternalCodelist
+	Repeating	FormDef, ItemGroupDef, StudyEventDef
+	Role	ItemGroupDef, ItemRef
+	RoleCodeListOID	ItemRef
+	SASDatasetName	ItemGroupDef
+	SASFieldName	ItemDef
+	SASFormatName	CodeList
+	SDSVarName	ItemDef
+	SeqNum	Annotation
+	SignatureID	ItemData[TYPE]
+	SignatureOID	SignatureRef
+	SignificantDigits	ItemDef
+	SoftHard	RangeCheck
+	SourceSystem	ODM
+	SourceSystemVersion	ODM
+	SponsorOrSite	Comment
+	StudyEventOID	KeySet, StudyEventData, StudyEventRef
+	StudyEventRepeatKey	KeySet, StudyEventData
+	StudyOID	AdminData, Association, ClinicalData, Include, KeySet, MetaDataVersionRef, ReferenceData
+	SubjectKey	KeySet, SubjectData
+	TransactionType	Annotation, FormData, ItemData, ItemGroupData, StudyEventData, SubjectData
+	Type	StudyEventDef, MethodDef
+	UsedImputationMethod	AuditRecord
+	UserOID	InvestigatorRef, UserRef
+	UserType	User
+	Value	ItemData
+	Version	ExternalCodeList, ExternalQuestion
+	xml:lang	Presentation, TranslatedText
+	xmlns	ds:Signature
+7   Review Period; Licensing Obligations, Representations and Warranties; Limitations of Liability, and Disclaimers
+
+The following text is excerpted from the CDISC IP Policy available at http://www.cdisc.org/about/bylaws_pdfs/CDISCIPPolicy-FINAL.pdf.
+
+From Section 5:
+5 Treatment of Non-Contributed Necessary Claims
+5.1 Review Period / Licensing Obligations for Non-Contributed Necessary Claims.
+
+To ensure that all Participants have the opportunity to review each proposed Draft Standard as a complete document for purposes of identifying Non-Contributed Necessary Claims, CDISC shall, at least thirty (30) calendar days prior to the finalization of the Draft Standard, notify all Participants via e-mail and post the Draft Standard on the CDISC website for open review. During the review period, each Participant in the CDISC Group that developed the Draft Standard under review (as well as others that choose to take part in such review) shall:
+
+(a) review the Draft Standard;
+
+(b) disclose, pursuant to Section 5.2, any of its Non-Contributed Necessary Claim(s) covering such Draft Standard that the Participant is not willing to license to all implementers of the resulting Final Standard under the compensation-free and otherwise reasonable and non-discriminatory commitment of Section 3; and
+
+(c) submit, prior to the end of the review period, a written licensing declaration for any Non-Contributed Necessary Claim disclosed under subclause (b) indicating whether the Participant will commit to license such disclosed claim(s) at least on reasonable and non-discriminatory (.RAND.) terms and conditions (note, Necessary Claims that cover one's own Contributions must be licensed compensation-free pursuant to Section 3).
+
+From Section 6.2
+
+CDISC Patent Disclaimers. It is possible that implementation of and compliance with this standard may require use of subject matter covered by patent rights. By publication of this standard, no position is taken with respect to the existence or validity of any claim or of any patent rights in connection therewith. CDISC, including the CDISC Board of Directors, shall not be responsible for identifying patent claims for which a license may be required in order to implement this standard or for conducting inquiries into the legal validity or scope of those patents or patent claims that are brought to its attention.
+
+From Section 9:
+9.3 Representations and Warranties.
+
+Each Participant in the development of this standard shall be deemed to represent, warrant, and covenant, at the time of a Contribution by such Participant (or by its Representative), that to the best of its knowledge and ability: (a) it holds or has the right to grant all relevant licenses to any of its Contributions in all jurisdictions or territories in which it holds relevant intellectual property rights; (b) there are no limits to the Participant's ability to make the grants, acknowledgments, and agreements herein; and (c) the Contribution does not subject any Contribution, Draft Standard, Final Standard, or implementations thereof, in whole or in part, to licensing obligations with additional restrictions or requirements inconsistent with those set forth in this Policy, or that would require any such Contribution, Final Standard, or implementation, in whole or in part, to be either: (i) disclosed or distributed in source code form; (ii) licensed for the purpose of making derivative works (other than as set forth in Section 4.2 of the CDISC Intellectual Property Policy ("the Policy")); or (iii) distributed at no charge, except as set forth in Sections 3, 5.1, and 4.2 of the Policy. If a Participant has knowledge that a Contribution made by any Participant or any other party may subject any Contribution, Draft Standard, Final Standard, or implementation, in whole or in part, to one or more of the licensing obligations listed in Section 9.3, such Participant shall give prompt notice of the same to the CDISC President who shall promptly notify all Participants.
+9.4 No Other Warranties/Disclaimers.
+
+ALL PARTICIPANTS ACKNOWLEDGE THAT, EXCEPT AS PROVIDED UNDER SECTION 9.3 OF THE CDISC INTELLECTUAL PROPERTY POLICY, ALL DRAFT STANDARDS AND FINAL STANDARDS, AND ALL CONTRIBUTIONS TO FINAL STANDARDS AND DRAFT STANDARDS, ARE PROVIDED "AS IS" WITH NO WARRANTIES WHATSOEVER, WHETHER EXPRESS, IMPLIED, STATUTORY, OR OTHERWISE, AND THE PARTICIPANTS, REPRESENTATIVES, THE CDISC PRESIDENT, THE CDISC BOARD OF DIRECTORS, AND CDISC EXPRESSLY DISCLAIM ANY WARRANTY OF MERCHANTABILITY, NONINFRINGEMENT, FITNESS FOR ANY PARTICULAR OR INTENDED PURPOSE, OR ANY OTHER WARRANTY OTHERWISE ARISING OUT OF ANY PROPOSAL, FINAL STANDARDS OR DRAFT STANDARDS, OR CONTRIBUTION.
+9.5 Limitation of Liability.
+
+IN NO EVENT WILL CDISC OR ANY OF ITS CONSTITUENT PARTS (INCLUDING, BUT NOT LIMITED TO, THE CDISC BOARD OF DIRECTORS, THE CDISC PRESIDENT, CDISC STAFF, AND CDISC MEMBERS) BE LIABLE TO ANY OTHER PERSON OR ENTITY FOR ANY LOSS OF PROFITS, LOSS OF USE, DIRECT, INDIRECT, INCIDENTAL, CONSEQUENTIAL, OR SPECIAL DAMAGES, WHETHER UNDER CONTRACT, TORT, WARRANTY, OR OTHERWISE, ARISING IN ANY WAY OUT OF THIS POLICY OR ANY RELATED AGREEMENT, WHETHER OR NOT SUCH PARTY HAD ADVANCE NOTICE OF THE POSSIBILITY OF SUCH DAMAGES. 

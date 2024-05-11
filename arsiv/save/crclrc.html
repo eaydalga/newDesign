@@ -1,0 +1,105 @@
+<html>
+<head>
+<TITLE>AYBIM - CRC/LRC KODLAMA</TITLE>
+</head>
+<BODY BGCOLOR="white" LEFTMARGIN=50>
+<TABLE WIDTH="100%" CELLSPACING=10 CELLPADDING=5>
+<TR><TD WIDTH="10%" BGCOLOR="black" VALIGN="TOP">
+&nbsp;
+</TD>
+<TD>
+<table><tr><td WIDTH=100% ALIGN=RIGHT>1 Aralık 1996</td> </tr> </table>
+<hr>
+<P>
+<H2>GİRİŞ</H2>
+<P>
+Bir bilgisayardan gönderilen her mesajın içeriğinde bozulma
+olmadığının, mesajı alan bilgisayar tarafından anlaşılabilmesi için
+gönderen taraf, bir yöntem ile mesajın sonuna "doğruluk" kodu ekler. Alan
+taraf aynı yöntemle "doğruluk" kodunu hesaplar ve gelen bilgi ile
+karşılaştırır. "Doğruluk" kodu eşit bulunmuş ise mesajın içeriği doğru
+algılanmıştır. Aksi halde mesaj, hatalı alınmış veya iletişim şebekesinde
+bozulmuştur, yinelenmesi gereklidir.
+<P>
+Burada iki değişik yöntemle hesaplanan "doğruluk" kodunun gelen algoritması
+ve C dili ile yazılmış örnek programları anlatılmıştır.
+<P>
+<H4>LRC KODLAMA YÖNTEMİ</H4>
+<P>
+LRC kodlamada mesajın başlangıç noktasından mesajın sonuna kadar her byte
+bir önceki ile <b>"EXOR"</b> yapılır. Bu işlemde ilk byte ya STH (0x01) veya
+STX (0x02) olduğundan LRC kodlama alınmaz, çünkü bu değerlerle başlamayan
+mesajlar zaten alan program tarafından dikkate alınmaz. Hesaplama sonunda
+elde edilen byte mesajın sonunda gönderilir. Genel mesaj yapısı
+<pre>  
+  [STX][data bytes][ETX][LRC]
+</pre>
+biçimindedir.
+<PRE>
+     lrc(char *data, int len)
+     {
+     lrcval = data[1];
+     for(i=2;i&lt;len;i++)
+         lrcval = lrcval ^ data[i];
+     return(lrcval);
+     }
+</PRE>
+<p>
+<H4>CRC KODLAMA YÖNTEMİ</H4>
+<P>
+Burada kullanılan yöntemde doğruluk bilgisi 2 byte olduğundan LRC yöntemine
+göre daha doğru çalışır. LRC yönteminde bazı bilgiler bozulmuş olsa bile
+doğru LRC hesaplama olasalığı vardır. Bu olasalık CRC yönteminde biraz
+daha azaltılmıştır. Ancak kullanılan polinom veya tabloya göre değişik
+yöntemlerle CRC hesaplanabilir. Aşağıdaki örnek program bir yönteme göre
+nasıl CRC hesaplanacağını gösterir. Bir bilgide kullanılan CRC doğruluk
+kodu, aynı algoritma ile yeniden elde edilebilir. Algoritmanın değişmesi
+durumunda aynı CRC kodunu üretmek söz konusu olmaz.
+<p>
+Gelen bilgideki ilk byte CRC hesaplamasına alınmaz. Diğer bilgilerden hangisinin
+hesaplamaya alındığı karşı taraftaki programdan öğrenilmelidir. Mesajın
+genel yapısı :
+<pre>
+     [STX][data bytes][ETX][CRC-16]
+</pre>
+biçimindedir.
+<p>
+<pre>
+     short calc_crc(char far *p, int n)
+     {
+     int i,k,x;
+     char x1[2];
+
+     /*  CRC 16 hesaplama modulu    */
+
+     x = 0;
+     for (i = 0; i < n; i++) {
+         x = x ^ (p[i] << 8);
+         for (k = 0; k < 8; k++)
+             if(x & 0x8000)
+                 x = (x << 1) ^ 0x8005;
+             else
+                 x = (x << 1);
+         }
+     *(short *)x2 = x;
+
+     /* 
+        hesaplanan CRC bilgisinin varsa LH ozelligini
+        HL durumuna cevirilmelidir                   
+     */
+
+     x1[0] = (x >> 8) & 0xff;
+     x1[1] = x & 0xff;
+     return(*(short *)x1);
+     }
+</pre>
+<hr>
+</TD></TR>
+<TR>
+<TD COLSPAN=2>
+<HR>
+<A HREF="http://www.aybim.com.tr/">Ana Sayfaya</A>
+&nbsp;&nbsp;<A HREF="index.html">Teknik Bilgiler Sayfasina</A>
+</TD</TR></TABLE>
+</body>
+</html>

@@ -1,0 +1,901 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP kökler - Programlama</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+function ackapa(no)
+{
+var bolum="secim"+no;
+    target=document.getElementById(bolum);
+    if(target.style.display == "inline") {
+         target.style.display = "none";
+    } else {
+         target.style.display = "inline";
+    }
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <a href="phptxt7.html" class="nav">Php Kök</a>
+               <a href="phpkok1.html" class="sub">ext_skel</a><br 7>
+               <a href="phpkok2.html" class="sub">UNIX:config.m4</a><br 7>
+               <a href="phpkok3.html" class="sub">Win:config.w32</a><br 7>
+               <a href="phpkok4.html" class="sub">zend_module</a><br 7>
+               <a href="phpkok8.html" class="sub">Zorunluluklar</a><br 7>
+               <a href="phpkok9.html" class="sub">Hazırlama</a><br 7>
+               <a href="phpkok10.html" class="sub">İskelet doldurma</a><br 7>
+               <a href="phpkok11.html" class="sub">Hazılama</a><br 7>
+               <a href="phpkok12.html" class="sub">Denemeler</a><br 7>
+               <a href="phpkok13.html" class="sub">Paket Yaratma</a><br 7>
+               <a href="phpkok14.html" class="sub">pdo_dbh_t</a><br 7>
+               <a href="phpkok15.html" class="sub">pdo_stmt_t</a><br 7>
+               <a href="phpkok16.html" class="sub">Değişmezler</a><br 7>
+               <a href="phpkok17.html" class="sub">Hatalar</a><br 7>
+               <a href="phpkok18.html" class="sub">PHP uzantı API</a><br 7>
+               <a href="phpkok19.html" class="sub">Zend API: </a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">10 Mart 2008</span></div>
+<div id="bdy" class="yazi">
+<h3>İskeleti doldurma</h3>
+<h3>Temel Yapılar ve Nitelikler</h3>
+
+The major structures, pdo_dbh_t and pdo_stmt_t are defined and explained in Appendix A and B respectively. Database and Statement attributes are defined in Appendix C. Error handling is explained in Appendix D.
+pdo_SKEL.c: PHP extension glue
+<h3>İşlev girişleri</h3>
+<pre>
+static function_entry pdo_SKEL_functions[] = {
+  { NULL, NULL, NULL }
+};
+</pre>
+This structure is used to register functions into the global php function namespace. PDO drivers should try to avoid doing this, so it is recommended that you leave this structure initialized to NULL, as shown in the synopsis above.
+<h3>Modül girişleri</h3>
+<pre>
+/* {{{ pdo_SKEL_module_entry */
+#if ZEND_EXTENSION_API_NO >= 220050617
+static zend_module_dep pdo_SKEL_deps[] = {
+    ZEND_MOD_REQUIRED("pdo")
+    {NULL, NULL, NULL}
+};
+#endif
+/* }}} */
+
+zend_module_entry pdo_SKEL_module_entry = {
+#if ZEND_EXTENSION_API_NO >= 220050617
+    STANDARD_MODULE_HEADER_EX, NULL,
+    pdo_SKEL_deps,
+#else
+    STANDARD_MODULE_HEADER,
+#endif
+    "pdo_SKEL",
+    pdo_SKEL_functions,
+    PHP_MINIT(pdo_SKEL),
+    PHP_MSHUTDOWN(pdo_SKEL),
+    NULL,
+    NULL,
+    PHP_MINFO(pdo_SKEL),
+    PHP_PDO_<DB>_MODULE_VERSION,
+    STANDARD_MODULE_PROPERTIES
+};
+/* }}} */
+
+#ifdef COMPILE_DL_PDO_<DB>
+ZEND_GET_MODULE(pdo_db)
+#endif
+</pre>
+
+zend_module_entry tipinde bir yapı olan pdo_SKEL_module_entry pdo_SKEL_module_entry diye adlandırılır ve tanımlanır. Daha önce tanımlanan pdo_SKEL_functions tablosunu göstermelidir.
+<h3>Standart PHP Modülü Uzantı İşlevleri</h3>
+<pre>
+PHP_MINIT_FUNCTION
+
+/* {{{ PHP_MINIT_FUNCTION */
+PHP_MINIT_FUNCTION(pdo_SKEL)
+{
+    return php_pdo_register_driver(&pdo_SKEL_driver);
+}
+/* }}} */
+</pre>
+
+Bu standart PHP uzantı işlevi sürücünüzü PDO katmanına kayıt etmek için kullanılır. Bunun için php_pdo_register_driver() işlevi kullanılır. Bu işleve  pdo_driver_t tipindeki yapıya gösterge olan pdo_SKEL_driver kullanılır. pdo_driver_t içindeki başlık, PDO_DRIVER_HEADER(SKEL) makrosu ve pdo_SKEL_handle_factory() işlevi kullanılarak yaratılır. Aslın başlık SKEL_dbh.c biriminde anlatılmıştır.
+<h3>PHP_MSHUTDOWN_FUNCTION</h3>
+
+<pre>
+/* {{{ PHP_MSHUTDOWN_FUNCTION */
+PHP_MSHUTDOWN_FUNCTION(pdo_SKEL)
+{
+    php_pdo_unregister_driver(&pdo_SKEL_driver);
+    return SUCCESS;
+}
+/* }}} */
+</pre>
+Bu standart PHP uzantı işlevi sürücünüzün kaydını PDO katmanından silmek için gerekir.Bunun için  php_pdo_unregister_driver() işlevi kullanılır. Aynı pdo_SKEL_driver yapısı parametre olarak init işlevinde geçirilir.
+<h3>PHP_MINFO_FUNCTION</h3>
+
+This is again a standard PHP extension function. Its purpose is to display information regarding the module when the phpinfo() is called from a script. The convention is to display the version of the module and also what version of the db you are dependent on, along with any other configuration style information that might be relevant.
+<h3>SKEL_driver.c: Driver implementation</h3>
+
+Bu birim PDO veritabanı gösterge nesnesinin desteklediği tüm veritabanı ele alma yöntemlerini uygular. Hata arama program parçalarını da içerir. Tüm bu işlevlerin evrensel değişken havuzuna erişmeleri gerekir. Bu nedenle TSRMLS_DC makrosunu her deyimin sonunda kullanmak gerekir.
+<a href="javascript:ackapa(101)">
+<h3>pdo_SKEL_error</h3>
+</a>
+<div id="secim101" style="display: none;">
+<pre>
+static int pdo_SKEL_error(pdo_dbh_t *dbh,
+  pdo_stmt_t *stmt, const char *file, int line TSRMLS_DC)
+</pre>
+Bu işlevin amacı, soysal bir hata ele alma işlemi olarak kullanılmasıdır. Hata olduğunda sürücü tarafından çağrılır. Oluşan hata SQLSTATE ile ilgili değilse, sürücü dbh->error_code ya da stmt->error_code değerini SQLSTATE kodlarından en çok uyana ayarlar. Ya da sosyal SQLSTATE hatası "HY000" kullanılır. PDO kaynakları içindeki pdo_sqlstate.c dosyası, sıkça kullanılan SQLSTATE kodları tablosunu içerir. Böylece PDO kodu dışardan hatayı anlayabilir. Hata kodu ayarları bu işlevi çağırmadan önce yapılmalıdır. Bu işlev evrensel pdo_err değişkenini dbh ya da stmt (eğer stmt değişkeni NULL değilse) ile bulunan hataya atar.
+<dl>
+<dt>dbh
+
+    <dd>Belirticiler fabrikası kanalıyla ilklenen Veritabanı belirticisine göstergedir.
+</dd></dt>
+<dt>stmt
+
+    <dd>O anki deyime gösterge ya da NULL. Eğer NULL ise, hata kodu dbh değerine Pointer to the current statement or NULL. If NULL, the error is derived by error code found in the dbh.
+</dd></dt>
+<dt>file
+
+    <dd>Hatanın olduğu yerdeki kaynak dosya ya da NULL (eğer hata yoksa).
+</dd></dt>
+<dt>line
+
+    <dd>Eğer varsa kaynak dosyadaki satır no.
+</dd></dt>
+</dl>
+If the dbh member methods is NULL (which implies that the error is being raised from within the PDO constructor), this function should call the zend_throw_exception_ex() function otherwise it should return the error code. This function is usually called using a helper macro that customizes the calling sequence for either database handling errors or statement handling errors.
+
+<h3>Örnek-1: pdo_SKEL_error çağırmak için örnek makro</h3>
+<pre>
+#define pdo_SKEL_drv_error(what) \
+    pdo_SKEL_error(dbh, NULL, what, __FILE__, __LINE__ TSRMLS_CC)
+#define pdo_SKEL_drv_error(what) \
+    pdo_SKEL_error(dbh, NULL, what, __FILE__, __LINE__ TSRMLS_CC)
+</pre>
+Hata ele alma işinde daha çok bilgi için "Hata ele Alma" (Error handling) bölümüne bakın.
+<br /><br />
+    Not: 
+Burada belgelenmesine rağmen, PDO sürücü arayüzü bu işlevin var olduğunu belirtmez. Bu aslında hataları ele almada uygun bir yoldur. Birçok veritabanı istemci kitaplığının API kullanımı için bu yolla sizin sürücü uygulamanız içinde uygun olur.
+</div>
+<a href="javascript:ackapa(102)">
+<h3>pdo_SKEL_fetch_error_func</h3>
+</a>
+<div id="secim102" style="display: none;">
+<pre>
+static int pdo_SKEL_fetch_error_func(pdo_dbh_t *dbh, pdo_stmt_t *stmt,
+    zval *info TSRMLS_DC)
+</pre>
+Bu işlevin amacı, tetiklenen son hata için ek bilgi toplamayı sağlar. Bu sürücüye özel hata kodunu insanın okuyabileceği yazı dizisi biçiminde dunar. Eğer uygunsa, ek bilgi de verebilir. Bu işlev PHP kodunun çağırdığı PDO::errorInfo() yönteminin sonucu olarak çağrılır.
+<dl>
+<dt>dbh
+
+    <dd>Ele alma fabrikası tarafından ilklenen veritabanı belirticisinin göstergesidir.
+</dd></dt>
+<dt>stmt
+
+    <dd>ne son deyime gösterge ya da NULL. Eğer NULL ise hata "dbh" içinde bulunan hata kodundan çevrilir.
+</dd></dt>
+<dt>info
+
+    <dd>Hızlı tablo içinde hata kodu ve mesajı vardır.
+</dd></dt>
+</dl>
+error_func iki parça bilgiyi bir dizinin öğeleri olarak döndürür. İlk öğe sayısal hata kodudur, ikincisi ise açıklama yazısıdır. Bu öğeyi kurmanın en iyi yolu "add_next_index" kullanmaktır. Unutmayın ki ilk parametrenin tipi büyük sayı (long) olamaz. veritabanı API işleminden dönen değer hangisine daha yakınsa onu kullanın.
+<pre>
+/* şimdi hata bilgisini ekleyin */
+/* bunların belirli bir sırada olması gerekiyor */
+add_next_index_long(info, error_code);   /* sürücüye özel hata kodu */
+add_next_index_string(info, message, 0); /* okunabilir hata mesajı */
+</pre>
+Bu işlev eğer bilgi varsa 1 döndürür, eğer sürücünün ek bilgisi yoksa 0 döner.
+</div>
+<a href="javascript:ackapa(103)">
+<h3>SKEL_handle_closer</h3>
+</a>
+
+<div id="secim103" style="display: none;">
+<pre>
+static int SKEL_handle_closer(pdo_dbh_t *dbh TSRMLS_DC)
+</pre>
+Bu işlev PDO tarafından açık veritabanını kapatmak için çağrılır.
+<dl>
+<dt>dbh
+
+    <dd>Ele alma fabrikası tarafından ilklenen veritabanı belirticisinin göstergesidir.
+</dd></dt>
+</dl>
+Açık veritabanını kapatmak için veritabanına özel işlemlerden hangisi olursa olsun işlenir. PDO dönene değeri dikkate almaz.
+</div>
+
+<a href="javascript:ackapa(104)">
+<h3>SKEL_handle_preparer</h3>
+</a>
+<div id="secim104" style="display: none;">
+<pre>
+static int SKEL_handle_preparer(pdo_dbh_t *dbh, const char *sql,
+long sql_len, pdo_stmt_t *stmt, zval *driver_options TSRMLS_DC)
+</pre>
+PDO::query() ve PDO::prepare() cağrılışına tepki olarak bu işlev PHP kodundaki PDO tarafından çağrılır. Bu işlevin amacı çalıştırmak için ham SQL hazırlamaktır. stmt içine uygun olan konum yazılır ve işleme bu değer geçirilir.
+<dl>
+<dt>dbh
+
+    <dd>Ele alma fabrikası tarafından ilklenen veritabanı belirticisinin göstergesidir.
+</dd></dt>
+<dt>sql
+
+    <dd>Hazırlanan SQL deyimini içeren yazı dizisine gösterge.
+</dd></dt>
+<dt>sql_len
+
+    <dd>SQL deyiminin uzunluğu.
+</dd></dt>
+<dt>Stmt
+
+    <dd>Dönen deyime bir gösterge ya da hata olursa NULL.
+</dd></dt>
+<dt>driver_options
+
+    <dd>Herhangi sürücüye özel/tanımlanmış seçim.
+</dd></dt>
+</dl>
+Bu işlev biçim olarak stmt nesnesinin yapılandırıcısıdır. Bu işlev deyim seçimlerini işlemeden sorumludur ve pdo_stmt_t yapısındaki sürücüye özel seçim alanlarının kurulmasını sağlar.
+<br /><br />
+PDO, işlevini çağırmadan önce, sürücünün haberi olmadan hiçbir deyim seçeneğini işlemez. Dönmeden önce bunları işlemez sizin sorumluluğunuzdur. Bilinmeyen herhangi bir seçenek için hata uyarılır.
+<br /><br />
+Bu işlevin önemli sorumluluklarından birisi SQL deyimleri parametresinin işlenmesidir. Bu çağırma işlemi sırasında, PDO sizin sürücünüzün bağlama parametrelerini desteklediğinizi bilmez, desteklenen ad ya da gösterilen parametre adlandırma sisteminden hangisinin kullanıldığını da bilmez.
+<br /><br />
+Sürücünüzün elinizin altındaki veritabanı için "stmt->supports_placeholders" ayarlanmasından sorumlu olması gerekir.
+Bu sürücünüzün bazı çalışma zamanı belirleme işlemleri yapmanızı gerektirebilir (Eğer bu ayar, bağlanılan veritabanı sürümüne bağlı olursa).
+<br /><br />
+Eğer sürücünüz hem adlandırılmış hem de gösterilmiş parametre kurallarını doğrudan desteklemezse, sizin  pdo_parse_params() API kullanmanız gerekir. Böylece PDO sorguyu yeniden yazabilir. Sizin veritabanınızın sunduğu desteğin yararı olur.
+<h3>Örnek-2: pdo_parse_params kullanımı</h3>
+<pre>
+    int ret;
+    char *nsql = NULL;
+    int nsql_len = 0;
+
+    /* hazırlamadan önce sorguda tepe noktası
+     * oluşturulur. Eğer adlandırılmış parametre
+     * kullanılırsa PDO'nun bizim için yeniden yazmasını isteriz */ 
+    stmt->supports_placeholders = PDO_PLACEHOLDER_POSITIONAL;
+    ret = pdo_parse_params(stmt,
+               (char*)sql, sql_len, &nsql, &nsql_len TSRMLS_CC);
+
+    if (ret == 1) {
+        /* sorgu yeniden yazıldı */
+        sql = nsql;
+    } else if (ret == -1) {
+        /* onu grok edemedi */
+        strcpy(dbh->error_code, stmt->error_code);
+        return 0;
+    }
+
+    /* şimdi sorguyu "sql" içinde hazırlamayı sürdür */
+</pre>
+supports_placeholders için olası değerler:  PDO_PLACEHOLDER_NAMED, PDO_PLACEHOLDER_POSITIONAL ve PDO_PLACEHOLDER_NONE. Eğer sürücü hazırlanan deyimleri desteklemezse, o zaman bu işlev herhangi bir konumu atar ve döndürdüğü değer:
+<h3>Örnek-3: Hazırlığı sürücüler için uygulama<br />
+(yerel hazırlanmış deyimleri desteklemez)</h3>
+<pre>
+static int SKEL_handle_preparer(pdo_dbh_t *dbh, const char *sql,
+    long sql_len, pdo_stmt_t *stmt, zval *driver_options TSRMLS_DC)
+{
+    pdo_SKEL_db_handle *H = (pdo_SKEL_db_handle *)dbh->driver_data;
+    pdo_SKEL_stmt *S = ecalloc(1, sizeof(pdo_SKEL_stmt));
+
+    S->H = H;
+    stmt->driver_data = S;
+    stmt->methods = &SKEL_stmt_methods;
+    stmt->supports_placeholders = PDO_PLACEHOLDER_NONE;
+
+    return 1;
+}
+</pre>
+Bu işlev başarıda 1, hatada 0 döndürür.
+</div>
+<a href="javascript:ackapa(105)">
+<h3>SKEL_handle_doer</h3>
+</a>
+
+<div id="secim105" style="display: none;">
+<pre>
+static long SKEL_handle_doer(pdo_dbh_t *dbh, const char *sql, long sql_len TSRMLS_DC)
+</pre>
+Bu işlevi ham SQL deyimi çalıştırmak için PDO'dan başlatılır. pdo_stmt_t yaratılmaz.
+<dl>
+<dt>dbh
+
+    <dd>Ele alma fabrikası tarafından ilklenen veritabanı belirticisinin göstergesidir.
+</dd></dt>
+<dt>sql
+
+    <dd>Hazırlanan SQL deyimini içeren yazı dizisine gösterge.
+</dd></dt>
+<dt>sql_len
+
+    <dd>SQL deyimi uzunluğu.
+</dd></dt>
+</dl>
+Bu işlev başarıda 1, hatada 0 döndürür.
+</div>
+<a href="javascript:ackapa(106)">
+<h3>SKEL_handle_quoter</h3>
+</a>
+
+<div id="secim106" style="display: none;">
+<pre>
+static int SKEL_handle_quoter(pdo_dbh_t *dbh, const char *unquoted,
+       int unquoted_len, char **quoted, int quoted_len,
+       enum pdo_param_type param_type TSRMLS_DC)
+</pre>
+Bu işlev PDO tarafından çağrılır. Amcı tırnaksız yazıyı sorguda kullanmak için tırnaklı yapar.
+<dl>
+<dt>dbh
+
+    <dd>Ele alma fabrikası tarafından ilklenen veritabanı belirticisinin göstergesidir.
+</dd></dt>
+<dt>unquoted
+
+    <dd>Tırnaklanacak yazı içeren yazı dizisine göstergedir.
+</dd></dt>
+<dt>unquoted_len
+
+    <dd>Tırnaklanacak yazının uzunluğu.
+</dd></dt>
+<dt>quoted
+
+    <dd>bir adresin göstergedir. Buraya yeni tırnaklanmış yazı dizisinin göstergesi taşınır.
+</dd></dt>
+<dt>quoted_len
+
+    <dd>Yeni yazı dizisinin boyu.
+</dd></dt>
+<dt>param_type
+
+    <dd>Sürücüye özel ipucu bize bir başka tırnaklama stilini belirtir.
+</dd></dt>
+</dl>
+PDO::quote() işlevine tepki olarak bu işlev çağrılır. PDO_PLACEHOLDER_NONE için supports_placeholder ayarlanır. Bunun amacı SQL deyimleri kurarken parametreyi tırnaklamaktır.
+<br /><br />
+Eğer sürücünüz yerel hazırlanmış deyimleri desteklemezse, bu işlevin uygulanması gerekir.
+<br /><br />
+Bu işlev eğer işlem yazıyı yeniden kalıplarsa 1 döndürür. Gerekmiyorsa 0 döndürür. 0 döndüğünde ilk verilen yazı dizisi değişmez.
+</div>
+<a href="javascript:ackapa(107)">
+<h3>SKEL_handle_begin</h3>
+</a>
+
+<div id="secim107" style="display: none;">
+<pre>
+static int SKEL_handle_begin(pdo_dbh_t *dbh TSRMLS_DC)
+</pre>
+Bu işlev PDO tarafından veritabanı işlemini başlatmak için çağrılır.
+<dl>
+<dt>dbh
+
+    <dd>Ele alma fabrikası tarafından ilklenen veritabanı belirticisinin göstergesidir.
+</dd></dt>
+</dl>
+Bir işlemi başlatmak için veritabanına özel etkinlik neyse o yapılır. Eğer başarı sağlanırsa 1 döner yoksa 0 olur.
+</div>
+<a href="javascript:ackapa(108)">
+<h3>SKEL_handle_commit</h3>
+</a>
+
+<div id="secim108" style="display: none;">
+<pre>
+static int SKEL_handle_commit(pdo_dbh_t *dbh TSRMLS_DC)
+</pre>
+Bu işlev veritabanı işlemini bitirmek için PDO tarafından çağrılır.
+<dl>
+<dt>dbh
+
+    <dd>Ele alma fabrikası tarafından ilklenen veritabanı belirticisinin göstergesidir.
+</dd></dt>
+</dl>
+Bu işlev eğer işlem yazıyı yeniden kalıplarsa 1 döndürür. Gerekmiyorsa 0 döndürür. 0 döndüğünde ilk verilen yazı dizisi değişmez.
+
+</div>
+<a href="javascript:ackapa(109)">
+<h3>SKEL_handle_rollback</h3>
+</a>
+
+<div id="secim109" style="display: none;">
+<pre>
+static int SKEL_handle_rollback( pdo_dbh_t *dbh TSRMLS_DC)
+</pre>
+PDO tarafından çağrılan bu işlev veritabanı işlemini geri almak için kullanılır.
+<dl>
+<dt>dbh
+
+    <dd>Ele alma fabrikası tarafından ilklenen veritabanı belirticisinin göstergesidir.
+</dd></dt>
+</dl>
+Bu işlev eğer işlem yazıyı yeniden kalıplarsa 1 döndürür. Gerekmiyorsa 0 döndürür. 0 döndüğünde ilk verilen yazı dizisi değişmez.
+</div>
+<a href="javascript:ackapa(110)">
+<h3>SKEL_handle_get_attribute</h3>
+</a>
+
+<div id="secim110" style="display: none;">
+<pre>
+static int SKEL_handle_get_attribute(pdo_dbh_t *dbh, long attr, zval *return_value TSRMLS_DC)
+</pre>
+Bu işlev PDO tarafından çağırılır. Amaç veritabanı niteliklerini almaktır.
+<dl>
+<dt>dbh
+
+    <dd>Ele alma fabrikası tarafından ilklenen veritabanı belirticisinin göstergesidir.
+</dd></dl>
+<dt>attr
+
+    <dd>PDO_ATTR_xxxx tiplerinden birinin uzun sayısı. Geçerli nitelikler için değişmezlere bakın.
+</dd></dl>
+<dt>return_value
+
+    <dd>Nitelik için dönen değer.
+</dd></dl>
+</dl>
+Bazı özel uygulamalar için hangi niteliklerin desteklendiğine karar verilmesi sürücünün sorumluluğundadır.
+<br /><br />
+Bu işlev başarıda 1 döner, hatada 0 döner.
+</div>
+<a href="javascript:ackapa(111)">
+<h3>SKEL_handle_set_attribute</h3>
+</a>
+
+<div id="secim111" style="display: none;">
+<pre>
+static int SKEL_handle_set_attribute(pdo_dbh_t *dbh,
+           long attr, zval *val TSRMLS_DC)
+</pre>
+PDO tarafından çağrılan işlev veritabanı niteliklerini ayarlamada kullanılır. Genelde PDO::setAttribute() kodlamasına karşıttır.
+<dl>
+<dt>dbh
+
+    <dd>Ele alma fabrikası tarafından ilklenen veritabanı belirticisinin göstergesidir.
+</dd></dt>
+<dt>attr
+
+    <dd>PDO_ATTR_xxxx tipinin uzun sayılarından biri. Geçerli niteliklerin değişmezlerine bakın.
+</dd></dt>
+<dt>val
+
+    <dd>Niteliğin yeni değeri.
+</dd></dt>
+</dl>
+Bir uygulamada hangi niteliklerin destekleneceği sürücünün kararına bağlıdır. Eğer ek niteliklerin desteklenmesi gerekmezse bu işlevin sunulmasına da gerek yoktur. PDO sürücüyü PDO_ATTR_CASE, PDO_ATTR_ORACLE_NULLS, ve PDO_ATTR_ERRMODE niteliklerini doğrudan destekler.
+<br 7><br />
+Bu işlev başarıda 1 döner, hatada 0 döner.
+</div>
+<a href="javascript:ackapa(112)">
+<h3>SKEL_handle_last_id</h3>
+</a>
+
+<div id="secim112" style="display: none;">
+<pre>
+static char * SKEL_handle_last_id(pdo_dbh_t *dbh, const char *name, unsigned int len TSRMLS_DC)
+</pre>
+PDO tarafından çağrılan bu işlev son eklenen satırın tanıtım kodunu (ID) alır.
+<dl>
+<dt>dbh
+
+    <dd>Ele alma fabrikası tarafından ilklenen veritabanı belirticisinin göstergesidir.
+</dd></dt>
+<dt>name
+
+    <dd>bir tablo ya da sıralama adını belirten yazı dizisidir.
+</dd></dt>
+<dt>len
+
+    <dd>Ad parametresinin uzunluğudur.
+</dd></dt>
+</dl>
+Bu işlev yazı dizisi döndürür. Bu yazının içeriği başarılıysa son eklenen satırın tanıtım kodu olur ya da hatada NULL olur. Bu seçimlik bir işlevdir.
+</div>
+<a href="javascript:ackapa(113)">
+<h3>SKEL_check_liveness</h3>
+</a>
+
+<div id="secim113" style="display: none;">
+<pre>
+static int SKEL_check_liveness(pdo_dbh_t *dbh TSRMLS_DC)
+</pre>
+PDO tarafından çağrılan bu işlev veritabanına kurulmuş olan sürekli bağlantının canlı olup olmadığına bakar.
+<dl>
+<dt>dbh
+
+    <dd>Ele alma fabrikası tarafından ilklenen veritabanı belirticisinin göstergesidir.
+</dd></dl>
+</dl>
+Eğer veritabanı bağlantısı canlı ve kullanılabilirse 1 döndürür. Aksi halde 0 döner.
+<br /><br />
+    Not: Bu seçimlik bir işlevdir.
+</div>
+
+<a href="javascript:ackapa(114)">
+<h3>SKEL_get_driver_methods</h3>
+</a>
+
+<div id="secim114" style="display: none;">
+<pre>
+static function_entry *SKEL_get_driver_methods(pdo_dbh_t *dbh,
+                       int kind TSRMLS_DC)
+</pre>
+Bu işlev PDO tarafından çağrılır. PDO ya da PDOStatement sınıflarında olmayan herhangi bir yöntemi çağırmaya karşıt olarak çağrılır. Amacı bu sınıflara ilişkin sürücüye özel yöntemlerin sürücü tarafından sağlanmasına izin vermektir.
+<dl>
+<dt>dbh
+
+    <dd>Ele alma fabrikası tarafından ilklenen veritabanı belirticisinin göstergesidir.
+</dd></dt>
+<dt>kind
+
+    Aşağıdakilerden biridir:
+    <dl>
+    <dt>PDO_DBH_DRIVER_METHOD_KIND_DBH
+
+        <dd>
+Set when the method call was attempted on an instance of the PDO class. The driver should return a pointer a function_entry table for any methods it wants to add to that class, or NULL if there are none.
+    </dd></dt>
+    <dt>PDO_DBH_DRIVER_METHOD_KIND_STMT
+
+        <dd>
+Bir PDOStatement sınıfının kopyası yöntemi çağırmaya kalktığında ayarlanır.
+Sürücü function_entry tablosuna gösterge döndürür. Buraya eklenmek istenen herhangi bir yöntem olabilir. Eğer tablo yoksa NULL döner.
+    </dd></dt>
+    </dl>
+Bu işlev istenen function_entry tablosuna gösterge döndürür ya da eğer sürücüye özel yöntem yoksa NULL döndürür.
+</dd></dt>
+</dl>
+</div>
+<a href="javascript:ackapa(115)">
+<h3>SKEL_handle_factory</h3>
+</a>
+
+<div id="secim115" style="display: none;">
+<pre>
+static int SKEL_handle_factory(pdo_dbh_t *dbh, zval *driver_options TSRMLS_DC)
+</pre>
+Bu işlev PDO tarafından veritabanı belirticisi elde etmek için çağrılır. Birçok veritabanı için bu işlem veritabanına bağlanmayı gerektirir. Bazılarında var olan bağlantı istenir, bir başka durumdaysa havuzdan bağlantı istenebilir. Bunların hepsi veritabanı/sürücü bağımlılıklarıyla ilgilidir.
+<dl>
+<dt>dbh
+
+    <dd>Ele alma fabrikası tarafından ilklenen veritabanı belirticisinin göstergesidir.
+</dd></dt>
+<dt>driver_options
+
+    <dd>
+Sürücü seçimlikleri dizisi, seçenek sayısıyla dizinlemiştir. Var olan niteliklerin değişmezler listesine bakın.
+</dd></dt>
+</dl>
+Bu işlev veritabanına geçirilen yapıyı sürücüye özel bilgilerle doldurur. Başarıda 1 döner, aksi halde 0 döner.
+<br 7><br />
+PDO, AUTOCOMMIT ve PERSISTENT sürücü seçeneklerini handle_factory çağrılmadan önce işletir. Diğer seçenekleri işlemek ele alma fabrikasının sorumluluğudur.
+</div>
+<h3>Sürücü yöntem tablosu</h3>
+
+pdo_dbh_methods tipinin durağan yapısı, SKEL_methods olarak adlandırılır. Her tanımlanan işlevin işlev göstergelerinin tanımı ve ilklemesi yapılır. Eğer bir işlev desteklenmezse ya da uygulanmazsa bu işlev göstergesinin değeri NULL olur.
+<h3>pdo_SKEL_driver</h3>
+
+pdo_SKEL_driver adlı pdo_driver_t tipindeki yapı tanımlanmalıdır.  PDO_DRIVER_HEADER(SKEL) makrosu, başlığı tanımlamak için kullanılmalıdır ve işlev göstergesi, ele alma fabrikası işlevi olur.
+<h3>SKEL_statement.c: Deyim uygulaması</h3>
+
+Bu birim tüm veritanabı ele alma yönteemlerini uygular. Bunlar PDO deyimi nesnesini destekler.
+
+<a href="javascript:ackapa(120)">
+<h3>SKEL_stmt_dtor</h3>
+</a>
+
+<div id="secim120" style="display: none;">
+<pre>
+static int SKEL_stmt_dtor(pdo_stmt_t *stmt TSRMLS_DC)
+</pre>
+Bu işlev PDO tarafından çağrılır. İşlev, önceden yapılanmış deyim nesnesini kaldırır.
+<pre>
+stmt
+
+    Ele alma fabrikası tarafından ilklenen veritabanı belirticisinin göstergesidir.
+</pre>
+Sürücüye özel deyimler için bellek kullanımını boşaltırken ne gerekiyorsa onu yapar. Bu işlevden dönen değer kullanılmaz.
+</div>
+<a href="javascript:ackapa(121)">
+<h3>SKEL_stmt_execute</h3>
+</a>
+
+<div id="secim121" style="display: none;">
+<pre>
+static int SKEL_stmt_execute(pdo_stmt_t *stmt TSRMLS_DC)
+</pre>
+Deyim nesnesine geçirilen SQL deyimlerini çalıştırmak için PDO tarafından kullanılır.
+<dl>
+<dt>stmt
+
+    <dd>Ele alma fabrikası tarafından ilklenen veritabanı belirticisinin göstergesidir.
+    </dd></dt>
+</dl>
+Bu işlev başarıda 1 döndürür, hata durumunda 0 döndürür.
+</div>
+<a href="javascript:ackapa(122)">
+<h3>SKEL_stmt_fetch</h3>
+</a>
+
+<div id="secim122" style="display: none;">
+<pre>
+static int SKEL_stmt_fetch(pdo_stmt_t *stmt, enum pdo_fetch_orientation ori,
+           long offset TSRMLS_DC)
+</pre>
+Daha önce çalıştırılan deyim nesnesinden bir satır almak için bu işlev PDO tarafından çağrılır.
+<dl>
+<dt>stmt
+
+    <dd>Ele alma fabrikası tarafından ilklenen veritabanı belirticisinin göstergesidir.
+    </dd></dt>
+<dt>ori
+
+    <dd>Hangi satırın alınacağını beliryene PDO_FETCH_ORI_xxx'lerden biri.
+    </dd></dt>
+<dt>offset
+
+    <dd>
+PDO_FETCH_ORI_ABS ya da PDO_FETCH_ORI_REL değeri ori'ye atandığında, uzaklık şöyle tanımlanabilir: o anki yere göre satır uzaklığı olabilir. Ya da istenilen satır denebilir.
+    </dd></dt>
+</dl>
+Bu arama (alma) işleminin sonucu sürücü bağımlıdır ve veri çoğunlukla pdo_stmt_t nesnesinin üyesi olan  sürücü verilerinde (driver_data) saklanır. ori ve uzaklık parametresi eğer deyim kaydırılabilir imleci gösterirse, anlamlıdır. Bu işlev başarıda 1 ya da hata durumunda 0 döndürür.
+</div>
+<a href="javascript:ackapa(123)">
+<h3>SKEL_stmt_param_hook</h3>
+</a>
+
+<div id="secim123" style="display: none;">
+<pre>
+static int SKEL_stmt_param_hook(pdo_stmt_t *stmt,
+           struct pdo_bound_param_data *param,
+           enum pdo_param_event event_type TSRMLS_DC)
+</pre>
+Sınır parametrelerini ve sınır kolonlarını ele almak için PDO tarafından çağrılır.
+<dl>
+<dt>stmt
+
+    <dd>Ele alma fabrikası tarafından ilklenen veritabanı belirticisinin göstergesidir.
+</dd></dt>
+<dt>param
+
+    <dd>yapı ya deyim parametresini ya da sınır kolonunu tanımlar.
+</dd></dt>
+<dt>event_type
+
+    Bu parametre için olayın türü aşağıdakilerden biri olabilir:
+    <dl>
+    <dt>PDO_PARAM_EVT_ALLOC
+
+        <dd>PDO bağlantıya yer açınca çağrılır.PDOStatement::bindParam(), PDOStatement::bindValue() parçası olur ya da PDOStatement::execute() çağrılırken görünmeyen bağdaştırıcı olur. Bu noktada harekete gerek vardır. Yerel hazırlanan deyimleri uygulayan sürücüler, büyük bir olasılıkla parametre bilgisini sorgular. Kodlamanın istediği türe göre türü düzenler, yeterli tampon alan ayırır ve parametreyi bu alana bağlar. Şu anda parametrenin türüne ya da param->parameter'deki zval değerine bağımlı kalmamalısınız.
+        </dd></dt>
+    <dt>PDO_PARAM_EVT_FREE
+
+        <dd>Her parametre için, temizliğin parçası olarak, bir kez çağrılır. Bu parametreye ilişkilendirilmiş her tür kaynak burada boşaltılmalıdır.
+        </dd></dt>
+    <dt>PDO_PARAM_EXEC_PRE
+
+        <dd>SKEL_stmt_execute çağrılmadan hemen önce her parametre için bir kez çağrılır. Buna çalıştırma başlamadan yapılacak son ayarlamaları hazırlama denir. Özellikle  PDOStatement::bindParam() ile bağlanan değişkenler şu anda kullanılabileck durumdadır ama daha önce değil...
+        </dd></dt>
+    <dt>PDO_PARAM_EXEC_POST
+
+        <dd>SKEL_stmt_execute çalışmasından hemen sonra her parametre için bir kez çağrılır. Bunu işlem sonrası yapılması gerekenleri düzenleme adımı olarak kullanmak gerekir.
+        </dd></dt>
+    <dt>PDO_PARAM_FETCH_PRE
+
+        <dd>SKEL_stmt_fetch çağrılmadan önce her parametre için çağrılır.
+        </dd></dt>
+    <dt>PDO_PARAM_FETCH_POST
+
+        <dd>SKEL_stmt_fetch çağrıldıktan sonra her parametre için çağrılır.
+        </dd></dt>
+    </dl>
+</dl>
+This hook will be called for each bound parameter and bound column in the statement. For ALLOC and FREE events, a single call will be made for each parameter or column. The param structure contains a driver_data field that the driver can use to store implementation specific information about each of the parameters.
+Bu kanca deyimdeki her sınır parametresi ve sınır kolonu için çağrılır.
+<br /><br />
+Tüm diğer olaylar için PDO PDOStatement::execute() ve PDOStatement::fetch() çağıran kodlama olarak sizi birden çok çağırabilir.
+<br /><br />
+param yapısındaki is_param durum kodu kurulduğundabu sınır parametresi olur. Aksi halde param yapısı sınır kolonunu gösterir.
+<br /><br />
+Bu işlev başarıda 1 hata olduğunda 0 döndürür.
+</div>
+<a href="javascript:ackapa(124)">
+<h3>SKEL_stmt_describe_col</h3>
+</a>
+
+<div id="secim124" style="display: none;">
+<pre>
+static int SKEL_stmt_describe_col(pdo_stmt_t *stmt, int colno TSRMLS_DC)
+</pre>
+Bu işlev PDO tarafından özel bir kolon hakkında bilgi sorgulamak için çağırılır.
+<dl>
+<dt>stmt
+
+    <dd>SKEL_handle_preparer tarafından ilklenen deyim yapısının göstergesidir.
+    </dd></dt>
+<dt>colno
+
+    <dd>sorgulanacak kolon numarası.
+    </dd></dt>
+</dl>
+Sürücü pdo_stmt_t üye kolonlarını gerekli bilgiyle toplamalıdır. Başarıda 1 döndürür. Hata olduğunda 0 döner.
+</div>
+<a href="javascript:ackapa(125)">
+<h3>SKEL_stmt_get_col_data</h3>
+</a>
+
+<div id="secim125" style="display: none;">
+<pre>
+static int SKEL_stmt_get_col_data(pdo_stmt_t *stmt, int colno,
+  char **ptr, unsigned long *len, int *caller_frees TSRMLS_DC)
+</pre>
+PDO tarafından belirtilen kolondan bilgi almak için çağırılır.
+
+<dl>
+<dt>stmt
+
+    <dd>SKEL_handle_preparer tarafından ilklenen deyim yapısının göstergesidir.
+    </dd></dt>
+<dt>colno
+
+    <dd>Sorgulanacak kolon numarasıdır.
+    </dd></dt>
+<dt>ptr
+
+    <dd>Alınan veriye gösterge.
+    </dd></dt>
+<dt>len
+
+    <dd>ptr ile gösterilen verinin uzunluğu.
+    </dd></dt>
+<dt>caller_frees
+
+    <dd>Eğer atanırsa, ptr emalloc ile alınmış belleği gösterir ve ana PDO sürücüsü onunla işi biter bitmez onu boşaltır. Aksi halde onu boşaltmak ve bellek atamak bu çağırma işlemi sonucu olarak sürücünün sorumluluğundadır.
+    </dd></dt>
+</dl>
+
+Sürücü sonuç verisini ve verinin boyunu ptr ve len değişkenlerinde döndürür. Ana PDO sürücüsü veri alanının ömrünü sürücü yönetir. Bu işlev başarıda 1 döndürür. Hatada 0 döndürür.
+</div>
+<a href="javascript:ackapa(126)">
+<h3>SKEL_stmt_set_attr</h3>
+</a>
+
+<div id="secim126" style="display: none;">
+<pre>
+static int SKEL_stmt_set_attr(pdo_stmt_t *stmt, long attr, zval *val TSRMLS_DC)
+</pre>
+Bu işlev deyim nesnesinde sürücüye özel nitelikleri atamak için PDO ile çağrılır.
+<dl>
+<dt>stmt
+
+    <dd>SKEL_handle_preparer tarafından ilklenen deyim yapısının göstergesidir.
+    </dd></dt>
+<dt>attr
+
+    <dd>PDO_ATTR_xxxx tipinin uzun değeri. Geçerli niteliklerin değişmezlerine bakın.
+    </dd></dt>
+<dt>val
+
+    <dd>Niteliğin yeni değeri.
+    </dd></dt>
+</dl>
+Bu işlev sürücü bağımlıdır ve deyimde sürücünün veritabanına özel nitelikleri atamasına izin verir. Bu seçimlik bir niteliktir. Yöntem tablosunda NULL yapılabilir. PDo sürücü veritabanının sürücüsünün davranışlarında atanabilen nitelikleri ele almaz.
+</div>
+<a href="javascript:ackapa(127)">
+<h3>SKEL_stmt_get_attr</h3>
+</a>
+
+<div id="secim127" style="display: none;">
+<pre>
+static int SKEL_stmt_get_attr(pdo_stmt_t *stmt, long attr, zval
+   *return_value TSRMLS_DC)
+</pre>
+Bu işlev PDO tarafından deyim nesnesindeki sürücüye özel nitelikleri almak için çağrılır 
+<dl>
+<dt>stmt
+
+    <dd>SKEL_handle_preparer tarafından ilklenen deyim yapısının göstergesidir.
+    </dd></dt>
+<dt>attr
+
+    <dd>PDO_ATTR_xxxx tipinin uzun değeri. Geçerli niteliklerin değişmezlerine bakın.
+    </dd></dt>
+<dt>return_value
+
+    <dd>Niteliğin dönen değeri.
+    </dd></dt>
+</dl>
+Bu işlev sürücü bağımlıdır ve daha önceden atanan deyimin veritabanına özel niteliklerini almak yeteneğini sürücüye vermek için kullanılır. Başarıda 1 döner, hatada ise 0 döner. Seçimlik bir işlevdir. Eğer sürücü alınabilir ek nitelikler desteklemezse, yöntem tablosunda NULL yapılabilir. PDO sürücüsü veritabanı sürücüsünün davranışında olmayan değiştirilebilen nitelikleri ele almaz.
+</div>
+<a href="javascript:ackapa(128)">
+<h3>SKEL_stmt_get_col_meta</h3>
+</a>
+
+<div id="secim128" style="display: none;">
+<pre>
+static int SKEL_stmt_get_col_meta(pdo_stmt_t *stmt, int colno,
+   zval *return_value TSRMLS_DC)
+</pre>
+<h3>UYARI</h3>
+
+Bu işlev tam tanımlanmamıştır. Bu nedenle değişebilir.
+<br /><br />
+Bu işlev PDO tarafından belirtilen kolondan meta veri almak için çağrılır.
+<dl>
+<dt>stmt
+
+    <dd>SKEL_handle_preparer tarafından ilklenen deyim yapısının göstergesidir.
+    </dd></dt>
+<dt>colno
+
+    <dd>Verisi alınacak kolonun sayısını belirtir.
+    </dd></dt>
+<dt>return_value
+
+    <dd>Dönen metat veriyi tutar.
+    </dd></dt>
+</dl>
+Sürücü yazarı, bu işlev için php_pdo_driver.h belge yazımına danışmanlık yapmalıdır. Bu şu anda en güncel olanıdıdr. Bu işlev başarıda 1 döndürür aksi halde 0 döner. veritabanı sürücüsü bu işlevi sunmak zorunda değildir.
+</div>
+<h3>Deyimlerin ele alındığı yöntem tabloları</h3>
+
+pdo_stmt_methods tipinin durağan yapısı (SKEL_stmt_methods adı verilmiştir) işlev göstergesine atanıp ilklenmelidir. Eğer işlev yoksa ya da desteklenmiyorsa değer NULL olur.
+
+         </div>
+<div id="sag"> <B><A HREF="javascript:history.back()">Dönüş</A></B> </div>
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8541306787668208";
+//120x600, created 1/16/08
+google_ad_slot = "7007060807";
+google_ad_width = 120;
+google_ad_height = 600;
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<br />
+<script type="text/javascript"><!--
+google_ad_client = "pub-8541306787668208";
+//120x240, created 1/25/08
+google_ad_slot = "8433790203";
+google_ad_width = 120;
+google_ad_height = 240;
+google_cpa_choice = ""; // on file
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

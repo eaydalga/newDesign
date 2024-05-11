@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP - Güvenlik CGI ikilisi olarak kurulan </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="javascript:myvoid();" class="nav">Başlarken</a>
+               <a href="phptxt11.html" class="sub">ilk Anlatım</a>
+               <a href="javascript:myvoid();" class="nav">Kurulumlar</a>
+               <a href="phptxt21.html" class="sub">Genel Kurulum</a><br />
+               <a href="phptxt22.html" class="sub">UNIX Kurulumu</a><br />
+               <a href="phptxt23.html" class="sub">OSX Kurulumu</a><br />
+               <a href="phptxt24.html" class="sub">Wins Kurulumu</a>
+               <a href="javascript:myvoid();" class="nav">Dil Kuralları</a>
+               <a href="phptxt31.html" class="sub">Temel yazım</a><br />
+               <a href="phptxt32.html" class="sub">Tipler</a><br />
+               <a href="phptxt33.html" class="sub">Değişkenler</a><br />
+               <a href="phptxt34.html" class="sub">Değişmezler</a><br />
+               <a href="phptxt35.html" class="sub">Deyimler</a><br />
+               <a href="phptxt36.html" class="sub">İşlemler</a><br />
+               <a href="phptxt37.html" class="sub">Kontrol Yapıları</a><br />
+               <a href="phptxt38.html" class="sub">İşlevler</a><br />
+               <a href="phptxt39.html" class="sub">Sınıflar Nesneler</a><br />
+               <a href="phptxt391.html" class="sub">Ad uzayı</a><br />
+               <a href="phptxt392.html" class="sub">İstisnalar</a>
+               <a href="javascript:myvoid();" class="nav">Güvenlik</a>
+               <a href="phptxt41.html" class="sub">Giriş</a><br />
+               <a href="phptxt42.html" class="sub">Genel bilgi</a><br />
+               <a href="phptxt43.html" class="sub">CGI iklisi</a><br />
+               <a href="phptxt44.html" class="sub">Apache modülü</a><br />
+               <a href="phptxt45.html" class="sub">Dosyadüzeni</a><br />
+               <a href="phptxt46.html" class="sub">Veritabanı</a><br />
+               <a href="phptxt47.html" class="sub">Hatalar</a><br />
+               <a href="phptxt48.html" class="sub">Diğerleri</a><br />
+               <a href="javascript:myvoid();" class="nav">Özellikler</a>
+               <a href="phptxt51.html" class="sub">HTTP Şifresi</a><br />
+               <a href="phptxt52.html" class="sub">Çerezler</a><br />
+               <a href="phptxt53.html" class="sub">Oturumlar</a><br />
+               <a href="phptxt54.html" class="sub">XForm</a><br />
+               <a href="phptxt55.html" class="sub">DosyaYükleme</a><br />
+               <a href="phptxt56.html" class="sub">UzakDosyalar</a><br />
+               <a href="phptxt57.html" class="sub">Bağlantılar</a><br />
+               <a href="phptxt58.html" class="sub">VTBağlantısı</a>
+               <font color="#8e9ccb"><h3>Gelişmiş</h3></font>
+               <a href="phptxt7.html" class="nav">Php Kökü</a>
+               <a href="phptxt8.html" class="nav">Ekler</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">2 Şubat 2008</span></div>
+<div id="bdy" class="yazi">
+<h2>CGI ikilisi olarak kurulan</h2>
+
+<h3>Possible attacks</h3>
+
+CGI ikilisi seçeneği bazı ortamlarda sunucu yazılımına (Apache gibi) modül eklemesi yapmayıp PHP ürününü ayrı kuranlara uygundur. Ya da değişik 'chroot' ve 'setuid' yaratan CGI koruması kodlama için daha güvenlidir. Bu kullanım PHP ikililerini "cgi-bin" altına yerleştirerek sağlanır. "CERT advisory » CA-96.11" cgi-bin altına yorumlayıcı kodlarının yerleştirilmesine karşıdır. PHP ikilileri kendi başına çalışan yorumlayıcılar da olsa, PHP bu tür saldırıları önleyici tasarımıyla bu kurulumu olanaklı kılar.
+<ul>
+    <li> <b>Sistem dosyalarına erişim:</b>
+ http://benim.sunucum/cgi-bin/php?/etc/passwd sorgusunda URL adresindenki ? işareti arkasındaki veri, yorumlayıcıya satır komutu parametresi olarak geçer. Çoğunlukla yorumlayıcı komut satırındaki ilk dosya adını çalıştırılacak program olarak algılar. CGI ikilisi olarak kullanıldığında PHP komut satırı parametrelerine izin vermez.
+    <li> <b>Sunucudaki herhangi bir WEB sayfasına erişim:</b>  http://benim.sunucum/cgi-bin/php/secret/doc.html örneğinde URL adresinde ve PHP ikilisinden sonraki "/secret/doc.html" CGI programı tarafından açılıp okunacak dosyayı belirtmekte kullanılan bir gelenektir. Bazı web sunucu ayarlarında yönlendirici (Apache için "Action") istekleri http://benim.sunucum/secret/script.php gibi PHP yorumlayıcılara gönderir. Bu kurulumla web sunucusu /secret adlı dosya yoluna izin olup olmadığını belirler sonra  http://benim.sunucum/cgi-bin/php/secret/script.php programını çağırır. İstek ilk başta bu forma iletilmiş olsa /secret/script.php dosyası için hiçbir kontrol yapılmayacaktı. Bu biçimde /cgi-bin/php dosyasına erişebilen her kullanıcı korunmalı alandaki herhangi bir dosyaya da erişebilir olmuş olacaktı. PHP derleme zamanı ayar seçeneği  --enable-force-cgi-redirect ve açlışma zamanı ayar yönlendiricisi doc_root ve user_dir bu saldırıyı kaldırmak için kullanılabilir. Değişik kombinasyonların açıklaması aşağıda anlatılmıştır:
+</ul>
+<hr>
+
+<b>Olay 1: yalnız halka açık dosyalara hizmet verilir</b>
+
+Eğer sizin sunucunuz şifre ve ip tabanlı erişimle kontrol edilen bir içeriği yoksa, bu ayarlama seçeneklerine hiç gerek yoktur. Eğer sizin web sunucunuz yönlendirmenize izin vermiyorsa ya da sunucunun güvenli yönlendirme yapan PHP ikilisiyle bir iletişimi yoksa ayar kodlamasında --enable-force-cgi-redirect seçeneğini kullanabilirsiniz. Bunun için PHP kodlamanızın yönlendirme yapan bir başka kodlamaya dayanmadığına emin olmalısınız. Doğrudan http://benim.sunucum/cgi-bin/php/dir/script.php çağırma ya da yönlendirmeyle http://beni.sunucum/dir/script.php olmamalı...
+<br /><br />
+Yönlendirme Apache içinde AddHandler ve Action yönelticileriyle ayarlanır.
+<hr>
+
+<b>Olay 2: --enable-force-cgi-redirect kullanarak</b>
+
+Bu derleme zamanı seçeneği PHP içinden doğrudan  http://benim.sunucum/cgi-bin/php/secretdir/script.php gibi çağırma yapılmasını engeller. Yerine PHP web sunucusu yönlendirme kuralından geçmişse tarama yapabilir.
+<br /><br />
+Genellikle Apache ayarlarında yönlendirme aşağıdaki yönelticilerle yapılır:
+<pre>
+Action php-script /cgi-bin/php
+AddHandler php-script .php
+</pre>
+Bu seçenek yalnız Apache sunucu altında test edilmiştir. Apache sunucuya dayanan standrt olmayan CGI ortam değişkeni REDIRECT_STATUS atamasını içeren bir çözümdür. Eğer web sunucunuz bu seçenekleri sunmuyorsa, burada anlatılan diğer önlemlerle yönlendirmeler bir çözüm bulmalısınız.
+<hr>
+
+<b>Olay 3: doc_root ya da user_dir ayarlamak</b>
+
+Etkin içeriği (kodlama ve çalışan programlar gibi) eklemek için web sunucu dosya yolları güvensiz denemeler olarak adlandırılır. Eğer, ayarlama hatalarından, kodlamalar çalıştırılamaz ama normal HTML belgeleri gibi tarayıcı sayfasında yazdırılırsa, buna şifre gibi değerli bir kişisel malın yaygınlaştırılması denir. Herhangi bir "sysdamin" PHP CGI ile çalışan kodları için bir başka dosya yolu hazırlamalı ve her zaman yorumlamalı ama böyle görüntülememelidir.
+<br /><br />
+İsteklerin yeniden yönlendirilmesi (bir önceki bölümde anlatıldığı gibi) yönteminin açık olmaması kodlamaların doc_root değeri, web sunucusu "document_root" değerinden ayrı olmalıdır.
+<br /><br />
+PHP kodlaması belge kökünü (document root) ayarlama yönelticirisi doc_root ile kurabilirsiniz, ya da çevre değişkeni PHP_DOCUMENT_ROOT atamasıyla da yapabilirsiniz. Bu atama yapılınca, PHP CGI sürümü dosyayı açmayı "doc_root" ve istekteki dosya yolu bilgisiyle yapılandırır. Böylece bu dosya yolu dışında hiçbir şeyin çalışmadığını bilirsiniz (yalnız aşağıda anlatılan "user_dir" hariç).
+<br /><br />
+Burada kullanılabilecek diğer seçenek "user_dir" işlemidir. "user_dir" atanmamışsa, "doc_root" açılan dosyayı kontrol eden tek şeydir. http://benim.sunucum/~user/doc.php kullanıcının evindeki bir dosyanın açılması anlamına gelmez. Ama "~user/doc.php" adlı dosya "doc_root" ile tanımlanan yolda bulunur (evet, ~ işaretiyle başlayan dosya yolu adıdır).
+<br /><br />
+Eğer "user_dir" değeri örneğin "public_php" olursa, http://benim.sunucum/~user/doc.php biçimindeki bir istek public_php yolu altındaki doc.php dosyasını açar. Eğer kullanıcının evi /home/user ise dosya /home/user/public_php/doc.php açık adresinden çalıştırılır.
+<br /><br />
+user_dir açılımı doc_root değerinden bağımsız olur. Belge kökünü kontrol edebildiğiniz gibi kullanıcı erişim yolunu da ayrı kontrol edebilirisiniz.
+----------------------------------------------------------------------------
+
+<b>Olay 4: Web ağacı dışındaki PHP tarayıcısı</b>
+
+Çok güvenli bir seçenek PHP ikili taramasını web ağacı dosyalarından ayrı bir yere koymaktır. Örneğin /usr/local/bin/ gibi. Bu seçenek için yapılacak tek şey aşağıdaki gibi bir kodlamadır:
+<pre>
+#!/usr/local/bin/php
+</pre>
+Bu PHP biçimlerinin bulunduğu dosyanın ilk satırında olursa, dosya da çalışabilecek izini almış olmalıdır. Bunun anlamı, herhangi bir CGI kodlamasıymış gibi değerlendirilmesidir (Perl ve sh gibi kodlamalarda # shell-escape makinesi çalıştırmak için kullanılmaktadır).
+<br /><br />
+PATH_INFO ve PATH_TRANSLATED bilgisinin doğru olarak PHP içinde ele alınması için PHP taraması --enable-discard-path ayar seçeneğiyle derlenmelidir.
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

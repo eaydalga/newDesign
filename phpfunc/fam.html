@@ -1,0 +1,123 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP FAM Dosya Değiştirme İzleme İşlevleri </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">18 Şubat 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>Dosya Değiştirme İzleme İşlevleri<br />
+File Alteration Monitor Functions</h2>
+
+<h3>Giriş</h3>
+
+FAM dosya ve dosya yollarını izler ve ilgilenen uygulamalara değişiklikleri
+bildirir. FAM hakkında daha geniş bilgiyi http://oss.sgi.com/projects/fam/
+adresinde bulabilirsiniz.
+<br /><br />
+FAM izlemesi için PHP kodlaması dosyalar listesi hazırlar. FAM uzantısıyla
+desteklenen işlevler bu listeyi kullanır.
+<br /><br />
+FAM işlemleri herhangi bir uygulamadan ilk bağlantı sağlandığında işleme
+girer. Tüm bağlantılar kapandıktan sonra işlemi biter.
+<br /><br />
+    Not: PHP 5.1.0 sürümünden beri bu uzantı PECL havuzundadır
+<br /><br />
+    Not: Bu uzantı windows ortamında yoktur.
+
+<h3>Gereksinim</h3>
+
+Bu uzantı SGI tarafından geliştirilen FAM kitaplığı işlevlerini kullanır. Bu
+nedenle FAM kitaplığını indirip kurmuş olmalısınız.
+
+<h3>Kurulum</h3>
+
+PHP FAm desteğini kullanabilmek için PHP "--with-fam[=DIR]" ile derlenmiş
+olmalıdır. Burada DIR FAM kitaplığının ve eklenecek dosyaların bulunduğu yerdir.
+
+<h3>Kaynak Türleri</h3>
+
+FAM modülünde iki kayank türü vardır. Birincisi fam_open() işlevinden dönen
+FAM hizmetine bağlantı, diğeri de fam_monitor_XXX işlevlerinden dönen izleme
+kaynaklarıdır.
+
+<h3>Önceden Tanımlı Değişmezler</h3>
+
+Aşağıdaki değişmezler bu uzantıyla tanımlanırlar. Uzantı PHP ile derlendiğinde
+ya da modül yüklendiğinde kullanılabilirler.
+
+<h3>FAM olay değişmezleri</h3>
+
+<table class="yazi" width="100%">
+<tr><td>Değişmez</td><td>Açıklama</td></tr>
+<tr><td>FAMChanged (integer)</td><td>Dosya ya da dosya yolu değiştiğinde fstat ile alınabilen bazı değerler</td></tr>
+<tr><td>FAMDeleted (integer)</td><td>Bir dosya ya da dosya yolu silindiğinde ya da yeniden adlandırıldığında</td></tr>
+<tr><td>FAMStartExecuting (integer)</td><td>Çalışabilir doya çalışmaya başladığında</td></tr>
+<tr><td>FAMStopExecuting (integer)</td><td>Çalışabilir doya çalışıp
+bittiğinde</td></tr>
+<tr><td>FAMCreated (integer)</td><td>Bir dosya yolunda dosya
+yaratıldığında</td></tr>
+<tr><td>FAMMoved (integer)</td><td>Bu olay hiç oluşmaz</td></tr>
+<tr><td>FAMAcknowledge (integer)</td><td>fam_cancel_monitor() işlevinin sonucu
+olan bir olay.</td></tr>
+<tr><td>FAMExists (integer)</td><td>Bir dosya ya da dosya yolunu izleme isterinin olayı. Dosya yolu izlendiğinde, o dosya yolu ve altındaki tüm dosyalar için bir olay başlatılır.</td></tr>
+<tr><td>FAMEndExist (integer)</td><td>FAMEExists olayından sonra bir
+olay.</td></tr>
+</table>
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> fam_cancel_monitor — İzlemeyi durdur
+    <li> fam_close — FAM bağlantısını kapat
+    <li> fam_monitor_collection — bir dosya yolundaki dosya listesindeki dosyaları değişiklik için izle
+    <li> fam_monitor_directory — Dosya yolunu değişiklik için izle
+    <li> fam_monitor_file — Kurallı dosyayı değişiklik için izle
+    <li> fam_next_event — Bir sonraki bekleyen FAM olayına geç
+    <li> fam_open — FAM çekirdek programına bağlantı kur
+    <li> fam_pending — Bekleyen FAM olaylarına bak
+    <li> fam_resume_monitor — Bekletilen izlemeyi başlat
+    <li> fam_suspend_monitor — Geçici olarak izlemeyi durdur
+</ul>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

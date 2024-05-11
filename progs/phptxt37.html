@@ -1,0 +1,982 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP - Kontrol Yapıları </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="javascript:myvoid();" class="nav">Başlarken</a>
+               <a href="phptxt11.html" class="sub">ilk Anlatım</a>
+               <a href="javascript:myvoid();" class="nav">Kurulumlar</a>
+               <a href="phptxt21.html" class="sub">Genel Kurulum</a><br />
+               <a href="phptxt22.html" class="sub">UNIX Kurulumu</a><br />
+               <a href="phptxt23.html" class="sub">OSX Kurulumu</a><br />
+               <a href="phptxt24.html" class="sub">Wins Kurulumu</a>
+               <a href="javascript:myvoid();" class="nav">Dil Kuralları</a>
+               <a href="phptxt31.html" class="sub">Temel yazım</a><br />
+               <a href="phptxt32.html" class="sub">Tipler</a><br />
+               <a href="phptxt33.html" class="sub">Değişkenler</a><br />
+               <a href="phptxt34.html" class="sub">Değişmezler</a><br />
+               <a href="phptxt35.html" class="sub">Deyimler</a><br />
+               <a href="phptxt36.html" class="sub">İşlemler</a><br />
+               <a href="phptxt37.html" class="sub">Kontrol Yapıları</a><br />
+               <a href="phptxt38.html" class="sub">İşlevler</a><br />
+               <a href="phptxt39.html" class="sub">Sınıflar Nesneler</a><br />
+               <a href="phptxt391.html" class="sub">Ad uzayı</a><br />
+               <a href="phptxt392.html" class="sub">İstisnalar</a>
+               <a href="javascript:myvoid();" class="nav">Güvenlik</a>
+               <a href="phptxt41.html" class="sub">Giriş</a><br />
+               <a href="phptxt42.html" class="sub">Genel bilgi</a><br />
+               <a href="phptxt43.html" class="sub">CGI iklisi</a><br />
+               <a href="phptxt44.html" class="sub">Apache modülü</a><br />
+               <a href="phptxt45.html" class="sub">Dosyadüzeni</a><br />
+               <a href="phptxt46.html" class="sub">Veritabanı</a><br />
+               <a href="phptxt47.html" class="sub">Hatalar</a><br />
+               <a href="phptxt48.html" class="sub">Diğerleri</a><br />
+               <a href="javascript:myvoid();" class="nav">Özellikler</a>
+               <a href="phptxt51.html" class="sub">HTTP Şifresi</a><br />
+               <a href="phptxt52.html" class="sub">Çerezler</a><br />
+               <a href="phptxt53.html" class="sub">Oturumlar</a><br />
+               <a href="phptxt54.html" class="sub">XForm</a><br />
+               <a href="phptxt55.html" class="sub">DosyaYükleme</a><br />
+               <a href="phptxt56.html" class="sub">UzakDosyalar</a><br />
+               <a href="phptxt57.html" class="sub">Bağlantılar</a><br />
+               <a href="phptxt58.html" class="sub">VTBağlantısı</a>
+               <font color="#8e9ccb"><h3>Gelişmiş</h3></font>
+               <a href="phptxt7.html" class="nav">Php Kökü</a>
+               <a href="phptxt8.html" class="nav">Ekler</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">20 Ocak 2008</span></div>
+<div id="bdy" class="yazi">
+<h2>Kontrol Yapıları</h2>
+
+<h3>Giriş</h3>
+
+Herhangi bir PHP kodlaması, bir dizi deyimden oluşur. Bunlar atama, işlev çağırma, döngüler, koşullu deyimler ya da hiçbir şey yapmayan boş deyimlerdir. Deyimler çoğu kez noktalı virgülle biter. Kıvrımlı parantezler içine alınan deyimler öbeklenmiş olurlar. Öbeklenmiş deyimler de kendi başlarına bir deyimdir.
+<hr>
+<h3>if Deyimi</h3>
+
+Bir çok dilin en önemli yapılarından biridir. Kod parçalarının koşullu çalıştırılmasını sağlar. PHP if deyim C diline benzer.
+<pre>
+if (koşul)
+    deyim
+</pre>
+Daha önce anlatıldığı gibi koşulun mantıksal değeri hesaplanır. Eğer sonuç TRUE ise deyim çalıştırılır. Aksi halde deyim atlanır.
+<br /><br />
+Aşağıdaki örnek, eğer $a büyüktür $b ise "a büyüktür b" yazılmasını sağlar:
+<pre>
+&lt;?php
+if ($a &gt; $b)
+    echo "a büyüktür b";
+?&gt;
+</pre>
+Çoğunlukla koşullu çalıştırılacak deyimler birden çok olur. Tabi ki her deyimi bir 'if' deyimiyle çevrilmez. Bunu yerine deyimler bir araya getirilerek öbeklenir.
+<pre>
+&lt;?php
+if ($a &gt; $b) {
+    echo "a büyüktür b";
+    $b = $a;
+}
+?&gt;
+</pre>
+'if' deyimleri sınırsızca bir diğerinin içinde tanımlanabilir. İç içe tanımlanan 'if' deyimleri daha esnek kodlama oluşturmanızı sağlar.
+<hr>
+
+<h3>else deyimi</h3>
+
+Çoğu zaman bir koşul sağlanınca, deyimi çalıştırmak istersiniz. Ama eğer koşul sağlanmazsa ne yapılacağı 'else' deyimiyle belirtilir. Aşağıdaki kod buna güzel bir örnektir:
+<pre>
+&lt;?php
+if ($a &gt; $b) {
+    echo "a büyüktür b";
+} else {
+    echo "a büyük DEĞİLDİR b";
+}
+?&gt;
+</pre>
+Eğer 'if' deyiminde koşul FALSE ise 'else' deyimi çalıştırılır. Yoksa hiç çalıştırılmaz.
+
+<hr>
+
+<h3>elseif deyimi</h3>
+
+'elseif' adı da üstünde 'else' ve 'if' deyimlerinin birleşmesinden oluşur. 'else' deyiminden farklı olarak burada 'elseif' koşulu TRUE olmadan ilgili deyim çalışmaz. Konu aşağıda örnekle anlatılmıştır:
+<pre>
+&lt;?php
+if ($a &gt; $b) {
+    echo "a büyüktür b";
+} elseif ($a == $b) {
+    echo "a eşittir b";
+} else {
+    echo "a küçüktür b";
+}
+?&gt;
+</pre>
+Bir 'if' deyiminde birkaç tane 'elseif' deyimi olabilir. İlk 'elseif' koşulu TRUE olan deyim çalıştırılır. Arkasından gelenlere bakılmadan geçilir.
+<br /><br />
+Önce 'if' deyimi ve önceki 'elseif' deyimi FALSE olursa o anki 'elseif' koşuluna bakılır. Deyim ise, son koşul TRUE olduğunda çalıştırılır.
+<hr>
+
+<h3>Kontrol yapıları için başka bir seçenek</h3>
+
+PHP bazı kontrol yapıları için başka bir yazım kuralı sunar. Her ikisindeki temel kural kıvrımlı parantez açma yerine iki nokta üst üste kullanılmasıdır. Kapatma pazarntezi yerine de endif;, endwhile;, endfor;, endforeach;, endswitch;, kullanılır.
+<pre>
+&lt;?php if ($a == 5): ?&gt;
+A eşittir 5
+&lt;?php endif; ?&gt;
+</pre>
+Yukarıdaki örnekte HTML bloğu "A eşittir 5" 'if' deyimi içinde tanımlanmıştır. Bu blok "$a eşittir 5" olduğunda yazdırılır.
+<br /><br />
+Diğer yazım kuralı seçeneği 'else' ve 'elseif' için de geçerlidir.
+<pre>
+&lt;?php
+if ($a == 5):
+    echo "a eşittir 5";
+    echo "...";
+elseif ($a == 6):
+    echo "a eşittir 6";
+    echo "!!!";
+else:
+    echo "a ne 5 ne de 6 sayısına eşittir";
+endif;
+?&gt;
+</pre>
+<hr>
+
+<h3>while deyimi</h3>
+
+'while' döngüleri PHP içindeki en basit döngü türüdür. C dilindeki tanıma benzerler
+<pre>
+while (koşul)
+    deyim
+</pre>
+'while' deyiminin anlamı basittir. 'while' içinde tanımlanmış deyimlerin yinelenerek çalıştırılmasını sağlar. Burada koşul doğruysa deyimler çalıştırılır. Koşulun değeri her döngü adımında yeniden hesaplanır ve kontrol edilir. Koşulu oluşturan değerler döngü içinde değişse de kontrol, döngü bitmeden yapılmadığından işlemler döngü sonuna değin devam eder.
+<br /><br />
+'if' deyiminde olduğu gibi deyimleri kıvrımlı parantezlerle öbekleyebilirsiniz. Hatta diğer yazım kuralıyla tanımlama olanağınız da vardır.
+<pre>
+while (koşul):
+    deyim
+    ...
+endwhile;
+</pre>
+Aşağıdaki örnekler özdeştir ve her ikisine 1 den 10 a kadar tüm sayıları yazdırırlar.
+<pre>
+&lt;?php
+/* örnek 1 */
+
+$i = 1;
+while ($i &lt;= 10) {
+    echo $i++;  /* yazdırılan değer
+                   arttırılmadan önceki $i değeridir */
+}
+
+/* örnek 2 */
+
+$i = 1;
+while ($i &lt;= 10):
+    echo $i;
+    $i++;
+endwhile;
+?&gt;
+</pre>
+<hr>
+
+<h3>do-while deyimi</h3>
+
+'do-while' döngüleri 'while' döngülerini benzer. Tek fark, doğruluk kontrolunda kullanılan koşulun döngünün sonunda test edilmesidir. Yani döngü ilk kez mutlaka yapılır. Halbuki 'while' döngüsünde test döngüye girmeden yapılır.
+<br /><br />
+'do-while' döngüsü için tek yazım kuralı vardır:
+<pre>
+&lt;?php
+$i = 0;
+do {
+    echo $i;
+} while ($i &gt; 0);
+?&gt;
+</pre>
+Yukarıdaki döngü en az bir kez çalışır, ilk turdan sonra koşul kontrol edildiğinde FALSE olur ve döngü son bulur.
+<br /><br />
+Gelişmiş C kullanıcıları do-while döngüsünün ortasında çalışmayı durdurmak için 'break' kullanırlar. Aşağıdaki örnekte bu konu işlenmiştir:
+<pre>
+&lt;?php
+do {
+    if ($i &lt; 5) {
+        echo "i yeterince büyük değil";
+        break;
+    }
+    $i *= $factor;
+    if ($i &lt; $minimum_limit) {
+        break;
+    }
+   echo "i tamam";
+
+    /* i işleme */
+
+} while (0);
+?&gt;
+</pre>
+<hr>
+
+<h3>for deyimi</h3>
+
+PHP içinde en karmaşık olan döngü biçimi 'for' döngüleridir. C dilindeki benzerleri gibi çalışır. 'for' döngüsü yazım kuralı şöyledir:
+<pre>
+for (deyim1; koşul2; deyim3)
+    deyim
+</pre>
+İlk deyim (deyim1) koşulsuz olarak döngüden önce bir kez çalıştırılır.
+<br /><br />
+Her döngünün başında koşul2 hesaplanır. Eğer değer TRUE ise döngüye devam edilir (döngü içindeki deyim çalıştırılır). Eğer FALSE olursa döngü son bulur.
+<br /><br />
+Her döngünün sonunda deyim3 hesaplanır.
+<br /><br />
+Bölümlerdeki deyimler boş olabilir ya da virgülle ayrılmış birden çok deyim olabilir. 'koşul2' boşsa, döngü sonsuza değin sürer. Bu kullanılışsız olmayabilir. Çünkü döngü içinde 'break' kullanarak döngüyü kesme olanağınız vardır.
+<br /><br />
+Aşağıdaki örneklere bakın:
+<pre>
+&lt;?php
+/* örnek 1 */
+
+for ($i = 1; $i &lt;= 10; $i++) {
+    echo $i;
+}
+
+/* örnek 2 */
+
+for ($i = 1; ; $i++) {
+    if ($i &gt; 10) {
+        break;
+    }
+    echo $i;
+}
+
+/* örnek 3 */
+
+$i = 1;
+for (; ; ) {
+    if ($i &gt; 10) {
+        break;
+    }
+    echo $i;
+    $i++;
+}
+
+/* örnek 4 */
+
+for ($i = 1, $j = 0; $i &lt;= 10; $j += $i, print $i, $i++);
+?&gt;
+</pre>
+Tabi ki ilk örnek en güzel görünenidir (belki de dördüncü) ama 'for' döngülerinde boş deyimler kullanımı sıkça olabilmektedir.
+<br /><br />
+PHP döngüler için ikincil yazım kuralını da destekler (iki nokta üst üste).
+<pre>
+for (deyim1; koşul2; deyim3):
+    deyim
+    ...
+endfor;
+</pre>
+<hr>
+
+<h3>foreach deyimi</h3>
+
+Perl ve başka dillerde olduğu gibi PHP 4 'foreach' yapısını sunar. Bu dizilerin öğelerini taramanın en kolay yollarından biridir. 'foreach' yalnız diziler üzerinde çalışır. Başka veri yapılarında kullanılmak istenirse hata verir. İki tür yazım kuralı vardır. İkinci, birinciden çok az farklıdır.
+<pre>
+foreach (dizi_deyimi as $deger)
+    deyim
+foreach (dizi_deyimi as $anahtar => $deger)
+    deyim
+</pre>
+İlk tanım, dizi_deyimi ile belirtilen dizi üzerinde döngü kurar. Her döngüde o anki öğenin değeri 'deger' değişkenine atanır. Dizi göstergesi arttırılır öyle ki bir sonraki döngüde bir sonraki öğeye erişilir.
+<br /><br />
+İkinci tanım da aynı işi yapar tek fark o anki öğenin anahtarı $anahtar değişkenine atanırken $deger ise öğenin değerini alır.
+<br /><br />
+PHP 5 den beri nesneleri de aynı komutla işleme olanağı doğmuştur.
+<br /><br />
+    Not: 'foreach' çalışmaya başladığında, içsel gösterge ilk öğeyi gösterecek biçimde düzenlenir. Bu nedenle her döngüden önce reset() kullanmaya gerek yoktur.
+<br /><br />
+    Not: Dizi ayrıca gösterilmezse, 'foreach' işlemi dizinin kopyası üzerinde çalışır. 'foreach' işleminin dizi göstergesi olarak yan etkiler vardır. Dizi göstergesini döngü içinde ya da döngü dışında reset() yapmadan kullanmayın.
+<br /><br />
+PHP 5 içinde, dizinin öğelerine erişim değişkenin başına ($deger değişkeni) & yazarak sağlanır. Bu biçimiyle dizi öğesinin değeri yerine adresi kullanılır.
+<pre>
+&lt;?php
+$arr = array(1, 2, 3, 4);
+foreach ($arr as &$value) {
+    $value = $value * 2;
+}
+// $arr şimdi array(2, 4, 6, 8)
+unset($value); // son öğeyle ilgili adresi bıraktırır.
+?&gt;
+</pre>
+Eğer dizi adreslenebiliyorsa bu kullanılabilir.
+<h3>UYARI</h3>
+$deger adresi ve dizinin son öğesi 'foreach' döngüsünden sonra da kalır. unset() kullanarak silinmesi önerilir.
+<br /><br />
+    Not: 'foreach'  '@' kullanarak hataların örtülmesine olanak vermez.
+<br /><br />
+Dikkatiniz çektiyse eğer, aşağıdakilerin işlevsel olarak aynı olduğunu bilirsiniz:
+<pre>
+&lt;?php
+$arr = array("one", "two", "three");
+reset($arr);
+while (list(, $value) = each($arr)) {
+    echo "Değer: $value<br />\n";
+}
+
+foreach ($arr as $value) {
+    echo "Değer: $value<br />\n";
+}
+?&gt;
+</pre>
+Aşağıdakiler de işlevsel olarak aynıdır:
+<pre>
+&lt;?php
+$arr = array("one", "two", "three");
+reset($arr);
+while (list($key, $value) = each($arr)) {
+    echo "Anahtar: $key; Value: $value<br />\n";
+}
+
+foreach ($arr as $key =&gt; $value) {
+    echo "Anahtar: $key; Value: $value<br />\n";
+}
+?&gt;
+</pre>
+Kullanımları göstermek için örnekler:
+<pre>
+&lt;?php
+/* foreach örnek 1: yalnız değer */
+
+$a = array(1, 2, 3, 17);
+
+foreach ($a as $v) {
+   echo "Current value of \$a: $v.\n";
+}
+
+/* foreach örnek 2: değer (göstermek için anahtar da yazdırılır) */
+
+$a = array(1, 2, 3, 17);
+
+$i = 0; /* yalnız gösterme amacıyla */
+
+foreach ($a as $v) {
+    echo "\$a[$i] =&gt; $v.\n";
+    $i++;
+}
+
+/* foreach örnek 3: anahtar ve değer */
+
+$a = array(
+    "one" =&gt; 1,
+    "two" =&gt; 2,
+    "three" =&gt; 3,
+    "seventeen" =&gt; 17
+);
+
+foreach ($a as $k =&gt; $v) {
+    echo "\$a[$k] =&gt; $v.\n";
+}
+
+/* foreach örnek 4: çok boyutlu diziler */
+$a = array();
+$a[0][0] = "a";
+$a[0][1] = "b";
+$a[1][0] = "y";
+$a[1][1] = "z";
+
+foreach ($a as $v1) {
+    foreach ($v1 as $v2) {
+        echo "$v2\n";
+    }
+}
+
+/* foreach örnek 5: dinamik diziler */
+
+foreach (array(1, 2, 3, 4, 5) as $v) {
+    echo "$v\n";
+}
+?&gt;
+</pre>
+<hr>
+
+<h3>break deyimi</h3>
+
+'break' for, foreach, while, do-while ya da switch yapılarının çalışmasını durdurur.
+<br /><br />
+'break' seçenek olarak tamsayı parametre kabul eder. Anlamı iç içe tanımlanmış döngülerden kaç düzey yukarıdaki döngüye çıkılacağını belirtmektir.
+<pre>
+&lt;?php
+$arr = array('one', 'two', 'three', 'four', 'stop', 'five');
+while (list(, $val) = each($arr)) {
+    if ($val == 'stop') {
+        break;    /* Burada break 1; de yazabilirsiniz. */
+    }
+    echo "$val<br />\n";
+}
+
+/* Seçimlik parametreyi kullanmak. */
+
+$i = 0;
+while (++$i) {
+    switch ($i) {
+    case 5:
+        echo "At 5<br />\n";
+        break 1;  /* Yalnız switch den çıkılır. */
+    case 10:
+        echo "At 10; bitiyor<br />\n";
+        break 2;  /* hem while hem de switch bitirilir. */
+    default:
+        break;
+    }
+}
+?&gt;
+</pre>
+<hr>
+
+<h3>continue deyimi</h3>
+
+'continue' o anki döngü deyimlerinin kalanını altayıp çalışmaya bir sonraki döngü adımından devam ettirmektir.
+<br /><br />
+    Not: 'continue' açısından PHP 'switch' deyimi döngü yapısı olarak kabul edilir.
+<br /><br />
+'continue' ile yazılan seçimlik parametre (tamsayı) iç içe döngülerden kaç tanesinin atlanacağını söyler.
+<pre>
+&lt;?php
+while (list($key, $value) = each($arr)) {
+    if (!($key % 2)) { // teki üyeleri atla
+        continue;
+    }
+    do_something_odd($value);
+}
+
+$i = 0;
+while ($i++ &lt; 5) {
+    echo "Dışta<br />\n";
+    while (1) {
+        echo "&nbsp;&nbsp;Orta<br />\n";
+        while (1) {
+            echo "&nbsp;&nbsp;İçte<br />\n";
+            continue 3;
+        }
+        echo "Bu hiç çıktı vermez.<br />\n";
+    }
+    echo "Bunu hiç yapmaz.<br />\n";
+}
+?&gt;
+</pre>
+'continue' deyiminden sonra noktalı virgülü kullanmamak karışıklığa neden olur. Yapılmaması gereken aşağıdaki örnekte anlatılmıştır.
+<pre>
+&lt;?php
+  for ($i = 0; $i &lt; 5; ++$i) {
+      if ($i == 2)
+          continue
+      print "$i\n";
+  }
+?&gt;
+</pre>
+Sonuçun aşağıdaki gibi olması beklenir:
+<pre>
+0
+1
+3
+4
+</pre>
+Ama bu kodlamanın çıktısı şöyledir:
+<pre>
+2
+</pre>
+Çünkü print() çağrılınca dönen değer int(1) olur ve yukarıda belirtilen seçimlik parametre gibi olduğu için 'continue' deyimi döngü adımını bitirip sonrakine geçer...
+<hr>
+
+<h3>switch deyimi</h3>
+
+Aynı koşulu kullanan bir dizi 'if' deyimiyle 'switch' deyimi aynı şey demektir. Pekçok ortamda aynı değişkeni (ya da deyimi) birden çok değerle karşılaştırmak ve her biri için değişik kod çalıştırmak istersiniz. İşte bu tam 'switch' deyiminin yaptığı şeydir.
+<br /><br />
+    Not: Başka programlama dillerinden farklı olarak 'continue' deyimi 'switch' deyimiyle 'break' gibi kullanılır. Eğer bir döngü içinde 'switch' deyimi varsa ve döngünün bir sonraki değerle döngüyü sürdürmesi için 'continue 2' kullanılır.
+<br /><br />
+    Not:Unutmayın ki 'switch/case' karşılaştırmayı kaybetmez.
+<br /><br />
+Aşağıdaki iki örnek aynı şeyi iki değişik biçimde yazmayı gösterir.
+<br /><br />
+Örnek 1: 'switch' yapısı
+<pre>
+&lt;?php
+if ($i == 0) {
+    echo "i eşittir 0";
+} elseif ($i == 1) {
+    echo "i eşittir 1";
+} elseif ($i == 2) {
+    echo "i eşittir 2";
+}
+
+switch ($i) {
+case 0:
+    echo "i eşittir 0";
+    break;
+case 1:
+    echo "i eşittir 1";
+    break;
+case 2:
+    echo "i eşittir 2";
+    break;
+}
+?&gt;
+</pre>
+Örnek 2: switch yapısı yazı dizilerinin kullanılmasını sağlar.
+<pre>
+&lt;?php
+switch ($i) {
+case "apple":
+    echo "i elmadır";
+    break;
+case "bar":
+    echo "i çubuktur";
+    break;
+case "cake":
+    echo "i kektir";
+    break;
+}
+?&gt;
+</pre>
+Hataları önlemek için 'switch' deyiminin nasıl çalıştığını iyi öğrenmek gerekir. 'switch' deyimi satır satır çalışır (daha doğrusu deyim deyim çalışır). İlk başta hiçbir kod çalıştırılmaz. 'switch' koşulundaki değere uygun bir 'case' bulununca, 'break' görünceye dek tüm deyimler çalıştırılır ya da 'switch' bloğu bitinceye kadar çalıştırmaya devam edilir. Bunun anlamı 'switch' deyiminde bir sonraki 'case' deyimleri de çalıştırılmaktadır.
+<pre>
+&lt;?php
+switch ($i) {
+case 0:
+    echo "i eşittir 0";
+case 1:
+    echo "i eşittir 1";
+case 2:
+    echo "i eşittir 2";
+}
+?&gt;
+</pre>
+Burada eger $i değeri 0 ise 'switch' bütün echo deyimlerini çalıştırır. Eğer $i değeri 2 ise tek çıktı olan 'i eşittir 2' çıktısı alınır.
+<br /><br />
+'switch' deyiminde koşul bir kez hesaplanır ve sonuç her 'case' ile karşılaştırılır. Ama 'elseif' deyiminde koşul yeniden hesaplanır.
+<br /><br />
+'case' deyimleri listesi boş olabilir. O zaman kontrol bir sonraki 'case' deyimlerine geçer.
+<pre>
+&lt;?php
+switch ($i) {
+case 0:
+case 1:
+case 2:
+    echo "i 3 den azdır ama eksi değildir";
+    break;
+case 3:
+    echo "i 3 dür";
+}
+?&gt;
+</pre>
+Özel durum 'default' koşuludur. Diğer case tanımlarıyla uyumlu olmayan herşeyi içerir. Örnek:
+<pre>
+&lt;?php
+switch ($i) {
+case 0:
+    echo "i eşittir 0";
+    break;
+case 1:
+    echo "i eşittir 1";
+    break;
+case 2:
+    echo "i eşittir 2";
+    break;
+default:
+    echo "i 0, 1 ya da 2 değildir";
+}
+?&gt;
+</pre>
+'case' deyimi sonunda basit türe indirgenebilen herhangi bir deyim olabilir. Tam sayılar, kayan noktalı sayılar ve yazı dizileri gibi. Diziler ve nesneler kullanılamaz (ancak bu kural basit bir tür ile adreslenmemiş dizi ve nesneler için geçerli değildir).
+<br /><br />
+İkincil yazım kuralı 'switch' yapısında da kullanılabilir.
+<pre>
+&lt;?php
+switch ($i):
+case 0:
+    echo "i eşittir 0";
+    break;
+case 1:
+    echo "i eşittir 1";
+    break;
+case 2:
+    echo "i eşittir 2";
+    break;
+default:
+    echo "i 0, 1 ya da 2i değildir";
+endswitch;
+?&gt;
+</pre>
+<hr>
+
+<h3>declare deyimi</h3>
+
+'decleare' yapısı bir blok kod için çalışma yönlendirmesi kurulmasını sağlar. 'decleare' yazım kuralı diğer akış kontrolu yapılarına benzer.
+<pre>
+declare (yönlendirme)
+    deyim
+</pre>
+Yönlendirme bölümü 'declare' yapısındaki bloğun davranışlarına izin verir. Şu anda yalnız bir yönlendirme tanınır: O da 'ticks' yönlendirmesi.
+<br /><br />
+'decleare' bloğunun deyim bölümü çalıştırılır. Nasıl çalıştırıldığı yönlendirme kurulumu sırasındaki kurala bağlıdır. Burada yan etkilerin neler olduğu bilinmelidir.
+<br /><br />
+'declare' yapısı, peşinden gelen tüm kodu da içerecek biçimde evrensel kapsamda da kullanır.
+<pre>
+&lt;?php
+// aşağıdakiler aynıdır:
+
+// Bunu kullanabilirsiniz
+declare(ticks=1) {
+    // tüm kodlama buradadır
+}
+
+// ya da bunu tamınlayabilirsiniz:
+declare(ticks=1);
+// tüm kodlama buradadır
+?&gt;
+</pre>
+<hr>
+<h3>Ticks</h3>
+kodu tararken, N alt-düzey komut çalıştırılmasıyla hesaplanan 'tick', 'declare' bloğu yönlendirme bölümüyle ilgili bir olaydır
+<br /><br />
+Her 'tick' ile oluşan olaylar 'register_tick_function()' kullanarak tanımlanır.
+<br /><br />
+Örnek 1: PHP kodunun bir bölümünün profili
+<pre>
+&lt;?php
+// çağrıldığında zamanı kaydeden işlev
+function profile($dump = FALSE)
+{
+    static $profile;
+
+    // Return the times stored in profile, then erase it
+    if ($dump) {
+        $temp = $profile;
+        unset($profile);
+        return $temp;
+    }
+
+    $profile[] = microtime();
+}
+
+// tick ellemesi kurma
+register_tick_function("profile");
+
+// declare bloğundan önce işlevi ilkleme
+profile();
+
+// Kod bloğunu çalıştırma. Her ikinci deyimden sonra tick fırlatma
+declare(ticks=2) {
+    for ($x = 1; $x &lt; 50; ++$x) {
+        echo similar_text(md5($x), md5($x*$x)), "<br />;";
+    }
+}
+
+// profil içinde saklanan verileri görüntüleme
+print_r(profile(TRUE));
+?&gt;
+</pre>
+Örnek profillerinde 'declare' bloğunun PHP kodlaması her ikinci alt-düzey komut çalıştırıldığında zamanı kaydeder. Bu bilgi kodlamanın yavaş bölümlerini anlamak için kullanışlıdır. Bu işlem için başka yöntemler de kullanılabilir ama tick kullanmak hem daha kolay hem dx e daha uygundur.
+<br /><br />
+Tickler irdelemeye (debug) çok uygundur (çoklu işlem uyarlamada, art alanda girdi/çıktı işlemleri ve diğer işlemler için kullanılabilir).
+<br /><br />
+'register_tick_function()' ve 'unregister_tick_function()' işlevlerine de bakın.
+<hr>
+
+<h3>return deyimi</h3>
+
+Eğer bir işlevin içinden çağrılırsa, 'return()' deyimi o anki işlevi bitirir ve parametresini işlevin değeri olarak döndürür. 'return()', 'eval()' deyimini de bitirir, kodlama dosyasını da bitirir.
+<br /><br />
+Evrensel kaspamdan çağrılırsa, o anki kodlama dosyası son bulur. Eğer o anki dosya bir 'include()' ya da 'required()' dosyasıysa, o zaman kontrol o dosyayı çağıran kodlamaya geçer. Biraz daha ileri gidersek, eğer çağrılan dosya 'include()' dosyasıysa, 'return()' deyimi parametresi 'include()' deyiminin dönen değeri olur. Eğer o anki kodlama dosyası, php.ini içinde 'auto_prepend_file' ya da 'auto_append_file_configuration' seçeneklerinde tanımlanmışsa, kodlamanın çalışması durur.
+<br /><br />
+    Not: Unutmayın ki 'return()' bir işlev değil PHP dil yapısı parçasıdır. Parametreleri çevreliyen parantez gerekmez. Onları çıkartmak bir alışkanlıktır. 
+<br /><br />
+    Not: Eğer adres döndürüyorsanız parantezleri hiç kullanmazsınız. deyim değeri yerine değişken adresi döndürmek için return($a); kullanabilirsiniz. Burada $a döndürmüyorsunuz. ($a) ile deyimin değerini yani $a değerini döndürürsünüz.
+<hr>
+
+<h3>require() işlemi</h3>
+
+'require()' işlemi dosya ekler ve çalıştırır.
+<br /><br />
+'require()' bir dosyayı eklemek ve çalıştırmak için kullanılır. Buradaki dosya eklemenin nasıl çalıştığı 'include()' belgelerinde anlatılır.
+<br /><br />
+'require()' ve 'include()' hemen her yönüyle birbirlerine eşdeğerdir. Her ikisi de uyarı üretirler ama 'required()' sonucu kritik hata düzeyindedir. Eğer olmayan bir dosya yüzünde o anki sayfanın çalışmasının durmasını isterseniz 'require()' kullanmaktan çekinmeyin. 'include()' bu biçimde çalışmaz. Kodlama hiçbir şeye aldırmadan çalışmasına devam eder. 'include_path' (ekleme yolu) kurulumunun doğru olmasını da sağlamalısınız.
+<br /><br />
+Örnek 1: Basit 'require()' örneği
+<pre>
+&lt;?php
+
+require 'prepend.php';
+
+require $somefile;
+
+require ('somefile.txt');
+
+?&gt;
+</pre>
+Daha çok örnek için 'include()' belgelerine bakın.
+<br /><br />
+Not: PHP 4.0.2 sürümünden önce uygulama şöyle: 'require()' her koşulda hedef dosyayı okur (o satır çalıştırılmamış bile olsa). Koşullu deyimler 'require()' işlemini engeleyemez. Aynı biçimde döngüler de 'require()' davranışını etkilemez. Eğer 'require()' ile yüklenen dosya içeriği döngü içinde olsa bile 'require()' bir kez kullanılır.
+<br /><br />
+    Not: Bu bir dil işlemi olduğundan değişken işlevler kullanarak çağrılmaz.
+<br />
+<h3>UYARI</h3>
+PHP 4.3.0 öncesi Windows sürümleri dışarından dosya eklenmesini 'allow_url_fopen' açık olsa bile desteklemez.
+<br /><br />
+include(), require_once(), include_once(), get_included_files(), eval(), file(), readfile(), virtual() ve include_path açıklamalarına da bakın.
+<hr>
+
+<h3>include()</h3>
+
+'include()' deyimi, belirtilen dosyayı okuyup kodlamaya ekler ve çalıştırır
+<br /><br />
+Aşağıdakiler 'require()' işlemine de uygulanır. Bu iki yapı birbirine eşdeğerdir. 
+<br /><br />
+Eklenecek dosyalar o anda çalışılan dosya yoluna göreceli olarak "include_path" içeriği altında aranır. Örneğin o anki dosya yolu "/www/" ise, "include/a.php" eklenecekse ve "include_path" değeri "libraries" ise daha sonra da "b.php" eklenecekse arama önce /www/libraries ve /www/include yollarında aranır. Eğer dosya "./" ya da "../" ile başlarsa "b.php" dosyası yalnız o anki klasörde aranır.
+<br /><br />
+Dosya eklendiğinde, içindeki değişkenler eklendikleri yerden başlayarak kalıt kapsamını kullanır. Çağrılan dosyadaki herhangi bir değişken eklendiği noktadan başlıyarak çağıran kodlamada da kullanılabilir. dosyadaki sınıflar ve nesneler de evrensel kapsam içinde tanımlanmış olurlar.
+<br /><br />
+Basit 'include()' örneği
+<br /><br />
+vars.php dosyası:
+<pre>
+&lt;?php
+
+$color = 'yeşil';
+$fruit = 'elma';
+
+?&gt;
+</pre>
+test.php dosyası:
+<pre>
+&lt;?php
+echo "Bir $color $fruit"; // Bir
+include 'vars.php';
+echo "Bir $color $fruit"; // Bir yeşil elma
+?&gt;
+</pre>
+Eğer çağıran dosyadaki bir işlevin içinde include varsa, çağrılan dosyadaki herşey bu işlevin içinde tanımlanmış gibi yorumlanır. Böylece herşey işlevin değişken kapsamı içinde olur. Bundan ayrı olan sihirli değişkenlerdir. Onlar 'include' işleminden önce taramayla hesaplanır.
+<br /><br />
+İşlev içinde ekleme örneği
+<pre>
+&lt;?php
+
+function foo()
+{
+    global $color;
+    include 'vars.php';
+    echo "Bir $color $fruit";
+}
+
+/* vars.php foo() kapsamı içindedir            *
+ * $fruit bu kapsam dışında tanımlı değildir   *
+ * $color erenseldir çünkü öyle tanımlanmıştır */
+
+foo();                      // Bir yeşil elma
+echo "Bir $color $fruit";   // Bir yeşil
+
+?&gt;
+</pre>
+Bir dosya eklendiğinde, tarama PHP konumundan çıkar ve hedef dosyanın başında HTML konumuna geçer. Bu nedenle hedef dosyadaki herhangi bir kodun PHP kodu olarak kullanılabilmesi için geçerli başlangıç ve bitiş biçimleri olmalıdır.
+<br /><br />
+Eğer "URL fopen wrapper" PHP içinde açılmışsa (varsayılan ayarlar dosyası), açılacak dosyayı yerel dosya yolu yerine URL adresi kullanarak belirtebilirsiniz (HTTP ya da benzeri desteklenen paketlerle... Bu konuda protokollara göre var olan listeye bakın). Eğer hedef sunucu hedef dosyayı PHP dosyası olarak algılarsa, eklenen dosyaya değişkenler URL adresi istek dizisi (request string) olarak geçirilebilir (HTTP GET ile). Bu dosyayı ekledikten sonra çağıran dosyadaki değişkenleri kalıt olarak kullanmakla aynı şey değildir. Kodlama uzaktaki sunucuda çalıştırılır ve sonuç yerel kodlamaya eklenir.
+<h3>UYARI</h3>
+<br /><br />
+PHP 4.3.0 öncesi windows sürümleri uzaktan eklenecek PHP kodlarını 'allow_url_fopen' açılmış bile olsa desteklemez.
+<br /><br />
+HTTP üzerinden 'include()' örneği:
+<pre>
+&lt;?php
+
+/* Bu örnek www.example.com adresinin .php dosyalarını tanıyacak
+ * biçimde kurulmuştur ve .txt dosyaları algılanmaz. Aynı zamanda
+ * buradaki 'Çalışır' anlamı; $foo ve $bar değişkenlerinin eklenecek
+ * dosyada var olduğunun bilinmesidir */
+
+// Çalışmaz; file.txt www.example.com tarafından PHP olarak algılanmaz
+include 'http://www.example.com/file.txt?foo=1&bar=2';
+
+// Çalışmaz; 'file.php?foo=1&bar=2' adlı dosyayı
+// yerel dosya sisteminde arar.
+include 'file.php?foo=1&bar=2';
+
+// Çalışır.
+include 'http://www.example.com/file.php?foo=1&bar=2';
+
+$foo = 1;
+$bar = 2;
+include 'file.txt';  // Çalışır.
+include 'file.php';  // Çalışır.
+
+?&gt;
+</pre>
+<h3>UYARI</h3>
+<h3>Güvenlik Uyarısı</h3>
+Uzaktaki dosya belki uzaktaki sunucuda işlenir (dosya uzantısına ve uzak sunucunun PHP kullanmasına bağlı olarak), ama geçerli bir PHP kodlaması üretmelidir. Çünkü yerel sunucuda kodu bu biçimde işleyecektir. Eğer dosya uzaktaki sunucuda işlenir ve yalnız çıktı gönderirse readfile() çok daha uygun bir işlem olur. Uzaktaki kodun güvenli olmasına özen gösterilmelidir.
+<br /><br />
+Uzaktaki dosyalar, fopen() ve file() işlemlerine de bakın
+<br /><br />
+Dönüşleri ele alma: eklenen dosyada çalışmayı durdurmak için içindeki bir 'return' deyimini çalıştırmak olanağı vardır. 'return' deyimi çalıştığında eklenen dosya biter ve kontrol çağıran dosyaya geçer. 'return' deyimiyle değer de döndürmek olanağı vardır. 'include' ile çağrılan dosyanın dönen değerini normal bir işlevden dönen değer gibi kullanabilir. Ama bu uzaktan eklenen dosyalarda olmayabilir (o dosya geçerli PHP başlama ve bitiş biçimleri içerirse o zaman return kullanılabilir). 
+<br /><br />
+'include()' özel dil yapısı olduğundan, parametresinin çevresinde parantezlere gerek yoktur. Dönen değeri karşılaştırırken dikkatli olunmalıdır.
+<br /><br />
+'include' dönüşündeki değeri karşılaştıran örnek:
+<pre>
+&lt;?php
+// çalışmaz, include(('vars.php') == 'OK'), olarak hesaplanır Yani: include('')
+if (include('vars.php') == 'OK') {
+    echo 'OK';
+}
+
+// çalışır
+if ((include 'vars.php') == 'OK') {
+    echo 'OK';
+}
+?&gt;
+</pre>
+    Not: PHP 3 içinde, bir işlev bloğu değilse, return bir blok içinde varsayılmaz, o zaman da yalnız o işlev için geçerli olur tüm dosyayı ilgilendirmez.
+<br /><br />
+include() ve return() deyimleri örneği
+return.php
+<pre>
+&lt;?php
+
+$var = 'PHP';
+
+return $var;
+
+?&gt;
+</pre>
+noreturn.php
+<pre>
+&lt;?php
+
+$var = 'PHP';
+
+?&gt;
+</pre>
+testreturns.php
+<pre>
+&lt;?php
+$foo = include 'return.php';
+echo $foo; // 'PHP' yazar
+$bar = include 'noreturn.php';
+echo $bar; // 1 yazar
+?&gt;
+</pre>
+$bar değeri 1 olur çünkü 'include' başarılı olmuştur. Yukarıdaki örneklerde var olan ayrıcalığı gözlemleyin. İlkinde "return()" "include" dosyasıyla kullanılır, ikincisinde kullanılmaz. Eğer dosya eklenemezse FALSE döner ve E_WARNING üretir.
+<br /><br />
+Eğer eklenen dosyada işlev tanımları varsa, çağıran dosyada da kullanılabilirler. Bunların return öncesinde ya da arkasında olması fark etmez. Eğer dosya iki kez eklenecek olursa PHP 'işlevler daha önce tanımlandı' diye hata mesajı verir. En uygunu dosyayı var mı diye bakmak değil 'include_once()' (bir kez ekle) işlemini kullanmak daha uygundur.
+<br /><br />
+PHP dosyasını bir değişkene eklemenin (include) bir başka yolu, çıktıyı yakalamakla ilgili "çıktı kontrol işlevlerini" 'include()' ile kullanmaktır. Örneğin:
+<br /><br />
+Çıktı tamponu kullanarak PHP dosyasını bir yazı dizisinede tutma örneği
+<pre>
+&lt;?php
+$string = get_include_contents('somefile.php');
+
+function get_include_contents($filename) {
+    if (is_file($filename)) {
+        ob_start();
+        include $filename;
+        $contents = ob_get_contents();
+        ob_end_clean();
+        return $contents;
+    }
+    return false;
+}
+
+?&gt;
+</pre>
+Kodlamaya otomatik dosya eklemek için 'auto_prepend_file' ve 'auto_append_file' ayarlarına da bakmak gerekir (php.ini seçeneklerindendir).
+<br /><br />
+    Not: Bu dil yapısı olduğundan ve bir işlev olmadığından değişken işlevlerle çağırılamaz.
+<br /><br />
+require(), require_once(), include_once(), get_included_files(), readfile(), virtual(), ve include_path açıklamalarına bakın.
+<hr>
+
+<h3>require_once()</h3>
+
+'required_once()' deyimi kodlamanın çalışması sırasında belirtilen dosyayı ekler ve çalışıtırır. Bu 'require()' ile aynı davranıştır. Tek fark, eğer bu dosya daha önce yüklenmişse, yeniden yüklenmez.
+<br /><br />
+Bir kodlamanın çalışması sırasında aynı dosyanın birden çok eklenemsini önlemek için 'required_once()' kullanılır. Böylece işlevler, nesneler iki kez yüklenmeyisle çıkacak sorun engellenmiş olur.
+<br /><br />
+Dönen değerler 'include()' ile aynıdır. Eğer dosya daha önce eklenmişse bu işlem TRUE döndürür.
+<br /><br />
+    Not: PHP 4.0.1 sürümüyle dile require_once() eklendi.
+<br /><br />
+    Not: Bilinmesi gereken çok önemli bir kural vardır. 'required_once()' ya da 'include_once()' büyük ve küçük harf duyarlı olmayan işletim sistemlerinde (Windows gibi) beklene sonuçları vermez.
+<br /><br />
+'require_once()' Windows üzerinde büyük küçük harf duyarlı değildir.
+<pre>
+    &lt;?php
+    require_once "a.php"; // Bu a.php dosyasını ekler
+    require_once "A.php"; // PHP 4 sürümünde bu yine a.php ekler (windows için)
+    ?&gt;
+</pre>
+Bu davranış PHP 5 sürümlerinde değişti. Dosya yolu 'normalize' edildi ki  C:\PROGRA~1\A.php ve C:\Program Files\a.php aynı dosya olsun ve bir kez eklensin.
+<h3>UYARI</h3>
+PHP 4.3.0 öncesi windows sürümleri uzak dosyaların eklenmesini desteklemez.
+<br /><br />
+require(), include(), include_once(), get_required_files(), get_included_files(), readfile(), ve virtual() açıklamalarına da bakın.
+<hr>
+<h3>include_once()</h3>
+
+'include_once()' kodun çalışması sırasında belirtilen dosyayı ekler ve çalıştırır. Bu 'include()' ile aynı özelliktir. Farkı, eğer kod daha önce yüklenmişse yeniden eklenmez.
+<br /><br />
+Kodlamanın belirli bir anında çalışırken birden çok ekleme olasılığını kaldırmak için kullanılmalıdır. Özellikle işlevlerde, nesnelerde ve diğer tanımlamalarda yararlı olur.
+<br /><br />
+Dönen değerler "include()" ile aynıdır. Eğer dosya daha öce eklenmişse bu işlem TRUE döndürür.
+<br /><br />
+    Not: PHP 4.0.1 sürümüyle dile include_once() eklendi.
+<br /><br />
+    Not: Bilinmesi gereken çok önemli bir kural vardır. 'required_once()' ya da 'include_once()' büyük ve küçük harf duyarlı olmayan işletim sistemlerinde (Windows gibi) beklene sonuçları vermez.
+<br /><br />
+'include_once()' Windows üzerinde büyük küçük harf duyarlı değildir.
+<pre>
+    &lt;?php
+    include_once "a.php"; // bu a.php ekler
+    include_once "A.php"; // bu a.php dosyasını yeniden ekler (windows)
+    ?&gt;
+</pre>
+Bu davranış PHP 5 sürümlerinde değişti. Dosya yolu 'normalize' edildi ki  C:\PROGRA~1\A.php ve C:\Program Files\a.php aynı dosya olsun ve bir kez eklensin.
+<h3>UYARI</h3>
+PHP 4.3.0 öncesi windows sürümleri uzak dosyaların eklenmesini desteklemez.
+<br /><br />
+include(), require(), require_once(), get_required_files(), get_included_files(), readfile(), ve virtual() aöıklamalarına da bakın.
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

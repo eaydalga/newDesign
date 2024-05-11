@@ -1,0 +1,449 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Hyperlink Preprocessor </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">16 Nisan 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>Newt İşlevleri</h2>
+
+<h3>Giriş</h3>
+
+RedHat Newt kitaplığı için bu bir PHP dil uzantısıdır. Terminal tabanlı
+pencere ve widget kitaplığı kullanılır. Kullanıcı uyumlu arayüzü olan
+uygulamalar için gerekir. Bir kez bu uzantı yüklendi mi PHP Newt widget'lerine
+erişebilir (pencereler, düğmeler, kontrol kutuları, radyo kutuları, etiketler,
+düzenleme kutuları, kaydırmalar, yazı alanları, ölçüm cetvelleri gibi). Bu
+uzantının kullanımı Newt ile C programlama dili API'lerine çok benzer.
+
+<h3>Gereksinim</h3>
+
+Bu modül RedHat Newt kitaplığı işlevlerini kullanır. Sizin Newt 0.51.0 sonrası
+sürümleri yüklemiş olmanız gerekir.
+
+<h3>Kurulum</h3>
+
+Bu PECL uzantısı PHP ile paketlenmemiştir. PECL uzantıları kurulumunda daha
+çok bilgi bulunabilir. Diğer bilgiler için  http://pecl.php.net/package/newt
+adresine bakılmalıdır.
+<br /><br />
+PHP 4 altında bu uzantı /ext dosya yolunda bulunur. Bunu kullanabilmek için
+--with-newt[=DIR] ayarlama seçeneği derlemede kullanılmalıdır.
+<br /><br />
+
+    Not: Bu uzantı windows ortamında yoktur
+<br>
+Bu uzantıyı derlemek için aynı zamanda curses ve slang kitaplıklarına da gerek duyarsınız. Bu kitaplıkların yerlerini belirlemek için aşağıdaki ayarlama seçeneklerini kullanın:
+<pre>
+ --with-curses-dir=/path/to/libcurses --with-slang-dir=/path/to/libslang
+</pre>
+
+<h3>Kaynak Türleri</h3>
+
+Bu uzantı iki kaynak türü kullanır: "newt component" ve "newt grid".
+"newt component" kaynak türü işlevlerden döner. O da newt widget yaratır.
+(örneğin newt_button). Kaynak türü "newt grid"  parçalar için özel bir
+köprüdür. Bu işlevlerden biri newt_create_grid() işlevidir.
+
+<h3>Önceden Tanımlanmış Değişmezler</h3>
+
+Aşağıdaki değişmezler bu uzantıyla tanımlanır ve yalnız bu uzantı PHP içinde
+çalışınca anlamı cardır.
+
+<h3>Newt form çıkış nedenleri</h3>
+
+<table class="yazi">
+<tr><td>Değişmez</td><td>Açıklama</td></tr>
+<tr><td>NEWT_EXIT_HOTKEY</td><td>newt_form_add_hot_key() ile tanımlanan tuşa basıldı</td></tr>
+<tr><td>NEWT_EXIT_COMPONENT</td><td>Bazı parçalar giriş bilgilerinin bittiğini belirtir.</td></tr>
+<tr><td>NEWT_EXIT_FDREADY</td><td>newt_form_watch_fd() de kullanılan dosya tanımlayıcısı okumaya ve yazmaya hazırdır</td></tr>
+<tr><td>NEWT_EXIT_TIMER</td><td>newt_form_set_timer() ile belirtilen süre bitti</td></tr>
+</table>
+
+<h3>Newt renk takımı</h3>
+<pre>
+Değişmez
+NEWT_COLORSET_ROOT 	 
+NEWT_COLORSET_BORDER 	 
+NEWT_COLORSET_WINDOW 	 
+NEWT_COLORSET_SHADOW 	 
+NEWT_COLORSET_TITLE 	 
+NEWT_COLORSET_BUTTON 	 
+NEWT_COLORSET_ACTBUTTON 	 
+NEWT_COLORSET_CHECKBOX 	 
+NEWT_COLORSET_ACTCHECKBOX 	 
+NEWT_COLORSET_ENTRY 	 
+NEWT_COLORSET_LABEL 	 
+NEWT_COLORSET_LISTBOX 	 
+NEWT_COLORSET_ACTLISTBOX 	 
+NEWT_COLORSET_TEXTBOX 	 
+NEWT_COLORSET_ACTTEXTBOX 	 
+NEWT_COLORSET_HELPLINE 	 
+NEWT_COLORSET_ROOTTEXT 	 
+NEWT_COLORSET_ROOTTEXT 	 
+NEWT_COLORSET_EMPTYSCALE 	 
+NEWT_COLORSET_FULLSCALE 	 
+NEWT_COLORSET_DISENTRY 	 
+NEWT_COLORSET_COMPACTBUTTON 	 
+NEWT_COLORSET_ACTSELLISTBOX 	 
+NEWT_COLORSET_SELLISTBOX 	 
+</pre>
+<h3>Newt Değişgeç durum kodları</h3>
+
+<pre>
+Değişmez
+NEWT_ARG_LAST 	 
+NEWT_ARG_APPEND 	 
+</pre>
+
+<h3>Newt Durum Kodu Sezme
+
+<pre>
+Değişmez
+NEWT_FLAGS_SET 	 
+NEWT_FLAGS_RESET 	 
+NEWT_FLAGS_TOGGLE 	 
+</pre>
+
+<h3>Newt Parçaları Durum Kodları</h3>
+
+<table class="yazi">
+<tr><td>Değişmez</td><td>Açıklama</td></tr>
+<tr><td>NEWT_FLAG_RETURNEXIT</td><td>Parça etkinleşince giriş bilgisinden
+çık</td></tr>
+<tr><td>NEWT_FLAG_HIDDEN</td><td>Parça gizlidir</td></tr>
+<tr><td>NEWT_FLAG_SCROLL</td><td>parça kaydırılabilir</td></tr>
+<tr><td>NEWT_FLAG_DISABLED</td><td>Parça kapalıdır</td></tr>
+<tr><td>NEWT_FLAG_BORDER</td><td></td></tr>
+<tr><td>NEWT_FLAG_WRAP</td><td>Yazıyı satırlarda dolandır</td></tr>
+<tr><td>NEWT_FLAG_NOF12</td><td>F12'ye basarak giriş bilgilerinden
+çıkma</td></tr>
+<tr><td>NEWT_FLAG_MULTIPLE</td><td></td></tr>
+<tr><td>NEWT_FLAG_SELECTED</td><td>Parça seçildi</td></tr>
+<tr><td>NEWT_FLAG_CHECKBOX</td><td>Parça onay kutusudur</td></tr>
+<tr><td>NEWT_FLAG_PASSWORD</td><td>Parça şifre girişidir</td></tr>
+<tr><td>NEWT_FLAG_SHOWCURSOR</td><td>İmleç göster</td></tr>
+</table>
+
+<h3>File Tanımı Durum Kodları</h3>
+
+Değişmez 	Açıklama
+NEWT_FD_READ 	 
+NEWT_FD_WRITE 	 
+NEWT_FD_EXCEPT 	 
+
+<h3>Onay Kutusu Ağacı Durum Kodu</h3>
+
+<pre>
+Değişmez
+NEWT_CHECKBOXTREE_UNSELECTABLE 	 
+NEWT_CHECKBOXTREE_HIDE_BOX 	 
+NEWT_CHECKBOXTREE_COLLAPSED 	 
+NEWT_CHECKBOXTREE_EXPANDED 	 
+NEWT_CHECKBOXTREE_UNSELECTED 	 
+NEWT_CHECKBOXTREE_SELECTED 	 
+</pre>
+
+<h3>Giriş Noktası Durum Kodu</h3>
+
+<pre>
+Değişmez
+NEWT_ENTRY_SCROLL 	 
+NEWT_ENTRY_HIDDEN 	 
+NEWT_ENTRY_RETURNEXIT 	 
+NEWT_ENTRY_DISABLED 	 
+</pre>
+
+<h3>Liste kutusu Durum Kodları</h3>
+
+<pre>
+Değişmez
+NEWT_LISTBOX_RETURNEXIT 	 
+</pre>
+
+<h3>Yazı kutusu Durum Kodları</h3>
+
+<table class="yazi">
+<tr><td>Değişmez</td><td>Açıklama</td></tr>
+<tr><td>NEWT_TEXTBOX_WRAP</td><td>yazı kutusunda yazıyı dolandır</td></tr>
+<tr><td>NEWT_TEXTBOX_SCROLL</td><td>Yazı kutusunda yazı satırlarını
+kaydır</td></tr>
+</table>
+
+<h3>Form Durum Kodları</h3>
+
+<table class="yazi">
+<tr><td>Değişmez</td><td>Açıklama</td></tr>
+<tr><td>NEWT_FORM_NOF12</td><td>F12'ye basılınca giriş bilgisinden çıkma</td></tr>
+</table>
+
+<h3>Newt Anahtarları</h3>
+
+<pre>
+Değişmez
+NEWT_KEY_TAB 	 
+NEWT_KEY_ENTER 	 
+NEWT_KEY_SUSPEND 	 
+NEWT_KEY_ESCAPE 	 
+NEWT_KEY_RETURN 	 
+NEWT_KEY_EXTRA_BASE 	 
+NEWT_KEY_UP 	 
+NEWT_KEY_DOWN 	 
+NEWT_KEY_LEFT 	 
+NEWT_KEY_RIGHT 	 
+NEWT_KEY_BKSPC 	 
+NEWT_KEY_DELETE 	 
+NEWT_KEY_HOME 	 
+NEWT_KEY_END 	 
+NEWT_KEY_UNTAB 	 
+NEWT_KEY_PGUP 	 
+NEWT_KEY_PGDN 	 
+NEWT_KEY_INSERT 	 
+NEWT_KEY_F1 	 
+NEWT_KEY_F2 	 
+NEWT_KEY_F3 	 
+NEWT_KEY_F4 	 
+NEWT_KEY_F5 	 
+NEWT_KEY_F6 	 
+NEWT_KEY_F7 	 
+NEWT_KEY_F8 	 
+NEWT_KEY_F9 	 
+NEWT_KEY_F10 	 
+NEWT_KEY_F11 	 
+NEWT_KEY_F12 	 
+NEWT_KEY_RESIZE 	 
+</pre>
+
+<h3>Newt Çapaları</h3>
+
+<pre>
+Değişmez
+NEWT_ANCHOR_LEFT 	 
+NEWT_ANCHOR_RIGHT 	 
+NEWT_ANCHOR_TOP 	 
+NEWT_ANCHOR_BOTTOM 	 
+</pre>
+
+<h3>Grid Durum Kodları</h3>
+
+<pre>
+Değişmez
+NEWT_GRID_FLAG_GROWX 	 
+NEWT_GRID_FLAG_GROWY 	 
+NEWT_GRID_EMPTY 	 
+NEWT_GRID_COMPONENT 	 
+NEWT_GRID_SUBGRID 	 
+</pre>
+
+<h3>Örnekler</h3>
+
+Bu örnek RedHat "ayarlama" hazır program arayüzünü kullanır. Yazı konumunda
+çalışır.
+
+<h3>Örnek-1 Newt Kullanım Örneği</h3>
+<pre>
+&lt;?php
+    newt_init ();
+    newt_cls ();
+
+    newt_draw_root_text (0, 0, "Deneme Konumu Ayarlama Hazır Programı 1.12");
+    newt_push_help_line (null);
+    newt_draw_root_text (-30, 0, "(c) 1999-2002 RedHat, Inc");
+
+    newt_get_screen_size (&$rows, &$cols);
+
+    newt_open_window ($rows/2-17, $cols/2-10, 34, 17, "Bir Araç Seç");
+
+    $form = newt_form ();
+
+    $list = newt_listbox (3, 2, 10);
+
+    foreach (array (
+        "Kulalnıcı Denetim ayarlaması",
+        "Güvenlik Duvarı ayarlaması",
+        "Fare ayarlaması",
+        "Ağ ayarlaması",
+        "Yazıcı ayarlaması",
+        "Sistem servisleri") as $l_item)
+    {
+        newt_listbox_add_entry ($list, $l_item, $l_item);
+    }
+
+    $b1 = newt_button (5, 12, "Araçları Çalıştır");
+    $b2 = newt_button (21, 12, "Kes");
+
+    newt_form_add_component ($form, $list);
+    newt_form_add_components ($form, array($b1, $b2));
+
+    newt_refresh ();
+    newt_run_form ($form);
+
+    newt_pop_window ();
+    newt_pop_help_line ();
+    newt_finished ();
+    newt_form_destroy ($form);
+?&gt;
+</pre>
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> newt_bell — Terminale bip gönder
+    <li> newt_button_bar — This function returns a grid containing the buttons created.
+    <li> newt_button — Yeni düğme yarat
+    <li> newt_centered_window — Belirtilen boyutlarda ortalanmış pencereden aç
+    <li> newt_checkbox_get_value — Onay kutusu kaynağını alma
+    <li> newt_checkbox_set_flags — Onay kutusu kaynağını ayarlama
+    <li> newt_checkbox_set_value — Onay kutusu değerini ayarlama
+    <li> newt_checkbox_tree_add_item — Onay kutusu ağacına yeni öğe aklamak
+    <li> newt_checkbox_tree_find_item — Onay kutusu ağacında bir öğe aramak
+    <li> newt_checkbox_tree_get_current — Onay kutusu ağacında seçili öğeyi bulmak
+    <li> newt_checkbox_tree_get_entry_value — Açıklama
+    <li> newt_checkbox_tree_get_multi_selection — Açıklama
+    <li> newt_checkbox_tree_get_selection — Açıklama
+    <li> newt_checkbox_tree_multi — Açıklama
+    <li> newt_checkbox_tree_set_current — Açıklama
+    <li> newt_checkbox_tree_set_entry_value — Açıklama
+    <li> newt_checkbox_tree_set_entry — Açıklama
+    <li> newt_checkbox_tree_set_width — Açıklama
+    <li> newt_checkbox_tree — Açıklama
+    <li> newt_checkbox — Açıklama
+    <li> newt_clear_key_buffer — Terminalin giriş tampon alanını yeni giriş beklemeden temizlemek
+    <li> newt_cls — Açıklama
+    <li> newt_compact_button — Açıklama
+    <li> newt_component_add_callback — Açıklama
+    <li> newt_component_takes_focus — Açıklama
+    <li> newt_create_grid — Açıklama
+    <li> newt_cursor_off — Açıklama
+    <li> newt_cursor_on — Açıklama
+    <li> newt_delay — Açıklama
+    <li> newt_draw_form — Açıklama
+    <li> newt_draw_root_text — yazı dizisini belirtilen yerde görüntüle
+    <li> newt_entry_get_value — Açıklama
+    <li> newt_entry_set_filter — Açıklama
+    <li> newt_entry_set_flags — Açıklama
+    <li> newt_entry_set — Açıklama
+    <li> newt_entry — Açıklama
+    <li> newt_finished — newt arayüzüne ilkleme yapma
+    <li> newt_form_add_component — Giriş Bilgilerine tek parça ekler
+    <li> newt_form_add_components — Giriş Bilgilerine birkaç parça ekler
+    <li> newt_form_add_hot_key — Açıklama
+    <li> newt_form_destroy — Bilgi girişini bozar
+    <li> newt_form_get_current — Açıklama
+    <li> newt_form_run — Bilgi girişini çalıştırır
+    <li> newt_form_set_background — Açıklama
+    <li> newt_form_set_height — Açıklama
+    <li> newt_form_set_size — Açıklama
+    <li> newt_form_set_timer — Açıklama
+    <li> newt_form_set_width — Açıklama
+    <li> newt_form_watch_fd — Açıklama
+    <li> newt_form — Create a form
+    <li> newt_get_screen_size — terminalin o anki boyutlarıyla geçirilen göstergeyle doldurur
+    <li> newt_grid_add_components_to_form — Açıklama
+    <li> newt_grid_basic_window — Açıklama
+    <li> newt_grid_free — Açıklama
+    <li> newt_grid_get_size — Açıklama
+    <li> newt_grid_h_close_stacked — Açıklama
+    <li> newt_grid_h_stacked — Açıklama
+    <li> newt_grid_place — Açıklama
+    <li> newt_grid_set_field — Açıklama
+    <li> newt_grid_simple_window — Açıklama
+    <li> newt_grid_v_close_stacked — Açıklama
+    <li> newt_grid_v_stacked — Açıklama
+    <li> newt_grid_wrapped_window_at — Açıklama
+    <li> newt_grid_wrapped_window — Açıklama
+    <li> newt_init — Initialize newt
+    <li> newt_label_set_text — Açıklama
+    <li> newt_label — Açıklama
+    <li> newt_listbox_append_entry — Açıklama
+    <li> newt_listbox_clear_selection — Açıklama
+    <li> newt_listbox_clear — Açıklama
+    <li> newt_listbox_delete_entry — Açıklama
+    <li> newt_listbox_get_current — Açıklama
+    <li> newt_listbox_get_selection — Açıklama
+    <li> newt_listbox_insert_entry — Açıklama
+    <li> newt_listbox_item_count — Açıklama
+    <li> newt_listbox_select_item — Açıklama
+    <li> newt_listbox_set_current_by_key — Açıklama
+    <li> newt_listbox_set_current — Açıklama
+    <li> newt_listbox_set_data — Açıklama
+    <li> newt_listbox_set_entry — Açıklama
+    <li> newt_listbox_set_width — Açıklama
+    <li> newt_listbox — Açıklama
+    <li> newt_listitem_get_data — Açıklama
+    <li> newt_listitem_set — Açıklama
+    <li> newt_listitem — Açıklama
+    <li> newt_open_window — yeri ve boyutları belli pencere aç
+    <li> newt_pop_help_line — O anki yardım satırını stack'takiyle değiştirir
+    <li> newt_pop_window — En üsteki pencereyi görüntüden kaldırır
+    <li> newt_push_help_line — O anki yardım satırını stack içine saklar ve yeni satır görüntüler
+    <li> newt_radio_get_current — Açıklama
+    <li> newt_radiobutton — Açıklama
+    <li> newt_redraw_help_line — Açıklama
+    <li> newt_reflow_text — Açıklama
+    <li> newt_refresh — Ekranın değişen bölümünü günceller
+    <li> newt_resize_screen — Açıklama
+    <li> newt_resume — newt_suspend kullanıldıktan sonra newt arayüzünü kullanarak devam etmeyi sağlar
+    <li> newt_run_form — Bir bilgi girişini çalıştırır
+    <li> newt_scale_set — Açıklama
+    <li> newt_scale — Açıklama
+    <li> newt_scrollbar_set — Açıklama
+    <li> newt_set_help_callback — Açıklama
+    <li> newt_set_suspend_callback — suspend (bekleme) tuşuna basınca çalışacak geri besleme işlevini ayarlar
+    <li> newt_suspend — Terminali ilk konumuna döndürmesini söyler
+    <li> newt_textbox_get_num_lines — Açıklama
+    <li> newt_textbox_reflowed — Açıklama
+    <li> newt_textbox_set_height — Açıklama
+    <li> newt_textbox_set_text — Açıklama
+    <li> newt_textbox — Açıklama
+    <li> newt_vertical_scrollbar — Açıklama
+    <li> newt_wait_for_key — tuşa basılmadan geri dönmez
+    <li> newt_win_choice — Açıklama
+    <li> newt_win_entries — Açıklama
+    <li> newt_win_menu — Açıklama
+    <li> newt_win_message — Açıklama
+    <li> newt_win_messagev — Açıklama
+    <li> newt_win_ternary — Açıklama
+</ul>
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

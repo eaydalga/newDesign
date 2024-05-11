@@ -1,0 +1,187 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Hyperlink Preprocessor </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">20 Mart 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h3>PHP / Java Birleştirmesi</h3>
+<h3>Giriş</h3>
+
+PHP ve Java'yı birleştirmenin iki yolu vardır: Ya PHP Java Servlet ortamına
+birleştirilir (bu çok daha verimli bir çözümdür), ya da PHP içine Java desteği
+eklenir. Birincisi SAPI modülünün Servlet sunucusuyla arayüz kurulmasıyla
+sağlanır. İkincisi ise bir Java uzantısıdır.
+<br /><br />
+Java uzantısı PHP'den basit ve verimli Java nesneleri yaratma ve çağırma yöntemidir. JVM, JNI kullanılarak yaratılır ve her şey işlem içinde çalışır.
+
+<h3>Uyarı</h3>
+
+Bu uzantı deneyseldir. Bu uzantının davranışı, işlevleri ve adları
+değişebilir.
+
+<h3>Gereksinim</h3>
+
+Bu uzantıyı kullanabilmek için bilgisayarınızda Java VM kurulmuş olmalı ve bu
+uzantıyla kullanılabilmelidir.
+
+<h3>Kurulum</h3>
+
+Bu PECL uzantısı PHP ile paketlenmemiştir.
+<br /><br />
+PHP 4'de bu PECL uzantısının kaynağı ext/ yolunda bulunabilirsi. Bu işlevleri
+kullanabilmek için PHP "--with-java[=DIR]" kullanılarak derlenmelidir. Budara
+DIR JDK'nın ana kurulum yolunu gösterir. Diğer hazırlama uzantıları
+php-src/ext/java/README dosyasında anlatılır.
+<br /><br />
+Windows kullanıcıları bu işlevleri kullanabilmek için php.ini içinden php_java.dll açarlar. PHP 4'de bu DLL PHP Windows ikilisiyle extensions/ yolunda bulunur. Bu uzantı için DLL http://pecl4win.php.net/ adresinden indirilebilir.
+<br /><br />
+    Not: Bu modülü Windows ortamında PHP <= 4.0.6 ile açabilmek için PATH çevresel değişkeninin jvm.dll dosyasına erişebilmesi sağlanmalıdır. Ama PHP > 4.0.6 için ek DLL gerekmez.
+
+<h3>Çalışma Zamanı Ayarları</h3>
+
+Bu işlevlerin davranışları php.ini ayarlarından etkilenir.
+
+<h3>Java configuration options</h3>
+<table class="yazi">
+<tr><td>Adı</td><td>Varsayılan</td><td>Değişebilir</td><td>Değişim
+Kaydı</td></tr>
+<tr><td>java.class.path</td><td>NULL</td><td>PHP_INI_ALL</td><td></td></tr>
+<tr><td>java.home</td><td>NULL</td><td>PHP_INI_ALL</td><td></td></tr>
+<tr><td>java.library.path</td><td>NULL</td><td>PHP_INI_ALL</td><td></td></tr>
+<tr><td>java.library</td><td>JAVALIB</td><td>PHP_INI_ALL</td><td></td></tr>
+</table>
+Diğer ayrıntıların ve tanımların PHP_INI_* değişmezleri için php.ini
+yönelticilerine bakın.
+
+<h3>Örnekler</h3>
+
+<h3>Örnek-1 Java örneği</h3>
+<pre>
+&lt;?php
+// PHP içinden java.lang.System Java sınıfının bir
+// kopyasını al
+$system = new Java('java.lang.System');
+
+// Özellik erişimini göster
+echo 'Java version=' . $system->getProperty('java.version') . '<br />';
+echo 'Java vendor=' . $system->getProperty('java.vendor') . '<br />';
+echo 'OS=' . $system->getProperty('os.name') . ' ' .
+             $system->getProperty('os.version') . ' on ' .
+             $system->getProperty('os.arch') . ' <br />';
+
+// java.util.Date örneği
+$formatter = new Java('java.text.SimpleDateFormat',
+                      "EEEE, MMMM dd, yyyy 'at' h:mm:ss a zzzz");
+
+echo $formatter->format(new Java('java.util.Date'));
+?&gt;
+</pre>
+<h3>Örnek-2 AWT Örneği</h3>
+<pre>
+&lt;?php
+// CGI içinde çalışması düşünülmüştür.
+
+$frame  = new Java('java.awt.Frame', 'PHP');
+$button = new Java('java.awt.Button', 'Hello Java World!');
+
+$frame->add('North', $button);
+$frame->validate();
+$frame->pack();
+$frame->visible = True;
+
+$thread = new Java('java.lang.Thread');
+$thread->sleep(10000);
+
+$frame->dispose();
+?&gt;
+</pre>
+<h3>Notlar:</h3>
+<ul>
+    <li> Eğer uygun yapıcı varsa new Java() bir sınıfın kopyasını yaratır.
+Eğer değişgeçler geçirilmiyorsa ve yapıcı uygunsa ve java.lang.System gibi
+sınıflara erişimi sağlıyorsa birçok işlevselliğin açılımı durağan yöntemlerle
+sağlanır.
+    <li> Bir kopyanın bir öğesine erişimde önce çekirdek özelliklere bakılır
+sonra toplumsal alanlar incelenir. Diğer bir deyimle  print $date.time, önce
+$date.getTime() olarak aranır sonra  $date.time olarak.
+    <li> Bir nesneye, hem durağan hem de o anlık kopya erişiminde aynı yazım
+kullanılır. Eğer Java nesnesi java.lang.Class türündense, o zaman sınıfın
+durağan öğelerine de erişilebilir.
+    <li>
+PHP uyarıları ve NULL sonuçlar başkalıklardan doğar. Uyarılar yöntemin başına
+"@" konarak önlenebilir. Son hatayı alamak ve silmek için aşağıdaki API'ler
+kullanılabilir:
+        <ul>
+          <li> java_last_exception_get()
+          <li> java_last_exception_clear()
+        </ul>
+    <li> Fazla yüklü çözünürlük genelde iki dil arasındaki ayrıcalıkların türüne göre zor bir sorundur. PHP Java uzantısı, hangi yoğunluğun daha uygun olduğunun yakalanması gerektiğini bulan basit ama oldukça etkin bir yapıdır. Ek olarak yöntem adları küçük büyük harf duyarlı değildir. Yoğunluktan neyin seçilmesi gerektiğini arttırır. Bir kez yöntem belirlenince, değişgeçler veri kaybı da olabilecek biçimde gerekliyse ayarlanır (kayan noktalı sayılar mantıksala çevrilir).
+    <li> PHP geleneklerinde, diziler ve karışık tablolar değiştirilerek kullanılabilir.  PHP içindeki karışık tablolar yalnız tam sayılarla ya da yazı dizileriyle dizinlenebilir. Java'daki basit türlerin dizileri çok büyük olamaz. Unutmayın ki bu yapıcıların değerleri taranır. Bu nedenle bellek ve zaman açısından biraz pahalı bir çözüm olur.
+</ul>
+
+<h3>Java Servlet SAPI</h3>
+
+Java Servlet SAPI Java uzantılarında tanımlanan bir mekanizmayla PHP
+işlemcisinin servlet olarak çalışmasını sağlayacak biçimde hazırlanır. PHP
+bakış açsından bu yaklaşımın birincil yararı, servlet'leri destekleyen web
+sunucular JVM'leri taramada ve yeniden kullanmadan çok büyük özen
+göstermektedirler. Servler SAPI modülünün hazırlanma komutları
+php4/sapi/README dosyasında bulunur.
+<ul>
+    <li> Bu kod herhangi bir servlet makinesiyle çalışacak diye varsayılmış olsa da, bugüne değin yalnız Apache'nin Jakarta/tomcat bölümü altında denenmiştir. Hata raporları, başarı öyküleri, yamalar ve başka makinelerde kodu çalıştırmak için gereken mutlulukla kabul edilir.
+    <li> PHP çalışma yolunu sürekli değiştirme alışkanlığı olan bir uygulamadır.
+sapi/servlet sonunda onu (çalışma yolunu) geri alacaktır, ama PHP çalışırken
+servlet makinesi CLASSPATH yolundan gereken sınıfları yükleyemeyebilir. Ya da
+yönetim için kullanılan yol ve JSP derleme işlemleri için sınıflar
+yüklenemeyebilir.
+</ul>
+<h3>İçindekiler</h3>
+<ul>
+    <li> java_last_exception_clear — Son Java başkalaşımını sil
+    <li> java_last_exception_get — Son Java başkalaşımını al
+</ul>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,252 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<style type="text/css">
+.ex2 { text-align: left }
+.ex2 p:first-line {color:#0000ff;font-variant:small-caps}
+.ex3 { text-align: left }
+.ex3 p:first-letter {color:#ff0000;font-size:xx-large}
+.ex4 { text-align: left }
+.ex4 p:first-letter {color:#ff0000;font-size:xx-large}
+.ex4 p:first-line {color:#0000ff}
+</style>
+</head>
+<body>
+<div id="sag"><span class="yazi">26 Ekim 2007</span></div>
+<h2>Sözde-Öğeler</h2>
+
+<h3>Dil Kuralı (Syntax)</h3>
+<fieldset class="fyazi">
+<pre>
+selector:pseudo-element {property: value}
+</pre>
+</fieldset>
+<br />
+<span class="yazi">
+CSS sınıfları sözde öğelerle de kullanılabilir:<br />
+</span>
+<fieldset class="fyazi">
+<pre>
+selector.class:pseudo-element {property: value}
+</pre>
+</fieldset>
+<br />
+<h3>:first-line İlk satır sözde-öğesi</h3>
+<br />
+<span class="yazi">
+"first-line" sözde öğesi ilk satıra özel stiller tanımlamak için kullanılır.
+</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+p:first-line {color:#0000ff;font-variant:small-caps}
+
+&lt;p&gt;Buradaki yazı iki ya da daha fazla satıra yayılır&lt;/p&gt;
+</pre>
+</fieldset>
+<br />
+<span class="yazi">
+Çıktı aşağıdaki gibidir:
+</span>
+<fieldset class="fyazi">
+<div class="ex2">
+<p class="yazi">Buradaki yazı iki ya da<br />
+daha fazla satıra yayılır</p></div>
+</fieldset>
+<br />
+<span class="yazi">
+Yukarıdaki örnekte, tarayıcı ilk satırı "first-line" sözde öğesine göre kalıplar. Tarayıcının satırı nereden kıracağı ise tarayıcı penceresinin enine bağlıdır.<br />
+<br />
+Not: "first-line" sözde öğesi blok düzeyi öğelerde kullanılabilir..<br />
+<br />
+Not: Aşağıdaki özellikler "first-line" sözde öğesine uygulanabilir: <br />
+<br />
+</span>
+<ul class="yazi">
+    <li> yazı-tipi özelliği</li>
+    <li> renk özelliği </li>
+    <li> art alan özellikleri</li>
+    <li> kelime boşlukları</li>
+    <li> harfler arası boşluklar</li>
+    <li> yazı dekorasyonu</li>
+    <li> düşey ayarlama</li>
+    <li> yazı-çevirimi</li>
+    <li> satır-yüksekliği</li>
+    <li> temizle</li>
+</ul>
+
+<h3>:first-letter Sözde öğesi</h3>
+<br />
+<span class="yazi">
+"first-letter" sözde öğesi bir seçici içindeki yazının ilk harfine özel stil tanımlamak için kullanılır:<br />
+</span>
+<fieldset class="fyazi">
+<pre>
+p:first-letter {color:#ff0000;font-size:xx-large}
+
+&lt;p&gt;The first words of an article...&lt;/p&gt;
+</pre>
+</fieldset>
+<br />
+<span class="yazi">
+Çıktı aşağıdakine benzer:<br />
+</span>
+<fieldset class="fyazi">
+<div class="ex3">
+The first words of an article...
+</div>
+</fieldset>
+<span class="yazi">
+Not: "first-letter" sözde öğesi bloklu öğelerle kullanılabilir.<br />
+<br />
+Not: Aşağıdaki özellikler "first-letter" sözde öğesine uygulanabilir: <br />
+</span>
+<ul class="yazi">
+    <li> yazı-tipi özellikleri</li>
+    <li> color özellikleri </li>
+    <li> background özellikleri</li>
+    <li> margin özellikleri</li>
+    <li> padding özellikleri</li>
+    <li> border özellikleri</li>
+    <li> yazı-dekorasyonu</li>
+    <li> vertical-align (eğer 'float' değeri 'none' ise)</li>
+    <li> text-transform</li>
+    <li> line-height</li>
+    <li> float</li>
+    <li> clear</li>
+</ul>
+
+<h3>Sözde öğeler ve CSS Sınıfları</h3>
+<br />
+<span class="yazi">
+Sözde öğeler CSS sınıflarıyla birleştirilebilir: <br />
+</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+p.article:first-letter {color:#ff0000}
+
+&lt;p class="article"&gt;A paragraph in an article&lt;/p&gt;
+</pre>
+</fieldset>
+<br />
+<span class="yazi">
+Yukarıdaki örnekte class="article" olan tüm paragrafların ilk harflerini kırmızı yapar.<br />
+</span>
+<br />
+<h3>Çoklu sözde öğeleri</h3>
+<br />
+<span class="yazi">
+Birçok sözde öğe birleştirilebilir:<br />
+</span>
+<fieldset class="fyazi">
+<pre>
+p:first-letter {color:#ff0000;font-size:xx-large}
+p:first-line {color:#0000ff}
+
+&lt;p&gt;The first words of an article...&lt;/p&gt;
+</pre>
+</fieldset>
+<br />
+<span class="yazi">
+Çıktı şuna benzer:<br />
+</span>
+<br />
+<fieldset class="fyazi">
+<div class="ex4">
+<p class="yazi">
+The first<br />
+words of an<br />
+article...</p>
+</div>
+</fieldset>
+<br />
+<span class="yazi">
+Yukarıdaki örnekte paragrafın ilk harfi 24pt ve kırmızıdır. İlk satırın diğer harfleri mavi renktedir. Paragrafın diğer satırları varsayılan renktedir.<br />
+</span>
+<br />
+<h3>CSS2 - :before sözde öğesi</h3>
+<br />
+<span class="yazi">
+":before" sözde öğesi bir öğenin önüne bazı içerikleri eklemek için kullanılır.<br />
+<br />
+Aşağıdaki stil her &lt;h1&gt; öğesinden önce ses çıkartır:
+</span>
+<fieldset class="fyazi">
+<pre>
+h1:before
+{
+content: url(beep.wav)
+}
+</pre>
+</fieldset>
+<br />
+<h3>CSS2 - :after Sözde öğe</h3>
+<br />
+<span class="yazi">
+":after" sözde öğesi bir öğenin arkasından bazı içerikler eklemekte kullanılır.<br />
+<br />
+&lt;h1&gt; öğesinden sonra ses kaydı üretir:<br />
+</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+h1:after
+{
+content: url(beep.wav)
+}
+</pre>
+</fieldset>
+<br />
+<h3>Pseudo-elements</h3>
+<br />
+<table class="yazi">
+<tr><td>Destekleyen Tarayıcılar:</td><td>IE: Internet Explorer, F: Firefox, N: Netscape.</td></tr>
+<tr><td></td><td>W3C: Buradaki sayısal değer CSS türünü (CSS1 ya da CSS2) gösterir.</td></tr>
+</table>
+<br />
+<table cellspacing="0" border="1" cellpadding="3" class="fyazi">
+  <tr>
+    <th align="left" valign="top" width="25%">Sözde-öğe</th>
+    <th align="left" valign="top" width="55%">Amacı</th>
+    <th align="left" valign="top" width="5%">IE</th>
+    <th align="left" valign="top" width="4%">F</th>
+    <th align="left" valign="top" width="4%">N</th>
+    <th align="left" valign="top" width="7%">W3C</th>
+  </tr>
+  <tr>
+    <td valign="top">:first-letter</td>
+    <td valign="top">Yazının ilk harfine özel stil ekler </td>
+    <td valign="top">5</td>
+    <td valign="top">1</td>
+    <td valign="top">8</td>
+    <td valign="top">1</td>
+  </tr>
+  <tr>
+    <td valign="top">:first-line</td>
+    <td valign="top">Yazının ilk satırına özel stil ekler </td>
+    <td valign="top">5</td>
+    <td valign="top">1</td>
+    <td valign="top">8</td>
+    <td valign="top">1</td>
+  </tr>
+  <tr>
+    <td valign="top">:before</td>
+    <td valign="top">Bir öğeden önce bazı içerikler ekler</td>
+    <td valign="top">&nbsp;</td>
+    <td valign="top">1.5</td>
+    <td valign="top">8</td>
+    <td valign="top">2</td>
+  </tr>
+  <tr>
+    <td valign="top">:after</td>
+    <td valign="top">Bir öğeden sonra bazı içerikler ekler</td>
+    <td valign="top">&nbsp;</td>
+    <td valign="top">1.5</td>
+    <td valign="top">8</td>
+    <td valign="top">2</td>
+  </tr>
+</table>
+<br />
+</body>
+</html>

@@ -1,0 +1,1037 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP türleri (types) </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="javascript:myvoid();" class="nav">Başlarken</a>
+               <a href="phptxt11.html" class="sub">ilk Anlatım</a>
+               <a href="javascript:myvoid();" class="nav">Kurulumlar</a>
+               <a href="phptxt21.html" class="sub">Genel Kurulum</a><br />
+               <a href="phptxt22.html" class="sub">UNIX Kurulumu</a><br />
+               <a href="phptxt23.html" class="sub">OSX Kurulumu</a><br />
+               <a href="phptxt24.html" class="sub">Wins Kurulumu</a>
+               <a href="javascript:myvoid();" class="nav">Dil Kuralları</a>
+               <a href="phptxt31.html" class="sub">Temel yazım</a><br />
+               <a href="phptxt32.html" class="sub">Tipler</a><br />
+               <a href="phptxt33.html" class="sub">Değişkenler</a><br />
+               <a href="phptxt34.html" class="sub">Değişmezler</a><br />
+               <a href="phptxt35.html" class="sub">Deyimler</a><br />
+               <a href="phptxt36.html" class="sub">İşlemler</a><br />
+               <a href="phptxt37.html" class="sub">Kontrol Yapıları</a><br />
+               <a href="phptxt38.html" class="sub">İşlevler</a><br />
+               <a href="phptxt39.html" class="sub">Sınıflar Nesneler</a><br />
+               <a href="phptxt391.html" class="sub">Ad uzayı</a><br />
+               <a href="phptxt392.html" class="sub">İstisnalar</a>
+               <a href="javascript:myvoid();" class="nav">Güvenlik</a>
+               <a href="phptxt41.html" class="sub">Giriş</a><br />
+               <a href="phptxt42.html" class="sub">Genel bilgi</a><br />
+               <a href="phptxt43.html" class="sub">CGI iklisi</a><br />
+               <a href="phptxt44.html" class="sub">Apache modülü</a><br />
+               <a href="phptxt45.html" class="sub">Dosyadüzeni</a><br />
+               <a href="phptxt46.html" class="sub">Veritabanı</a><br />
+               <a href="phptxt47.html" class="sub">Hatalar</a><br />
+               <a href="phptxt48.html" class="sub">Diğerleri</a><br />
+               <a href="javascript:myvoid();" class="nav">Özellikler</a>
+               <a href="phptxt51.html" class="sub">HTTP Şifresi</a><br />
+               <a href="phptxt52.html" class="sub">Çerezler</a><br />
+               <a href="phptxt53.html" class="sub">Oturumlar</a><br />
+               <a href="phptxt54.html" class="sub">XForm</a><br />
+               <a href="phptxt55.html" class="sub">DosyaYükleme</a><br />
+               <a href="phptxt56.html" class="sub">UzakDosyalar</a><br />
+               <a href="phptxt57.html" class="sub">Bağlantılar</a><br />
+               <a href="phptxt58.html" class="sub">VTBağlantısı</a>
+               <font color="#8e9ccb"><h3>Gelişmiş</h3></font>
+               <a href="../phpfunc/islevler.html" class="nav">İşlevler</a>
+               <a href="phptxt7.html" class="nav">Php Kökü</a>
+               <a href="phptxt8.html" class="nav">Ekler</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">15 Ocak 2008</span></div>
+
+<h2>php türleri (types)</h2>
+<div id="bdy" class="yazi">
+
+<h3>Giriş</h3>
+
+PHP sekiz ilkel tür destekler.
+<br /><br />
+İlk dördü ölçülebilir türlerdir:
+<ul>
+    <li> boolean (mantıksal)
+    <li> integer (tam sayı)
+    <li> float (kayan noktalı sayı, 'double' çift duyarlıklı)
+    <li> string (yazi dizisi)
+</ul>
+İki karışık tür vardır:
+<ul>
+    <li> array (diziler)
+    <li> object (nesneler)
+</ul>
+Son olarak iki özel türden söz edilebilir:
+<ul>
+    <li> resource (kaynak)
+    <li> NULL (boş)
+</ul>
+Okunabilirlik açısından önemli olan türümsülerdir (pseudo-types):
+<ul>
+    <li> mixed (karışık)
+    <li> number (sayı)
+    <li> callback (geri dönüş)
+</ul>
+
+<h3>Ve değişkenimsi $...</h3>
+
+"double" (çift duyarlı) tür için burada bir şeyler anlatılabilir. "double" türünü aynı "float" kayan noktalı gibi düşünmek gerekir. İki ad olması tamamen tarihsel nedenlerledir.
+<br /><br />
+Değişkenin türü programcı tarafından kurulmaz. Aksine PHP değişkenin türünü içereceği bilgiye göre çalışırken belirler.
+<br /><br />
+    Not: Eğer bir deyimin türünü öğrenmek isterseniz var_dump() işlevini kullanın. Eğer türün insanca okunabilen bir değerini görmek isterseniz gettype() kullanın. Bir türü denetlemek için gettype() kullanmak yerine is_type() kullanın.
+<pre>
+    &lt;?php
+    $a_bool = TRUE;   // bir mantıksal
+    $a_str  = "foo";  // bir yazı dizisi
+    $a_str2 = 'foo';  // bir yazı dizisi
+    $an_int = 12;     // bir tam sayı
+
+    echo gettype($a_bool); // yazılan:  boolean
+    echo gettype($a_str);  // yazılan:  string
+
+    // Eğer bu bir tam sayıysa, dört arttır
+    if (is_int($an_int)) {
+        $an_int += 4;
+    }
+
+    // Eğer $bool bir yazıysa, onu yazdır
+    // (hiç birşey yazdırmaz)
+    if (is_string($a_bool)) {
+        echo "yazı dizisi: $a_bool";
+    }
+    ?&gt;
+</pre>
+Eğer bir değişkenin türü çevrilecekse, ya değişkeni açıkça çevirirsiniz (casting) ya da settype() işlevi kullanarak türünü değiştirirsiniz.
+<br /><br />
+Not: bir değişken değişik zamanlarda değişik değerlerle çalışabilir. Bu tümüyle o anki türe göre değişir. Bu konuda daha çok bilgi tür karıştırma bölümünde anlatılır. 
+<hr>
+<h3>Mantıksallar (Booleans)</h3>
+Bu en eski türlerden biridir (dino zamanından kalma :-) ). Mantıksal değer ya doğrudur (true) ya da yanlıştır (false).
+
+<h3>Yazım kuralı</h3>
+
+Mantıksal bilgi anlatmak için TRUE ya da FALSE kullanılır. Her ikisi de büyük küçük harf duyarlıdır.
+<pre>
+&lt;?php
+$foo = True; // $foo değeri mantıksal TRUE (doğru) olur
+?&gt;
+</pre>
+<hr>
+<h3>Tam Sayılar(Integers)</h3>
+
+Bir tam sayı Z = {..., -2, -1, 0, 1, 2, ...} kümesinin bir öğesidir.
+
+GMP ve BCMath (istenilen duyarlıkta sayılar) konularına bakın.
+<h3>Yazım Kuralı</h3>
+
+Tam sayılar ondalık (10-tabanlı) hexadesimal (16 tabanlı) ya da oktal (8 tabanlı) sayılar olabilir. Başlarında +/- işaretleri olabilir. Oktal sayıların başında mutlaka bir 0 olmalı, hexadesimal sayılar 0x ile başlamalıdır.
+
+<h3>Tamsayı örnekleri</h3>
+&lt;?php
+$a = 1234; // ondalık sayı
+$a = -123; // eksi sayı
+$a = 0123; // sekizlik sayı (ondalık 83 eşdeğeri)
+$a = 0x1A; // onaltılık sayı (ondalık 26 eşdeğeri)
+?&gt;
+</pre>
+tam sayı değişmezler için kural:
+<pre>
+ondalık     : [1-9][0-9]*
+            | 0
+
+onaltılık   : 0[xX][0-9a-fA-F]+
+
+sekizlik    : 0[0-7]+
+
+tam sayı    : [+-]?decimal
+            | [+-]?hexadecimal
+            | [+-]?octal
+</pre>
+Tam sayının boyutları ortama bağlıdır. Genelde en yüksek değer 2 milyar kadar olsa da (32 bitlik işaretli sayı). PHP işaretsiz sayıları desteklemez. PHP_INT_SIZE parametresi tam sayı boyutunu verir. En büyük sayı PHP_INT_MAX olur.
+<h3>UYARI</h3>
+
+Eğer sekizli sayıya anlamsız bir rakam geçerse (yani 8, 9 gibi), o rakamdan sonrası dikkate alınmaz.
+
+<h3>Sekizli örnek</h3>
+<pre>
+&lt;?php
+var_dump(01090); // 010 oktal = 8 desimal
+?&gt;
+</pre>
+<hr>
+<h3>Kayan noktalı sayılar</h3>
+
+Kayan noktalı sayılar ("floats", "doubles" ya da "real numbers") aşağıdaki yazım kurallarından herhangi biriyle gösterilebilir.
+<pre>
+&lt;?php
+$a = 1.234; 
+$b = 1.2e3; 
+$c = 7E-10;
+?&gt;
+</pre>
+Kural olarak:
+<pre>
+LNUM          [0-9]+
+DNUM          ([0-9]*[\.]{LNUM}) | ({LNUM}[\.][0-9]*)
+EXPONENT_DNUM ( ({LNUM} | {DNUM}) [eE][+-]? {LNUM})
+</pre>
+Kayan noktalı sayının boyutları ortama bağlıdır. En büyük değer ~1.8e308 (duyarlı 14 ondalık rakam) olabilir (64 bit IEEE kalıbı). 
+<h3>UYARI</h3>
+<h3>Kayan noktalı duyarlılık</h3>
+
+En basit kayan noktalı sayılardan 0.7 ya da 0.1 ikili biçimde bellekte saklanırken duyarlılık hatasına uğrar. Örneği floor((0.1+0.7)*10) genelde 7 döndürür. Halbuki sonuç 8 olmalıdır. Bunun nedeni 'floor' işleminin parametresindeki değerin 7.99999999999... gibi olmasıdır.
+<br /><br />
+Bu bize aynı zamanda bazı kesirli sayıların nasıl ondalık gösterimde hatalı olduğunu da anlatır (1/3 yerine 0.3333333... kullanmak gibi)
+<br /><br />
+Son hanesine kadar kayan noktalı sayılara güvenmeyin ve birbirleriyle eşitlik için karşılaştırmayın.  Eğer daha çok duyarlılık isterseniz sınırsız duyarlıkta sayıları kullanın (math işleveleri ya da gmp işlevi).
+<h3>Kayan noktalıya çevirme</h3>
+
+Yazı dizilerinin kayan noktalı sayıya çevrilişinde izlenen yol; Önce tam sayıya çevrilme gerçekleşir, sonra kayan noktalı sayıya dönüştürülür.
+<hr>
+
+<h3>Yazı dizileri (Strings)</h3>
+
+Bir yazı dizisi peş peşe yerleştirilmiş karakterlerdir. PHP ortamında bir karakter bir bayt (byte) gibidir. Buna göre PHP Unicode destekleyemez. Bunun için utf8_encode() ve utf8_decode() işlevlerine bakın.
+<br /><br />
+    Not: 
+Bir yazı dizinin çok uzun olması sorun olmaz. Pratikte bir sınırlama yoktur. Bu nedenle uzun yazı dizilerinden çekinmeye de gerek yoktur.
+<h3>Yazı Kuralı</h3>
+
+Bir yazı dizisi değişmezi üç biçimde yazılabilir:
+<ul>
+    <li> tek tırnakla
+    <li> çift tırnakla
+    <li> belge burada (heredoc) kuralıyla
+</ul>
+<h3>Tek Tırnakla</h3>
+
+En kolay olanı yazı dizisini tek tırnak (') içinde tanımlamaktır.
+<br /><br />
+tek tırnağın kendisini yazı dizisi içinde tanımlamak isterseniz önüne ters kesme (\) yazmak gerekir. Eğer ters kesme tek tırnaktan önce görüntülenecekse onu da iki tane olarak yazmak gerekir. Eğer başka bir karakteri ters kesmeyle saklamak isterseniz ters kesme de yazılır.
+<br /><br />
+    Not: Özel karakterler için kullanılan değişmezler açılmadıklarından diğer iki yazım kuralına benzemez.
+<pre>
+&lt;?php
+echo 'bu bir basit yazı dizisidir';
+
+echo 'Gömülmüş yeni satırlar
+yazı dizisinde buradaki gibi olabilir ve
+bunu yapmak doğrudur';
+
+// Çıktılar: Arnold bir kez:"Gelece'm" dedi
+echo 'Arnold bir kez: "Gelece\'m" dedi';
+
+// çıktılar: C:\*.* sildiniz?
+echo 'C:\\*.* sildiniz?';
+
+// çıktılar: C:\*.* sildiniz?
+echo 'C:\*.* sildiniz?';
+
+// çıktılar: bu açılmaz: \n bir yeni satırdır
+echo 'bu açılmaz: \n bir yenisatırdır';
+
+// çıktılar: Değişkenler $expand $either
+echo 'Değişkenler $expand $either';
+?&gt;
+</pre>
+<h3>Çift tırnak</h3>
+
+Eğer yazı dizisi çift tırnak içindeyse ("), özel karakterler için daha çok ters kesmeyi anlayabilir:
+<h3>Saklanan Karakter</h3>
+<table class="yazi" border="1">
+<tr><th>Sırası</th><th>Anlamı</th></tr>
+<tr><td>\n</td><td>yeni satır (LF or 0x0A (10) in ASCII)</td></tr>
+<tr><td>\r</td><td>yazma imleçi geri (CR or 0x0D (13) in ASCII)</td></tr>
+<tr><td>\t</td><td>yatay atlama (HT or 0x09 (9) in ASCII)</td></tr>
+<tr><td>\v</td><td>düşey atlama (VT or 0x0B (11) in ASCII) (since PHP 5.2.5)</td></tr>
+<tr><td>\f</td><td>form besleme (FF or 0x0C (12) in ASCII) (since PHP 5.2.5)</td></tr>
+<tr><td>\\</td><td>ters kesme</td></tr>
+<tr><td>\$</td><td>dolar işareti</td></tr>
+<tr><td>\"</td><td>double-quote</td></tr>
+<tr><td>\[0-7]{1,3}</td><td>sekizli gösterimde kurallı deyime uyan karakter dizisi</td></tr>
+<tr><td>\x[0-9A-Fa-f]{1,2}</td><td>onaltılı gösterimde kurallı deyime uyan karakter dizisi </td></tr>
+</table>
+Başka bir karakteri saklamak isterseniz ters kesme de yazılır.
+<br /><br />
+Çift tırnaklı yazı dizilerinin en önemli özelliği değişken adlarının genişleyebilir olmasıdır.
+<h3>Belge Burada (Heredoc)</h3>
+
+Yazı dizilerini kapatmanın bir başka yolu da belge burada yazım kuralıdır 
+("&lt;&lt;&lt;"). Bu işaretin arkasından bir tanımlayıcı kullanılır ve belgenin en altına yeniden aynı tanımlayıcı kullanılarak yazı dizisi kapatılır.
+<br /><br />
+Kapatma tanımlayıcısı satırın ilk kolonunda olmalıdır. Tanımlayıcı PHP içinde kullanılan değişken adları kurallarına uygun olmalıdır. Yalnız alfasayısal değerler ve alt çizgiden oluşmalıdır ve ilki alfabetik olmalıdır.
+<h3>UYARI</h3>
+
+Kapanış tanımlayıcısı olan satırda başka bir karakter olmamalıdır (; hariç). Bunun anlamı tanımlayıcı içerden yazılamaz ve noktalı virgülden sonra boşluk ya da tab bulunamaz. Bilinmesi önemli olan diğer bir özellik ise tanımlayıcıdan önceki karakter yeni satır karakteri olmasıdır (işletim sistemine bağlı bir değerdir Mac için \r kullanılır). Kapanış tanımlayıcısını noktalı virgülden sonra yeni satır karakteri izlemelidir.
+Eğer bu kural kırılmışsa ve kapanış tanımlayıcısı çok "açık" değilse, PHP onu anlamaz uygun bir kapanış tarayıcısı buluncaya dek okur... Uygun bir kapanış tamınlayıcısı bulunmazsa, dosya sonuna gelinince hata mesajı verilir.
+<br /><br />
+Sınıf üyelerine ilk değer verilirken "belge burada" yazım kuralına izin verilmez. Yerine başka yazı dizisi kuralı kullanılmalıdır.
+
+<h3>Geçersiz Örnek</h3>
+<pre>
+&lt;?php
+class foo {
+    public $bar = &lt;&lt;&lt;EOT
+bar
+EOT;
+}
+?&gt;
+</pre>
+"Belge burada" yazısı çift tırnağı olmayan çift tırnak gibi çalışır. Burada tırnakları saklamak gerekmez ama yukarıda gösterilen saklamalı karakter kodlamasını hala kullanıyor olabilirsiniz. Değişkenler açılır ama yazı dizilerine gösterilen aynı özen karmaşık değişkenler için de gösterilmelidir.
+<br /><br />
+Belge burada yazı dizisine örnek
+<pre>
+&lt;?php
+$str = &lt;&lt;&lt;EOD
+Yazı dizisi örneği
+birçok satıra yayılmıştır
+belgeburada yazım kuralını kullanır.
+EOD;
+</pre>
+<pre>
+/* Değişkenlerle daha karmaşık bir örnek. */
+class foo
+{
+    var $foo;
+    var $bar;
+
+    function foo()
+    {
+        $this-&gt;foo = 'Foo';
+        $this-&gt;bar = array('Bar1', 'Bar2', 'Bar3');
+    }
+}
+
+$foo = new foo();
+$name = 'BenimAdim';
+
+echo &lt;&lt;&lt;EOT
+Adım "$name". Ben $foo-&gt;foo gibi şeyleri yazıyorum.
+Şimdi, Ben {$foo-&gt;bar[1]} yazıyorum.
+Bu büyük harf 'A' yazmalı: \x41
+EOT;
+?&gt;
+</pre>
+
+<h3>Değişken tarama (parsing)</h3>
+
+Eğer bir yazı dizisi çift tırnak ya da belge burada ile tanımlanırsa içindeki değişkenler taranır.
+<br /><br />
+İki tür yazım kuralı vardır: basit ve karmaşık. Basit olanı en çok kullanılanı ve uygun olanıdır. Bir değişkeni, dizi öğesini ya da nesneyi taramaya yarar.
+<br /><br />
+Karmaşık yazım kuralı PHP 4 ile getirilmiştir deyimin çevresindeki kıvrımlı parantezlerle belirlenir.
+<h3>Basit Yazım Kuralı</h3>
+
+Eğer dolar işareti ($) ile karşılaşılırsa, tarayıcı bundan geçerli değişken adı yaratır. Eğer isterseniz değişken adını kıvrımlı parantezler içine de alabilirsiniz (bitiş noktasını belirlemek açısından).
+<pre>
+&lt;?php
+$beer = 'Heineken';
+echo "$beer'in tadı çok iyi"; // çalışır, "'" varnames için geçersiz karakterdir
+echo "O biraz $beerden içti"; // çalışmaz, 'den' varnames için geçerlidir
+echo "O biraz ${beer}den içti"; // çalışır
+echo "O biraz {$beer}den içti"; // çalışır
+?&gt;
+</pre>
+
+Benzer biçimde dizin arar ya da nesne özelliği tararsınız. Dizilerde kapanan köşeli parantez dizinin sonunu betirtir. Nesne özelliklerinde basit değişkenlere uygulanan kurallar aynen uygulanır. Nesnelerde değişkenleri belirlemeye benzer bir ip uçu bulunmasa da kurallar benzerdir.
+<pre>
+&lt;?php
+// Bu örnek yazı dizileri içinde dizin kullanmayaı anlatır
+// Yazı dizisi dışında, her zaman yazı dizilerindeki dizinler
+// tırnak içinde yazılır
+// ve yazı dizisi dışında kıvrımlı parantez kullanmayın
+
+// Tüm hataları gösterin
+error_reporting(E_ALL);
+
+$fruits = array('çilek' =&gt; 'kırmızı', 'muz' =&gt; 'sarı');
+
+// Çalışır ama yazı dizisi tırnakları dışında farklı çalışır
+echo "Muz $fruits[banana].";
+
+// Çalışır
+echo "Muz {$fruits['banana']}.";
+
+// Çalışır ama PHP önce adı banana olan değişmez arar
+// aşağıdaki örnekte olduğu gibi
+echo "Muz {$fruits[banana]}.";
+
+// Çalışmaz parantezler kullanın. Bu tarama hatasına neden olur
+echo "Muz $fruits['banana'].";
+
+// Çalışır
+echo "Muz " . $fruits['banana'] . ".";
+
+// Çalışır
+echo "Bu kare $square-&gt;width metre uzunluktadır.";
+
+// Çalışmaz. Çözüm için karmaşık yazım kuralına bakın
+echo "Bu kare $square-&gt;width00 santimetre uzunluktadır.";
+?&gt;
+</pre>
+
+Daha karmaşık herhangi birşey için karmaşık yazım kuralı uygulanır.
+<h3>Karmaşık (kıvrımlı) yazım kuralı</h3>
+
+Buna karmaşık denmez çünkü yazım kuralı karmaşıktır çünkü karmaşık deyimleri böyle yazı dizisi içine alabilirsiniz.
+<br /><br />
+Aslında, bu yazım kuralıyla ad uzayında bulunan her hangi bir değişkeni kullanabilirsiniz. Deyimleri de yazı dizisinde olduğu gibi yazabilirsiniz ve çevresinde kıvrımlı parantezler kullanarak aynı etkiyi verdirebilirsiniz. Kıvrımlı parantez saklanamaz ama bu yazım kuralı ancak kıvrımlı parantezden sonra $ kullanılırsa anlamı vardır. Bu nedenle "{\$" yazarsanız "{$" değişmezi demek istersiniz.
+<pre>
+&lt;?php
+// Tüm hataları gösterin
+error_reporting(E_ALL);
+
+$great = 'fantastik';
+
+// Çalışmaz, çıktı: Bu { fantastik }
+echo "Bu { $great}";
+
+// Çalışır, çıktı: Bu fantastik
+echo "Bu {$great}";
+echo "Bu ${great}";
+
+// Çalışır
+echo "Bu kare {$square-&gt;width}00 santimetre uzunluktadır."; 
+
+// Çalışır
+echo "Bu çalışır: {$arr[4][3]}";
+
+// Bu bazı nedenlerden $foo[bar] için yazı dizisi dışında hatalıdır
+// Diğer bir deyimle, çalışır ama
+// PHP önce foo adlı değişmez arar
+// hata verir E_NOTICE (tanımsız değişmez).
+echo "Bu yanlış: {$arr[foo][3]}"; 
+
+// Çalışır.  çok boyutlu dizilerde her zaman
+// dizi çevresinde kıvrımlı parantezler kullanılır (yazi içinde)
+echo "Bu çalışır: {$arr['foo'][3]}";
+
+// Çalışır.
+echo "Bu çalışır: " . $arr['foo'][3];
+
+echo "Siz {$obj-&gt;values[3]-&gt;name} bile yazabilirsiniz";
+
+echo "Bu $name olan değişkenin değeridir: {${$name}}";
+?&gt;
+</pre>
+<hr>
+
+<h3>Arrays</h3>
+
+PHP içinde bir dizi aslında sıralı bir taşıma işlevidir (mapping function). Taşıma işlevinde değerleri anahtarlara atar. Bu tür birçok amaçla kullanılır: gerçek bir dizi ya da list (vektör), sözlük, birikim, depo, kuyruk ve birçoğu daha...
+<br /><br />
+Bu veri türleri burada anlatılmaz ama en az bir örnekle PHP altında nasıl kullanıldıkları gösterilir.
+<h3>yazım Kuralı (Syntax)</h3>
+<h3>array() ile gösterin</h3>
+
+Bir dizi array() dil yapısı ile yaratılır. Belirli sayıda anahtar =&gt; değer ikililerinden oluşur.
+<pre>
+array(  key =>  value
+     , ...
+     )
+// key bir tam sayı ya da yazı dizisi olur
+// değer herganbi bir değerdir.
+</pre> 
+
+<pre>
+&lt;?php
+$arr = array("foo" =&gt; "bar", 12 =&gt; true);
+
+echo $arr["foo"]; // bar
+echo $arr[12];    // 1
+?&gt;
+</pre>
+
+Anahtar ya bir tam sayı ya da bir dizidir. Eğer bir tam sayının standrt gösterilimi anahtarsa, olduüu gibi uyarlanır ("8", 8 olarak uyarlanır, "08" 08 olarak uyarlanır). Anahtardaki kayan noktalılar tam sayılara çevrilir. PHP ortamında dizin onun dizileri diye bir kavram yoktur. Bir tür dizi tipi vardır. Hem tam sayı hem de yazı biçiminde dizinleri kabul eder.
+<br /><br />
+Değer herhangi PHP türlerinden biridir.
+<pre>
+&lt;?php
+$arr = array("somearray" =&gt; array(6 =&gt; 5, 13 =&gt; 9, "a" =&gt; 42));
+
+echo $arr["somearray"][6];    // 5
+echo $arr["somearray"][13];   // 9
+echo $arr["somearray"]["a"];  // 42
+?&gt;
+</pre>
+
+Eğer bir değer için anahtar tanımlamazsanız, o değer için en büyük tam sayı dizin olur ve bir sonraki anahtarın değeri ise en büyük tam sayı artı bir olur. Eğer daha önce tanımlanmış bir anahtar yine bir değer alacak olursa, eski değer üzerine yazılır.
+<pre>
+&lt;?php
+// Bu dizi aşağıdakinin
+array(5 =&gt; 43, 32, 56, "b" =&gt; 12);
+
+// ...aynısıdır
+array(5 =&gt; 43, 6 =&gt; 32, 7 =&gt; 56, "b" =&gt; 12);
+?&gt;
+</pre>
+<h3>UYARI</h3>
+
+Dizin yaratma davranışı 4.3.0 sürümünden sonra değişti. Eğer o anki en büyük dizin değeri eksiyse ve diziyi genişletmek isterseniz yeni dizin sıfır olur. Eskiden dizin değeri en büyük dizin değeri artı bir oluyordu (artı sayılardaki gibi).
+<br /><br />
+Anahtar olarak TRUE hesaplandığında tam sayı 1 olur. FALSE anahtar olarak kullanılsa tam sayı olarak sıfır olur. NULL kullanıldığında hesaplanırsa boş yazı dizisi olur. Boş yazı dizisi anahtar olursa ya böyle bir öğe yaratır ya da bu tür öğenin üzerine yeni değer atanır.
+<br /><br />
+Anahtar olarak nesneleri ya da dizileri kullanamazsınız. Bu biçimde dizin kullanınca hata olur: Geçersiz dizin tipi...
+<h3>Köşeli parantezle yaratma/değiştirme yazım kuralı</h3>
+
+Var olan bir diziyi dışarıdan değerler atayarak değiştirebilirsiniz.
+<br /><br />
+Bu anahtarları parantezler içinde belirtilirken diziye değerler atayarak yapılır. Anahtarları atlayabilirsiniz. Bu durumda boş parantezler kullanmak gerekir ([] gibi)...
+<pre>
+$arr[key] = value;
+$arr[] = value;
+// anahtar tam sayı ya da yazı olabilir
+// değer herhangi bir değer olabilir
+</pre>
+
+Eğer $arr henüz yoksa, hemen yaratılır. Yani bu bir diziyi tanımlamanın diğer bir yoludur. Bir değeri değiştirimek için o öğeye yeni bir değer atamak yeterlidir. O öğeyi silmek isterseniz anahtarıyla unset işlemini çalıştırın.
+<pre>
+&lt;?php
+$arr = array(5 =&gt; 1, 12 =&gt; 2);
+
+$arr[] = 56;    // Bu $arr[13] = 56; ile aynıdır
+                // kodlamanın bu noktasında
+
+$arr["x"] = 42; // Bu diziye anahtarı "x"
+                // olan yeni bir öğe ekler
+                
+unset($arr[5]); // diziden öğeyi kaldırır (siler)
+
+unset($arr);    // Bu tüm diziyi siler
+?&gt;
+</pre>
+    Not: Yukarıda belirtildiği gibi, eğer parantezleri anahtar tanımlamadan kullanırsanız dizinlerin en büyük tam sayı değeri ele alınır ve yeni anahtar bu değerin bir fazlası olur. Eğer şimdiye dek hiç tam sayı dizin tanımlanmamışsa, ilk dizin değeri 0 olur. Eğer daha önce anahtar bir değerle tanımlanmışsa, yeni değer öncekinin üzerine yazılır.
+<h3>UYARI</h3>
+
+PHP 4.3.0 sürümünden bu yana yukarıdaki dizin anahtarı davranışı değişmiştir. Yeni koşullarda eğer en büyük dizin sayısı eksiyse, eskisinden farklı olarak bir sonraki değer sıfır olur.
+<br /><br />
+Aşağıdaki örnek en büyük dizin sayısıyla ilgilidir:
+<pre>
+    &lt;?php
+    // Basit bir dizi yarat
+    $array = array(1, 2, 3, 4, 5);
+    print_r($array);
+
+    // Her öğeyi şimdi sil, ama dizinin kendine dokunma
+    foreach ($array as $i =&gt; $value) {
+        unset($array[$i]);
+    }
+    print_r($array);
+
+    // Bir öğe ekle (yeni anahtar sıfır değil burada 5 olur)
+    $array[] = 6;
+    print_r($array);
+
+    // Yeniden dizinle
+    $array = array_values($array);
+    $array[] = 7;
+    print_r($array);
+    ?&gt;
+</pre>
+
+Yukarıdaki örnek aşağıdaki çıktıyı verir:
+
+<pre>
+    Array
+    (
+        [0] => 1
+        [1] => 2
+        [2] => 3
+        [3] => 4
+        [4] => 5
+    )
+    Array
+    (
+    )
+    Array
+    (
+        [5] => 6
+    )
+    Array
+    (
+        [0] => 6
+        [1] => 7
+    )
+</pre>
+
+
+<h3>Faydalı işlevler</h3>
+
+Dizilerle kullanılabilecek bir kaç kullanışlı işlev vardır.
+<br /><br />
+    Not: unset() işlevi bir dizideki anahtarın silinmesini sağlar. Dizi yeniden dizinlenmez. Eğer yalnız "usual integer indices" kullanırsanız (sıfırsan başlayıp bir arttırarak), array_values() kullanarak yeniden dizinleme hedefine ulaşmış olursunuz.
+<pre>
+    &lt;?php
+    $a = array(1 =&gt; 'one', 2 =&gt; 'two', 3 =&gt; 'three');
+    unset($a[2]);
+    /* aşağıdaki gibi tanımlanan bir dizi oluşturur
+       $a = array(1 =&gt; 'one', 3 =&gt; 'three');
+       ve böyle olmayan:
+       $a = array(1 =&gt; 'one', 2 =&gt;'three');
+    */
+
+    $b = array_values($a);
+    // Şimdi $b bir dizidir: array(0 =&gt; 'one', 1 =&gt;'three')
+    ?&gt;
+</pre>
+foreach kontrol yapısı özellikler diziler için çok yararlıdır. Bir diziyi taramak için çok kolay bir yoldur.
+<h3>Dizilerle yapılan ve yapılmayanlar</h3>
+Neden $foo[bar] hatalıdır?
+<br /><br />
+Her zaman dizin olduğunda yazı değişmezinin çevresinde tırnak kullanılmalıdır. Örneğin $foo['bar'] yazılabilir ama $foo{bar] değil...
+<pre>
+&lt;?php
+$foo[bar] = 'enemy';
+echo $foo[bar];
+// v.b.
+?&gt;
+</pre>
+Eskiden bu tür kodlamaları görmüş olabilirsiniz ama doğru değildir. Neden yanlış derseniz, burada tanımsız değişmez vardır (bar). Onun yerine 'bar' biçiminde bir yazı dizisi olabilirdi. Belki ileride PHP sizin kodunuza benzer değişmezler de tanımlayabilir. O zaman bu kod çalışır çünkü PHP kodu anladığı biçimde değiştirecektir ama sonuç sizin istediğiniz gibi olmaz...
+<br /><br />
+    Not: sBu hHer zaman anahtarı tırnak içinde yazın anlamına gelmez. Değişmezler ve değişkenler olarak tanımlanmış dizinleri tırnak içine almanız gerekmez.
+<pre>
+    &lt;?php
+    error_reporting(E_ALL);
+    ini_set('display_errors', true);
+    ini_set('html_errors', false);
+    // Basit dizi:
+    $array = array(1, 2);
+    $count = count($array);
+    for ($i = 0; $i &lt; $count; $i++) {
+        echo "\nKontrol $i: \n";
+        echo "Kötü: " . $array['$i'] . "\n";
+        echo "İyi: " . $array[$i] . "\n";
+        echo "Kötü: {$array['$i']}\n";
+        echo "İyi: {$array[$i]}\n";
+    }
+    ?&gt;
+</pre>
+    Yukarıdaki örneğin çıktısı şöyledir:
+<pre>
+    Kontrol 0: 
+    Notice: Undefined index:  $i in /path/to/script.html on line 9
+    Kötü: 
+    İyi: 1
+    Notice: Undefined index:  $i in /path/to/script.html on line 11
+    Kötü: 
+    İyi: 1
+
+    Kontrol 1: 
+    Notice: Undefined index:  $i in /path/to/script.html on line 9
+    Kötü: 
+    İyi: 2
+    Notice: Undefined index:  $i in /path/to/script.html on line 11
+    Kötü: 
+    İyi: 2
+</pre>
+
+Bu gerçeği anlatmak için başka örnekler aşağıda gösterilmiştir:
+<pre>
+&lt;?php
+// Tüm hatalat gösterilsin
+error_reporting(E_ALL);
+
+$arr = array('fruit' =&gt; 'apple', 'veggie' =&gt; 'carrot');
+
+// Doğru
+print $arr['fruit'];  // apple
+print $arr['veggie']; // carrot
+
+// Doğru değil.  Bu çalışır ama 
+// fruit adlı değişmez yüzünden
+// hata düzeyi E_NOTICE olan PHP hatası da verir
+// 
+// Bilgi: fruit tanımsız değişmezdir - 'fruit' varsayıldı
+print $arr[fruit];    // apple
+
+// Neler olduğunu anlayabilmek için bir değişmez tanımlayalım
+// değeri de 'veggie' olsun. Değişmez adı fruit olur
+define('fruit', 'veggie');
+
+// Şimdi değişikliği görelim
+print $arr['fruit'];  // apple
+print $arr[fruit];    // carrot
+
+// Aşağıdaki yazı dizisi içinde olduğu için tamamdır
+// Değişmezler yazı içinden aranmazlar ve E_NOTICE hatası da olmaz
+print "Hello $arr[fruit]";      // Hello apple
+
+// Bir ayrıcalıkla, diziyi çevreleyen parantezler
+// değişmezin aranmasını sağlar
+print "Hello {$arr[fruit]}";    // Hello carrot
+print "Hello {$arr['fruit']}";  // Hello apple
+
+// Bu çalışmaz, tarama hatası verir:
+// parse error, expecting T_STRING' or T_VARIABLE' or T_NUM_STRING'
+// Bu süper evrensellerin de dizilerde kullanılması anlamına gelir
+print "Hello $arr['fruit']";
+print "Hello $_GET['foo']";
+
+// Birleştirmek başka bir seçenektir
+print "Hello " . $arr['fruit']; // Hello apple
+?&gt;
+</pre>
+error_reporting() açıldığında E_NOTICe düzeyi hatalara kadar olanlar (E_ALL değerine ayarlamak gibi) görüntülenir. Varsayılan hataların görülmemesidir.
+<br /><br />
+Yazım kuralları bölümünde anlatıldığı gibi köşeli parantezler arasında bir deyim olmalıdır. Yani buaraya yazılanlar şöyle olabilir:
+<pre>
+&lt;?php
+echo $arr[somefunc($bar)];
+?&gt;
+</pre>
+Bu bir işlevin dönen değerinin dizin olarak kullanılmasına bir örnektir. PHP değişmezleri de tanır.
+<pre>
+&lt;?php
+$error_descriptions[E_ERROR]   = "A fatal error has occured";
+$error_descriptions[E_WARNING] = "PHP issued a warning";
+$error_descriptions[E_NOTICE]  = "This is just an informal notice";
+?&gt;
+</pre>
+E_ERROR doğru bir tanımlayıcıdır (önceki örnekte kullanılan bar gibi) ama burada anlamı aşağıdaki gibidir:
+<pre>
+&lt;?php
+$error_descriptions[1] = "A fatal error has occured";
+$error_descriptions[2] = "PHP issued a warning";
+$error_descriptions[8] = "This is just an informal notice";
+?&gt;
+</pre>
+Çünkü E_ERROR 1 sayısına eşittir, v.b.
+<br /><br />
+Yukarıdaki örneklerde gösterildiği gibi $foo[bar] hala çalışır ama hatalıdır. Çalışır çünkü yazım kuralına göre "bar" değişmez deyim olur. Ama aynı adla bir değişmez bulunmaz. PHP "bar" adlı değişmez bulamayınca, aynı adlı yazı arar ama tırnak olmayınca yazı da doğru olmaz.
+Peki bu neden iyi değildir?
+<br /><br />
+İleride bir zaman PHP takımı bir değişmez eklemek isterler, ya da siz kendi uygulamanız için yeni bir değişmez tanımlamak istersiniz. İşte o zaman sorununuz olur. Artık bazı kelimeleri eskisi gibi kullanamazsınız çünkü değişik anlamaı olan saklı sözcüklerden biri olmuştur.
+<br /><br />
+    Not: yeniden hesaplayacak olursak, çift tırnak içindeki yazı diznleri tırnaklarla çevirmemek "$foo[bar]" gerekir. 
+
+<h3>Diziye çevirmek</h3>
+
+Her hangi bir tip içinde: tamsayı, kayan noktalı, yazı, mantıksal ve kaynak gibi bir değeri diziye çevirince, bir öğeli bir dizi (dizin değeri sıfır olan) oluşur. Öğenin değeri tekdüze bir yazıdır.
+<br /><br />
+Eğer bir nesneyi bir diziye çevirirseniz, nesnenin özelliklerini dizinin öğeleri olarak alırsınız (üye değişkenler). Anahtarlar üye değişkenlerin adlarından oluşur (birkaç tane ayrıcalık dikkate alınmazsa). Özel değişkenlerin peşine sınıf adları eklenir. Korunmalı değişkenlerde '*' değişkenin adına eklenir. Kendi taraflarında boş bayt (byte) değerleri olur.
+<pre>
+&lt;?php
+
+class A {
+    private $A; // Değeri '\0A\0A' olur
+}
+
+class B extends A {
+    private $A; // Değeri '\0B\0A' olur
+    public $AA; // Değeri 'AA' olur
+}
+
+var_dump((array) new B());
+?&gt;
+</pre>
+Yukarıdaki iki anahtarın görünürde değeri 'AA', aslında birinin adı '\0A\0A' olur.
+<br /><br />
+Eğer NULL değeri diziye çevirirseniz boş dizi yaratırsınız.
+<h3>Karşılaştırma</h3>
+<br /><br />
+array_diff() ve Dizi işlemleriyle diziler karşılaştırılabilir.
+<h3>Örnekler</h3>
+<br /><br />
+PHP içinde dizi tanımı aşağıda anlatılmıştır:
+<pre>
+&lt;?php
+// Bu
+$a = array( 'color' =&gt; 'red',
+            'taste' =&gt; 'sweet',
+            'shape' =&gt; 'round',
+            'name'  =&gt; 'apple',
+                       4        // anahtar 0 olur
+          );
+
+// tümüyle aşağıdakine eşdeğerdir
+$a['color'] = 'red';
+$a['taste'] = 'sweet';
+$a['shape'] = 'round';
+$a['name']  = 'apple';
+$a[]        = 4;        // anahtar 0 olur
+
+$b[] = 'a';
+$b[] = 'b';
+$b[] = 'c';
+// sonuçta dizi array(0 =&gt; 'a' , 1 =&gt; 'b' , 2 =&gt; 'c'),
+// ya da  basitçe  array('a', 'b', 'c')  olur
+?&gt;
+</pre>
+Dizileri kullanarak yapılacaklar:
+<pre>
+&lt;?php
+// dizi (özellikler tablosu olarak)
+$map = array( 'version'    =&gt; 4,
+              'OS'         =&gt; 'Linux',
+              'lang'       =&gt; 'english',
+              'short_tags' =&gt; true
+            );
+            
+// Tümüyle sayısal anahtarlar
+$array = array( 7,
+                8,
+                0,
+                156,
+                -10
+              );
+// Bu dizi yan taraftakiyle aynıdır array(0 =&gt; 7, 1 =&gt; 8, ...)
+
+$switching = array(         10, // key = 0
+                    5    =&gt;  6,
+                    3    =&gt;  7, 
+                    'a'  =&gt;  4,
+                            11, // anahtar = 6 (en büyük tamsayı dizin 5 idi)
+                    '8'  =&gt;  2, // anahtar = 8 (tamsayı!)
+                    '02' =&gt; 77, // anahtar = '02'
+                    0    =&gt; 12  // 10 değer 12 ile değiştirilir
+                  );
+                  
+// boş dizi
+$empty = array();         
+?&gt;
+</pre>
+
+Birikim örneği
+<pre>
+&lt;?php
+$colors = array('kirmizi', 'mavi', 'yesil', 'sari');
+
+foreach ($colors as $color) {
+    echo "$color sever misiniz?\n";
+}
+
+?&gt;
+</pre>
+
+The above example will output:
+<pre>
+kirmizi sever misini?
+mavi sever misini?
+yesil sever misini?
+sari sever misini?
+</pre>
+
+Changing values of the array directly is possible since PHP 5 by passing them as reference. Prior versions need workaround:
+<br /><br />
+Birikim örneği
+<pre>
+&lt;?php
+// PHP 5
+foreach ($colors as &$color) {
+    $color = strtoupper($color);
+}
+unset($color); /* emin olun ki aşağıdaki 
+$color son dizi öğesini değiştirmez */
+
+// daha eski sürümler için bir çözüm
+foreach ($colors as $key =&gt; $color) {
+    $colors[$key] = strtoupper($color);
+}
+
+print_r($colors);
+?&gt;
+</pre>
+Yukarıdaki örneğin çıktısı şöyledir:
+<pre>
+Array
+(
+    [0] =&gt; KIRMIZI
+    [1] =&gt; MAVI
+    [2] =&gt; YESIL
+    [3] =&gt; SARI
+)
+</pre>
+
+Bu örnek tek tabanlı dizi yaratır.
+<br /><br />
+Tek tabanlı dizin örneği
+<pre>
+&lt;?php
+$firstquarter  = array(1 =&gt; 'January', 'February', 'March');
+print_r($firstquarter);
+?&gt;
+</pre>
+Yukarıdaki örneğin çıktısı:
+<pre>
+Array 
+(
+    [1] => 'January'
+    [2] => 'February'
+    [3] => 'March'
+)
+</pre>
+   
+Bir diziyi doldurma örneği
+<pre>
+&lt;?php
+// bir diziyi klasördeki tüm değerlerle doldur
+$handle = opendir('.');
+while (false !== ($file = readdir($handle))) {
+    $files[] = $file;
+}
+closedir($handle); 
+?&gt;
+</pre>
+
+Diziler sıralıdır. Sıralamayı çeşitli sıralama işlevleriyle değiştirebilirsiniz.
+count() işlevini kullanarak dizideki öğelerin sırasını öğrenebilirsiniz.
+Example#6 Sorting an array
+<pre>
+&lt;?php
+sort($files);
+print_r($files);
+?&gt;
+</pre>
+
+dizinin değeri herşey olabileceği için, bir başka dizi de olabilir. Bu yolla özyinelenen ya da çok boyutlu diziler tanımlanabilir.
+<br /><br />
+Tekraralanan çok boyutlu dizi örneği
+<pre>
+&lt;?php
+$fruits = array ( "fruits"  =&gt; array ( "a" =&gt; "orange",
+                                       "b" =&gt; "banana",
+                                       "c" =&gt; "apple"
+                                     ),
+                  "numbers" =&gt; array ( 1,
+                                       2,
+                                       3,
+                                       4,
+                                       5,
+                                       6
+                                     ),
+                  "holes"   =&gt; array (      "first",
+                                       5 =&gt; "second",
+                                            "third"
+                                     )
+                );
+
+// Yukarıdaki dizide bazı değerleri gösterme örnekleri şöyledir:
+echo $fruits["holes"][5];    // prints "second"
+echo $fruits["fruits"]["a"]; // prints "orange"
+unset($fruits["holes"][0]);  // remove "first"
+
+// Yeni çok boyutlu dizi yaratma
+$juices["apple"]["green"] = "good"; 
+?&gt;
+</pre>
+Bilmelisiniz ki dizi atamaları her zaman değer kopyalamadır. Yine bilmelisiniz ki current() ile kullanılan dizi göstergesi ve benzeri işlevler silinir. Gösterge işlemini bir diziyi kopyalamada kullanabilirisiniz.
+<pre>
+&lt;?php
+$arr1 = array(2, 3);
+$arr2 = $arr1;
+$arr2[] = 4; // $arr2 değişti
+             // $arr1 hala array(2, 3)
+             
+$arr3 = &$arr1;
+$arr3[] = 4; // şimdi $arr1 ve $arr3 aynıdır
+?&gt;
+</pre>
+
+
+<h3>Nesneler (Objects)</h3>
+<h3>Nesne ilkleme (Initialization)</h3>
+
+Bir nesneyi ilklemek için "new" deyimiyle değişkene atama yapılır.
+<pre>
+&lt;?php
+class foo
+{
+    function do_foo()
+    {
+        echo "foo yapılıyor..."; 
+    }
+}
+
+$bar = new foo;
+$bar-&gt;do_foo();
+?&gt;
+</pre>
+<h3>Nesneye çevirme</h3>
+
+Eğer bir nesne bir nesneye çevrilirse, değeri değiştirilmez. Eğer başka bir tür nesneye çevrilirse, yeni kurulan stdClass için yeni görünümü yaratılır.  Eğer değer NULL olursa, yeni kopya boş olur. Bir dizi nesneye dönüştürüldüğünde dizinin anahtarları nesne özellikleri olur. 
+<pre>
+&lt;?php
+$obj = (object) 'ciao';
+echo $obj-&gt;scalar;  // çıktı 'ciao' olur
+?&gt;
+</pre>
+
+<h3>Kaynaklar (Resource)</h3>
+
+Bir kaynak, dışsal bir kaynağı gösteren özel bir değişkendir. Kaynaklar özel işlevlerle yaratılır ve kullanılır. Bu işlevlerin listesini eklerde bulabilirsiniz.
+<br /><br />
+get_resource_type() konusuna da bakın.
+<h3>Kaynaklara çevirme </h3>
+
+Kaynak tipleri dosyaları açmak, veri tabanı bağlantısı, resim çerçeve alanı ve benzerleri için için elciler tutarlar.
+<h3>Kaynakları boşaltmak</h3>
+
+PHP 4 Zend Makinesiyle sunulan gösterme sayısı sistemine göre, eğer bir kaynak artık hiçbir şey göstermiyorsa otomatik olarak yakalanır. Koşul bu olunca, kaynağa bağlı herşey çöplük toplayıcısıyla boşaltılır. 
+<br /><br />
+Sabit veri tabanı bağlantıları özeldir. Bunlar çöplük toplayıcısıyla da bozulmaz.
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8541306787668208";
+//120x600, created 1/16/08
+google_ad_slot = "7007060807";
+google_ad_width = 120;
+google_ad_height = 600;
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<br />
+<script type="text/javascript"><!--
+google_ad_client = "pub-8541306787668208";
+//120x240, created 1/25/08
+google_ad_slot = "8433790203";
+google_ad_width = 120;
+google_ad_height = 240;
+google_cpa_choice = ""; // on file
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,423 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP DOM XML İşlevleri </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">18 Şubat 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>DOM XML İşlevleri</h2>
+
+<h3>Giriş</h3>
+
+DOM XML uzantıları PHP 4.3.0 sürümünde DOM starndartlarına uyum için gözden geçirildi. Uzantı hala birçok eski işlevi içerir, ama yeni uygulamalarda kullanılmamalıdır. Eskilerde de yenileriyle değiştirilmelidir. Sonuç olarak nesnel olmayan işlevler değiştirilmeli, kullanılmamalıdır.
+<br /><br />
+Bu uzantıi DOM Uygulama Programı arayüzü kullanarak XML belgesiyle çalışmanıza olanak verir. Ayrıca domxml_xmltree() işlevi de tüm XML belgesinin PHP nesnesi ağacı biçiminde döndürülmesini sağlar. Şu anda bu ağaç yalnız okuma türüdür. Değiştirebilirsiniz ama DomDocument_dump_mem() uygulanamadığından bir anlamı yoktur. Eğer XML dosyasını okuyacak ve değiştirecekseniz DomDocument_create_element(),  DomDocument_create_text_node(), set_attribute() ve son olarak DomDocument_dump_mem() kullanın.
+<br /><br />
+    Not: Bu uzantı PECL havuzuna taşınmıştır. Artık PHP 5.0.0 sürümünden beri paketinde bulunmaz.
+<br /><br />
+    Not: Bu uzantı artık deneysel değildir. Ama PHP 5 ile yayımlanmayacaktır ve yalnız PHP 4 ile kullanılacakatır. PHP 5 altında DOM XML desteği isterseniz DOM uzantısını kullanmanız yeterlidir. Bu DOMXML uzantısı DOM uzantısıyla uyumlu da değildir.
+
+<h3>Gereksinim</h3>
+
+Bu uzantı GNOME XML kitaplığını kullanır. Önce bu kitaplığı indirip kurun. En az libxml-2.4.14 sürümüne gereksiniminiz vardır. DOM XSLT özelliklerini kullanmak için libxslt kitaplığı ve EXSLT eklerini http://www.exslt.org/ adresinden indirip kurmak gerekir. Eğer gelişmiş XSLT özelliklerini kullanmak isterseniz en azından libxslt-1.0.10 sürümüne gerek vardır.
+
+<h3>Kurulum</h3>
+
+Bu PECL uzantısı PHP ile paketli değildir. Bu PECL uzantının kurulması için bu konuyla ilgili sayfalarda anlatılmıştır. Diğer bilgiler http://pecl.php.net/package/domxml adresinden sağlanabilir.
+<br /><br />
+PHP 4 içinde PECL uzantısının kaynak kodu ext/ dosya yolunda bulunur. PHP "--with-dom[=DIR]" ile kurulursa bu uzantı kullanılabilir. DOM XSLT desteğini de kullanabilmek için "--with-dom-xslt[=DIR]" eklemek gerekir. DIR libxslt kurulum dosya yoludur. DOM EXSLT desteğini eklemek için "--with-dom-exslt[=DIR]" kullanılmalıdır. Burada da DIR libexslt dosya yolunu belirtir.
+<br /><br />
+Windows kullanıcıları php_domxml.dll etkinleştirilmesini php.ini dosyasından yaparlar. PHP 4 sürümünde bu DLL extensions/ adlı klasör altında bulunur. PECL uzantısının DLL dosyası http://pecl4win.php.net/ adresinden indirilebilir. Sistem yoluna eklenmesi gereken bir DLL daha var. PHP 4 sürümünde bu dll/ klasöründedir. PHP 4.2.0 için adı libxml2.dll, PHP 4.3.0 için iconv.dll olur.
+
+<h3>Eskiyen işlevler</h3>
+
+DOM standartlarına uygulan biraz işlev vardır ve bunlar artık kullanılmamalıdır. Bunlar aşağıdaki tabloda listelenmiştir. DomNode_append_child() işlevi davranışını değiştirmiştir. Artık bir kardeş değil bir çocuk eklemektedir. Eğer bu sizin uygulamanızın kırılmasına neden olursa DomNode_append_sibling() kullanabilirsiniz.
+<br /><br />
+Kullanılmayan işlevler ve yerlerine kullanılan yenileri
+<br /><br />
+<table class="yazi">
+<tr><td>Eski işlev</td><td>Yeni işlev</td></tr>
+<tr><td>xmldoc</td><td>domxml_open_mem()</td></tr>
+<tr><td>xmldocfile</td><td>domxml_open_file()</td></tr>
+<tr><td>domxml_new_xmldoc</td><td>domxml_new_doc()</td></tr>
+<tr><td>domxml_dump_mem</td><td>DomDocument_dump_mem()</td></tr>
+<tr><td>domxml_dump_mem_file</td><td>DomDocument_dump_file()</td></tr>
+<tr><td>DomDocument_dump_mem_file</td><td>DomDocument_dump_file()</td></tr>
+<tr><td>DomDocument_add_root</td><td>DomDocument_create_element() peşinden DomNode_append_child() gelir</td></tr>
+<tr><td>DomDocument_dtd</td><td>DomDocument_doctype()</td></tr>
+<tr><td>DomDocument_root</td><td>DomDocument_document_element()</td></tr>
+<tr><td>DomDocument_children</td><td>DomNode_child_nodes()</td></tr>
+<tr><td>DomDocument_imported_node</td><td>No replacement.</td></tr>
+<tr><td>DomNode_add_child</td><td>Örneğin DomDocument_create_element() ve add it with DomNode_append_child() ile yeni düğüm yarat.</td></tr>
+<tr><td>DomNode_children</td><td>DomNode_child_nodes()</td></tr>
+<tr><td>DomNode_parent</td><td>DomNode_parent_node()</td></tr>
+<tr><td>DomNode_new_child</td><td>Örneğin DomDocument_create_element() ile yeni düğüm yarat ve DomNode_append_child() ile ekle.</td></tr>
+<tr><td>DomNode_set_content</td><td>Örneğin DomDocument_create_text_node()  ile yeni düğüm yarat ve DomNode_append_child() ile ekle.</td></tr>
+<tr><td>DomNode_get_content</td><td>İçerik bir yazı düğümüdür ve DomNode_child_nodes() ile erişilebilir.</td></tr>
+<tr><td>DomNode_set_content</td><td>İçerik bir yazı düğümüdür ve DomNode_append_child() ile eklenebilir.</td></tr>
+</table>
+
+<h3>Önceden Tanımlanan Değişmezler</h3>
+
+Aşağıdaki değişmezler bu uzantıda tanımlanmıştır. Uzantı PHP ile derlendiğinde değişmezler kullanılabilir (PHP modülü dinamik olarak da yüklenebilir).
+
+<h3>XML değişmezler</h3>
+<table class="yazi">
+<tr><td>Değişmez</td><td>Değer</td><td>AÇıklama</td></tr>
+<tr><td>XML_ELEMENT_NODE (integer)</td><td>1</td><td>Düğüm bir öğedir
+</td></tr>
+<tr><td>XML_ATTRIBUTE_NODE (integer)</td><td>2</td><td>Düğüm bir niteliktir
+</td></tr>
+<tr><td>XML_TEXT_NODE (integer)</td><td>3</td><td>Düğüm bir parça yazıdır
+</td></tr>
+<tr><td>XML_CDATA_SECTION_NODE (integer)</td><td>4</td><td></td></tr>
+<tr><td>XML_ENTITY_REF_NODE (integer)</td><td>5</td><td></td></tr>
+<tr><td>XML_ENTITY_NODE (integer)</td><td>6</td><td>düğüm &nbsp; gibi bir
+varlıktır</td></tr>
+<tr><td>XML_PI_NODE (integer)</td><td>7</td><td>Düğüm işlenebilir bir işlemdir</td></tr>
+<tr><td>XML_COMMENT_NODE (integer)</td><td>8</td><td>Düğüm bir açıklamadır </td></tr>
+<tr><td>XML_DOCUMENT_NODE (integer)</td><td>9</td><td>Düğüm bir belgedir </td></tr>
+<tr><td>XML_DOCUMENT_TYPE_NODE (integer)</td><td>10</td><td></td></tr>
+<tr><td>XML_DOCUMENT_FRAG_NODE (integer)</td><td>11</td><td></td></tr>
+<tr><td>XML_NOTATION_NODE (integer)</td><td>12</td><td></td></tr>
+<tr><td>XML_GLOBAL_NAMESPACE (integer)</td><td>1</td><td></td></tr>
+<tr><td>XML_LOCAL_NAMESPACE (integer)</td><td>2</td><td></td></tr>
+<tr><td>XML_HTML_DOCUMENT_NODE (integer)</td><td></td><td></td></tr>
+<tr><td>XML_DTD_NODE (integer)</td><td></td><td></td></tr>
+<tr><td>XML_ELEMENT_DECL_NODE (integer)</td><td></td><td></td></tr>
+<tr><td>XML_ATTRIBUTE_DECL_NODE (integer)</td><td></td><td></td></tr>
+<tr><td>XML_ENTITY_DECL_NODE (integer)</td><td></td><td></td></tr>
+<tr><td>XML_NAMESPACE_DECL_NODE (integer)</td><td></td><td></td></tr>
+<tr><td>XML_ATTRIBUTE_CDATA (integer)</td><td></td><td></td></tr>
+<tr><td>XML_ATTRIBUTE_ID (integer)</td><td></td><td></td></tr>
+<tr><td>XML_ATTRIBUTE_IDREF (integer)</td><td></td><td></td></tr>
+<tr><td>XML_ATTRIBUTE_IDREFS (integer)</td><td></td><td></td></tr>
+<tr><td>XML_ATTRIBUTE_ENTITY (integer)</td><td></td><td></td></tr>
+<tr><td>XML_ATTRIBUTE_NMTOKEN (integer)</td><td></td><td></td></tr>
+<tr><td>XML_ATTRIBUTE_NMTOKENS (integer)</td><td></td><td></td></tr>
+<tr><td>XML_ATTRIBUTE_ENUMERATION (integer)</td><td></td><td></td></tr>
+<tr><td>XML_ATTRIBUTE_NOTATION (integer)</td><td></td><td></td></tr>
+<tr><td>XPATH_UNDEFINED (integer)</td><td></td><td></td></tr>
+<tr><td>XPATH_NODESET (integer)</td><td></td><td></td></tr>
+<tr><td>XPATH_BOOLEAN (integer)</td><td></td><td></td></tr>
+<tr><td>XPATH_NUMBER (integer)</td><td></td><td></td></tr>
+<tr><td>XPATH_STRING (integer)</td><td></td><td></td></tr>
+<tr><td>XPATH_POINT (integer)</td><td></td><td></td></tr>
+<tr><td>XPATH_RANGE (integer)</td><td></td><td></td></tr>
+<tr><td>XPATH_LOCATIONSET (integer)</td><td></td><td></td></tr>
+<tr><td>XPATH_USERS (integer)</td><td></td><td></td></tr>
+<tr><td>XPATH_NUMBER (integer)</td><td></td><td></td></tr>
+</table>
+
+<h3>Sınıflar</h3>
+
+DOM düzey 2 uyumlu olmasına çalışılan uygulama programı arayüzü (API) modülde vardır. Bu modülü kullanmak için DOM kullanıma açılmalıdır. API nesnel olmasına karşın pekçok işlev nesnel olmayan ortamlarda da kullanılacak biçimdedir. Bu işlevler eski sürümlerle uyum çin vardır. Yeni kodlamalarda kullanılmamaları önerilir.
+<br /><br />
+Bu API, resmi DOM API'den iki yönde ayrılır. Birincisi, tüm sınıf nitelikleri aynı adlı işlevlerle desteklenmiştir. İkincisi ise işlevlerin PHP adlandırma kurallarına uymasıdır. Bunun anlamı, DOM işlevi olan lastChild, last_child() olarak kullanılır.
+<br /><br />
+Bu modül aşağıdaki tabloda listelenen sınıfları tanımlar (yöntemleriyle birlikte). DOM standartlarındaki eşdeğer sınıfların adları DOMxxx olarak belirtilir.
+
+<h3>Sınıfların listesi</h3>
+<table class="yazi">
+<tr><td>Class name</td><td>Parent classes</td></tr>
+<tr><td>DomAttribute</td><td>DomNode</td></tr>
+<tr><td>DomCData</td><td>DomNode</td></tr>
+<tr><td>DomComment</td><td>DomCData : DomNode</td></tr>
+<tr><td>DomDocument</td><td>DomNode</td></tr>
+<tr><td>DomDocumentType</td><td>DomNode</td></tr>
+<tr><td>DomElement</td><td>DomNode</td></tr>
+<tr><td>DomEntity</td><td>DomNode</td></tr>
+<tr><td>DomEntityReference</td><td>DomNode</td></tr>
+<tr><td>DomProcessingInstruction</td><td>DomNode</td></tr>
+<tr><td>DomText</td><td>DomCData : DomNode</td></tr>
+</table>
+<br /><br />
+<table class="yazi">
+<tr><td>Parser</td><td>Şu anda hala DomParser denir</td></tr>
+<tr><td>XPathContext</td><td></td></tr>
+</table>
+
+<h3>DomDocument sınıfı (DomDocument : DomNode)</h3>
+
+<table class="yazi">
+<tr><td>Yöntem adı</td><td>İşlev adı</td><td>Görüşler</td></tr>
+<tr><td>doctype</td><td>DomDocument_doctype()</td><td></td></tr>
+<tr><td>document_element</td><td>DomDocument_document_element()</td><td></td></tr>
+<tr><td>create_element</td><td>DomDocument_create_element()</td><td></td></tr>
+<tr><td>create_text_node</td><td>DomDocument_create_text_node()</td><td></td></tr>
+<tr><td>create_comment</td><td>DomDocument_create_comment()</td><td></td></tr>
+<tr><td>create_cdata_section</td><td>DomDocument_create_cdata_section()</td><td></td></tr>
+<tr><td>create_processing_instruction</td><td>DomDocument_create_processing_instruction()</td><td></td></tr>
+<tr><td>create_attribute</td><td>DomDocument_create_attribute()</td><td></td></tr>
+<tr><td>create_entity_reference</td><td>DomDocument_create_entity_reference()</td><td></td></tr>
+<tr><td>get_elements_by_tagname</td><td>DomDocument_get_elements_by_tagname()</td><td></td></tr>
+<tr><td>get_element_by_id</td><td>DomDocument_get_element_by_id()</td><td></td></tr>
+<tr><td>dump_mem</td><td>DomDocument_dump_mem()</td><td>DOM
+standardı değil</td></tr>
+<tr><td>dump_file</td><td>DomDocument_dump_file()</td><td>DOM
+standardı değil</td></tr>
+<tr><td>html_dump_mem</td><td>DomDocument_html_dump_mem()</td><td>DOM standardı değil</td></tr>
+<tr><td>xpath_init</td><td>xpath_init</td><td>DOM standardı değil</td></tr>
+<tr><td>xpath_new_context</td><td>xpath_new_context</td><td>DOM
+standardı değil</td></tr>
+<tr><td>xptr_new_context</td><td>xptr_new_context</td><td>DOM
+standardı değil</td></tr>
+</table>
+
+
+<h3>DomElement sınıf (DomElement : DomNode)</h3>
+<table class="yazi">
+<tr><td>Yöntem adı</td><td>İşlev adı</td><td>Görüşler</td></tr>
+<tr><td>tagname</td><td>DomElement_tagname()</td><td></td></tr>
+<tr><td>get_attribute</td><td>DomElement_get_attribute()</td><td></td></tr>
+<tr><td>set_attribute</td><td>DomElement_set_attribute()</td><td></td></tr>
+<tr><td>remove_attribute</td><td>DomElement_remove_attribute()</td><td></td></tr>
+<tr><td>get_attribute_node</td><td>DomElement_get_attribute_node()</td><td></td></tr>
+<tr><td>set_attribute_node</td><td>DomElement_set_attribute_node()</td><td></td></tr>
+<tr><td>get_elements_by_tagname</td><td>DomElement_get_elements_by_tagname()</td><td></td></tr>
+<tr><td>has_attribute</td><td>DomElement_has_attribute()</td><td></td></tr>
+</table>
+
+<h3>DomNode sınıf</h3>
+
+<table class="yazi">
+<tr><td>Yöntem adı</td><td>Görüşler</td></tr>
+<tr><td>DomNode_node_name()</td><td></td></tr>
+<tr><td>DomNode_node_value()</td><td></td></tr>
+<tr><td>DomNode_node_type()</td><td></td></tr>
+<tr><td>DomNode_last_child()</td><td></td></tr>
+<tr><td>DomNode_first_child()</td><td></td></tr>
+<tr><td>DomNode_child_nodes()</td><td></td></tr>
+<tr><td>DomNode_previous_sibling()</td><td></td></tr>
+<tr><td>DomNode_next_sibling()</td><td></td></tr>
+<tr><td>DomNode_parent_node()</td><td></td></tr>
+<tr><td>DomNode_owner_document()</td><td></td></tr>
+<tr><td>DomNode_insert_before()</td><td></td></tr>
+<tr><td>DomNode_append_child()</td><td></td></tr>
+<tr><td>DomNode_append_sibling()</td><td>DOM standardı değil. Bu işlev DomNode_append_child() işlevinin ilkel davranışını benzetir.</td></tr>
+<tr><td>DomNode_remove_child()</td><td></td></tr>
+<tr><td>DomNode_has_child_nodes()</td><td></td></tr>
+<tr><td>DomNode_has_attributes()</td><td></td></tr>
+<tr><td>DomNode_clone_node()</td><td></td></tr>
+<tr><td>DomNode_attributes()</td><td></td></tr>
+<tr><td>DomNode_unlink_node()</td><td>DOM standardı değil</td></tr>
+<tr><td>DomNode_replace_node()</td><td>DOM standardı değil</td></tr>
+<tr><td>DomNode_set_content()</td><td>DOM standardı değil,
+eskidi</td></tr>
+<tr><td>DomNode_get_content()</td><td>DOM standardı değil,
+eskidi</td></tr>
+<tr><td>DomNode_dump_node()</td><td>DOM standardı değil</td></tr>
+<tr><td>DomNode_is_blank_node()</td><td>DOM standardı değil</td></tr>
+</table>
+
+<h3>DomAttribute sınıfı (DomAttribute : DomNode)</h3>
+
+<table class="yazi">
+<tr><td>Yöntem adı</td><td></td><td>Görüşler</td></tr>
+<tr><td>name</td><td>DomAttribute_name()</td><td></td></tr>
+<tr><td>value</td><td>DomAttribute_value()</td><td></td></tr>
+<tr><td>specified</td><td>DomAttribute_specified()</td><td></td></tr>
+</table>
+
+<h3>DomProcessingInstruction sınıfı (DomProcessingInstruction : DomNode)</h3>
+
+<table class="yazi">
+<tr><td>Yöntem adı</td><td>İşlev adı</td><td>Görüşler</td></tr>
+<tr><td>target</td><td>DomProcessingInstruction_target()</td><td></td></tr>
+<tr><td>data</td><td>DomProcessingInstruction_data()</td><td></td></tr>
+</table>
+
+<h3>Parser sınıfı</h3>
+
+<table class="yazi">
+<tr><td>Yöntem adı</td><td>İşlev adı</td><td>Görüşler</td></tr>
+<tr><td>add_chunk</td><td>Parser_add_chunk()</td><td></td></tr>
+<tr><td>end</td><td>Parser_end()</td><td></td></tr>
+</table>
+
+<h3>XPathContext sınıfı</h3>
+
+<table class="yazi">
+<tr><td>Yöntem adı</td><td>İşlev adı</td><td>Görüşler</td></tr>
+<tr><td>eval</td><td>XPathContext_eval()</td><td></td></tr>
+<tr><td>eval_expression</td><td>XPathContext_eval_expression()</td><td></td></tr>
+<tr><td>register_ns</td><td>XPathContext_register_ns()</td><td></td></tr>
+</table>
+
+<h3>DomDocumentType sınıfı (DomDocumentType : DomNode)</h3>
+
+<table class="yazi">
+<tr><td>Yöntem adı</td><td>İşlev adı</td><td>Görüşler</td></tr>
+<tr><td>name</td><td>DomDocumentType_name()</td><td></td></tr>
+<tr><td>entities</td><td>DomDocumentType_entities()</td><td></td></tr>
+<tr><td>notations</td><td>DomDocumentType_notations()</td><td></td></tr>
+<tr><td>public_id</td><td>DomDocumentType_public_id()</td><td></td></tr>
+<tr><td>system_id</td><td>DomDocumentType_system_id()</td><td></td></tr>
+<tr><td>internal_subset</td><td>DomDocumentType_internal_subset()</td><td></td></tr>
+</table>
+
+DomDtd sınıfları DomNode'dan türetildi. DomComment ise DomCData'dan türetildi.
+
+<h3>Örnekler</h3>
+
+Bu gösterimdeki birçok örnek XML yazı dizisi ister. Bunu her örnekte tekrarlamak yerine, bir dosyaya yazılacak ve örneklerde içe alınacaktır (include ile). Ya da diğer bir biçimde, bir XML belgesi yarattığınızda DomDocument_open_file() ile okuyabilirsiniz.
+<br /><br />
+Örnek: XML yazı dizisiyle ekelme (Include) dosyası example.inc kullanma.
+<pre>
+&lt;?php
+$xmlstr = "&lt;?xml version='1.0' standalone='yes'?&gt;
+&lt;!DOCTYPE chapter SYSTEM '/share/sgml/Norman_Walsh/db3xml10/db3xml10.dtd'
+[ &lt;!ENTITY sp \"spanish\"&gt;
+]&gt;
+&lt;!-- lsfj  --&gt;
+&lt;chapter language='en'&gt;&lt;title language='en'&gt;Title&lt;/title&gt;
+ &lt;para language='ge'&gt;
+  &sp;
+  &lt;!-- comment --&gt;
+  &lt;informaltable ID='findme' language='&sp;'&gt;
+   &lt;tgroup cols='3'&gt;
+    &lt;tbody&gt;
+     &lt;row&gt;&lt;entry&gt;a1&lt;/entry&gt;&lt;entry
+morerows='1'&gt;b1&lt;/entry&gt;&lt;entry&gt;c1&lt;/entry&gt;&lt;/row&gt;
+&lt;row&gt;&lt;entry&gt;a2&lt;/entry&gt;&lt;entry&gt;c2&lt;/entry&gt;&lt;/row&gt;
+     &lt;row&gt;&lt;entry&gt;a3&lt;/entry&gt;&lt;entry&gt;b3&lt;/entry&gt;&lt;entry&gt;c3&lt;/entry&gt;&lt;/row&gt;
+    &lt;/tbody&gt;
+   &lt;/tgroup&gt;
+  &lt;/informaltable&gt;
+ &lt;/para&gt;
+&lt;/chapter&gt;";
+?&gt;
+</pre>
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> DomAttribute->name — niteliğin adını döndürür
+    <li> DomAttribute->set_value — Niteliğin değerini atar
+    <li> DomAttribute->specified — Nitelik belirtilmiş mi diye bakar
+    <li> DomAttribute->value — Niteliğin değerini döbdürür
+    <li> DomDocument->add_root — Kök düğüm ekler [eskidi]
+    <li> DomDocument->create_attribute — Yeni nitelik yaratır
+    <li> DomDocument->create_cdata_section — Yeni cdata düğümü yaratır
+    <li> DomDocument->create_comment — Yeni açıklama düğümü yaratır
+    <li> DomDocument->create_element_ns — Yeni öğe düğümü ilgili ad alanıyla yaratılır
+    <li> DomDocument->create_element — Yeni öğe düğümü yaratır
+    <li> DomDocument->create_entity_reference — Bir varlık göstergesi yaratır
+    <li> DomDocument->create_processing_instruction — Yeni PI düğümü yaratır
+    <li> DomDocument->create_text_node — Yeni yazi düğümü yaratır
+    <li> DomDocument->doctype — Belgenin türünü döndürür
+    <li> DomDocument->document_element — Kök öğe düğümünü döndürür
+    <li> DomDocument->dump_file — içsel XML ağacını bir diziye döker
+    <li> DomDocument->dump_mem — İçsel XML ağacını bir yazı dizisine döker
+    <li> DomDocument->get_element_by_id — Belirli bir tanım(Id) için öğeleri arar
+    <li> DomDocument->get_elements_by_tagname — Belgedeki verilen biçim adı ya da boş diziyle öğelerin dizisini alır
+    <li> DomDocument->html_dump_mem — İçsel XML ağacını HTML olarak yazı dizisine döker.
+    <li> DomDocument->xinclude — DomDocument Nesnesinekileri XInclude'larla değiştirir 
+    <li> DomDocumentType->entities() — Varlıkların listesini döndürür
+    <li> DomDocumentType->internal_subset() — İçselalt kümeyi döndürür
+    <li> DomDocumentType->name() — Belge türünün adını döndürür
+    <li> DomDocumentType->notations() — Gösterimlerin listesini döndürür
+    <li> DomDocumentType->public_id() — Returns public id of document type
+    <li> DomDocumentType->system_id() — Belge türünün system tanımını (Id) döndürür
+    <li> DomElement->get_attribute_node() — Verilen niteliğin düğümünü döndürür
+    <li> DomElement->get_attribute() — Verilen niteliğin değerini döndürür
+    <li> DomElement->get_elements_by_tagname() — Öğeleri biçim adlarıyla alır.
+    <li> DomElement->has_attribute() — O anki düğümde niteliğin var olup olmadığına bakar
+    <li> DomElement->remove_attribute() — Niteliği siler
+    <li> DomElement->set_attribute_node() — Yeni nitelik ekler
+    <li> DomElement->set_attribute() — Niteliğe değerini atar
+    <li> DomElement->tagname() — O anki öğenin adını döndürür
+    <li> DomNode->add_namespace — Bir düğüme ad alanı tanımlaması ekler
+    <li> DomNode->append_child — Çocukların peşine yeni bir çocuk ekler
+    <li> DomNode->append_sibling — Düğüme yeni bir kardeş ekler
+    <li> DomNode->attributes — Niteliklerin listesini döndürür
+    <li> DomNode->child_nodes — Düğümün çocuklarını döndürür
+    <li> DomNode->clone_node — Bir düğümü kopyalar
+    <li> DomNode->dump_node — Tek düğümü döker
+    <li> DomNode->first_child — Düğümün ilk çocuğunu döndürür
+    <li> DomNode->get_content — Düğümün içeriğini döndürür
+    <li> DomNode->has_attributes — Düğümün nitelikleri var mı bakar.
+    <li> DomNode->has_child_nodes — Düğümün çocukları var mı bakar
+    <li> DomNode->insert_before — Yeni düğümü çocuk olarak ekler
+    <li> DomNode->is_blank_node — Düğüm boş mu bakar
+    <li> DomNode->last_child — Düğümün son çocuğu döner
+    <li> DomNode->next_sibling — Düğümün bir sonraki kardeşini döndürür
+    <li> DomNode->node_name — Düğümün adını döndürür
+    <li> DomNode->node_type — Düğümün türünü döndürür
+    <li> DomNode->node_value — Bir düğümün değerini döndürür
+    <li> DomNode->owner_document — Bu düğümün bulunduğu belgeyi döndürür
+    <li> DomNode->parent_node — Düğümün babasını döndürür
+    <li> DomNode->prefix — Düğümün ad alanı ön ekini döndürür
+    <li> DomNode->previous_sibling — Düğümün önceki kardeşini döndürür
+    <li> DomNode->remove_child — Çocukların listesinden çocuğu siler
+    <li> DomNode->replace_child — Bir çocuğu değiştirir
+    <li> DomNode->replace_node — Düğümü değiştirir
+    <li> DomNode->set_content — Düğümün içeriğini atar
+    <li> DomNode->set_name — Düğümün adını atar
+    <li> DomNode->set_namespace — Düğümün ad alanını atar
+    <li> DomNode->unlink_node — Düğümü siler
+    <li> DomProcessingInstruction->data — ProcessingInstruction (Çalışan işlem) düğümünün değerini döndürür
+    <li> DomProcessingInstruction->target — ProcessingInstruction düğümünün hedefini döndürür
+    <li> DomXsltStylesheet->process() — DomDocument Nesnesine XSLT-Transformation (XSLT çevirimi) uygular.
+    <li> DomXsltStylesheet->result_dump_file() — XSLT-Transformation sonucunu dosyaya döker
+    <li> DomXsltStylesheet->result_dump_mem() — XSLT-Transformation sonucunu yazi dizisine döker
+    <li> domxml_new_doc — Yeni boş XML belgesi yaratır
+    <li> domxml_open_file — XML dosyasından DOM nesnesi yaratır
+    <li> domxml_open_mem — XML belgesinden DOM nesnesi yaratır
+    <li> domxml_version — XML kitaplık sürümünü alır
+    <li> domxml_xmltree — PHP nesnesi ağacını XML belgesinden yaratır
+    <li> domxml_xslt_stylesheet_doc — DomXsltStylesheet Nesnesini DomDocument Nesnesinden yaratır
+    <li> domxml_xslt_stylesheet_file — DomXsltStylesheet nesnesini dosyadaki XSL belgesinden yaratır
+    <li> domxml_xslt_stylesheet — DomXsltStylesheet nesnesini yazı dizisindeki XSL belgesinden yaratır
+    <li> domxml_xslt_version — XSLT kitaplık sürümünü alır
+    <li> xpath_eval_expression — Verilen yazı dizisinin yerleşim yolundan XPath hesaplamak
+    <li> xpath_eval — Verilen yazı dizisinin yerleşim yolundan XPath hesaplamak
+    <li> xpath_new_context — Yeni xpath içeriği yaratır
+    <li> xpath_register_ns_auto — Verilen ad alanı geçen Xpath içeriğiyle kayıt ettirmek
+    <li> xpath_register_ns — Verilen ad alanı geöen xpath içeriğiyle kayıt ettirmek
+    <li> xptr_eval — Verilen yazı dizisinde XPtr yerleşim yolunu hesaplama
+    <li> xptr_new_context — Yeni XPath içeriği yaratma
+</ul>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,338 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<TITLE>AYBIM - ILETISIM</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onload="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+          <a href="../index.php" class="box"><img src="../img/aybim.png" border="0"></a><br /><br />
+          <a href="aglar.html" class="nav">Aglar</a>
+          <a href="aglink.html" class="nav">Aglink</a>
+          <a href="agteknik.html" class="nav">Agteknik</a>
+          <a href="ccode.html" class="nav">C-Kodlama</a>
+          <a href="cprep.html" class="nav">C-Önişleme</a>
+          <a href="crclrc.html" class="nav">CRC/LRC</a>
+          <a href="dea.html" class="nav">DEA</a>
+          <a href="etcsrv.html" class="nav">etcsrv</a>
+          <a href="fork.html" class="nav">Çatal (fork)</a>
+          <a href="ilet.html" class="nav">ilet</a>
+          <a href="inetd.html" class="nav">inetd</a>
+          <a href="make.html" class="nav">Make</a>
+          <a href="msgauth.html" class="nav">Msg Auth</a>
+          <a href="recur.html" class="nav">Özyinelemeli</a>
+          <a href="robots.html" class="nav">Robotlar için</a>
+          <a href="sdlc.html" class="nav">SDLC</a>
+          <a href="secure.html" class="nav">Güvenlik</a>
+          <a href="seri.html" class="nav">Seri uçlar</a>
+          <a href="snalu0.html" class="nav">SNA LU0</a>
+          <a href="snalu62.html" class="nav">SNA LU6.2</a>
+          <a href="tcpip.html" class="nav">tcp/ip</a>
+          <a href="tcpprg.html" class="nav">tcp Programı</a>
+          <a href="unix.html" class="nav">Unix</a>
+          <a href="vi.html" class="nav">vi Editör</a>
+       </div>
+        </td>
+       <td valign="top">
+       <div id="ortataraf">
+           <span><img src="../img/transparent.gif" width="1" height="50">
+           <img src="../img/transparent.gif" width="780" height="1"></span>
+           <div id="banner">
+             <img src="img/baslik.gif"><br />
+             <div id="mycontainer">
+               <div id="content">
+<div id="bdy" class="yazi">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8541306787668208";
+//728x90, created 1/16/08
+google_ad_slot = "7459135715";
+google_ad_width = 728;
+google_ad_height = 90;
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<br>
+<br>
+<div id="sag"><span class="yazi">24 Ocak 2008</span></div>
+<H2>BİLGİSAYARDA İLETİŞİM </H2>
+<HR>
+    <H2>GİRİŞ</H2>
+    <P>
+    İki değişik bilgisayarda çalışan iki programın birbirine mesaj göndermesine
+    kısaca "bilgisayarlar arası iletişim" diyelim. İletişim bir dizi program
+    katmanından oluşur. Kullanılan teknik, protokol, mesaj gidiş ve gelişi hep
+    iletişim katmanlarındaki programlarda çözümlenir.
+    <P>
+    Genelde, iletişimde kullanılan bilgisayar programları, gönderdikleri mesajın
+    karşı taraftan alınıp alınmadığını bilemezler. Bir program gönderdiği bir
+    mesajın
+    alındığını, karşı taraftaki programdan gelen mesajı yorumlayarak anlıyabilir.
+    Bu özellik bilgisayar programları arasında iletişim kurallarının doğmasına
+    neden olmuştur. İletişim kurallarına genel olarak "protokol" adı verilir.
+    Değişik iletişim protokollarının nasıl çalıştığı çeşitli yayınlarda
+    ayrıntıları ile açıklanmıştır. Biz burada bilinen bazı protokollarda
+    mesaj alış verişinin içeriğini kısaca anlatırken, örnek programlarla
+    iletişimin nasıl
+    kurulacağını göstereceğiz. Buradaki örnek programlar çeşitli ortamlarda
+    çalışan programlardan derlenerek buraya alınmıştır. Amaç iletişim
+    programlarındaki mantığın nasıl kurulduğunu göstermektir.
+    <P>
+    İletişim protokolları SNA, X.25, TCP/IP gibi adlarla anılır. Her protokolun
+    kendine özgü yazılım katmanları ve mesaj trafiği vardır.
+    <P>
+    İki bilgisayar arasındaki mesaj trafiğinin toplumdaki iletişim şebekelerini
+    kullanması, mesajın içeriğinin, gizli bilgilerin, en önemlisi kullanıcı
+    şifrelerinin başkaları tarafından izlenmemesini gerektirir. Burada güvenlik
+    kurallarını, bu konuda yayınlanmış bazı algoritmaları anlatmaya çalışacağız.
+    <P>
+    İlerideki günlerde, çeşitli iletişim şebekelerinden örnekler verip, bugün için
+    kurulması en uygun iletişim şebekelerinin yapısının değişik protokoller
+    kullanarak nasıl olması gerektiğini gösterceğiz.
+    <P>
+    <H2>PROTOKOL TANIMLARI</H2>
+    <P>
+    Protokol tanımlarından önce, bir iletişim programında bulunan
+    arayüzler ve program katmanları aşağıda tanımlanmıştır. Buradaki tanımlar
+    programlarda kullanılan mantığı belirtmek için anlatılmıştır.
+    <P>
+    <table class="yazi">
+      <tr>
+        <td valign=top WIDTH=100><b>Uygulama Programı</b></td>
+        <td>Burada kullanıcının çalıştırdığı komut, bu komutun
+        parametreleri ve komut işlevi yer alır. Örnek vermek gerekirse uzaktan
+        kopyalama (rcp) böyle bir uygulamadır. Burada yerel bilgisayardaki bir
+        dizinin adı ile karşı bilgisayardaki bir dizi tanımlanabilen parametrelerdir.
+        Örneğin uygulama programı yerel bilgisayardaki bir diziyi okur, karşı
+        bilgisayarda yeni adı ile yaratılmasını sağlayan bir mantık ile yazılır.
+        Uygulama programı arayüzü : Uygulama programı arayüzü bir dizi işlevden
+        oluşur. Bu işlevler; bağlantı kurma, mesaj gönderme ve bağlantıyı
+        kapatma olarak adlandırılabilir.</td>
+      </tr>
+      <tr>
+        <td valign=top WIDTH=100><b>Protokol Arayüzü</b></td>
+        <td>Uygulama programı arayüzlerini oluşturan işlevler
+        tarafından kullanılan komutlardır. Burada protokol gereği, mesajın gideceği
+        bilgisayarla bağlantı kurma, gelen cevabı değerlendirme, işlemin türüne
+        göre karşı bilgisayarda yapılması gereken komutları gönderme, karşı
+        bilgisayardan gelen cevapları bekleme, mesaj göndermede oluşan hataları
+        anlayıp mesajları yineleme hep bu bölümde yer alan programlar tarafından
+        gerçekleştirilir.</td>
+      </tr>
+      <tr>
+        <td valign=top WIDTH=100><b>İletişim Arayüzü</b></td>
+        <td>İletişim yazılımlarının en alt düzeyinde yer alan bu bölüm,
+        kullanılan iletişim donanımı ile iletilecek paketlerin bu donanıma uygun
+        hazırlanması, gönderilmesi ve gelen cevapların donanım ortamından okunup
+        paketler haline getirilmesi işlemleridir. Cevapların anlamsız olması veya
+        gönderilen paketin karşı tarafta algılanamaması gibi durumlarda paketin
+        yinelenmesi, karşı tarafa beklenen sürede mesajın gitmemesi veya yanıt
+        alınamaması hep burada yer alan modüller tarafından çözümlenir.</td>
+      </tr>
+    </table>
+    <p>
+    Çeşitli ortamlarda bir iletişim protokolu üzerinden bir başka iletişim
+    protokolu kullanılabilir. Bu gibi durumlarda bir uygulama programı bir üstteki
+    protokol için İletişim Arayüzü görevi yapar.
+    X.25 üzerinden SNA, SNA üzerinden TCP/IP kullanımı bu tür örneklerdir.
+    <P>
+    <h2>ÇEŞİTLİ İLETİŞİM PROTOKOLLERİ</h2>
+    <p>
+    <H3><a href="http://www.ibm.com">SNA (System Network Architecture)</a></H3>
+    <P>
+    <table class="yazi">
+      <tr>
+        <td WIDTH=50></td>
+        <td WIDTH=500>
+        SNA ortamında iletişim kuran bilgisayarlar SNA kurallarına göre üç konumdan
+        birinde bulunabilir. Bunlar "Bekleme", "Alma", "Gönderme" konumlarıdır.
+        İki bilgisayar arasında iletişim kurulduğunda, her iki
+        bilgisayar da "Bekleme" konumundadır. İlk mesajı gönderen "Gönderme" konumuna
+        geçer. Karşı taraf "Alma" konumunda mesajı alır. Mesaj doğru gitmiş ise
+        bilgisayarlar konum değiştirir, biri "Gönderme", diğeri "Alma" konumuna geçer.
+        Cevap geldiğinde uygulama ile ilgili mesaj alış verişi tamamlanmış ise
+        her iki bilgisayar da "Bekleme" konumuna geçer. Bir bilgisayar "Alma" konumunda
+        mesaj gönderemez. Aynı şekilde "Gönderme" konumunda iken mesaj alamaz. Bu işlem
+        ancak bir bilgisayarın konum değiştirme komutu göndermesi ile mümkün olabilir.
+        Bu komuta BID denir. BID gönderen taraf "Alma" konumundan "Gönderme" konumuna
+        geçmek istediğini bildirir ve olumlu yanıt alınca mesaj gönderir. Karşı taraf
+        BID komutuna olumlu yanıt verince "Gönderme" konumundan "Alma" konumuna
+        geçer ve BID komutunu izleyen mesajı bekler.
+        "Gönderme" konumunda olan taraf mesajı hazırlarken mesajın ilk, ara veya son
+        mesaj olduğunu bildirir. Bu işleme "Parantez (Bracket)" protokolu denir. İlk
+        mesajı gönderen taraf, parantez açarak bilgisayarların gönderme ve alma
+        konumlarından birinde olacağını belirtir. Parantezi kapatan taraf bilgisayarları
+        "bekleme" konumuna alır. Bekleme konumunda iken herhangi bir bilgisayar ilk
+        mesajı gönderebilir.
+      </tr>
+      <tr>
+        <td WIDTH=50></td>
+        <td WIDTH=500>
+        <P>
+        SNA ortamında Merkez Bilgisayardan ve ikincil bilgisayara kadar yer alan
+<br>programlar :
+        <PRE>
+        Uygulama Programı
+        CICS Ortamı
+        VTAM
+        NCP
+
+        İletişim hattı
+
+        SDLC Arayüzü
+        Protokol Arayüzü
+        Uygulama Arayüzü
+        </PRE>
+        biçimindedir.
+        <p>
+        </td>
+     </tr>
+   </table>
+   <table>
+     <tr>
+        <td WIDTH=50></td>
+        <td WIDTH=450>
+        <P>
+        <a href="snalu0.html"><H4>SNA LU0 PROTOKOLU</H4></a>
+        </td>
+     </tr>
+     <tr>
+        <td WIDTH=50></td>
+        <td WIDTH=450>
+        <P>
+        <a href="sdlc.html"><H4>SDLC (Synchronous Data Link Communication)</H4></a>
+        </td>
+     </tr>
+     <tr>
+        <td WIDTH=50></td>
+        <td WIDTH=450>
+        <P>
+        <a href="snalu62.html"><H4>SNA LU6.2 PROTOKOLU</H4></a>
+        </td>
+     </tr>
+   </table>
+    <p>
+    <H3>X.25 (Packeted Switched Network)</H3>
+    <table class="yazi">  
+      <tr>
+        <td WIDTH=50></td>
+        <td WIDTH=500>
+    Bu konuya ilişkin açıklama ve örnek program ilerideki günlerde yazılarımıza
+    eklenecektir.
+        </td>
+      </tr>
+    </table>
+    <p>
+    <H3>TCP/IP</H3>
+    <p>
+    <table class="yazi">  
+      <tr>
+        <td WIDTH=50></td>
+        <td WIDTH=500>
+        TCP/IP Internet ile beraber gelişen bir protokol. Önce üniversitelerde gelişti
+        sonra internet ağının büyümesi ile tüm ortamlarda kullanılmaya başlandı. Şimdi
+        hemen her bilgisayarda, her işletim sisteminde TCP/IP desteği var.
+        TCP/IP protokolunun bu özelliği, bilgisayarın işletim sistemi
+        bağımlılığı olmadan birbiri ile iletişim kurmasını sağlar.
+        TCP/IP ilk kez Berkeley tarafından UNIX ortamında çalışır duruma getirildi.
+        Socket kavramı ve birdolu UNIX komutu ilk kez BSD sürümü olarak anılan
+        UNIX ortamında kullanıldı. Bu altyapı, TCP/IP protokoluna beklenenden daha fazla
+        olanak getirdiğinden, diğer üniversiteler de TCP/IP çalışmalarına başladı ve
+        geliştirdi.
+        TCP/IP hiçbir kurumun malı olmadı. İletişim protokolları ile uğraşan herkes
+        TCP/IP'ye birşeyler ekledi, geliştirdi ve Internet aracılığı ile
+        bilgisayarlara dağıtıldı.
+        İhtiyaçlar doğrultusunda TCP/IP geliştirilmeye devam ediliyor. Diğer
+        protokollardaki eksikler göz önüne alınarak hazırlandığından bugün için en iyi
+        iletişim ortamı kabul ediliyor. İleride daha iyi bir iletişim ortamı
+        geliştirilirse, TCP/IP yerine geçer deniliyor.
+        TCP/IP paket switching tekniğine dayanarak hazırlanmıştır. Herhangi bir donanıma
+        bağımlı değildir.
+        TCP/IP, datagram denilen paketlerin bilgisayarlar arasında nasıl taşınacağını
+        belirler.
+        Bir TCP/IP paketinde gideceği yerin ve gönderenin adresi vardır. Paket bir
+        bilgisayardan karşıdakine giderken arada bulunan
+        bilgisayarlardan geçer. Aradaki bilgisayarlar paketi aldığında nereye
+        yönlendireceğini paket üzerindeki gideceği adresten anlar.
+        TCP/IP ile kullanılan ilk uygulamalar; elektronik posta (e-mail), dizi gönderme
+        (file transfer) ve uzaktan login (rlogin) olmuştur.
+      </td>
+      </tr>
+      </table>
+      <table class="yazi">
+          <tr>
+            <td WIDTH=50></td>
+            <td WIDTH=450>
+            <p><a href="tcpip.html"><h4>ÖRNEK TCP/IP PROGRAMLARI</h4></a>
+            </td>
+          </tr>
+          <tr>
+            <td WIDTH=50></td>
+            <td WIDTH=450>
+            <H3>TCP (Transmission Control Protocol)</H3>
+            <p> Bir sonraki yayında açıklanacaktır.
+            </td>
+          </tr>
+          <tr>
+            <td WIDTH=50></td>
+            <td WIDTH=450>
+            <H3>UDP (User Defined Protocol)</H3>
+            Bir sonraki yayında açıklanacaktır.
+            </td>
+          </tr>
+        </table>
+    <H2>GÜVENLİK (Security)</H2>
+    <P>
+    İletişim şebekelerinden gelen bir bilginin doğru bilgisayardan geldiğini
+    anlamak, gelen bilgide eksik olup olmadığını belirlemek, karşı tarafa mesajın
+    doğru alındı yanıtını verebilmek önemlidir. Yoksa gelen mesaj hiç işleme
+    sokulmadan iptal edilmelidir.
+    Bu bölümde, gelen mesajları güvenlik kontrolundan geçirmek için kullanılan
+    teknikler anlatılacaktır.
+    <P>
+    Şimdi Internet ortamında servis sunan kurumlara bağlanan kişiler başka
+    bilgisayarlara uzaktan login uygulamasını kullanarak erişmektedir. Güvenlik
+    önlemleri, dış kullanıcıların sistemin her yerinde istediklerini yapmalarını
+    engellemelidir. İlerideki günlerde dış kullanıcılar için alınması 
+    gereken önlemler
+    hakkında yazılanlardan bir derleme bilgi vermek için sunulacaktır.
+    <P>
+    <table class="yazi">
+      <tr>
+        <td WIDTH=50></td>
+        <td> <a href="crclrc.html"><H3>CRC/LRC KODLAMA</H3></a></td>
+      </tr>
+      <tr>
+        <td WIDTH=50></td>
+        <td><a href="msgauth.html"><H3>MESAJ ONAYLAMA</H3></a></td>
+      </tr>
+      <tr>
+        <td WIDTH=50></td>
+        <td><a href="dea.html"><H3>PAKETLEME/ŞİFRELEME</H3></a></td>
+      </tr>
+    </table>
+<HR>
+<br />
+</div>
+               </div>
+             </div>
+           </div>
+
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

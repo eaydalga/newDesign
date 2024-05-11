@@ -1,0 +1,1050 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Aybim Bilgisayar Tic Ltd Sti kendi web sayfani yap</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="js/email.js"> </script>
+<script language="JavaScript" src="js/date.js"> </script>
+<script language="JavaScript" src="js/float.js"> </script>
+<script language="JavaScript" src="js/baslik.js"> </script>
+<script language="JavaScript" src="js/XHConn.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+
+function iletisim()
+{
+var errstr = "";
+var err;
+var selectBox = document.forms['id2676084'].wf_How;
+
+name1=document.forms['id2676084'].wf_Name1.value;
+err = mycheck(name1,document.forms['id2676084'].wf_Name1.className);
+if (err.length > 0) errstr += "Ad:" + err + "\n";
+email=document.forms['id2676084'].wf_Email.value;
+err = mycheck(email,document.forms['id2676084'].wf_Email.className);
+if (err.length > 0) errstr += "E-posta:" + err + "\n";
+tel=document.forms['id2676084'].wf_Telephone.value;
+err = mycheck(tel,document.forms['id2676084'].wf_Telephone.className);
+if (err.length > 0) errstr += "Telefon:" + err + "\n";
+yourq=document.forms['id2676084'].wf_YourQuery3.value;
+err = mycheck(yourq,document.forms['id2676084'].wf_YourQuery3.className);
+if (err.length > 0) errstr += "Dilek:" + err + "\n";
+howto = selectBox.options[selectBox.selectedIndex].value
+secq=document.forms['id2676084'].security_code.value;
+err = mycheck(secq,document.forms['id2676084'].security_code.className);
+if (err.length > 0) errstr += "Guvenlik Kodu:" + err + "\n";
+if(errstr.length > 0) {
+    alert(errstr);
+    return false;
+}
+body = "wf_Name1="+name1+"&"+ "wf_Email="+email+"&"+ "wf_Telephone="+tel+"&"+ "wf_YourQuery3="+yourq+"&"+ "wf_How="+howto+"&";
+body += "security_code="+secq+"&";
+var myConn = new XHConn();
+if (!myConn)
+     alert("XMLHTTP desteği yok. Daha yeni/iyi gezgin/tarayıcı kullanın.");
+var fnWhenDone = function (oXML) {
+   if(document.getElementById) {
+      target1=document.getElementById('sec6');
+      if(target1) {
+            target1.style.display = "none";
+      }
+      target=document.getElementById('sec7');
+      if(target) {
+            target.innerHTML=oXML.responseText;
+            target.style.display = "inline";
+      }
+   }
+ };
+myConn.connect("mail.php", "POST", body, fnWhenDone);
+document.forms['id2676084'].reset();
+return true;
+}
+
+function ksecim(s,t)
+{
+var myConn2 = new XHConn();
+var body="s="+s+"&"+"t="+t;
+
+var fnBitti = function (oXML) {
+   if(document.getElementById) {
+      target1=document.getElementById('sec2');
+      if(target1) {
+            target1.style.display = "none";
+      }
+      target=document.getElementById('sec8');
+      if(target) {
+            target.innerHTML=oXML.responseText;
+            target.style.display = "inline";
+      }
+   }
+ };
+myConn2.connect("secim.php", "POST", body, fnBitti);
+}
+
+function ksecim2(sayfa,m,n)
+{
+var errstr = "";
+var err;
+var myConn3 = new XHConn();
+var body="sayfa="+sayfa+"&";
+wfs=document.forms['id12333'].wf_s.value;
+wft=document.forms['id12333'].wf_t.value;
+for(i=0; i < document.forms['id12333'].elements.length; i++) {
+    var aa = document.forms['id12333'].elements[i].name;
+    if ( aa != "undefined" ) {
+        wff=document.forms['id12333'].elements[i].value;
+        err = mycheck(wff,document.forms['id12333'].elements[i].className);
+        if (err.length > 0) {
+            errstr += document.forms['id12333'].elements[i].name+ ":" + err + "\n";
+        }
+        else {
+            if (!(aa == "sayfa" || aa == "submit" || aa == "undefined")) {
+               body += aa + "=" + wff + "&";
+            }
+        }
+    }
+}
+if(errstr.length > 0) {
+    alert(errstr);
+    return false;
+}
+
+var fnSon = function (oXML) {
+   if(document.getElementById) {
+      target1=document.getElementById('sec'+m);
+      if(target1) {
+            target1.style.display = "none";
+      }
+      target=document.getElementById('sec'+n);
+      if(target) {
+            target.innerHTML=oXML.responseText;
+            target.style.display = "inline";
+      }
+   }
+ };
+myConn3.connect("secim.php", "POST", body, fnSon);
+}
+function bitsin(n)
+{
+   if(document.getElementById) {
+      xx = 'sec'+n;
+      target1=document.getElementById(xx);
+      if(target1) {
+            target1.style.display = "none";
+      }
+   }
+   kapat();
+}
+
+function isteme(t)
+{
+var myConn5 = new XHConn();
+var body="bweb="+t;
+
+var fnIsteme = function (oXML) {
+   if(document.getElementById) {
+      target1=document.getElementById('sec5');
+      if(target1) {
+            target1.style.display = "none";
+      }
+      target=document.getElementById('sec11');
+      if(target) {
+            target.innerHTML=oXML.responseText;
+            target.style.display = "inline";
+      }
+   }
+ };
+myConn5.connect("isteme.php", "GET", body, fnIsteme);
+}
+
+function isteme2()
+{
+var myConn6 = new XHConn();
+var errstr = "";
+var body = "bweb=0&";
+var err;
+
+for(i=0; i < document.forms['wf_Enquiry'].elements.length; i++) {
+    var aa = document.forms['wf_Enquiry'].elements[i].name;
+    if ( aa != "undefined" ) {
+        wff=document.forms['wf_Enquiry'].elements[i].value;
+        err = mycheck(wff,document.forms['wf_Enquiry'].elements[i].className);
+        if (err.length > 0) {
+            errstr += document.forms['wf_Enquiry'].elements[i].name+ ":" + err + "\n";
+        }
+        else {
+            if (!(aa == "sayfa" || aa == "submit" || aa == "undefined")) {
+               body += aa + "=" + wff + "&";
+            }
+        }
+    }
+}
+if(errstr.length > 0) {
+    alert(errstr);
+    return false;
+}
+var fnIsteme2 = function (oXML) {
+   if(document.getElementById) {
+      target1=document.getElementById('sec11');
+      if(target1) {
+            target1.style.display = "none";
+      }
+      target=document.getElementById('sec12');
+      if(target) {
+            target.innerHTML=oXML.responseText;
+            target.style.display = "inline";
+      }
+   }
+ };
+myConn6.connect("isteme.php", "GET", body, fnIsteme2);
+}
+function ayarla()
+{
+  if (document.all && document.getElementById) {
+    if (document.getElementById('container')) {
+        document.getElementById('container').style.width="539px";
+        document.getElementById('syazi').style.fontWeight='bold';
+        document.getElementById('byazi').style.fontWeight='bold';
+    }
+  } else {
+    if (document.getElementById('syazi')) {
+      document.getElementById('syazi').style.fontWeight='700';
+    }
+    if (document.getElementById('byazi')) {
+      document.getElementById('byazi').style.fontWeight='700';
+    }
+  }
+}
+</script>
+</head>
+
+<body onload="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="960">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <table cellspacing="5">
+           <tr><td align="center">
+           <img src="img/aybim.png"><br /><br />
+           <a href="javascript:oku(1)" class="box"><img src="img/about.gif" alt="" title="" border="0" /></a><br />
+           <span class="byazi">Hakkımızda</span>
+           </td></tr>
+           <tr><td align="center">
+           <a href="javascript:oku(2)" class="box"><img src="img/globe_01.gif" alt="" title="" border="0" /></a><br />
+           <span class="byazi">Web Tasarım</span>
+           </td></tr>
+           <tr><td align="center">
+           <a href="javascript:oku(3)" class="box"><img src="img/hizmet.gif" alt="" title="" border="0" /></a><br />
+           <span class="byazi">Danışmanlık</span>
+           </td></tr>
+           </table>
+       </div>
+    </td><td valign="top">
+       <div id="ortataraf">
+           <span><img src="img/transparent.gif" width="1" height="50">
+           <img src="img/transparent.gif" width="530" height="1"></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+          <table cellspacing="5">
+          <tr><td align="center">
+            <img src="img/transparent.gif" height="32" width="1"><br /><br />
+            <a href="docs/index.html" class="box"><img src="img/folder.gif" alt="" title="" border="0" /></a><br />
+            <span class="syazi">Belgeler</span>
+          </td></tr>
+          <tr><td align="center">
+            <a href="javascript:oku(4)" class="box"><img src="img/adres.gif" alt="" title="" border="0" /></a><br />
+            <span class="syazi">Adres</span>
+          </td></tr>
+          <tr><td align="center">
+            <a href="javascript:oku(5)" class="box"><img src="img/urunler.gif" alt="" title="" border="0" /></a><br />
+            <span class="syazi">Ürünler</span>
+          </td></tr>
+          <tr><td align="center">
+            <a href="javascript:oku(6)" class="box"><img src="img/iletisim.gif" alt="" title="" border="0" /></a><br />
+            <span class="syazi">İletişim</span>
+          </td></tr>
+          </table>
+       </div>
+    </td></tr>
+    </table>
+</div>
+<div id="sayfaac" style="display: none;">
+     <div id="banner"><img src="img/banner.png" title="Kapat" onclick="javascript:kapat();"></div>
+<!--
+             <div id="scrollArea"><div id="scroller"></div></div>
+-->
+         <div id="container">
+             <div id="content">
+                 <div id="sec1" style="display: none;">
+<h4>Kuruluş</h4>
+<p class="yazi">
+Aybim Bilgisayar Tic Ltd Şti, 5.Ocak.1985 yılında kuruldu.
+Aybim, bugünkü adresine 1986 Haziran ayında taşındı. Yirmi yılı aşkın bir zamandır aynı yerleşkede hizmetini sürdürmektedir.</p>
+</p>
+<h4>Aybim'in ilk projeleri:</h4>
+<div class="yazi">
+<li>Türkiye İş Bankası "Bankamatik" projesinde
+görev almak (Proje 25.Aralık.1986 tarihinde tamamlandı).</li>
+<li>Halkbankası Şube uygulamaları projesinde uyarlama, eğitim ve geliştirme
+adımlarını yürütmek (Ocak 1988'de banka çalışanlarına devredildi).</li>
+</div>
+<h4>Diğer Projeler</h4>
+<p class="yazi">
+Aybim; Bankacılık, Turizm ve Internet uygulamaları alanlarında değişik
+projeleri başlattı ve başarıyla yürüttü. Tamamlanan bir çok proje zamanı
+geldiği için ya da yaşlanmış olduğu için kullanımdan kaldırıldı. Aybim
+geçmişten bugüne, bilgisayar uygulamalarında gereken boşluğu doldurmuş,
+müşterilerine zamanında hizmet sunmayı bilmiştir.
+</p>
+<h4>Aybim'in Bugünkü Vizyonu</h4>
+<p class="yazi">
+Aybim Türkiye'nin en önemli gereksinimine ucuz ve kullanışlı çözüm
+üretmiştir. Her özel/tüzel kişi Internet üzerinde web sitesi kurmak
+istemektedir. Ancak pahalı olan çözümler yerine Aybim'in sunduğu hizmet,
+seçilen web taslağına yerleştirilecek özel bilgi ve resimlerinizle
+kolay ve hızlı web sitesi yapma olanağıdır.</p>
+<p class="yazi">Yeni bir çığır açacak bu yaklaşımla özel/tüzel kişilere kolay web sitesi
+kurmayı hedefledik.</p>
+
+<h4>Bankacılık Projeleri</h4>
+<p class="yazi">
+Bankacılıkta; ATM projeleri, Şube Uygulamaları, plastik kart uygulamaları gerçekleştirildi.
+Yakın zamana değin bankalar arası çek takas uygulaması da Aybim programlarıyla
+gerçekleştirilmiştir. Bu yıl (Ağustos 2006'dan itibaren) Bankalararası Takas
+Odaları uygulamayı kendi programcılarıyla geliştirip kullanmaya başladı.
+</p>
+<h4>Turizm Projeleri</h4>
+<p class="yazi">
+Turizm alanında beş ve dört yıldızlı konaklama yerlerinde (resort hotel ve 
+tatil köyleri) ekstra harcalamaları müşteri folyolarına otomatik aktaran
+bir uygulama geliştirildi. Bu uygulama değişik otelcilik programlarıyla
+birlikte kullanılır hale getirildi. Oteller "Herşey Dahil" uygulamasına
+geçince, uygulamamız kullanımdan kaldırıldı.
+</p>
+<h4>Internet Projeleri</h4>
+<p class="yazi">
+Internet ortamında gazetecilik yayımlarına ek olarak arşiv uygulaması
+geliştirildi. Arşivden arama yapılması sağlanarak hizmet, Internet
+kullanıcılarına ücretsiz sunuldu (Garildi gazete arşivi arama motoru).
+Bu proje Dünya Bankası tarafından
+parasal olarak da desteklendi. Gazeteler arşiv uygulamalarını kendi
+ortamlarında geliştirmeye başlayınca uygulama kullanımdan kalktı. O yıllarda
+sunulan hizmet boşlukları doldurduğu için çok önemliydi.
+</p>
+                      </div>
+                 <div id="sec2" style="display: none;">
+<table cellpadding="0" cellspacing="0">
+<tr><td valign="top">
+        <br>
+        <table cellpadding="5" cellspacing="0">
+         <tr>
+         <td><span class="syazi">Seçtiğiniz ürün çeşitlerini<br> görmek için düğmeyi tıklayın: </span></td>
+         <td><div class="button"><a href="javascript:myvoid();" onclick="javascript:yresim(1);">Temel</a></div></td>              
+         <td><div class="button"><a href="javascript:myvoid();" onclick="javascript:yresim(2);">Ortanca</a></div></td>              
+         <td><div class="button"><a href="javascript:myvoid();" onclick="javascript:yresim(3);">Gelişkin</a></div></td>              
+        </table>
+     <div id="usec-1" style="display: inline;">
+
+        <div class="yazi">
+        <p>Bu üründe yer alan sayfalar ve özellikleri şunlardır</p>
+        <ul>
+        <li> <span class="syazi">Ana Sayfa</span>    Bilgiler kullanıcı tarafından sağlanır. Sayfa değişmez
+                bilgilerden oluşur</li>
+        <li> <span class="syazi">Hakkımızda</span>   Firma yönetim yapısı, yeri, varsa şube ve/veya
+                bayileri bu web sayfalarında yer alır.</li>
+        <li> <span class="syazi">Hizmet/Ürün Sınıfları</span> Liste biçiminde seçeneklerden oluşur.</li>
+        <li> <span class="syazi">Hizmet/Ürün açıklaması</span> Her sınıfta yer alan hizmet/ürün açıklaması ve resmi bulunur.</li>
+        <li> <span class="syazi">Adres ve İletişim Bilgileri</span>  e-posta mesajından oluşan web sayfası da vardır.</li>
+        </ul>
+        </div>
+        <table cellpadding=0 cellspacing=0>
+        <tr><td>
+            <span class="button">
+            <a href="javascript:eresim(1,1)" title="Bu taslağı görmek için düğmeyi tıklayın" />Rsm-1</a>
+            </span>
+        </td><td>
+            <span class="button">
+            <a href="javascript:eresim(1,2)" title="Bu taslağı görmek için düğmeyi tıklayın" />Rsm-2</a>
+            </span>
+        </td><td>
+            <span class="button">
+            <a href="javascript:eresim(1,3)" title="Bu taslağı görmek için düğmeyi tıklayın" />Rsm-3</a>
+            </span>
+        </td><td>
+            <span class="button">
+            <a href="javascript:eresim(1,4)" title="Bu taslağı görmek için düğmeyi tıklayın" />Rsm-4</a>
+            </span>
+        </td><td>
+            <span class="button">
+            <a href="javascript:eresim(1,5)" title="Bu taslağı görmek için düğmeyi tıklayın" />Rsm-5</a>
+            </span>
+        </td><td>
+            <span class="button">
+            <a href="javascript:eresim(1,6)" title="Bu taslağı görmek için düğmeyi tıklayın" />Rsm-6</a>
+            </span>
+        </td><td>
+            <span class="button">
+            <a href="javascript:eresim(1,7)" title="Bu taslağı görmek için düğmeyi tıklayın" />Rsm-7</a>
+            </span>
+        </td><td>
+            <span class="button">
+            <a href="javascript:eresim(1,8)" title="Bu taslağı görmek için düğmeyi tıklayın" />Rsm-8</a>
+            </span>
+        </td></tr>
+        </table>
+        <table>
+        <tr><td valign="top" width="205">
+             <div id="racik-1-1" style="display: inline;">
+             <img src="img2/resim1.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim1.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+             </div>
+             <div id="racik-1-2" style="display: none;">
+             <img src="img2/resim2.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim2.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+             </div>
+             <div id="racik-1-3" style="display: none;">
+             <img src="img2/resim3.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim3.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+             </div>
+             <div id="racik-1-4" style="display: none;">
+             <img src="img2/resim4.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim4.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+             </div>
+             <div id="racik-1-5" style="display: none;">
+             <img src="img2/resim5.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim5.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+             </div>
+             <div id="racik-1-6" style="display: none;">
+             <img src="img2/resim6.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim6.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+             </div>
+             <div id="racik-1-7" style="display: none;">
+             <img src="img2/resim7.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim7.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+             </div>
+             <div id="racik-1-8" style="display: none;">
+             <img src="img2/resim8.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim8.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+             </div>
+        </td><td valign="top" width="300" align="left">
+             <div id="acik-1-1" style="display: inline;">
+             <span class="yazi">
+             <p>Seçenek düğmeleri ve ürün sınıfları tanımlanabilen bir tasarım.
+             </p>
+             <p>Renk seçenekleri değiştirilebilir.</p>
+             <p>Her paragrafta ilk harf büyük olabilir.</p>
+             </span>
+             <span class="button"><a href="javascript:ksecim(1,1)">istiyorum</a></span>
+             </div>
+             <div id="acik-1-2" style="display: none;">
+             <span class="yazi">
+             <p>Değişik ana bölümlerde kullanılabilecek ürün/hizmet seçenekleri bu tasarımda yer alır.</p>
+             <p>Renkler isteğe göre değiştirilebilir.</p>
+             </span>
+             <span class="button"><a href="javascript:ksecim(1,2)">istiyorum</a></span>
+             </div>
+             <div id="acik-1-3" style="display: none;">
+             <span class="yazi">
+             <p>10-12 çeşit ürün ve her üründe değişik sınıflamalar olduğunda,
+             buradaki tasarım kullanılabilir. Bilgisayar donanımı satan firmalar için
+             çok uygun bir altyapıdır. Aynı tür özellikler taşıyan firmaların
+             değişik ürünlerinin pazarlandığı ortamlarda kolaylıkla kullanılabilir.</p>
+             <p>Renkler logo'ya ve isteğe göre değiştirilebilir.</p>
+             </span>
+             <span class="button"><a href="javascript:ksecim(1,3)">istiyorum</a></span>
+             </div>
+             <div id="acik-1-4" style="display: none;">
+             <span class="yazi">
+             <p>Altı seçenek düğmesi vardır. Ayrıca iki önemli haber ya da duyuru için
+             çarpıcı renkli geometrik biçimler vardır. Her sayfada istenirse güncel haber
+             girişi yapılabilecek bir köşe vardır.</p>
+             <p>Pek çok firmanın kullanabileceği kadar esnek bir tasarımdır. Kısa süreli
+             duyurularla değiştirilen web sayfalarında kullanılmasını öneririz... Özel kutular bu amaçla kullanılmalıdır.</p>
+             </span>
+             <span class="button"><a href="javascript:ksecim(1,4)">istiyorum</a></span>
+             </div>
+             <div id="acik-1-5" style="display: none;">
+             <span class="yazi">
+             <p>Dört temel sayfa ve altında diğer sayfaların yerleştiği bir düzen için
+             yararlı bir kullanımdır. Logo sol üst köşede bulunur. Seçeneklere göre
+             sayfa bilgileri değiştirilir. Her sayfada istenirse sol ya da sağa yanaşık resim de kullanılabilir.</p>
+             <p>Haber bülteni gibi yayınlarda kolaylıkla kullanılabilir.</p>
+             </span>
+             <span class="button"><a href="javascript:ksecim(1,5)">istiyorum</a></span>
+             </div>
+             <div id="acik-1-6" style="display: none;">
+             <span class="yazi">
+             <p>Sol köşede bir resim, kolaj olabilir. Sağ köşedeki logo ile uyumlu.
+             Sayfanın çerçevesi daha ince de olabilir.</p>
+             <p>Sonuçta dosya ayıracı gibi
+             kullanılan seçeneklerle bir şirketin resimli anlatımı kolaylık yapılabilir.
+             KOBI'ler için tasarlanmış bu sayfalar firmanın bilgilerini anlatmak için
+             yeterli olacak boyuttadır.</p>
+             </span>
+             <span class="button"><a href="javascript:ksecim(1,6)">istiyorum</a></span>
+             </div>
+             <div id="acik-1-7" style="display: none;">
+             <span class="yazi">
+             <p>Bu sayfalara bakınca sizler de "ALTIN" diyorsunuz herhalde. Biz de öyle
+             düşündük. Herşey altın ve altın kaplama olan bir ortam için tasarlamış
+             sayfalardan söz ediyoruz.</p> 
+             <p>Firma tanıtım sayfaları için kullanılan
+             seçenekler sayfanın üst bölümünde, ürün çeşitleri ve ürün seçenekleri ise
+             sağ taraftaki seçeneklerden sağlanmaktadır. İstenilen büyüklüğe kolaylıkla
+             ulaşılabilir. Geniş bir yelpaze içindeki firma dağılımlarına uygun bir tasarımdır.</p>
+             </span>
+             <span class="button"><a href="javascript:ksecim(1,7)">istiyorum</a></span>
+             </div>
+             <div id="acik-1-8" style="display: none;">
+             <span class="yazi">
+             <p>Seçenekleriyle, sayfa sonundaki dip-not özellikleriyle KOBI'ler için
+             düşünülmüş bir tasarımdır.</p>
+             <p>Temel web sayfaları arayan müşterilere uygundur. Hele bir kaç ürün
+             ya da ürün türü olan firmalar için çok kullanışlı bir sayfadır.</p>
+             <p>Değişik renk seçenekleri de hazırlanabilir. Firma logo'larındaki renklere
+             uyumlu renkler seçilir.</p>
+             </span>
+             <span class="button"><a href="javascript:ksecim(1,8)">istiyorum</a></span>
+             </div>
+        </td></tr>
+        </table>
+     </div>
+
+     <div id="usec-2" style="display: none;">
+
+        <div class="yazi">
+        <p>Bu üründe yer alan sayfalar ve özellikleri şunlardır</p>
+
+        <ul>
+        <li> <span class="syazi">Ana Sayfa</span>    bilgiler kullanıcı tarafından sağlanır. Güncel Haber
+                eklenmiştir</li>
+        <li> <span class="syazi">Hakkımızda</span>   Firma yönetim yapısı, yeri, varsa şube ve/veya
+                bayileri türü html sayfaları</li>
+        <li> <span class="syazi">Hizmet/Ürün Sınıfları</span> Sınıfta yer alan ürün/hizmetin tablodan
+                seçilmesi. Tabloda küçük resimler ya da
+                özelliklerden seçim</li>
+        <li> <span class="syazi">Hizmet/Ürün açıklaması</span> Her sınıfta hizmet/ürün açıklaması ve resmi vardır</li>
+        <li> <span class="syazi">Adres ve İletişim Bilgileri</span> E-posta iletisi ve başlığa göre
+                ileti gönderme ya da  özel istek belirtme olanakları vardır.</li>
+        <li> <span class="syazi">Güncel haber</span> girebilme olanağı vardır.</li>
+        <li> <span class="syazi">Site haritası</span> Değişmez sayfa yapısından oluşur.</li>
+        </ul>
+        </div>
+
+        <table cellpadding=0 cellspacing=0>
+        <tr><td>
+            <span class="button">
+            <a href="javascript:eresim(2,9)" title="Bu taslağı görmek için düğmeyi tıklayın" />Rsm-9</a>
+            </span>
+        </td><td>
+            <span class="button">
+            <a href="javascript:eresim(2,10)" title="Bu taslağı görmek için düğmeyi tıklayın" />Rsm-10</a>
+            </span>
+        </td><td>
+            <span class="button">
+            <a href="javascript:eresim(2,11)" title="Bu taslağı görmek için düğmeyi tıklayın" />Rsm-11</a>
+            </span>
+        </td><td>
+            <span class="button">
+            <a href="javascript:eresim(2,12)" title="Bu taslağı görmek için düğmeyi tıklayın" />Rsm-12</a>
+            </span>
+        </td><td>
+            <span class="button">
+            <a href="javascript:eresim(2,13)" title="Bu taslağı görmek için düğmeyi tıklayın" />Rsm-13</a>
+            </span>
+        </td><td>
+            <span class="button">
+            <a href="javascript:eresim(2,14)" title="Bu taslağı görmek için düğmeyi tıklayın" />Rsm-14</a>
+            </span>
+        </td><td>
+            <span class="button">
+            <a href="javascript:eresim(2,15)" title="Bu taslağı görmek için düğmeyi tıklayın" />Rsm-15</a>
+            </span>
+        </td><td>
+            <span class="button">
+            <a href="javascript:eresim(2,16)" title="Bu taslağı görmek için düğmeyi tıklayın" />Rsm-16</a>
+            </span>
+        </td></tr>
+        </table>
+
+        <table>
+        <tr><td valign="top" width="205">
+            <div id="racik-2-9" style="display: inline;">
+            <img src="img2/resim9.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim9.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+            </div>
+            <div id="racik-2-10" style="display: none;">
+            <img src="img2/resim10.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim10.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+            </div>
+            <div id="racik-2-11" style="display: none;">
+            <img src="img2/resim11.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim11.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+            </div>
+            <div id="racik-2-12" style="display: none;">
+            <img src="img2/resim12.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim12.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+            </div>
+            <div id="racik-2-13" style="display: none;">
+            <img src="img2/resim13.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim13.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+            </div>
+            <div id="racik-2-14" style="display: none;">
+            <img src="img2/resim14.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim14.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+            </div>
+            <div id="racik-2-15" style="display: none;">
+            <img src="img2/resim15.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim15.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+            </div>
+            <div id="racik-2-16" style="display: none;">
+            <img src="img2/resim16.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim16.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+            </div>
+        </td><td valign="top" width="300" align="left">
+            <div id="acik-2-9" style="display: inline;">
+            <span class="yazi">
+            <p>Altı seçenek düğmesi vardır. Ayrıca iki önemli haber ya da duyuru için çarpıcı renkli geometrik biçimler vardır. Her sayfada istenirse güncel haber
+            girişi yapılabilecek bir köşe vardır.</p> <p>Pek çok firmanın kullanabileceği kadar esnek bir tasarımdır. Kısa süreli
+            duyurularla değiştirilen web sayfalarında kullanılmasını öneririz... Özel kutular bu amaçla kullanılmalıdır.</p> 
+            </span>
+            <span class="button"><a href="javascript:ksecim(2,9)">istiyorum</a></span>
+            </div>
+            <div id="acik-2-10" style="display: none;">
+            <span class="yazi">
+            <p>Arama girişi, çeşitli seçenkler ve bağlantılarla bir alım satım sitesi.
+            Burada öne çıkan ürünler (üç ürün resimleri var) kullanıcıya sunulur.
+            Kullanıcı isterse promasyon seçeneklerine de bakabilir. Tasarım satış
+            altyapısı olan bir web sitesi için uygundur.</p>
+            <p>Bakalım neler var bu tasarımlarda?</p>
+                 <p>Diyelim bilgisayar donanımı pazarlıyorsunuz... Neden bu tür bir sayfa kullanmak istemezsiniz ki?</p>
+                 <p>Herşey hazır... Bayileriniz de giriş yapabilir. Sipariş
+verebilir. Hesabınıza referanfsınızla sipariş tutarını yatırabilir. Taşıyıcı
+malı sizden alır bayinize iletir... Herşey hazır-lop... Kim istemez böyle
+bir şirketin bayisi olmayı...</p>
+            </span>
+            <span class="button"><a href="javascript:ksecim(2,10)">istiyorum</a></span>
+            </div>
+            <div id="acik-2-11" style="display: none;">
+            <span class="yazi">
+            <p>Oldukça karmaşık bir tasarım. Büyük bir firmanın kullanımına uygun. Gelişmiş
+            web siteleri için sunduğumuz herşey var burada.</p>
+            </span>
+            <span class="button"><a href="javascript:ksecim(2,11)">istiyorum</a></span>
+            </div>
+            <div id="acik-2-12" style="display: none;">
+            <span class="yazi">
+            <p>Üyeleri ve bayileri olan bir sitede kullanmaya uygun çok gelişmiş
+            seçeneklerle süslü bir tasarım. Bir sitede olması istenebilecek herşey var.
+            Firma kullanımından kişisel sayfa kullanımına değin her tür müşteriye uygun
+            bir tasarım.</p>
+            <p>Renk seçenekleri isteğe bağımlıdır.</p>
+            </span>
+            <span class="button"><a href="javascript:ksecim(2,12)">istiyorum</a></span>
+            </div>
+            <div id="acik-2-13" style="display: none;">
+            <span class="yazi">
+            <p>10-12 çeşit ürün ve her üründe değişik sınıflamalar olduğunda,
+            buradaki tasarım kullanılabilir. Bilgisayar donanımı satan firmalar için
+            çok uygun bir altyapıdır. Aynı tür özellikler taşıyan firmaların
+            değişik ürünlerinin pazarlandığı ortamlarda kolaylıkla kullanılabilir.</p>
+            <p>Renkler logo'ya ve isteğe göre değiştirilebilir.</p>
+            </span>
+            <span class="button"><a href="javascript:ksecim(2,13)">istiyorum</a></span>
+            </div>
+            <div id="acik-2-14" style="display: none;">
+            <span class="yazi">
+            <p>Altı seçenek düğmesi, arama satırı ve her sayfada tek açıklamaya ek olarak
+            özel haber biçiminde görüntülenen açıklamadan oluşur.</p>
+            <p>Sayfanın üst kısmında firma logosu sola dayalı yerleştirilebilir.</p>
+            <p>Altı ana bölüm her web sayfası için kullanılabilir. Renkler
+            kolaylıkla isteğe göre değiştirilebilir.</p>
+            </span>
+            <span class="button"><a href="javascript:ksecim(2,14)">istiyorum</a></span>
+            </div>
+            <div id="acik-2-15" style="display: none;">
+            <span class="yazi">
+             <p><span class="syazi">www.youtube.com</span> gibi bir siteniz olsun istiyorsunuz... Internet kullanıcıları kendilerini göstermek istiyorlar. Resimlerini, telefonlarıyla ya da kameralarıyla çektikleri videolarını yayımlamak istiyorlar... Bazıları kendi sayfası olsun istiyor. Ürünlerini sayfalarında sergilemek onlara gurur veriyor...</p>
+            <P>İzleyenler ve bu ürünleri indirenler para ödüyor. Doğal olarak kendilerine özel olan resim ve filmleri gösterenler de para kazanıyor... Bu bir <span class="syazi">İŞ</span> dostum. Sen de katıl, size bu tür iş kuralım... İstermisiniz?</p>
+            </span>
+            <span class="button"><a href="javascript:ksecim(2,15)">istiyorum</a></span>
+            </div>
+            <div id="acik-2-16" style="display: none;">
+            <span class="yazi">
+            <p>Seçenekleriyle, sayfa sonundaki dip-not özellikleriyle KOBI'ler için
+            düşünülmüş bir tasarımdır.</p>
+            <p>Temel web sayfaları arayan müşterilere uygundur. Hele bir kaç ürün
+            ya da ürün türü olan firmalar için çok kullanışlı bir sayfadır.</p>
+            <p>Değişik renk seçenekleri de hazırlanabilir. Firma logo'larındaki renklere
+            uyumlu renkler seçilir.</p>
+            </span>
+            <span class="button"><a href="javascript:ksecim(2,16)">istiyorum</a></span>
+            </div>
+        </td></tr>
+        </table>
+     </div>
+
+
+     <div id="usec-3" style="display: none;">
+        <div class="yazi">
+
+        <p>Bu üründe yer alan sayfalar ve özellikleri şunlardır</p>
+        <ul>
+        <li> <span class="syazi">Ana Sayfa</span>     bilgiler kullanıcı tarafından sağlanır. Güncel Haber
+                onlara eklenmiştir.</li>
+        <li> <span class="syazi">Hakkımızda</span>    Firma yönetim yapısı, yeri, varsa şube ve/veya
+                bayileri için web sayfalarıdır.</li>
+        <li> <span class="syazi">Ürün/Hizmet Sınıfları</span> Sınıfta yer alan ürün/hizmetin tablodan
+                seçilmesi. Tabloda küçük resimler ya da
+                özelliklerden seçim olanakları vardır.</li>
+        <li> <span class="syazi">Hizmet/Ürün fiyat girme ve satın alma sepeti</span> Hizmet/Ürün
+        bilgilerinin fiyatlarını girme ve satın alma sepeti oluşturma işlemidir.</li>
+        <li> <span class="syazi">Sınıflara göre hizmet/ürün açıklaması</span> Her sınıftaki hizmet/ürün
+         açıklaması ve resmi bilgiler arasında bulunur.</li>
+        <li> <span class="syazi">Adres ve İletişim Bilgileri</span> E-posta iletisi ve başlığa göre
+                ileti gönderme, özel istek belirtme olanakları sayfalarda
+        vardır.</li>
+        <li> <span class="syazi">Güncel haber girebilme</span> Güncel haberleri sayfa yapısına dokunmadan yazabilme olanağı sayfalarda vardır.</li>
+        <li> <span class="syazi">Site haritası</span> Değişmez ve otomatik sayfa yapısı seçenekleri vardır.</li>
+        </ul>
+        </div>
+
+        <table cellpadding=0 cellspacing=0>
+        <tr><td>
+        <span class="button">
+        <a href="javascript:eresim(3,17)" title="Bu taslağı görmek için düğmeyi tıklayın" />Rsm-17</a>
+        </span>
+        </td><td>
+        <span class="button">
+        <a href="javascript:eresim(3,18)" title="Bu taslağı görmek için düğmeyi tıklayın" />Rsm-18</a>
+        </span>
+        </td><td>
+        <span class="button">
+        <a href="javascript:eresim(3,19)" title="Bu taslağı görmek için düğmeyi tıklayın" />Rsm-19</a>
+        </span>
+        </td><td>
+        <span class="button">
+        <a href="javascript:eresim(3,20)" title="Bu taslağı görmek için düğmeyi tıklayın" />Rsm-20</a>
+        </span>
+        </td><td>
+        <span class="button">
+        <a href="javascript:eresim(3,21)" title="Bu taslağı görmek için düğmeyi tıklayın" />Rsm-21</a>
+        </span>
+        </td><td>
+        <span class="button">
+        <a href="javascript:eresim(3,22)" title="Bu taslağı görmek için düğmeyi tıklayın" />Rsm-22</a>
+        </span>
+        </td><td>
+        <span class="button">
+        <a href="javascript:eresim(3,23)" title="Bu taslağı görmek için düğmeyi tıklayın" />Rsm-23</a>
+        </span>
+        </td><td>
+        <span class="button">
+        <a href="javascript:eresim(3,24)" title="Bu taslağı görmek için düğmeyi tıklayın" />Rsm-24</a>
+        </span>
+        </td></tr>
+        </table>
+        <table>
+        <tr><td  valign="top" width="205">
+        <div id="racik-3-17" style="display: inline;">
+        <img src="img2/resim17.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim17.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+        </div>
+        <div id="racik-3-18" style="display: none;">
+        <img src="img2/resim18.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim18.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+        </div>
+        <div id="racik-3-19" style="display: none;">
+        <img src="img2/resim19.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim19.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+        </div>
+        <div id="racik-3-20" style="display: none;">
+        <img src="img2/resim20.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim20.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+        </div>
+        <div id="racik-3-21" style="display: none;">
+        <img src="img2/resim21.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim21.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+        </div>
+        <div id="racik-3-22" style="display: none;">
+        <img src="img2/resim22.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim22.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+        </div>
+        <div id="racik-3-23" style="display: none;">
+        <img src="img2/resim23.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim23.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+        </div>
+        <div id="racik-3-24" style="display: none;">
+        <img src="img2/resim24.jpg" width="200" height="114" onclick="return myDrawPic(event,'img2/resim24.jpg',480,273);" title="Tıklayınca buyuk resim görünür...">
+        </div>
+        </td><td valign="top" width="300" align="left">
+        <div id="acik-3-17" style="display: inline;">
+        <span class="yazi">
+        <p>Hareketli bir resim ve solda yer alan seçeneklerle bir gemicilik
+tasarımıdır.</p>
+        <p>Renk seçenekleri isteğe bağımlıdır.</p>
+        </span>
+        <span class="button"><a href="javascript:ksecim(3,17)">istiyorum</a></span>
+        </div>
+        <div id="acik-3-18" style="display: none;">
+        <span class="yazi">
+        <p>Bu örnekte yazıların taban rengi değişiktir. Yoksa diğer sanayi sitesi örneklerine benzer.</p>
+        </span>
+        <span class="button"><a href="javascript:ksecim(3,18)">istiyorum</a></span>
+        </div>
+        <div id="acik-3-19" style="display: none;">
+        <span class="yazi">
+        <p>Bu örnekte seçenekler logonun altında yan yana dizilmiştir.</p>
+        <p>Renk seçenekleri isteğe bağımlıdır.</p>
+        </span>
+        <span class="button"><a href="javascript:ksecim(3,19)">istiyorum</a></span>
+        </div>
+        <div id="acik-3-20" style="display: none;">
+        <span class="yazi">
+        <p>Başka bir sanayi sitesi örneğidir.
+        </p>
+        <p>Renk seçenekleri isteğe bağımlıdır.</p>
+        </span>
+        <span class="button"><a href="javascript:ksecim(3,20)">istiyorum</a></span>
+        </div>
+        <div id="acik-3-21" style="display: none;">
+        <span class="yazi">
+        <p>Bir acentalık sitesi örneğidir. Bu tasarımda seçenekler sol
+tarafta bulunur. Konular ortada yer alırken, sağ tarafta acenta seçenekelerine
+yer verilir.</p>
+        <p>Renkler logo'ya ve isteğe göre değiştirilebilir.</p>
+        </span>
+        <span class="button"><a href="javascript:ksecim(3,21)">istiyorum</a></span>
+        </div>
+        <div id="acik-3-22" style="display: none;">
+        <span class="yazi">
+        <p>Seçenekleriyle örnek bir sanayi sitesidir. Flash görüntüler ve
+sipariş taleplerine ilişkin iletişim sayfaları vardır.</p>
+        <p>Seçenekler sağ tarafta görüntülenir</p>
+        <p>Renkler logo'ya ve isteğe göre değiştirilebilir.</p>
+        </span>
+        <span class="button"><a href="javascript:ksecim(3,22)">istiyorum</a></span>
+        </div>
+        <div id="acik-3-23" style="display: none;">
+        <span class="yazi">
+         <p>Emlakçı sitesi için örnek tasarımdır. Burada kiralık ve satılık emlak için hazırlanan bölümlere anında değişiklik yapılabilir.</p>
+        <p>Emlak komisyoncusu her emlak için değişik resimleri görüntüleyebilir.</p>
+        </span>
+        <span class="button"><a href="javascript:ksecim(3,23)">istiyorum</a></span>
+        </div>
+        <div id="acik-3-24" style="display: none;">
+        <span class="yazi">
+        <p>Seçenekleriyle, ana sayfada değişebilen haberleriyle sık sayfa
+değiştirebilenler için güzel bir tasarımdır.</p>
+        <p>Sayfaların dinamik özelliği php kullanımından kaynaklanmaktadır.
+        </p>
+        <p>Renkler logo'ya ve isteğe göre değiştirilebilir.</p>
+        </span>
+        <span class="button"><a href="javascript:ksecim(3,24)">istiyorum</a></span>
+        </div>
+        </td></tr>
+        </table>
+     </div>
+        
+<!-- eskiden alinan -->
+     </div>
+</td></tr>
+</table>
+                      </div>
+                 <div id="sec3" style="display: none;">
+<!-- <span class="ybaslik">Danışmanlık</span> -->
+<h4>Bilgisayar Danışmanlığı</h4>
+<div class="yazi">
+Firmamız genel olarak her tür bilgisayar donanımı ve yazılımı hakkında danışmanlık hizmeti sunar. Danışmanlık hizmeti:
+<li> Yeni ürün alımında en uygun çözümü seçmek,</li>
+<li> Satıcı firmalardan alınan teklifleri değerlendirmek,</li>
+<li> Istenen donanım ve yazılımın gerekliliğini araştırmak,</li>
+<li> Yeni teknolojiyi kurumların yapısını uyarlamak,</li>
+<li> Kurumlara yenilikler sunarak üretim ya da hizmet alanlarını genişletmek,</li>
+biçiminde özetlenebilir.
+</div>
+<h4>Teknoloji Danışmanlığı</h4>
+<div class="yazi">
+Bilgisayar dışındaki konularda sistem analizi ve olurluk çalışmaları hazırlayacak ekibi oluşturmak sunulan hizmetin genel yapısıdır. Hizmeti isteyen kuruma gerekirse hizmetin her adımında çözüm üretilir (işin yapılması, eğitimi hatta işletimine kadar).
+</div>
+<h4>Yazılım Danışmanlığı ve Eğitim Seminerleri</h4>
+<div class="yazi">
+Bu konuda firmamızın verebileceği hizmet; İşletim sistemi,
+programlama ve internet konularındaki eğitim seminerleridir. Seminerlerin içerikleri kurumların isteğine göre düzenlenebilir. Firmamız seminerde
+kullanılacak eğitim planını teklifte belirtilir.
+Seminerler genelde bir ya da iki haftalıktır.
+</div>
+                      </div>
+                 <div id="sec4" style="display: none;">
+<table>
+<tr><td valign="top" colspan="2"><h4>Adres Bilgileri</h4>
+    </td></tr>
+<tr><td valign="top" class="yazi" width="200">
+       <img src="img/sisli-kucuk.gif" class="lpic" onclick="return myDrawPic(event,'img/sisli.gif',654,510);" title="Tıklayınca buyuk resim görünür...">
+    <br />
+    <center>İşyerinin Şişli'de bulunduğu yer</center>
+    </td>
+    <td valign="top" class="yazi">
+        <h4>Ofisimizin Yeri</h4>
+        <p>Türkiye'nin ticaret merkezi İstanbul'da bulunan firmamızın adresi şöyledir:</p>
+        <p>
+        Aybim Bilgisayar Tic. Ltd. Şti.
+        <br>Halaskargazi Cad. No 301 Kat 5
+        <br>34381 Şişli/İstanbul
+        <br>Türkiye
+    </td></tr>
+<tr><td></td>
+    <td valign="top" class="yazi">
+        <h4>Telefon/Fax:</h4>
+        <table>
+        <tr>
+          <td valign="top" class="yazi">Telefon</td>
+          <td valign="top" class="yazi">+90-212-231-0769</td></tr>
+        <tr><td valign="top"></td>
+          <td valign="top" class="yazi">+90-212-230-0997</td></tr>
+        <tr><td valign="top" class="yazi">Faks</td>
+          <td valign="top" class="yazi">+90-212-230-7142</td></tr>
+        </table>
+    </td></tr>
+</table>
+<br>
+                 </div>
+                 <div id="sec5" style="display: none;">
+<!-- <span class="ybaslik">Çeşitli Ürünler</span> -->
+<h4>Bağımsız Veri Değişim Ortamı (BVDO).</h4>
+<div class="yazi">
+Bağımsız Veri Değişim Ortamı (BVDO) adlı ürünümüz bankalar ve kurumlar arası
+veri değişimini sağlar. Kurumların bankalarla olan veri iletişiminde (senet
+ listeleri gibi), kurumların ya da bireylerin banka hesapları arasındaki veri
+iletişiminde (Elektronik Fon Transferi gibi), bu ürün kullanılabilir. Kurumlar
+ya da bireyler BVDO merkezine ilettikleri bilgilerin (dosya transferi ya da
+birim tabanında) ilgili kurum, banka ve bireylere dağıtılmasından oluşur.
+Ürünümüz tekil değildir. IDE adıyla benzer ürünler vardır. Ama ülke çapında
+kullanılabilecek olan bir üründür. İsteyen ülkenin yetkili kurumları
+tarafından da ülke içinde kurulup çalıştırılabilir.
+</div>
+<span class="button">
+<a href="javascript:isteme(1)" title="Nasıl kullanabiliriz?">Nasıl Kullanabilirim</a>
+</span>
+<br>
+<br>
+<h4>Ofis içi yazılım (OFISICI)</h4>
+<div class="yazi">
+Ofis içi yazılımda bulunanlar yalnız firmamızın ürünleri değildir. Bu bölümde
+bizim yazdığımız yazılımların (fax görüntüleme gibi) yanı sıra yazıcı paylaşımı,
+gelen faksların dağıtımı, e-posta dağıtımı, faks gönderimi, telefon ve VoIP
+biçimde telefon iletişimi, çağrı merkezi yapılanması da bulunmaktadır. Aslında
+Ofis için ne istediğinizi bize bildirin, biz size kurabileceğimiz donanım ve
+yazılım projesini sunalım... Herkese özel ofis ortamı oluşturabiliriz.
+</div>
+<span class="button">
+<a href="javascript:isteme(2)" title="İsteğinizi belirtin">İsteğim şudur:</a>
+</span>
+<br>
+<br>
+<h4>Sürekli WEB yayımı (SWY)</h4>
+<div class="yazi">
+Internet üzerinde sürekli değişen sayfalarınız varsa (gazeteler, dergiler gibi)
+size anında değişebilen, e-posta ya da ajans haberleriyle otomatik
+değiştirilebilen sayfalar yapma olanağımız vardır. Sizin yapacağınız bizi 
+aramak ve ürünlerimizi size tanıtmamıza izin vermenizdir.
+</div>
+<span class="button">
+<a href="javascript:isteme(3)" title="Gereksiniminizi belirtin">Benim Gereksinimim</a>
+</span>
+<br>
+<br>
+<h4>Panoramik görüntü (PG)</h4>
+<div class="yazi">
+Panoramik görüntü hazırlamak bizim için çok kolay. Bu tür görüntüler 360 derece
+görüş açısı sağlayan resimlerdir. Ev kirala/satışlarında kullanılabilir, müzede
+çevreyi göstermekte kullanılabilir. Doğayı, tatil beldelerinde otellerin çevrelerini tanıtmakta kullanılabilir. Bu konuda Web sayfalarınıza ek olabilecek
+görüntüleri oluşturabileceğimiz gibi tek başına çalışabilen CD'ler de
+hazırlayabiliriz. Yapacağınız bizi aramak ve ne istediğinizi öğrenmemize
+izin vermenizdir.
+</div>
+<br>
+<span class="button">
+<a href="javascript:isteme(4)" title="Ihtiyacınızı belirtin">Benim Ihtiyacım</a>
+</span>
+<br>
+<br>
+<h4>Internet TV (ITV)</h4>
+<div class="yazi">
+Internet TV adlı ürünümüzü isteyen kurumlar için kurmaktayız. Internt TV, adı üzerinde yalnız internet üzerinden yayın yapan TV demektir. Kurulan sistem web sayfalarından TV yayınını izlenmesini sağlar. Siteye bağlanan kullanıcılar programın o andaki yayın çizelgesine göre var olan TV yayınını web sayfalarından izleyebilirler. Isteyen kuruma istedikleri biçimde Internet TV projesi tasarlayıp çalışır durumda teslim edilir.
+</div>
+<br>
+<span class="button">
+<a href="javascript:isteme(5)" title="Ihtiyacınızı belirtin">Bana da kurulsun</a>
+</span>
+<br>
+<br>
+                      </div>
+                 <div id="sec6" style="display: none;">
+<h4>Bize Ulaşın.</h4>
+<div class="yazi">
+Aşağıdaki bilgi girişlerinde zorunlu alanların yanına yıldız işareti konmuştur. Boş ya da hatalı olan zorunlu alanlardaki bilgi girişleri yapılmadan bilgiler işleme alınmaz.
+</div>
+<br />
+<form id="id2676084">
+  <table width="100%">
+  <tr><td valign="top">
+    <label for="wf_Name1" class="yazi">Adınız/Unvanınız</label>
+    </td><td valign="top">
+    <input type="text" id="wf_Name1" name="wf_Name1" value="" size="20" class="validate-alphanum required"/>
+    <span class="reqMark">*</span>
+    </td><td valign="top">
+    </td></tr>
+  <tr><td valign="top">
+    <label for="wf_Email" class="yazi">E-posta Adresiniz</label>
+    </td><td valign="top">
+    <input type="text" id="wf_Email" name="wf_Email" value="" size="20" class="validate-email required"/>
+    <span class="reqMark">*</span>
+    </td><td valign="top">
+    </td></tr>
+  <tr><td valign="top">
+    <label for="wf_Telephone" class="yazi">Telefonunuz</label>
+    </td><td valign="top">
+    <input type="text" id="wf_Telephone" name="wf_Telephone" value="" size="15" class=""/>
+    </td><td valign="top">
+    </td></tr>
+  <tr><td valign="top">
+    <label for="wf_YourQuery3" class="yazi">Dileğiniz</label>
+    </td><td valign="top">
+    <textarea cols="35" rows="7" id="wf_YourQuery3" name="wf_YourQuery3" class="required"></textarea>
+    </td><td valign="top">
+    <span class="reqMark">*</span>
+    </td></tr>
+  <tr><td valign="top" colspan="2">
+      <span class="yazi">Burada görüntülenen resimdeki harf ve rakamları formdaki Güvenlik Kodu alanına yazmayı unutmayın. Böylece iletiniz diğer spam iletilerden ayrılmış olacaktır.</span>
+    </td><td valign="bottom">
+      <img src="cc.php" />
+    </td></tr>
+  <tr><td valign="top">
+      <label for="security_code" class="yazi">Güvenlik Kodu</label>
+    </td><td valign="top">
+         <input id="security_code" name="security_code" type="text" class="required" />
+         <span class="reqMark">*</span>
+    </td><td valign="top">
+    </td></tr>
+  <tr><td valign="top">
+    <label for="wf_How" class="yazi">Size nasıl erişilmesini istersiniz</label>
+    </td><td valign="top">
+    <select id="wf_How" name="wf_How" class="yazi">
+      <option value="Tel">Telefon</option>
+      <option value="Email" selected="selected">E-posta</option>
+      <option value="Visit-Us">Yazdığımız adrese gelin</option>
+      <option value="We-Visit">Adresinize gelelim</option>
+    </select>
+    <span class="reqMark">*</span>
+    </td><td valign="top">
+    <input type="button" class="yazi" id="submit-" value="Gönder" onclick="return iletisim();">
+    </td></tr>
+  </table>
+</form>
+                      </div>
+                 <div id="sec7" style="display: none;">
+                 </div>
+                 <div id="sec8" style="display: none;">
+                 </div>
+                 <div id="sec9" style="display: none;">
+                 </div>
+                 <div id="sec10" style="display: none;">
+                 </div>
+                 <div id="sec11" style="display: none;">
+                 </div>
+                 <div id="sec12" style="display: none;">
+                 </div>
+              </div>
+         </div>
+     </div>
+</div>
+<div id="bottom1">
+</div>
+<div id="canvas">
+</div>
+<script language="JavaScript" src="js/resimci.js"> </script>
+</body>
+</html>

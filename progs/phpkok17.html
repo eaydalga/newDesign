@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP kökler - Programlama</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+function ackapa(no)
+{
+var bolum="secim"+no;
+    target=document.getElementById(bolum);
+    if(target.style.display == "inline") {
+         target.style.display = "none";
+    } else {
+         target.style.display = "inline";
+    }
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <a href="phptxt7.html" class="nav">Php Kök</a>
+               <a href="phpkok1.html" class="sub">ext_skel</a><br 7>
+               <a href="phpkok2.html" class="sub">UNIX:config.m4</a><br 7>
+               <a href="phpkok3.html" class="sub">Win:config.w32</a><br 7>
+               <a href="phpkok4.html" class="sub">zend_module</a><br 7>
+               <a href="phpkok8.html" class="sub">Zorunluluklar</a><br 7>
+               <a href="phpkok9.html" class="sub">Hazırlama</a><br 7>
+               <a href="phpkok10.html" class="sub">İskelet doldurma</a><br 7>
+               <a href="phpkok11.html" class="sub">Hazılama</a><br 7>
+               <a href="phpkok12.html" class="sub">Denemeler</a><br 7>
+               <a href="phpkok13.html" class="sub">Paket Yaratma</a><br 7>
+               <a href="phpkok14.html" class="sub">pdo_dbh_t</a><br 7>
+               <a href="phpkok15.html" class="sub">pdo_stmt_t</a><br 7>
+               <a href="phpkok16.html" class="sub">Değişmezler</a><br 7>
+               <a href="phpkok17.html" class="sub">Hatalar</a><br 7>
+               <a href="phpkok18.html" class="sub">PHP uzantı API</a><br 7>
+               <a href="phpkok19.html" class="sub">Zend API: </a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">10 Mart 2008</span></div>
+<div id="bdy" class="yazi">
+<h3>Hataları ele alma</h3>
+
+Error handling is implemented using a hand-shaking protocol between PDO and the database driver code. The database driver code signals PDO that an error has occurred via a failure (0) return from any of the interface functions. If a zero is returned, set the field error_code in the control block appropriate to the context (either the pdo_dbh_t or pdo_stmt_t block). In practice, it is probably a good idea to set the field in both blocks to the same value to ensure the correct one is getting used.
+<br /><br />
+The error_mode field is a six-byte field containing a 5 character ASCIIZ SQLSTATE identifier code. This code drives the error message process. The SQLSTATE code is used to look up an error message in the internal PDO error message table (see pdo_sqlstate.c for a list of error codes and their messages). If the code is not known to PDO, a default "Unknown Message" value will be used.
+<br /><br />
+In addition to the SQLSTATE code and error message, PDO will call the driver-specific fetch_err() routine to obtain supplemental data for the particular error condition. This routine is passed an array into which the driver may place additional information. This array has slot positions assigned to particular types of supplemental info:
+<ol>
+   <li>
+
+      A native error code. This will frequently be an error code obtained from the database API.
+   <li>
+
+      A descriptive string. This string can contain any additional information related to the failure. Database drivers typically include information such as an error message, code location of the failure, and any additional descriptive information the driver developer feels worthy of inclusion. It is generally a good idea to include all diagnostic information obtainable from the database interface at the time of the failure. For driver-detected errors (such as memory allocation problems), the driver developer can define whatever error information that seems appropriate.
+</ol>
+
+         </div>
+<div id="sag"> <B><A HREF="javascript:history.back()">Dönüş</A></B> </div>
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

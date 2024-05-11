@@ -1,0 +1,277 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!-- baslik.inc basi -->
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<title>deneme</title>
+<link rel="stylesheet" href="mainx.css" type="text/css">
+<script type="text/javascript" src="js/goster.js"></script>
+<script type="text/javascript" src="js/coolmenu.js"></script>
+<script type="text/javascript" src="js/baslik.js"></script>
+<script type="text/javascript" src="js/browser.js"></script>
+<script type="text/javascript" src="js/XHConn.js"></script>
+<body onLoad="ayarla();">
+<script type="text/javascript">
+// Part 1 - Styles
+var STYLE = {
+    border:1,              // item's border width, pixels; zero means "none";
+    shadow:2,              // item's shadow size, pixels; zero means "none"
+    color:{
+        border:"#666666",  // color of the item border, if any;
+        shadow:"#DBD8D1",  // color of the item shadow, if any;
+        bgON:"#d4d4f4",      // background color for the items;
+        bgOVER:"#B6BDD2"   // background color for the item
+                           // which is under mouse right now;
+    },
+    css:{
+        ON:null,           // CSS class for items;
+        OVER:null          // CSS class  for item which is under mouse;
+    }
+};
+
+// Part 2 - Menu structure
+var MENU_ITEMS = [
+    {pos:[535,92], itemoff:[0,69], leveloff:[21,0], style:STYLE, size:[22,70]},
+    {code:"Ana Sayfa", url:"../index.php"},
+    {code:"Yazılım", url:"",
+        sub:[
+            {itemoff:[21,0]},
+            {code:"Genel", "url":"../progs/index.html"},
+            {code:"Css", "url":"../progs/css.html"},
+            {code:"HTML", "url":"../progs/html.html"},
+            {code:"dHTML", "url":"../progs/dhtml.html"},
+            {code:"js", "url":"../progs/js.html"},
+            {code:"Php", "url":"../progs/php.html"}
+        ]
+    },
+    {code:"Belgeler", url:"",
+        sub:[
+            {itemoff:[21,0],size:[22,90]},
+            {code:"Genel", "url":"index.html"},
+            {code:"Kullanıcılar", "url":"kullanici.html"},
+            {code:"Blog", "url":"blog.html"},
+            {code:"Filmler", "url":"filmler.html"},
+            {code:"Internet TV", "url":"webtv.html"},
+            {code:"Veri Değişimi", "url":"bvd.html"},
+            {code:"Ofisiçi", "url":"ofisici.html"},
+            {code:"Sürekli Yayım", "url":"swy.html"},
+            {code:"Panorama", "url":"pg.html"},
+        ]
+    },
+    {code:"Hakkımızda", url:"../hakkimizda.html" },
+    {code:"Adres", url:"../adres.html"},
+    {code:"Iletişim", url:"../iletisim.html"}
+];
+
+// Part 3 - Initialization code
+var m1 = new COOLjsMenu("menu1", MENU_ITEMS);
+
+function myvoid()
+{
+}
+
+function isteme(t)
+{
+var myConn5 = new XHConn();
+var body="bweb="+t;
+htop();
+
+resim();
+var fnIsteme = function (oXML) {
+   if(document.getElementById) {
+      target1=document.getElementById('sec5');
+      if(target1) {
+            target1.style.display = "none";
+      }
+      target=document.getElementById('sec11');
+      if(target) {
+            target.innerHTML=oXML.responseText;
+            target.style.display = "inline";
+      }
+   }
+ };
+myConn5.connect("../isteme.php", "GET", body, fnIsteme);
+}
+
+function isteme2()
+{
+var myConn6 = new XHConn();
+var errstr = "";
+var body = "bweb=0&";
+var err;
+htop();
+
+for(i=0; i < document.forms['wf_Enquiry'].elements.length; i++) {
+    var aa = document.forms['wf_Enquiry'].elements[i].name;
+    if ( aa != "undefined" ) {
+        wff=document.forms['wf_Enquiry'].elements[i].value;
+        err = mycheck(wff,document.forms['wf_Enquiry'].elements[i].className);
+        if (err.length > 0) {
+            errstr += document.forms['wf_Enquiry'].elements[i].name+ ":" + err + "\n";
+        }
+        else {
+            if (!(aa == "sayfa" || aa == "submit" || aa == "undefined")) {
+               body += aa + "=" + wff + "&";
+            }
+        }
+    }
+}
+if(errstr.length > 0) {
+    alert(errstr);
+    return false;
+}
+var fnIsteme2 = function (oXML) {
+   if(document.getElementById) {
+      target1=document.getElementById('sec11');
+      if(target1) {
+            target1.style.display = "none";
+      }
+      target=document.getElementById('sec12');
+      if(target) {
+            target.innerHTML=oXML.responseText;
+            target.style.display = "inline";
+      }
+   }
+ };
+myConn6.connect("../isteme.php", "GET", body, fnIsteme2);
+}
+function bitsin(n)
+{
+   if(document.getElementById) {
+      xx = 'sec'+n;
+      target1=document.getElementById(xx);
+      if(target1) {
+            target1.style.display = "none";
+      }
+   }
+   kapat();
+}
+</script>
+<div id="headertop1">
+<div id="headertop">
+<!-- ust banner bolumu -->
+  <table cellpadding="0" cellspacing="0" border="0" width="960">
+  <tr>
+  <td valign="top">
+  <img src="img/bos.gif" width="15" height="63" border="0">
+  <img src="img/aybim.png" width="129" height="43" border="0"><br>
+  <img src="img/bos.gif" width="150" height="50" border="0">
+  </td><td valign="top">
+  </td></tr>
+  </table>
+  <table cellpadding="0" cellspacing="0" border="0">
+  <tr>
+  <td valign="top" width="140">
+  <!-- sol tarafin basi -->
+  <div id="soltaraf">
+      <div class="yazi">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8541306787668208";
+//120x600, created 1/16/08
+google_ad_slot = "7007060807";
+google_ad_width = 120;
+google_ad_height = 600;
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<br />
+<script type="text/javascript"><!--
+google_ad_client = "pub-8541306787668208";
+//120x240, created 1/25/08
+google_ad_slot = "8433790203";
+google_ad_width = 120;
+google_ad_height = 240;
+google_cpa_choice = ""; // on file
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+      </div>
+  </div>
+  </td>
+  <td valign="top" width="800">
+  <div id="header">
+<br /><br />
+<br /><br />
+<div id="bdy">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8541306787668208";
+//728x90, created 1/16/08
+google_ad_slot = "7459135715";
+google_ad_width = 728;
+google_ad_height = 90;
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<br>
+<br>
+<div id="sag"><span class="yazi">20 Ekim 2007</span></div>
+<h2>Ofis İçi Yazılım</h2>
+<p class="yazi">
+Burada ofis içinde karşılaşılan güçlükleri gidermek için gereken yazılımlarımızı anlattık. Benzeri sorunları olanlara bir fikir vermeyi amaçladık.
+</p>
+<h4>Gelen Faks Izleme</h4>
+<p class="yazi">
+Eski bir bilgisayarı Windows-2000 işletim sistemiyle kullandık. Yine eski bir modemi (US-Robotics 56K modem) faks için tanımladık. Windows altındaki faks yazılımını kullanarak faksların algılanması sağlanmış oldu. Donanım olarak "Hepsi bir arada" türünden bir yazıcıyı da sisteme bağlayınca, kağıt üzerindeki yazıyı faksla gönderme olanağımız oldu. Artık tek sorunumuz, gelen faksların yerel ağ ortamındaki diğer bilgisayara taşınması ve oradan görüntülenebilmesine indirgenmiş oldu.
+</p>
+
+<p class="yazi">
+Bizim yazılımımız öncelikle faks sunucu görevi yapan bilgisayarı yerel ağ içindeki diğer bilgisayarlara tanıtır. Faks görüntüleme ara yüzü yerel ağda sorgulama yaptığında her bilgisayar faks bilgisayarının IP adresini öğrenmiş olur. Bundan sonrası standart ftp türü uygulamadır.
+</p>
+<h4>Telefon Kaydı izleme</h4>
+<p class="yazi">
+Ofis içi santrallarda eskiden beri RS-232C ara yüzüyle seri yazıcıya çıkış vardır. Biz bu ucu eski bilgisayarımızın seri ucuna bağladık ve santraldan gelen sinyalleri bir program aracılıyla dizide sakladık. Yine eski bilgisayarı kullanmış olmamız, yeni programlarla uyumlu çalışamayan eski bilgisayarı ofis içinde faks, santral kaydı saklama ve yazıcı sunucusu olarak kullanma biçiminde onları değerlendirmek içindir. Bu bilgisayarın başında kimse bulunmaz ama tüm ofise sessizce hizmet sunar.
+</p>
+<h4>Etiket Programı</h4>
+<p class="yazi">
+Bu program da işletim sistemleriyle gelen adres programlarının ihtiyacımızı karşılayamamasından kaynaklanmıştır (ya da çok fazla seçenek içermesinden işimize pek yaramadı demek daha doğru olur). Çok kısa olarak müşterilerin ad, adres ve telefonlarının bulunduğu bir veri birikimidir. Sıra numarası (kayıtlar bir sıra numarasıyla saklanmıştır), Ad ve Soyadı ile sıralanabilmektedir. Bu kısa ve kullanışlı program çok basit müşteri gereksinimlerini karşılamak için hazırlanmıştır. Programa görüşmelerin saklanması da eklenebilirdi ama bizim gereksinimlerimizde böyle bir yazılımı çözebilecek başka yazılımlar olduğundan yeni bir yazılımı hazırlamamız gerekmedi. Bizim eski bilgisayar söylediğimiz hazır programın kurulup çalışabilen bir program olduğu için gereksinimlerimiz tanımlanmış oldu.
+</p>
+<h4>Linux Yazıcılar üzerine</h4>
+<p class="yazi">
+Linux yazıcıların postscript yazıcı olması neredeyse olmazsa olmaz bir özelliktir. Bu nedenle windows yazılımlarında (Windows Xp gibi) linux yazıcıları kullanabilmek için windows CD üzerinde hazır yazılım vardır. İlk yüklemede sisteme eklenmez ama ayrıca kullanıcı isteği ile sisteme eklenebilmektedir. Bu program windows yazıcı gereksinimini postscript yapıya çeviriyordur. Eğer yazıcılarınız linux sunuculara bağlanmışsa burada sözünü ettiğimiz yazılımı windows bilgisayarlarına yüklemelisiniz.
+</p>
+<h4>Güvenlik Kameraları</h4>
+<p class="yazi">
+Tam da güvenlik kamerası değil ama biz öyle diyelim. Webcam türünden ucuz kameraları bilgisayar bağlayıp bir yazılımla yalnız değişiklik olduğunda kayıt yapacak biçimde kurabilirsiniz. Gece sürekli çalışan bilgisayarlarınıza bağladığınız ucuz webcam donanımı dosyaları ürettikçe otomatik olarak bir sunucuda bu filmleri toplamaya başlayabilirsiniz. Bu bilgi sizin ne işinize yarar? Evde oturuyorsunuz. Bilgisayarınızı açtınız ve sunucuya bağlanıp saklanan dosyalara baktınız. Sayısı çoğalıyor gibiyse bir sorun vardır ve ofiste hareketi kaydedilen bir olay olmaktadır. Hemen dosyaları açıp ne olduğunu görebilirsiniz. Ben sunucuları çoğu zaman linux işletim sistemi olan bilgisayarlardan seçiyorum. Elimde çok eski (Pentium-II 64MB Bellekli) bir bilgisayar var ve firmamızda bu bilgisayarı web sunucusu olarak kullanıyoruz. ADSL bağlantımda sıklıkla değişen IP numarama rağmen bu sunucu gereken işlevi yapabilmektedir. ADSL üzerindeki yönlendirme olanağı ve IP numarasını Dinamik Ad sunuculara tanımlayarak IP numarası yerine adıyla bilgisayara erişim sağlamak mümkündür. Bu sayfalarda hem Linux hem de Windows çözümlerini birlikte kullanmamızın en büyük nedeni, her iki türün en verimli özelliklerini kullanabilme olanağını sürdürmek istememizdir.
+</p>
+<br />
+<span class="button">
+<a href="javascript:isteme(2)" title="İsteğinizi belirtin">İsteğim şudur:</a>
+</span>
+<br />
+<div id="sayfaac" style="display: none;">
+     <div id="banner1"><img src="img/banner.png" title="Kapat" onclick="javascript:kapat();"></div>
+        <div id="contains1">
+           <div id="content1">
+              <div id="sec5" style="display: none;">
+              </div>
+              <div id="sec11" style="display: none;">
+              </div>
+              <div id="sec12" style="display: none;">
+              </div>
+           </div>
+        </div>
+     </div>
+</div>
+<br />
+<br />
+</div>
+    <br />
+    <div class="yazi">
+        <div id="altsatir">
+            <br />
+            <span class="rside">Tasarım: Aybim Bilgisayar Tic Ltd Şti&nbsp;&nbsp;</span>
+        </div>
+    </div>
+  </div>
+  </td>
+  </tr></table>
+</div>
+</div>
+<br>
+<script type="text/javascript">
+var myMenu = new COOLjsMenu("menu1", MENU_ITEMS);
+</script>
+</body></html>

@@ -1,0 +1,305 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP - Özellikler Dosya yüklemelerini ele alma </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="javascript:myvoid();" class="nav">Başlarken</a>
+               <a href="phptxt11.html" class="sub">ilk Anlatım</a>
+               <a href="javascript:myvoid();" class="nav">Kurulumlar</a>
+               <a href="phptxt21.html" class="sub">Genel Kurulum</a><br />
+               <a href="phptxt22.html" class="sub">UNIX Kurulumu</a><br />
+               <a href="phptxt23.html" class="sub">OSX Kurulumu</a><br />
+               <a href="phptxt24.html" class="sub">Wins Kurulumu</a>
+               <a href="javascript:myvoid();" class="nav">Dil Kuralları</a>
+               <a href="phptxt31.html" class="sub">Temel yazım</a><br />
+               <a href="phptxt32.html" class="sub">Tipler</a><br />
+               <a href="phptxt33.html" class="sub">Değişkenler</a><br />
+               <a href="phptxt34.html" class="sub">Değişmezler</a><br />
+               <a href="phptxt35.html" class="sub">Deyimler</a><br />
+               <a href="phptxt36.html" class="sub">İşlemler</a><br />
+               <a href="phptxt37.html" class="sub">Kontrol Yapıları</a><br />
+               <a href="phptxt38.html" class="sub">İşlevler</a><br />
+               <a href="phptxt39.html" class="sub">Sınıflar Nesneler</a><br />
+               <a href="phptxt391.html" class="sub">Ad uzayı</a><br />
+               <a href="phptxt392.html" class="sub">İstisnalar</a>
+               <a href="javascript:myvoid();" class="nav">Güvenlik</a>
+               <a href="phptxt41.html" class="sub">Giriş</a><br />
+               <a href="phptxt42.html" class="sub">Genel bilgi</a><br />
+               <a href="phptxt43.html" class="sub">CGI iklisi</a><br />
+               <a href="phptxt44.html" class="sub">Apache modülü</a><br />
+               <a href="phptxt45.html" class="sub">Dosyadüzeni</a><br />
+               <a href="phptxt46.html" class="sub">Veritabanı</a><br />
+               <a href="phptxt47.html" class="sub">Hatalar</a><br />
+               <a href="phptxt48.html" class="sub">Diğerleri</a><br />
+               <a href="javascript:myvoid();" class="nav">Özellikler</a>
+               <a href="phptxt51.html" class="sub">HTTP Şifresi</a><br />
+               <a href="phptxt52.html" class="sub">Çerezler</a><br />
+               <a href="phptxt53.html" class="sub">Oturumlar</a><br />
+               <a href="phptxt54.html" class="sub">XForm</a><br />
+               <a href="phptxt55.html" class="sub">DosyaYükleme</a><br />
+               <a href="phptxt56.html" class="sub">UzakDosyalar</a><br />
+               <a href="phptxt57.html" class="sub">Bağlantılar</a><br />
+               <a href="phptxt58.html" class="sub">VTBağlantısı</a>
+               <font color="#8e9ccb"><h3>Gelişmiş</h3></font>
+               <a href="phptxt7.html" class="nav">Php Kökü</a>
+               <a href="phptxt8.html" class="nav">Ekler</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">2 Şubat 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>Dosya yüklemelerini ele alma</h2>
+
+<h3>POST yöntemiyle Yüklemeler (uploads)</h3>
+
+Bu özellik kişilerin hem yazı hem de ikili dosya yüklemesi (upload) yapmasına yarar. PHP kullanıcı/şifre denetimi ve dosya yükleme işlevleriyle, kimin yükleme yapacağı konusundan tümüyle denetiminiz olur. Yüklenen dosyaya ne yapacağınzı da bu yöntemle bilirsiniz.
+<br /><br />
+PHP RFC-1867 uyumlu tarayıcılardan (Netscape 3 ve sonrası, Microsoft yamalı IE 3 ya da sonrası) yükleme yapılmasına izin verir.
+<br /><br />
+    NOt (İlişkili ayarlar notu): php.ini dosyasındaki file_uploads, upload_max_filesize, upload_tmp_dir, post_max_size ve max_input_time yönelticilerine de bakın.
+<br /><br />
+PHP aynı zamanda Netscape Composer ve W3C Amaya tarayıcılarındaki PUT-yöntemi dosya yüklemelerini de destekler. Ayrıntılar için PUT-yöntemi desteğine bakın.
+<br /><br />
+Dosya yükleme bilgi girişi
+<br /><br />
+Dosya yükleme (upload) ekranı özel bilgi girişi yaratarak hazırlanır. O da aşağıdakine benzerdir:
+<pre>
+&lt;!-- veri kodlama türü, enctype aşağıdaki gibi belirtilmelidir --&gt;
+&lt;form enctype="multipart/form-data" action="__URL__" method="POST"&gt;
+    &lt;!-- MAX_FILE_SIZE dosya girişinden önce olmalıdır --&gt;
+    &lt;input type="hidden" name="MAX_FILE_SIZE" value="30000" /&gt;
+    &lt;!-- giriş alanının adı yüklemede $_FILES dizinde bulunur --&gt;
+    Bu dosyayı yükleyin: &lt;input name="userfile" type="file" /&gt;
+    &lt;input type="submit" value="Dosya Gönder" /&gt;
+&lt;/form&gt;
+</pre>
+Yukarıdaki __URL__ bir PHP dosyasıyla değiştirilmelidir.
+<br /><br />
+Gizli bilgi alanı  MAX_FILE_SIZE (bayt türündendir) dosya adı girişinden önce olmalıdır. Tarayıcı tarafında bunun atlanması çok kolaydır. Bu tanımla büyük boyutlu dosyaların bloklanmasına fazla güvenmeyin. Ama PHP içindeki maximum-size (en büyük boy) atlanmaz. Bu form kullanıcının her zaman çok büyük bir dosya yükleme yapacağını beklemelidir.
+<br /><br />
+    Not: Dosya yükleme bilgi girişinizde enctype="multipart/form-data" niteliği olduğuna dikkat edin. Aksi halde dosya yükleme çalışmaz.
+<br /><br />
+The global $_FILES exists as of PHP 4.1.0 (Use $HTTP_POST_FILES instead if using an earlier version). These arrays will contain all the uploaded file information.
+$_FILES evrenseli PHP 4.1.0 sürümünden beri vardır (eski sürümler için yerine $HTTP_POST_FILES kullanabilirsiniz). Bu diziler yüklenen dosyalara ilişkin tüm bilgiyi içerirler.
+<br /><br />
+Yukarıdaki örnekten $_FILES içeriği aşağıdaki gibidir. Burada yükleme yapılan dosya adı "userfile" olduğu varsayılır. Aslında herhangi bir dosya adı olabilir.
+<dl>
+<dt>$_FILES['userfile']['name']
+    <dd>İstemci bilgisayarında dosyanın asıl adı.</dd></dt>
+<dt>$_FILES['userfile']['type']
+    <dd>Eğer tarayıcı sağlarsa dosyanın mime tipi. Örnek "image/gif". Bu mime tipi PHP tarafında denetlenmez.</dd></dt>
+<dt>$_FILES['userfile']['size']
+    <dd>Yüklenen dosyanın bayt olarak boyu.</dd></dt>
+<dt>$_FILES['userfile']['tmp_name']
+    <dd>Yüklenen dosyanın saklandığı geçici dosya adı.</dd></dt>
+<dt>$_FILES['userfile']['error']
+    <dd>Dosya yüklemeyle ilgili hata kodu. Bu PHP 4.2.0i sürümünden sonra eklendi</dd></dt>
+</dl>
+<br /><br />
+Varsayılan olarak dosyalar birçok geçici dosya yolunda saklanır (eğer php.ini içinde upload_tmp_dir yönelticisiyle bir yol tanımlanırsa orada saklanırlar). Sunucunun varsayılan dosya yolu TMPDIR çevre değişkeniyle değiştirilebilir. Bu çevre değişkeni yükleme işleminde başka işlemlerin de çalıştığından emin olunmasını sağlar.
+<br /><br />
+Dosya yüklemelerini denetleme
+<br /><br />
+is_uploaded_file() ve move_uploaded_file() işlevlerine daha çok bilgi için bakabilirsiniz. Aşağıdaki örnek dosya yükleme işlemini bitirecek biçimdedir.
+<pre>
+&lt;?php
+// PHP 4.1.0 sürümünden önce, $_FILES yerine
+// $HTTP_POST_FILES evrenseli kullanılmalıdır
+
+$uploaddir = '/var/www/uploads/';
+$uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
+
+echo '&lt;pre&gt;';
+if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
+    echo "Dosya geçerli ve başarıyla yüklendi.\n";
+} else {
+    echo "Olası dosya yükleme saldırısı!\n";
+}
+
+echo 'Burada size biraz daha denetim açıklaması:';
+print_r($_FILES);
+
+print "&lt;/pre&gt;";
+
+?&gt;
+</pre>
+Yüklenen dosyayı karşılayan PHP kodlaması yüklenen dosyayla ilgili nasıl bir mantık sırası uygulanacaksa hepsini çözebilmelidir. Örneğin  $_FILES['userfile']['size'] değişkenini kullanarak çok küçük ya da çok büyük boydaki dosyayı silebilirsiniz. Tip kriterlerine uymayan dosyaları silmek için $_FILES['userfile']['type'] değişkenini kullanabilirsiniz. Bunları bir dizi denetimden ilkleri arasında yapın. Çünkü bu değerler tümüyle istemci tarafından atanmıştır. PHP 4.2.0 sürümünden sonra $_FILES['userfile']['error'] değişkenini kullanabilirsiniz. Hata varsa ya dosyayı silersiniz ya da başka bir yerde saklarsınız.
+<br /><br />
+Giriş bilgilerindaen eğer hiçbir dosya seçilmemişse PHP $_FILES['userfile']['size'] değerini sıfır olarak döndürür ve $_FILES['userfile']['tmp_name'] boş olur.
+<br /><br />
+İsteğin sonunda eğer dosya taşınmamışsa, geçici dosya yolundan silinir.
+<br /><br />
+Dosyalar dizisini yükleme
+<br /><br />
+PHP, dpsyalarda bile HTML dizi özelliklerini destekler.
+<pre>
+&lt;form action="" method="post" enctype="multipart/form-data"&gt;
+&lt;p&gt;Resimler:
+&lt;input type="file" name="pictures[]" /&gt;
+&lt;input type="file" name="pictures[]" /&gt;
+&lt;input type="file" name="pictures[]" /&gt;
+&lt;input type="submit" value="Gönder" /&gt;
+&lt;/p&gt;
+&lt;/form&gt;
+
+&lt;?php
+foreach ($_FILES["pictures"]["error"] as $key =&gt; $error) {
+    if ($error == UPLOAD_ERR_OK) {
+        $tmp_name = $_FILES["pictures"]["tmp_name"][$key];
+        $name = $_FILES["pictures"]["name"][$key];
+        move_uploaded_file($tmp_name, "data/$name");
+    }
+}
+?&gt;
+</pre>
+<hr>
+
+PHP 4.2.0 sürümünden beri, PHP her zaman dosya dizisiyle birlikte uygun bir hata kodu döndürür. Hata kodu yükleme sırasında PHP tarafından üretilen dosya dizisinin hata (error) kesiminde bulunur. Bir başka değişle hatalar  $_FILES['userfile']['error'] altındadır.
+<dl>
+<dt>UPLOAD_ERR_OK
+    <dd>Value: 0; There is no error, the file uploaded with success.</dd></dt>
+<dt>UPLOAD_ERR_INI_SIZE
+    <dd>Value: 1; The uploaded file exceeds the upload_max_filesize directive in php.ini.</dd></dt>
+<dt>UPLOAD_ERR_FORM_SIZE
+    <dd>Value: 2; The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.</dd></dt>
+<dt>UPLOAD_ERR_PARTIAL
+    <dd>Value: 3; The uploaded file was only partially uploaded.</dd></dt>
+<dt>UPLOAD_ERR_NO_FILE
+    <dd>Value: 4; No file was uploaded.</dd></dt>
+<dt>UPLOAD_ERR_NO_TMP_DIR
+    <dd>Value: 6; Missing a temporary folder. Introduced in PHP 4.3.10 and PHP 5.0.3.</dd></dt>
+<dt>UPLOAD_ERR_CANT_WRITE
+    <dd>Value: 7; Failed to write file to disk. Introduced in PHP 5.1.0.</dd></dt>
+<dt>UPLOAD_ERR_EXTENSION
+    <dd>Value: 8; File upload stopped by extension. Introduced in PHP 5.2.0.</dd></dt>
+</dl>
+    Not: Bunlar PHP 4.3.0 sürümünden beri PHP değişmezleridir.
+<hr>
+
+<h3>Sıradan Tuzaklar</h3>
+
+MAX_FILE_SIZE öğesi "ini" ayarlarındaki upload-maz_filesize değerinden daha büyük bir değer olamaz. Varsayılan 2 MBayt değerdir.
+<br /><br />
+Bellek sınırı açıksa, büyük bir "memory_limit" değeri gerekir. Bu değeri yerince büyük tuttuğunuza emin olun.
+<br /><br />
+Eğer "max_execution_time" çok küçükse, kodlama çalışması bu değeri geçebilir. Bu değeri yerince büyük tutuğunuza emin olun.
+<br /><br />
+    Not: "max_execution_time" yalnız kodlamanın çalışma zamanını etkiler. Kodlama çalışması dışında geçen işlem zamanı (system() sleep() gibi sistem çalışmaları, veri tabanı sorgulamaları, dosya yüklemede geçen zaman vb.) dahil edilmez.
+<br /><br />
+<b>UYARI</b>
+
+max_input_time, saniye olarak en büyük giriş zamanı değeridir. Kodlamanın bu sürede giriş almasına izin verilmiştir. Bu süreye dosya yüklemeyi de içerir. Çoklu dosya yüklemede, yavaş iletişimi olan kullanıcılarda bu süre varsayılan değer olan 60 saniyeyi geçebilir.
+<br /><br />
+Eğer post_max_size çok küçükse, boyu büyük olan dosyalar yüklenemez. post_max_size değerinin yeterince büyük olmasına dikkat edin.
+<br /><br />
+Hangi dosyayı işlediğinizi denetlemezseniz, başka dosya yollarındaki kullanıcılar hassas bilgilerinize erişebilir.
+<br /><br />
+İçerik tipinin mime başlığındaki ilk boşlukta bu noktadan başlayarak CERM httpd herşeyi siler. Bu sorun sürmekte olunca, CERN httpd dosya yüklemesini desteklemiyor demek gerekir.
+<br /><br />
+Uzun dosya yolu listeleri nedeniyle stiller tuhaf adları olan dosyalar (adında boşlukları olan dosyalar) konusunda garanti veremez. 
+<br /><br />
+Geliştirici normal giriş alanlarıyla dosya yükleme alanlarını aynı bilgi girişi içinde karıştırmamalıdır.
+<hr>
+
+<h3>Çoklu dosya yükleme</h3>
+
+girişleri için ayrı adlar kullanarak çoklu dosya yüklemesi yapılabilir.
+<br /><br />
+Çoklu dosyaları peşpeşe yükleme ve bilgilerini bir dizide toplama olanağı vardır. Bunu yapabilmek için HTML kodlaması içinde dizi göndermek için çoklu seçim ve denetim kutusu (check box) ile aynı yazım kuralını kullanmanız gerekecektir.
+<br /><br />
+    Not: PHP 3.0.10 sürümünden sonra çoklu dosya yükleme desteği sağlanmıştır.
+<br /><br />
+Çoklu dosya yükleme
+<pre>
+&lt;form action="file-upload.php" method="post" enctype="multipart/form-data"&gt;
+  Send these files:&lt;br /&gt;
+  &lt;input name="userfile[]" type="file" /&gt;&lt;br /&gt;
+  &lt;input name="userfile[]" type="file" /&gt;&lt;br /&gt;
+  &lt;input type="submit" value="Send files" /&gt;
+&lt;/form&gt;
+</pre>
+Yukarıdaki bilgi girişi gönderildiğinde $_FILES['userfile'], $_FILES['userfile']['name'], ve $_FILES['userfile']['size'] dizileri ilklenir (PHP 4.1.0 öncesi sürümlerde $HTTP_POST_FILES aynı biçimde olur). Eğer register_globals değeri "on" ise, yüklenen dosyalar için kullanılan evrenseller de ilklenir. Her bir sayısal dizinleri olan dizilerdir.
+<br /><br />
+Örneğin /home/test/review.html ve /home/test/xwp.out adlı dosyalar gönderildi varsayalım. Bu durumda $_FILES['userfile']['name'][0] içinde "review.html" ve $_FILES['userfile']['name'][1] içindeyse "xwp.out" bulunur. Aynı biçimde  $_FILES['userfile']['size'][0] review.html dosya boyunu taşır.
+<br /><br />
+$_FILES['userfile']['name'][0], $_FILES['userfile']['tmp_name'][0], $_FILES['userfile']['size'][0], ve $_FILES['userfile']['type'][0] değer alırlar.
+<hr>
+
+<h3>PUT yöntemi desteği</h3>
+
+Bazı istemcilerin sunucuda veri saklamak için kullandıkları HTTP PUT yöntemi, PHP tarafından da desteklenir. PUT isteği, dosya yüklemesinden çok daha basittir ve aşağıdaki benzerler: 
+<pre>
+    PUT /path/filename.html HTTP/1.1
+</pre>
+Normalde bunun anlamı uzaktaki istemci /path/filename.html biçiminde olan içeriği web ağacında saklamak ister. Bu doğal olarak hem Apache hem de PHP için doğru değildir. Herhangi birine sizin web ağacınızdaki bir dosyanın içeriğini değiştirme yetkisinin verilmesi düşünülemez. Bunu yapabilmek için web sunucunuzda bir PHP kodlamasının gönderilen bilgiyi ele alacağı belirtilmelidir. Apache içinde bunu kodlama yönelticileriyle yaparsınız. Apache yara dosyasında herhangi bir yere konabilir. Çoğunlukla <Directory> bloğu içine yazılır. Belki de onun içindeki <VirtualHost> bloğuna yazılır. Aşağıdaki gibi bir satır bu sorunu çözer:
+<pre>
+  Script PUT /put.php</h3>
+</pre>
+Bu Apache programına tüm PUT isteklerinin "put.php" kodlamasına yönlendirilmesini söyler. Bunun için doğal olarak PHP açılmış olmalıdır. Buradaki gidilecek yer kodlamanın kendisidir. Dosya yolu değildir.
+<br /><br />
+PHP 4 ve sonraki sürümlerde bundan sonra yapmanız gerekenlerin hepsi put.php içindedir. Yüklenen dosyanın içerisi sunucuda bir başka adla bir başka yere kopyalanır. Büyük bir olasılıkla bazı denetlemeler ve kullanıcı/şifre kontrolu gibi işlemler kopyalamadan önce yapılacaktır.
+<br /><br />
+HTTP PUT dosyalarını PHP 4 ile sakalma
+<pre>
+&lt;?php
+/* PUT verisi "stdin" akarından gelir */
+$putdata = fopen("php://input", "r");
+
+/* Bir dosyayı yazmak için açın */
+$fp = fopen("myputfile.ext", "w");
+
+/* Verileri her kez 1 KB olarak oku
+   ve sonra dosyaya yaz */
+while ($data = fread($putdata, 1024))
+  fwrite($fp, $data);
+
+/* Akarı kapa */
+fclose($fp);
+fclose($putdata);
+?&gt;
+</pre>
+    Not: Aşağıdakilerin hepsi PHP 3 için geçerlidir.
+<br /><br />
+HTTP PUT dosyalarını PHP 3 ile saklamak
+<pre>
+&lt;?php copy($PHP_UPLOADED_FILE_NAME, $DOCUMENT_ROOT . $REQUEST_URI); ?&gt;
+</pre>
+Buradaki tek oyun, PHP PUT-yöntem isteğini görünce yüklenen dosyayı geçici bir dosyaya taşır. İstek bitince, bu geçici dosya silinir. O zaman sizin PUT işlemini ele alan PHP kodlamanız o dosyayı başka bir yere taşımalıdır. Bu geçici dosyanın adı $PHP_PUT_FILENAME değişkenindedir ve taşınması gereken dosya adını da $REQUEST_URI içinde bulabilirsiniz (Apache olmayan web sunucularda bu değişken değişebilir). Bu dosya adı uzaktaki istemcinin belirttiği addır. Bu istemciyi dinlemeniz gerekmez ve tüm yüklenen dosyaları bir dosya yolu altında saklayabilirsiniz.
+<br />
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

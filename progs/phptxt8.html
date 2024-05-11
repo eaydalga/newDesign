@@ -1,0 +1,3352 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Aybim PHP Ekler</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="javascript:myvoid();" class="nav">Başlarken</a>
+               <a href="phptxt11.html" class="sub">ilk Anlatım</a>
+               <a href="javascript:myvoid();" class="nav">Kurulumlar</a>
+               <a href="phptxt21.html" class="sub">Genel Kurulum</a><br />
+               <a href="phptxt22.html" class="sub">UNIX Kurulumu</a><br />
+               <a href="phptxt23.html" class="sub">OSX Kurulumu</a><br />
+               <a href="phptxt24.html" class="sub">Wins Kurulumu</a>
+               <a href="javascript:myvoid();" class="nav">Dil Kuralları</a>
+               <a href="phptxt31.html" class="sub">Temel yazım</a><br />
+               <a href="phptxt32.html" class="sub">Tipler</a><br />
+               <a href="phptxt33.html" class="sub">Değişkenler</a><br />
+               <a href="phptxt34.html" class="sub">Değişmezler</a><br />
+               <a href="phptxt35.html" class="sub">Deyimler</a><br />
+               <a href="phptxt36.html" class="sub">İşlemler</a><br />
+               <a href="phptxt37.html" class="sub">Kontrol Yapıları</a><br />
+               <a href="phptxt38.html" class="sub">İşlevler</a><br />
+               <a href="phptxt39.html" class="sub">Sınıflar Nesneler</a><br />
+               <a href="phptxt391.html" class="sub">Ad uzayı</a><br />
+               <a href="phptxt392.html" class="sub">İstisnalar</a>
+               <a href="javascript:myvoid();" class="nav">Güvenlik</a>
+               <a href="phptxt41.html" class="sub">Giriş</a><br />
+               <a href="phptxt42.html" class="sub">Genel bilgi</a><br />
+               <a href="phptxt43.html" class="sub">CGI iklisi</a><br />
+               <a href="phptxt44.html" class="sub">Apache modülü</a><br />
+               <a href="phptxt45.html" class="sub">Dosyadüzeni</a><br />
+               <a href="phptxt46.html" class="sub">Veritabanı</a><br />
+               <a href="phptxt47.html" class="sub">Hatalar</a><br />
+               <a href="phptxt48.html" class="sub">Diğerleri</a><br />
+               <a href="javascript:myvoid();" class="nav">Özellikler</a>
+               <a href="phptxt51.html" class="sub">HTTP Şifresi</a><br />
+               <a href="phptxt52.html" class="sub">Çerezler</a><br />
+               <a href="phptxt53.html" class="sub">Oturumlar</a><br />
+               <a href="phptxt54.html" class="sub">XForm</a><br />
+               <a href="phptxt55.html" class="sub">DosyaYükleme</a><br />
+               <a href="phptxt56.html" class="sub">UzakDosyalar</a><br />
+               <a href="phptxt57.html" class="sub">Bağlantılar</a><br />
+               <a href="phptxt58.html" class="sub">VTBağlantısı</a>
+               <font color="#8e9ccb"><h3>Gelişmiş</h3></font>
+               <a href="phptxt7.html" class="nav">Php Kökü</a>
+               <a href="phptxt8.html" class="nav">Ekler</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">11 Mart 2008</span></div>
+<div id="bdy" class="yazi">
+<h2>E K L E R</h2>
+
+<h3>Ayarlama Seçenekleri</h3>
+<h3>"configure" çekirdek seçeneklerinin listesi</h3>
+
+Aşağıda tam olmayan ayarlama seçenekleri vardır. Bunlar PHP "configure" kodlamasıyla kullanılır. Unix benzeri ortamlarda PHP derlenirken belirtilir. Birçok "configure" seçeneği burada değil de kendi yerlerinde listelenir. Güncel ve tam bir liste için autoconf peşinden "./configure --help" komutunu PHP kaynak kod yoludan çalıştırın. GNU "configure" belgesini ek ayarlama seçenekleri için okumak isteyebilirsiniz. Böylece "--prefix=PREFIX" biçimindeki seçeneklerin anlamını da öğrenmiş olabilirsiniz.
+<br /><br />
+    Not: Bunlar yalnız derleme zamnında kullanılır. Eğer PHP'nin çalışma zamanı ayarlarını değiştirmek isterseniz, Çalışma Zamanı Ayarları adı bölüme bakın.
+<h3>PHP 4 içindeki Ayarlama Seçenekleri</h3>
+
+    Not: Bu seçenekler yalnız PHP 4 içindir. Bazıları daha eski sürümlerde de vardır. Eski sürümleri derlemek isterseniz bazı seçenekler olmayabilir.
+<hr>
+<h3>Çeşitli Seçenekler</h3>
+<dl>
+<dt>--enable-debug
+
+    <dd>Hata inceleme simgeleriyle derleme.
+</dd></dt>
+<dt>--with-layout=TYPE
+
+    <dd>Kurulan dosyaların nasıl yayılacağını belirtir. Tür (TYPE) PHP ya da GNU olur.
+</dd></dt>
+<dt>--with-pear=DIR
+
+    <dd>DIR yoluna PEARi kur (varsayılan PREFIX/lib/php).
+</dd></dt>
+<dt>--without-pear
+
+    <dd>PEAR kurma.
+</dd></dt>
+<dt>--enable-sigchild
+
+    <dd>PHP'nin kendi SIGHLD ele alma göstergesini açma.
+</dd></dt>
+<dt>--disable-rpath
+
+    <dd>Ek çalışma zamanı kitaplık yollarını aramayı kapat.
+</dd></dt>
+<dt>--enable-libgcc
+
+    <dd>libgcc yerine kesin bağ kurması açılır.
+</dd></dt>
+<dt>--enable-php-streams
+
+    <dd>denemelik PHP akarlarını ekler. Kodu denemiyorsanız kullanmayın.
+</dd></dt>
+<dt>--with-zlib-dir[=DIR]
+
+    <dd>zlib kurulum yolunu tanımlama.
+</dd></dt>
+<dt>--enable-trans-sid
+
+    <dd>Saydam oturum yayılma kimliğini (id) açma. Yalnız PHP 4.1.2 ya da öncesi için geçerlidir. "trans-sid" özelliği herzaman derlenir.
+</dd></dt>
+<dt>--with-tsrm-pthreads
+
+    <dd>POSIX parçaçıklarını (thread) kullan (varsayılan).
+</dd></dt>
+<dt>--enable-shared[=PKGS]
+
+    <dd>Paylaşılan kitaplıkları hazırla [varsayılan=yes].
+</dd></dt>
+<dt>--enable-static[=PKGS]
+
+    <dd>Durağan kitaplıkları hazırla [varsayılan=yes].
+</dd></dt>
+<dt>--enable-fast-install[=PKGS]
+
+    <dd>Hızlı kurulum için biçimlendir [varsayılan=yes].
+</dd></dt>
+<dt>--with-gnu-ld
+
+    <dd>C derleyiciyinin GNU ld kullanıdığı düşünün [varsayılan=no].
+</dd></dt>
+<dt>--disable-libtool-lock
+
+    <dd>Kilitlemeyi kaldırı (Paralel hazırlanmayı kırabilir).
+</dd></dt>
+<dt>--with-pic
+
+    <dd>Yalnız PIC/non-PIC nesneleri kullanır [varsayılan=ikisini kullan].
+</dd></dt>
+<dt>--enable-memory-limit
+
+    <dd>Bellek sınırı desteğiyle derleme. (PHP 5.2.1 sürümüyle kullanılır - herzaman açıktır)
+</dd></dt>
+<dt>--disable-url-fopen-wrapper
+
+    <dd>"URL-aware" "fopen" tamamlayıcısı HTTP ya da FTP ile dosyalara erişimi sağlamayı kapatır. (PHP 5.2.5 sürümünden önce yok)
+</dd></dt>
+<dt>--enable-versioning
+
+    <dd>Yalnız gerekli simgeleri dışa taşır. Daha çok bilgi için INSTALL konusuna bakın.
+</dd></dt>
+<dt>--with-imsp[=DIR]
+
+    <dd>IMSp desteğini ekle (DIR IMSP'nin ekleme yolu ve libimsp.a yoludur). Yalnız PHP 3 için!
+</dd></dt>
+<dt>--with-mck[=DIR]
+
+    <dd>Cybercash MCK desteğini ekle. DIR cybercash mck hazırlama yoludur. Varsayılan değeri /usr/src/mck-3.2.0.3-linux olur. Yardım için  extra/cyberlib bölümüne bakın. Yalnız PHP 3 için.
+</dd></dt>
+<dt>--with-mod-dav=DIR
+
+    <dd>DAV desteğini Apache'nin mod_dav modülüyle ekler, DIR  mod_dav'ın kurulum yoludur (Yalnız Apache modül sürümü vardır) PHP 3 içindir.
+</dd></dt>
+<dt>--enable-debugger
+
+    <dd>Uzak hata ayıklama işlevleriyle derleme yapar. PHP 3 içindir.
+</dd></dt>
+<dt>--enable-versioning
+
+    <dd>Sürümlemek ve kapsamak yararlarını alır. Solaris 2.x ve Linux destekler. PHP 3 içindir.
+</dd></dt>
+</dl>
+<h3>PHP seçenekleri</h3>
+<dl>
+<dt>--enable-maintainer-mode
+
+    <dd>Kullanışlı olmayan (bazen karışık olan) kuralları ve bağımlılıkları olağan kurucuya açar.
+</dd></dt>
+<dt>--with-config-file-path=PATH
+
+    <dd>php.ini dosyasına bakılacak dosya yolunu kurar. Varsayılanı PREFIX/lib yoludur.
+</dd></dt>
+<dt>--enable-safe-mode
+
+    <dd>Güvenli konumu varsayılan olarak açar.
+</dd></dt>
+<dt>--with-exec-dir[=DIR]
+
+    <dd>Güvenli konumdayken DIR içinde yalnız çalışabilenlere izin ver. Varsayılan yol /usr/local/php/bin olur.
+</dd></dt>
+<dt>--enable-magic-quotes
+
+    <dd>Varsayılan olarak sihirli tırnaklara izin ver.
+</dd></dt>
+<dt>--disable-short-tags
+
+    <dd>Varsayılan olarak kısa-yapı &lt;? başlama biçimini kapat.
+</dd></dt>
+</dl>
+<h3>SAPI seçenekleri</h3>
+
+PHP için var olan SAPI&s (Sunucu Uygulama Programı Arayüzü) listesidir.
+<dl>
+<dt>--with-aolserver=DIR
+
+    <dd>Kurulmuş AOLserver için yolu belirtir.
+</dd></dt>
+<dt>--with-apxs[=FILE]
+
+    <dd>Paylaşımlı Apache modülü hazırlar. FILE Apache apxs aracının seçimlik dosya yoludur. Varsayılanı "apxs" olur. Sisteminizde kurulu olan Apache apxs sürümünü doğru belirtiğinizden emin olun ve Apache tar topunda olanı kullanmayın.
+</dd></dt>
+<dt>--with-apache[=DIR]
+
+    <dd>Durağan Apache modülü hazırlama. DIR Apache yolunun tepe noktasıdır. Varsayılan /usr/local/apche olur.
+</dd></dt>
+<dt>--with-mod_charset
+
+    <dd>mod_charset için transfer tablolarını açma (Rusca Apache).
+</dd></dt>
+<dt>--with-apxs2[=FILE]
+
+    <dd>Paylaşılan Apache 2.0 modülü hazırlama. FILE Apache apxs araçlarına seçimlik dosya yoludur. Varsayılan apxs olur. 
+</dd></dt>
+<dt>--with-caudium=DIR
+
+    <dd>Caudium ile kullanılmak üzere Pike modülü için PHP hazırla. DIR Caudium sunucu yoludur. Varsayılan değeri /usr/local/caudium/server olur.
+</dd></dt>
+<dt>--disable-cli
+
+    <dd> PHP 4.3.0 ürümüyle var oldu. PHP'nin CLI sürümünü kapatır (bu --without-pear seçeneğini zorlar). Komut satırından PHP kullanımında daha çok bilgi vardır.
+</dd></dt>
+<dt>--enable-embed[=TYPE]
+
+    <dd>Gömülü SAPI kitaplığının hazırlanmasını açar. TYPE "shared" ya da "static" olur. Varsayılanı "shared" olur. PHP 4.3.0 sürümünde vardır.
+</dd></dt>
+<dt>--with-fhttpd[=DIR]
+
+    <dd>fhttpd modülünü hazırlar. DIR fhttpd kaynak kod yoludur. Varsayılanı /usr/local/src/fhttpd olur. PHP 4.3.0 sürümünden sonra kullanılmaz.
+</dd></dt>
+<dt>--with-isapi=DIR
+
+    <dd>Zeus ile kullanılmak üzere PHP'yi ISAPI modülü olarak hazırlar.
+</dd></dt>
+<dt>--with-nsapi=DIR
+
+    <dd>Kurulmuş Netscape/iPlanet/SunONE Web sunucuları için yolu belirtir..
+</dd></dt>
+<dt>--with-phttpd=DIR
+
+    <dd>Henüz bir bilgi yok.
+</dd></dt>
+<dt>--with-pi3web=DIR
+
+    <dd>Pi3Web ile kullanılmak üzere PHP modül olarak hazırlanır.
+</dd></dt>
+<dt>--with-roxen=DIR
+
+    <dd>Pike modülü olarak PHP hazırla. DIR ana Roxen yoludur. Normalde /usr/local/roxen/server olur.
+</dd></dt>
+<dt>--enable-roxen-zts
+
+    <dd>Zend Güvenli parçasıyla (thread) Roxen modülü hazırlar.
+</dd></dt>
+<dt>--with-servlet[=DIR]
+
+    <dd>servlet desteğini ekle. DIR JSDK için ana kurulum yoludur. Bu SAPI için java uzantısı gereklidir ve paylaşımlı dl olarak hazırlanmalıdır.
+</dd></dt>
+<dt>--with-thttpd=SRCDIR
+
+    <dd>PHP'yi thttpd modülü olarak hazırla.
+</dd></dt>
+<dt>--with-tux=MODULEDIR
+
+    <dd>PHP'yi TUX modülü olarak hazırla (yalnız Linux).
+</dd></dt>
+<dt>--with-webjames=SRCDIR
+
+    <dd>PHP'yi WebJames modülü olarak hazırla (Yalnız RISC OS)
+</dd></dt>
+<dt>--disable-cgi
+
+    <dd>PHP'nin CGI sürümünü kapatma. PHP 4.3.0 ile geçerlidir.
+</dd></dt>
+<dt>--enable-force-cgi-redirect
+
+    <dd>İçsel sunucu yeniden yönlendirmesinde güvenlik denetimini açar. Apache ile CGI sürümü çalışırsa bunu kullanmalısınız.
+</dd></dt>
+<dt>--enable-discard-path
+
+    <dd>Bu açılırsa, PHP CGI ikilisi güvenle web ağacının dışına taşınabilir ve insanlar da .htaccess güvenliğini delemez.
+</dd></dt>
+<dt>--with-fastcgi
+
+    <dd>PHP'yi FastCGI uygulamasını hazırlar. PHP 4.3.0 sürümünden sonra kaldırıldı. Yerine "--enable-fastcgi" kullanabilirsiniz.
+</dd></dt>
+<dt>--enable-fastcgi
+
+    <dd>Bu açıksa, CGI modülü FastCGI desteğiyle hazırlanır. PHP 4.3.0 sürümden beri kullanımdadır.
+</dd></dt>
+<dt>--disable-path-info-check
+
+    <dd>Eğer bu kapalıysa, /info.php/test?a=b çalışmaz. PHP 4.3.0 sürümünden beri vardır. Daha çok bilgi için Apache belgelerine bakın.
+</dd></dt>
+</dl>
+<hr>
+
+<h3>php.ini Yönelticiler</h3>
+
+<h3>List of php.ini directives</h3>
+
+PHP ayarlarınızı düzenlemeniz için kullanılan yönelticilerin listesi aşağıda verilmiştir.
+
+<h3>Ayar seçenekleri</h3>
+allow_call_time_pass_reference
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_PERDIR 	PHP_INI_ALL in PHP &lt;= 4.0.0.
+					Kaldırıldı: PHP 6.0.0.
+</pre>
+allow_url_fopen
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	PHP_INI_ALL in PHP &lt;= 4.3.4.
+					PHP_INI_SYSTEM in PHP &lt; 6. 
+					Kullanımda: PHP 4.0.4.
+</pre>
+allow_url_include
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	PHP_INI_SYSTEM in PHP 5.
+					Kullanımda: PHP 5.2.0.
+</pre>
+always_populate_raw_post_data
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_PERDIR 	PHP_INI_ALL in PHP &lt;= 4.2.3.
+					Kullanımda: PHP 4.1.0.
+</pre>
+apc.cache_by_default
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	PHP_INI_SYSTEM in APC &lt;= 3.0.12.
+					Kullanımda: APC 3.0.0.
+</pre>
+apc.enabled
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_SYSTEM 	PHP_INI_SYSTEM in APC 2.
+					PHP_INI_ALL in APC &lt;= 3.0.12.
+</pre>
+apc.enable_cli
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_SYSTEM 	Kullanımda: APC 3.0.7.
+</pre>
+apc.file_update_protection
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"2" 		PHP_INI_SYSTEM 	Kullanımda: APC 3.0.6.
+</pre>
+apc.filters
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_SYSTEM 	 
+</pre>
+apc.gc_ttl
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"3600" 		PHP_INI_SYSTEM 	 
+</pre>
+apc.include_once_override
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_SYSTEM 	Kullanımda: APC 3.0.12.
+</pre>
+apc.localcache
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_SYSTEM 	Kullanımda: APC 3.0.14.
+</pre>
+apc.localcache.size
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"512" 		PHP_INI_SYSTEM 	Kullanımda: APC 3.0.14.
+</pre>
+apc.max_file_size
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1M" 		PHP_INI_SYSTEM 	Kullanımda: APC 3.0.7.
+</pre>
+apc.mmap_file_mask
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_SYSTEM 	 
+</pre>
+apc.num_files_hint
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1000" 		PHP_INI_SYSTEM 	 
+</pre>
+apc.optimization
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	PHP_INI_SYSTEM in APC 2.
+					Kaldırıldı: APC 3.0.13.
+</pre>
+apc.report_autofilter
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_SYSTEM 	Kullanımda: APC 3.0.11.
+</pre>
+apc.rfc1867
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_SYSTEM 	Kullanımda: APC 3.0.13.
+</pre>
+apc.rfc1867_freq
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_SYSTEM 	 
+</pre>
+apc.rfc1867_name
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"APC_UPLOAD_PROGRESS" 
+			PHP_INI_SYSTEM 	 
+</pre>
+apc.rfc1867_prefix
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"upload_" 	PHP_INI_SYSTEM 	 
+</pre>
+apc.shm_segments
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1"	 	PHP_INI_SYSTEM 	 
+</pre>
+apc.shm_size
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"30"	 	PHP_INI_SYSTEM 	 
+</pre>
+apc.slam_defense
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0"	 	PHP_INI_SYSTEM 	Kullanımda: APC 3.0.0.
+</pre>
+apc.stat
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1"	 	PHP_INI_SYSTEM 	Kullanımda: APC 3.0.10.
+</pre>
+apc.stat_ctime
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0"	 	PHP_INI_SYSTEM 	Kullanımda: APC 3.0.13.
+</pre>
+apc.ttl
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0"	 	PHP_INI_SYSTEM 	Kullanımda: APC 3.0.0.
+</pre>
+apc.user_entries_hint
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"4096"	 	PHP_INI_SYSTEM 	Kullanımda: APC 3.0.0.
+</pre>
+apc.user_ttl
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0"	 	PHP_INI_SYSTEM 	Kullanımda: APC 3.0.0.
+</pre>
+apc.write_lock
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_SYSTEM 	Kullanımda: APC 3.0.11.
+</pre>
+apd.bitmask
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kaldırıldı: apd 0.9.
+</pre>
+apd.dumpdir
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	 
+</pre>
+apd.statement_tracing
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kullanımda: apd 0.9.
+</pre>
+arg_separator
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"&" 		PHP_INI_ALL 	Kaldırıldı: PHP 4.0.6.
+</pre>
+arg_separator.input
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"&" 		PHP_INI_PERDIR 	Kullanımda: PHP 4.0.5.
+</pre>
+arg_separator.output
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"&" 		PHP_INI_ALL 	Kullanımda: PHP 4.0.5.
+</pre>
+asp_tags
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_PERDIR 	PHP_INI_ALL in PHP &lt;= 4.0.0.
+</pre>
+assert.active
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	 
+</pre>
+assert.bail
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	 
+</pre>
+assert.callback
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	 
+</pre>
+assert.quiet_eval
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	 
+</pre>
+assert.warning
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+ 	"1" 		PHP_INI_ALL 	 
+</pre>
+async_send
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kullanımda: PHP 4.2.0.
+					Kaldırıldı: PHP 4.3.0.
+</pre>
+auto_append_file
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_PERDIR 	PHP_INI_ALL in PHP &lt;= 4.2.3.
+</pre>
+auto_detect_line_endings
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kullanımda: PHP 4.3.0.
+</pre>
+auto_globals_jit
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_PERDIR 	Kullanımda: PHP 5.0.0.
+</pre>
+auto_prepend_file
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_PERDIR 	PHP_INI_ALL in PHP &lt;= 4.2.3.
+</pre>
+axis2.client_home
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"~/work/axisc/c/deply" 
+			PHP_INI_ALL 	 
+</pre>
+axis2.enable_exception
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	 
+</pre>
+axis2.enable_trace
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	 
+</pre>
+axis2.log_path
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"/tmp" 		PHP_INI_ALL 	 
+</pre>
+bcmath.scale
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	 
+</pre>
+bcompiler.enabled
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	Kullanımda: bcompiler 0.8.
+</pre>
+birdstep.max_links
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"-1" 		PHP_INI_ALL 	Kullanımda: PHP 4.2.0.
+</pre>
+blenc.key_file
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"/usr/local/etc/blenckeys" 
+			PHP_INI_ALL 	 
+</pre>
+browscap
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_SYSTEM 	 
+</pre>
+cgi.check_shebang_line
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_SYSTEM 	Kullanımda: PHP 5.2.1.
+</pre>
+cgi.discard_path
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_SYSTEM 	Kullanımda: PHP 5.3.0.
+</pre>
+cgi.fix_pathinfo
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_SYSTEM 	PHP_INI_ALL in PHP &lt;= 5.2.0.
+					Kullanımda: PHP 4.3.0.
+</pre>
+cgi.force_redirect
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_SYSTEM 	PHP_INI_ALL in PHP &lt;= 5.2.0.
+					Kullanımda: PHP 4.2.0.
+</pre>
+cgi.nph
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kullanımda: PHP 4.3.5.
+</pre>
+cgi.redirect_status_env
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_SYSTEM 	PHP_INI_ALL in PHP &lt;= 5.2.0.
+					Kullanımda: PHP 4.2.0.
+</pre>
+cgi.rfc2616_headers
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kullanımda: PHP 4.3.0.
+</pre>
+child_terminate
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kullanımda: PHP 4.0.5.
+</pre>
+coin_acceptor.autoreset
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"On" 		PHP_INI_ALL 	Kaldırıldı: coin_acceptor 0.2.
+</pre>
+coin_acceptor.auto_initialize
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"Off" 		PHP_INI_ALL 	Kullanımda: coin_acceptor 0.2.
+</pre>
+coin_acceptor.auto_reset
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"On" 		PHP_INI_ALL 	Kullanımda: coin_acceptor 0.2.
+</pre>
+coin_acceptor.command_function
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"Off" 		PHP_INI_ALL 	Kullanımda: coin_acceptor 0.3.
+</pre>
+coin_acceptor.delay
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"53132" 	PHP_INI_ALL 	Kaldırıldı: coin_acceptor 0.2.
+</pre>
+coin_acceptor.delay_coins
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"53132" 	PHP_INI_ALL 	Kullanımda: coin_acceptor 0.2.
+</pre>
+coin_acceptor.delay_prom
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"55748" 	PHP_INI_ALL 	Kullanımda: coin_acceptor 0.2.
+</pre>
+coin_acceptor.device
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"/dev/ttyS1" 	PHP_INI_ALL 	Kaldırıldı: coin_acceptor 0.2.
+</pre>
+coin_acceptor.lock_on_close
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"Off" 		PHP_INI_ALL 	Kullanımda: coin_acceptor 0.2.
+</pre>
+coin_acceptor.start_unlocked
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"On" 		PHP_INI_ALL 	Kullanımda: coin_acceptor 0.2.
+</pre>
+com.allow_dcom
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_SYSTEM 	Kullanımda: PHP 4.0.5.
+</pre>
+com.autoregister_casesensitive
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	PHP_INI_SYSTEM in PHP 4.
+					Kullanımda: PHP 4.1.0.
+</pre>
+com.autoregister_typelib
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	PHP_INI_SYSTEM in PHP 4.
+					Kullanımda: PHP 4.1.0.
+</pre>
+com.autoregister_verbose
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	PHP_INI_SYSTEM in PHP 4.
+					Kullanımda: PHP 4.1.0.
+</pre>
+com.code_page
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_ALL 	Kullanımda: PHP 5.0.0.
+</pre>
+com.typelib_file
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_SYSTEM 	Kullanımda: PHP 4.0.5.
+</pre>
+crack.default_dictionary
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_PERDIR 	PHP_INI_SYSTEM in crack &lt;= 0.2.
+					Kullanımda: PHP 4.0.5.
+					Kaldırıldı: PHP 5.0.0.
+</pre>
+daffodildb.default_host
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"localhost" 	PHP_INI_ALL 	 
+</pre>
+daffodildb.default_password
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"daffodil" 	PHP_INI_ALL 	 
+</pre>
+daffodildb.default_socket
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	 
+</pre>
+daffodildb.default_user
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"DAFFODIL" 	PHP_INI_ALL 	 
+</pre>
+daffodildb.port
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"3456" 		PHP_INI_ALL 	 
+</pre>
+date.default_latitude
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"31.7667" 	PHP_INI_ALL 	Kullanımda: PHP 5.0.0.
+</pre>
+date.default_longitude
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"35.2333" 	PHP_INI_ALL 	Kullanımda: PHP 5.0.0.
+</pre>
+date.sunrise_zenith
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"90.583333" 	PHP_INI_ALL 	Kullanımda: PHP 5.0.0.
+</pre>
+date.sunset_zenith
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"90.583333" 	PHP_INI_ALL 	Kullanımda: PHP 5.0.0.
+</pre>
+date.timezone
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_ALL 	Kullanımda: PHP 5.1.0.
+</pre>
+dba.default_handler
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_ALL 	Kullanımda: PHP 4.3.3.
+</pre>
+dbx.colnames_case
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"unchanged" 	PHP_INI_SYSTEM 	Kullanımda: PHP 4.3.0.
+					Kaldırıldı: PHP 5.1.0.
+</pre>
+default_charset
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_ALL 	 
+</pre>
+default_mimetype
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"text/html" 	PHP_INI_ALL 	 
+</pre>
+default_socket_timeout
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"60" 		PHP_INI_ALL 	Kullanımda: PHP 4.3.0.
+</pre>
+define_syslog_variables
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	 
+</pre>
+detect_unicode
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	Kullanımda: PHP 5.1.0.
+					Kaldırıldı: PHP 6.0.0.
+</pre>
+disable_classes
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		php.ini only 	Kullanımda: PHP 4.3.2.
+</pre>
+disable_functions
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		php.ini only 	Kullanımda: PHP 4.0.1.
+</pre>
+display_errors
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	 
+</pre>
+display_startup_errors
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kullanımda: PHP 4.0.3.
+</pre>
+docref_ext
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_ALL 	Kullanımda: PHP 4.3.2.
+</pre>
+docref_root
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_ALL 	Kullanımda: PHP 4.3.0.
+</pre>
+doc_root
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_SYSTEM 	 
+</pre>
+enable_dl
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_SYSTEM 	Kaldırıldı: PHP 6.0.0.
+</pre>
+engine
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	Kullanımda: PHP 4.0.5.
+</pre>
+error_append_string
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	 
+</pre>
+error_log
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	 
+</pre>
+error_prepend_string
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	 
+</pre>
+error_reporting
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	 
+</pre>
+etpan.default.charset
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"utf-8" 	PHP_INI_ALL 	 
+</pre>
+etpan.default.protocol
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"imap" 		PHP_INI_ALL 	 
+</pre>
+exif.decode_jis_intel
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"JIS" 		PHP_INI_ALL 	Kullanımda: PHP 4.3.0.
+</pre>
+exif.decode_jis_motorola
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"JIS" 		PHP_INI_ALL 	Kullanımda: PHP 4.3.0.
+</pre>
+exif.decode_unicode_intel
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"UCS-2LE" 	PHP_INI_ALL 	Kullanımda: PHP 4.3.0.
+</pre>
+exif.decode_unicode_motorola
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"UCS-2BE" 	PHP_INI_ALL 	Kullanımda: PHP 4.3.0.
+</pre>
+exif.encode_jis
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_ALL 	Kullanımda: PHP 4.3.0.
+</pre>
+exif.encode_unicode
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"ISO-8859-15" 	PHP_INI_ALL 	Kullanımda: PHP 4.3.0.
+</pre>
+expect.logfile
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_ALL 	 
+</pre>
+expect.loguser
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	 
+</pre>
+expect.timeout
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"10" 		PHP_INI_ALL 	 
+</pre>
+expose_php
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		php.ini only 	 
+</pre>
+extension_dir
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"/path/to/php" 	PHP_INI_SYSTEM 	 
+</pre>
+fastcgi.impersonate
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_SYSTEM 	PHP_INI_ALL in PHP &lt;= 5.2.0.
+					Kullanımda: PHP 4.3.0.
+</pre>
+fastcgi.logging
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_SYSTEM 	PHP_INI_ALL in PHP &lt;= 5.2.0.
+					Kullanımda: PHP 4.4.0.
+					Kaldırıldı: PHP 5.0.0.
+</pre>
+fbsql.allow_persistant
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_SYSTEM 	Kullanımda: PHP 4.0.6.
+					Kaldırıldı: PHP 4.2.0.
+</pre>
+fbsql.allow_persistent
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_SYSTEM 	Kullanımda: PHP 4.2.0.
+</pre>
+fbsql.autocommit
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_SYSTEM 	Kullanımda: PHP 4.0.6.
+</pre>
+fbsql.batchSize
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1000" 		PHP_INI_SYSTEM 	Kullanımda: PHP 4.2.0.
+					Kaldırıldı: PHP 5.1.0.
+</pre>
+fbsql.batchsize
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1000" 		PHP_INI_ALL 	Kullanımda: PHP 5.1.0.
+</pre>
+fbsql.default_database
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_SYSTEM 	Kullanımda: PHP 4.0.6.
+</pre>
+fbsql.default_database_password
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_SYSTEM 	Kullanımda: PHP 4.0.6.
+</pre>
+fbsql.default_host
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_SYSTEM 	Kullanımda: PHP 4.0.6.
+</pre>
+fbsql.default_password
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_SYSTEM 	Kullanımda: PHP 4.0.6.
+</pre>
+fbsql.default_user
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"_SYSTEM" 	PHP_INI_SYSTEM 	Kullanımda: PHP 4.0.6.
+</pre>
+fbsql.generate_warnings
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_SYSTEM 	Kullanımda: PHP 4.0.6.
+</pre>
+fbsql.max_connections
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"128" 		PHP_INI_SYSTEM 	Kullanımda: PHP 4.0.6.
+</pre>
+fbsql.max_links
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"128" 		PHP_INI_SYSTEM 	Kullanımda: PHP 4.0.6.
+</pre>
+fbsql.max_persistent
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"-1" 		PHP_INI_SYSTEM 	Kullanımda: PHP 4.0.6.
+</pre>
+fbsql.max_results
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"128" 		PHP_INI_SYSTEM 	Kullanımda: PHP 4.0.6.
+</pre>
+fbsql.mbatchSize
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1000" 		PHP_INI_SYSTEM 	Kullanımda: PHP 4.0.6.
+					Kaldırıldı: PHP 4.2.0.
+</pre>
+fbsql.show_timestamp_decimals
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_SYSTEM 	Kullanımda: PHP 5.1.5.
+</pre>
+file_uploads
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_SYSTEM 	PHP_INI_ALL in PHP &lt;= 4.2.3.
+					Kullanımda: PHP 4.0.3.
+</pre>
+filter.default
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"unsafe_raw" 	PHP_INI_PERDIR 	PHP_INI_ALL in filter &lt;= 0.9.4.
+					Kullanımda: PHP 5.2.0.
+</pre>
+filter.default_flags
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_PERDIR 	PHP_INI_ALL in filter &lt;= 0.9.4.
+					Kullanımda: PHP 5.2.0.
+</pre>
+from
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_ALL 	 
+</pre>
+gd.jpeg_ignore_warning
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kullanımda: PHP 5.1.3.
+</pre>
+geoip.custom_directory
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	Kullanımda: geoip 1.0.1.
+</pre>
+geoip.database_standard
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"GeoIP.dat" 	PHP_INI_ALL 	Kaldırıldı: geoip 1.0.1.
+</pre>
+gpc_order
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"GPC" 		PHP_INI_ALL 	Kaldırıldı: PHP 5.0.0.
+</pre>
+hidef.ini_path
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	(char*)default_ini_path 	PHP_INI_SYSTEM 	 
+</pre>
+highlight.bg
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"#FFFFFF" 	PHP_INI_ALL 	Kaldırıldı: PHP 6.0.0.
+</pre>
+highlight.comment
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"#FF8000" 	PHP_INI_ALL 	 
+</pre>
+highlight.default
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"#0000BB" 	PHP_INI_ALL 	 
+</pre>
+highlight.html
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"#000000" 	PHP_INI_ALL 	 
+</pre>
+highlight.keyword
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"#007700" 	PHP_INI_ALL 	 
+</pre>
+highlight.string
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"#DD0000" 	PHP_INI_ALL 	 
+</pre>
+html_errors
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	PHP_INI_SYSTEM in PHP &lt;= 4.2.3.
+					Kullanımda: PHP 4.0.2.
+</pre>
+htscanner.config_file
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	".htaccess" 	PHP_INI_SYSTEM 	 
+</pre>
+htscanner.default_docroot
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"/" 		PHP_INI_SYSTEM 	 
+</pre>
+htscanner.default_ttl
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"300" 		PHP_INI_SYSTEM 	Kullanımda: htscanner 0.6.0.
+</pre>
+htscanner.stop_on_error
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_SYSTEM 	Kullanımda: htscanner 0.7.0.
+</pre>
+http.allowed_methods
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_ALL 	Kullanımda: pecl_http 0.4.0.
+					Kaldırıldı: pecl_http 1.0.0.
+</pre>
+http.allowed_methods_log
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_ALL 	Kullanımda: pecl_http 0.12.0.
+					Kaldırıldı: pecl_http 1.0.0.
+</pre>
+http.cache_log
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_ALL 	Kullanımda: pecl_http 0.8.0.
+					Kaldırıldı: pecl_http 1.0.0.
+</pre>
+http.composite_log
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_ALL 	Kullanımda: pecl_http 0.12.0.
+					Kaldırıldı: pecl_http 1.0.0.
+</pre>
+http.etag.mode
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"MD5" 		PHP_INI_ALL 	Kullanımda: pecl_http 1.0.0.
+</pre>
+http.etag_mode
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"MD5" 		PHP_INI_ALL 	Kullanımda: pecl_http 0.12.0.
+					Kaldırıldı: pecl_http 1.0.0.
+</pre>
+http.force_exit
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	Kullanımda: pecl_http 0.18.0.
+</pre>
+http.log.allowed_methods
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_ALL 	Kullanımda: pecl_http 1.0.0.
+</pre>
+http.log.cache
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_ALL 	Kullanımda: pecl_http 1.0.0.
+</pre>
+http.log.composite
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_ALL 	Kullanımda: pecl_http 1.0.0.
+</pre>
+http.log.not_found
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_ALL 	Kullanımda: pecl_http 1.0.0.
+</pre>
+http.log.redirect
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_ALL 	Kullanımda: pecl_http 1.0.0.
+</pre>
+http.ob_deflate_auto
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_PERDIR 	Kullanımda: pecl_http 0.21.0.
+					Kaldırıldı: pecl_http 1.0.0.
+</pre>
+http.ob_deflate_flags
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kullanımda: pecl_http 0.21.0.
+					Kaldırıldı: pecl_http 1.0.0.
+</pre>
+http.ob_inflate_auto
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_PERDIR 	Kullanımda: pecl_http 0.21.0.
+					Kaldırıldı: pecl_http 1.0.0.
+</pre>
+http.ob_inflate_flags
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kullanımda: pecl_http 0.21.0.
+					Kaldırıldı: pecl_http 1.0.0.
+</pre>
+http.only_exceptions
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kullanımda: pecl_http 0.11.0.
+</pre>
+http.persistent.handles.ident
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"GLOBAL" 	PHP_INI_ALL 	Kullanımda: pecl_http 1.5.0.
+</pre>
+http.persistent.handles.limit
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"-1" 		PHP_INI_SYSTEM 	Kullanımda: pecl_http 1.5.0.
+</pre>
+http.redirect_log
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_ALL 	Kullanımda: pecl_http 0.12.0.
+					Kaldırıldı: pecl_http 1.0.0.
+</pre>
+http.request.datashare.connect
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_SYSTEM 	Kullanımda: pecl_http 1.3.0.
+</pre>
+http.request.datashare.cookie
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_SYSTEM 	Kullanımda: pecl_http 1.3.0.
+</pre>
+http.request.datashare.dns
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_SYSTEM 	Kullanımda: pecl_http 1.3.0.
+</pre>
+http.request.datashare.ssl
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_SYSTEM 	Kullanımda: pecl_http 1.3.0.
+</pre>
+http.request.methods.allowed
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_ALL 	Kullanımda: pecl_http 1.0.0.
+</pre>
+http.request.methods.custom
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_PERDIR 	Kullanımda: pecl_http 1.0.0.
+</pre>
+http.send.deflate.start_auto
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_PERDIR 	Kullanımda: pecl_http 1.0.0.
+</pre>
+http.send.deflate.start_flags
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kullanımda: pecl_http 1.0.0.
+</pre>
+http.send.inflate.start_auto
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_PERDIR 	Kullanımda: pecl_http 1.0.0.
+</pre>
+http.send.inflate.start_flags
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kullanımda: pecl_http 1.0.0.
+</pre>
+http.send.not_found_404
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	Kullanımda: pecl_http 1.0.0.
+</pre>
+hyerwave.allow_persistent
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_SYSTEM 	Kaldırıldı: PHP 4.3.2.
+</pre>
+hyperwave.allow_persistent
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_SYSTEM 	Kullanımda: PHP 4.3.2.
+					Kaldırıldı: PHP 5.0.0.
+</pre>
+hyperwave.default_port
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"418" 		PHP_INI_ALL 	Kaldırıldı: PHP 5.0.0.
+</pre>
+ibase.allow_persistent
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_SYSTEM 	 
+</pre>
+ibase.dateformat
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"%Y-%m-%d" 	PHP_INI_ALL 	 
+</pre>
+ibase.default_charset
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	Kullanımda: PHP 5.0.0.
+</pre>
+ibase.default_db
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_SYSTEM 	Kullanımda: PHP 5.0.0.
+</pre>
+ibase.default_password
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	 
+</pre>
+ibase.default_user
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	 
+</pre>
+ibase.max_links
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"-1" 		PHP_INI_SYSTEM 	 
+</pre>
+ibase.max_persistent
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"-1" 		PHP_INI_SYSTEM 	 
+</pre>
+ibase.timeformat
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"%H:%M:%S" 	PHP_INI_ALL 	 
+</pre>
+ibase.timestampformat
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"%Y-%m-%d %H:%M:%S" 
+			PHP_INI_ALL 	 
+</pre>
+ibm_db2.binmode
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	 
+</pre>
+ibm_db2.i5_allow_commit
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_SYSTEM 	Kullanımda: ibm_db2 1.4.9.
+</pre>
+ibm_db2.i5_dbcs_alloc
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_SYSTEM 	Kullanımda: ibm_db2 1.5.0.
+</pre>
+ibm_db2.instance_name
+<pre class="yfix">
+	NULL 		PHP_INI_SYSTEM 	Kullanımda: ibm_db2 1.0.2.
+</pre>
+iconv.input_encoding
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"ISO-8859-1" 	PHP_INI_ALL 	Kullanımda: PHP 4.0.5.
+</pre>
+iconv.internal_encoding
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"ISO-8859-1" 	PHP_INI_ALL 	Kullanımda: PHP 4.0.5.
+</pre>
+iconv.output_encoding
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"ISO-8859-1" 	PHP_INI_ALL 	Kullanımda: PHP 4.0.5.
+</pre>
+ifx.allow_persistent
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_SYSTEM 	Kaldırıldı: PHP 5.2.1.
+</pre>
+ifx.blobinfile
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	Kaldırıldı: PHP 5.2.1.
+</pre>
+ifx.byteasvarchar
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kaldırıldı: PHP 5.2.1.
+</pre>
+ifx.charasvarchar
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kaldırıldı: PHP 5.2.1.
+</pre>
+ifx.default_host
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_SYSTEM 	Kaldırıldı: PHP 5.2.1.
+</pre>
+ifx.default_password
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_SYSTEM 	Kaldırıldı: PHP 5.2.1.
+</pre>
+ifx.default_user
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_SYSTEM 	Kaldırıldı: PHP 5.2.1.
+</pre>
+ifx.max_links
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"-1" 		PHP_INI_SYSTEM 	Kaldırıldı: PHP 5.2.1.
+</pre>
+ifx.max_persistent
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"-1" 		PHP_INI_SYSTEM 	Kaldırıldı: PHP 5.2.1.
+</pre>
+ifx.nullformat
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kaldırıldı: PHP 5.2.1.
+</pre>
+ifx.textasvarchar
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kaldırıldı: PHP 5.2.1.
+</pre>
+ignore_repeated_errors
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kullanımda: PHP 4.3.0.
+</pre>
+ignore_repeated_source
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kullanımda: PHP 4.3.0.
+</pre>
+ignore_user_abort
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	 
+</pre>
+imlib2.font_cache_max_size
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"524288" 	PHP_INI_ALL 	 
+</pre>
+imlib2.font_path
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"/usr/share/php/fonts/" 
+			PHP_INI_ALL 	 
+</pre>
+implicit_flush
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	PHP_INI_PERDIR in PHP &lt;= 4.2.3.
+</pre>
+include_path
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	".;/path/to/php/pear" 
+			PHP_INI_ALL 	 
+</pre>
+ingres.allow_persistent
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_SYSTEM 	Kullanımda: PHP 4.0.2.
+					Kaldırıldı: PHP 5.1.0.
+</pre>
+ingres.array_index_start
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	Kullanımda: ingres 1.4.0.
+</pre>
+ingres.blob_segment_length
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"4096" 		PHP_INI_ALL 	Kullanımda: ingres 1.2.0.
+</pre>
+ingres.cursor_mode
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kullanımda: ingres 1.1.
+</pre>
+ingres.default_database
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	Kullanımda: PHP 4.0.2.
+					Kaldırıldı: PHP 5.1.0.
+</pre>
+ingres.default_password
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	Kullanımda: PHP 4.0.2.
+					Kaldırıldı: PHP 5.1.0.
+</pre>
+ingres.default_user
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	Kullanımda: PHP 4.0.2.
+					Kaldırıldı: PHP 5.1.0.
+</pre>
+ingres.max_links
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"-1" 		PHP_INI_SYSTEM 	Kullanımda: PHP 4.0.2.
+					Kaldırıldı: PHP 5.1.0.
+</pre>
+ingres.max_persistent
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"-1" 		PHP_INI_SYSTEM 	Kullanımda: PHP 4.0.2.
+					Kaldırıldı: PHP 5.1.0.
+</pre>
+ingres.report_db_warnings
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	Kullanımda: ingres 1.1.
+</pre>
+ingres.timeout
+<pre class="yfix">
+	"-1" 		PHP_INI_ALL 	Kullanımda: ingres 1.4.0.
+</pre>
+ingres.trace_connect
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kullanımda: ingres 1.2.1.
+</pre>
+ircg.control_user
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"nobody" 	PHP_INI_ALL 	Kullanımda: PHP 5.0.0.
+					Kaldırıldı: PHP 5.1.0.
+</pre>
+ircg.keep_alive_interval
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"60" 		PHP_INI_ALL 	Kullanımda: PHP 5.0.0.
+					Kaldırıldı: PHP 5.1.0.
+</pre>
+ircg.max_format_message_sets
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"12" 		PHP_INI_ALL 	Kullanımda: PHP 5.0.0.
+					Kaldırıldı: PHP 5.1.0.
+</pre>
+ircg.shared_mem_size
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"6000000" 	PHP_INI_ALL 	Kullanımda: PHP 5.0.0.
+					Kaldırıldı: PHP 5.1.0.
+</pre>
+ircg.work_dir
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"/tmp/ircg" 	PHP_INI_ALL 	Kullanımda: PHP 5.0.0.
+					Kaldırıldı: PHP 5.1.0.
+</pre>
+last_modified
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kullanımda: PHP 4.0.5.
+</pre>
+ldap.base_dn
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	Kaldırıldı: PHP 4.2.0.
+</pre>
+ldap.max_links
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"-1" 		PHP_INI_SYSTEM 	 
+</pre>
+log.dbm_dir
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_ALL 	Kaldırıldı: PHP 4.0.1.
+</pre>
+log_errors
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	 
+</pre>
+log_errors_max_len
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1024" 		PHP_INI_ALL 	Kullanımda: PHP 4.3.0.
+</pre>
+magic_quotes_gpc
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_PERDIR 	PHP_INI_ALL in PHP &lt;= 4.2.3.
+					Kaldırıldı: PHP 6.0.0.
+</pre>
+magic_quotes_runtime
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kaldırıldı: PHP 6.0.0.
+</pre>
+magic_quotes_sybase
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kaldırıldı: PHP 6.0.0.
+</pre>
+mail.force_extra_parameters
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		php.ini only 	Kullanımda: PHP 5.0.0.
+</pre>
+mailparse.def_charset
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"us-ascii" 	PHP_INI_ALL 	Kullanımda: PHP 4.1.0.
+					Kaldırıldı: PHP 4.2.0.
+</pre>
+maxdb.default_db
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	 
+</pre>
+maxdb.default_host
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	 
+</pre>
+maxdb.default_pw
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	 
+</pre>
+maxdb.default_user
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	 
+</pre>
+maxdb.long_readlen
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"200" 		PHP_INI_ALL 	 
+</pre>
+max_execution_time
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"30" 		PHP_INI_ALL 	 
+</pre>
+max_input_nesting_level
+<pre class="yfix">
+	"64" 		PHP_INI_PERDIR 	Kullanımda: PHP 4.4.8.
+					Kaldırıldı: PHP 5.0.0.
+</pre>
+max_input_time
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"-1" 		PHP_INI_PERDIR 	Kullanımda: PHP 4.3.0.
+</pre>
+mbstring.detect_order
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	Kullanımda: PHP 4.0.6.
+</pre>
+mbstring.encoding_translation
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_PERDIR 	Kullanımda: PHP 4.3.0.
+</pre>
+mbstring.func_overload
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_PERDIR 	PHP_INI_SYSTEM in PHP &lt;= 4.2.3.
+					Kullanımda: PHP 4.2.0.
+</pre>
+mbstring.http_input
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"pass" 		PHP_INI_ALL 	Kullanımda: PHP 4.0.6.
+</pre>
+mbstring.http_output
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"pass" 		PHP_INI_ALL 	Kullanımda: PHP 4.0.6.
+</pre>
+mbstring.internal_encoding
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	Kullanımda: PHP 4.0.6.
+</pre>
+mbstring.language
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"neutral" 	PHP_INI_PERDIR 	Kullanımda: PHP 4.3.0.
+</pre>
+mbstring.script_encoding
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	Kullanımda: PHP 4.3.0.
+</pre>
+mbstring.strict_detection
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kullanımda: PHP 5.1.2.
+</pre>
+mbstring.substitute_character
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	Kullanımda: PHP 4.0.6.
+</pre>
+mcrypt.algorithms_dir
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	Kullanımda: PHP 4.0.2.
+</pre>
+mcrypt.modes_dir
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	Kullanımda: PHP 4.0.2.
+</pre>
+memcache.allow_failover
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	Kullanımda: memcache 2.0.2.
+</pre>
+memcache.chunk_size
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"8192" 		PHP_INI_ALL 	Kullanımda: memcache 2.0.2.
+</pre>
+memcache.default_port
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"11211" 	PHP_INI_ALL 	Kullanımda: memcache 2.0.2.
+</pre>
+memcache.hash_function
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"crc32" 	PHP_INI_ALL 	Kullanımda: memcache 2.2.0.
+</pre>
+memcache.hash_strategy
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"standard" 	PHP_INI_ALL 	Kullanımda: memcache 2.2.0.
+</pre>
+memcache.max_failover_attempts
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"20" 		PHP_INI_ALL 	Kullanımda: memcache 2.1.0.
+</pre>
+memory_limit
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"128M" 		PHP_INI_ALL 	 
+</pre>
+mime_magic.debug
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_SYSTEM 	Kullanımda: PHP 5.0.0.
+</pre>
+mime_magic.magicfile
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"/path/to/php/magic.mime" 
+			PHP_INI_SYSTEM 	Kullanımda: PHP 4.3.0.
+</pre>
+msql.allow_persistent
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	 
+</pre>
+msql.max_links
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"-1" 		PHP_INI_ALL 	 
+</pre>
+msql.max_persistent
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"-1" 		PHP_INI_ALL 	 
+</pre>
+mssql.allow_persistent
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_SYSTEM 	 
+</pre>
+mssql.batchsize
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kullanımda: PHP 4.0.4.
+</pre>
+mssql.charset
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_ALL 	Kullanımda: PHP 5.1.2.
+</pre>
+mssql.compatability_mode
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	 
+</pre>
+mssql.connect_timeout
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"5" 		PHP_INI_ALL 	 
+</pre>
+mssql.datetimeconvert
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	Kullanımda: PHP 4.2.0.
+</pre>
+mssql.max_links
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"-1" 		PHP_INI_SYSTEM 	 
+</pre>
+mssql.max_persistent
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"-1" 		PHP_INI_SYSTEM 	 
+</pre>
+mssql.max_procs
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"-1" 		PHP_INI_ALL 	Kullanımda: PHP 4.3.0.
+</pre>
+mssql.min_error_severity
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"10" 		PHP_INI_ALL 	 
+</pre>
+mssql.min_message_severity
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"10" 		PHP_INI_ALL 	 
+</pre>
+mssql.secure_connection
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_SYSTEM 	Kullanımda: PHP 4.3.0.
+</pre>
+mssql.textlimit
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"-1" 		PHP_INI_ALL 	 
+</pre>
+mssql.textsize
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"-1" 		PHP_INI_ALL 	 
+</pre>
+mssql.timeout
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"60" 		PHP_INI_ALL 	Kullanımda: PHP 4.1.0.
+</pre>
+mysql.allow_local_infile
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_SYSTEM 	Kullanımda: PHP 6.0.0.
+</pre>
+mysql.allow_persistent
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_SYSTEM 	 
+</pre>
+mysql.cache_size
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"2000" 		PHP_INI_SYSTEM 	Kullanımda: PHP 6.0.0.
+</pre>
+mysql.connect_timeout
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"60" 		PHP_INI_ALL 	PHP_INI_SYSTEM in PHP &lt;= 4.3.2.
+					Kullanımda: PHP 4.3.0.
+</pre>
+mysql.default_host
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	 
+</pre>
+mysql.default_password
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	 
+</pre>
+mysql.default_port
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	 
+</pre>
+mysql.default_socket
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	Kullanımda: PHP 4.0.1.
+</pre>
+mysql.default_user
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	 
+</pre>
+mysql.max_links
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"-1" 		PHP_INI_SYSTEM 	 
+</pre>
+mysql.max_persistent
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"-1" 		PHP_INI_SYSTEM 	 
+</pre>
+mysql.trace_mode
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kullanımda: PHP 4.3.0.
+</pre>
+mysqli.allow_local_infile
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_SYSTEM 	Kullanımda: PHP 6.0.0.
+</pre>
+mysqli.cache_size
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"2000" 		PHP_INI_SYSTEM 	Kullanımda: PHP 6.0.0.
+</pre>
+mysqli.default_host
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	Kullanımda: PHP 5.0.0.
+</pre>
+mysqli.default_port
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"3306" 		PHP_INI_ALL 	Kullanımda: PHP 5.0.0.
+</pre>
+mysqli.default_pw
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	Kullanımda: PHP 5.0.0.
+</pre>
+mysqli.default_socket
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	Kullanımda: PHP 5.0.0.
+</pre>
+mysqli.default_user
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	Kullanımda: PHP 5.0.0.
+</pre>
+mysqli.max_links
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"-1" 		PHP_INI_SYSTEM 	Kullanımda: PHP 5.0.0.
+</pre>
+mysqli.reconnect
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_SYSTEM 	Kullanımda: PHP 5.0.0.
+</pre>
+mysqlnd.collect_statistics
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_SYSTEM 	Kullanımda: PHP 6.0.0.
+</pre>
+namazu.debugmode
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	 
+</pre>
+namazu.lang
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	 
+</pre>
+namazu.loggingmode
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	 
+</pre>
+namazu.sortmethod
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	 
+</pre>
+namazu.sortorder
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	 
+</pre>
+nsapi.read_timeout
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"60" 		PHP_INI_ALL 	Kullanımda: PHP 4.3.3.
+</pre>
+oci8.default_prefetch
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"10" 		PHP_INI_SYSTEM 	Kullanımda: PHP 5.1.2.
+</pre>
+oci8.max_persistent
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"-1" 		PHP_INI_SYSTEM 	Kullanımda: PHP 5.1.2.
+</pre>
+oci8.old_oci_close_semantics
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_SYSTEM 	Kullanımda: PHP 5.1.2.
+</pre>
+oci8.persistent_timeout
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"-1" 		PHP_INI_SYSTEM 	Kullanımda: PHP 5.1.2.
+</pre>
+oci8.ping_interval
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"60" 		PHP_INI_SYSTEM 	Kullanımda: PHP 5.1.2.
+</pre>
+oci8.privileged_connect
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_SYSTEM 	Kullanımda: PHP 5.1.2.
+</pre>
+oci8.statement_cache_size
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"20" 		PHP_INI_SYSTEM 	Kullanımda: PHP 5.1.2.
+</pre>
+odbc.allow_persistent
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_SYSTEM 	 
+</pre>
+odbc.check_persistent
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_SYSTEM 	 
+</pre>
+odbc.defaultbinmode
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	 
+</pre>
+odbc.defaultlrl
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"4096" 		PHP_INI_ALL 	 
+</pre>
+odbc.default_db
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	 
+</pre>
+odbc.default_pw
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	 
+</pre>
+odbc.default_user
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	 
+</pre>
+odbc.max_links
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"-1" 		PHP_INI_SYSTEM 	 
+</pre>
+odbc.max_persistent
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"-1" 		PHP_INI_SYSTEM 	 
+</pre>
+odbtp.datetime_format
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"object" 	PHP_INI_ALL 	 
+</pre>
+odbtp.detach_default_queries
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	 
+</pre>
+odbtp.guid_format
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"string" 	PHP_INI_ALL 	Kullanımda: odbtp 1.1.3.
+</pre>
+odbtp.interface_file
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"/usr/local/share/odbtp.conf" 
+			PHP_INI_ALL 	 
+</pre>
+odbtp.truncation_errors
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	 
+</pre>
+opendirectory.default_separator
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"/" 		PHP_INI_ALL 	Kaldırıldı: opendirectory 0.2.2.
+</pre>
+opendirectory.max_refs
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"-1" 		PHP_INI_ALL 	 
+</pre>
+opendirectory.separator
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"/" 		PHP_INI_ALL 	Kullanımda: opendirectory 0.2.2.
+</pre>
+open_basedir
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	PHP_INI_SYSTEM in PHP &lt; 6.
+</pre>
+oracle.allow_persistent
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"-1" 		PHP_INI_ALL 	Kaldırıldı: PHP 5.1.0.
+</pre>
+oracle.max_links
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"-1" 		PHP_INI_ALL 	Kaldırıldı: PHP 5.1.0.
+</pre>
+oracle.max_persistent
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"-1" 		PHP_INI_ALL 	Kaldırıldı: PHP 5.1.0.
+</pre>
+output_buffering
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_PERDIR 	 
+</pre>
+output_handler
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_PERDIR 	Kullanımda: PHP 4.0.4.
+</pre>
+pam.servicename
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"php" 		PHP_INI_ALL 	 
+</pre>
+pcre.backtrack_limit
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"100000" 	PHP_INI_ALL 	Kullanımda: PHP 5.2.0.
+</pre>
+pcre.recursion_limit
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"100000" 	PHP_INI_ALL 	Kullanımda: PHP 5.2.0.
+</pre>
+pdo_odbc.connection_pooling
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"strict" 	PHP_INI_ALL 	Kullanımda: PHP 5.1.0.
+</pre>
+pdo_odbc.db2_instance_name
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_SYSTEM 	Kullanımda: PHP 5.1.1.
+					Kaldırıldı: PHP 6.0.0.
+</pre>
+pfpro.defaulthost
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"test-payflow.verisign.com" 
+			PHP_INI_ALL 	Kullanımda: PHP 4.0.2.
+					Kaldırıldı: PHP 5.1.0.
+</pre>
+pfpro.defaultport
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"443" 		PHP_INI_ALL 	Kullanımda: PHP 4.0.2.
+					Kaldırıldı: PHP 5.1.0.
+</pre>
+pfpro.defaulttimeout
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"30" 		PHP_INI_ALL 	Kullanımda: PHP 4.0.2.
+					Kaldırıldı: PHP 5.1.0.
+</pre>
+pfpro.proxyaddress
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_ALL 	Kullanımda: PHP 4.0.2.
+					Kaldırıldı: PHP 5.1.0.
+</pre>
+pfpro.proxylogon
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_ALL 	Kullanımda: PHP 4.0.2.
+					Kaldırıldı: PHP 5.1.0.
+</pre>
+pfpro.proxypassword
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_ALL 	Kullanımda: PHP 4.0.2.
+					Kaldırıldı: PHP 5.1.0.
+</pre>
+pfpro.proxyport
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_ALL 	Kullanımda: PHP 4.0.2.
+					Kaldırıldı: PHP 5.1.0.
+</pre>
+pgsql.allow_persistent
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_SYSTEM 	 
+</pre>
+pgsql.auto_reset_persistent
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_SYSTEM 	Kullanımda: PHP 4.2.0.
+</pre>
+pgsql.ignore_notice
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kullanımda: PHP 4.3.0.
+</pre>
+pgsql.log_notice
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kullanımda: PHP 4.3.0.
+</pre>
+pgsql.max_links
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"-1" 		PHP_INI_SYSTEM 	 
+</pre>
+pgsql.max_persistent
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"-1" 		PHP_INI_SYSTEM 	 
+</pre>
+phar.extract_list
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_ALL 	Kullanımda: phar 1.1.0.
+</pre>
+phar.readonly
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	 
+</pre>
+phar.require_hash
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	 
+</pre>
+post_max_size
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"8M" 		PHP_INI_PERDIR 	PHP_INI_SYSTEM in PHP &lt;= 4.2.3.
+					Kullanımda: PHP 4.0.3.
+</pre>
+precision
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"14" 		PHP_INI_ALL 	 
+</pre>
+printer.default_printer
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_ALL 	Kullanımda: PHP 4.0.6.
+					Kaldırıldı: PHP 4.1.1.
+</pre>
+python.append_path
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_ALL 	 
+</pre>
+python.prepend_path
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"." 		PHP_INI_ALL 	 
+</pre>
+realpath_cache_size
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"16K" 		PHP_INI_SYSTEM 	Kullanımda: PHP 5.1.0.
+</pre>
+realpath_cache_ttl
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"120" 		PHP_INI_SYSTEM 	Kullanımda: PHP 5.1.0.
+</pre>
+register_argc_argv
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_PERDIR 	PHP_INI_ALL in PHP &lt;= 4.2.3.
+</pre>
+register_globals
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_PERDIR 	PHP_INI_ALL in PHP &lt;= 4.2.3.
+					Kaldırıldı: PHP 6.0.0.
+</pre>
+register_long_arrays
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_PERDIR 	Kullanımda: PHP 5.0.0.
+					Kaldırıldı: PHP 6.0.0.
+</pre>
+report_memleaks
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	Kullanımda: PHP 4.3.0.
+</pre>
+report_zend_debug
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	Kullanımda: PHP 5.0.0.
+</pre>
+runkit.internal_override
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_SYSTEM 	 
+</pre>
+runkit.superglobal
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_PERDIR 	 
+</pre>
+safe_mode
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_SYSTEM 	Kaldırıldı: PHP 6.0.0.
+</pre>
+safe_mode_allowed_env_vars
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"PHP_" 		PHP_INI_SYSTEM 	Kaldırıldı: PHP 6.0.0.
+</pre>
+safe_mode_exec_dir
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_SYSTEM 	Kaldırıldı: PHP 6.0.0.
+</pre>
+safe_mode_gid
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_SYSTEM 	Kullanımda: PHP 4.1.0.
+					Kaldırıldı: PHP 6.0.0.
+</pre>
+safe_mode_include_dir
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_SYSTEM 	Kullanımda: PHP 4.1.0.
+					Kaldırıldı: PHP 6.0.0.
+</pre>
+safe_mode_protected_env_vars
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"LD_LIBRARY_PATH" 
+			PHP_INI_SYSTEM 	Kaldırıldı: PHP 6.0.0.
+</pre>
+sendmail_from
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	 
+</pre>
+sendmail_path
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"/usr/sbin/sendmail -t -i" 
+			PHP_INI_SYSTEM 	 
+</pre>
+serialize_precision
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"100" 		PHP_INI_ALL 	Kullanımda: PHP 4.3.2.
+</pre>
+session.auto_start
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	 
+</pre>
+session.bug_compat_42
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	Kullanımda: PHP 4.3.0.
+					Kaldırıldı: PHP 6.0.0.
+</pre>
+session.bug_compat_warn
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	Kullanımda: PHP 4.3.0.
+					Kaldırıldı: PHP 6.0.0.
+</pre>
+session.cache_expire
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"180" 		PHP_INI_ALL 	 
+</pre>
+session.cache_limiter
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"nocache" 	PHP_INI_ALL 	 
+</pre>
+session.cookie_domain
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_ALL 	 
+</pre>
+session.cookie_httponly
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_ALL 	Kullanımda: PHP 5.2.0.
+</pre>
+session.cookie_lifetime
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	 
+</pre>
+session.cookie_path
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"/" 		PHP_INI_ALL 	 
+</pre>
+session.cookie_secure
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_ALL 	Kullanımda: PHP 4.0.4.
+</pre>
+session.entropy_file
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_ALL 	 
+</pre>
+session.entropy_length
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	 
+</pre>
+session.gc_dividend
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"100" 		PHP_INI_ALL 	Kullanımda: PHP 4.3.0.
+					Kaldırıldı: PHP 4.3.2.
+</pre>
+session.gc_divisor
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"100" 		PHP_INI_ALL 	Kullanımda: PHP 4.3.2.
+</pre>
+session.gc_maxlifetime
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1440" 		PHP_INI_ALL 	 
+</pre>
+session.gc_probability
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	 
+</pre>
+session.hash_bits_per_character
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"4" 		PHP_INI_ALL 	Kullanımda: PHP 5.0.0.
+</pre>
+session.hash_function
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kullanımda: PHP 5.0.0.
+</pre>
+session.name
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"PHPSESSID" 	PHP_INI_ALL 	 
+</pre>
+session.referer_check
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_ALL 	 
+</pre>
+session.save_handler
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"files" 	PHP_INI_ALL 	 
+</pre>
+session.save_path
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_ALL 	 
+</pre>
+session.serialize_handler
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"php" 		PHP_INI_ALL 	 
+</pre>
+session.use_cookies
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	 
+</pre>
+session.use_only_cookies
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	Kullanımda: PHP 4.3.0.
+</pre>
+session.use_trans_sid
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	PHP_INI_ALL in PHP &lt;= 4.2.3.
+					PHP_INI_PERDIR in PHP &lt; 5.
+					Kullanımda: PHP 4.0.3.
+</pre>
+session_pgsql.create_table
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_SYSTEM 	 
+</pre>
+session_pgsql.db
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"host=localhost dbname=php_session user=nobody" 
+			PHP_INI_SYSTEM 	 
+</pre>
+session_pgsql.disable
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_SYSTEM 	 
+</pre>
+session_pgsql.failover_mode
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_SYSTEM 	 
+</pre>
+session_pgsql.gc_interval
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"3600" 		PHP_INI_SYSTEM 	 
+</pre>
+session_pgsql.keep_expired
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_SYSTEM 	 
+</pre>
+session_pgsql.sem_file_name
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"/tmp/php_session_pgsql" 	PHP_INI_SYSTEM 	 
+</pre>
+session_pgsql.serializable
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_SYSTEM 	 
+</pre>
+session_pgsql.short_circuit
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_SYSTEM 	 
+</pre>
+session_pgsql.use_app_vars
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_SYSTEM 	 
+</pre>
+session_pgsql.vacuum_interval
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"21600" 	PHP_INI_SYSTEM 	 
+</pre>
+short_open_tag
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_PERDIR 	PHP_INI_ALL in PHP &lt;= 4.0.0.
+</pre>
+simple_cvs.authMethod
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	 
+</pre>
+simple_cvs.compressionLevel
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	 
+</pre>
+simple_cvs.cvsRoot
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	 
+</pre>
+simple_cvs.host
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	 
+</pre>
+simple_cvs.moduleName
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	 
+</pre>
+simple_cvs.userName
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	 
+</pre>
+simple_cvs.workingDir
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	 
+</pre>
+SMTP
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"localhost" 	PHP_INI_ALL 	 
+</pre>
+smtp_port
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"25" 		PHP_INI_ALL 	Kullanımda: PHP 4.3.0.
+</pre>
+soap.wsdl_cache
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	Kullanımda: PHP 5.1.5.
+</pre>
+soap.wsdl_cache_dir
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"/tmp" 		PHP_INI_ALL 	Kullanımda: PHP 5.0.0.
+</pre>
+soap.wsdl_cache_enabled
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	Kullanımda: PHP 5.0.0.
+</pre>
+soap.wsdl_cache_limit
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"5" 		PHP_INI_ALL 	Kullanımda: PHP 5.1.5.
+</pre>
+soap.wsdl_cache_ttl
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"86400" 	PHP_INI_ALL 	Kullanımda: PHP 5.0.0.
+</pre>
+sql.safe_mode
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_SYSTEM 	 
+</pre>
+sqlite.assoc_case
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kullanımda: PHP 5.0.0.
+</pre>
+sqlite.iso8859.locale
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	Kullanımda: PHP 6.0.0.
+</pre>
+sybase.allow_persistent
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	PHP_INI_ALL in PHP &lt;= 4.0.2.
+					PHP_INI_SYSTEM in PHP &lt;= 4.0.3.
+</pre>
+sybase.compatability_mode
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	 
+</pre>
+sybase.hostname
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	Kaldırıldı: PHP 4.0.2.
+</pre>
+sybase.interface_file
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_ALL 	 
+</pre>
+sybase.login_timeout
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kaldırıldı: PHP 4.0.2.
+</pre>
+sybase.max_links
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"-1" 		PHP_INI_ALL 	PHP_INI_ALL in PHP &lt;= 4.0.2.
+					PHP_INI_SYSTEM in PHP &lt;= 4.0.3.
+</pre>
+sybase.max_persistent
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"-1" 		PHP_INI_ALL 	PHP_INI_ALL in PHP &lt;= 4.0.2.
+					PHP_INI_SYSTEM in PHP &lt;= 4.0.3.
+</pre>
+sybase.min_client_severity
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"10" 		PHP_INI_ALL 	Kaldırıldı: PHP 4.0.2.
+</pre>
+sybase.min_error_severity
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"10" 		PHP_INI_ALL 	 
+</pre>
+sybase.min_message_severity
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"10" 		PHP_INI_ALL 	 
+</pre>
+sybase.min_server_severity
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"10" 		PHP_INI_ALL 	Kaldırıldı: PHP 4.0.2.
+</pre>
+sybase.timeout
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kaldırıldı: PHP 4.0.2.
+</pre>
+sybct.allow_persistent
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_SYSTEM 	PHP_INI_ALL in PHP &lt;= 4.0.2.
+					Kullanımda: PHP 4.0.2.
+					Kaldırıldı: PHP 4.0.3.
+</pre>
+sybct.deadlock_retry_count
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kullanımda: PHP 4.3.0.
+</pre>
+sybct.hostname
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	Kullanımda: PHP 4.0.2.
+					Kaldırıldı: PHP 4.0.3.
+</pre>
+sybct.login_timeout
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"-1" 		PHP_INI_ALL 	Kullanımda: PHP 4.0.2.
+</pre>
+sybct.max_links
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"-1" 		PHP_INI_SYSTEM 	PHP_INI_ALL in PHP &lt;= 4.0.2.
+					Kullanımda: PHP 4.0.2.
+					Kaldırıldı: PHP 4.0.3.
+</pre>
+sybct.max_persistent
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"-1" 		PHP_INI_SYSTEM 	PHP_INI_ALL in PHP &lt;= 4.0.2.
+					Kullanımda: PHP 4.0.2.
+					Kaldırıldı: PHP 4.0.3.
+</pre>
+sybct.min_client_severity
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"10" 		PHP_INI_ALL 	Kullanımda: PHP 4.0.2.
+					Kaldırıldı: PHP 4.0.3.
+</pre>
+sybct.min_server_severity
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"10" 		PHP_INI_ALL 	Kullanımda: PHP 4.0.2.
+					Kaldırıldı: PHP 4.0.3.
+</pre>
+sybct.packet_size
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kullanımda: PHP 4.3.5.
+</pre>
+sybct.timeout
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kullanımda: PHP 4.0.2.
+</pre>
+sysvshm.init_mem
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"10000" 	PHP_INI_ALL 	 
+</pre>
+tidy.clean_output
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_USER 	PHP_INI_PERDIR in PHP 5.
+					Kullanımda: PHP 5.0.0.
+</pre>
+tidy.default_config
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_SYSTEM 	Kullanımda: PHP 5.0.0.
+</pre>
+track_errors
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	 
+</pre>
+track_vars
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	Kaldırıldı: PHP 4.0.3.
+</pre>
+unicode.fallback_encoding
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	Kullanımda: PHP 6.0.0.
+</pre>
+unicode.filesystem_encoding
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	Kullanımda: PHP 6.0.0.
+</pre>
+unicode.http_input_encoding
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	Kullanımda: PHP 6.0.0.
+</pre>
+unicode.output_encoding
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	Kullanımda: PHP 6.0.0.
+</pre>
+unicode.runtime_encoding
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	Kullanımda: PHP 6.0.0.
+</pre>
+unicode.script_encoding
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	Kullanımda: PHP 6.0.0.
+</pre>
+unicode.semantics
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_SYSTEM 	Kullanımda: PHP 6.0.0.
+</pre>
+unicode.stream_encoding
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"UTF-8" 	PHP_INI_ALL 	Kullanımda: PHP 6.0.0.
+</pre>
+unserialize_callback_func
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	Kullanımda: PHP 4.2.0.
+</pre>
+uploadprogress.file.filename_template
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"/tmp/upt_%s.txt" 	PHP_INI_ALL 	 
+</pre>
+upload_max_filesize
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"2M" 		PHP_INI_PERDIR 	PHP_INI_ALL in PHP &lt;= 4.2.3.
+</pre>
+upload_tmp_dir
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_SYSTEM 	 
+</pre>
+url_rewriter.tags
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"a=href,area=href,frame=src,form=,fieldset=" 
+			PHP_INI_ALL 	Kullanımda: PHP 4.0.4.
+</pre>
+user_agent
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	Kullanımda: PHP 4.3.0.
+</pre>
+user_dir
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_SYSTEM 	 
+</pre>
+user_ini.cache_ttl
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"300" 		PHP_INI_SYSTEM 	Kullanımda: PHP 5.3.0.
+</pre>
+user_ini.filename
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	".user.ini" 	PHP_INI_SYSTEM 	Kullanımda: PHP 5.3.0.
+</pre>
+valkyrie.auto_validate
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	 
+</pre>
+valkyrie.config_path
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	 
+</pre>
+variables_order
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"EGPCS" 	PHP_INI_PERDIR 	PHP_INI_ALL in PHP &lt;= 5.0.5.
+</pre>
+velocis.max_links
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"-1" 		PHP_INI_ALL 	Kaldırıldı: PHP 4.2.0.
+</pre>
+vld.active
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_SYSTEM 	 
+</pre>
+vld.execute
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_SYSTEM 	Kullanımda: vld 0.8.0.
+</pre>
+vld.skip_append
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_SYSTEM 	Kullanımda: vld 0.8.0.
+</pre>
+vld.skip_prepend
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_SYSTEM 	Kullanımda: vld 0.8.0.
+</pre>
+xbithack
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kullanımda: PHP 4.0.5.
+</pre>
+xdebug.auto_profile
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kaldırıldı: Xdebug 2.0.0.
+</pre>
+xdebug.auto_profile_mode
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kaldırıldı: Xdebug 2.0.0.
+</pre>
+xdebug.auto_trace
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	 
+</pre>
+xdebug.collect_includes
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	Kullanımda: Xdebug 2.0.0.
+</pre>
+xdebug.collect_params
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	 
+</pre>
+xdebug.collect_return
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kullanımda: Xdebug 2.0.0.
+</pre>
+xdebug.collect_vars
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kullanımda: Xdebug 2.0.0.
+</pre>
+xdebug.default_enable
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	PHP_INI_SYSTEM in Xdebug 1.
+</pre>
+xdebug.dump.COOKIE
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	 
+</pre>
+xdebug.dump.ENV
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	 
+</pre>
+xdebug.dump.FILES
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	 
+</pre>
+xdebug.dump.GET
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	 
+</pre>
+xdebug.dump.POST
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	 
+</pre>
+xdebug.dump.REQUEST
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	 
+</pre>
+xdebug.dump.SERVER
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	 
+</pre>
+xdebug.dump.SESSION
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	 
+</pre>
+xdebug.dump_globals
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	Kullanımda: Xdebug 2.0.0.
+</pre>
+xdebug.dump_once
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	 
+</pre>
+xdebug.dump_undefined
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	 
+</pre>
+xdebug.extended_info
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_SYSTEM 	Kullanımda: Xdebug 2.0.0.
+</pre>
+xdebug.idekey
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_ALL 	Kullanımda: Xdebug 2.0.0.
+</pre>
+xdebug.manual_url
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"http://www.php.net" 
+			PHP_INI_ALL 	 
+</pre>
+xdebug.max_nesting_level
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"100" 		PHP_INI_ALL 	 
+</pre>
+xdebug.output_dir
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"/tmp" 		PHP_INI_PERDIR 	PHP_INI_SYSTEM in Xdebug &lt;= 1.2.0.
+					Kaldırıldı: Xdebug 2.0.0.
+</pre>
+xdebug.profiler_aggregate
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_PERDIR 	Kullanımda: Xdebug 2.0.0.
+</pre>
+xdebug.profiler_append
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_PERDIR 	Kullanımda: Xdebug 2.0.0.
+</pre>
+xdebug.profiler_enable
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_PERDIR 	Kullanımda: Xdebug 2.0.0.
+</pre>
+xdebug.profiler_enable_trigger
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_PERDIR 	Kullanımda: Xdebug 2.0.0.
+</pre>
+xdebug.profiler_output_dir
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"/tmp" 		PHP_INI_PERDIR 	Kullanımda: Xdebug 2.0.0.
+</pre>
+xdebug.profiler_output_name
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"cachegrind.out.%p" 
+			PHP_INI_PERDIR 	Kullanımda: Xdebug 2.0.0.
+</pre>
+xdebug.remote_autostart
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kullanımda: Xdebug 2.0.0.
+</pre>
+xdebug.remote_enable
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_PERDIR 	 
+</pre>
+xdebug.remote_handler
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"dbgp" 		PHP_INI_ALL 	 
+</pre>
+xdebug.remote_host
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"localhost" 	PHP_INI_ALL 	 
+</pre>
+xdebug.remote_log
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_ALL 	Kullanımda: Xdebug 2.0.0.
+</pre>
+xdebug.remote_mode
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"req" 		PHP_INI_ALL 	 
+</pre>
+xdebug.remote_port
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"9000" 		PHP_INI_ALL 	 
+</pre>
+xdebug.show_exception_trace
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kullanımda: Xdebug 2.0.0.
+</pre>
+xdebug.show_local_vars
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kullanımda: Xdebug 2.0.0.
+</pre>
+xdebug.show_mem_delta
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kullanımda: Xdebug 2.0.0.
+</pre>
+xdebug.trace_format
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kullanımda: Xdebug 2.0.0.
+</pre>
+xdebug.trace_options
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kullanımda: Xdebug 2.0.0.
+</pre>
+xdebug.trace_output_dir
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"/tmp" 		PHP_INI_ALL 	Kullanımda: Xdebug 2.0.0.
+</pre>
+xdebug.trace_output_name
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"trace.%c" 	PHP_INI_ALL 	Kullanımda: Xdebug 2.0.0.
+</pre>
+xdebug.var_display_max_children
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"128" 		PHP_INI_ALL 	Kullanımda: Xdebug 2.0.0.
+</pre>
+xdebug.var_display_max_data
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"512" 		PHP_INI_ALL 	Kullanımda: Xdebug 2.0.0.
+</pre>
+xdebug.var_display_max_depth
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"3" 		PHP_INI_ALL 	Kullanımda: Xdebug 2.0.0.
+</pre>
+xmlrpc_errors
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_SYSTEM 	Kullanımda: PHP 4.1.0.
+</pre>
+xmlrpc_error_number
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kullanımda: PHP 4.1.0.
+</pre>
+xmms.path
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"/usr/bin/xmms" 
+			PHP_INI_ALL 	 
+</pre>
+xmms.session
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	 
+</pre>
+y2k_compliance
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"1" 		PHP_INI_ALL 	 
+</pre>
+yami.response.timeout
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"5" 		PHP_INI_ALL 	Kullanımda: yami 1.0.1.
+</pre>
+yaz.keepalive
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"120" 		PHP_INI_ALL 	 
+</pre>
+yaz.log_file
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	Kullanımda: PHP 4.3.0.
+					Kaldırıldı: PHP 5.0.0.
+</pre>
+yaz.log_mask
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	NULL 		PHP_INI_ALL 	Kullanımda: yaz 1.0.3.
+</pre>
+yaz.max_links
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"100" 		PHP_INI_ALL 	Kullanımda: PHP 4.3.0.
+					Kaldırıldı: PHP 5.0.0.
+</pre>
+zend.ze1_compatibility_mode
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kullanımda: PHP 5.0.0.
+					Kaldırıldı: PHP 6.0.0.
+</pre>
+zlib.output_compression
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"0" 		PHP_INI_ALL 	Kullanımda: PHP 4.0.5.
+</pre>
+zlib.output_compression_level
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"-1" 		PHP_INI_ALL 	Kullanımda: PHP 4.3.0.
+</pre>
+zlib.output_handler
+<pre class="yfix">
+	Varsayılan 	Değişebilir 	Değişiklik Kaydı
+	"" 		PHP_INI_ALL 	Kullanımda: PHP 4.3.0.
+</pre>
+
+<h3>Definition of PHP_INI_* constants</h3>
+<table class="yazi">
+<tr><td>Constant</td><td>Value</td><td>Meaning</td></tr>
+<tr><td>PHP_INI_USER</td><td>1</td><td>Entry can be set in user scripts or in Windows registry</td></tr>
+<tr><td>PHP_INI_PERDIR</td><td>2</td><td>Entry can be set in php.ini, .htaccess or httpd.conf</td></tr>
+<tr><td>PHP_INI_SYSTEM</td><td>4</td><td>Entry can be set in php.ini or httpd.conf</td></tr>
+<tr><td>PHP_INI_ALL</td><td>7</td><td>Entry can be set anywhere</td></tr>
+</table>
+<hr>
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

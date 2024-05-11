@@ -1,0 +1,9 @@
+12340	1	İş Adres Bilgisi	1
+12340	2	Ev Adres Bilgisi	1
+12340	3	İş telefonu	1
+12340	4	Cep telefonu	1
+12341	6	Faks	1
+12342	7	Son okulu	1
+12343	8	diploma türü	1
+12345	9	resim bilgisi	1
+12346	9	resim bilgisi	1

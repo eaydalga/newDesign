@@ -1,0 +1,1346 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<TITLE>AYBIM - MAKE</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onload="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="ortataraf">
+           <span><img src="../img/transparent.gif" width="1" height="50">
+           <img src="../img/transparent.gif" width="780" height="1"></span>
+           <div id="banner">
+             <img src="img/baslik.gif"><br />
+             <div id="mycontainer">
+               <div id="content">
+<div id="bdy" class="yazi">
+<br>
+<br>
+<div id="sag"><span class="yazi">24 Ocak 2008</span></div>
+<H2> MAKE KOMUTU ve MAKEFILE </H2>
+<HR>
+<P>
+<B>GENEL BİLGİLER</B>
+<P>
+<B>make</B> komutu çalıştırıldığı <B>directory</B>'de <B>makefile</B> veya 
+<B>Makefile</B> varsa
+burada belirtilen işlemleri yapar. <B>make</B> komutu <B>makefile</B> 
+içindeki hedef
+tanımlara ulaşmak için tanımlanan bağımlılıkları da
+kullanarak belirtilen <B>directory</B>'de bulunan tüm tarihi geçmiş
+kütüklerden liste oluşturur ve tanıma uygun işlemi yapar.
+<P>
+<B>make</B> programı tüm çevre (<B>environment</B>) tanımlarını okur. 
+Boş olan tanımları
+dikkate almaz. "<B>makefile</B>" içindeki çevre değişkenlerine
+yapılan atamalar, bu değişkenlerin değerini değiştirir.
+<P>
+<B>MAKEFLAGS</B> isimli çevre değişkeni bu değişken "<B>make</B>" komutu için 
+-f ve -p seçenekleri hariç, diğer komut seçeneklerini içerir. "<B>make</B>"
+programı bu değişkende tanımlanan seçeneklerle çalışır.
+<P>
+Seçenekler ne olursa olsun <B>makefile</B> içindeki <B>$(MAKE)</B>, her koşulda
+çalıştırılır.
+<P>
+<B>EKLEME KÜTÜKLERİ (INCLUDE FILES)</B>
+<P>
+<B>makefile</B> içinde kullanılan <B>include</B> deyimi satırın başından başlar. Boşluk
+veya "tab" tuşundan sonrası kütük adı olarak kullanılır. "<B>make</B>" komutu
+<B>include</B> ile gösterilen kütüğü bulamaz ise "kütük bulunamadı" hatası verir.
+<B>sinclude</B> aynı amaç için kullanılır. Ancak kütük bulunamaz ise hata vermeden
+<B>make</B> işlemlere devam eder.
+<P>
+<B>makefile</B> <B>"#!alternate_make"</B> ile başlıyorsa, aynı
+çevre değişkenleri ile başka bir "<B>make</B>" kullanılır. #! satırında
+gerekiyorsa başka parametreler de tanımlanabilir. Bu satır <B>makefile</B> içinde
+tüm <B>make</B> komutlarından önce tanımlanmalıdır.
+<P>
+<B>string1 = string2</B>
+<P> gibi tanımlara <B>macro</B> tanımlar denir. <B>macro</B> adlarının ilk
+karakteri harf olmalıdır. <B>Macro</B> adlarında çoğu kez büyük harf kullanılır.
+<B>macro</B> adları içinde "._-+~" bulunabilir. <B>macro</B> tanımında <B>string2</B> 
+açıklama (comment)
+dışında satır sonu karakterine kadar olan herşeydir. <B>$(string1)</B> kullanılan
+her yerde <B>string1</B> yerine <B>string2</B> değeri açılır.
+<P>
+<B>$(string1[subst1=subst2])</B> 
+<P>
+biçimindeki tanımlarda seçenekli taşıma ve açma
+işlemi vardır. Macro içindeki <B>subst1</B> bulunan her yere <B>subst2</B> değeri taşınır.
+Özel koşul olarak <B>subst1</B> boş ise <B>subst2</B> macronun sonuna eklenir.
+<P>
+<B>MAKE İÇİNDEKİ (INTERNAL) MACRO TANIMLARI</B>
+<TABLE>
+<TR><TD VALIGN=top>
+$*   </TD><TD>son eki kaldırılmış bağımlı kütük adlarını belirtir.
+</TD></TR>
+<TR><TD VALIGN=top>
+$@   </TD><TD>geçerli hedef bilginin tüm adıdır. Açıkça belirtilmiş bağımlılık
+     tanımlarında kullanılır.
+</TD></TR>
+<TR><TD VALIGN=top>
+$$@  </TD><TD>$@ ile tanımlanmış geçerli hedef bilginin tüm adını gösterir.
+     Örneğin :
+<UL>
+        cat dd: $$@.c
+</UL>
+     tanımında, <B>make</B> bu satırı cat.c ve dd.c olarak açar.
+</TD></TR><TR>
+<TD VALIGN=top>
+$&lt;   </TD><TD>yalnız .DEFAULT kuralı için geçerli açılımı yapar. Yani .c.o kuralı
+     için :
+<UL>
+        .c.o :
+<UL>
+              cc -c -O $*.c
+</UL></UL>
+     veya
+<UL>
+        .c.o :
+<UL>
+              cc -c -O $&lt;
+</UL></UL>
+     aynı amaçla kullanılabilir.
+</TD></TR>
+<TR><TD VALIGN=top>
+$?   </TD><TD><B>makefile</B> için açıkça tanımlanan kuralların açılımında kullanılır. Bu
+     <B>macro</B> hedef kurala göre günü geçmiş bağımlılıkların listesini oluşturur
+     ve doğal olarak bu modüller yenilenir.
+</TD></TR>
+<TR><TD VALIGN=top>
+$%   </TD><TD>Eğer hedef arşiv kütüpanesi ise bu <B>macro</B>, herbir üyeyi 
+<UL>
+        lib(file.o)
+</UL>
+     biçiminde açar. Bu <B>macroda</B> $@ lib olarak $% ise file.o olarak açılır.
+</TD></TR></TABLE>
+Bu <B>macro</B>ların  sonuna D veya F eklenirse anlamları değişir. D eklenirse
+adlandıral <B>macro</B>nun directory bölümü F eklenirse <B>macro</B>nun kütük bölümü
+anlaşılır. Eğer $(@D) işleminde directory yoksa ./ açılan değer olur.
+<P>
+<B>SON EKLER</B>
+<P>
+Bazı adların bağımlı olduğu ön koşullar vardır. Örneğin .o her zaman .c ve
+.s gibi son eklere bağımlıdır. Eğer bu tür kütükleri günlemek için gerekli koşul
+makefile içinde yoksa veya kütük bulunamıyorsa, son ön koşuldan hedefi yaratmak
+için gereken derleme yapılır. Bu durumda <B>make</B>, son ekleri inceleyerek bağımlılık
+koşullarını belirler ve ilgili hedef kuralı bulur. Bu tür <B>INTERNAL</B> kuralları
+listelemek için
+<PRE>
+    make -p -f/dev/null
+</PRE>
+komut satırı kullanılır. Bağımlılık kuralları <B>makefile</B> içinde yeniden tanımlanabilir
+veya -r komut seçeneği ile tümüyle atlanabilir.
+<P>
+Yukarıdaki anlatımda (bağımlılık kuralları) eğer '~' kullanılırsa, <B>make</B> programı
+gerekli kaynak programı SCCS <B>(Source Code Control System)</B> altından alır.
+Yani .c~.o kuralı SCCS altındaki C kaynak programını .o kütük haline dönüştürür.
+<P>
+<B>makefile</B> .c şeklinde bir kural x.c den nasıl x elde edileceğini gösterir. Bu
+işlem bir kaynaktan hedef elde etmek için önemlidir (örneğin shell script veya
+C programları). <B>Null Suffix</B> kuralı, birden çok bağımlılık durumunda <B>make</B>
+tarafından dikkate alınmaz.
+<P>
+Sistemde kullanılacak başka son ekler .SUFFIXES listesinde belirtilir. Bu
+listede yer alan son ekler ön koşul sıralamasına göre yerleştirilmelidir.
+Daha önceki belirtilen komut satırı ile bu tür son ek listesi ve bağımlılıklar
+kullanılan sistemdeki varsayılan değerleri görmek için alınabilir.
+<P>
+Kullanıcılar <B>makefile</B> içinde 
+<PRE>
+    prgm: a.o b.o
+         cc a.o b.o -o prgm
+    a.o b.o: incl.h
+</PRE>
+gibi kurallar tanımlayarak standard bağımlılıklara ekler yapabilirler.
+<P>
+kullanılabilecek <B>macro</B> tanımları :
+<PRE>
+    CFLAGS   cc için gereklidir
+    LFLAGS   lex için gereklidir
+    YFLAGS   yacc için gereklidir.
+</PRE>
+Bağımlılık ön koşulları <B>makefile</B> içinde kontrol edilebilir. .c son ekinden
+.o elde etmek için .c.o: kuralı tanımlanır. Burada bağımlılık belirtilmez.
+İçinde / olmayan ve . ile başlayan bir hedef her zaman bir kuralı belirtir,
+gerçek hedef değildir.
+<P>
+<B>KITAPLIKLAR (LIBRARIES)</B>
+<P>
+Eğer bir <B>macro</B> adı ve bağımlılık kuralında parantezler varsa buna arşiv
+kitaplığı denir. Yani lib(file.o) ve $(LIB)(file.o) içinde file.o olan
+arşiv kütüphanesini belirtir.
+<P>
+Arşiv kitaplığına ilişkin kurallar .XX.a tipindedir. Burada XX arsiv kitaplığı
+üyelerinin oluşturulduğu son ektir. XX arşiv üyeleri son ekinden farklı olmalıdır.
+Yani lib(file.o) açıkça file.o ya bağlı olamaz. Örnek
+<PRE>
+   lib: lib(file1.o) lib(file2.o) lib(file3.o)
+   @echo lib is non up-to-date
+   .c.a:
+        $(cc) -c $(CFLAGS) $&lt; $(AR)$(ARFLAGS)$@$*.o
+        rm -f $*.o
+</PRE>
+Bu kural <B>make</B> içinde zaten hazır olarak vardır. Daha ilginç bir örnek :
+<PRE>
+   lib: lib(file1.o) lib(file2.o) lib(file3.o)
+        $(CC) -c $(CFLAGS) $(?:.o=.c)
+        $(AR) $(ARFLAGS) lib $?
+        rm $? @echo lib is now up-to-date
+   .c.a:;
+</PRE>
+Bu örnekte <B>macro</B> içinde yerine koyma kuralı kullanılır. $? lib içindeki
+kütüklerin listesidir. Yerine koyma kuralı tüm .c leri .o ya çevirir.
+Bu örnekteki .o.a:; makefile içinde kuralın kapatıldığını gösterir. Burada
+kullanılan noklaı virgül ile kuralın kapatılması sağlanır. Bu tür arşiv
+kitaplıklarında yaratma/günleme işlemi asm ve C dili karışımı kaynak programlar
+kullanıldığında çok yararlıdır ve işlemi hızlandırır.
+<P>
+<B>PARALEL ÇALIŞTIRMA</B>
+<P>
+<B>make</B> komutundaki -P seçeneği parelel çalıştırmayı başlatır. Bu işlem için make komutu
+önce tüm bağımlılıkları kaldırır ve sonuçta oluşan kümeleri aynı anda açar.
+Aynı anda yapılan işlem sayısı faktörü en çok iki olabilir. PARALLEL çevre
+değişkeni ile bu sayı değiştirilebilir.
+<P>
+<HR>
+<H4><B>Örnek Makefile kütükleri :</B></H4><P>
+<HR>
+SHELL     	= /bin/sh<BR>
+MAKE     	= make<BR>
+
+# Burada all ve install hedef tanımları include/printer.h kütüğüne<BR>
+# bağımlıdır. make programı bu bağımlılığa göre src directory'si<BR>
+# altındaki Makefile kütüğüne  aynı parametrelerle bakar.<BR>
+<P>
+all install:      include/printer.h<BR>
+<UL> cd src; $(MAKE) $@
+</UL>
+
+# bu tanımda printer.h kütüğünde yapılan bir değişiklik varsa<BR>
+# configurasyon programı çalıştırılır. Bu program kullanılan<BR>
+# UNIX sistemi özelliklerine göre yeni Makefile yaratır.<BR>
+<P>
+include/printer.h:<BR>
+<UL> configure
+</UL>
+<P>
+clean:<BR>
+<UL> cd src; $(MAKE) $@
+</UL>
+<HR>
+<P>
+# src/Makefile <BR>
+DESTOWN     	= admin<BR>
+DESTGRP     	= pamuk<BR>
+DESTBIN     	= ../bin<BR>
+<P>
+DEFINES     	= -I../include -DUNIX -DAIX<BR>
+CC     	= cc<BR>
+CFLAGS     	= -g $(DEFINES)<BR>
+LIBS     	= -lcurses -ltli_r<BR>
+PROGRAMS     = yazserv npbaslat sendmsg<BR>
+SRCS     	= sendmsg.c pbaslat.c yazserv.c<BR>
+HDRS     	= ../include/printer.h<BR>
+YAZSRV_OBJS     = yazserv.o<BR>
+SNDMSG_OBJS     = sendmsg.o<BR>
+BASLAT_OBJS     = pbaslat.o<BR>
+<P>
+.c.o:<BR>
+<UL>     $(CC) -c $(CFLAGS) $&lt;</UL>
+<P>
+all:     $(PROGRAMS)<BR>
+<P>
+yazserv:     $(YAZSRV_OBJS)<BR>
+<UL>     $(CC) $(YAZSRV_OBJS) $(LIBS) -o $@</UL>
+<P>
+npbaslat:     $(BASLAT_OBJS)<BR>
+<UL>     $(CC) $(BASLAT_OBJS) $(LIBS) -o $@</UL>
+<P>
+sendmsg:     $(SNDMSG_OBJS)<BR>
+<UL>     $(CC) $(SNDMSG_OBJS) $(LIBS) -o $@</UL>
+<P>
+install:     $(PROGRAMS)<BR>
+<UL>     cp $(PROGRAMS) $(DESTBIN)<BR>
+     cd $(DESTBIN) && strip $(PROGRAMS)<BR>
+     cd $(DESTBIN) && chmod 755 $(PROGRAMS)<BR>
+     cd $(DESTBIN) && chown $(DESTOWN):$(DESTGRP) $(PROGRAMS)</UL>
+<P>
+clean:<BR>
+<UL>     cd $(DESTBIN) && rm -f $(PROGRAMS)<BR>
+     -rm -f $(PROGRAMS) $(YAZSRV_OBJS) $(BASLAT_OBJS) $(SNDMSG_OBJS)</UL>
+<P>
+yazserv.o:     $(HDRS)<BR>
+sendmsg.o:     $(HDRS)<BR>
+pbaslat.o:     $(HDRS)<BR>
+<P>
+<HR>
+<CENTER><H2>EK<BR>
+MAKE KOMUTU VERI TABANI
+</H2>
+</CENTER>
+<HR>
+<P>
+# GNU Make version 3.74,<BR>
+# by Richard Stallman and Roland McGrath.<BR>
+# Copyright (C) 1988, 89, 90, 91, 92, 93, 94, 95<BR>
+# Free Software Foundation, Inc.<BR>
+# This is free software;<BR>
+# see the source for copying conditions.<BR>
+# There is NO warranty;<BR>
+# not even for MERCHANTABILITY or FITNESS FOR A<BR>
+# PARTICULAR PURPOSE.<BR>
+<P>
+# Variables
+<P>
+# default<BR>
+F77 = $(FC)<BR>
+# default<BR>
+PREPROCESS.r = $(FC) $(FFLAGS) $(RFLAGS) $(TARGET_ARCH) -F<BR>
+# automatic<BR>
+@F = $(notdir $@)<BR>
+# environment<BR>
+HOME = /u/ergun<BR>
+# default<BR>
+MAKE = $(MAKE_COMMAND)<BR>
+# environment<BR>
+LESSOPEN = |lesspipe.sh %s<BR>
+# default<BR>
+SUFFIXES := .out .a .ln .o .c .cc .C .p .f .F .r .y .l .s .S .mod .symi
+ .def .h .info .dvi .tex .texinfo .texi .txinfo .w .ch .web .sh .elc .el<BR>
+# default<BR>
+COMPILE.r = $(FC) $(FFLAGS) $(RFLAGS) $(TARGET_ARCH) -c<BR>
+# default<BR>
+LINK.F = $(FC) $(FFLAGS) $(CPPFLAGS) $(LDFLAGS) $(TARGET_ARCH)<BR>
+# default<BR>
+LINK.s = $(CC) $(ASFLAGS) $(LDFLAGS) $(TARGET_MACH)<BR>
+# environment<BR>
+MAIL = /var/spool/mail/ergun<BR>
+# environment<BR>
+PWD = /u/ergun/ben/docs<BR>
+# default<BR>
+LINK.o = $(CC) $(LDFLAGS) $(TARGET_ARCH)<BR>
+# default<BR>
+TEXI2DVI = texi2dvi<BR>
+# automatic<BR>
++F = $(notdir $+)<BR>
+# default<BR>
+COMPILE.f = $(FC) $(FFLAGS) $(TARGET_ARCH) -c<BR>
+# environment<BR>
+PS1 = %m:%~%# <BR>
+# automatic<BR>
+%F = $(notdir $%)<BR>
+# default<BR>
+LINK.c = $(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(TARGET_ARCH)<BR>
+# default<BR>
+CO = co<BR>
+# automatic<BR>
+?D = $(patsubst %/,%,$(dir $?))<BR>
+# environment<BR>
+_ = /usr/bin/make<BR>
+# default<BR>
+PREPROCESS.F = $(FC) $(FFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -F<BR>
+# automatic<BR>
+<D = $(patsubst %/,%,$(dir $&lt;))<BR>
+# default<BR>
+M2C = m2c<BR>
+# default<BR>
+FC = f77<BR>
+# default<BR>
+CC = cc<BR>
+# environment<BR>
+MINICOM = -c on<BR>
+# default<BR>
+LINK.S = $(CC) $(ASFLAGS) $(CPPFLAGS) $(LDFLAGS) $(TARGET_MACH)<BR>
+# default<BR>
+CXX = g++<BR>
+# default<BR>
+AR = ar<BR>
+# default<BR>
+CWEAVE = cweave<BR>
+# environment<BR>
+OPENWINHOME = /usr/openwin<BR>
+# default<BR>
+COMPILE.F = $(FC) $(FFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c<BR>
+# environment<BR>
+USER = ergun<BR>
+# automatic<BR>
+*D = $(patsubst %/,%,$(dir $*))<BR>
+# automatic<BR>
+^D = $(patsubst %/,%,$(dir $^))<BR>
+# default<BR>
+COMPILE.s = $(AS) $(ASFLAGS) $(TARGET_MACH)<BR>
+# makefile<BR>
+SHELL = /bin/sh<BR>
+# environment<BR>
+MANPATH = /usr/local/man:/usr/man/preformat:/usr/man: 
+/usr/X11/man:/usr/openwin/man<BR>
+# default<BR>
+YACC = yacc<BR>
+# default<BR>
+COMPILE.def = $(M2C) $(M2FLAGS) $(DEFFLAGS) $(TARGET_ARCH)<BR>
+# default<BR>
+LINK.C = $(LINK.cc)<BR>
+# makefile<BR>
+MAKEFLAGS = p<BR>
+# default<BR>
+LINK.p = $(PC) $(PFLAGS) $(CPPFLAGS) $(LDFLAGS) $(TARGET_ARCH)<BR>
+# default<BR>
+OUTPUT_OPTION = -o $@<BR>
+# default<BR>
+MAKE_VERSION := 3.74<BR>
+# default<BR>
+PREPROCESS.S = $(CC) -E $(CPPFLAGS)<BR>
+# environment<BR>
+MAKELEVEL := 0<BR>
+# environment<BR>
+PS2 = &gt; <BR>
+# default<BR>
+YACC.y = $(YACC) $(YFLAGS)<BR>
+# default<BR>
+COMPILE.c = $(CC) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c<BR>
+# default<BR>
+TANGLE = tangle<BR>
+# default<BR>
+CHECKOUT,v = $(patsubst $@-noexist,$(CO) $(COFLAGS) $&lt; $@,<BR>
+<UL>     	$(filter-out $@,$(firstword $(wildcard $@) $@-noexist)))</UL>
+# default<BR>
+LD = ld<BR>
+# environment<BR>
+MFLAGS = -p<BR>
+# default<BR>
+GET = get<BR>
+# environment<BR>
+ignoreeof = 10<BR>
+# environment<BR>
+HOSTNAME = napoleon.yerel.yore.com.tr<BR>
+# default<BR>
+COMPILE.S = $(CC) $(ASFLAGS) $(CPPFLAGS) $(TARGET_MACH) -c<BR>
+# default<BR>
+PC = pc<BR>
+# default<BR>
+AS = as<BR>
+# automatic<BR>
+@D = $(patsubst %/,%,$(dir $@))<BR>
+# environment<BR>
+HZ = 100<BR>
+# default<BR>
+TEX = tex<BR>
+# environment<BR>
+TERM = linux<BR>
+# environment<BR>
+LOGNAME = ergun<BR>
+# environment<BR>
+SHLVL = 1<BR>
+# environment<BR>
+LESS = -MM<BR>
+# default<BR>
+COMPILE.C = $(COMPILE.cc)<BR>
+# default<BR>
+LINT = lint<BR>
+# default<BR>
+F77FLAGS = $(FFLAGS)<BR>
+# default<BR>
+COMPILE.p = $(PC) $(PFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c<BR>
+# default<BR>
+RM = rm -f<BR>
+# automatic<BR>
++D = $(patsubst %/,%,$(dir $+))<BR>
+# default<BR>
+WEAVE = weave<BR>
+# automatic<BR>
+?F = $(notdir $?)<BR>
+# automatic<BR>
+%D = $(patsubst %/,%,$(dir $%))<BR>
+# default<BR>
+CPP = $(CC) -E<BR>
+# automatic<BR>
+<F = $(notdir $&lt;)<BR>
+# default<BR>
+LEX = lex
+# default<BR>
+LINK.cc = $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) $(TARGET_ARCH)<BR>
+# default<BR>
+LEX.l = $(LEX) $(LFLAGS) -t<BR>
+# default<BR>
+COMPILE.mod = $(M2C) $(M2FLAGS) $(MODFLAGS) $(TARGET_ARCH)<BR>
+# default<BR>
+ARFLAGS = rv<BR>
+# automatic<BR>
+*F = $(notdir $*)<BR>
+# automatic<BR>
+^F = $(notdir $^)<BR>
+# default<BR>
+LINT.c = $(LINT) $(LINTFLAGS) $(CPPFLAGS) $(TARGET_ARCH)<BR>
+# default<BR>
+LINK.r = $(FC) $(FFLAGS) $(RFLAGS) $(LDFLAGS) $(TARGET_ARCH)<BR>
+# environment<BR>
+BULLDOZERLIB = /usr/local/lib/dozer-0.7.2b<BR>
+# default<BR>
+COMPILE.cc = $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c<BR>
+# default<BR>
+MAKEFILES := <BR>
+# default<BR>
+CTANGLE = ctangle<BR>
+# default<BR>
+MAKE_COMMAND := make<BR>
+# environment<BR>
+PATH = /bin:/usr/bin:/usr/local/bin:/usr/X11/bin:/usr/andrew/bin: 
+/usr/openwin/bin:/usr/games:.:/usr/local/bin/Thot/LINUX-ELF/bin:<BR>
+# default<BR>
+LINK.f = $(FC) $(FFLAGS) $(LDFLAGS) $(TARGET_ARCH)<BR>
+# environment<BR>
+LS_COLORS = no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35: 
+bd=40;33;01:cd=40;33;01:ex=01;32:*.cmd=01;32:*.exe=01;32: 
+*.com=01;32:*.btm=01;32:*.bat=01;32:*.tar=01;31:*.tgz=01;31: 
+*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31: 
+*.gz=01;31:*.jpg=01;35:*.gif=01;35:*.bmp=01;35:*.xbm=01;35: 
+*.xpm=01;35:*.tif=01;35:<BR>
+# default<BR>
+MAKEINFO = makeinfo<BR>
+# 98 variables in 523 hash buckets.<BR>
+# average of 0.2 variables per bucket, max 3 in one bucket.<BR>
+<P>
+# Directories<BR>
+<P>
+# SCCS: could not be stat'd.<BR>
+# /dev/RCS: could not be stat'd.<BR>
+# /dev (device 769, inode 4065): 1283 files, 42 impossibilities.<BR>
+# RCS: could not be stat'd.<BR>
+# /dev/SCCS: could not be stat'd.<BR>
+<P>
+# 1283 files, 42 impossibilities in 5 directories.<BR>
+<P>
+# Implicit Rules<BR>
+<P>
+%.out:<BR>
+<P>
+%.a:<BR>
+<P>
+%.ln:<BR>
+<P>
+%.o:<BR>
+<P>
+%: %.o<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@</UL>
+<P>
+%.c:<BR>
+<P>
+%: %.c<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(LINK.c) $^ $(LOADLIBES) $(LDLIBS) -o $@</UL>
+<P>
+%.ln: %.c<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(LINT.c) -C$* $&lt;</UL>
+<P>
+%.o: %.c<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(COMPILE.c) $&lt; $(OUTPUT_OPTION)</UL>
+<P>
+%.cc:<BR>
+<P>
+%: %.cc<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(LINK.cc) $^ $(LOADLIBES) $(LDLIBS) -o $@</UL>
+<P>
+%.o: %.cc<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(COMPILE.cc) $&lt; $(OUTPUT_OPTION)</UL>
+<P>
+%.C:<BR>
+<P>
+%: %.C<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(LINK.C) $^ $(LOADLIBES) $(LDLIBS) -o $@</UL>
+<P>
+%.o: %.C<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(COMPILE.C) $&lt; $(OUTPUT_OPTION)</UL>
+<P>
+%.p:<BR>
+<P>
+%: %.p<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(LINK.p) $^ $(LOADLIBES) $(LDLIBS) -o $@</UL>
+<P>
+%.o: %.p<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(COMPILE.p) $&lt; $(OUTPUT_OPTION)</UL>
+<P>
+%.f:<BR>
+<P>
+%: %.f<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(LINK.f) $^ $(LOADLIBES) $(LDLIBS) -o $@</UL>
+<P>
+%.o: %.f<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(COMPILE.f) $&lt; $(OUTPUT_OPTION)</UL>
+<P>
+%.F:<BR>
+<P>
+%: %.F<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(LINK.F) $^ $(LOADLIBES) $(LDLIBS) -o $@</UL>
+<P>
+%.o: %.F<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(COMPILE.F) $&lt; $(OUTPUT_OPTION)</UL>
+<P>
+%.f: %.F<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(PREPROCESS.F) $&lt; $(OUTPUT_OPTION)</UL>
+<P>
+%.r:<BR>
+<P>
+%: %.r<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(LINK.r) $^ $(LOADLIBES) $(LDLIBS) -o $@</UL>
+<P>
+%.o: %.r<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(COMPILE.r) $&lt; $(OUTPUT_OPTION)</UL>
+<P>
+%.f: %.r<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(PREPROCESS.r) $&lt; $(OUTPUT_OPTION)</UL>
+<P>
+%.y:<BR>
+<P>
+%.ln: %.y<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(YACC.y) $&lt;<BR>
+     $(LINT.c) -C$* y.tab.c <BR>
+     $(RM) y.tab.c</UL>
+<P>
+%.c: %.y<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(YACC.y) $&lt; <BR>
+     mv -f y.tab.c $@</UL>
+<P>
+%.l:<BR>
+<P>
+%.ln: %.l<BR>
+#  commands to execute (built-in):<BR>
+<UL>     @$(RM) $*.c<BR>
+     $(LEX.l) $&lt; > $*.c<BR>
+     $(LINT.c) -i $*.c -o $@<BR>
+     $(RM) $*.c</UL>
+<P>
+%.c: %.l<BR>
+#  commands to execute (built-in):<BR>
+<UL>     @$(RM) $@ <BR>
+     $(LEX.l) $&lt; > $@</UL>
+<P>
+%.r: %.l<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(LEX.l) $&lt; > $@ <BR>
+     mv -f lex.yy.r $@</UL>
+<P>
+%.s:
+<P>
+%: %.s<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(LINK.s) $^ $(LOADLIBES) $(LDLIBS) -o $@</UL>
+<P>
+%.o: %.s<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(COMPILE.s) -o $@ $&lt;</UL>
+<P>
+%.S:
+<P>
+%: %.S<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(LINK.S) $^ $(LOADLIBES) $(LDLIBS) -o $@</UL>
+<P>
+%.o: %.S<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(COMPILE.S) -o $@ $&lt;</UL>
+<P>
+%.s: %.S<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(PREPROCESS.S) $&lt; > $@</UL>
+<P>
+%.mod:<BR>
+<P>
+%: %.mod<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(COMPILE.mod) -o $@ -e $@ $^</UL>
+<P>
+%.o: %.mod<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(COMPILE.mod) -o $@ $&lt;</UL>
+<P>
+%.sym:<BR>
+<P>
+%.def:<BR>
+<P>
+%.sym: %.def<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(COMPILE.def) -o $@ $&lt;</UL>
+<P>
+%.h:<BR>
+<P>
+%.info:<BR>
+<P>
+%.dvi:<BR>
+<P>
+%.tex:
+<P>
+%.dvi: %.tex<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(TEX) $&lt;</UL>
+<P>
+%.texinfo:<BR>
+<P>
+%.info: %.texinfo<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(MAKEINFO) $(MAKEINFO_FLAGS) $&lt; -o $@</UL>
+<P>
+%.dvi: %.texinfo<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(TEXI2DVI) $(TEXI2DVI_FLAGS) $&lt;</UL>
+<P>
+%.texi:<BR>
+<P>
+%.info: %.texi<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(MAKEINFO) $(MAKEINFO_FLAGS) $&lt; -o $@</UL>
+<P>
+%.dvi: %.texi<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(TEXI2DVI) $(TEXI2DVI_FLAGS) $&lt;</UL>
+<P>
+%.txinfo:<BR>
+<P>
+%.info: %.txinfo<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(MAKEINFO) $(MAKEINFO_FLAGS) $&lt; -o $@</UL>
+<P>
+%.dvi: %.txinfo<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(TEXI2DVI) $(TEXI2DVI_FLAGS) $&lt;</UL>
+<P>
+%.w:<BR>
+<P>
+%.c: %.w<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(CTANGLE) $&lt; - $@</UL>
+<P>
+%.tex: %.w<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(CWEAVE) $&lt; - $@</UL>
+<P>
+%.ch:<BR>
+<P>
+%.web:<BR>
+<P>
+%.p: %.web<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(TANGLE) $&lt;</UL>
+<P>
+%.tex: %.web<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(WEAVE) $&lt;</UL>
+<P>
+%.sh:<BR>
+<P>
+%: %.sh<BR>
+#  commands to execute (built-in):<BR>
+<UL>     cat $&lt; >$@ <BR>
+     chmod a+x $@</UL>
+<P>
+%.elc:<BR>
+<P>
+%.el:<BR>
+<P>
+(%): %<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(AR) $(ARFLAGS) $@ $&lt;</UL>
+<P>
+%.out: %<BR>
+#  commands to execute (built-in):<BR>
+<UL>     @rm -f $@ <BR>
+     cp $&lt; $@</UL>
+<P>
+%.c: %.w %.ch<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(CTANGLE) $^ $@</UL>
+<P>
+%.tex: %.w %.ch<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(CWEAVE) $^ $@</UL>
+<P>
+%:: %,v<BR>
+#  commands to execute (built-in):<BR>
+<UL>     +$(CHECKOUT,v)</UL>
+<P>
+%:: RCS/%,v<BR>
+#  commands to execute (built-in):<BR>
+<UL>     +$(CHECKOUT,v)</UL>
+<P>
+%:: s.%<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(GET) $(GFLAGS) $(SCCS_OUTPUT_OPTION) $&lt;</UL>
+<P>
+%:: SCCS/s.%<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(GET) $(GFLAGS) $(SCCS_OUTPUT_OPTION) $&lt;</UL>
+<P>
+# 82 implicit rules, 4 (4.9%) terminal.<BR>
+<P>
+# Files<BR>
+<P>
+# Not a target:<BR>
+.c:
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(LINK.c) $^ $(LOADLIBES) $(LDLIBS) -o $@</UL>
+<P>
+# Not a target:<BR>
+.texinfo.info:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(MAKEINFO) $(MAKEINFO_FLAGS) $&lt; -o $@</UL>
+<P>
+# Not a target:<BR>
+.mod.o:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(COMPILE.mod) -o $@ $&lt;</UL>
+<P>
+# Not a target:<BR>
+.c.o:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(COMPILE.c) $&lt; $(OUTPUT_OPTION)</UL>
+<P>
+# Not a target:<BR>
+.s:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(LINK.s) $^ $(LOADLIBES) $(LDLIBS) -o $@</UL>
+<P>
+# Not a target:<BR>
+.txinfo.dvi:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(TEXI2DVI) $(TEXI2DVI_FLAGS) $&lt;</UL>
+<P>
+# Not a target:<BR>
+.DEFAULT:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+<P>
+# Not a target:<BR>
+.y.c:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(YACC.y) $&lt; <BR>
+     mv -f y.tab.c $@</UL>
+<P>
+# Not a target:<BR>
+.l:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+<P>
+# Not a target:<BR>
+.web.tex:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(WEAVE) $&lt;</UL>
+<P>
+# Not a target:<BR>
+.s.o:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(COMPILE.s) -o $@ $&lt;</UL>
+<P>
+# Not a target:<BR>
+.sym:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+<P>
+# Not a target:<BR>
+.texi:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+<P>
+# Not a target:<BR>
+.F.f:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(PREPROCESS.F) $&lt; $(OUTPUT_OPTION)</UL>
+<P>
+# Not a target:<BR>
+.dvi:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+<P>
+# Not a target:<BR>
+.web.p:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(TANGLE) $&lt;</UL>
+<P>
+# Not a target:<BR>
+.def:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+<P>
+# Not a target:<BR>
+.F:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(LINK.F) $^ $(LOADLIBES) $(LDLIBS) -o $@</UL>
+<P>
+# Not a target:<BR>
+.cc.o:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(COMPILE.cc) $&lt; $(OUTPUT_OPTION)</UL>
+<P>
+# Not a target:<BR>
+.S.s:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(PREPROCESS.S) $&lt; > $@</UL>
+<P>
+# Not a target:<BR>
+.ch:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+<P>
+# Not a target:<BR>
+.def.sym:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(COMPILE.def) -o $@ $&lt;</UL>
+<P>
+# Not a target:<BR>
+.F.o:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(COMPILE.F) $&lt; $(OUTPUT_OPTION)</UL>
+<P>
+# Not a target:<BR>
+.f:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(LINK.f) $^ $(LOADLIBES) $(LDLIBS) -o $@<BR></UL>
+<P>
+# Not a target:<BR>
+.elc:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+<P>
+# Not a target:<BR>
+.y.ln:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(YACC.y) $&lt; <BR>
+     $(LINT.c) -C$* y.tab.c <BR>
+     $(RM) y.tab.c</UL>
+<P>
+# Not a target:<BR>
+.texi.dvi:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(TEXI2DVI) $(TEXI2DVI_FLAGS) $&lt;</UL>
+<P>
+# Not a target:<BR>
+.el:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+<P>
+# Not a target:<BR>
+.texinfo.dvi:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(TEXI2DVI) $(TEXI2DVI_FLAGS) $&lt;</UL>
+<P>
+# Not a target:<BR>
+/dev/null:<BR>
+#  Implicit rule search has been done.<BR>
+#  Last modified Mon Jul 18 02:46:18 1994 (774488778)<BR>
+#  File has been updated.<BR>
+#  Successfully updated.<BR>
+<P>
+# Not a target:<BR>
+.SUFFIXES: .out .a .ln .o .c .cc .C .p .f .F .r .y .l .s .S .mod
+           .sym .def .h .info .dvi .tex .texinfo .texi .txinfo 
+           .w .ch .web .sh .elc .el<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+<P>
+# Not a target:<BR>
+.txinfo:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+<P>
+# Not a target:<BR>
+.p.o:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(COMPILE.p) $&lt; $(OUTPUT_OPTION)</UL>
+<P>
+# Not a target:<BR>
+.r.f:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(PREPROCESS.r) $&lt; $(OUTPUT_OPTION)</UL>
+<P>
+# Not a target:<BR>
+.w.tex:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(CWEAVE) $&lt; - $@</UL>
+<P>
+# Not a target:<BR>
+.txinfo.info:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(MAKEINFO) $(MAKEINFO_FLAGS) $&lt; -o $@</UL>
+<P>
+# Not a target:<BR>
+.o:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@</UL>
+<P>
+# Not a target:<BR>
+.c.ln:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(LINT.c) -C$* $&lt;</UL>
+<P>
+# Not a target:<BR>
+.w:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+<P>
+# Not a target:<BR>
+.ln:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.
+<P>
+# Not a target:<BR>
+.l.r:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(LEX.l) $&lt; > $@ <BR>
+     mv -f lex.yy.r $@</UL>
+<P>
+# Not a target:<BR>
+.info:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+<P>
+# Not a target:<BR>
+.r.o:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(COMPILE.r) $&lt; $(OUTPUT_OPTION)</UL>
+<P>
+# Not a target:<BR>
+.h:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+<P>
+# Not a target:<BR>
+.C.o:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(COMPILE.C) $&lt; $(OUTPUT_OPTION)</UL>
+<P>
+# Not a target:<BR>
+.p:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(LINK.p) $^ $(LOADLIBES) $(LDLIBS) -o $@</UL>
+<P>
+# Not a target:<BR>
+.l.c:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     @$(RM) $@ <BR>
+     $(LEX.l) $&lt; > $@</UL>
+<P>
+# Not a target:<BR>
+.sh:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     cat $&lt; >$@ <BR>
+     chmod a+x $@</UL>
+<P>
+# Not a target:<BR>
+.web:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+<P>
+# Not a target:<BR>
+.out:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+<P>
+# Not a target:<BR>
+.cc:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(LINK.cc) $^ $(LOADLIBES) $(LDLIBS) -o $@</UL>
+<P>
+# Not a target:<BR>
+.f.o:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(COMPILE.f) $&lt; $(OUTPUT_OPTION)</UL>
+<P>
+# Not a target:<BR>
+.texi.info:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(MAKEINFO) $(MAKEINFO_FLAGS) $&lt; -o $@</UL>
+<P>
+# Not a target:<BR>
+.a:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+<P>
+# Not a target:<BR>
+.tex:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+<P>
+# Not a target:<BR>
+.l.ln:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     @$(RM) $*.c<BR>
+     $(LEX.l) $&lt; > $*.c<BR>
+     $(LINT.c) -i $*.c -o $@<BR>
+     $(RM) $*.c</UL>
+<P>
+# Not a target:<BR>
+.y:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+<P>
+# Not a target:<BR>
+.S.o:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(COMPILE.S) -o $@ $&lt;</UL>
+<P>
+# Not a target:<BR>
+.tex.dvi:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(TEX) $&lt;</UL>
+<P>
+# Not a target:<BR>
+.r:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(LINK.r) $^ $(LOADLIBES) $(LDLIBS) -o $@</UL>
+<P>
+# Not a target:<BR>
+.mod:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(COMPILE.mod) -o $@ -e $@ $^</UL>
+<P>
+# Not a target:<BR>
+.C:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(LINK.C) $^ $(LOADLIBES) $(LDLIBS) -o $@</UL>
+<P>
+# Not a target:<BR>
+.S:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(LINK.S) $^ $(LOADLIBES) $(LDLIBS) -o $@</UL>
+<P>
+# Not a target:<BR>
+.texinfo:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+<P>
+# Not a target:<BR>
+.w.c:<BR>
+#  Implicit rule search has not been done.<BR>
+#  Modification time never checked.<BR>
+#  File has not been updated.<BR>
+#  commands to execute (built-in):<BR>
+<UL>     $(CTANGLE) $&lt; - $@</UL>
+<P>
+# 65 files in 1007 hash buckets.<BR>
+# average 6.5 files per bucket, max 2 files in one bucket.<BR>
+<P>
+# VPATH Search Paths<BR>
+<P>
+# No `vpath' search paths.<BR>
+<P>
+# No general (`VPATH' variable) search path.<BR>
+<P>
+<HR>
+<a href="../index.html">Ana Sayfaya</a>
+&nbsp;&nbsp;<A HREF="index.html">Teknik Bilgiler Sayfasina</A>
+<br />
+</div>
+               </div>
+             </div>
+           </div>
+
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+          <a href="../index.html" class="box"><img src="../img/aybim.png"></a><br /><br />
+          <a href="aglar.html" class="nav">Aglar</a>
+          <a href="aglink.html" class="nav">Aglink</a>
+          <a href="agteknik.html" class="nav">Agteknik</a>
+          <a href="ccode.html" class="nav">C-Kodlama</a>
+          <a href="cprep.html" class="nav">C-Önişleme</a>
+          <a href="crclrc.html" class="nav">CRC/LRC</a>
+          <a href="dea.html" class="nav">DEA</a>
+          <a href="etcsrv.html" class="nav">etcsrv</a>
+          <a href="fork.html" class="nav">Çatal (fork)</a>
+          <a href="ilet.html" class="nav">ilet</a>
+          <a href="inetd.html" class="nav">inetd</a>
+          <a href="make.html" class="nav">Make</a>
+          <a href="msgauth.html" class="nav">Msg Auth</a>
+          <a href="recur.html" class="nav">Özyinelemeli</a>
+          <a href="robots.html" class="nav">Robotlar için</a>
+          <a href="sdlc.html" class="nav">SDLC</a>
+          <a href="secure.html" class="nav">Güvenlik</a>
+          <a href="seri.html" class="nav">Seri uçlar</a>
+          <a href="snalu0.html" class="nav">SNA LU0</a>
+          <a href="snalu62.html" class="nav">SNA LU6.2</a>
+          <a href="tcpip.html" class="nav">tcp/ip</a>
+          <a href="tcpprg.html" class="nav">tcp Programı</a>
+          <a href="unix.html" class="nav">Unix</a>
+          <a href="vi.html" class="nav">vi Editör</a>
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

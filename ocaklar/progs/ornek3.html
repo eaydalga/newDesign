@@ -1,0 +1,187 @@
+<html> 
+<head> 
+<title>Slayt Gösterisi</title>
+<script language="JavaScript">
+<!--
+// defines image width,height and the the image src.
+// Do this for as many images as you want,
+// starting with 0 and going down
+var image0=new Image(600,450);
+var image1=new Image(600,450);
+var image2=new Image(600,450);
+var image3=new Image(600,450);
+var image4=new Image(600,450);
+var image5=new Image(600,450);
+var image6=new Image(600,450);
+var image7=new Image(600,450);
+image0.src="slayt/ShowLetter.jpg";
+image1.src="slayt/ShowLetter2.jpg";
+image2.src="slayt/ShowLetter3.jpg";
+image3.src="slayt/ShowLetter4.jpg";
+image4.src="slayt/ShowLetter5.jpg";
+image5.src="slayt/ShowLetter6.jpg";
+image6.src="slayt/ShowLetter7.jpg";
+image7.src="slayt/ShowLetter8.jpg";
+
+txt=new Array();
+// this is the text corresponding to the images.
+txt[0]="Amasra'dan gece ışıkların dansını seyredelim.";
+txt[1]="Limanı görüyoruz. Çocukken denizanalarına bakardım. Onları içinde kadın başı olan canlılar olarak düşünürdüm...";
+txt[2]="Kale duvarından bir görünüm...";
+txt[3]="Kıyının güzelliği ve denizin berraklığı anlatılmış...";
+txt[4]="Balık yemek isterseniz işte size güzel bir yer. Burada salata yemeği de unutmayın. Salatada 30 çeşit ot olurmuş...";
+txt[5]="Deniz kıyısında olup yelken kullanmamak olmaz. Ama burası Karadeniz, rüzgara dikkat derim.";
+txt[6]="Şimdi küçük liman ya da koy. Gemileriyle ne kadar sevimli...";
+txt[7]="Kalenin surlarında ışık oyunları görülüyor.";
+//-->
+</script>
+</head>
+<body>
+<script>
+<!--
+var step=0, interVal1;
+/* küresel değişkeni tanımlar. "step" otomatik slayt gösterisinde
+   hangi sıklıkla slayt değiştireceğimizi gösterir. "interval"
+   setTimeout() işleminin değerini saklar. Öyle ki clearTimeout()
+   işlemiyle silebilelim.
+*/
+
+function accessCSS(layerID) {
+        /* bir katmanın CSS özelliklerine tüm tarayıcılarda erişmek */
+	if(document.getElementById){
+		return document.getElementById(layerID).style;
+	}else if(document.all){
+		return document.all[layerID].style;
+	}else if(document.layers){
+		return document.layers[layerID];
+	}
+}
+
+function getLayerWidth(layerID) {
+	// bir tarayıcıda katmanın enini alma
+	if(document.getElementById){
+		return parseInt(document.getElementById(layerID).offsetWidth);
+	}else if(document.all){
+		return parseInt(document.all[layerID].offsetWidth);
+	}else if(document.layers){
+		return parseInt(document.layers[layerID].clip.width);
+	}
+}
+	
+function centerLayer(layerID) {
+	/* Bir katmanı ortalamak (slayt gösterisinin
+           sayfanın ortasında olmasını sağlar) */
+	IW = window.innerWidth ? window.innerWidth : document.body.clientWidth;
+	accessCSS(layerID).left = (IW - getLayerWidth(layerID))/2;
+}
+
+function writeLayer(layerID,txt) {
+	// Bir katmana yazı yazar
+	if(document.getElementById){
+		document.getElementById(layerID).innerHTML=txt;
+	}else if(document.all){
+		document.all[layerID].innerHTML=txt;
+	}else if(document.layers){
+		with(document.layers[layerID].document){
+			open();
+			write(txt);
+			close();
+		}
+	}
+}
+
+
+function writeSlide(i) {
+        /* bir değişkeni alır (content) ve yazıyı değişkende hazır bulundurur.
+           Onu katmana (slideShow) yazmak için saklar ve
+           writeLayer() işleviyle katmana yazar. Sonra centerlayer()
+           işleviyle katmanı ortalar.
+        */
+	content='<span style="width:'+(eval("image" + step + ".width")+150)+';text-align:center;font-family:Arial">';
+	content+='<center><img src="'+eval("image" + step + ".src")+'" width="'+eval("image" + step + ".width")+'" height="'+eval("image" + step + ".height")+'"></center>';
+	content+='<br><center>'+txt[step]+'<br><br><a href="javascript:void(0)" onclick="stopSlide();autoSlide()">Otomatik</a> <a href="javascript:void(0)" onclick="stopSlide()">Bitti</a> <a href="javascript:void(0)" onclick="stopSlide();nextSlide()">Sonraki</a> <a href="javascript:void(0)" onclick="stopSlide();prevSlide()">Önceki</a></center></span>';
+	writeLayer("slideShow",content);
+	centerLayer("slideShow");
+}
+
+function autoSlide() {
+	// otomatik gösteri için işlev
+	writeSlide(step);
+	// Bunu katmana yazılmasını söyler
+	if (step<txt.length-1){
+		// Eğer gösterideki son slayt değilse
+		step++;	
+		// adımı bir attır
+		interVal1 = setTimeout("autoSlide()",8000)
+		// Bu işlevi 8 saniye sonra yeniden çalıştır
+	}else{
+		// Eğer gösteride son slaytsa
+		step=0;
+		// step değerini sıfırla ki gösteri yeniden başlayabilsin
+		interVal1 = setTimeout("autoSlide()",16000)
+		// 16 saniye sonra bu işlevi yeniden başlat.
+	}
+}
+
+
+function nextSlide() {
+	// Sonraki resmi görüntüle
+	(step>=txt.length-1) ? step=0 : step++;
+	// Eğer gösterideki son slayt değilse bir arttır, yoksa sıfırla
+	writeSlide(step);
+	// Açıklamayı slayt gösterisine ekle
+}
+
+function prevSlide() {
+	// önceki slaytı göster
+	if(step==0)step=txt.length;
+	/* Eğer bu ilk slayt ise "step" değerini
+           var olan slayt sayısına eşitle.
+        */
+	step--;
+	// step değerinden bir çıkart
+	writeSlide(step);
+	// slideShow katmanına yazar
+}
+
+function stopSlide() {
+	// Otomatik gösteriyi durdurur.
+	if(window.interVal1){
+		// Eğer bu değişken atanmışsa (eğer
+                // setTimeout() işlemini kontrol ediyorsa)
+		clearInterval(interVal1);interVal1=false;
+		// zaman aşımını temizle ve değişkenin değerini "false" yap
+		if(step!=0)step--;
+		/* Eğer step=0, onu sıfırda tut. Aksi halde ondan bir çıkar.
+                   autoSlide() işlevinde step değerine bir ekleyip 8 saniye
+		   sonra writeSlide() işlevini çalıştırıyoruz. Unutmayın ki
+		   bu ancak interval değeri varsa yapılıyor. Eğer bunu
+		   kotrol etmezsek biri "başla" düğmesine bastığında 
+		   hatalı olarak "önceki slayt" gibi çalışacaktır.
+		*/
+	}
+}
+
+window.onload=autoSlide;
+// Sayfa yüklenince otomatik slayt gösterisine başla.
+//-->
+</script>
+<div id="slideShow" style="position:absolute"></div>
+
+<P>&nbsp;
+<P>&nbsp;
+<P>&nbsp;
+<P>&nbsp;
+<P>&nbsp;
+<P>&nbsp;
+<P>&nbsp;
+<P>&nbsp;
+<P>&nbsp;
+<P>&nbsp;
+<P>&nbsp;
+<P>&nbsp;
+<P>&nbsp;
+<B><A HREF="javascript:history.back()">Dönüş</A></B>
+<P>
+<HR size="1" noshade>
+</html>

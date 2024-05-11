@@ -1,0 +1,392 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>JS - İşlevler Yazmak </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script language="JavaScript" src="../js/XHConn.js"> </script>
+<script language="JavaScript" src="../js/js10.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="ysoltaraf">
+           <a href="../index.php"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="js.html" class="nav">Giriş</a>
+               <a href="jstxt1.html" class="nav">Sayfada Javascript</a>
+               <a href="jstxt2.html" class="nav">Nesnel Programlama</a>
+               <a href="jstxt3.html" class="nav">JS Nesneleri</a>
+               <a href="jstxt4.html" class="nav">İşlemler</a>
+               <a href="jstxt5.html" class="nav">Değişkenler</a>
+               <a href="jstxt6.html" class="nav">Denetim Yapıları</a>
+               <a href="jstxt7.html" class="nav">Script Yazma</a>
+               <a href="jstxt8.html" class="nav">Yazma İşlevleri</a>
+               <a href="jstxt9.html" class="nav">Başvuru</a>
+               <a href="jstxt10.html" class="nav">DHTML</a>
+               <a href="jstxt11.html" class="nav">Öğe İçeriği</a>
+               <a href="jstxt12.html" class="nav">Pencereler</a>
+               <a href="jstxt13.html" class="nav">Olay Bilgisi</a>
+               <a href="jstxt14.html" class="nav">Zaman Ayarı</a>
+               <a href="jstxt15.html" class="nav">Cookie Kullanımı</a>
+               <a href="jstxt16.html" class="nav">Güvenlik</a>
+               <a href="js24.html" class="nav">Javascript Nesneler</a>
+<br />
+<script type="text/javascript"><!--
+google_ad_client = "pub-8541306787668208";
+//120x600, created 1/16/08
+google_ad_slot = "7007060807";
+google_ad_width = 120;
+google_ad_height = 600;
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<br />
+<script type="text/javascript"><!--
+google_ad_client = "pub-8541306787668208";
+//120x240, created 1/25/08
+google_ad_slot = "8433790203";
+google_ad_width = 120;
+google_ad_height = 240;
+google_cpa_choice = ""; // on file
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>Javascript Yazılım Kuralları (JS)</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">22 Aralık 2007</span></div>
+<h2>İşlevler Yazmak</h2>
+<div class="yazi">
+<h3>Genel yazım kuralı</h3>
+
+    <li> Tlhtml Hv3 Pre-alpha sürümü Function sınıf yapısını yorumlayamaz.</li>
+<p class="yazi">
+İşlevler kodlamayı bir araya toplar: denetim yapıları, işlemler, yöntemlerin hesaplamaları vb. (normal kodlamalar gibi). Bu işlevler daha sonra gerek olunca çağrılır. Kodlamanızda yinelemek gereği duyulmadan istendiğinde kullanılmış olur.
+
+<p class="yazi">
+İşlevler aşağıdaki yapılardan birini kullanarak yazılır:
+
+<h3>Normal işlev yapıları</h3>
+<pre>
+    function nameOfFunction(listOfVariableNames) {
+      işlev kodu buraya yazılmalıdır
+    }
+</pre>
+<b>Bir değişkene atanan Anonim işlevler</b>
+<p class="yazi">
+Nesne yöntemleri için bu yazım kuralı kullanıldığında, Nestcape 4 gibi eski sürümler 'this' sözcüğünde sorun çıkarır.
+<pre>
+    nameOfFunction = function (listOfVariableNames) {
+      işlev kodu buraya yazılmalıdır
+    };
+</pre>
+<b>Bir değişkene atanan normal işlev yapıları</b>
+<pre>
+    nameOfFunction = function anotherNameForTheFunction(listOfVariableNames) {
+      function code should be written here
+    };
+</pre>
+<p class="yazi">
+Bu özel durumda, işlev atandığı ve normal tanımlanmadığı için  anotherNameForTheFunction adı işlevin içinde işlevin kendisini belirtecek biçimde kullanılır, fakat işlevin dışındaki kod bunu göremez bile (bazi tarayıcıların özellikle IE bunu doğru yorumlamaz, bu nedenle kodlama biçiminde konuya çok da bağımlı kalınmamalıdır. Aşağıda gösterilen arguments.callee daha iyidir).
+<h3>İşlev Sınıf yapısı</h3>
+<pre>
+    functionName = new Function("işlev kodu buraya yazılır");
+</pre>
+parametrelerle işlev sınıf yapısı
+<pre>
+    functionName = new Function("varName","varName2","etc.","function code");
+</pre>
+
+<p class="yazi">
+İşlevler aşağıdakilerden biriyle çağrılır:
+</p>
+<ul class="yazi">
+    <li> islev_adi(Ğarametre_listesi);</li>
+    <li> window.islev_adi(Ğarametre_listesi);</li>
+    <li> object.onEventName = islev_adi;</li>
+</ul>
+<p class="yazi">
+Normal işlev tanımlama adımları 'if' deyimi içinde yaratılmamalıdır (ya da benzeri denetim yapısında). javascript 1.5 tanımlamalarında bu konu vardır, ama ECMAScript 3 (javascript 1.5 için çekirdek dil tanımıdır) ile çelişkili olur. Sonuç olarak bazı tarayıcılar izin verir, bazıları izin vermez. Bu konuya pek bağımlı kalmak doğru olmayabilir.
+</p>
+<h3>İşlevlere değişken geçirme</h3>
+<p class="yazi">
+İşleve geçirilen değişkenlere argumanlar da denir.
+</p>
+
+<p class="yazi">
+İşlevi çağırırken, parantezler içinde yazılan değişkenler ve değerler, işlev tanımında parantez içinde yazılan değişkenlere atanır.
+</p>
+<pre>
+function checkval(passvar) {
+  //Bu işlev "checkval('hello')" biçimde çalıştırılırsa
+  //passvar değeri 'hello' olur.
+  if( passvar != "" ) {
+    document.myform.mytextinput.value = passvar;
+  }
+}
+</pre>
+<p class="yazi">
+Bu işlev çağrıldığında, "passvar" değeri boşluk değilse yazı giriş alanına atanır.
+</p>
+
+<p class="yazi">
+Örnek olarak HTML aşağıdakileri tanımlar:
+</p>
+<pre>
+&lt;input type="button" onClick="checkval('pygmy')"&gt;
+</pre>
+<p class="yazi">
+Kullanıcı düğmeyi tıkladığında, yazı giriş alanının değeri 'pygmy' olur.
+
+<p class="yazi">
+işleve birden çok değişken geçirilebilir. İşlev değişkenleri virgülle birbirinden ayırır.
+</p>
+<pre>
+function IslevAdi(degisken1,degisken2,degisken3,vb.) { işlev kodu }
+IslevAdi(5,6,7,vb.);
+</pre>
+<p class="yazi">
+</p>
+Bir işleve hiç parametre de geçirmeyebilirsiniz
+<pre>
+function IslevAdi() { işlev kodu }
+IslevAdi();
+</pre>
+<p class="yazi">
+Eğer son işlev aşağıdaki gibi çağrılmış olsa:
+</p>
+<pre>
+functionName(1,2,3,myVar,window,'stringy bit')
+</pre>
+<p class="yazi">
+Değişkenler işleve hala geçirilir ama onlara erişim ancak arguman toplanmasından (collection) olur (referenceToFunction.arguments biçiminde değişkenlere erişilir)
+</p>
+
+<p class="yazi">
+İşlev tanımında argumanlar belirtilmemiş olsa da arguman birikimi kullanmak mümkündür. Ya da bazı parametreleri tanımlayıp bazılarını tanımlamamak ve arguma birikimiyle onlara erişmek mümkündür.
+</p>
+<pre>
+function functionName(variable1,variable2) {
+  window.alert(variable1); //alerts 5
+  window.alert(arguments[0]); //alerts 5
+  window.alert(variable2); //alerts 6
+  window.alert(arguments[1]); //alerts 6
+  window.alert(arguments[2]); //alerts 7
+  window.alert(functionName.arguments[3]); //alerts 8
+}
+functionName(5,6,7,8);
+</pre>
+<p class="yazi">
+Arguman birikiminin çok kullanışlı bir özelliği vardır: argument.callee. Bu işlevin kendisine erişimdir. Bunun anlamı, anonim bir işlevin içindeki kod onu çağıranla ilgili bilgiye erişebilir. Bu özellik eski tarayıcılarda kullanılamaz.
+</p>
+<h3>return deyimini kullanma</h3>
+
+<p class="yazi">
+'return' deyimi işlevin o noktada son bulması anlamına gelir. İşlevi çağırdığı yerden kodlama çalışmaya devam eder.
+</p>
+<pre>
+function doWhatever() {
+  var apod = Math.pow(3,7);
+  return;
+  // ne olursa olsun
+  // aşağıdaki kod çalışmaz
+  apod *= 34;
+  if( 700 * 3 &lt;= apod ) {
+    return;
+    //return koşullu deyimin bir parçasıdır.
+    //kendisine dönmesi daha kullanışlıdır.
+  } else {
+    window.alert('Kodlamada hata oldu');
+  }
+}
+</pre>
+Aşağıdaki örnek 'return' deyimi kullanarak işlevin bir değer döndürmesini anlatır.
+<pre>
+function appendComment(passvar) {
+  //Burada bir yazı dizisi parametre olarak geçer ve sonuç yine
+  //yazı dizisi değişkenidir. Her tür değişken tipi geri döndürülebilir.
+  passvar += ' yardım almadan';
+  return passvar;
+}
+
+var myString = appendComment('Kendim yaptım,');
+//myString şimdi 'Kendim yaptım, yardım almadan' olur.
+</pre>
+
+<p class="yazi">
+Eğer kodunuzun eski tarayıcılarda da çalışmasını isterseniz, 'return' deyiminde kodunuz bir değer döndürmelidir. Netscape 4 sürümlerinden bazıları hata mesajı verir.
+</p>
+
+<p class="yazi">
+Renk değiştirme işlemini ele alalım. Şimdi sürekli olarak aynı işlev çalışmalı ve yavaş yavaş bir renkten diğerine geçiş olmalı. Bunun için yazılan kodlama renk geçişini yapacaktır. Kodlama bir işlevin parçası olarak çalışır. Bu işlev bir sonrakinde çalışırken gereken renk kodunu işlev sonucu olarak döndürür.
+</p>
+<pre>
+function fadeColour( fromcol, tocol, fadePortion ) {
+  //kalıpta fadeColour( 'ff0098', 'fe0934', 0.23 ) olur
+  var oF = [], oT = [], oP = [];
+  var oH = ['0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'];
+  //kirmizi, yesil ve mavi alt dizileri al...
+  for( var x = 0; x &lt; 3; x++ ) {
+    //... onları hex sayidan ondaliga cevir
+    oF[x] = eval( '0x' + fromcol.substring( 2 * x, ( 2 * x ) + 2 ) );
+    oT[x] = eval( '0x' + tocol.substring( 2 * x, ( 2 * x ) + 2 ) );
+    //... ikisi arasindaki farki degisecek oran olarak ekle
+    oP[x] = Math.round( oF[x] + ( ( oT[x] - oF[x] ) * fadePortion ) );
+    //... ve tektrar hex bicimine donustur...
+    oP[x] = oH[ ( oP[x] - ( oP[x] % 16 ) ) / 16 ] + oH[ oP[x] % 16 ];
+  }
+  //... yeniden reng dizisi biciminde hepsini topla
+  return '#' + oP.join('');
+}
+
+for( var y = 0; y &lt; 10; y++ ) {
+  //10 adimda, rengi degistir - kodlamayla yazarak bölümünde olanlari gor
+  document.write( '<span style="color:' + fadeColour( 'd2cbff', '000099', y / 9 ) +
+  ';">Fade!<\/span> ' );
+}
+
+for( var y = 0; y &lt; 12; y++ ) {
+  //12 adimda, rengi degistir
+  document.write( '<span style="color:' + fadeColour( 'ff0000', '000000', y / 11 ) +
+  ';">Fade!<\/span> ' );
+}
+</pre>
+
+<p class="yazi">
+Uyarı, bir işlevden değer döndürüyorsanız, işlevi doğrudan
+&lt;a href= yöntem biçiminde çağırmayın. Bir çok tarayıcı yeni sayfa açar ve sayfada da yalnız işlevin dönen değeri vardır. Hala 'return' yalnız başına kullanılabilir. Hatta 'return' bir işlev bir başkasından çağrılmışsa güvenle değer döndürebilir.
+</p>
+
+<p class="yazi">
+&lt;a href=yöntem biçimini kullanmak zorunda kalırsanız void işlemini kullanın.
+</p>
+
+<p class="yazi">
+Bir çok olayda 'false' döndürmek işlemin kesilmesine neden olur. Örneğin bir kullanıcı form gönderse, 'false' döndürmek formun gönderilmesini engellemek olur. Tek ayrıcalık 'onmouseover'. Burada true döndürmek farenin üzerinde olmasının etkisini durdurur (örneğin bağlarda true dönmesi, durum (status) satırında bağın URL adresi görüntülenmesini bitirir).
+</p>
+<h3>Değişken Kapsama Alanı</h3>
+
+<p class="yazi">
+Javascript gibi dillerin değişken kapsama alanı çok önemli bir özelliktir. Biraz karışık görünse de biraz zaman ayırılmalı ve öğrenilmelidir.
+</p>
+
+<p class="yazi">
+Basit bir kodlamada birçok değişken ve işlev vardır. Aşağıdaki örnekte:
+<pre>
+var a = 1, b = 2, c = 3;
+function sample() {
+  var d;
+  a = 7;
+}
+sample();
+alert(a);
+</pre>
+<p class="yazi">
+a,b ve c değişkenleri hiç bir işlevin içinde değildir. O halde bunlar evrensel kapsama alanı içindedir. Her yerden onlara erişilebilir. Buradaki 'sample' işlevi de evrenseldir. Çünkü bir başka işlevin içinde değildir.
+Başka bir yerden bir kod bunların içeriğini değiştirirse, bu içerik herkese açık olur.
+</p>
+
+<p class="yazi">
+'d' değişkeni 'sample' işlevinin içinde tanımlanmıştır. Bunun anlamı: "Yalnız bu işlevin içindeki kod onu kullanabilir" demektir. Bu kavram tüm işlevler için geçerlidir. İçlerinde tanımlanan bir değişken yalnız o işlev içinde kullanılabilir (Kodlama o işlevin içinde tanımlanmış gibi algılar).
+Şimdi kodda aşağıdaki değişiklik yapılmış olsun:
+</p>
+<pre>
+var a = 1, b = 2, c = 3;
+function sample() {
+  var a, d;
+  a = 7;
+}
+sample();
+alert(a);
+</pre>
+<p class="yazi">
+Burada 'a' değişkeni işlev içinde yeniden tanımlanmıştır. 'var' anahtar kelimesi kullanılarak tanımlandığından, her iki 'a' değişkeni de birbirinden bağımsızdır. İşlev içinde bu değişkene yapılan değişiklikler yalnız içte tanımlanan değişkeni etkiler. Evrensel değişken etkilenmez. Yani 'alert' sonucu '1' olur.
+</p>
+
+<p class="yazi">
+Eğer işlev içindeki kod, dışarıdaki (evrensel) değişkene erişmek isterse Javascript kodlamasında 'window' kullanılır. İşlev içindeki kod window.a diyerek evrensel değişkene ulaşır. Bu nedenle hem alert hem de window.alert kullanılmaktadır.
+<h3>İç içe İşlevler</h3>
+
+<p class="yazi">
+Başka işlevlerin içinde işlevler tanımlanabilir. Basit olarak bir kodun içinde başka bir işlev tanımlama aşağıda gösterilmiştir:
+
+<pre>
+var a = 1, b = 2, c = 3;
+function sample() {
+  var a, d, e;
+  function anothersample() {
+    var e, f;
+  }
+  anothersample();
+}
+sample();
+</pre>
+<p class="yazi">
+Bu örnekte 'anothersample' işlevi yalnız 'sample' işlevi içinde vardır. Kapsamlar da iç içe olur. Bu durumda 'anothersample' evrensel kapsama alanındaki b ve c değişkenlerine erişebilir. Aynı kapsama alanından a ve d'ye de erişebilir. Kendi kapsama alanındaki e ve f de erişilen değişkenlerdir. Ayrıca window.a ile evrensel kapsama alanından değişkenlere de erişebilir.
+</p>
+
+<p class="yazi">
+İç içe tanımlanmış işlevlerden evrensel değişkene atama yapılırsa, bu değişken üzerinden işleve erişilebilir.
+</p>
+<h3>Kapsamların bellekleri var</h3>
+
+<p class="yazi">
+Kapsamlar aslında çok beceriklidirler (Zamana yayılmış olmalarından olsa gerek). Örnek: Bir işlev içindeki kodlama yerel değişken yaratsın. Daha sonra bir bağ tıklanınca başlayacak bir olay yakalama işlemi olsun. Kısacası aşağıdaki kodlama olsun:
+</p>
+<pre>
+function sample() {
+  var a = 20;
+  document.links[0].onclick = function () {
+    alert(a);
+  };
+}
+sample();
+</pre>
+<p class="yazi">
+Olay yakalayıcı işlemi kodlamanın yaratılmasından çok sonra olacak bir şeydir. Ama 'a' değişkeni vardır. O halde alert 20 sayısını görüntüler.
+</p>
+<h3>Kapsamları kullanarak Çelişkiden Korunmak</h3>
+
+<p class="yazi">
+Bir çok evrensel değişken ve işlev kullanan bir kodlama olduğunu varsayalım. Aynı sayfaya bir başka işlev eklemek isterseniz daha önceki işlevle benzer olması nedeniyle evrensel değişkenlerin çelişme olasılığı vardır. Bu sorunu geçmenin bir yolu, kodu bir işlevin içine yerleştirmek ve işlevi çalıştırmaktır. Bu yönüyle, işlevin yerel kapsamı değişkenlerin birbirlerini ezmelerini önler ama değişken tanımlarının doğru yapılmış olması gerekir.
+</p>
+
+<p class="yazi">
+Evrensel bir işlev tanımlamadan yapmanın diğer bir kolay yöntemi, anonim bir işlev üretmek ve onu parantezler içine almaktır (yorumlayıcı herşeyi bir işlev tanımı altına almış olur). Sonra aç, kapat parantezleri kullanarak hemen çalıştırılır. Bu biraz tuhaf gözükse de çalışmaktadır.
+</p>
+<pre>
+(function () {
+  //Put your script code in here
+})();
+</pre>
+
+</div>
+<br />
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Aybim </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script language="JavaScript" src="../js/XHConn.js"> </script>
+<script language="JavaScript" src="../js/js10.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="ysoltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="js.html" class="nav">Giriş</a>
+               <a href="jstxt1.html" class="nav">Sayfada Javascript</a>
+               <a href="jstxt2.html" class="nav">Nesnel Programlama</a>
+               <a href="jstxt3.html" class="nav">JS Nesneleri</a>
+               <a href="jstxt4.html" class="nav">İşlemler</a>
+               <a href="jstxt5.html" class="nav">Değişkenler</a>
+               <a href="jstxt6.html" class="nav">Denetim Yapıları</a>
+               <a href="jstxt7.html" class="nav">Script Yazma</a>
+               <a href="jstxt8.html" class="nav">Yazma İşlevleri</a>
+               <a href="jstxt9.html" class="nav">Başvuru</a>
+               <a href="jstxt10.html" class="nav">DHTML</a>
+               <a href="jstxt11.html" class="nav">Öğe İçeriği</a>
+               <a href="jstxt12.html" class="nav">Pencereler</a>
+               <a href="jstxt13.html" class="nav">Olay Bilgisi</a>
+               <a href="jstxt14.html" class="nav">Zaman Ayarı</a>
+               <a href="jstxt15.html" class="nav">Cookie Kullanımı</a>
+               <a href="jstxt16.html" class="nav">Güvenlik</a>
+               <a href="jstxt17.html" class="nav">W3C DOM</a>
+               <a href="jstxt18.html" class="nav">DOM Düğümü</a>
+               <a href="jstxt19.html" class="nav">DOM Tablolar</a>
+               <a href="jstxt20.html" class="nav">DOM CSS</a>
+               <a href="jstxt21.html" class="nav">DOM Stiller</a>
+               <a href="jstxt22.html" class="nav">DOM Events</a>
+               <a href="jstxt23.html" class="nav">DOM Nesneleri</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>Javascript Yazılım Kuralları (JS)</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<h3>W3C DOM Giriş</h3>
+
+Buradaki bilgiler eski tarayıcıların sınırları dışına taşar ve yeni tarayıcıların gelişmiş konularını içerir.
+<br /><br />
+W3C DOM, genelde 'DOM' olarak bilinir ya da 'DOM level 1(/2/3)' olarak adlandırılır.  HTML belgelerinin yapılarına daha gerçekçi bir bakış sunar. Belgeleri ağaç yapısında öğeler biçimde algılar ve yazı bu öğelerin içinde başka öğelerle birliktedir. Tüm öğeler, (içindeki yazı ve nitelikler dahil) DOM ağacı gezilerek erişilebilir. İçerikleri değiştirilebilir ya da silinebilir. Yeni öğeler eklenebilir. HTML öğeleri ve yazı içerikleri ve nitelikleri hepsi birden düğüm olarak adlandırılır.
+<br /><br />
+DOM başka programlama dilleriyle iletişim için tasarlanmıştır ama birçok tarayıcıda yalnız Javascript için desteklenir. Burada da Javascript ilişkisi anlatılacaktır.
+<br /><br />
+DOM tarayıcıların şimdiki ve sonraki durumudur. İleride DHTML için tek desteklenecek temel ve gelişmiş özellik olmamasında bir neden de yoktur.
+<br /><br />
+W3C DOM beşinci kuşak tarayıcılarca desteklenir. Bunlar şu anda:
+<ul class="yazi">
+    <li>* Opera 7+</li>
+    <li>* Mozilla Gecko (Mozilla, Firefox, Netscape 6+)</li>
+    <li>* KHTML/WebKit (Konqueror 2+, Safari, OmniWeb 4.5+)</li>
+    <li>* Internet Explorer 5+</li>
+    <li>* iCab 3+ (2- yalnız pasiftir)</li>
+    <li>* ICEbrowser</li>
+    <li>* Escape/Evo 5 (bir kısmı [ve kırılgan])</li>
+    <li>* Tkhtml Hv3 (bir kısmı [ve kırılgan])</li>
+    <li>* NetFront 3+ (bir kısmı)</li>
+    <li>* Netgem 4 tarayıcı (NetBox) - denenmemiş</li>
+    <li>* OpenTV - denenmemiş</li>
+    <li>* iPanel MicroBrowser gelişmiş modül ekleriyle - denenmemiş</li>
+</ul>
+Bu liste açıkça belli eder ki, Internet Explorer 4, Netscape 4, Escape 4, Opera 4, 5 and 6, Omniweb 4.2- ve WebTV, W3C DOM desteklemez. Bunların bazıları hala kullanımdadır ve dışlanamazlar. W3C DOM kullanmadan önce tarayıcının destekleyip desteklemediği denetlenmelidir.  Opera 4-6 temel W3C DOM işlevlerinden çoğunu destekler. Bu nedenle W3C DOM desteğini anlamanın en iyi yolu:
+<pre>
+if( document.getElementById &&
+    document.childNodes &&
+    document.createElement ) {
+      //gereken bir şeyi burada yap
+}
+</pre>
+Internet Explorer tarafından sunulan DOM desteği yukarıda anlatılanların en zayıfıdır. Windows sürümü yarım DOM 1 modülü ve biraz da DOM 2 modüllerini destekler. Mac sürümü biraz daha fazla DOM 1 modülü sunar. Opera ve Mozilla birincilik için yarışmaktadır. Her ikisi de tüm DOM 1 desteği sunarlar. tamama yakın DOM 2 desteği vardır ve bazı DOM 3 modüllerini de desteklerler. KHTML/WebKit çok da arkalarında değildir. iCab yarım DOM1 ve DOM2 desteğine sahiptir. Opera 9 tüm DOM 1 ve DOM 2 destekleyen tarayıcıdır. Safari DOM 1 ve DOM 2 desteği sunduğunu söylemektedir ama DOM 2 Stil Sayfaları ve CSS uygulaması o kadar kötüdür ki desteklediğini söylemek doğru olmaz. 
+<br /><br />
+Bu yazıda odaklanılan konular tüm tarayıcılarda geçerli olan bilgiler anlatılmaktadır. Ayrıca Internet Explorer tarafından desteklenmeyen ya da hiç olmayan DOM özelliklerinin oluşturduğu boşluğun nasıl doldurulacağı anlatılır.
+<br /><br />
+ICEbrowser DOM 1'in tamamı ve DOM 2'nin birazını destekler ve buradaki birçok bilgiyi kullanabilir.
+<br /><br />
+Escape 5 öğelere ve stillerine erişmek, onları sayfada hareket ettirmek için yeterli DOM desteği sunar. Ama daha fazla birşeyler yapmaya kalkarsanız hemen kodlama hatası verir. Bu durumda DHTML özellikleri için bile kullanılamaz.
+<br /><br />
+NetFront son olarak biraz DOM desteği eklemiştir ama hala çok ilkeldir. Genellikler 3.4'den önceki sürümlerde kodlama dağılır ve sonuç olarak DOM tarayıcı olarak dikkate alınmamalıdır. Sürüm 3.4 genelde daha iyidir.
+<br /><br />
+DOM burada anlatılandan daha çok bilgi içerse de onların kullanımı hala çok sınırlıdır ve bu koşullara dayanarak kodlama yapmak doğru olmaz. Tarayıcıların neleri desteklediğini denemek gerekir.
+<pre>
+if( node.propertyCollectionOrMethodName ) {
+  //Bunu yapabilecek bir kod buraya yazılır
+}
+</pre>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

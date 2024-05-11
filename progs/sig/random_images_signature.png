@@ -1,0 +1,48 @@
+<?php
+//
+// Load all Images from specified path...
+//
+$images_ary = array();
+$handle = @opendir('./images/random');
+while( $file = @readdir($handle) )
+{
+    if( $file <> '.' && $file <> '..' )
+    {
+        $tmpary = explode('.', $file);
+        $extension = strtolower($tmpary[count($tmpary)-1]);
+        if( in_array($extension, array('gif', 'jpg', 'jpeg', 'png')) )
+        {
+            $images_ary[] = $file;
+        }
+    }
+}
+@closedir($handle);
+
+if( count($images_ary) <= 0 )
+{
+    die("Sorry, no images found!");
+}
+
+//
+// Randomly select an image...
+//
+$random = time() % count($images_ary);
+$image_info = array(
+    'image'    => 'random/'.$images_ary[$random]
+);
+
+//
+// Build the text array...
+//
+$image_text = array(
+    array(
+        'x'     => 10,
+        'y'     => 4,
+        'color' => array(0, 0, 255),
+        'font'  => -5,
+        'text'  => "Random Image: ".$images_ary[$random]
+    )
+);
+
+include('./includes/dynamic_gd_image.php');
+?> 

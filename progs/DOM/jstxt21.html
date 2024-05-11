@@ -1,0 +1,354 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Aybim </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script language="JavaScript" src="../js/XHConn.js"> </script>
+<script language="JavaScript" src="../js/js10.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="ysoltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="js.html" class="nav">Giriş</a>
+               <a href="jstxt1.html" class="nav">Sayfada Javascript</a>
+               <a href="jstxt2.html" class="nav">Nesnel Programlama</a>
+               <a href="jstxt3.html" class="nav">JS Nesneleri</a>
+               <a href="jstxt4.html" class="nav">İşlemler</a>
+               <a href="jstxt5.html" class="nav">Değişkenler</a>
+               <a href="jstxt6.html" class="nav">Denetim Yapıları</a>
+               <a href="jstxt7.html" class="nav">Script Yazma</a>
+               <a href="jstxt8.html" class="nav">Yazma İşlevleri</a>
+               <a href="jstxt9.html" class="nav">Başvuru</a>
+               <a href="jstxt10.html" class="nav">DHTML</a>
+               <a href="jstxt11.html" class="nav">Öğe İçeriği</a>
+               <a href="jstxt12.html" class="nav">Pencereler</a>
+               <a href="jstxt13.html" class="nav">Olay Bilgisi</a>
+               <a href="jstxt14.html" class="nav">Zaman Ayarı</a>
+               <a href="jstxt15.html" class="nav">Cookie Kullanımı</a>
+               <a href="jstxt16.html" class="nav">Güvenlik</a>
+               <a href="jstxt17.html" class="nav">W3C DOM</a>
+               <a href="jstxt18.html" class="nav">DOM Düğümü</a>
+               <a href="jstxt19.html" class="nav">DOM Tablolar</a>
+               <a href="jstxt20.html" class="nav">DOM CSS</a>
+               <a href="jstxt21.html" class="nav">DOM Stiller</a>
+               <a href="jstxt22.html" class="nav">DOM Events</a>
+               <a href="jstxt23.html" class="nav">DOM Nesneleri</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>Javascript Yazılım Kuralları (JS)</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="bdy" class="yazi">
+<h3>DOM Stil Sayfaları</h3>
+
+DOM stil sayfaları, her stil sayfasında dolanmanıza, seçimleri değiştirmenize, stilleri okuyup yazmanıza ve yeni kurallar eklemenize olanak tanır. Bu birden çok öğeyi aynı anda etkileyecek CSS yaratmak ve değiştirmek izniyle olur (klasik DHTML'de yalnız bir öğenin işlemleri yapılabiliyordu). İstenilen hedef öğeler için CSS seçicilerinin yararlanırını kullanarak CSS çerçevesine kuralları girer.
+<br /><br />
+Şu anda Opera 9 ve Mozilla/Firefox tarafından DOM standartlarında desteklenir.  Safari, Konqueror ve ICEbrowser yarım destekler ama öyle kötüdür ki kullanıçlı değildir. Bu tarayıcılarda hangi işlemlerde hangilerinin çalışmadığı burada anlatılır. Diyelim ki hasFeature yöntemini kullanarak DOM 2 Stil Sayfalarını denetleme olanağınız olsun. Safari ve ICEbrowser doğru sonuç döndürecektir. Ama onların desteği o kadar zayıftır ki bu sonuç pek güvenilir olmaz. Safari, Konqueror ve ICEbrowser desteğini dikkate almayıp ileride gelişeceğini varsayarak ilerlemekte yarar vardır.
+<br /><br />
+Safari, Konqueror, ICEbrowser, ya da DOM Stil Sayfalarını desteklemeyen  her hangi bir tarayıcıyla uyumluluk arandığında, kodlamanızın document.stylesheets kullanmamasını sağlamanız gerekecektir. Eğer kullanılıyorsa da bu tarayıcılarda hata vermemesine emin olmalısınız.
+<br /><br />
+IE buradaki stanfdartlara uymaz. Bir şey denemek isterseniz Opera 9 ya da Mozilla kullanarak deneme yapmalısınız. İleride IE desteğinin nasıl olacağı anlatılmıştır.
+<br /><br />
+DOM stil sayfaları stil sayfalarına yazdıklarınızın bire bir kopyasını içermez. Bunlar tarayıcının gördükleri ve nasıl yorumladıklarıdır. Anlaşılmayan kurallar dahil edilmemiş olabilir, boşluklar silinmiş ya da eklenmiş olabilir, birleştirilmiş stiller parçalarına ayrılmış, ya da parçalanmış stiller birleştirilmiş olabilir. Anlaşılmayan stiller tümüyle unutulur. Açıklamalar dikkate alınmaz. Bu nedenlerden kendi stil sayfanızı tanımayı beklemelisiniz.
+<br /><br />
+DOM 2 Stil sayfaları, stil sayfaları tümüyle yüklenmeden kullanılmamalıdır (belgenin onload olayının tetiklenmesini beklemek en uygun zamandır). Eğer daha önce kullanmaya kalkarsanız cssRules birikimi ya çok kısa ya da hiç oluşmamaış olabilir.
+<h3>Stil sayfaları listesi</h3>
+<ul>
+    <li> Mozilla, STYLE öğesinin stil sayfalarının href özelliğini boşluk yerine o anki sayfanın adresi olarak verir.
+    <li> Opera XML işlemleriyle eklenen stil sayfaları için href özelliği sunmaz ve görüntülenemezler.
+    <li> Safari ve Konqueror belirtilen zamanda açılmış stil sayfalarının birikimini yaparlar. Anlamı: eğer alternate stylesheet kullanırsanız bunların bir çoğu listede olmayacaktır. başlık (title) doğru sunulmaz ve kapatılmış bir özelliği değiştirmenize de izin verilmez.
+    <li> Safari, Konqueror ve ICEbrowser XML işlemleriyle eklenen stil sayfalarını içermez (ICEbrowser XML anlamaz).
+    <li> ICEbrowser liste birikimini tercih edilen stil sayfalarından oluşturur. Anlamı: eğer alternate stylesheets kullanılacak olursa listede bulunmayacaktır.
+    <li> ICEbrowser dinamik yaratılmış stil sayfalarını birikime eklemez.
+    <li> NetFront birikim sunar ama her zaman içi boştur.
+</ul>
+Tüm stil sayfalarına document.styleSheets birikimiyle erişilir. Bu &lt;style&gt; ve &lt;link&gt; biçimleriyle eklenen tercih edilen, alternate stylesheets türünden olanları da içerir (açık olsunlar ya ada olmasınlar fark etmez). XML işlemleriyle eklenen stil sayfaları bile buradadır. Bu birikim içinde de belge kaynağında bulundukları sırada bulunurlar. Dışarıdan alınan stil sayfaları listeye eklenmemiştir (onlar listeye üst/baba stil sayfasıyla birlikte girdiklerinden). Birikim &lt;div style="etc"&gt; niteliğini içermez bunlara erişim öğenin style özelliği üzerinden olur (ayrınlılar DHTML sayfalarındadır).
+<br /><br />
+Bu tarayıcının birazcık DOM Stil sayfalarını sunup sunmadığını denetlemeye yarar. document.styleSheets birikimini denetleyerek bu sağlanır:
+<pre>
+if( document.styleSheets ) {
+  //DOM stil sayfaları vardır
+}
+</pre>
+Her stil sayfasının birkaç özelliği vardır. Bunlar stil sayfalarının ayrıntılarını verir. URL adresi (href) gibi, başlığı (title), tipi (type genelde 'text/css' olur), uygulandığı medya ortamları (media) ve kapalı olup olmadığı (disabled). Kapalı olması disabled özelliğinin doğru ya da yanlış biçiminde kurulmasıyla belirlenir. Bu özellik söz konusu stil sayfasına uygulanabiliyorsa sunulabilir. Eğer 'link' öğesinde 'title' niteliği tanımlanmamışsa, karşılığı olan stil sayfası nesnesinde de 'title' yoktur.
+<br /><br />
+<ul>
+    <li> Safari 2- ve Konqueror bağlı stil sayfalarına ilişkin stil sayfaları sunmazlar
+    <li> ICEbrowser hiçbir stil sayfası için style sayfası özelliği sunmaz.
+</ul>
+Eğer LINK ve STYLE öğesine bir ilişki varsa, ilişkili StyleSheet nesnesine öğeni stil sayfası özelliğiyle erişilebilir.
+<pre>
+var theSheet = document.getElementsByTagName('style')[0].sheet;
+</pre>
+StyleSheet nesnesine bir erişim varsa, ilgili LINK ve STYLE öğesine erişim, StyleSheet nesnesinin ownerNode özelliğiyle olur.
+<pre>
+var theElement = document.styleSheets[0].ownerNode;
+</pre>
+<h3>Stylesheet ortamı (media)</h3>
+<ul>
+    <li> Safari ve Konqueror ortam yazısı sonuna bazen fazladan virgül koyarak geçersiz olmasına neden olurlar
+    <li> Safari, Konqueror ve ICEbrowser ortam tiplerinin eklenmesine y ada kaldırılmasına izin vermezler
+    <li> ICEbrowser ortam niteliklerini dikkate almazlar, mediaText bunun için boşluktur.
+</ul>
+Bir stil sayfasının ortam özelliği MediaList nesnesini gösterir. Bu da ortam eklenmesine ya da çıkarılmasına olanak sağlar. Unutulmamalıdır ki tarayıcılar uygun olan her yerde boşluk eklemek ya da boşlukları çıkartmak konusunda serbestir. Onlar anlamadıkları ortam türlerini de kaldırabilirler ya da yeniden adlandırabilirler (tipik olarak 'unknown'). Eğer yazıda aynı ortam türü birden çok yer alırsa, bu yazı yeni bir diziye atanabilir (gerek olursa).
+<pre>
+document.styleSheets[0].media.mediaText = 'print,handheld';
+</pre>
+Eğer tarayıcı birden çok ortamı destekleyebilirse ortam türlerini değiştirmek kullanışlı olur. Yalnız Opera ekran ve yazıcıdan farklı ortamları destekler (Opera ortam türü olarak projeksiyon, el donanımı, konuşma ve bazı donanımlar, tv destekler). Şu anda en çok Opera için yararlı bir özelliktir ama diğerleri için "all" (hepsi), "screen" (ekran) ve "print" (yazıcı) seçenekleri arasında değişiklik yapılacağı zaman da önemlidir. Not: tarayıcı ortam sorularını destekleyebilir ve tanımlamalar bunları hiç bir zaman dikkate almaz. Bu Opera tarayıcısında etkindir. Opera ortam sorularını düzgeler (boşlukları kaldırarak yeniden kalıplar) ve her seçimden bir tane olduğunu garanti eder.
+<br /><br />
+Eğer mediaText, tarayıcının tanımadığı ortam türlerinden birini içeren değere atanırsa, kabul eder ama tanınmayan ortam türlerini dikkate almaz. ortam yazısını tarayıcının geçerli yazım kuralı olarak tanımadığı bir değer eşitlemek hataya neden olur. Böylece ortam sorularını anlamayan tarayıcılar ortam sorunlarının değerini içeren mediaText değerine atama yapmanıza izin vermezler. Bu durumda try ... catch deyimi kullanmanız gerekebilir.
+<br /><br />
+'media' nesnesi, appendMedium yöntemi sunar. Her zaman bir media türü daha eklenmesine izin verir. 'deleteMedium' yöntemi de listede olmayan ya da tarayıcının anlamadığı ortamları silmek için kullanılır. Böylece hataya düşme engellenmiş olur. Ortam türü olmayan stil sayfaları tüm ortam türlerine uygulanır. Tüm ortam türlerini listeden silmek, ortam yazısını boşaltır ve böylece tüm ortamlara uygulanabilir olur.
+<pre>
+document.styleSheets[0].media.appendMedium('handheld');
+document.styleSheets[0].media.deleteMedium('print');
+</pre>
+Tüm listelenen ortam türleri arasında adımlayarak dolanmak mümkündür (item yöntemiyle). 'length' parametresiyle kaç tanesinin listede olduğu da anlaşılmış olur.
+<pre>
+for( var i = 0; i &lt; document.styleSheets[0].media.length; i++ ) {
+  alert(document.styleSheets[0].media.item[i]);
+}
+</pre>
+<ul>
+    <li> Bu sayfadaki tüm stil sayfalarına print ortam türünü ekle
+    <li> Sayfa tüm stil bilgilerini kaybetmiş gibi görünmeli
+    <li> Doğru çalışıp çalışmadığı tarayıcının 'yazıcı önizleme' düğmesiyle izlenebilmeli
+    <li> Eğer Opera kullanıyorsanız elde taşınan ortam türünü de ekleyebilirsiniz ve küçük erkan ile onu da deneyebilirsiniz.
+    <li> ilk stil sayfasının hangi stil türlerini kullanığını deneyin.
+    <li> Sonra 'print' ortam tipini ve 'handheld' ortam tipini silebilirsiniz.
+</ul>
+<h3>Stil Sayfaları cssRules birikimi</h3>
+<ul>
+    <li> Mozilla 'title' niteliği olmayan alternate stylesheets için bu birikimi sunmaz 
+    <li> Safari 2- ve Konqueror kurallar ekleyemez, silemez.
+    <li> Safari, Konqueror ve ICEbrowser q kurallarının bazılarını dikkate almaz, (anlaşılmayanlar @chaset gibi)
+    <li> ICEbrowser kurallar ekleyemez.
+</ul>
+Stil sayfalarının hepsi için cssRules birikimi vardır. Bu stil sayfasının tüm kurallarını içerir. Bu yalnız stil sayfasının kökünde bulunan kuralları içerir, ama @media bloğu hariç (bunlarla sonra uğraşılacaktır). Tarayıcılar bilmedikleri @ kurallarını eklemezler (ilk başta kurallara göre eklenecekti ama yazarlar eklenmemesini söylemediklerinden tarayıcılar ekleme yapmamıştır) Anlamadıklaraı kuralları eklemezler (seçici kullanan kurallar gibi). Bunun anlamaı her tarayıcıda cssRules birikiminin boyu farklı olacakatır ve boyuta dayanarak kodlama yapılamaz. Kullanılan kuralların tüm tarayıcılarda anlaşılabilir olduğunu bilmek olanaksızdır. Hem her tarayıcı @namespace kuralını anlar, yalnız Mozilla cssRules birikimine bilinmeyen kural olarak ekler.
+<br /><br />
+Birikime, kurallar insertRule yöntemiyle eklenir. Verilen yazı bir kural olarak yorumlanır. Eklemeden önce verilen dizin numarası eklemenin nereye yapılacağını belirtir. Sonuna bir kural eklemek için numara stil sayfalarındakilere göre hesaplanmış olmalıdır. Kurallar deleteRule yöntemiyle birikimden silinir. Burada silinecek kuralın numarası dizin olarak verilir. Her zaman olduğu gibi ilk dizin sıfırdır.
+<pre>
+document.styleSheets[0].deleteRule(1); //ikinci kuralı sil
+//başlangıcta yeni bir kural ekle
+document.styleSheets[0].insertRule('html { color: lime; }',0);
+var oLength = document.styleSheets[0].cssRules.length;
+//sonuna yeni bir kural ekle
+document.styleSheets[0].insertRule('body { background: #779; }',oLength);
+//son eklenen kurala erişim
+var oRule = document.styleSheets[0].cssRules[oLength];
+</pre>
+DOM 2 Stil sayfalarının bu bölümü en önemli olanıdır. Safari 2- ve Konqueror, kural ekleme ve silmeyi desteklemediğinden ve ICEbrowser, yalnız kural silmeyi desteklediğinden bu işlemler DOM 2 Stil sayfaları için kullanışsızdır.
+<br /><br />
+Güvenlik nedeniyle Opera ve Mozilla cssRule birikimine başka alan adı ve protokölden erişilmesine engel olur. Erişim girişimi güvenlik hatasına neden olur. Eğer kodlamanız stil sayfalarında böyle birşeye olanak verirse, try ... catch ikilisi kullanılması kodlamanızın hata vermesini engelleyebilir.
+<h3>CSS kuralı</h3>
+<ul>
+    <li> Mozilla, Safari, Konqueror ve ICEbrowser cssText kullanarak üzerine yazamaz.
+    <li> cssText kuralı bir değere eşitlendiğinde Opera 9-9.2 hem eski sürümü hem de yenisini uygular.
+    <li> Safari ve Konqueror CSS kuralı nesnesi için cssText sunmaz
+    <li> Safari, Konqueror ve ICEbrowser kuralın seçici bölümünden namespace önekini kaldırır, hedef öğeye ne yaptığını bildirir
+    <li> Safari ve ICEbrowser kuralın seçici bölümünü büyük harf yapar, böylece XML tabanlı belgelerde geçerli olmaz.
+    <li> Safari tanımadığı ID, attribute, ve class seçicilerinde anlamsız ve kullanılmaz yaparak kırılır
+    <li> ICEbrowser kuralı seçici bölümüne wilcard (özel işaretler) eklenmesini sağlar.
+    <li> ICEbrowser [class~=attribute] biçimindeki seçicilerde sınıf seçicilerini değiştirir.
+    <li> kuralın seçici bölümü ICEbrowser tarayıcında ilk virgüle kadar olan herşeyi içerir.
+</ul>
+Bu DOM 2 Stil Sayfalarının en temel bölümüdür; her kural için stilleri görüntülemek ya da değiştirmek. Stil sayfalarının cssRules nensnesinin her öğesi bir CSS kuralıdır. Stil sayfalarının içinde birçok kural bulunur ve sunulan özellikler kuralların türüne göre değişir.
+<br /><br />
+Her kuralın tip özelliği vardır ne tür kural olduğunu belirtir. normal stil kuralları için 1, @charset kuralları için 2, @import kuralları için 3, @media kuralları için 4, @font-face kuralları için 5, @pages kuralları için 6... Eğer tarayıcı bilinmeyen kuralları geçmezse tipleri 0 olur. CSS kurallarının parentStyleSheet özelliği vardır. Bu özellik içinde oldukları stil sayfasına erişimi gösterir. Tipik olarak tip özelliklerini çalışarak hangi özelliklere daha erişilebileceğini öğrenme olanağı vardır. 
+<br /><br />
+Kuralın aynı zamanda yazı gösterinimi biçiminde olan cssText özelliği vardır. Burada boşluklar eklenmiş ya da çıkarılmış olabilir ve stiller parçalanmış ya da birleştirilmiş olabilir. Aynı stilin birçok kopyası gerçekte kullanılan tek kopyayla değiştirilmiş olabilir. İlk stil sayfası görünümde olmayabilir ama tarayıcıda aynı etkiye sahiptir (diğer tarayıcılarda aynı olamayabilir).
+<pre>
+var theRule = document.styleSheets[0].cssRules[0];
+alert('Type: '+theRule.type+'\nRule: '+theRule.cssText);
+</pre>
+<br /><br />
+Kuramsal olarak cssText değerini yeni bir değere atamak olanağı vardır (yeni değer ilk kurallarla aynı yorumlanabildiği sürece) böylece @import kuralı @media kuralına değişmemiş olur. Ama tarayıcı desteği bunu kullanmak için çok da iyi değildir.
+<pre>
+document.styleSheets[0].cssRules[0].cssText = 'body { background: #779; }';
+</pre>
+Eğer kural @charset ise, kodlama özelliği vardır. Üzerine istenirse yeniden yazılabilir. Tüm diğer kurallar aşağıda ele alınmıştır:
+<h3>Normal stil, @page, ve @font-face kuralları</h3>
+<ul>
+    <li> Mozilla kural seçici yazının (selectorText) yazılmasına izin vermez.
+    <li> Mozilla bazı geçerli stilleri ('padding' gibi) bir çok anlamsız stile ('padding-left-value' ve 'padding-left-ltr-source: physical;' gibi) parçalar.
+    <li> Mozilla '*|' gibi tuhaf namespace önekini öğe seçicilerine ekler (yalnız belgenin stil sayfalarında en az bir tane @import kuralı varsa ve belgede en az iki tane LINK öğesi varsa ve biri stil sayfasıysa).
+    <li> Safari selectorText içinde ID, attribute, ve class seçicileri tanınmanın ötesindeyse kırılır ve kullanılamaz duruma gelir.
+    <li> Safari kural üzerinde item yöntemi uygulandığında null döndürür
+    <li> Safari 2- ve Konqueror style nesnesinin yöntemleriyle stil ekleme, çıkartma ya da değiştirme yapamaz.
+    <li> Safari, Konqueror ve ICEbrowser style.cssText kullanarak kuralları yazamaz.
+    <li> Safari, Konqueror ve ICEbrowser selectorText özelliğinden herhangi namespace önekini kaldırılır. 
+    <li> Safari ve ICEbrowser selectorText değerini büyük harf yapar, XML tabanlı belgelerde hatalı olmaz.
+    <li> ICEbrowser kural yazımının değişimi .style.color ile olamaz.
+    <li> selectorText ilk virgüle kadar herşeyi alır (ICEbrowser).
+    <li> ICEbrowser olması gereken yerde wildchar ekler
+    <li> ICEbrowser sınıf seçicisini [class~=attribute] olarak değiştirir.
+    <li> ICEbrowser 'margin' gibi kısaltılmış değerlere erişemez ve genişletilmiş yapıyı kullanabilir ('margin-left' gibi).
+    <li> ICEbrowser tüm pixel değerlerini kayan noktayla verir ('0.0px' gibi)
+    <li> ICEbrowser stilleri atarken özelliklerini dikkate almaz.
+</ul>
+Bunlar en sıradan kural tiplerindendir ve stil sayfalarının çoğunluğu yalnız normal stil kurallarını içerir. Normal stil kuralları ve @page kuralı selectorText özelliği vardır kural için seçici yazıyı verir. Burada boşluklar eklenmiş ya da kaldırılmış olabilir. Kuramda istenirse yeniden yazılabilir ama istemiyerek de olsa tarayıcı desteği yeterli değildir.
+<pre>
+document.styleSheets[0].cssRules[7].selectorText = 'div &gt; p';
+</pre>
+Her üç kuralın aynı zamanda stil özellikleri de vardır. Bu işlevsel olarak DHTML içinde kullanılan öğenin style özelliğiyle aynıdır. Ama DOM 2 Stil sayfalarını destekleyen tarayıcılar, genelde daha az bilinen yöntemleri uygularlar. Yazım kuralı olarak iyi bilinen .style.color (Safari ve Konqueror ile de çalışır), Erişmek ve değiştirmek için çeşitli yollar vardır: 
+<br /><br />
+cssText özelliği tüm stillerin yazı görünümünü verir. Başka boşluklar olabilir. En sonunda noklaı virgül olabilir. Stiller parçalanmış ya da birleşmiş olabilirler. Yeni bir değere atamak da olasıdır. 
+<pre>
+document.styleSheets[0].cssRules[7].style.cssText = 'color: lime;
+                                                     font-weight: bold;';
+</pre>
+The length property can be used to find how many styles the browser sees, and the item method can be used to retrieve the style names one at a time. The getPropertyValue method retrieves the value of a named style. The getPropertyPriority method retrieves the priority of a named style (typically 'important'). The removeProperty method removes a named style (it will do nothing if the style is not being used). Lastly, the setProperty method creates or rewrites a style. It requires three parameters; the style name, the value, and the priority.
+<pre>
+var oStyle = document.styleSheets[0].cssRules[0].style;
+oStyle.setProperty('color','lime','');
+oStyle.setProperty('font-weight','bold','important');
+for( var i = 0, j, s = ''; i &lt; oStyle.length; i++ ) {
+  j = oStyle.item(i);
+  s += j + ' = '+oStyle.getPropertyValue(j)+' '+
+               oStyle.getPropertyPriority(j)+'\n';
+}
+alert(s);
+oStyle.removeProperty('color');
+oStyle.removeProperty('font-weight');
+alert('New content: '+oStyle.cssText);
+</pre>
+<h3>@import kuralları ve içeri alınan stil sayfaları (imported stylesheets);</h3>
+<ul>
+    <li> Safari, Konqueror ve ICEbrowser aslında bunu doğru anlar. 
+</ul>
+@import kuralları HTML LINK öğesiyle benzerdir. Yeni bir stil sayfasını gösterir. Bunu yansıtacak ek özellikleri gösterir.
+<br /><br />
+içeri alma kuralıyla href özelliği URL adresini verir. Tüm adres olabilir ('http://' ile başlayan) ya da @import kuralıyla kullanılan tam URL adresidir ('imported.css' gibi). Bu tarayıcı bağımlıdır.
+<br /><br />
+Çok sık kullanılmasa da @import kuralları ortam türleri listesini de içerir. Sonuç olarak kural nesnesi ortam özelliği de içerir (aynı stil sayfalarındaki ortam özellikleri gibidir).
+<br /><br />
+En önemlisi, rule nesnesi aynı zamanda stleSheet nesnesine de sahiptir. Bu içeri alınan stil sayfalarına erişimde kullanılır ve kuralları normal stil sayfalarının özellikleri gibi değiştirilebilir. İçeri alınan stil sayfalarında ownerRule özelliği de vardır. Kendisini içeri alan @import kuralını gösterir.
+<pre>
+alert(document.styleSheets[0].cssRules[0].styleSheet.cssRules[0].cssText);
+</pre>
+<h3>@media blokları</h3>
+<ul>
+    <li> Safari ve Konqueror @media bloğu için parentRule özelliğini desteklemez
+    <li> ICEbrowser ortam sorunlarını anlamaz ama ortam blokları olarak yorumlar ayıraçlarla ortamlara pay eder.
+</ul>
+@media bloğu bir stil seçeneğini belirtilen ortam türleri için hedef yapmanıza olanak verir. @media kuralı stil sayfaları içinde cssRule birikimli tek kuraldır. içindeki stil kuralları cssRules birikiminde bulunmazlar. Aksine her kuralın kendi tüm stilleri içinde bulunduran cssRules birikimi vardır. Bu birikim Stil sayfası nesneleri için aynı cssRules birikimi gibidir.
+<br /><br />
+@media kuralı için insertRule ve deleteRule yöntemleri de vardır. Aynı StyleSheet nesneleri gibi davranırlar. @media kuralı ortam türleri listesi de vardır. Bunun media özelliği de vardır ve StyleSheet nesnesi için bir 'threat' olabilir.
+<br /><br />
+@media bloğu içindeki tüm kurallar aynı zamanda parentRule özelliği de taşır ve içinde olduğu @media bloğunu da gösterir ve bunlar istendiği kadar iç içe bağlıdır (nested). Eğer iç içe girmişlerse kurallara erişim cssRule birikimleri üzerinden olur.
+<pre>
+alert(document.styleSheets[0].cssRules[0].cssRules[0].cssText);
+</pre>
+<h3>Internet Explorer için destek almak</h3>
+
+Internet Explorer Windows ve Mac pek çok DOM 2 Sytle Sheet yöntemlerini ya ada özelliklerini desteklemezler. Ama bir seçenek olarak daha tamamlanmamış olsa da temel stil sayfalarını düzenleme olanağı verir. Eğer IE desteği isterseniz farkları ve sınırlamaları kabul etmek zorundasınız. Önemlisi kodlamanızın IE dışındaki kurallara göre olmamasına dikkat edilmelidir.
+<h3>styleSheet listeleri</h3>
+<ul>
+    <li> Internet Explorer/Mac DOM içinde sayfa yüklendikten sonra, stil sayfalarının birikim listesini yapmaz
+    <li> media özelliği yalnız okuma türüdür Internet Explorer/Mac için.
+    <li> Ortamı 'print' olarak belirleme '' peşinden Internet Explorer/Windows normal web sayfalarını ekrana göre çıkaracağına yazıcıya göre ayarlamaya başlar.
+</ul>
+Internet Explorer diğer tarayıcılar gibi bazı birikimleri destekler ve çoğunlukla aynı biçimde çalışır. type, disabled, href ve title özellikleri hep aynı biçimde çalışır. Ama media özelliği farkldır. media nesnesi olmak yerine o bir dizidir. Sonuç olarak eklenecek, silinecek ya da listelenecek yöntemler yoktur. Eğer değiştirmek isterseniz bir yazı dizisi biçimde olmalıdır. Yeni değer yazmak IE Mac için hata verir bu nedenle try ... catch deyimi gerekir.
+<pre>
+var oSheet = document.styleSheets[0];
+if( typeof(oSheet.media) == 'string' ) {
+  try { oSheet.media = 'screen'; } catch(e) {}
+} else {
+  oSheet.media.mediaText = 'screen';
+}
+</pre>
+Her stil sayfası owningElement ile kendini yaratan öğeyi gösterir aynı standart tarayıcıların ownerNode kullanmaları gibi.
+<pre>
+var oSheet = document.styleSheets[0];
+var oElement = oSheet.ownerNode ? oSheet.ownerNode : oSheet.owningElement;
+</pre>
+IE/Windows LINK ya da STYLE öğesi için styleSheet özelliği sunar, aynı diğer benzer tarayıcıların sheet kullandığı gibi. IE/Mac ortamında bu özellik yoktur.
+<pre>
+var oElement = document.getElementsByTagName('style')[0];
+var oSheet = oElement.sheet ? oElement.sheet : oElement.styleSheet;
+</pre>
+<h3>Stil Sayfaları (Stylesheet) cssRules birikimi</h3>
+<ul>
+    <li> Internet Exploreri/Mac kurallara ekleme ya da silme yapamaz.
+</ul>
+Diğer benzer tarayıcıların cssRules kullanığı gibi IE kurallar birikimini sunar. Ama davranışı oldukça farklı ve uyumsuzdur. Bu nedenle aynı kuralı her birikimde dizilemek doğru değildir.  @page, @media, @import, @charset, ve @font-face kuralları birikime dahil değildir. IE/windows için tüm @media bloğu içindeki tüm kurallar stilsayfalarının kurllar birikiminde vardır. IE/Mac içinde tümüyle unutulmuşlardır. DOM ortamına açık değillerdir. Her iki tarayıcıda @media kuralını değiştirmek olanağı yoktur. IE/windows için yeni kuralları @media bloğuna eklemek olanağı yoktur.
+<br /><br />
+IE içinde stil sayfasının kendisinin bile cssText özelliği vardır. stil sayfalarında tüm CSS değerini verir. Windows için @media blokların herhangi birini içerir. Ama desen uyumu arayarak stil sayfalarını değiştirmek pek de güzel bir uygulama değildir.
+<br /><br />
+IE/Mac hem kuralları hem de cssRules birikimini sunar ama onları her iki IE yoluyla yorumlar (böylece cssText birikimi çok kısadır). Bu nedenle, önce kurallar birikimini aramak ve varsa onu kullanmak, sonra bulunamazsa standart cssText birikimine bakmak gerekir.
+<pre>
+var oSheet = document.styleSheets[0];
+var oRule = oSheet.rules ? oSheet.rules[3] : oSheet.cssRules[7];
+</pre>
+IE/Windows altında kurallar eklemek ya da çıkartmak addRule ve removeRule yöntemiyle yapılır. removeRule yöntemi standart deleteRule kuralıyla aynıdır (tabi ki dizin değeri farklıdır). Ama addRule yöntemi standart insertRule kuralından çok farklıdır. İlkin, iki parametreye gereksinimi vardır: seçici dizi ve kural dizisi. İkincil olarak, stil sayfasının sonuna bir kural olarak eklenir.
+<pre>
+var oSheet = document.styleSheets[0];
+if( oSheet.deleteRule ) {
+  oSheet.deleteRule(7);
+} else if( oSheet.removeRule ) {
+  oSheet.removeRule(3);
+}
+if( oSheet.insertRule ) {
+  oSheet.insertRule('body { background: #779; }',oSheet.cssRules.length);
+} else if( oSheet.addRule ) {
+  oSheet.addRule('body','background: #779;');
+}
+</pre>
+<h3>CSS kuralları</h3>
+<ul>
+    <li> selectorText IE altında ilk virgüle kadar her şeyi içerir.
+    <li> selectorText IE nerede wildchar olmasını beklerse oraya wildcard ekler
+    <li> cssText kıvrımlı parantez {} ekler IE/mac (bunu aynı zamanda Element.style.cssText için de yapar).
+    <li> style.item(0) yöntemi eğer kuralın bilinen hiç bir stili yoksa IE/mac için '}' döndürür
+    <li> selectorText ve cssText içindeki öğeler ve stil adları IE içinde büyük harf olur (XML tabanlı belgelerde geçerli olmamaları nedeniyle)
+    <li> selectorText IE/Mac için yalnız okumadır.
+</ul>
+Kural birikimi yalnız normal stil kurallarından oluştuğundan, kuralların type özelliği yoktur. IE/windows ortamında cssText yoktur. Ama selectorText özelliği vardır ve (birkaç hatadan başka) davranışı diğer benzer tarayıcılar gibi olur. Aynı biçimde parentStyleSheet özelliği vardır.
+<br /><br />
+Onların önemli stil özellikleri de vardır. Ama burada önemli farkları bulunur. IE/windows altında item yöntemi yoktur. for(i in styleobject) deneyebilirsiniz ama size stil sayfasında neyi tanımladıysanız oku döndürmez. Yerine, IE tarafından tanınan tüm olası stillerii aslında kullanıyor olmasanız da adım adım gezer. Bu öyle çok uzun bir liste değildir (zaten çok az stili desteklemektedir) ama kendi stillerinizi tanımanızı oldukça zorlaştırmış olur.
+<br /><br />
+Daha önemlisi, style nesnesinin pek çok yöntemini desteklemez. Bu nedenle .style.color dil kuralına bağlı kalmak zorundasınızdır. Bu tüm tarayıcılarda çalıştığı için bununla çalışmak öyle de zor değildir. Unutmayın ki eğer stillere anlaşılmayan değerler atamanız durumunda IE desteklemediği bu değerleri atacaktır. Unutmayın ki .style.cssText özelliği vardır ve IE/Mac bunu biraz da karıştırır.
+<pre>
+var oSheet = document.styleSheets[0];
+var oRule = oSheet.rules ? oSheet.rules[3] : oSheet.cssRules[7];
+oRule.style.color = 'lime';
+</pre>
+@page kuralları veren StyleSheet.pages birikimi vardır ama bu kurallar içindeki stiller hakkında kullanışlı bilgi vermez.
+<h3>@import kuralları ve içe alınan stil sayfaları</h3>
+<br /><br />
+@import kuralları; IE içinde kendi StyleSheet.imports birikiminde listelenir. Bu birikimdeki her öğe (entry) StyleSheet nesnesidir (@import kuralının stil sayfaları özelliği gibi) Normal stil sayfalarıyla aynı özellikleri içerir. 
+<pre>
+var oSheet = document.styleSheets[0], oImportedSheet;
+if( oSheet.imports ) {
+  oImportedSheet = oSheet.imports[0];
+} else {
+  oImportedSheet = oSheet.cssRules[0].styleSheet;
+}
+</pre>
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

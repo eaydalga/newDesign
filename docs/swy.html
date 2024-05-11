@@ -1,0 +1,225 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Aybim - Sürekli WEB Yayımı</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script language="JavaScript" src="../js/email.js"> </script>
+<script language="JavaScript" src="../js/date.js"> </script>
+<script language="JavaScript" src="../js/float.js"> </script>
+<script language="JavaScript" src="../js/baslik.js"> </script>
+<script language="JavaScript" src="../js/XHConn.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+
+function isteme(t)
+{
+var myConn5 = new XHConn();
+var body="bweb="+t;
+htop();
+resim();
+var fnIsteme = function (oXML) {
+   if(document.getElementById) {
+      target1=document.getElementById('sec5');
+      if(target1) {
+            target1.style.display = "none";
+      }
+      target=document.getElementById('sec11');
+      if(target) {
+            target.innerHTML=oXML.responseText;
+            target.style.display = "inline";
+      }
+   }
+ };
+myConn5.connect("../isteme.php", "GET", body, fnIsteme);
+}
+
+function isteme2()
+{
+var myConn6 = new XHConn();
+var errstr = "";
+var body = "bweb=0&";
+var err;
+htop();
+for(i=0; i < document.forms['wf_Enquiry'].elements.length; i++) {
+    var aa = document.forms['wf_Enquiry'].elements[i].name;
+    if ( aa != "undefined" ) {
+        wff=document.forms['wf_Enquiry'].elements[i].value;
+        err = mycheck(wff,document.forms['wf_Enquiry'].elements[i].className);
+        if (err.length > 0) {
+            errstr += document.forms['wf_Enquiry'].elements[i].name+ ":" + err + "\n";
+        }
+        else {
+            if (!(aa == "sayfa" || aa == "submit" || aa == "undefined")) {
+               body += aa + "=" + wff + "&";
+            }
+        }
+    }
+}
+if(errstr.length > 0) {
+    alert(errstr);
+    return false;
+}
+var fnIsteme2 = function (oXML) {
+   if(document.getElementById) {
+      target1=document.getElementById('sec11');
+      if(target1) {
+            target1.style.display = "none";
+      }
+      target=document.getElementById('sec12');
+      if(target) {
+            target.innerHTML=oXML.responseText;
+            target.style.display = "inline";
+      }
+   }
+ };
+myConn6.connect("../isteme.php", "GET", body, fnIsteme2);
+}
+function bitsin(n)
+{
+   if(document.getElementById) {
+      xx = 'sec'+n;
+      target1=document.getElementById(xx);
+      if(target1) {
+            target1.style.display = "none";
+      }
+   }
+   kapat();
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="ortataraf">
+           <span><img src="../img/transparent.gif" width="1" height="50">
+           <img src="../img/transparent.gif" width="780" height="1"></span>
+           <div id="banner">
+             <img src="img/baslik.gif"><br />
+             <div id="mycontainer">
+               <div id="content">
+<div id="bdy">
+<br>
+<br>
+<div id="sag"><span class="yazi">20 Ekim 2007</span></div>
+<h2>Sürekli WEB Yayımı</h2>
+<p class="yazi">
+WEB tabanlı bu yazılımların birçoğu içerik yönetimi hedeflenerek hazırlanmış yazılımlardır. Burada bizi ilgilendirenler daha çok gazete ve dergi gibi sürekli yayınların Internet ortamına aktarılmasıdır. Aşağıdaki yazılımlar bu amaca yönelik olan açık kaynak kodlu yazılımlardır.
+<br />
+<br />
+<a href="http://www.freeserifsoftware.com/software/WebPlus/key_features.asp">FreeSerifSoftware</a>
+<br />
+Kişisel WEB sayfalarını yayımlamak için kullanılan bir yazılımdır.
+</p>
+
+
+<p class="yazi">
+<a href="http://props.sourceforge.net/">PROPS - News Publishing Platform</a><br />
+İşletim Sistemi: Linux 2.4 with Apache; Unix; NT/W2K/IIS<br />
+PROPS açık ve genişletilebilir Internet yayım sistemi olup özellikle gazete ve dergiler gibi sürekli yayınların etkileşimli yayımı için tasarlanmıştır. Son sürüm 24 Ekim, 2005 tarihinde çıktı.
+</p>
+
+<p class="yazi">
+<a href="http://www.interlogy.com/products/content/article/index.html">Article Manager</a><br />
+İşletim Sistemi: linux, windows, freebsd, osx, sun<br />
+Article Manager, PHP ile yazılmış basit içerik yönetim uygulamasıdır. Yeni haber ekleme, dergi sayıları yayımlama ve basın yayın sürümleri için kullanılır.
+Kurulum çok kolaydır: Dosyaları yükleyin ve ana klasörü yazılabilir yapın her şey çalışmaya başlar.
+</p>
+
+<p class="yazi">
+<a href="http://www.absolutengine.com/">Absolut Engine</a><br />
+İşletim Sistemi: İşletim Sistemi bağımsız<br />
+Absolut Engine, haber yayım ortamıdır. Üç düzeyli erişimi destekler (admin/şef/editor). Sayfa gönderme, düzenleme ve silme işlemleri yapılır. Resim yönetim ve ilgili yazı yönetimi özelliği vardır. PHP-5 altında tam çalışmaya bilir, PHP4 olması önerilir.
+</p>
+
+<p class="yazi">
+<a href="http://genu.org">GENU</a><br />
+İşletim Sistemi: Linux Windows<br />
+GENU haberleri, görüşleri ve kullanıcıları PHP ve MySQL kullanarak yazılmış yönetim sistemidir. Tasarım kalıpları kullanıldığı ve birden çok dil desteği olduğu için tümüyle değiştirilebilme olanağı vardır.
+</p>
+
+<p class="yazi">
+<a href="http://journalness.sourceforge.net/">Journalness</a><br />
+İşletim Sistemi: İşletim Sistemi bağımsız<br />
+WEB ortamında kişisel ya da grup için habercilik/gazetecilik/günce/blog kurma yazılımıdır. Tümüyle PHP kullanılarak hazırlanmıştır. Veri saklamak için veri tabanı kullanır. Son sürüm 16 Mayıs 2007'de çıktı.
+</p>
+
+<p class="yazi">
+<a href="http://www.indymedia.ie/oscailt/">Oscailt</a><br />
+The Oscailt (Irlanda dilinde açık demek) içerik yönetim sistemi. Başlangıçta Irlandada "indymedia" için yazıldı, ama şimdi tüm seçenekleriyle genel amaçlı yeni bir içerik yönetim sistemi olmuştur.
+</p>
+<br />
+<span class="button">
+<a href="javascript:isteme(3)" title="Gereksiniminizi belirtin">Benim Gereksinimim</a>
+</span>
+<br />
+<br />
+<div id="sayfaac" style="display: none;">
+     <div id="banner1"><img src="img/banner.png" title="Kapat" onclick="javascript:kapat();"></div>
+        <div id="contains1">
+           <div id="content1">
+              <div id="sec5" style="display: none;">
+              </div>
+              <div id="sec11" style="display: none;">
+              </div>
+              <div id="sec12" style="display: none;">
+              </div>
+           </div>
+        </div>
+     </div>
+</div>
+</div>
+               </div>
+             </div>
+           </div>
+
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+          <table cellspacing="5">
+          <tr><td align="center">
+            <img src="../img/aybim.png"><br /><br />
+            <a href="index.html" class="box"><img src="img/sand_glass.gif" alt="" title="" border="0" /></a><br />
+            <span class="syazi">Belgeler</span>
+          </td></tr>
+          <tr><td align="center">
+            <a href="kullanici.html" class="box"><img src="img/user.gif" alt="" title="" border="0" /></a><br />
+            <span class="syazi">Kullanıcılar</span>
+          </td></tr>
+          <tr><td align="center">
+           <a href="blog.html" class="box"><img src="img/clipboard.gif" alt="" title="" border="0" /></a><br />
+           <span class="syazi">Blog</span>
+          </td></tr>
+           <tr><td align="center">
+           <a href="filmler.html" class="box"><img src="img/bb_mov.gif" alt="" title="" border="0" /></a><br />
+           <span class="syazi">filmler</span>
+           </td></tr>
+          <tr><td align="center">
+            <a href="webtv.html" class="box"><img src="img/webcam.gif" alt="" title="" border="0" /></a><br />
+            <span class="syazi">Internet TV</span>
+          </td></tr>
+          <tr><td align="center">
+            <a href="bvd.html" class="box"><img src="img/bb_pckg.gif" alt="" title="" border="0" /></a><br />
+            <span class="syazi">BVD</span>
+          </td></tr>
+          <tr><td align="center">
+            <img src="img/news.gif" alt="Sürekli Web Yayımı" title="" border="0" /><br />
+            <span class="syazi">SWY</span>
+          </td></tr>
+          <tr><td align="center">
+            <a href="pg.html" class="box"><img src="img/pg.gif" alt="Panoramik Görüntü" title="" border="0" /></a><br />
+            <span class="syazi">PG</span>
+          </td></tr>
+          </table>
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,1 @@
+https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=ergunx%40aybim%2ecom%2etr&item_name=temel&amount=10%2e00&no_shipping=1&return=http%3a%2f%2fwww%2eaybim%2ecom%2etr%2fodendi%2ephp&cancel_return=http%3a%2f%2fwww%2eaybim%2ecom%2etr%2fiptal%2ephp&no_note=1&currency_code=USD&lc=TR&bn=PP%2dBuyNowBF&charset=UTF%2d8

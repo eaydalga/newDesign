@@ -1,0 +1,135 @@
+Medical Image Database Access via Satellite (MIDAS)
+
+Overview
+
+Background: One long-range goal of modern medical information delivery is to create databases of important research and clinical data which are searchable using computer tools and interfaces. Such databases are expected to eventually include data in all of the categories which currently are grouped under the name of multimedia: text, graphics, voice, and video. Medical images such as digital xray, MRI, CT, and digital photography are particular types of graphics already beginning to figure in prototype databases being built or planned. Because image files are large relative to the amount of text data typically stored in medical databases, the inclusion of such data has two immediate consequences: the size of the new databases will be very large, and the volume of data delivered as search results will also be very large, if images are requested in the search results. Certain classes of medical databases are susceptible to being mass-produced and distributed on conventional media such as CD-ROM. An example might be an atlas of radiological images containing 50-100 cervical and lumbar images representing exemplary cases of various stages of osteoarthritis, along with descriptive data stored in the tables of a relational data base, and the software to retrieve and display the images. However, there are other databases which may only be established at a few major medical sites in the nation, as opposed to being mass-produced and distributed, for these reasons:
+
+   1. the size of the database may be prohibitive--measured in the hundreds of gigabytes--to becoming a mass-marketed commodity;
+   2. the size may necessitate a high-performance processor to do the searches within the user's time constraints; hence, the user may need to use not his own computer, but a borrowed processor;
+   3. the complexity of searches in multimedia databases is expected to increase; research is already ongoing into developing capability to search image data characteristics directly; future search engines may allow not only the text searches of the past, but also search of data in image, voice, or video modalities; with this increase in search complexity, the demands on the search engine may also be expected to increase; this is another reason why the user may need to borrow the resources of a high-performance computer.
+
+Beyond building these sophisticated databases, a second long range goal is to make the databases readily accessible to geographically dispersed users. Since the large databases are expected to be located at national or regional sites, effective electronic communications links must be established between these sites and the user community.
+
+What is an effective communications link, in this context? The ideal is to provide the same response to the remote user of the database that a local user, on the database host computer, would see. In this case we could say that we have an effective omnipresence of our database regardless of geography. The realistic goal is to make the system response time--simplified here as search time plus transmission time--fall within the user's tolerances.
+
+Below is an example of transmission delays which may be expected as a function of various search result sizes, on today's Internet:
+Table 1. Search Result Transmission Times in Seconds
+Current Internet, 20 Kbytes/Sec Rate Assumed Data Type 	Search Result Size
+by Number of Hits Returned
+  	1 	5 	10 	20 	100
+1K Text Record 	.05 	.25 	.50 	1 	5
+Visible Human MRI 	6.4 	32 	64 	128 	640
+Visible Human CT 	25.6 	128 	256 	512 	2560
+Cervical Xray 	251 	1255 	2510 	5020 	25100
+Visible Human dig.photo 	364.8 	1824 	3648 	7296 	36480
+Lumbar Xray 	502 	2510 	5020 	10040 	50200
+
+These estimates are based on an assumed transmission rate of 20 kbytes/sec, which is consistent with values measured in the NLM Communications Engineering Branch (CEB). The transmission times for the large number of hits/large image combinations are clearly unacceptable for many users. One approach to reducing the transmission times may be made by replacing the current Internet communications link with higher-performance links. The two tables below show transmission times for the same data as above when links performing at full T1 rate and at OC-3 rate, respectively are used
+Table 2. Search Result Transmission Times in Seconds
+T1 Link, 193 Kbytes/Sec Rate Assumed Data Type 	Search Result Size
+by Number of Hits Returned
+  	1 	5 	10 	20 	100
+1K Text Record 	.005 	.025 	.050 	.1 	.5
+Visible Human MRI 	.68 	3.4 	6.8 	13.6 	27.2
+Visible Human CT 	2.72 	13.6 	27.2 	54.2 	271
+Cervical Xray 	26.6 	133 	266 	532 	2660
+Visible Human dig.photo 	38.7 	193.5 	387 	774 	3870
+Lumbar Xray 	53.3 	266.5 	533 	1066 	5330
+
+
+Table 3. Search Result Transmission Times in Seconds
+OC-3 Link, 19.375 Mbytes/Sec Rate Assumed Data Type 	Search Result Size
+by Number of Hits Returned
+  	1 	5 	10 	20 	100
+1K Text Record 	.00005 	.00025 	.00050 	.001 	.005
+Visible Human MRI 	.0068 	.034 	.068 	.136 	.68
+Visible Human CT 	.027 	.135 	.27 	.54 	2.7
+Cervical Xray 	.27 	1.35 	2.7 	5.4 	27
+Visible Human dig.photo 	.39 	1.95 	3.9 	7.8 	39
+Lumbar Xray 	.53 	2.65 	5.3 	10.6 	53
+
+The number of cases in Table 1 where transmission time is below 10 seconds (chosen arbitrarily as a possibly acceptable transmission delay for many purposes) is six, and only one of these cases is returning any image data; in Table 2, there are 10 transmissions shorter than 10 seconds, and four of these are image data; and in Table 3, there are 27 such transmissions, 22 of them being image data. As the links become faster, the distinction between local and remote database resources becomes blurred and of increasingly less consequence to the user.
+
+Proposed Experiments
+
+In collaboration with the University of California at San Francisco (UCSF) CEB has formulated an experiment to be conducted using high-speed communications links established by NASA. The experiment has the overall goal of demonstrating prototype systems for remote access to medical databases of text and image data using alternative links substantially faster than today's Internet.
+
+Other goals of the experiment are to assess the performance of the communications links themselves, the TCP/IP protocol performance over the links, and the performance of the particular client/server database applications which will be run over the links.
+
+An important consideration in the planning has been to attempt to go beyond proof of concept and to demonstrate applications which will live beyond the duration of the experiment. The experiment is conceived as having two phases, the first phase being run over a T1 link using a Very Small Aperture Terminal (VSAT), and the second, being run over an OC-3 link using a High Data Rate Terminal (HDRT).
+
+Phase 1: VSAT access will be provided to NLM and UCSF in about May 1995 and will remain in place over about a four-month experimental period. The following experiments will be conducted:
+
+   1. Test the basic throughput of the link by doing mass file transfers of DXPNET digital x-ray images.
+      Application to be Run: Simple File Transfer Program, developed by CEB. Multisocket File Transfer Program, developed by CEB
+
+      Server: NLM
+      Client: UCSF
+      (Roles may be also reversed if this becomes useful.)
+
+      Description: It may be anticipated that an effective T1 rate will not be achieved, due to the characteristics of the TCP/IP protocol. The Simple File Transfer Program will be used to check out basic communications capability on the link and to collect statistics on data transmission rate using TCP/IP on one "socket"--the conventional method used by client/server programs on the Internet. The Multisocket File Transfer Program will be used to collect statistics on data transmission rate using multiple sockets. On the Internet the multisocket technique has resulted in a substantial increase in data transmission rate achievable.
+      Status of software: Operational version is ready.
+   2. Test delivery of document images over the link.
+      Application to be Run: DocView, developed by CEB
+
+      Server: NLM
+      Client: UCSF (PC-based)
+
+      Description: DocView is a Microsoft Windows client application for document retrieval and viewing. The end user will be able to select medical documents for retrieval from a repository established by CEB. Document images selected will be sent over the link to UCSF where they will be automatically displayed and may be manipulated for better viewing, or printed.
+      A goal will be to provide access to several issues of radiology journals in high demand by radiologists working at UCSF. The UCSF station will be placed in an area convenient for the use of UCSF radiologists and advertised as an alternative to going to the UCSF library for journal viewing and article copying.
+      Status of software: Operational version is ready.
+   3.
+
+      Test access to clinical radiology database. Application to be run: Radiology Workstation, developed by UCSF
+
+      Server: UCSF
+      Client: NLM (Mac or Sun--TBD)
+
+      Description: Client will be able to select case studies of radiological images and associated text, such as MRI studies, from the UCSF database. NLM will invite radiologists and other interested medical workers to use and evaluate the system.
+      Two experiments are planned, one focussing on UCSF case histories relating to epilepsy, and the other focussing on case histories relating to myelination.
+      In each case, NIH researchers will be identified who are interested in viewing the case histories by using the Radiology Workstation client in the CEB lab. Researchers are expected to access both text and image data, principally MRI case studies. Feedback and a critique of the features of the system will be solicited from the users. Data on the type of queries made by the users and the type of queries desired by the users will be collected.
+      Status of software: Operational version is ready.
+   4. Test access to spinal x-ray and Visible Human database.
+      Application to be Run: Medical Information Retrieval System, developed by CEB
+
+      Server: NLM
+      Client: UCSF
+      Description: Client will be able to retrieve images and associated medical text data from an epidemiological database constructed with NHANES II data. Client will be able to formulate queries in SQL or SQL-like formulations, or by using a graphical user interface. Client will also be able to retrieve slice data from the Visible Human dataset, with any available associated text. The slice data will include MRI, CT, and digital photography.
+      Status of software: In development.
+   5. Test Standardized Readings Workstation of DXPNET project.
+      Application to be Run: Standardized Readings Workstation (SRW).
+
+      Server: NLM
+      Client: UCSF
+      Description: Client will be able to retrieve a DXPNET cervical or lumbar spine x-ray image from the NLM archive and read the image using an onscreen template for recording the image findings. The findings will become part of the DXPNET database.
+      Status of software: Operational version is available; however, this experiment is only planned to be conducted if several critical issues are resolved by DXPNET collaborators, including the selection of images to be read, the establishment of an acceptable methodology for doing the reading, and concurrence that the existing SRW is acceptable for carrying out the readings. Resolution of these issues is dependent on several factors, including the successful completion of an NIAMS-sponsored workshop on the use of the DXPNET images, planned for Spring 1995.
+
+Phase 2: HDRT access will be established for NLM and UCSF. For NLM the access is expected to be through a tie-in to the ATM/Sonet ATDNet metropolitan area network now under construction. An HDRT will be located at Goddard Space Flight Center (GSFC), and GSFC will be on ATDNet, according to NASA. If NLM is connected to ATDNet, NLM will have physical access to an HDRT. At UCSF the HDRT connectivity is still to be determined. One option being examined is connecting between UCSF and the HDRT to be located at the Jet Propulsion Laboratory by using the statewide CalREN network. The experimental period is expected to extend over a few months.
+
+Within NLM, access to ATDNet is expected to be via ATM-based equipment, with a 155 Mbits/sec ATM card hosted by a Sun workstation, connected with multimode optical fiber to a small ATM switch located within the Lister Hill Center. Connectivity from the NLM premises to the ATDNet backbone is still to be determined.
+
+Applications 1-4 will be repeated over the HDRT link and performance data in running TCP/IP over the ATM link will be collected. If possible, file transfers using native ATM data encapsulation, independent of TCP/IP, will be attempted, and performance statistics collected. This latter option will depend on the availability of vendor software to handle the data encapsulation.
+
+In addition, effective methods for exploiting the OC-3 bandwidth will be studied in the context of providing remote access to a 3-D medical database:
+
+   1. Test access to a three-dimensional medical image database.
+      Application to be run: Medical Information Retrieval System, developed by CEB, integrated with commercial, off-the-shelf three-dimensional reconstruction package.
+
+      Server: NLM
+      Client: UCSF
+      Description: Client will be able to request anatomical features for display and manipulation. The software will provide an index of features available for retrieval or reconstruction. Goal will be to provide requested features from MRI, CT, and digital photography available in Visible Human dataset. System design features and tradeoffs will be studied, including: how much 3-D data should be preconstructed and how much done "on-the-fly"; how much volumetric data (as opposed to screen presentation data) should be sent to the user's workstation (see Table 4 for an example of transmission times and storage requirements on the user's workstation); what are the hardware requirements on the server for efficient, timely 3-D image reconstruction: what types of image manipulation (such as rotating, re-slicing, volume measurements) are useful, how should the processing load for this manipulation be distributed between the client and server, and what types of application features (such as the comparison of retrieved 3-D features from the NLM database with 3-D features produced by other sources) should be provided.
+
+Table 4. Transmission Times, Storage Required to
+Transmit All Volumetric Data for Human Head (250 slices)
+OC-3 Link, 19.375 Mbytes/Sec Rate Assumed Data Type 	Transmission Time (sec) 	Storage Required (MBytes)
+Vis Human MRI 	1.7 	32
+Vis Human CT 	6.75 	131
+Vis Human Photo 	97.5 	1868
+
+NASA Communications Links The communications links used in this experiment are provided by the NASA ACTS satellite launched in October 1993. NASA is providing free satellite time and support for interested experimenters from Government and industry in helping to open up a new Ka-band channel of high-bandwidth communications.
+
+This program offers an opportunity to exploit a test environment to gain experience in operating the high-bandwidth, wide-area applications of the future. It further offers an chance to gain experience in the direct use of satellite channels for delivery of medical information. The use of satellite communications may become increasingly useful in the delivery of time-critical, high-bandwidth information to remote areas or simultaneously to many areas. Even though we are not testing this capability in this experiment, point to multi-point delivery is a major capability of the ACTS system.
+
+Status
+
+NLM and UCSF have been accepted as official VSAT experimenters (Phase 1) by the NASA ACTS experiments office. At the current time, we have standby status as (Phase 2) experimenters in the HDR program, to be accepted if resources become available.

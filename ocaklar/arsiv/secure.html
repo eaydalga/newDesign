@@ -1,0 +1,423 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<TITLE>AYBIM - GUVENLIK</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onload="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+          <a href="../index.php" class="box"><img src="../img/aybim.png" border="0"></a><br /><br />
+          <a href="aglar.html" class="nav">Aglar</a>
+          <a href="aglink.html" class="nav">Aglink</a>
+          <a href="agteknik.html" class="nav">Agteknik</a>
+          <a href="ccode.html" class="nav">C-Kodlama</a>
+          <a href="cprep.html" class="nav">C-Önişleme</a>
+          <a href="crclrc.html" class="nav">CRC/LRC</a>
+          <a href="dea.html" class="nav">DEA</a>
+          <a href="etcsrv.html" class="nav">etcsrv</a>
+          <a href="fork.html" class="nav">Çatal (fork)</a>
+          <a href="ilet.html" class="nav">ilet</a>
+          <a href="inetd.html" class="nav">inetd</a>
+          <a href="make.html" class="nav">Make</a>
+          <a href="msgauth.html" class="nav">Msg Auth</a>
+          <a href="recur.html" class="nav">Özyinelemeli</a>
+          <a href="robots.html" class="nav">Robotlar için</a>
+          <a href="sdlc.html" class="nav">SDLC</a>
+          <a href="secure.html" class="nav">Güvenlik</a>
+          <a href="seri.html" class="nav">Seri uçlar</a>
+          <a href="snalu0.html" class="nav">SNA LU0</a>
+          <a href="snalu62.html" class="nav">SNA LU6.2</a>
+          <a href="tcpip.html" class="nav">tcp/ip</a>
+          <a href="tcpprg.html" class="nav">tcp Programı</a>
+          <a href="unix.html" class="nav">Unix</a>
+          <a href="vi.html" class="nav">vi Editör</a>
+       </div>
+       </td>
+       <td valign="top">
+       <div id="ortataraf">
+           <span><img src="../img/transparent.gif" width="1" height="50">
+           <img src="../img/transparent.gif" width="780" height="1"></span>
+           <div id="banner">
+             <img src="img/baslik.gif"><br />
+             <div id="mycontainer">
+               <div id="content">
+<div id="bdy" class="yazi">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8541306787668208";
+//728x90, created 1/16/08
+google_ad_slot = "7459135715";
+google_ad_width = 728;
+google_ad_height = 90;
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<br>
+<br>
+<div id="sag"><span class="yazi">24 Ocak 2008</span></div>
+<H2> UNIX ORTAMINDA GÜVENLİK ÖNLEMLERİ </H2>
+<P>
+<h3>ÖNSÖZ</h3>
+<P>
+Burada açıklanan konu başlıkları, sistemlerin biraz daha güvenli 
+kullanılmasını, yetkisiz kişilerin bilerek ya da bilmeyerek sistemin işleyişine
+zarar vermesini engelleyen temel önlemlerdir.
+<P>
+Ancak, işletim sistemlerindeki hata ve boşluklardan yararlanarak yetkisiz olduğu
+halde yetkili kullanıcı adı ile sisteme girmek ve sistemi kendi çıkarları 
+doğrultusunda istediği gibi değiştirmek bilgisayar kullanıcıları için çok
+kolaydır. Bu konuda birçok yayın INTERNET ortamında bulunmaktadır. İşletim
+sistemlerindeki hataları arayıp bulan pekçok da kullanıcı vardır. Bu kullanıcılara
+"hacker" adı verilmektedir. Bütün emelleri toplum kullanımına sunulmuş bir
+ürünü kendi çıkarları doğrultusunda kullanmaktır. Telefona para ödemeden
+kullanmak, bir bilgisayara abone ücreti ödemeden bağlanıp INTERNET olanaklarını
+kullanmak gibi.
+<P>
+Bugüne değin pekçok öyküye konu olan bu tür kullanıcıların hepsini engellemek
+mümkün değildir. Ama caydırıcı olmak için neler yapılması gerektiği burada
+kısaca anlatılmıştır.
+<P>
+<h3>İLK SİSTEM KURULUŞUNDAN SONRA</h3>
+<P>
+Genelde UNIX işletim sistemleri kurulurken en yetkili kullanıcı olan 
+<B>root</B> için şifre (password) yoktur. Sistem kuruluşu bitinceye kadar
+bu kullanıcı için şifre verilmez. Pekçok yerde sistem kuruluşu bittiği
+halde <B>root</B> için şifre verilmeden sistem kullanıcılara teslim edilir.
+Bu dikkatsizlik yetkisiz bir kullanıcının "login" ekranından "root" kullanıcı
+adı ile girmesine olanak verir. <B>root</B> bir UNIX sisteminde "super" 
+kullanıcı olduğu için herşeyi yapabilir. Böylece yetkisiz bir kişi de 
+bilmeden en önemli bilgileri bile silebilir. Kısacası sistem kuruluşu 
+tamamlandıktan sonra hemen <B>root</B> için bir şifre tanımlanmalıdır.
+<P>
+<h3>ŞİFRE DEĞİŞTİRME</h3>
+<P>
+Kullanıcı şifreleri 10-15 günlük aralıklarla değiştirilebilmeli, sistem
+kullanıcıyı şifre değiştirmeye zorlamalıdır. Şifre değiştirme işleminde
+kullanıcıların dikkat etmesi gereken konu, şifrenin anlamlı sözcüklerden
+oluşmamasının sağlanmasıdır. Anlamlı sözcüklerden oluşan şifreler çok kolay
+kırılabilir.
+<P>
+<h3>YETKİLİ KULLANICILAR </h3>
+<P>
+UNIX sistemlerinde root kadar olmasa da, yaptıkları bazı işlemler nedeniyle
+yetki düzeyleri yüksek kullanıcılar vardır. Genelde sistemi yükleyen kişiler
+bu kullanıcıların şifrelerini ilk yüklendiği biçimde bırakır, değiştirmezler.
+Bu tür kullanıcıların ilk yükleme anında ya şifreleri yoktur, ya da kullanıcı
+adı ile şifreleri aynıdır. Bu kullanıcılar ya tümüyle sistemden çıkarılmalı,
+ya da yetkisiz kişiler kullanmasın diye şifre verilmelidir.
+<P>
+Bazı kullanıcıların ilk yükleme anındaki şifreleri, yetki düzeyleri ve
+sistemde yapabilecekleri aşağıda anlatılmıştır :
+<UL><PRE>
+Kullanıcı Adı  Şifresi
+=============  ==================
+root           root veya boş
+sys            sys / system / bin
+bin            sys / bin
+mountfsys      mountfsys
+adm            adm
+uucp           uucp
+nuucp          anon
+reboot         
+umountfsys     umountfsys
+admin          admin
+</PRE></UL>
+<B>bin ve sys kullanıcısı</B>
+<P>
+Bu kullanıcı aslında sıradan bir kullanıcı gibidir. Ancak pekçok programın
+ve kütüğün sahibi olduğu için çok güçlüdür. Örneğin passwd kütüğünün
+sahibi "bin" kullanıcısı ise, sisteme "bin" olarak girip passwd kütüğüne
+"root" yetkisinde yeni bir kullanıcı ekleyebilirsiniz.
+<P>
+<B>reboot kullanıcısı</B>
+<P>
+Bu kullanıcının şifresi yoksa, yetkisiz biri ağda, sunucu görevi yapan
+bilgisayarı beklenmedik bir anda durdurup yeniden başlatabilir. Belki de
+çok önemli bir işi yarıda kesip tüm veri tabanını bozmuş olabilir.
+<P>
+<B>mountfsys ve umountfsys kullanıcıları</B>
+<P>
+reboot kullanıcısı gibi. Özellikle umountfsys beklenmedik anda kütük sistemini
+UNIX dışına çıkarıp tüm sistemin işlemesini bozabilir.
+<P>
+<B>adm ve admin kullanıcıları</B>
+<P>
+Buradaki kullanıcı için çoğu kez bir program çalışır ve bu program yardımı ile
+sistemle ilgili düzenleme ve ayar işlemleri yapılır. Sisteme yeni kullanıcı
+eklenebilir. Eğer şifre değiştirilmez ise yetkisiz biri çok rahat kendisine 
+yeni bir kullanıcı tanımlayabilir.
+<P>
+<h3>KULLANIM HAKLARI</h3>
+<P>
+UNIX ortamında bir kütüğü kullanmak için üç temel hak vardır; <B>Okuma</B>, 
+<B>Yazma</B>, <B>Çalıştırma</B>. Veri kütükleri için Çalıştırma hakkı olamaz. 
+Bu hak yalnız program ve "shell" komutlarına verilir. Bir kişinin bir kütük 
+üzerinde <B>okuma</B> hakkı varsa, kişi o kütükteki tüm bilgileri okur ve 
+başka bir yere kopyalayabilir.
+<P>
+Bir kişinin bir kütük üzerinde <B>yazma</B> hakkı varsa, o kütükteki bilgileri
+silebilir veya değiştirebilir.
+<P>
+<h3>KULLANICI, GRUP VE DİĞERLERİ İÇİN KÜTÜK KULLANIM HAKLARI</h3>
+<P>
+UNIX ortamında kullanıcılar yetkilerine göre gruplara bölünmüştür. Aynı
+grupta olan kullanıcılar birbirlerinin kütüklerine erişebilirler, birbirlerinin
+yurtlarında dolaşabilirler. Kütük sahibi ile aynı grupta olmayan kullanıcılara
+<B>diğer kullanıcılar</B> denir.
+<P>
+Her kütüğün kullanım hakkı, o kütüğün sahibi, kütük sahibi ile aynı
+grupta olanlar ve diğerleri diye bölümlere ayrılır. Bu gruplamaların her
+birinde farklı okuma, yazma ve çalıştırma hakları vardır. Örneğin kütük
+sahibinin kütük üzerinde hem okuma hem de yazma hakkı varken, aynı gruptaki
+diğer kullanıcıların yalnız okuma hakkı bulunabilir. Diğer kullanıcılar için
+kütüğe erişim hakkı verilmeyebilir.
+<P>
+UNIX ortamında bu bilgi <B>"ls -l"</B> komutu ile
+<UL><PRE>
+- rwx rwx rwx 
+   |   |   +--- diğerleri
+   |   +------- aynı gruptakiler
+   +----------- kütük sahibi
+</PRE></UL>
+biçiminde gösterilir.
+<P>
+Bir kütük yaratılırken kütük üzerindeki kullanıcı erişim hakları <B>.profile</B>
+kütüğünde yer alan <B>umask</B> komutu ile belirlenir. Ancak kütük sahibi
+bu hakları <B>chmod</B> komutu ile değiştirebilir.
+"root", "super" kullanıcı olduğu için sistemdeki bütün kütüklere erişebilir.
+<P>
+<h3>KULLANICI VE GRUP NUMARASI ATAMA HAKKI</h3>
+<P>
+Bu erişim hakkı bir programı, program sahibinin veya grubun yetkileri 
+ile çalıştırabilme
+işlemidir. Yani programın sahibi "root" ise bir kullanıcı bu programı
+çalıştırdığında program "root" yetkisinde işlem yapar. Örneğin şifre
+değiştirme, mount, umount ve login bu tür programlardır. <B>Kullanıcı 
+Numarası Atama</B> 
+hem kütük sahibi hem de aynı grupta olan kullanıcılar için verilebilir. 
+<B>Kullanıcı ve grup numarası atama yetkisi</B>
+kullanıcı için verilmiş ise program çalışırken o kütüğün sahibine ait kullanıcı
+numarası etkin kullanıcı numarası olarak atanır. Gruba bu hak verilmiş ise
+programı çalıştıran kişi, grup numarasını etkin grup numarası olarak kullanır.
+Diğer kullanıcılar için bu kavram <B>text on swap</B> olarak tanımlanır. 
+Yani diğer kullanıcı, bu programı çalıştırabilir ama okuyamaz ve kütüğe yazamaz. 
+Bu özellik güvenlik önlemi gerektiren yollarda ve kütüklerde çok sık kullanılır. 
+<P>
+<h3>YOL (DIRECTORY) HAKLARI</h3>
+<P>
+Bir yol adımında kullanıcının çalıştırma hakkı yoksa o yolda ilerleyemez,
+hiçbir biçimi ile yolun altındaki kütükleri göremez. Kullanıcı yolun sahibi
+bile olsa bu cümle doğrudur. Ancak root tüm yolları gezebilir. Kullanıcının
+bir yol adımında okuma hakkı yok, erişim (çalıştırma) hakkı varsa o adımın
+altındaki kütükleri göremez ama çalıştırabilir. Yol adımı üzerinde <B>text on
+swap</B> hakkı varsa kütükleri çalıştırabilir ama göremez. Çalıştırma (x) ve 
+<B>text on swap</B> (t)
+hakları arasındaki en önemli fark kullanıcı (x) hakkı olan bir yola "cd"
+komutu ile gidebilir ve buradaki kütüklerin adlarını "ls" komutu ile
+öğrenebilir, ama (t) hakkı varsa "cd" komutu ile o yola girse bile "ls"
+komutu ile içindeki kütükleri göremez.
+<P>
+Örneğin /etc yolunda diğer kullanıcılar için (t) hakkı verilmiş ise. Bu yolun
+sahibi olmayan kullanıcılar /etc yolu altındaki kütüklerin adlarını bile
+göremezler ama buradaki programları çalıştırabilirler.
+<P>
+<h3>BAZI ÖNEMLİ KÜTÜKLER</h3>
+<P>
+Buradaki kütüklerin içeriğinin yetkisiz kullanıcılar tarafından değiştirilmemesi
+gerekir. Bu kütükler sistemde çok iyi korunmalıdır. Mümkünse bu kütüklerin
+erişim hakları diğer kullanıcıların erişemiyeceği biçimde tanımlanmalıdır.
+<P>
+<UL>
+<LI>/etc/passwd - Kullanıcı tanımlarının ve şifrelerinin bulunduğu kütük.
+<P>
+Bu kütüğün genel yapısı : <P>
+<NOBR>kullanıcı adı:şifre:kullanıcı no:grup no:açıklama:kullanıcı yurdu:çalışacak program</NOBR>
+<P>
+biçimindedir. Eğer shadow kütüğü varsa buradaki şifre alanında "x" simgesi
+bulunur.<P>
+<LI>/etc/shadow - Şifreler için gölge kütük. Bu kütükteki bilgileri yalnız "root"
+okuyabilir.
+<P>
+<LI>/etc/group - Bu kütük geçerli kullanıcı gruplarını tanımlar. Kalıbı :
+<UL>
+<PRE>
+grupadı:şifre:grupno:bu gruptaki kullanıcılar
+</PRE>
+</UL>
+Çoğu sistemlerde grup için şifre tanımlanmamıştır. Bu durumda sıradan bir
+kullanıcı kendini önce yetkili bir gruba tanıtıp, sonra <B>"newgrp"</B> komutu 
+ile yetkili bir grubun üyesi yapabilir.
+<P>
+<LI>/usr/mail/&lt;Kullanıcı_adı&gt; - "mail" programının bir kullanıcıya gelen 
+postayı sakladığı yerdir. Bu yola yalnız ilgili kullanıcı
+girebilmeli, diğer kullanıcılara kapalı olmalıdır.
+<P>
+<LI>/usr/lib/cron/crontabs - Buradaki kütükler "cron" programının yapacağı işleri
+tanımlamak için kullanılır. Yetkisiz kullanıcılar bu alana komut
+girmemelidir.
+<P>
+<LI>/etc/inetd.conf - <B>inetd</B> programı ağdan gelen mesajları dinler. 
+İstenilen servisi bulunca inetd.conf kütüğündeki programı çalıştırarak
+bu mesajın algılanmasını sağlar.
+<P>
+<LI>/etc/services - <B>inetd</B> ve diğer ağ programları tarafından 
+kabul edilen servisleri tanımlandığı kütüktür.
+<P>
+<LI>/etc/exports - <B>nfs</B> için hangi sistemlerin hangi kütük 
+sistemlerine nasıl erişeceğini gösteren kütüktür.
+<P>
+Bu kütüğün genel kalıbı : <P>
+<UL><PRE>
+mutlak yol  bilgisayar adı(paylaşım seçenekleri)
+</PRE></UL>
+<P>
+Bilgisayar adı için genişletilebilir karakterler kullanılabilir. Paylaşım
+seçenekleri hakkında açıklayıcı bilgi her UNIX sisteminde bulunmaktadır. Ya
+"man nfsd" ya da "man exports" komutu ile bu bilgilere erişilebilir.<P>
+<LI>/etc/hosts - Bu kütük ağdaki diğer komşu bilgisayarların adlarını içerir.
+Güvenlik ve bakım kolaylığı için bu kütükte yalnız yerel bilgisayarın 
+kısa adı ve uzun adı bulunmalı,
+diğer bilgisayarların adları ise ad sunucusundan alınmalıdır. 
+Böylece ad sunucuya
+eklenen bir bilgisayar adı, ağ içindeki diğer bilgisayarlar tarafından da
+tanınmış olur. Hepsinde yeniden tanımlama yapılmaz.
+<P>
+<LI>/etc/hosts.allow - Başka bilgisayarların sisteme erişmesi için bu kütükte
+tanımlarının bulunması gerekir.
+<P>
+/etc/hosts.deny - Başka bilgisayarların erişimini engellemek bu kütüğe
+yazılan bilgisayar adı ile olur.<P>
+Bu kütüklerdeki tanımların genel kalıbı :<P>
+<UL><PRE>
+&lt;deamon prg&gt;:&lt;bilgisayar adı&gt;[:&lt;shell komutu&gt;]
+</PRE></UL><P>
+biçimindedir.
+<P>
+<B>deamon program</B>lar bir ya da daha çok program adı ve program adı için
+kullanılan genişletilebilir karakterlerdir (wild characters). Bu programlar
+boşluk veya virgül ile birbirlerinden ayrılır.
+<P>
+<B>bilgisayar adı</B> bir ya da daha çok bilgisayar adı, yöre adı veya
+genişletilebilir karakterlerdir. Bilgisayar adları boşluk veya virgül ile
+birbirinden ayrılır.
+<P>
+<B>Bilgisayar adı tanımlama :</B>
+<P>
+<UL>
+<LI>nokta (.) ile başlayan bilgisayar adlarında erişim yapan bilgisayar adının
+sonu aynı olanlar ilgili kütükte yer alıyor kabul edilir. Örneğin .yore.com.tr
+bu yöredeki tüm bilgisayarlar anlamına gelir.
+<LI>nokta (.) ile biten bilgisayar adlarında başı aynı olan bilgisayar adresleri
+ilgili kütükte yer alıyor kabul edilir. Örneğin 195.174.26. bu adresle başlayan
+tüm bilgisayarlar anlamına gelir.
+<LI>n.n.n.n/m.m.m.m biçiminde yazılan bilgisayar adları ağ ve maske tanımı olarak
+kabul edilir ve bu ağ içindeki bilgisayarlardan maskelenebilenler ilgili
+kütükte yer alıyor demektir. Örneğin 195.174.26.0/255.255.255.0 bu ağdaki
+maskelenebilen tüm bilgisayarları tanımlar.
+<LI>ALL sözcüğü tüm bilgisayarlar anlamına gelir.
+<LI>LOCAL noktalı olmayan bilgisayar adları demektir.
+<LI>UNKNOWN bilinmeyen bilgisayar adları demektir.
+<LI>KNOWN bilinen bilgisayar adları demektir.
+<LI>PARANOID adı, adresine uymayan bilgisayarlar demektir.
+<LI>EXCEPT komutu, bilgisayar ve deamon program listelerindeki istisnalar
+için kullanılır. Yani bir türe uygun tanım dışında kalanlar bu komut ile
+belirtilir. Örneğin : <P>
+<UL>
+<PRE>
+.yore.com.tr EXCEPT bodrum.yore.com.tr
+</PRE></UL>
+gibi.<P>
+</UL>
+<P>
+<LI>/etc/resolv.conf - Bu kütükte yer alan bilgiler; ağ üzerindeki 
+bilgisayarlar
+adlarının çözümünde kullanılan eklerin sıralanışı ve ad sunucu (name server) 
+bilgisayarların hangi sıra ile aranacağını tanımlar.
+<P>
+<LI>/etc/networks - sistemin tanıdığı ağların adları burada yer alır.
+<P>
+</UL>
+<P>
+Aşağıdaki kütüklere yazılan bilgi, sistem yöneticisi tarafından sürekli
+izlenmeli varsa önemli kayıtlar incelenerek kimin sistem güvenliğini aşmaya
+çalıştığı belirlenmeli, gerekirse önlem alınmalıdır.
+<P>
+<UL>
+<LI>/usr/adm/sulog - "su" komutunun kullanımına ait bilgileri saklar.
+<P>
+<LI>/usr/adm/loginlog - login bilgilerini saklar.
+<P>
+<LI>/usr/adm/errlog - Hata mesajlarının yazıldığı kütüktür.
+</UL>
+<P>
+<h3>INTERNET ORTAMINDA KULLANILAN BAZI PROGRAMLAR</h3>
+<P>
+INTERNET ortamında kullanılan bazı programlarda alınması gereken
+güvenlik önlemlerine ait kısa açıklama bu bölümde anlatılmıştır.
+<UL>
+<LI>ftp : bilgisayarlar arasında kütük taşıma programı. Bu program misafir
+kullanıcı (anonymous veya ftp) olarak sisteme erişildiğinde yetki ayarları 
+açısından önemlidir. Buradaki yetki ayarları şöyle özetlenebilir :
+<P>
+<UL>
+<LI> ~ftp yurduna ftp kullanıcısı sahip olmalı ve baskasının Yazma yetkisi
+olmamalı.
+<LI> ~ftp/bin yolunun sahibi "root" olmalı ve başkasının yazma yetkisi
+olmamalı. Burada "ls" programı bulunmalı ve erişim yetkisi 
+<NOBR>"--x --x --x"</NOBR>
+olarak tanımlanmalı.
+<LI> ~ftp/etc yolunun sahibi "root" olmalı ve başkasının yazma yetkisi
+olmamalı.
+<LI> ~ftp/etc yolu altında "passwd" ve "group" kütükleri "ls" komutunun
+kullanıcı adlarını alabilmesi için bulunmalı ve "passwd" kütüğü gerçek
+kütük olmamalı, şifre alanı boş olmalıdır. Bu kütüklere erişim yetkisi
+<NOBR>"r-- r-- r--"</NOBR> olarak tanımlanmalıdır.
+<LI> ~ftp/pub yolunda <NOBR>"rwx r-x r-x"</NOBR> yetkileri bulunmalı, bu yolun sahibi
+ftp kullanıcısı olmalıdır.
+<LI> ~ftp/incoming yolunda <NOBR>"rwx -wx -wx"</NOBR> yetkileri bulunmalı, 
+herkes buraya yazabilmeli ama buradan okuma yapamamalı.
+</UL>
+<P>
+<LI>rlogin : ağa bağlı diğer bir bilgisayarın login ekranından terminal olarak
+sisteme girme işlemidir (telnet gibi).
+<P>
+<LI>rsh : ağa bağlı diğer bir bilgisayarda komut çalıştırma işlemidir. Özellikle
+benzer tanımlanmış bilgisayarların birinde tanımlı bir kullanıcı, diğerinde de
+varsa login yapmadan bir sistemden diğerine geçiş yapılabilir. Bu nedenle
+rsh kullanılan ortamlarda sistemin dış kullanıcılardan ve yetkisiz 
+kullanıcılardan korunması gereklidir.
+<P>
+<LI>finger: Bu program sistemde tanımlı kullanıcılara ait bilgi verir. INTERNET
+ortamında bu programın dış kullanıcılara kapalı olmasında yarar vardır. Hangi
+kullanıcının en son ne zaman sisteme girdiği bu komutla öğrenilebilmektedir.
+Yetkisiz biri uzun zamandır kullanılmayan bir kullanıcıyı bu komutla kolayca
+bulup onun yerine sistemi kullanmayı deneyebilir. Çünkü bu kullanıcının
+şifresi çok uzun zamandır değişmemiştir ve şifre deneme çalışmaları kimsenin
+dikkatini çekmez.
+</UL>
+<P>
+<HR>
+<br />
+</div>
+               </div>
+             </div>
+           </div>
+
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

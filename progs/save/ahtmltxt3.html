@@ -1,0 +1,57 @@
+<html>
+<body>
+<div id="sag"><span class="yazi">1 Aralık 2007</span></div>
+<h2>Stiller</h2>
+<span class="yazi">
+</span>
+<div class="yazi">
+
+<h3>Stiller nasıl kullanılır</h3>
+
+Bir tarayıcı stil sayfalarını okuyunca belgeyi buna göre kalıplar. Stil sayfalarını eklemenin üç yolu vardır:
+
+<h3>Dışsal Stil Sayfaları</h3>
+
+Birden çok sayfaya uyarlandığında dışsal stil sayfaları en kullanışlı olanıdır. Tüm sayfalar aynı stil dosyasıyla kalıplanır. Her stil dosyası &lt;link&gt; biçiminde tanımlanır. Bu komut &lt;head&gt; bölümünde yer almalıdır.
+
+<fieldset class="fyazi">
+<pre>
+&lt;head&gt;
+&lt;link rel="stylesheet" type="text/css"
+href="mystyle.css"&gt;
+&lt;/head&gt;
+</pre>
+</fieldset>
+
+<h3>İçsel Stil Sayfaları</h3>
+
+Bir sayfanın tekil stil tanımı için kullanılır. "head" bölümünde &lt;style&gt; biçimiyle tanımlanır.
+
+<fieldset class="fyazi">
+<pre>
+&lt;head&gt;
+&lt;style type="text/css"&gt;
+body {background-color: red}
+p {margin-left: 20px}
+&lt;/style&gt;
+&lt;/head&gt;
+</pre>
+</fieldset>
+
+<h3>Satır içi stiller</h3>
+
+Bir öğenin tekil kullanımı için gereken stil tanımı satır içi stil tanımıyla sağlanır.
+
+satır içi stillerde kullanılan biçimin içinde stil tanımları yapılır. Stil nitelikleri CSS özelliklerini içerir. Aşağıdaki örnek bir paragrafın sol kenarını ve yazı rengini değiştirir:
+
+<fieldset class="fyazi">
+<pre>
+&lt;p style="color: red; margin-left: 20px"&gt;
+This is a paragraph
+&lt;/p&gt;
+</pre>
+</fieldset>
+</div>
+<br />
+</body>
+</html>

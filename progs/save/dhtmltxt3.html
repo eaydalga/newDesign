@@ -1,0 +1,420 @@
+<html>
+<body>
+<div id="sag"><span class="yazi">26 Kasım 2007</span></div>
+
+<h2>Eskiden olup şimdi olmayanlar ve yeniler</h2>
+
+<div class="yazi">
+
+Şimdiye dek katmanların CSS özelliklerine erişimini incelendi. Şimdi bu katmanlara bir şeyler yazma incelenecektir. Tarayıcılara bağlımlı özellikleriyle katmanlara nasıl yazı yazılır?
+
+<h3>Netscape 4</h3>
+
+<p class="yazi">
+NN 4 ilk incelenecek olandır. En kolayı da bu tarayıcıdır. Javascript kullanarak:
+</p>
+<pre>
+  document.layers[layerID].document.open();
+  document.layers[layerID].document.write('Bu yeni içerik');
+  document.layers[layerID].document.close()
+</pre>
+yazabiliriz. Fakat "with()" işleviyle bunu daha da kısaltabiliriz:
+<pre>
+    with(document.layers[layerID].document){
+        open();
+        write('Bu yeni içerik');
+        close();
+    }
+</pre>
+<p class="yazi">
+Bu oldukça kolaydır. Sayfanın içine "document.write()" ile yazmak gibi...
+</p>
+
+<h3>Internet Explorer 4</h3>
+
+<p class="yazi">
+Şimdi IE 4 ile sayfaya yazmaya bakalım:
+</p>
+<pre>
+    document.all[layerID].innerHTML="Bu yeni içerik";
+</pre>
+
+<p class="yazi">
+  innerHTML gibi IE outerHTML ve "outerText" işlemini destekler.<br />
+  Farkı belirtebilmek için aşağıdaki kodlama hazırlandı.<br />
+  Unutmayın ki bu kod NN 4+ da çalışmaz...<br />
+</p>
+<pre>
+  &lt;div id=&quot;myLayer1&quot;
+          style=&quot;position:absolute;
+                     visibility:hidden&quot;&gt;
+        Bu&lt;b&gt;Katmanın&lt;/b&gt; İçeriğidir
+  &lt;/div&gt;
+</pre>
+
+<div id="myLayer1" style="position:absolute;visibility:hidden">Bu <b>Katmanın</b> İçeriğidir</div>
+
+<script>
+function AP(layerID,prop){
+	if(document.getElementById){
+		alert(eval("document.getElementById(layerID)."+prop));
+	}else if(document.all){
+		alert(eval("document.all[layerID]."+prop));
+	}else{
+		alert('You can\'t use Netscape 4 to view this example');
+	}
+}
+</script>
+<form>
+  <input type="button" value="innerText" onclick="AP('myLayer1','innerText')">
+  <input type="button" value="innerHTML" onClick="AP('myLayer1','innerHTML')">
+  <input type="button" value="outerText" onClick="AP('myLayer1','outerText')">
+
+  <input type="button" value="outerHTML" onClick="AP('myLayer1','outerHTML')">
+</form>
+
+<p class="yazi">
+Bu tüm özellikleri gösterdiği için çok iyidir. Unutmayın ki 
+  <b>innerText</b> <b>outerText</b> aynı değeri döndürür. Ama aralarında çok büyük fark vardır. Eğer "innerText" için atama yaparsanız katmanın içindeki yazıyı değiştirir. Ama "outerText" tüm katmanı değiştirir (katmanın dışını da). Bu nedenle artık kullanılmuyor, yalnız innerHTML kullanıyoruz...
+</p>
+
+<h3>IE 5 ve NS 6</h3>
+
+  IE 5 <b>innerHTML</b>, <b>outerHTML</b>, <b>innerText</b>, 
+  ve <b>outerText</b> kullanır aynı IE 4 gibi. Ama NS 6 yalnız innerHTML kullanabilir. Şimdilik IE 5 ve NS 6'da kullanabilmek için yalnız "innerHTML" kullanılacaktır:
+
+<pre>
+    document.getElementById(layerID).innerHTML="Bu yeni içeriktir";
+</pre>
+
+<h3>Arayis İşlevi</h3>
+
+Eskiden katmanların CSS özelliklerine erişmek için soysal bir işlev tanımlandı.
+<fieldset class="yazi">
+<pre>
+  &lt;script&gt;
+
+     function writeLayer(layerID,txt){
+        if(document.getElementById){
+           document.getElementById(layerID).innerHTML=txt;
+        }else if(document.all){
+           document.all[layerID].innerHTML=txt;
+        }else if(document.layers){
+           with(document.layers[layerID].document){
+                open();
+                write(txt);
+                close();
+           }
+        }
+     }
+  &lt;/script&gt;
+</pre>
+</fieldset>
+</div>
+
+<h3>Yazıyı nasıl yazarız</h3>
+
+<div class="yazi">
+Önce bir giriş alanı yaratmak gerekir. Biz de onu yaptık:
+<pre>
+  &lt;form&gt;
+        Yazılacak Yazı:
+        &lt;input type=&quot;text&quot; name=&quot;TT&quot; 
+                  value=&quot;Ryan Rules!&quot;&gt;
+        &amp;nbsp;
+        &lt;input type=&quot;button&quot; 
+                  value=&quot;Type Text&quot;&gt; <br />
+        &lt;input type=&quot;button&quot;
+                  value=&quot;Stop!&quot;&gt;<br />
+  &lt;/form&gt;
+</pre>
+<p class="yazi">
+  Sonra bir katman yaratmalı:
+</p>
+<pre>
+  &lt;div id=&quot;TL&quot;
+          style=&quot;position:absolute;
+                      font-family:Verdana;
+                      font-size:24px;
+                      text-align:center;
+                      color:blue&quot;&gt;
+  &lt;/div&gt;
+</pre>
+<p class="yazi">
+  Ve şimdi koda geçelim:
+</p>
+<pre>
+  &lt;script&gt;
+      var interVal1, i=0;
+      function typeIt(layerID,content){
+         if(i==content.length){
+            i=0;
+            writeLayer(layerID,&quot;&quot;);
+            return false;
+         }else{
+            i++;
+         }
+         writeLayer(layerID,content.substr(0,i));
+      }
+  &lt;/script&gt;
+</pre>
+<p class="yazi">
+  Bu kod, yazıyı bir değişkenden alsa ne olur?
+</p>
+<pre>
+  &lt;script&gt;
+    function typeLayer(layerID,content){
+       writeLayer(layerID,'');
+       i=0;
+       interVal1=setInterval("typeIt('"+layerID+"','"+content+"')",300);
+    }
+  &lt;/script&gt;
+</pre>
+<p class="yazi">
+  Bu kod katmanın önceki içeriğini siler ve "i" değişkeninin değerini sıfırlar. Artık bizim giriş alanı aşağıdaki biçimde yazılır:
+</p>
+<pre>
+  &lt;form&gt;
+        Type Text:
+        &lt;input type=&quot;text&quot; name=&quot;TT&quot; 
+                  value=&quot;Ryan Rules!&quot;&gt;
+        &amp;nbsp;
+        &lt;input type=&quot;button&quot; 
+                  value=&quot;Type Text&quot;
+                  onclick=&quot;typeLayer('TL',document.forms[0].TT.value)&quot;&gt; 
+        &lt;input type=&quot;button&quot; value=&quot;Stop!&quot; 
+                  onclick=&quot;clearInterval(interVal1)&quot;&gt;
+  &lt;/form&gt;
+</pre>
+<p class="yazi">
+  Unutmayın ki NN 4'de yeni yazının rengi "mavi 24px Vedana" değildir. NN 4
+katmanın CSS özelliğine erişim farklı olabilir. Aşağıdaki örnekte NN 4 için "style" kodunun nasıl korunduğu gösterilmiştir.
+</p>
+<pre>
+   function typeIt(layerID,content){<br />
+      if(i==content.length){<br />
+         i=0;<br />
+         writeLayer(layerID,&quot;&quot;);<br />
+         return false;<br />
+      }else{<br />
+         i++;<br />
+      }<br />
+      writeLayer(layerID,'&lt;span 
+                 style=&quot;font-family:Verdana;
+                        font-size:24px;
+                        text-align:center;
+                        color:blue&quot;&gt;
+                 '+content.substr(0,i)+'&lt;/span&gt;');
+   }
+</pre>
+ 
+<h3>Çözüm</h3>
+
+Bu yazılım artık bitti. Şimdi yeni bir çözümü tanımlama zamanıdır. Bir içeriği katmana yazmak o kadar zor bir iş değildir. Eskiden öğrendiklerimizle yeni öğrenilenleri birleştirip bir slayt gösterisi hazırlayalım. Bu yalnız resimlerden oluşan bir slayt gösterisi olmayacak, Her resim için açıklaya ya da yorum koyabilecek bir katman olacak (bunu katmana dinamik olarak yazacak biçiminde çözeceğiz).
+Yazılım için "Otomatik" düğmesi olacak ve resim ve yorumları belirli zamanlarda değiştirebilecek ve "bitti" düğmesi de slayt gösterisini bitirecek. "Sonraki" düğmesi bir sonraki slayta, "Önceki" düğmesi bir önceki slayta gidilmesini sağlar.
+HTML kodunu yeniden yazarak değişik boyutlardaki resimleri de görüntüleyebilme olanağımız olur.
+Örnek yazılım çok uzun olduğundan tüm kodlama için <a href="ornek3.html">Örnek-3</a> tıklayın.
+</div>
+
+<h2>Devam...</h2>
+
+<div class="yazi">
+
+Bir katmanın içeriğini yeniden yazma konusunda anlatılacakların hepsi bu. Şimdi
+görüntülenen bir şeyi fare üzerine gidince "this" anahtar sözcüğüyle değiştirmeyi deneyelim (on mouseover).
+<p class="yazi">
+<form>
+  <input type="button" value="Mouse Me Over" style="color:#2312fa" onMouseOver="this.style.color='#da45a3'" onMouseOut="this.style.color='#2312fa'" name="button">
+</form>
+</p>
+<p class="yazi">
+Eğer fareyi bu düğmenin üzerine taşırsanız renk değişecektir.
+</p>
+<pre>
+  &lt;input type=&quot;button&quot; value=&quot;Button&quot;
+            style=&quot;color:#2312fa&quot; 
+            onmouseover=&quot;this.style.color='#da45a3'&quot;
+            onmouseout=&quot;this.style.color='#2312fa'&quot;&gt;
+
+</pre>
+<p class="yazi">
+"this" sözcüğü giriş düğmesini bir nesne olarak algılar. Böylece onun CSS stillerine erişebiliriz ve sonra onun CSS renk niteliklerine erişim gerçekleşir. Unutmayın ki yalnız IE 4 ve NS 6'de çalışır (NN 4 yok). O halde NN 4 olduğu zaman
+düğmenin rengini ".style" olmadan değiştiririz.
+</p>
+<pre>
+  &lt;input type=&quot;button&quot; value=&quot;Button&quot;
+            style=&quot;color:#2312fa&quot; 
+            onmouseover=&quot;this.color='#da45a3'&quot;
+            onmouseout=&quot;this.color='#2312fa'&quot;&gt;
+
+</pre>
+<p class="yazi">
+  Bu olmaz. NN 4 CSS özellikleri arasında "color" desteklemez.
+</p>
+<p class="yazi">
+  Ayrıca "this.className" tüm class bilgilerini değiştirebilir.
+</p>
+<pre>
+  &lt;input type=&quot;button&quot; value=&quot;Button&quot;
+            class=&quot;button1&quot; 
+            onmouseover=&quot;this.className='button2'&quot;
+            onmouseout=&quot;this.className='button1'&quot;&gt;
+</pre>
+
+<h2>Statik (Durağan) Yerleşmiş Öğeler</h2>
+
+Statik konumlanmış öğelerde (IE 4+ ve NS 6'da) hemen her öğeyi 
+  &lt;p&gt; biçiminden &lt;div&gt; biçimine değin değiştirebilirsiniz.
+Aşağıdaki &lt;p&gt; kullanarak hemen her tarayıcıda çalışır:
+<br />
+<p onmouseover="this.innerHTML='Yapın işte!'" onmouseout="this.innerHTML='Fareyi üstüme getir!'">
+  Fareyi üstüme getir!
+</p>
+<p class="yazi">
+  Bu aşağıdaki kodla gerçekleşebilir:<br />
+</p>
+<pre>
+  &lt;p onmouseover=&quot;this.innerHTML='Yapın işte!'&quot;
+      onmouseout=&quot;this.innerHTML='Fareyi üstüme getir!'&quot;&gt;
+         Fareyi üstüme getir!&lt;/p&gt;
+</pre> 
+</div>
+
+<h3>Netscape 4 Katmanları aynı dökümanlar olarak değerlendirir</h3>
+
+<div class="yazi">
+
+Aşağıdaki kodumuz olduğunu varsayalım:
+<pre>
+  &lt;div id=&quot;myLayer1&quot;&gt;
+      &lt;img name=&quot;myImage&quot; src=&quot;imageFile.gif&quot;&gt;
+  &lt;/div&gt;
+</pre>
+<p class="yazi">
+Şimdi bu resim dosyasına erişmeye çalışalım. Bunun için ilk yapacağımız:
+</p>
+<pre>
+   document.images["myImage"]
+</pre>
+<p class="yazi">
+Bu IE 4+ ve NS 6'da doğru bir yaklaşımdır. Ama NN 4'de katmanları döküman olarak yorumlar. Böylece NN 4'de önce "resimin içinde bulunduğu dökümana erişmemiz gerekir.
+</p> 
+
+<pre>
+     document.layers["myLayer1"].document.images["myImage"]
+</pre>
+<p class="yazi">
+Şimdi aşağıdaki resim dosyasının kaynağını
+&quot;someOtherImage.gif&quot; ile
+değiştirelim
+</p>
+<pre>
+  &lt;div id=&quot;myLayer1&quot;&gt;
+      &lt;div id=&quot;myLayer2&quot;&gt;
+        &lt;img name=&quot;myImage&quot; src=&quot;imageFile.gif&quot;&gt;
+      &lt;/div&gt;
+  &lt;/div&gt;
+</pre>
+<p class="yazi">
+  O halde aşağıdaki kodu kullanabilirsiniz:
+</p>
+<fieldset class="fyazi">
+<p style="width:90%; overflow:scroll">
+  if(document.layers){<br />
+      document.layers["myLayer1"].document.layers[&quot;myLayer2&quot;].document.images["myImage"].src=&quot;someOtherImage.gif&quot;;<br />
+  }else{<br />
+      document.images[&quot;myImage&quot;].src=&quot;someOtherImage.gif&quot;;<br />
+  }<br />
+</p>
+</fieldset>
+<p class="yazi">
+  NN 4'de kodlamayı daha da kısalmak için aşağıdaki biçimi kullanırız:
+</p>
+<fieldset class="fyazi">
+<p style="width:90%; overflow:scroll">
+  document.myLayer1.document.myLayer2.document.myImage.src=&quot;someOtherImage.gif&quot;
+</p>
+</fieldset>
+</div>
+
+<h3>DIV ile SPAN</h3>
+
+<div class="yazi">
+Daha önceki örneklerde mutlak konumlanmış katmanlar kullandık. Özellikler &lt;div&gt; biçimini ele alalım. Şimdi &lt;span&gt; biçiminden söz etmeliyim. Aynı &lt;div&gt; gibidir. Ancak &lt;div&gt; blok tipi stil öğeleridir (üstünde ve altında boşluklar bırakılır, yani bir satır içinde yer alamaz) &lt;span&gt; ise böyle değildir. Ne denmek istendiğini aşağıda belirtelim:
+
+<p class="yazi">Bu kodu kullanırsak:</p>
+<p class="yazi">Bu &lt;div&gt;Bir&lt;/div&gt; yazıdır</p>
+<p class="yazi">Aşağıdaki gibi görünür:</p>
+<p class="yazi"><b>Bu </b><div><b>Bir</b></div> <b>yazıdır</b></p>
+<p class="yazi">Eğer bu kodu kullanırsak:</p>
+
+<p class="yazi">Bu &lt;span&gt;Bir&lt;/span&gt; yazıdır</p>
+<p class="yazi">Aşağıdaki gibi görünür:</p>
+<p class="yazi"><b>Bu</b> <span class="spn"><b>Bir</b></span> <b>yazıdır</b></p>
+<p class="yazi">
+  Burada <b> koyu renkli</b> gösterdik ki ne denmek istendiği anlaşılsın.
+  Ama kodun kendisi kullanıldığında yazı koyu değildir.
+</p>
+
+<h3>Tarayıcı bağımsız statik konumlu öğeler</h3>
+
+IE 4+ ve NS 6'da statik konumlanmış katmanlara istediğinizi yapabilirsiniz (filitreler gibi istisnalar hariç) ama NN 4'de statik konumlanmış &lt;div&gt; ve &lt;span&gt; biçimlerine çok bir şey yapamazsınız. Tersine NN 4'de &lt;layer&gt; biçimi &lt;ilayer&gt; biçimiyle kullanılır. Bu özellikler bize DHTML etkilerini uygulamamızı sağlar. Örneğin IE 4+'da kullandığımız fare üzerine gelince renki değişen uygularsak NN 4'de tablo hücresinin art rengini değiştirme olarak kullanılır. Bir tablo üzerinde mutlak konumlanmış katmanlar kullanmak gerçekçi olmaz. Bu nedenle kodumuz:
+<fieldset>
+<pre>
+  &lt;table&gt;
+    &lt;tr&gt;<br />
+       &lt;td style=&quot;background-color:purple&quot; 
+              onmouseover=&quot;this.style.backgroundColor='green'&quot;
+              onmouseout=&quot;this.style.backgroundColor='purple'&quot;&gt;
+           &lt;ilayer&gt;&lt;layer 
+              onmouseover=&quot;this.bgColor='green'&quot;
+              onmouseout=&quot;this.bgColor='purple'&quot;&gt;
+                    Bu hücrenin içindeki yazıdır
+              &lt;/layer&gt;&lt;/ilayer&gt;
+       &lt;/td&gt;
+       &lt;td style=&quot;background-color:purple&quot;
+              onmouseover=&quot;this.style.backgroundColor='green'&quot; 
+              onmouseout=&quot;this.style.backgroundColor='purple'&quot;&gt;
+            &lt;ilayer&gt;&lt;layer 
+              onmouseover=&quot;this.bgColor='green'&quot;
+              onmouseout=&quot;this.bgColor='purple'&quot;&gt;
+                    Bu hücrenin içindeki yazıdır
+              &lt;/layer&gt;&lt;/ilayer&gt;
+       &lt;/td&gt;
+       &lt;td style=&quot;background-color:purple&quot;
+              onmouseover=&quot;this.style.backgroundColor='green'&quot; 
+              onmouseout=&quot;this.style.backgroundColor='purple'&quot;&gt;
+             &lt;ilayer&gt;&lt;layer 
+              onmouseover=&quot;this.bgColor='green'&quot;
+              onmouseout=&quot;this.bgColor='purple'&quot;&gt;
+                    Bu hücrenin içindeki yazıdır
+              &lt;/layer&gt;&lt;/ilayer&gt;
+       &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/table&gt;
+</pre>
+<p class="yazi">Ve kod aşağıdakini üretir:</p>
+<table>
+	<tr>
+		<td style="background-color:purple" onmouseover="this.style.backgroundColor='green'" onmouseout="this.style.backgroundColor='purple'"><ilayer><layer onmouseover="this.bgColor='green'" onmouseout="this.bgColor='purple'">
+			This is the cell's text
+		</layer></ilayer></td>
+		<td style="background-color:purple" onmouseover="this.style.backgroundColor='green'" onmouseout="this.style.backgroundColor='purple'"><ilayer><layer onmouseover="this.bgColor='green'" onmouseout="this.bgColor='purple'">
+			This is the cell's text
+		</layer></ilayer></td>
+
+		<td style="background-color:purple" onmouseover="this.style.backgroundColor='green'" onmouseout="this.style.backgroundColor='purple'"><ilayer><layer onmouseover="this.bgColor='green'" onmouseout="this.bgColor='purple'">
+			This is the cell's text
+		</layer></ilayer></td>
+	</tr>
+</table>
+<p class="yazi">Bu her tarayıcıda çalışır. Haydi deneyin!</p>
+<p class="yazi">
+  Burada kullanılan teknik
+(NN4 için <span>&lt;layer&gt;</span>, <span>&lt;ilayer&gt;</span> içindedir ve
+IE 4+ ve NS 6 için <span> &lt;div&gt; </span> biçimi) ile Statik konumlandırılmış katmanlarının içini bile değiştirmek mümkündür.
+</p>
+</div>
+
+</body>
+</html>

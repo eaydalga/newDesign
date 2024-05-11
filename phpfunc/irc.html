@@ -1,0 +1,119 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Hyperlink Preprocessor </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">19 Mart 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>IRC Eşik İşlevleri</h2>
+<h3>Giriş</h3>
+
+IRCG ile binlerce bağlanmış kullanıcıya hızla xml verisini dağıtabilirsiniz.
+BU özellik, güçlü, genişleyebilir, etkileşimli ortamlar oluşturulmasını
+sağlar. Online oyunlar ve web-chat gibi örnekleri vardır. IRCG akar olmayan
+konumda da kullanılabilir. Yardımıc bir yazılım gelen veriyi yeniden kalıplar
+ve özel durağan bir dosyaya cHTML biçiminde ya da WML (WAP) biçiminde saklar.
+Bu durağan dosyalar alıcıya yüksek verimlilikteki web sunucularıyla
+ulaştırılır.
+<br /><br />
+v4 değin, IRCG aşağıdaki ortamlarda çalışmaktadır:
+<ul>
+    <li> AIX
+    <li> FreeBSD
+    <li> HP-UX
+    <li> Irix
+    <li> Linux
+    <li> Solaris
+    <li> Tru64
+    <li> Windows
+</ul>
+    Not: Bu uzantı PECL havuzuna taşındı. PHP 5.1.0 sürümünden beri uzantıdır.
+
+<h3>Kurulum</h3>
+
+Ayrıntılı kurulum bilgileri http://www.schumann.cx/ircg/ adresinde bulunabilir.  Sağlanan kurulum kodlamasını kullanmanız önerilir.
+<br /><br />
+Önerilmez ama IRCG desteğini kendiniz açmak isteyebilirsiniz. O zaman
+ircg-config kodlamasının yolunu sağlamalısınız. Ayarlama satırında komuta 
+"--with-ircg-config=path/to/irc-config" ve "--with-ircg" eklemelisiniz. 
+
+<h3>İçindekiler</h3>
+<ul>
+    <li> ircg_channel_mode — iKullanıcı için kanal konumu ayarlama
+    <li> ircg_disconnect — Sunucuya bağlantıyı kes.
+    <li> ircg_eval_ecmascript_params — JS-kodlu değişgeçlerin listesinin
+kodunu açma.
+    <li> ircg_fetch_error_msg — Daha önceki IRCG işlemindeki hatayı döndürür.
+    <li> ircg_get_username — Bağlantı için kullanıcı adını al.
+    <li> ircg_html_encode — HTML korunmalı çıktıyı kodlamak.
+    <li> ircg_ignore_add — Sunucudaki sizin atlanacaklar listenize kullanıcı ekler.
+    <li> ircg_ignore_del — Sunucudaki sizin atlanacaklar listesinden
+kullanıcıyı siler
+    <li> ircg_invite — Kanala takma adı davet eder.
+    <li> ircg_is_conn_alive — Bağlantı durumuna bak.
+    <li> ircg_join — Bağlanılmış sunucuda bir kanala bağlanma.
+    <li> ircg_kick — Sunucuda bir kullanıcıyı kanaldan atmak.
+    <li> ircg_list — Kanallardaki Konu/kullanıcı sayısını listele
+    <li> ircg_lookup_format_messages — Kalıplı mesaj ayarının vardığına bakmak.
+    <li> ircg_lusers — IRC ağ istatistikleri
+    <li> ircg_msg — Sunucudaki kanala ya da kullanıcıya mesaj gönderme
+    <li> ircg_names — Sorguyla görülebilen kullanıcı adları.
+    <li> ircg_nick — Sunucuda kanal takma adı
+    <li> ircg_nickname_escape — Takma addaki özel karakterleri IRC-şikayeti olarak kodla
+    <li> ircg_nickname_unescape — kodlanmış takma adı açma
+    <li> ircg_notice — Sunucudaki bir kullanıcıya uyarı gönderme
+    <li> ircg_oper — IRC OPER için yetkileri yükseltmek (atamak)
+    <li> ircg_part — Sunucuda bir kanalı bırakmak.
+    <li> ircg_pconnect — Bir IRC sunucusuna bağlanmak.
+    <li> ircg_register_format_messages — mesaj kalıplama ayarını kaydetmek
+    <li> ircg_set_current — O anki bağlantıyı çıktı için ayarla
+    <li> ircg_set_file — Kayıt dosyasını bağlantı için ayarla
+    <li> ircg_set_on_die — Bağlantı kapanınca yapılacak işlemi çalıştır.
+    <li> ircg_topic — Sunucudaki bir kanal için konu belirle.
+    <li> ircg_who — WHO bilgisi için sunucuyu sorgular.
+    <li> ircg_whois — Kullanıcı bilgisi için sunucuyu sorgulama.
+</ul>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

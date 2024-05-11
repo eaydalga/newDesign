@@ -1,0 +1,25 @@
+.button {
+	color: #ffffff;
+	background-color: #E9E9E9;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	text-decoration: none;
+	vertical-align: middle;
+	border: thin;
+	border-color: #000000;
+        float:right;
+}
+.button a {
+padding: 2px 0.5em;
+	background-color: #898989;
+text-decoration: none;
+float: left;
+	color: #ffffff;
+border: 2px solid #000000;
+}
+.button a:hover {
+background-color: #4f4f64;
+border-style: outset;
+color: #ffffff;
+}
+

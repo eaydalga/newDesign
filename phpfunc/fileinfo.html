@@ -1,0 +1,112 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Fileinfo (Dosya Bilgisi) İşlevleri</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">18 Şubat 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h3>Fileinfo (Dosya Bilgisi) İşlevleri</h3>
+
+<h2>Giriş</h2>
+
+Bu modüldeki işlevler dosyanın sihirli baytları içindeki kodlamaya bakarak
+içeriğini tahmin eder. 
+
+<h3>Gereksinim</h3>
+
+magic_open kitaplığı bu uzantı için gereklidir.
+
+<h3>Kurulum</h3>
+
+Bu PECL uzantısının kurulum bilgisi PECL uzantıları adı sayfalarda
+bulunabilir. Ek bilgi için  http://pecl.php.net/package/fileinfo adresi
+kullanılmalıdır. 
+
+<h3>Kaynak Türleri</h3>
+
+Fileinfo uzantısında bir kaynak vardır: finfo_open() işlevinin döndürdüğü tılsımlı veritabanı tanıtımıdır.
+
+<h3>Önceden Tanımlı değişmezler</h3>
+
+Aşağıdaki değişmezler bu uzantıyla tanımlanır ve yalnız bu uzantı PHP ile
+derlendiğinde ya da modül olarak yüklendiğinde kullanılabilir.
+<dl>
+<dt>FILEINFO_NONE (integer)
+    <dd>Özel işlem yapılmaz
+</dd></dt>
+<dt>FILEINFO_SYMLINK (integer)
+    <dd>sembolik bağları izler
+</dd></dt>
+<dt>FILEINFO_MIME (integer)
+    <dd>Yazı anlatımı yerine mime yazı dizisi döndürür.
+</dd></dt>
+<dt>FILEINFO_COMPRESS (integer)
+    <dd>Sıkıştırılmış dosyaları açar
+</dd></dt>
+<dt>FILEINFO_DEVICES (integer)
+    <dd>Blokların ya da karakter özel donanımların içeriğine bakar.
+</dd></dt>
+<dt>FILEINFO_CONTINUE (integer)
+    <dd>Tüm uyanları döndürür. Yalnız ilkini değil.
+</dd></dt>
+<dt>FILEINFO_PRESERVE_ATIME (integer)
+    <dd>Eğer uygunsa, eski erişim zamanını korur
+</dd></dt>
+<dt>FILEINFO_RAW (integer)
+    <dd>Yazdırılamayan karakterleri \ooo sekizli gösterime çevirme
+</dd></dt>
+</dl>
+
+<h3>İçindekiler</h3>
+
+<ul>
+    <li> finfo_buffer — Yazı dizisi tampon alanına ilişkin bilgiyi döndürür
+    <li> finfo_close — fileinfo kaynaklarını kapat
+    <li> finfo_file — Bir doaya hakkında bilgi döndürür
+    <li> finfo_open — Yeni fileinfo kaynağı yaratır
+    <li> finfo_set_flags — libmagic ayar seçeneklerini atar
+</ul>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

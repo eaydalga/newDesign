@@ -1,0 +1,195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>JS - Sayfada Javascript </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script language="JavaScript" src="../js/XHConn.js"> </script>
+<script language="JavaScript" src="../js/js10.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="ysoltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="js.html" class="nav">Giriş</a>
+               <a href="jstxt1.html" class="nav">Sayfada Javascript</a>
+               <a href="jstxt2.html" class="nav">Nesnel Programlama</a>
+               <a href="jstxt3.html" class="nav">JS Nesneleri</a>
+               <a href="jstxt4.html" class="nav">İşlemler</a>
+               <a href="jstxt5.html" class="nav">Değişkenler</a>
+               <a href="jstxt6.html" class="nav">Denetim Yapıları</a>
+               <a href="jstxt7.html" class="nav">Script Yazma</a>
+               <a href="jstxt8.html" class="nav">Yazma İşlevleri</a>
+               <a href="jstxt9.html" class="nav">Başvuru</a>
+               <a href="jstxt10.html" class="nav">DHTML</a>
+               <a href="jstxt11.html" class="nav">Öğe İçeriği</a>
+               <a href="jstxt12.html" class="nav">Pencereler</a>
+               <a href="jstxt13.html" class="nav">Olay Bilgisi</a>
+               <a href="jstxt14.html" class="nav">Zaman Ayarı</a>
+               <a href="jstxt15.html" class="nav">Cookie Kullanımı</a>
+               <a href="jstxt16.html" class="nav">Güvenlik</a>
+               <a href="js24.html" class="nav">Javascript Nesneler</a>
+<br />
+
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>Javascript Yazılım Kuralları (JS)</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">22 Aralık 2007</span></div>
+<h2>Sayfada Javascript</h2>
+<div id="bdy" class="yazi">
+
+Bir kodlama (script) belgenin "head" ya da "body" bölümlerinde herhangi bir yere yazabilir. Belgenin düzgün görünmesi için temel notlar şöyledir:
+<ul>
+    <li> Birçok kodlama head bölümünde bulunabilir. Burada olmaları onların belge gövdesinden uzakta olmalarını sağlar.</li>
+    <li> Sayfa yayılımında belli bir yerde çalışması düşünülen kodlama varsa (örneğin, içerik oluşturmak için "document.write" kullanıyorsa), belgenin doğru yerine yerleştirilmelidir. Çoğu zaman belge gövdesinde bir yerde olması gerekir. Eğer çok kısa bir kodlamaysa, bulunması gereken yere taşınır. Eğer çok uzunsa, "head" bölümünde bir işlev olarak bulunur ve olması gereken yerden işlev çağırma biçiminde çalıştırılır.</li>
+    <li> Eğer kodlama birden çok sayfada kullanılacaksa, ya da hatırı sayılır derecede uzunsa, onun yüklemesi "head" bölümünde yapılmalıdır.
+Bu biçimde kullanım sayfanın kodlamasındaki uzunluğu engellemenin dışında oluşabilecek olası kodlama hatalarını azaltır (ortadan kaldırır). Ayrıca bu kodlar birden çok sayfada da kullanılabilir, tarayıcıların tampon belleğini kullanarak indirilecek sayfalarla bant genişliğini şişirmemiş olur.</li>
+</ul>
+<h3>Sayfaya kodlama eklemek</h3>
+
+<p class="yazi">
+Javascript kodunu web sayfasına eklemek için &lt;script&gt; biçimi kullanılır.
+Burada "type" niteliğinde kullanılacak kodlamanın ne olduğu belirtilir. Javascript için "text/javascript" niteliğin değeri olacaktır.
+Nitelik olarak "language" kullanarak hangi Javascript sürümü ile kodlama yapıldığı bilirtilebilir.
+Uygulamada bu sayı tarayıcıya çok az şey anlatır. Bir sürümü desteklediklerini söyleyebilirler ama her birinin kendine özgü değişik becerileri vardır. Javascript destekleyen tarayıcıların tümü Javascript 1.2 konusunda ortak davranış gösterirler (kodlamada javascript1.2 olarak gösterilir). Bu nedenle kurallar Javascript 1.2 sürümüne göre anlatılmıştır.
+</p>
+
+<p class="yazi">Tarayıcılar rastgele seçilmiş bir sürüm değerini desteklediklerini bildirirler ama sürüm değeri olmayan kodlamaları da çalıştırırlar. Hatta sürüm değeri daha yüksek olanları bile destekleyebilirler. Böylece dil sürümünün inandırıcı olmadığı anlaşıldığına göre, genelde sürüm parametresinin unutulmasında yarar vardır. Yerine, kodlamada tarayıcının kodlamayı destekleyip desteklemediğini yakalanması daha doğru bir yaklaşım olur.</p>
+
+<p class="yazi">Aşağıdaki "script" biçiminin sayfadaki görünüşüdür:</p>
+
+<pre class="fyazi">
+&lt;script type="text/javascript"&gt;
+//JavaScript buraya yazılır
+&lt;/script&gt;
+</pre>
+
+Eğer kodlamaya erişilemiyorsa, ama sayfaya erişilmesi istenirse Javascript olmayan bir tarayıcıda aşağıdaki kullanım biçimine yer verilmelidir:
+<pre class="fyazi">
+&lt;noscript&gt;
+  Eğer javascript açıksa, bu bölüm hiç görüntülenmez...
+&lt;/noscript&gt;
+</pre>
+
+<h3>Açıklamaları kullanmak</h3>
+<p class="yazi">
+Açıklamalar kodlayıcının kendi için kodlamaya bırakacağı notları tanımlar. Böylece ileride kodlamanın neler yaptığı çabuk anımsanmış olur. İkili kesme işareti (//) tek satırlık açıklamaları belirtir. Bir kesme ve yıldız (/*) açıklamanın başladığını gösterir. Kodlamanın kalanı karşılaşılan ilk yıldız kesme (*/) işaretine değin "açıklama" kabul edilir.</p>
+<pre class="fyazi">
+&lt;script type="text/javascript"&gt;
+
+// Tek satır açıklamasıdır
+
+/* Bu bir
+blok açıklamadır */
+
+&lt;/script&gt;
+</pre>
+<h3>Dışsal kodlama dosyaları kullanımı</h3>
+
+<p class="yazi">Sayfaların ortak kullanıcı için Javascript kodlama dosyasını (genellikle *.js biçimindedir) "head" bölümüne ekleyebilirsiniz.</p>
+<pre class="fyazi">
+   &lt;script src="herneyse.js" type="text/javascript"&gt;&lt;/script&gt;
+</pre>
+
+<p class="yazi">Kodlama ve başlık dosyaları ana sayfadaymış gibi işlenir. Yani kodlamada dosyalara, resimlere ve adreslere bağlantı varsa, ana sayfaya göreceli olarak erişilirler. Kodlama dosyasının yolu anlamsız kalır.</p>
+
+<h3>XHTML ile ilgilenmek</h3>
+<p class="yazi">
+Burada XHTML'den söz ederken aslında içeriği application/xhtml+xml biçiminde sunulan bilgiden söz edilmektedir. Bu tür sayfaların çoğunluğu (XHTML olan) text/html biçiminde sunulmaktadır ve sayfa HTML olarak yorumlanmaktadır (XHTML değil). 
+</p>
+<p class="yazi">
+XHTML'de kurallar farklıdır. Kodlama biçimleri "özel" diye adlandırılmaz. İçerikleri XHTML'in herhangi bir bölümü gibi işlenir. Bu nedenle bazı işlemler sayfanın parçası gibi kabul edilip yanlış yorumlanabilir. Bunu önlemek için kodlamaları dışsal bir dosyaya koymak ve sayfanın kodlarıyla karışmasını önlemek doğru olur. Eğer bir kodu sayfanın içine doğrudan eklemek isterseniz onu CDATA biçiminde tanımlayabilirisiniz:
+</p>
+<pre class="fyazi">
+&lt;script type="text/javascript"&gt;
+&lt;![CDATA[
+
+//JavaScript buraya yazılır
+
+]]&gt;
+&lt;/script&gt;
+</pre>
+<p class="yazi">Eğer kodlamanın XHTML içinde açıklamaymış gibi görüntülenmesi isternirse, eskisinden daha çirkin bir yöntem kullanmanız gerekir. Aslında bunu hiç gerek yoktur. Script anlamayan XHTML de anlamaz. Eğer bazıları için bu sayfayaı HTML, diğerleri için XHTML olarak yorumlanması isternirse, aşağıdaki kodlama kullanabilir:</p>
+<pre class="fyazi">
+&lt;script type="text/javascript"&gt;
+&lt;!--//--&gt;&lt;![CDATA[//&gt;&lt;!--
+
+//JavaScript buraya yazılır
+
+//--&gt;&lt;!]]&gt;
+&lt;/script&gt;
+</pre>
+<h3>Kodalamanın ne zaman aktif olacağını denetlemek</h3>
+
+<p class="yazi">Varsayılana göre yazdığınız her kodlama yüklenince işlenir. Örneğin:</p>
+<pre class="fyazi">
+&lt;script type="text/javascript"&gt;
+var myVariable = 'Hello';
+window.alert(myVariable);
+//Kodlama yüklenince "Hello" yazan mesaj kutusu kaybolur.
+&lt;/script&gt;
+</pre>
+<p class="yazi">Bazen otomatik çalışma istenmeyebilir. Bu durumda işlevler yazmak ve işlevleri gerektiğinde çalıştırmak daha uygun gelebilir.</p>
+
+<p class="yazi">Javascript kodları başlatmak (aktif etmek için) HTML olayları kullanılır. Yeni kuşak tarayıcılarda birçok olay pekçok öğede kullanalabilir.</p>
+<dl>
+<dt>input, textarea, select biçimlerinde</dt>
+    <dd>onclick, onkeydown, onkeyup, onkeypress, onchange, onfocus, onblur, vb.</dd>
+<dt>form biçiminde</dt>
+    <dd>onsubmit, onreset</dd>
+<dt>a biçiminde</dt>
+    <dd>onclick, onmouseover, onmouseout, onfocus, onblur</dd>
+<dt>body biçiminde</dt>
+    <dd>onload, onunload</dd>
+</dl>
+<p class="yazi">
+W3C sitesinde HTML tanımlarından son değişiklikleri kontrol edebilirsiniz. Tüm yeni tarayıcılarda "a" öğesi "onmousemove" olayını da fark edebilir (ama artık kullanılmayan Netscape 4 gibi eski tarayıcılar hariç). Her zaman gövde üzerinde onmouseover, onmouseout ve sonra document.captureEvents ve onmousemove kullanarak bu sorunu giderme olanağı vardır. Olay ve DOM Olayları bu konuda ayrıntılı bilgi içermektedir.
+</p>
+<p class="yazi">
+Aşağıdakiler olay kullanımı için bazı örneklerdir.
+</p>
+<pre class="fyazi">
+&lt;a onmouseover="name_of_function(params)" href="somepage.html"&gt;
+&lt;input onkeypress="myVariable = 2;startTest();"&gt;
+&lt;select onchange="self.location.href =
+                   this.options[this.selectedIndex].value;"&gt;
+&lt;body onunload="window.alert('bye')"&gt;
+</pre>
+<p class="yazi">
+Javascript kodunu etkinleştirmenin bir başka yolu
+<pre>
+&lt;a href="javascript:name_of_function(params)"&gt;
+</pre>
+kullanmaktır. Ama genelde en iyisi olayları kullanmaktır, böylece Javascript etkin olmadığında hala geçerli bir bağ kalmış olur.
+</p>
+<p class="yazi">
+Bu örneklerin hepsinde kodlama HTML niteliği içindedir ve normal HTML komutlarıyla aynı biçimde yorumlanacaktır.
+</div>
+</div>
+<br />
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,417 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Aybim </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script language="JavaScript" src="../js/XHConn.js"> </script>
+<script language="JavaScript" src="../js/js10.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="ysoltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="js.html" class="nav">Giriş</a>
+               <a href="jstxt1.html" class="nav">Sayfada Javascript</a>
+               <a href="jstxt2.html" class="nav">Nesnel Programlama</a>
+               <a href="jstxt3.html" class="nav">JS Nesneleri</a>
+               <a href="jstxt4.html" class="nav">İşlemler</a>
+               <a href="jstxt5.html" class="nav">Değişkenler</a>
+               <a href="jstxt6.html" class="nav">Denetim Yapıları</a>
+               <a href="jstxt7.html" class="nav">Script Yazma</a>
+               <a href="jstxt8.html" class="nav">Yazma İşlevleri</a>
+               <a href="jstxt9.html" class="nav">Başvuru</a>
+               <a href="jstxt10.html" class="nav">DHTML</a>
+               <a href="jstxt11.html" class="nav">Öğe İçeriği</a>
+               <a href="jstxt12.html" class="nav">Pencereler</a>
+               <a href="jstxt13.html" class="nav">Olay Bilgisi</a>
+               <a href="jstxt14.html" class="nav">Zaman Ayarı</a>
+               <a href="jstxt15.html" class="nav">Cookie Kullanımı</a>
+               <a href="jstxt16.html" class="nav">Güvenlik</a>
+               <a href="jstxt17.html" class="nav">W3C DOM</a>
+               <a href="jstxt18.html" class="nav">DOM Düğümü</a>
+               <a href="jstxt19.html" class="nav">DOM Tablolar</a>
+               <a href="jstxt20.html" class="nav">DOM CSS</a>
+               <a href="jstxt21.html" class="nav">DOM Stiller</a>
+               <a href="jstxt22.html" class="nav">DOM Events</a>
+               <a href="jstxt23.html" class="nav">DOM Nesneleri</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>Javascript Yazılım Kuralları (JS)</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="bdy" class="yazi">
+<h3>DOM olayları</h3>
+
+Şu anda Opera 7+, Mozilla/Firefox, Konqueror 3.0+, Safari, ve NetFront 3.3+ tarayıcılarında desteklenir. Yarım destek iCab 3, ICEBrowser 5+, ve Tkhtml Hv3 tarayıcılarından gelir. Escape/Evo 5 tarayıcısının desteklediği söylenir ama temel kuralları bile desteklemez.
+<br /><br />
+Not: Internet Explorer/Windows burada satndartla pek uyumlu değildir. Eğer deneme yapılıyorsa, Opera gibi uygun bir tarayıcı kullanmakta yarar vardır. Daha sonra IE/Windows için desteğin nasıl olacağı anlatılacaktır. IE/Mac DOm ve olay modellerini desteklemez.
+<h3>Geleneksel olay modellerinin sorunları </h3>
+
+Geleneksel olarak, olayları dinlemek için tarayıcıda basit bir yol vardır ve olay olduğunda kodlama çalıştırılır. Kodlama uygun bir olay yakalama niteliği içinde yer alır <code>onclick="alert('here');"i</code> gibi. İçsel olarak tarayıcı bunu anonim bir işlev olarak kayıt eder.
+<pre>
+referenceToElement.onclick = function () { alert('here'); };
+</pre>
+Olay elleme işlevinden yanlış olması normal işlemin olmasına engel olacaktır. Tarayıcıyı bir bağın izlenmesine tıklama olduğunda engel olur.
+<br /><br />
+Bir çok temel uygulamada, bu yeterlidir. Ama bunun sınırları vardır. Eğer bir olay elleyicisi zaten varsa ve ona kodlamayla işlevsellik eklemek istenirse, işlevi yeni ve eski işlevselliğiyle yeniden yazmak gerekir. Daha sonra bazı işlevsel özellikleri kaldırılacaksa, işlevin yeniden yazılması gerekecektir. Belki elleme işlev yönetiminin yeniden yazılması gerekebilir. Uygun işlevleri gerektiğinde değiştirerek kullanabilen bir olay ellemecisi gerekebilir.
+<br /><br />
+Geleneksel modeldeki diğer sorun, iki öğenin aynı olayı yakalayabilmesine uygun çözüm üretememesidir. bağ (link) div içinde olsun, ve hem div hem de bağ tıklamayı algılayacak biçimde düzenlenmiş olsun. bağı tıkladığınızda, bağ tıklamayı algılayacak mı yoksa div mi onu önce algılayacaktır? Eğer her ikisi de algılarsa hangi sırada algılayacaklardır? div mi önce, yoksa bağ mı önce?
+<br /><br />
+İlk başta Netscape olayları tanıttığında, yanıtları çok basitti; önce bağ onu görür. Sonrası olmaz. Daha sonra div de görebilsin dediler ama yalnız siz olayın yakalanmasını isterseniz bu olanak olsun dediler. Buna göre önce div olayı görecek sonra bağ olayı görecektir (Nescape ilk yazıldığında yalnız bağ olayı görecek ve ilk yakalamadan sonra siz açıkça devam demezseniz hepsi bu olacaktır). Bu DOM 2 olaylarında gerekli değildir. Burada kabarcıklanma vardır.
+<h3>DOM olay dinleyicileri ekleme</h3>
+<ul>
+    <li> ICEbrowser dinleyicileri silmeyi unutur, yeniden yükleyince etkileri artar.
+    <li> Tkhtml Hv3 kabarcıklanma sırasında olayların tetiklenmesini sağlar ama hem yakalama hem de kabarcıklanmaya izin verir (kabarcıklanma sonra yakalanmasını dinleme sırasında)
+</ul>
+
+DOM 2 olaylarının modülleri her olasılıkla uyumlu olabilecek biçimde tasarlanmıştır. Siz yalnız çoklu olay elleyicileri eklemekle kalmaz, aynı zamanda bunların hangi sırayla olayları görebilecekleri belirtilir. Bir olay dinleyicisi eklemenin yolu şöyledir:
+<pre>
+referenceToElement.addEventListener('nameOfEvent',referenceToFunction,phase)
+</pre>
+Aynı öğeden aynı olaya istediğiniz kadar çok dinleyici ekleyebilirsiniz ama hangi sırada çalışacaklarına herhangi bir garanti yoktur (bir olayı işlevi ya da bir parçayı aynı öğeye defalarca eklemek, oraya yalnız bir kez ekleniyormuş gibi görünür). Dikkat edilmelidir ki, geleneksel olay modellerine benzemeyen şey olay elleyici işlevi gösteren bir öğe yoktur (eskiden bu  referenceToElement.oneventname, ile yapılabiliyordu ama DOM2 olayları tüm olay elleyicileri listeleyecek bir eşdeğere sahip değildir).
+<br /><br />
+Olayın adı şöyle yazılır: 'click', 'mouseover', ya da 'keyup'. İlgili işlev geleneksel modeldekine benzer biçimde gösterilir. Kurallara göre 'referenceToFunction' parametresi aslında i'handleEvenet' adlı yöntemi olan bir nesneyi gösterir ve yöntem çağrılır. Pratikte Opera 8+, Mozilla/Firefox, Konqueror 3.2+, Safari, ve iCab bunu doğru uygular ama diğerleri uygulamaz. Ek olarak, pek çok tasarımcı böyle bir işlevselliğin olduğunu bile bilmezler. Bir çok kez en iyisi doğrudan işlev erişimi kullanmak en kolayıdır.
+<br /><br />
+Adım olayın hangi sırada yakalanacağını söyler. Yanlış, daha çok kullanılması istenen kabarcıklanma adımını, Doğru, yakalama adımını belirtir. Geleneksel teknikleri kullanan olay elleyiciler kabarcıklanmayı dinlerler. Bu adımı doğru algılamak önemlidir. Çünkü davranışı dosdoğru değildir. Yakalamak özeldir. Kurallara göre eğer bir öğe tıklamayı yakalayacak biçimde kurulmuşsa, ve tıklarsanız olay elleyicisinim çalışmaması gerekir. Öğenin içindeki bir öğede tıklanırsa çalışır. Diğer bir deyimle yakalama adımı hedef öğenin çapalarında kullanılabilir.
+<br /><br />
+In our earlier link and div example, assume that both elements are set up to detect the click event using both the capturing and bubbling phase. If you click the link, the specification says that the event listeners should be run in this order:
+Önceki div ve bağ örneklerinde her ikisinin de tıklama olayını kabarcıklanmaya ya da yakalanmaya göre  algılayacak biçimde kurulduğunu varsayalım. 
+<ol>
+   <li> div için yakalama dinleyicileri
+   <li> bağ için kabarcıklanma dinleyicileri
+   <li> div için kabarcıklanma dinleyicicleri
+</ol>
+Dinleyiciden dinleyiciye değişim yayınlaşma olarak bilinir. Yaygınlaşmanın hangi safhada olduğunu eventObject.eventPhase özelliğiyle denetleyebilirisiniz. Değeri hedefin kendisi üzerinde yakalama adımında 1, kabarcıklanma adımında 2 olur (burada bağ öğesidir). Hedefin çapasında değeri 3 olur. Elle yaratılmış henüz tetiklenmemiş olay nesnesi ise 0 olur. Ayrıntılar için aşağıya bakınız.
+<br /><br />
+Bazı olaylar (load gibi) çapaya kadar kabarcıklanmaz. Ama her zaman yakalanırlar. O halde yakalanma adımı dinleyicileri çocuklarının olaylarını her zaman görebilir (Belgenin yakalama adımında fark edilen load/yükleme olayında, her resim, takılabilir program ya da bir çok gömülmüş dosya yüklemesinde ilgili olay (burada load) görülecektir).
+<br /><br />
+Yukarıdaki örnekte yalnız Opera 9.2-, Safari 1.1-, NetFront ve ICEBrowser kuralları izler. Mozilla/Firefox, Opera 9.5+, Konqueror, Safari 1.2+ ve iCab bağ üzerindeki yakalanma dinleyicilerini tetikler. Mozilla 1.7-/Firefox 1.0 üçüncü noktadan önce tetikler. Opera 9.5+, Konqueror, Safari, iCab ve Mozilla 1.8+/Firefox 1.5+ ikinci noktadan önce tetiklerken bu olay yaygınlaşmasını sağlar (genel olarak desteklenen):
+
+<ol>
+   <li> div için Yakalama dinleyicileri
+   <li> bağ için Yakalama dinleyicileri
+   <li> bağ için kabarcıklanma dinleyicileri
+   <li> div için kabarcıklanma dinleyicileri
+</ol>
+DOM2 Olaylarına gör ebu davranış hatalıdır ama birçok WEB sayfasına dayanır ama tarayıcıların DOM 2 Olay tanımlarını izelmeleri bir uzak olasılıktır. Belki DOM 3 altında değişebilir (Şu anda değil ama). Diğer tarayıcılar da aynı biçimde uygularlar. Ama şu ana değin bilmelisiniz ki tarayıcılar her iki yönlü de davranabilirler. Hedefi tetikleyen yakalama adımına pek bel bağlamayın, şu anda uyumsuzdur ve ileride değişebilir.
+<br /><br />
+Bu örneği pratiğe uygulamak gerekirse:
+<pre>
+&lt;div id="thediv"&gt;&lt;a href="/" id="thelink"&gt;test&lt;/a&gt;&lt;/div&gt;
+...
+var oDiv = document.getElementById('thediv');
+var oLink = document.getElementById('thelink');
+oDiv.addEventListener('click',function (e) {
+  alert('1. Div capture ran');
+},true);
+oDiv.addEventListener('click',function (e) {
+  alert('3. Div bubble ran');
+},false);
+oLink.addEventListener('click',function (e) {
+  alert('Link capture ran - browser does not follow the specification');
+},true);
+oLink.addEventListener('click',function (e) {
+  alert('2. Link bubble ran (first listener)');
+},false);
+oLink.addEventListener('click',function (e) {
+  alert('2. Link bubble ran (second listener)');
+},false);
+</pre>
+
+Bazı tarayıcılar ikinciden önce bağın kabarcıklanma dinleyicisini çalıştırırlar ve bazıları da birinciyi ikinciden sonra çalıştırır. Standartlar hangi sırada çalışacaklarını belirtmez ve hatta aynı anda çalışmalarına bile izin verilir (Buradaki herhangi bir özel duruma bağlı kalabilirsiniz).
+<h3>Olay dinleyicileri kaldırma</h3>
+
+Olay dinleyicileri silmek onları eklemek kadar kolaydır.
+<pre>
+referenceToElement.removeEventListener('nameOfEvent',referenceToFunction,phase)
+</pre>
+Olay dinleyicilerini her zaman kaldırabilirsiniz ama onları kaldırırken kullanılan parametreler yaratılırken kullanılanlarla aynı olmalıdır. Yukarıdaki örnekte anlatıldığı gibi anonim işlevler kullanınca pek de kolay olmayabilir. Anonim işlevler kullanıldığından arguments.callee özelliği ile Javascript ile işleve erişildiğinde dinleyiciyi silme olanağı gerçekleşir. Bu ancak dinleyicinin içinden yapılabilir. Örneğin tetiklendikten sonra kendini silen bir olay dinleyicisi yaratmak aşağıdaki kodlamayla olabilir:
+<pre>
+oLink.addEventListener('click',function (e) {
+  alert('Link bubble fired');
+  this.removeEventListener('click',arguments.callee,false);
+},false);
+</pre>
+<h3>Olayı algılayan öğelere erişim </h3>
+
+Son örnekte 'this' anahtarı kullanıldı. Bir olay dinleme işlevi içinde 'this' olayı algılayan öğenin kendisini gösterir. Bu örnekte olay dinleyicisinin hangisine bağlı olduğuna göre değişse de 'div' ya da 'link' olabilir. Burada işlev bir de parametre kabul eder (ona 'e' dendi). O parammetre ilk Netscape olay modellemesinde olduğu gibi, event nesnesidir ve event hakkında pek çok bilgi içerir. 
+<br /><br />
+eventObject.currentTarget aynı 'this' gibidir. Dinleyici işlevin eklendiği öğeyi gösterir (eğer aynı işlev dileyici olarak birden çok öğeye bağlanmışsa, şu anda çalışan dinleyiciyi de gösterir).
+<br /><br />
+eventObject.target olayın geçtiği öğeyi gösterir. Önceki örneklere göre, bu link(bağ) öğesidir. Eğer bağ içinde 'span' varsa ve onu tıklarsanız  eventObject.target onu (burada span oluyor) gösterir. 'span' için doğrudan bağlanmış bir dinleyici olmasa da bu açıklama doğru olur. Safari ve Konqueror tarayıcıları bazen hedeflerini öğe içindeki yazı düğümünü gösterecek biçimde olurlar. Bu doğru gösterim değildir ve bir biçimiyle düzeltilmelidir. Eğer bu konuda sorun olacaksa, hedefin düğüm türüne bakın. Eğer yazı ya da CDAT türü düğümse, bu durumda bir üst düğümü kullanmak gerekebilir.
+<pre>
+var theTarget = e.target;
+if( theTarget && ( e.target.nodeType == 3 || e.target.nodeType == 4 ) ) {
+  theTarget = theTarget.parentNode;
+}
+</pre>
+
+Some events (such as mouseover) will also provide eventObject.relatedTarget. This will be a reference to the element the mouse was over before it was moved over the current element. With mutation events, it is typically (but not always) the parent node of the node being manipulated.
+Bazı olaylar (mouseover gibi) eventObject.relatedTarget sunarlar. Farenin o anki öğe üzerine taşınmadan önceki öğenin yerini gösterir.
+<h3>Olaydan bir başka bilgi elde etmek</h3>
+
+Fare düğmesi ve yerleşimi, tuş değeri (keyCode), kontrol tuşu (ctrlKey), altKey, shiftKey ve ayrıntılar (kaç kez tıklandığı gibi) eski modelde olduğu gibidir. Bunlar event nesnesinin özellikleri olarak vardır. Gelişmiş olaylar prevValue, newValue, attrName ve attrChange değerlerini de sunarlar.
+<h3>Varsayılan işlemi engellemek</h3>
+
+Yukarıdaki bağda, bağı tıklamak dinleyicileri harekete geçirir ve bağ izlenir. Dinleyici işlevinden yanlış döndünce eski geleneksel modellerde olduğu gibi çalışmaz. Yerine eventObject.preventDefault() kullanılır. Yalnız bir olay dinleyicisi varsayılan işlemini korumak için bu yöntemi çalıştırır.
+<br /><br />
+Tüm olay tipleri kesilemez (yükleme olayı (load event) örneğin varsayılan işlemi yok ve kesilemez). Eğer kesilen tip olaysa, eventObject.cancelable  özelliği doğru olur.
+<pre>
+oLink.addEventListener('click',function (e) {
+  alert('Link detected a click. Cancellable: '+e.cancellable);
+  e.preventDefault();
+},false);
+</pre>
+<h3>Başka dinleyicilerin olayı görmesini engellemek</h3>
+<ul>
+    <li> Tkhtml Hv3 bunu doğru yapar, fakat 2007 Eylülden önceki sürümler dinleyicileri yanlış sırada etkinleştirir. Burada hataya düşerler.
+</ul>
+Bir olay event dinleyicleriyle işlendiğinde, herhangi bir olay dinleyicinin diğer olay dinleyicilerinin bir zincir olarak olayı görmelerini engeller. Yukarıdaki örnekte 'div' öğesinin yakalanma adımında, tıklama olayı dinleyicisi tıklama olayını diğer olay dinleyicilerinin görmemesi için eventObject.stopPropagation() yöntemini kullanılır. Bir olayın kabarcıklanma tipinden olup olmadığı eventObject.bubbles özelliğiyle test edilebilir.
+<br /><br />
+stopPropagation yöntemi yalnız dinleyicilerin zincir uzantısında olayı görmelerini engeller. Örneğin, iki olay dinleyicisi bağa kabarcıklanma adımıyla eklenmiş olsun. Eğer bunlardan biri stopPropagation yöntemini kullanırsa, diğeri çalışmaya devam eder (tarayıcının onları hangi sırda kullandığına bakılmaz). BU yöntem div için kabarcıklanma adımında eklenen olay dinleyicini durdurur.
+<pre>
+&lt;div id="thediv"&gt;&lt;a href="/" id="thelink"&gt;test&lt;/a&gt;&lt;/div&gt;
+...
+var oDiv = document.getElementById('thediv');
+var oLink = document.getElementById('thelink');
+oDiv.addEventListener('click',function (e) {
+  alert('Div capture ran. Now stopping propagation.');
+  e.stopPropagation();
+},true);
+oLink.addEventListener('click',function (e) {
+  alert('This alert should never appear');
+},false);
+</pre>
+<h3>Temel olaylardan daha fazlası </h3>
+
+HTML içinde tanımlanan temel olaylardan başka DOM 2 yakalanabilecek başka olay tiplerini de sunar. Bunlar yeni öğeler ya da düğmeler kodlamayla eklendiğinde, silindiğinde ya da değiştirildiğinde tetiklenir. Opera, Mozilla/Firefox, Konqueror, ve Safari tarayıcısı tarafından yarım desteklenir. 'DOMNodeInsertedIntoDocument', 'DOMNodeRemovedFromDocument', ve 'DOMSubtreeModified' olaylarının tarayıcı desteği şu anda çok zayıftır. Opera 7.1, Safari 1.2, ve Konqueror 3.2-3.3 tarayıcıları bu olayları kullanmak isterseniz kırılır. Opera 7.2+, Safari 1.3+, ve Konqueror 3.4+ doğru çalışır.
+<br /><br />
+DOM olay tetiklendi mi yoksa tetiklenmedi mi konusunda bir çözüm yolu sunmaz. Eğer tarayıcı olayı desteklemiyorsa, olay dinleyicisini eklemenize izin verilir ama olay tetiklenmez. hasFeature kullanılarak tarayıcının istenen olayı destekleyip desteklemedi öğrenilebilir. Ama bu da çok doğru sonuç vermeyebilir. Tarayıcı görece tamam saydığı bir olay için de desteklediğini bildirebilir. Tarayıcı istediğinizden çok unsuru içeren olayı çözümleyebilir ama desteklediğini bildirmeyebilir. Eğer isteğiniz bir iki olayın denetiminden çok görece tamamlanmış bir uyarlama olsa da denetlemek böyle kolaydır:
+<pre>
+if( document.implementation.hasFeature('MutationEvents','2.0') )
+</pre>
+Burada Mozilla/Firefox dışarıda kalır. Pek çok sıradan olayları desteklese de arayüzü seçenek olarak denetleyebilirsiniz (Mozilla/Firefox ve Opera, Konqueror ya da  Safari değil) bunu sunarlar:
+<pre>
+if( document.implementation.hasFeature('MutationEvents','2.0') ||
+    window.MutationEvent )
+</pre>
+Bazı olay tipleri sorunlar çıkarabilir. Tarayıcılar desteklemediklerinden değil, tarayıcıların başka (yanlış) nesnelerde desteklediklerinden bu sorunlar çıkar. Bu durumda olayı yüklemek en tuhaf davranıştır. DOM2 olay tanımlarında 'load event' (olay yükleme) belge nesnesinden anlaşılabilmelidir. İstenmese de geleneksel modeller 'body' biçimini kullanır ve onu windows nesnesine bağlar. Sonuç olarak tarayıcı DOM ile bunlara destek sunarken bir çoğunu windows nesnesiyle bulanacaktır.
+<br /><br />
+Bu ana değin, Opera, ve Konqueror sürümlerinden yenisi, Safari ve NetFront belge nesnesinde doğru olarak algılar (window nesnesinde olduğu gibi). Kuram olarak Mozilla/Firefox bir noktada değiştirecektir. Tüm bugünkü uyarlamalarda window nesnesinde algılanabildiği halde, yeni sürümlerde bir kez olsun doğru çalışması söz konusu olabilir. Eğer tarayıcılar window için olay dinleyiciler eklenmesine izin verirse, burada yüklenme olayını algılayabileceğini varsayabilirsiniz. Bu tüm bugünkü uyarlamalar için geçerlidir.
+<br /><br />
+Unutulmamalıdır ki, yukarıda belirtildiği gibi, her zaman kabarcıklanma adımını yüklenme olayını algılardan düşünmelisiniz. Diğer gölümü içerik yüklendiğinde bunlar ardaşık tetikleneceklerdir. Ama Mozilla/Firefox ve iCab 3 yüklenme olayını algılayamaz. Opera 9.5+, Safari ve Konqueror yalnız yüklenme olayını yakalayabilir. Yalnız Opera 9.2- ve ICEBrowser doğru olarak yüklenme olayını algılayabilir. kabarcıklanma adımında yüklenme olayını algılayamazsınız. Yalnız ne yapmak istediğinizi gerçekten biliyorsanız bunu yapabilirsiniz. En önemlisi, tarayıcıların uyarlanmasına bağımlı kalmayın ve bazı kodlar her tarayıcıda aynı biçimde çalışmayabilir.
+<pre>
+if( window.addEventListener ) {
+  window.addEventListener('load',handlerFunction,false);
+} else if( document.addEventListener ) {
+  document.addEventListener('load',handlerFunction,false);
+}
+</pre>
+Başka olaylar için de bu durum aynıdır. Kaydırma ve yeniden boyutlama gibi. Kullanımı window ve belge dallanmasında gereklidir.
+<h3>Manually firing events</h3>
+<ul>
+    <li> iCab 3, ICEbrowser, NetFront 3.3- ve Tkhtml Hv3 olayları elle tekikleyemez (ICEbrowser, NetFront 3.3- ve Tkhtml Hv3 yöntemleri sunar ama doğru çalışmaz).
+</ul>
+Eski olay modelleriyle, olay elleyiciyi elle tetiklemek referenceToElement.oneventname() kullanarak - bir olası elleyici olduğuna göre ve o da bir yöntem olarak algılandığına göre, herhangi bir yöntem gibi kolayca çalıştırılabilir. DOM 2 olay modellerine göre, bu olası değildir. Aynı olay için çoklu elleyiciler vardır. DOM bir kaç küçük yöntem sunar, sahte olay nesnesi yaratacak ve hazırlayacak biçimde olur ve her hedefte tetiklenmesini sağlar. 
+<br /><br />
+Tetiklediğiniz olayın öğesinde olay dinlenmiyor olsa bile üst öğe bile olayı dinler. 
+<br /><br />
+Bir olayı elle tetiklemek, o olayla ilgili varsayılan davranışın alınmasına olanak vermeyebilir. Örneğin, odaklanma olayını elle tetiklemek, öğenin odalanmasını sağlamayabilir (bunu  için öğenin odaklanma yöntemini kullanmak gerekir). Elle tuş olayını başlatmış olmak ekrandaki giriş alanında o tuş değerinin görünmesine neden olmaz. Ve elle bir bağ üzerindeki olayı başlatmak, o bağın izlenmesine neden olmaz. UI (User Interface) türü olaylarda, güvenlik nedenleriyle önemlidir çünkü kodlamanın kullanıcı işlemlerini benzetmesini engeller.
+<br /><br />
+Beş tane DOM 2 olay modülü vardır ve onlar doğrudan DOM özelliklerine ilişkili olurlar.
+<dl>
+<dt>Events (Olaylar)
+    <dd>Tüm olay türlerini içerir
+    </dd></dt>
+<dt>HTML Olayları (HTMLEvents)
+    <dd>'abort', 'blur', 'change', 'error', 'focus', 'load', 'reset', 'resize', 'scroll', 'select', 'submit', and 'unload' olaylarını içerir.
+    </dd></dt>
+<dt>UI Olayları (UIEevents)
+    <dd>Covers 'DOMActivate', 'DOMFocusIn', 'DOMFocusOut', ve (DOM 2 de tuş olayları modülü olmadığından) aynı zamanda 'keydown', 'keypress', ve 'keyup' olaylarını içerir. Aynı zamanda Fare Olaylarını (MouseEvents) dolaylı içerir.
+    </dd></dt>
+<dt>MouseEvents
+    <dd>'click', 'mousedown', 'mousemove', 'mouseout', 'mouseover', ve 'mouseup' içerir.
+    </dd></dt>
+<dt>MutationEvents
+    <dd>'DOMAttrModified', 'DOMNodeInserted', 'DOMNodeRemoved', 'DOMCharacterDataModified', 'DOMNodeInsertedIntoDocument', 'DOMNodeRemovedFromDocument', ve 'DOMSubtreeModified' içerir.
+    </dd></dt>
+</dl>
+Diğer olaylar ('dblclick' gibi) kuralların bir parçası değildir ve tarayıcılar bunları desteklemek zorunda da değildir. Bunları destekleyen tarayıcılar sınıflamak için ya uygun olay modülünü seçecekler - dblclick MouseEvent içine çok iyi oturur - ya da yeni modüller yaratacaklardır. Bu olayları yarattığınızda tarayıcının bunları hangi modül içine aldığını bilmeniz gerekir.
+<br /><br />
+Sahte olay nesneleri document.createEvent yöntemiyle yaratılır ve yaratılırken uygun olay modulü de belirtilir. Uygun yöntemle hazırlanırlar ve sonunda istenilen hedef öğe ile tetiklenirler (element.dispatchEvent yöntemi kullanarak). Soysal olay türü yerine daha özel olay türü kullanırsanız hazırlarken daha çok bilgi verebilirsiniz. Eğer varsayılan işlem engellenirse dispatchEvent yanlış döndürür.
+<br /><br />
+Olay nesnesi yöntemi, olay nesnesi özelliklerini hazırlayan bir çok olay modülü için şöyledir:
+
+<dl>
+<dt>HTML Olayları (HTMLEvents) ve soysal Olaylar
+    <dd>initEvent( 'type', bubbles, cancelable )</dd></dt>
+<dt>UIEvents
+    <dd>initUIEvent( 'type', bubbles, cancelable, windowObject, detail )</dd></dt>
+<dt>MouseEvents
+    <dd>initMouseEvent( 'type', bubbles, cancelable, windowObject, detail, screenX, screenY, clientX, clientY, ctrlKey, altKey, shiftKey, metaKey, button, relatedTarget )</dd></dt>
+<dt>MutationEvents
+    <dd>initMutationEvent( 'type', bubbles, cancelable, relatedNode, prevValue, newValue, attrName, attrChange )</dd></dt>
+</dl>
+    Not, prevValue, newValue, ve attrName ideğerleri hepsi de null olabilse de, olay DOMAttrModified olayı olmasa da, attrChange her zaman sunulmalıdır.
+<br /><br />
+MouseEvents UIEvent altsınıfıdır. Eğer fareolayları nesnesi yaratacak olursanız initUIEvent ve initEvent yöntemlerini de katarak daha soysal UIEvent ve Event arayüzü oluşturur. Olayı oluştururken hangi init*Event yöntemini kullanacağınızı seçebilirsiniz.
+<br /><br />
+Aşağıdaki tıklama olayını tetikleme örneğidir:
+<pre>
+var fireOnThis = document.getElementById('someID');
+var evObj = document.createEvent('MouseEvents');
+evObj.initMouseEvent( 'click', true, true, window, 1, 12, 345, 7, 220, false, false, true, false, 0, null );
+fireOnThis.dispatchEvent(evObj);
+</pre>
+
+The following is another example of firing a click event, this time using the generic initEvent method, and leaving undefined properties at their default values (even when using the generic initEvent or initUIEvent, you should still use the exact module name, and not a generic module, or it will not work in Mozilla/Firefox, Konqueror, or Safari):
+<pre>
+var fireOnThis = document.getElementById('someID');
+var evObj = document.createEvent('MouseEvents');
+evObj.initEvent( 'click', true, true );
+fireOnThis.dispatchEvent(evObj);
+</pre>
+Key events are a little harder, because Mozilla/Firefox does not implement the standard correctly, and does not allow you to create key events using generic UIEvents. Instead, it provides a proprietary module 'KeyEvents', and initialisation method 'initKeyEvent'. The proprietary initKeyEvent method expects the following parameters: 'type', bubbles, cancelable, windowObject, ctrlKey, altKey, shiftKey, metaKey, keyCode, charCode. You can use if(window.KeyEvent) to detect support for the KeyEvents module. Browsers that expect you to use UIEvents do not have a specific initialisation function for key events, so some properties must be added manually:
+<pre>
+var fireOnThis = document.getElementById('someID');
+if( window.KeyEvent ) {
+  var evObj = document.createEvent('KeyEvents');
+  evObj.initKeyEvent( 'keyup', true, true, window, false, false, false, false, 13, 0 );
+} else {
+  var evObj = document.createEvent('UIEvents');
+  evObj.initUIEvent( 'keyup', true, true, window, 1 );
+  evObj.keyCode = 13;
+}
+fireOnThis.dispatchEvent(evObj);
+</pre>
+Getting support for Internet Explorer on Windows
+<br /><br />
+Internet Explorer on Windows does not provide any of the DOM 2 Events methods, and provides very few of the properties of the event object. Version 5.0+ does provide a similar system that is much more limited in its capabilities, but if you need Internet Explorer support, you will have to accept the differences and limitations, make sure your code does not rely on the parts that Internet Explorer is missing, and implement the branching code I will show you here.
+<h3>Adding and removing listeners</h3>
+
+Adding and removing event listeners is done using these methods:
+<pre>
+referenceToElement.attachEvent('onNameOfEvent',referenceToFunction);
+referenceToElement.detachEvent('onNameOfEvent',referenceToFunction);
+</pre>
+These are almost synonymous with the addEventListener and removeEventListener methods, but they are unable to specify a phase. Internet Explorer only detects events in the bubbling phase, not capture. It also requires 'on' to be included at the start of the eventname, so for the click event, you should use 'onclick' in IE, and not 'click'. (Note also that IE only supports the basic event types - it does not support any of the advanced types, such as mutation events.) If you need Internet Explorer support as well, you should use this code:
+<pre>
+function eventHandler(e) {
+  alert('Div bubble ran');
+}
+var oDiv = document.getElementById('thediv');
+if( oDiv.addEventListener ) {
+  oDiv.addEventListener('click',eventHandler,false);
+} else if( oDiv.attachEvent ) {
+  oDiv.attachEvent('onclick',eventHandler);
+}
+</pre>
+<h3>Referencing the elements that detect the event</h3>
+
+Internet Explorer's model is more annoying here. The 'this' keyword is a reference to the window object. There is no equivalent to the eventObject.currentTarget property. Internet Explorer's model makes it impossible to see what element is currently processing the event.
+<br /><br />
+It is possible to reference the actual target of the event, using the eventObject.srcElement property, which is equivalent to the eventObject.target property provided by DOM 2 Events. Unlike the way it works with traditional event models, IE does correctly provide the event object as an argument to the handler function when you use attachEvent. There is no need to check if window.event is needed instead, because it is not needed. To use srcElement, simply detect what you need (make sure the standards compliant check is made first):
+<pre>
+var theTarget = e.target ? e.target : e.srcElement;
+if( theTarget && ( theTarget.nodeType == 3 || theTarget.nodeType == 4 ) ) {
+  theTarget = theTarget.parentNode;
+}
+</pre>
+
+You can also do the same to get the equivalent to eventObject.relatedTarget - which is known as eventObject.fromElement in IE. It is available for mouseover and mouseout events.
+<pre>
+var relTarget = e.relatedTarget ? e.relatedTarget : e.fromElement;
+</pre>
+<h3>Preventing the default action</h3>
+
+IE does not provide eventObject.preventDefault() but provides an alternative. The event object has a property called 'returnValue' that will perform the equivalent functionality if it is set to false. Setting this value in other browsers will not cause any problems, so the easiest way to support IE as well is like this:
+<pre>
+if( e.preventDefault ) { e.preventDefault(); }
+e.returnValue = false;
+</pre>
+
+It is not possible to check if the event is a type that can be cancelled in IE.
+Preventing other listeners from seeing the event
+<br /><br />
+IE does not provide the stopPropagation method (probably because IE only supports bubbling). Instead, it uses a property called 'cancelBubble', which must be set to true to prevent propagation. It is not possible to check if the event is a type that can bubble in IE.
+<pre>
+if( e.stopPropagation ) { e.stopPropagation(); }
+e.cancelBubble = true;
+</pre>
+<h3>Detecting the load event</h3>
+
+Internet Explorer detects the load event on the window object, using the usual attachEvent method. This makes the load event listener (shown above) require one more branch:
+<pre>
+if( window.addEventListener ) {
+  window.addEventListener('load',handlerFunction,false);
+} else if( document.addEventListener ) {
+  document.addEventListener('load',handlerFunction,false);
+} else if( window.attachEvent ) {
+  window.attachEvent('onload',handlerFunction);
+}
+</pre>
+Congratulations; your browser detected the load event using this script.
+Manually firing events
+<br /><br />
+This is a little more messy than the other event handling, since the initialisation is considerably different. Internet Explorer has a method for manually firing events, called fireEvent, and it is available in IE 5.5+ (there is no equivalent in IE 5.0). In its simplest form, this is similar to the DOM version, but the bubbles and cancelable properties are not available. The fireEvent method expects to be passed either one or two parameters. The first should be the name of the event (for example; 'onchange'), and the optional second parameter should be an event object to be passed to the handler.
+<br /><br />
+Note that even though the window object can detect several events in IE (such as load, unload, scroll, and resize - all of which should, according to the spec, be detected by the document object, not window), it is not possible to use fireEvent on the window object.
+<pre>
+var fireOnThis = document.getElementById('someID');
+if( document.createEvent ) {
+  var evObj = document.createEvent('MouseEvents');
+  evObj.initEvent( 'mousemove', true, false );
+  fireOnThis.dispatchEvent(evObj);
+} else if( document.createEventObject ) {
+  fireOnThis.fireEvent('onmousemove');
+}
+</pre>
+If you want to specify more details, you will need to use the createEventObject method in IE to replicate the createEvent and init*Event methods of the DOM. The createEventObject method normally returns a blank event object, and you will need to define parameters yourself. You can optionally pass an existing event object to createEventObject, and it will use that as a template when preparing the new event object. Usually, you will not need to pass it any arguments.
+<pre>
+var fireOnThis = document.getElementById('someID');
+if( document.createEvent ) {
+  var evObj = document.createEvent('MouseEvents');
+  evObj.initMouseEvent( 'mousemove', true, false, window, 0, 12, 345, 7, 220, false, false, true, false, 0, null );
+  fireOnThis.dispatchEvent(evObj);
+} else if( document.createEventObject ) {
+  var evObj = document.createEventObject();
+  evObj.detail = 0;
+  evObj.screenX = 12;
+  evObj.screenY = 345;
+  evObj.clientX = 7;
+  evObj.clientY = 220;
+  evObj.ctrlKey = false;
+  evObj.altKey = false;
+  evObj.shiftKey = true;
+  evObj.metaKey = false;
+  evObj.button = 0;
+  evObj.relatedTarget = null;
+  fireOnThis.fireEvent('onmousemove',evObj);
+}
+</pre>
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

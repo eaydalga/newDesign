@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>JS - Öğe içerikleri </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script language="JavaScript" src="../js/XHConn.js"> </script>
+<script language="JavaScript" src="../js/js10.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="ysoltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="js.html" class="nav">Giriş</a>
+               <a href="jstxt1.html" class="nav">Sayfada Javascript</a>
+               <a href="jstxt2.html" class="nav">Nesnel Programlama</a>
+               <a href="jstxt3.html" class="nav">JS Nesneleri</a>
+               <a href="jstxt4.html" class="nav">İşlemler</a>
+               <a href="jstxt5.html" class="nav">Değişkenler</a>
+               <a href="jstxt6.html" class="nav">Denetim Yapıları</a>
+               <a href="jstxt7.html" class="nav">Script Yazma</a>
+               <a href="jstxt8.html" class="nav">Yazma İşlevleri</a>
+               <a href="jstxt9.html" class="nav">Başvuru</a>
+               <a href="jstxt10.html" class="nav">DHTML</a>
+               <a href="jstxt11.html" class="nav">Öğe İçeriği</a>
+               <a href="jstxt12.html" class="nav">Pencereler</a>
+               <a href="jstxt13.html" class="nav">Olay Bilgisi</a>
+               <a href="jstxt14.html" class="nav">Zaman Ayarı</a>
+               <a href="jstxt15.html" class="nav">Cookie Kullanımı</a>
+               <a href="jstxt16.html" class="nav">Güvenlik</a>
+               <a href="js24.html" class="nav">Javascript Nesneler</a>
+<br />
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>Javascript Yazılım Kuralları (JS)</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">23 Aralık 2007</span></div>
+<h2>Öğe içerikleri</h2>
+<div class="yazi">
+
+DOM, belgenin neresinde olursa olsun, tüm öğelere erişim için kolay bir yoldur. DOM tarayıcılarla birlikte çalışan yollarla birçok öğeye erişilebilir. Eğer kodlamanızın Netscape 4 ile çalışmasını isterseniz (bugünlerde pek kullanılmasa da) buradaki kurallar kullanışlı olur.
+<br /><br />
+Netsacpe4 gibi katmanlı tarayıcılar diğer tarayıcılarda çok değişiktir. Tüm form'lar, resimler, bağlar ve bir katman içindeki çocuk katmanlar yeni 'document' nesnesiyle erişilmelidir.
+
+<h3>Bir şeye soysal olarak nasıl erişilir</h3>
+
+MacroMedia önce soysal 'wysiwyg' toplu erişimli (reference-all) işlevi olarak çıktı.Resimlere, formlara ve her tür katmana erişebilirdi. Bu da aranan ada uygun nesne adı ya da 'id' anlamına gelir. Bundan esinlenerek birkaç farklı şeyi de içeren aşağıdaki işlev yazıldı:
+<br /><br />
+Bunun erişebildiği tek şey, bağlantı nesnesidir. Yapıları gereği, bağlantı nesneleri sayısal dizinleriyle erişilebilir. Çapalı öğelerden farklı olarak, bağlantı nesnelerine ad niteliğiyle erişilemez. Çapalı birikime erişilse, bağlantı özelliklerine ad ile erişilmez. Her çapayı adı tutuyor mu diye incelemek doğru çapalı öğeye erişme olanağı vardır ama bağa hala erişim olmaz.
+<br /><br />
+Eğer adlar, form içindeki giriş alanlarının adlarında paylaşılıyorsa, bu işlev aynı ad paylaşan tüm giriş alanlarına erişir.
+<pre class="fyazi">
+function MWJ_findObj( oName, oFrame, oDoc ) {
+  /* Eğer bir katmanda çalışmıyorsa, çalışılan iskelet
+     içindeki belgeye atanmalıdır. Eğer çalışılan iskelet tanımlı
+     değilse, sayfanın 'window' nesnesi kullanılmalıdır.
+  UYARI: - Eğer sayfanız bir başka adreste bulunuyorsa
+     iskeletler (çerçeveler) arası kodlama hata verebilir
+  */
+  if( !oDoc )
+       { if( oFrame ) { oDoc = oFrame.document; }
+  else { oDoc = window.document; } }
+
+  //resimler, formlar ve katmlanlar denetlenir
+  if( oDoc[oName] ) { return oDoc[oName]; }
+
+  //pDOM katmanlarına bakılır
+  if( oDoc.all && oDoc.all[oName] ) { return oDoc.all[oName]; }
+
+  //DOM katmanlarına bakılır
+  if( oDoc.getElementById && oDoc.getElementById(oName) ) {
+    return oDoc.getElementById(oName); }
+
+  //form öğelerine bakılır
+  for( var x = 0; x &lt; oDoc.forms.length; x++ ) {
+    if( oDoc.forms[x][oName] ) { return oDoc.forms[x][oName]; } }
+
+  //çapa atma öğelerine bakılır
+  //NOT: yalnız çapa özellikli değişkenler açıktır.
+  //Katmanlı tarayıcılardaki bağ özellikleri değil
+  for( var x = 0; x &lt; oDoc.anchors.length; x++ ) {
+    if( oDoc.anchors[x].name == oName ) {
+      return oDoc.anchors[x]; } }
+
+  //yukarıdakilerin katmanlı tarayıcılarda
+  //katman içinde olmaları incelenir
+  for( var x = 0; document.layers && x &lt; oDoc.layers.length; x++ ) {
+    var theOb = MWJ_findObj( oName, null, oDoc.layers[x].document );
+      if( theOb ) { return theOb; } }
+
+  //çerçevelere, değişkenler ve işlevlere bakılır
+  if( !oFrame && window[oName] ) { return window[oName]; }
+  if( oFrame && oFrame[oName] ) { return oFrame[oName]; }
+
+  //Eğer çerçeveler arasında denetim yapıyorsanız,
+  //yukarıdakilerden herhangi birini aşağıdaki çocuk
+  //çerçevelerinden her birinden arayın:
+  for( var x = 0;
+       oFrame && oFrame.frames && x &lt; oFrame.frames.length;
+       x++ ) {
+    var theOb = MWJ_findObj( oName, oFrame.frames[x],
+                             oFrame.frames[x].document );
+    if( theOb ) { return theOb; }
+  }
+  return null;
+}
+</pre>
+Yorum yapmadan aşağıdaki biçime dönüşür:
+<pre class="fyazi">
+function MWJ_findObj( oName, oFrame, oDoc ) {
+  if( !oDoc ) { if( oFrame ) { oDoc = oFrame.document; }
+  else { oDoc = window.document; } }
+  if( oDoc[oName] ) { return oDoc[oName]; }
+  if( oDoc.all && oDoc.all[oName] ) { return oDoc.all[oName]; }
+  if( oDoc.getElementById && oDoc.getElementById(oName) )
+      { return oDoc.getElementById(oName); }
+  for( var x = 0; x &lt; oDoc.forms.length; x++ ) {
+      if( oDoc.forms[x][oName] ) { return oDoc.forms[x][oName]; }
+  }
+  for( var x = 0; x &lt; oDoc.anchors.length; x++ ) {
+      if( oDoc.anchors[x].name == oName ) { return oDoc.anchors[x]; }
+  }
+  for( var x = 0; document.layers && x &lt; oDoc.layers.length; x++ ) {
+    var theOb = MWJ_findObj( oName, null, oDoc.layers[x].document );
+    if( theOb ) { return theOb; }
+  }
+  if( !oFrame && window[oName] ) { return window[oName]; }
+  if( oFrame && oFrame[oName] ) { return oFrame[oName]; }
+  for( var x = 0;
+       oFrame && oFrame.frames && x &lt; oFrame.frames.length;
+       x++ ) {
+    var theOb = MWJ_findObj( oName, oFrame.frames[x],
+                             oFrame.frames[x].document );
+    if( theOb ) { return theOb; }
+  }
+  return null;
+}
+</pre>
+Belgedeki bir öğeye erişim için işlev iki biçimde çağrılır:
+<pre>
+var theOb = MWJ_findObj( NameOrId );
+</pre>
+'frameset' içinde başka bir belgedeki bir öğeye erişim için iskelet yapı içinde ne kadar yukarıya çıkılabileceği seçilir. Unutulmamalıdır ki 'top' kullanılırsa, bir başkası kendi isteket yapısına sayfanızı yükleyebilir ve bir hata oluşabilir.
+<pre class="fyazi">
+var theOb = MWJ_findObj( NameOrId, ReferenceToTopMostFrameToSearch );
+</pre>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,1178 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<TITLE>AYBIM - AGLINK</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onload="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+          <a href="../index.php" class="box"><img src="../img/aybim.png" border="0"></a><br /><br />
+          <a href="aglar.html" class="nav">Aglar</a>
+          <a href="aglink.html" class="nav">Aglink</a>
+          <a href="agteknik.html" class="nav">Agteknik</a>
+          <a href="ccode.html" class="nav">C-Kodlama</a>
+          <a href="cprep.html" class="nav">C-Önişleme</a>
+          <a href="crclrc.html" class="nav">CRC/LRC</a>
+          <a href="dea.html" class="nav">DEA</a>
+          <a href="etcsrv.html" class="nav">etcsrv</a>
+          <a href="fork.html" class="nav">Çatal (fork)</a>
+          <a href="ilet.html" class="nav">ilet</a>
+          <a href="inetd.html" class="nav">inetd</a>
+          <a href="make.html" class="nav">Make</a>
+          <a href="msgauth.html" class="nav">Msg Auth</a>
+          <a href="recur.html" class="nav">Özyinelemeli</a>
+          <a href="robots.html" class="nav">Robotlar için</a>
+          <a href="sdlc.html" class="nav">SDLC</a>
+          <a href="secure.html" class="nav">Güvenlik</a>
+          <a href="seri.html" class="nav">Seri uçlar</a>
+          <a href="snalu0.html" class="nav">SNA LU0</a>
+          <a href="snalu62.html" class="nav">SNA LU6.2</a>
+          <a href="tcpip.html" class="nav">tcp/ip</a>
+          <a href="tcpprg.html" class="nav">tcp Programı</a>
+          <a href="unix.html" class="nav">Unix</a>
+          <a href="vi.html" class="nav">vi Editör</a>
+       </div>
+        </td>
+    <td valign="top">
+       <div id="ortataraf">
+           <span><img src="../img/transparent.gif" width="1" height="50">
+           <img src="../img/transparent.gif" width="780" height="1"></span>
+           <div id="banner">
+             <img src="img/baslik.gif"><br />
+             <div id="mycontainer">
+               <div id="content">
+<div id="bdy" class="yazi">
+<br /><br />
+<script type="text/javascript"><!--
+google_ad_client = "pub-8541306787668208";
+//728x90, created 1/16/08
+google_ad_slot = "7459135715";
+google_ad_width = 728;
+google_ad_height = 90;
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<br>
+<br>
+<div id="sag"><span class="yazi">24 Ocak 2008</span></div>
+<H2>İKİ BİLGİSAYAR ARSINDAKİ BAĞLANTI TANIMLARI</H2>
+<HR>
+
+<P><B>EQL - Çoklu hatlar için trafik dengeleyici.</B>
+
+<P>EQL birim adı `eql'dir. Her bilgisayar için bir tane EQL birimi
+olabilir (Linux kernel kodunu değiştirmezseniz). EQL birden çok uçtan uça
+bağlantıyı (ppp, slip ya da plip gibi bağlantıyı) tek bir
+mantıksal birim olarak görür ve tcp/ip taşıyıcısı olarak tanımlar. 
+Bu programı kullanmanın en önemli nedeni, çoğu zaman
+birden çok düşük hızlı hat kullanmanın, yüksek hızlı tek hat
+kullanmaktan daha verimli ve ucuz olmasından kaynaklanır.
+
+<P>Bu işlemin doğru çalışabilmesi için hattın öteki ucundaki
+bağlantıda da EQL kullanılıyor olması gerekir.
+Linux, Livingstone Portmasters ve yeni dial-in sunucuları EQL uyumlu 
+destek verebilecek özellikleri var.
+
+<P>EQL tanımlarını yapabilmek için eql araçlarına ihtiyaç vardır. Bu
+araçlar
+  <A HREF="http://www.ibiblio.org/pub/linux/system/network/serial/eql-1.2.tar.gz">
+  http://www.ibiblio.org/pub/linux/system/network/serial/eql-1.2.tar.gz</A>
+adresinden sağlanabilir.
+
+<p>EQL hakkında çeşitli belgeyi
+<a href="http://linux.about.com/cs/linux101/g/eql.htm">eql- What is eql</a>
+adresinde bulunur.
+
+<P>Tanımlama oldukça basittir. Önce eql arayüzü tanımlanır. "eql" arayüzü
+herhangi bir ağ arayüzü gibi tanımlanır. IP adresi ve "mtu" değerlerini
+ifconfig programı ile tanımlarsınız. Örnek :
+
+<pre>
+  ifconfig eql 192.168.10.1 mtu 1006
+  route add default eql
+</pre>
+
+<P>Daha sonra kullanacağınız hatları elle başlatırsınız. Bunlar uçtan uca
+bağlantı biçimlerinin herhangi bir türünden olabilir.
+
+<P>Son olarak bu bağlantılarla eql birimi arasında seri bir bağlantı
+oluşturmak gerekir. Buna "enslaving" adı verilir ve eql_enslave
+komutu ile yapılır. Örneğin :
+<P>
+<pre>
+       eql_enslave eql sl0 28800
+       eql_enslave eql ppp0 14400
+</pre>
+
+<P>eql_enslave komutunda kullanılan tahmin edilen hız parametresi doğrudan
+bir şey yapmaz. Bu bilgi EQL sürücü tarafından kullanılır. Hattın hangi
+datagram'ları nasıl paylaşacağını belirlemesi için kullanılır. Böylece
+bu değerlerle oynayarak hatların yükünü ayarlamak ve ince ayar yapmak
+mümkündür.
+
+<P>Bir hattı EQL biriminden ayrımak için eql_emancipate komutu aşağıdaki gibi
+kullanılır :
+
+<pre>
+       eql_emancipate eql sl0
+</pre>
+
+<P>Artık yönlendirme komutlarını kullanabilirsiniz. Burada yönlendirme
+komutu gerçek seri bağlantılarla kullanılmaz, eql birimi ile
+tanımlanır. Tipik bir örnek :
+<P>
+<pre>
+       route add default eql0
+</pre>
+dir.
+
+<P>EQL sürücüsü Simon Janes, simon@ncm.com tarafından geliştirilmiştir.
+
+<P><B>IP Muhasebesi (Accounting)</B>
+
+<P>linux içinde sunulan IP Accounting özelliği size ağ kullanımı
+hakkında bilgi verir. Toplanan bilgi paket ve byte sayısı olarak
+isteyene gönderilir.
+
+<P>Kernel hazırlandıktan sonra ipfwadm komutu ile IP accounting
+bilgileri tanımı yapılır. Kullanabileceğiniz bilgileri çeşitli
+sınıflara bölmek için pek çok yol vardır. Burada küçük bir örnek ile
+olay anlatılacaktır. Ayrıntılı bilgi için ilgili dökümana (man ipfwadm)
+bakmak gerekir.
+
+<P><B>Senaryo :</B>
+<ul>
+Diyelim sizin ethernet ağınız internet ortamına ppp ile bağlanmış olsun.
+Ethernet üzerinde bir bilgisayarınız var ve bazı hizmetleri sunmaktadır.
+Siz telnet, rlogin, ftp ve WEB sunucular tarafından ne kadar trafik
+üretildiğini öğrenmek istiyorsunuz.
+</ul>
+
+<P>Bu senaryo için aşağıdakine benzer bir dizi komut kullanmanız gerekir.
+<P>
+<pre>
+#
+# Flush the accounting rules
+ipfwadm -A -f
+#
+# Add rules for local ethernet segment
+ipfwadm -A in -a -P tcp -D 44.136.8.96/29 20
+ipfwadm -A out -a -P tcp -S 44.136.8.96/29 20
+ipfwadm -A in -a -P tcp -D 44.136.8.96/29 23
+ipfwadm -A out -a -P tcp -S 44.136.8.96/29 23
+ipfwadm -A in -a -P tcp -D 44.136.8.96/29 80
+ipfwadm -A out -a -P tcp -S 44.136.8.96/29 80
+ipfwadm -A in -a -P tcp -D 44.136.8.96/29 513
+ipfwadm -A out -a -P tcp -S 44.136.8.96/29 513
+ipfwadm -A in -a -P tcp -D 44.136.8.96/29
+ipfwadm -A out -a -P tcp -D 44.136.8.96/29
+ipfwadm -A in -a -P udp -D 44.136.8.96/29
+ipfwadm -A out -a -P udp  -D 44.136.8.96/29
+ipfwadm -A in -a -P icmp -D 44.136.8.96/29
+ipfwadm -A out -a -P icmp -D 44.136.8.96/29
+#
+# Rules for default
+ipfwadm -A in -a -P tcp -D 0/0 20
+ipfwadm -A out -a -P tcp -S 0/0 20
+ipfwadm -A in -a -P tcp -D 0/0 23
+ipfwadm -A out -a -P tcp -S 0/0 23
+ipfwadm -A in -a -P tcp -D 0/0 80
+ipfwadm -A out -a -P tcp -S 0/0 80
+ipfwadm -A in -a -P tcp -D 0/0 513
+ipfwadm -A out -a -P tcp -S 0/0 513
+ipfwadm -A in -a -P tcp -D 0/0
+ipfwadm -A out -a -P tcp -D 0/0
+ipfwadm -A in -a -P udp -D 0/0
+ipfwadm -A out -a -P udp  -D 0/0
+ipfwadm -A in -a -P icmp -D 0/0
+ipfwadm -A out -a -P icmp -D 0/0
+#
+# List the rules
+ipfwadm -A -l -n
+#
+</pre>
+
+<P>Listedeki en son komut, doğru sonuçları ve toplamları üretir.
+
+<P>IP accounting toplamlarında bilinmesi gereken en önemli nokta,
+doğru matematiksel sonuçlar elde etmek için sayıları toplarken
+sıralamayı doğru yapmaktır. Örneğin ftp, rlogin, telnet ve www nin
+toplamlarını alabilmek için bu değerleri, tüm portalardaki uygun 
+bulunan kurallardaki toplamlardan çıkartmak gerekir.
+
+<UL>
+<P># ipfwadm -A -l -n
+<P>
+<TABLE width="90%" class="yazi">
+<TR><TH COLSPAN=7>IP Muhasebesi Kuralları</TH></TR>
+<TR><TH ALIGN=LEFT>Paketler</TH><TH>bytes</TH><TH> dir</TH><TH>prot</TH><TH ALIGN=LEFT>kaynak</TH><TH ALIGN=LEFT>gideceği yer</TH><TH ALIGN=LEFT>ports</TH></TR>
+<TR><TD>0</TD><TD>0</TD><TD>in</TD><TD>tcp</TD><TD>0.0.0.0/0 </TD><TD> 44.136.8.96/29  </TD><TD>* -> 20</TD></TR>
+<TR><TD>0</TD><TD>0</TD><TD>out</TD><TD>tcp</TD><TD>44.136.8.96/29</TD><TD>       0.0.0.0/0</TD><TD>20 -> *</TD></TR>
+<TR><TD>0</TD><TD>0</TD><TD>in</TD><TD>tcp</TD><TD>0.0.0.0/0</TD><TD>44.136.8.96/29 </TD><TD>* -> 23</TD></TR>
+<TR><TD>0</TD><TD>0</TD><TD>out</TD><TD> tcp</TD><TD>44.136.8.96/29 </TD><TD>0.0.0.0/0</TD><TD>23 -> *</TD></TR>
+<TR><TD>10</TD><TD>1166</TD><TD>in  </TD><TD>tcp</TD><TD>0.0.0.0/0</TD><TD>44.136.8.96/29</TD><TD>* -> 80</TD></TR>
+<TR><TD>10</TD><TD> 572</TD><TD>out</TD><TD> tcp</TD><TD> 44.136.8.96/29</TD><TD>0.0.0.0/0</TD><TD>80 -> *</TD></TR>
+<TR><TD>242</TD><TD> 9777</TD><TD>in </TD><TD>tcp</TD><TD> 0.0.0.0/0</TD><TD>44.136.8.96/29</TD><TD>* -> 513</TD></TR>
+<TR><TD>220</TD><TD>18198</TD><TD>out</TD><TD>tcp</TD><TD> 44.136.8.96/29</TD><TD>0.0.0.0/0</TD><TD>513 -> *</TD></TR>
+<TR><TD>252</TD><TD>10943</TD><TD>in </TD><TD>tcp</TD><TD> 0.0.0.0/0</TD><TD>44.136.8.96/29</TD><TD>* -> *</TD></TR>
+<TR><TD>231</TD><TD>18831</TD><TD>out</TD><TD>tcp</TD><TD> 0.0.0.0/0</TD><TD>44.136.8.96/29</TD><TD>* -> *</TD></TR>
+<TR><TD>0</TD><TD>0</TD><TD>in</TD><TD>udp </TD><TD> 0.0.0.0/0</TD><TD>44.136.8.96/29</TD><TD>* -> *</TD></TR>
+<TR><TD>0</TD><TD>0</TD><TD>out</TD><TD>udp </TD><TD> 0.0.0.0/0</TD><TD>44.136.8.96/29</TD><TD>* -> *</TD></TR>
+<TR><TD>0</TD><TD>0</TD><TD>in</TD><TD>icmp</TD><TD> 0.0.0.0/0</TD><TD>44.136.8.96/29</TD><TD>*</TD></TR>
+<TR><TD>0</TD><TD>0</TD><TD>out</TD><TD>icmp</TD><TD> 0.0.0.0/0</TD><TD>44.136.8.96/29</TD><TD>*</TD></TR>
+<TR><TD>0</TD><TD>0</TD><TD>in</TD><TD>tcp </TD><TD> 0.0.0.0/0</TD><TD>0.0.0.0/0</TD><TD>* -> 20</TD></TR>
+<TR><TD>0</TD><TD>0</TD><TD>out</TD><TD>tcp </TD><TD> 0.0.0.0/0</TD><TD>0.0.0.0/0</TD><TD>20 -> *</TD></TR>
+<TR><TD>0</TD><TD>0</TD><TD>in</TD><TD>tcp </TD><TD> 0.0.0.0/0</TD><TD>0.0.0.0/0</TD><TD>* -> 23</TD></TR>
+<TR><TD>0</TD><TD>0</TD><TD>out</TD><TD>tcp </TD><TD> 0.0.0.0/0</TD><TD>0.0.0.0/0</TD><TD>23 -> *</TD></TR>
+<TR><TD>10</TD><TD>1166</TD><TD>in  </TD><TD>tcp </TD><TD> 0.0.0.0/0</TD><TD>0.0.0.0/0</TD><TD>* -> 80</TD></TR>
+<TR><TD>10</TD><TD> 572</TD><TD>out </TD><TD>tcp </TD><TD> 0.0.0.0/0</TD><TD>0.0.0.0/0</TD><TD>80 -> *</TD></TR>
+<TR><TD>243</TD><TD> 9817</TD><TD>in  </TD><TD>tcp </TD><TD> 0.0.0.0/0</TD><TD>0.0.0.0/0</TD><TD>* -> 513</TD></TR>
+<TR><TD>221</TD><TD>18259</TD><TD>out </TD><TD>tcp </TD><TD> 0.0.0.0/0</TD><TD>0.0.0.0/0</TD><TD>513 -> *</TD></TR>
+<TR><TD>253</TD><TD>10983</TD><TD>in  </TD><TD>tcp </TD><TD> 0.0.0.0/0</TD><TD>0.0.0.0/0</TD><TD>* -> *</TD></TR>
+<TR><TD>231</TD><TD>18831</TD><TD>out </TD><TD>tcp </TD><TD> 0.0.0.0/0</TD><TD>0.0.0.0/0   </TD><TD>* -> *</TD></TR>
+<TR><TD>0</TD><TD>0</TD><TD>in  </TD><TD>udp </TD><TD> 0.0.0.0/0</TD><TD>0.0.0.0/0    </TD><TD> * -> *</TD></TR>
+<TR><TD>0</TD><TD>0</TD><TD>out </TD><TD>udp </TD><TD> 0.0.0.0/0</TD><TD>0.0.0.0/0     </TD><TD>* -> *</TD></TR>
+<TR><TD>0</TD><TD>0</TD><TD>in  </TD><TD>icmp</TD><TD> 0.0.0.0/0</TD><TD>0.0.0.0/0     </TD><TD>*</TD></TR>
+<TR><TD>0</TD><TD>0</TD><TD>out </TD><TD>icmp</TD><TD> 0.0.0.0/0</TD><TD>0.0.0.0/0     </TD><TD>*</TD></TR>
+</TABLE>
+</UL>
+
+<P><B>IP Eşleme (Aliasing)</B>
+
+<P>Bazı durumlarda bir ağ birimine birden çok IP adresi tanımlamak
+gerekebilir. Internet Servis Sunucuları bu işlemi ftp ve WEB işlemleri
+için çoğu kez yaparlar.
+
+<P>Bir kez kernel IP_Alias desteği ile hazırlanınca tanımlama çok
+kolaydır. Gerçek ağ adresine eşlenecek sanal ağ birimi
+<birimadı>:<sanal birim numarası> biçiminde tanımlanır. Örneğin
+eth0:0, ppp0:10 v.b.
+
+<P>Diyelim sizin ethernet ağ bağlantınız iki değişik ağ adresine 
+ayna anda hizmet veriyor. Bu durumda bilgisayarınızın her iki ağa da
+doğrudan erişimi olması gerekir. Aşağıdaki komutlar bu örnek için
+gereklidir :
+
+<P>
+<pre>
+#<BR>
+# ifconfig eth0:0 192.168.1.1 netmask 255.255.255.0 up<BR>
+# route add -net 192.168.1.0 netmask 255.255.255.0 eth0:0<BR>
+#<BR>
+# ifconfig eth0:1 192.168.10.1 netmask 255.255.255.0 up<BR>
+# route add -net 192.168.10.0 netmask 255.255.255.0 eth0:0<BR>
+#<BR>
+</pre>
+
+<P>Bir eşlemeyi silmek için aşağıdaki örnek komut gibi bir komut kullanmak
+yeterlidir :
+<P>
+<UL>
+# ifconfig eth0:0- 0
+</UL>
+
+<P>Bu eşlemeyle ilgili tüm yönlendirmeler de otomatik olarak silinir.
+
+<P><B>IP Kalkanı (Firewall)</B>
+
+<P>Bu konu başka dökümanlarda ayrıntıları ile ele anılmıştır. IP kalkanı
+kısca, bilgisayarınızı yetkisiz kişilerin göndereceği datagram'lara karşı
+korumak için kullanılır. Burada sizin istemediğiniz IP adreslerinden
+gelen datagram'lar filitrelenir.
+
+<P>IP kalkanı üç değişik filitre sınıfına bölünebilir. Giriş filitresi,
+çıkış filitresi ve yönlendirme filitresi. Giriş filitresi ağ biriminden
+gelen datagram'lara uygulanır. Çıkış filitresi bilgisayardan ağ
+birimine giden datagram'lara uygulanır. Yönlendirme kuralları ise bu
+bilgisayara ilişkin olmayan gelen datagram'lara uygulanır.
+
+<P>IP kalkanı kuralları ipfwadm komutu kullanarak tanımlanır. Güvenlik
+buradaki dökümanın konusu olmadığından yalnız basit bir örnekle IP
+kalkanı hakkında bilgi vermeye çalışacağız.
+
+<P>IP kalkanının en çok kullanıldığı yer her halde linux bilgisayarını
+yönlendirici olarak kullandığınız uygulamalardır. Burada yerel ağınıza
+dışarıdan yetkisiz kullanıcıların girmesini engellemeye çalışmak için
+kalkan tanımları yapılır.
+
+<P>Aşağıdaki çizim 
+Arnt Gulbrandsen, &lt;agulbra@troll.no&gt; tarafından hazırlanmıştır..
+
+<P>Buradaki örnek çizimdeki Linux Firewall/Router bilgisayarına uygulanan
+kuralları tanımlar (bakınız çizim-1).
+<BR><IMG SRC="img/ag03.gif" BORDER=3>
+<P>Aşağıdaki komutlar "rc" kütüğüne yazılır. Böylece sistem açıldığında
+otomatik olarak başlar. Bu komutların ağ arayüzleri tanımlandıktan hemen
+sonra başlatılması üst düzey güvenlik için önemlidir.
+
+<P>
+<UL>
+  #!/bin/sh<BR>
+<P>
+  # Önce yönlendirme tablolarını sil<BR>
+  # Genel politikayı "accept" (kabul) biçimine cevir<BR>
+  #<BR>
+  /sbin/ipfwadm -F -f<BR>
+  /sbin/ipfwadm -F -p accept<BR>
+  #<BR>
+  # Şimdi geneller için aynısını yap<BR>
+  #<BR>
+  /sbin/ipfwadm -I -f<BR>
+  /sbin/ipfwadm -I -p accept<BR>
+<P>
+  # PPP arayüzünü tümüyle kapa. Burada kullanılan -o seçeneği<BR>
+  # tanımlama hatalarını log kayıtlarına yazmak içindir.<BR>
+  #<BR>
+  /sbin/ipfwadm -I -a reject -y -o -P tcp -S 0/0 -D 172.16.174.30<BR>
+<P>
+  # Önce multicast/anycast/broadcat tipi mesajların hepsini at<BR>
+  #<BR>
+  /sbin/ipfwadm -F -a deny -o -S 224.0/3 -D 172.16.37.0/24<BR>
+  #<BR>
+  # loopback ağından gelen hiçbirşey yerel ağa gitmemeli<BR>
+  #<BR>
+  /sbin/ipfwadm -F -a deny -o -S 127.0/8 -D 172.16.37.0/24<BR>
+<P>
+  # Gelen SMTP ve DNS bağlantılarını Mail ve Name Sever için kabul et<BR>
+  #<BR>
+  /sbin/ipfwadm -F -a accept -P tcp -S 0/0 -D 172.16.37.19 25 53<BR>
+  #<BR>
+  # DNS TCP kadar UDP paketleri de kullanır, bu nedenle onların da<BR>
+  # kabul edilmesi gerekir<BR>
+  #<BR>
+  /sbin/ipfwadm -F -a accept -P udp -S 0/0 -D 172.16.37.19 53<BR>
+  #<BR>
+  # NFS ve Larry McVoy's NFS uzantılarına cevap verme.<BR>
+  # Eğer squid kullanıyorsanız port numarasını buraya ekleyin<BR>
+  #<BR>
+  /sbin/ipfwadm -F -a deny -o -P udp -S 0/0 53 \<BR>
+          -D 172.16.37.0/24 2049 2050<BR>
+<P>
+  # Kullanıcı portlarına cevap verme olsun<BR>
+  #<BR>
+  /sbin/ipfwadm -F -a accept -P udp -S 0/0 53 \<BR>
+          -D 172.16.37.0/24 53 1024:65535<BR>
+<P>
+  # identd için gelen mesajları kabul etme<BR>
+  # Burada Reject kullanıldığında bağlantı kurmak isteyen bilgisayar<BR>
+  # hemen bağlantının kurulamayacağını bilir, yoksa ident zaman aşımı<BR>
+  # kadar beklemek zorundadır.<BR>
+  #<BR>
+  /sbin/ipfwadm -F -a reject -o -P tcp -S 0/0 -D 172.16.37.0/24 113<BR>
+<P>
+  # 192.168.64 ve 192.168.65 ağlarından gelen servis isteklerine cevap ver.<BR>
+  # o ağdaki bilgisayarlar güvenilir bilgisayarlardır.<BR>
+  #<BR>
+  /sbin/ipfwadm -F -a accept -P tcp -S 192.168.64.0/23 \<BR>
+          -D 172.16.37.0/24 20:23<BR>
+<P>
+  # içeride üretilen herşeyi kabul et ve kalkanı geçmesini sağla<BR>
+  #<BR>
+  /sbin/ipfwadm -F -a accept -P tcp -S 172.16.37.0/24 -D 0/0<BR>
+<P>
+  # diğer pekçok TCP bağlantısını kabul etme ve log kayıtlarına yaz<BR>
+  #<BR>
+  /sbin/ipfwadm -F -a deny -o -y -P tcp -S 0/0 -D 172.16.37.0/24<BR>
+<P>
+  # Aynı işlemleri UDP port'ları için de yap<BR>
+  #<BR>
+  /sbin/ipfwadm -F -a deny -o -P udp -S 0/0 -D 172.16.37.0/24<BR>
+</UL>
+
+<P>İyi bir kalkan tanımı biraz uzmanlık isteyen bir iştir. Bu örnek size
+iyi bir başlangıç noktası olabilir. ipfwadm dökümanları ve konuya ilişkin
+diğer dökümanlar okunarak kendi koşullarınıza en uygun kalkanı tanımlamanız
+gerekir.
+
+<P><B>IP Masquerade</B>
+
+<P>Pekçok kişinin yalnız bir telefon hattından internet ortamına
+bağlantısı vardır. Bu durumda olanlara Servis Sağlayıcılar yalnız bir IP
+adresi verirler. Böylece bir bilgisayarın tüm ağa tüm erişim olanakları
+ile bağlanması sağlanmış olur. 'IP Masquerade' birden çok bilgisayarı
+bir IP adresi üzerinden internet ağına bağlamak için çok akıllıca
+düşünülmüş bir yöntemdir. Bu yöntemde tek sorun 'Masquerade' işleminin
+her zaman tek yönü çalışmasıdır. Yani, 'Masquerate' yapılmış tüm
+bilgisayarlar dışarıyı arar, bağlantı kurabilir ama dışarıdan aranmaları,
+bu bilgisayara bağlantı yapılması söz konusu değildir.
+Bunun anlamı "talk" ve "ftp" gibi bazı ağ hizmetlerinin pasif (PASV) konumda
+çalışması gerekir. "telnet" ve "WEB" hizmetlerinde sorun yoktur.
+
+<P>Normalde bir linux bilgisayarında  slip ve ppp bağlantı vardır. Ayrıca
+ağ bağlantılarının tanımı yapılmıştır (büyül bir olasalıkla ethernet ağı).
+'Masquerate' yapılan bilgisayarlar da zaten bu ağ üzerindedir. Bu bilgisayarlar
+ethernet ağının IP adresini kullanır. Bu bilgisayarlarda "eşik" ya da "router"
+adresi olarak linux bilgisayarın ethernet IP adresi tanımlanır.
+
+<P>Tipik ağ görüntüsü aşağıdaki cizimde gösterildiği gibidir.
+<P>
+<IMG SRC="img/ag04.gif" BORDER=0>
+
+<P>Bu yapıyı tanımlama komutları :
+<UL>
+# Ethernet ağı için yönlendirme<BR>
+route add 192.168.1.0 netmask 255.255.255.0 eth0<BR>
+#<BR>
+# Diğer internet işlemleri için yönlendirme<BR>
+route add default ppp0<BR>
+#<BR>
+# Tüm 192.168.1/24 ağındaki bilgisayarın 'Maquerate' yapılması<BR>
+ipfwadm -F -a m -S 192.168.1.0/24 -D 0.0.0.0/0<BR>
+</UL>
+<P>
+Bu konuda ayrıntılı bilgi
+<a href="http://www.e-infomax.com/ipmasq/">http://www.e-infomax.com/ipmasq/</a>
+adresinden sağlanabilir.
+
+<P><B>IP'ye şeffaf Proxy (IP Transparent Proxy)</B>
+
+<P>Ip'ye şeffaf proxy başka bilgisayarlardaki hizmetlerin bu bilgisayara
+yönlendirilmesi işlemini tanımlamakta kullanılır. Bu bilgisayar linux
+ve router görevi üstlenmiş ise ve üzerinde proxy varsa, tüm yönlendirmeleri
+yerel proxy üzerinden yapabilirsiniz.
+
+<P>Şeffaf proxy yönlendirme komutları ipfwadm komutu ile yapılır.
+
+<P>Aşağıdaki örnek bu tür tanımlamalar için yararlı olabilir :
+
+<P>
+<UL>
+  ipfwadm -I -a accept -D 0/0 80 -r 8080
+</UL>
+
+<P>Bu komut, herhangi bir bilgisayardaki 80 numaralı port'a (www sunucu) 
+yapılacak bağlantı isteklerini bu bilgisayar üzerindeki 8080 portuna
+yönlendirilmesini sağlar. Böylece ağ üzerindeki tüm WWW trafiği otomatik
+olarak yerel WWW cache programına yönlendirilmiş olur.
+
+<P><B>PPP</B>
+
+<P>PPP birim adları `ppp0', `ppp1, v.b.dir. Tanımlanan ilk bağlantı '0'
+ile başlar, ardaşık sıralanır.
+
+<P>PPP bağlantı biçimi konua ilişkin diğer dökümanlarda ayrıntıları ile
+anlatıldığından burada bir açıklama yapılmamıştır.
+
+<P>"pppd" progamı ile sürekli bağlantı kurma ve bakım işlemleri
+
+<P>Bir ağa yarı sabit bir bağlantı kurabilecek kadar talihli iseniz,
+bilgisayarınızın bağlantı koptuğunda otomatik arama yapması ve bağlantıyı kurması
+için gereken komutlara ait işlemler bu bölümde anlatılmıştır.
+
+<P>PPP tanımını öyle yapın ki "root" kullanıcısının başlatacağı komutla
+bağlantı kurulsun. Bu komut :
+
+<P>
+<UL>
+# pppd
+</UL>
+biçimindedir.
+
+<P>
+  /etc/ppp/options kütüğünde '-detach' seçeneği kullanmış iseniz aşağıdaki
+satırı /etc/inittab kütüğüne ekleyebilirsiiz :
+
+<P>
+<UL>
+pd:23:respawn:/usr/sbin/pppd
+</UL>
+
+<P>Bu satır init programının pppd programını gerekli olduğunda (öldüğünde) tekrar
+başlatmasını sağlar.
+
+<P><B>SAMBA - `NetBEUI', `NetBios' desteği.</B>
+
+<P>SAMBA, Session Management Block protokolunun bir uygulamasıdır.
+SAMBA Microsoft sistemlerinin sizin diskinizi ve yazıcınızı paylaşmasına
+olanak verir. Ayrıntılı bilgi SAMBA dökümanlarında vardır.
+
+<P><B>SLIP client</B>
+
+<P>SLIP birim adı `sl0', `sl1' v.b.dir. İlk tanım için '0' kullanılır.
+Diğerleri ardaşık numaralar alırlar.
+
+<P>SLIP (Serial Line Internet Protocol) seri uç üzerinden TCP/IP
+kullanma olanağı getirir. SLIP kullanabilmek için karşı bilgisayarda
+SLIP sunucu yazılımı bulunmalıdır.
+
+<P>Slip, bilgisayarınızdaki seri ucu, IP datagram'larını taşımak için
+kullanır. Aslında ağ denetim yazılımı ioctl kullanımı ile seri ucu
+SLIP birimi haline dönüştürür. Bu işlemi yapan iki program "slattach" ve
+"dip" olarak tanımlanır.
+
+<P><B>dip</B>
+
+<P>dip (Dialup IP) akıllı bir program olup, seri ucun hızını düzenler,
+modeminize gereken komutları göndererek karşı tarafı telefon hatları
+üzerinden aramasını sağlar, karşı bilgisayara "login" komutlarını gönderir.
+Oradan IP adresini alır ve ioctl komutunu kullanarak hattı ve seri ucu
+bir SLIP birimine çevirir. "dip" programının iletişim komutlarındaki
+yazım biçiminin gücü, bağlantıyı otomatik hale getirmekte kullanılır.
+
+<P>dip programını
+
+<P>Bu programı
+  <A HREF="http://www.ibiblio.org/pub/linux/system/network/serial/dip-3.3.7n-inaky.tgz">
+  http://www.ibiblio.org/pub/linux/system/network/serial/dip-3.3.7n-inaky.tgz</a>
+adresinden sağlayabilirsiniz.
+
+<P>
+  Yüklemek için
+<P>
+<UL>
+#<BR>
+# cd /usr/src<BR>
+# gzip -dc dip-3.3.7n-inaky.tgz | tar xvf -<BR>
+# cd dip-3.3.7o<BR>
+</UL>
+
+<P>&lt;edit Makefile (Makefile düzeltmeleri)&gt;
+
+<P>
+<UL>
+# make install
+#
+</UL>
+komutları kullanılır.
+
+<P> Makefile, sistemde "uucp" adlı kullanıcı grubu olduğunu varsayarak 
+hazırlanmıştır. Ancak bu grubu kendibilgisayarınızdaki kullanıcı gruplarına
+göre değiştirebilirsiniz (dip ya da slip grubu gibi).
+
+<P><B>slattach</B>
+
+<P>slattach, dip programına göre çok daha basittir. Kullanımı çok kolaydır.
+Bütün yaptığı, hattınızı slip birimi haline getirmektir. Bu programı 
+çalıştırmadan hattınız hazırdır ve seri bağlantı fiziksel olarak kurulmuştur.
+
+<P><B>Ne zaman hangisini kullanmalıyım ?</B>
+
+<P>Geçici bağlantılarda, telefon çevirmeli modemlerle "dip" programı
+kullanımalıdır. Eğer direkt hattınız varsa (leased line), slattach
+programı kullanılmalıdır.
+
+<P>SLIP bağlantısını tanımlamak aynı Ethernet arayüzü tanımlamak gibidir.
+Ancak bazı ayrıcalıklar bulunur.
+
+<P>SLIP bağlantılarında yalnız iki bilgisayar vardır. Ayrıca kablolama
+tamam olur olmaz kullanıma hazırdır. Bağlantının türüne göre
+kendi ağınızın ilk değerlerini biraz özel bir biçimde tanımlamanız
+gerekir.
+
+<P>"dip" kullandığınızda ağ tanımlarını bilgisayar başlarken kurmak
+gerekmeyebilir. Hattı kullanacağınız zaman ağ tanımı yapabilirsiniz.
+Bu işlemi otomatikleştirebilirsiniz de. Eğer slattach kullanıyorsanız
+bu tanımı "rc.inet1" kütüğüne eklemeniz gerekir.
+
+<P>İki tür SLIP sunucu vardır. Değişken IP adres sunucuları, durağan IP
+adres sunucuları. Telefonla bağlantı kurarken, hemen tüm sunucular
+kullanıcı adı ve şifre girilmesini beklerler. "dip" kullanıcı adı ve
+şifre girişini otomatik yapabilir.
+
+<P><B>Telefon hattı ve DIP bağlantısı olan Durağan SLIP sunucu.</B>
+
+<P>Durağan SLIP sunucuda sizin bir IP adresiniz vardır. Her bağlandığınızda
+sunucu size bu adresi verir. Eğer durağan SLIP sunucuya bağlanıyorsanız
+bilgiayarınızın IP adresini ve diğer bağlantı bilgilerini /etc/hosts
+ve "rc" kütüklerine yazabilirsiniz.
+Unutmamanız gereken önemli bir konu rc.inet1 kütüğüne SLIP bağlantı ile ilgili
+tanım komutu yazmamanızdır. Çünkü "dip" programı sizin bu sorununu
+çözümler. Sizin yapacağınız dip için gereken tanımları ve bilgiyi
+hazırlamaktır. "dip" ise gerekli tanımları kendisi yapar.
+
+<P><B>Telefon çevirmeli hatlarla değişken SLIP sunucu ve DIP</B>
+
+<P>Değişken SLIP sunucu adres havuzundan her bağlandığınızda
+size rastgele IP numarası veren sunucudur. Buna göre her bağlantıda aynı
+adresi almanız garanti edilmez. SLIP sunucu havuzdaki ilk
+kullanılmayan IP adresini bağlantı kuran bilgisayara atar. Bağlantıyı
+kuran bilgisayar bu bağlantı boyunca atanan IP adresini kullanır.
+
+<P>Bu tür sunucuyu tanımlamak Durağan Sunucu tanımlamak gibidir. Yalnız
+burada IP adreslerinin bulunduğu havuzu tanımlamak ve buradan alınan
+IP adresine göre SLIP birimi tanımlarını tamamlamak gerekir.
+
+<P>Yine yeni "dip" programı yeterince akıllı davranıp "login" işleminden sonra
+atanan IP numarasını algılar ve saklar. Böylece bu IP numarasını kullanarak
+bağlantı kurulduktan sonra SLIP birimi tanımlarını bu IP adresi ile
+yapabilirsiniz.
+
+<P><B>DIP kullanımı.</B>
+
+<P>Önceki paragraflarda anlatıldığı gibi "dip" SLIP sunucu ile olan
+telefon bağlantısı işlemini kolaylaştırır, sizin "login" işlemini
+tamamlamanızı sağlar, bağlantıyı başlatır ve SLIP birimi için
+gerekli "ifconfig" ve "route" komutu parametrelerini düzenler.
+
+<P>Aslında "dip" programını kullanabilmek için bir "dip script"
+yazmanız gerekir. Bu kütük aslında "dip" programının anladığı bir dizi
+komutlardan oluşur ve bu komutlarla siz "dip" programına yaptırmak istediğiniz
+işlemleri tanımlarsınız.
+Birçok seçeneği ve parametresi ile oldukça güçlü bir program olan "dip"
+ile ilgili bilgiyi programla beraber gelen "sample.dip" kütüğünü 
+inceleyerek anlayabilirsiniz.
+
+<P>"sample.dip" kütüğündeki komutlar sizin durağan SLIP sunucu
+kullandığınızı varsayarak hazırlanmıştır. Aşağıdak örnek "sample.dip"
+kütüğünün değiştirilmiş biçimidir ve iyi bir başlangıç için yararlıdır.
+
+<P>
+<UL>
+  #<BR>
+  # sample.dip    Telefon cevirmeli IP baglanti ve destek programi.<BR>
+  #<BR>
+  # bu kutuk DIP programini nasil kullanacaginizi gosterir. Bu kutuk
+  # Annex tipi degisken sunucular icin calisir. Eger duragan adres
+  # sunucular kullaniyorsaniz paketle beraber gelen sample.dip kutugunu
+  # kullanin.
+  #<BR>
+  #<BR>
+  # Version:      @(#)sample.dip  1.40    07/20/93<BR>
+  #<BR>
+  # Author:       Fred N. van Kempen, <waltje@uWalt.NL.Mugnet.ORG><BR>
+  #<BR>
+<BR>
+  main:<BR>
+  # Sonra, diger tarafin adini ve adresini al<BR>
+  # Benim arayan bilgisayarim 'xs4all.hacktic.nl' (== 193.78.33.42) dır.<BR>
+  get $remote xs4all.hacktic.nl<BR>
+  # sl0 uzerindeki ag maskesini 255.255.255.0 yap<BR>
+  netmask 255.255.255.0<BR>
+  # seri ucun adresini ve hizini tanimla<BR>
+  port cua02<BR>
+  speed 38400<BR>
+<BR>
+  # modem ve terminal hattini durdurup baslatin (reset)<BR>
+  # Burasi bazi kosullarda sorun cikarir.<BR>
+  reset<BR>
+<BR>
+  # Not! "Standart" tanımlanmış "errlevel" değerleri:<BR>
+  #  0 - OK<BR>
+  #  1 - CONNECT<BR>
+  #  2 - ERROR<BR>
+  #<BR>
+  # You can change those grep'ping for "addchat()" in *.c...<BR>
+<BR>
+  # Telefon cevirme hazirligi.<BR>
+  send ATQ0V1E1X4\r<BR>
+  wait OK 2<BR>
+  if $errlvl != 0 goto modem_trouble<BR>
+  dial 555-1234567<BR>
+  if $errlvl != 1 goto modem_trouble<BR>
+<BR>
+  # Baglanti tamam.  Sisteme girelim.<BR>
+  login:<BR>
+  sleep 2<BR>
+  wait ogin: 20<BR>
+  if $errlvl != 0 goto login_trouble<BR>
+  send MYLOGIN\n<BR>
+  wait ord: 20<BR>
+  if $errlvl != 0 goto password_error<BR>
+  send MYPASSWD\n<BR>
+  loggedin:<BR>
+<BR>
+  # Simdi sisteme girdik.<BR>
+  wait SOMEPROMPT 30<BR>
+  if $errlvl != 0 goto prompt_error<BR>
+<BR>
+  # Sunucuyu SLIP konumuna al<BR>
+  send SLIP\n<BR>
+  wait SLIP 30<BR>
+  if $errlvl != 0 goto prompt_error<BR>
+<BR>
+  # Sunucudan IP adresinizi alma ve atama<BR>
+  # Burada varsaydigimiz konu, sunucuyu SLIP konumuna aldiginizda
+  # size IP adresinizi gonderdigidir<BR>
+  get $locip remote 30<BR>
+  if $errlvl != 0 goto prompt_error<BR>
+<BR>
+  # SLIP isletim parametrelerini duzenleme<BR>
+  get $mtu 296<BR>
+  # Ensure "route add -net default xs4all.hacktic.nl" will be done<BR>
+  default<BR>
+<BR>
+  # Merhaba deyip atisa baslayin!<BR>
+  done:<BR>
+  print CONNECTED $locip ---> $rmtip<BR>
+  mode CSLIP<BR>
+  goto exit<BR>
+<BR>
+  prompt_error:<BR>
+  print TIME-OUT waiting for sliplogin to fire up...<BR>
+  goto error<BR>
+<BR>
+  login_trouble:<BR>
+  print Trouble waiting for the Login: prompt...<BR>
+  goto error<BR>
+<BR>
+  password:error:<BR>
+  print Trouble waiting for the Password: prompt...<BR>
+  goto error<BR>
+<BR>
+  modem_trouble:<BR>
+  print Trouble occurred with the modem...<BR>
+  error:<BR>
+  print CONNECT FAILED to $remote<BR>
+  quit<BR>
+<BR>
+  exit:<BR>
+  exit<BR>
+</UL>
+
+<P>Yukarıdaki örnek değişken SLIP sunucuya bağlandığınızı varsayar.
+Eğer siz Durağan SLIP sunucuya bağlanıyorsanız, programla gelen
+"sample.dip" kütüğünü kullanmalısınız.
+
+<P>"dip" için "get $local" komutu çalıştırıldığında, "dip"
+programı karşı tarafdan gelen ve IP adresine benzeyen bir satırı
+algılamaya çalışır. Yani satırda sayılar '.' ile ayrılmıştır.
+
+<P>Yukarıdaki örnek SLIP bağlantısı ile bilgisayar arasındaki yönlendirmeyi
+otomatik olarak yapar.
+
+<P>Bilmeniz gereken önemli bir özellik "mode" komutu ile "dip"
+programına kullanmak istediğiniz çeşitli protokollardan birini
+tanımlayabilmenizdir. En çok kullanılanı "cSLIP - commpressed SLIP"
+örneğidir. Ancak seçtiğiniz protokol hattın her iki ucundaki bilgisayar
+tarafından onaylanmalıdır.
+
+<P>Daha geniş bilgi için "dip" dökümanlarına bakın. Örneğin bu kodu
+değiştirerek, ilk anda SLIP sunucuya bağlantı kuulamaz ise yeniden
+telefon araması yapacak biçimde değiştirebilirsiniz. Hatta birden çok
+sunucuya bağlanabilme olanağınız varsa bunları sıra ile aramayı
+deneyebilirsiniz.
+
+<P><B>Direkt hat ve "slattach" programı ile sürekli SLIP bağlantısı</B>
+
+<P>İki bilgisayar arasında direkt bir hattınız varsa "dip" programı
+ile uğraşmanız gerekmez. "slattach" kullanarak basit bir biçimde bağlantınızı
+tanımlayabilirsiniz.
+
+<P>Bağlantınız sürekli olduğundan rc.inet1 kütüğüne bazı komutlar eklemek
+isteyebilirsiniz. Yapacağınız iş, seri uçu (birimi) doğru hıza getirmek
+ve daha sonra bu birimi SLIP konumuna geçirmektir. "slattach" bunu size
+bir satırlık bir komutla sağlar. Aşağıdaki satırları rc.inet1 kütüğüne
+eklerseniz bu komutu kullanmış olursunuz :
+
+<P>
+<UL>
+#<BR>
+# Duragan SLIP baglantisini saglama islemi<BR>
+#<BR>
+#  /dev/cua0 seri ucuna 19.2kbps hızla ve cslip konumunda baglanma<BR>
+/sbin/slattach -p cslip -s 19200 /dev/cua0 &<BR>
+/sbin/ifconfig sl0 IPA.IPA.IPA.IPA pointopoint IPR.IPR.IPR.IPR up<BR>
+#<BR>
+# End static SLIP.<BR>
+</UL>
+
+<P>
+  Burada:
+
+<P>
+<UL>
+     IPA.IPA.IPA.IPA sizin IP adresinizi,
+<BR>
+     IPR.IPR.IPR.IPR ise karşı tarafın IP adresini gösterir.
+</UL>
+
+<P>"slattach" yukarıdaki seri uca ilk kullanılmayan SLIP birimini atar.
+Yani ilk slattach komutu sl0 birimini atarken ikincisi sl1 birimini
+kullanılır.
+
+<P>"slattach" komutunun -p parametresi ile değişik protokolları
+tanımlayabilirsiniz (SLIP ya da cSLIP).
+
+<P><B>SLIP sunucu.</B>
+
+<P>INTERNET'e bağlı bir bilgisayarınız varsa ve size telefon hattından
+bağlananlara ağ hizmetlerinden yararlanmalarını sağlıyorsanız, bilgisayarınızı
+sunucu olarak tanımlamanız gerekecektir. Eğer seri hat protokolu olarak
+SLIP kullanacaksanız, bilgisayarınızı SLIP sunucu olarak tanımlamak için
+üç seçeneğiniz vardır. Bence "sliplogin" tanımını kullanmanız
+kolay ve anlaşılabilir olduğu için iyi bir çözümdür. Burada tüm seçeneklerin
+bir özeti anlatılmaya çalışılmıştır. Böylece size en uygun yöntemi
+kendiniz seçebilirsiniz.
+
+<P><B>"sliplogin" kullanan SLIP sunucu.</B>
+
+<P>Normal "login" programı yerine kullanabileceğiniz bir programdır.
+Bu program terminal hattını SLIP hattına çevirir. Bilgisayarınızı
+durağan ya da değişken
+adres sunucu olarak tanımlamanıza olanak verir.
+
+<P>Kullanıcılar, kullanıcı adını ve şifresini girerek normal "login"
+işlemini yapar. Ancak "sliplogin" bu bilgileri alınca /etc/slip.hosts
+kütüğünden arama yaparak kullanıcı adını arar. Eğer uygun bir kullanıcı adı
+bulursa, hattı 8bit iletişimi için hazırlar ve ioctl komutu SLIP
+konumuna çevirir.
+Bu işlem bittikten sonra tanımlamanın son adımı devreye girer SLIP arayüzü
+bir "sheel script" çalıştırarak doğru IP adresi ve ağ maskesi ile 
+yönlendirme işlemlerini tamamlar. Bu "script"in adı /etc/slip.login'dir.
+Bazı bağlantılar için özel işlem yapılması gerekiyorsa, /etc/slip.login.kullanıcı_adı
+kullanılarak tanımlama yapılır.
+
+<P>"sliplogin" işleminin doğru çalışabilmesi için üç ya da dört kütüğün
+içeriğinin düzenlenmesi gerekir. Yazılımın ne olduğu, nereden bulunacağı
+ve ayrıntılı olarak kütüklerin yapılarının ne olduğu burada gösterilmiştir.
+
+<UL>
+<P>
+<LI>/etc/passwd kütüğü kullanıcı bilgileri için gereklidir.
+
+<LI>/etc/slip.hosts kütüğü her bağlantı kuran kullanıcıya özgü bilgileri
+içeren bir kütüktür.
+
+<LI>/etc/slip.login kütüğü tanımlamaları ve yönlendirme komutlarını içerir.
+
+<LI>/etc/slip.tty, kütüğü değişken IP adresleri kullanıyorsanız, değişken
+IP adreslerini atamak için gereklidir. Atanacak IP adreslerine ilişkin bilgiyi içerir.
+
+<LI>/etc/slip.logout kütüğü, kullanıcı bağlantıyı kestiğinde ya da bağlantı
+koptuğunda tanımları temizlemek için kullanılır.
+</UL>
+
+<P><B>"sliplogin" nereden sağlanır ?</B>
+
+<P>Eğer dağıtım CD'si içinde yoksa bu program,
+  <A HREF="ftp://sunsite.unc.edu/pub/linux/system/Network/serial/sliplogin-2.1.1.tar.gz">
+  ftp://sunsite.unc.edu/pub/linux/system/Network/serial/sliplogin-2.1.1.tar.gz</A>
+adresinden sağlanabilir.
+
+<P>Yanlız onayı olanların "sliplogin" programını kullanabilmeleri için
+/etc/group kütüğüne aşağıdakine benzer bir ek yapmanız gerekir.
+
+<P>
+<UL>
+..<BR>
+slip::13:radio,fred<BR>
+..<BR>
+</UL>
+
+<P>Yüklemeyi yaptığınızda "makefile" bu programın grubunu "slip" yapar.
+Grubu "slip" olan kullanıcılar bu programı çalıştırabilir. Yukarıdaki örnekte
+yer alan "radio" ve "fred" adlı kullanıcılar sliplogin programını kullanabilir.
+
+<P><B>/etc/passwd tanımlarını "slip" bilgisayarlar için değiştirme.</B>
+
+<P>Genelde Slip kullanıcıları için /etc/passwd kütüğünde özel satırlar
+eklenir. Burada SLIP kullanıcıları için örneğin ilk harfi "S" olan
+kullanıcı adıları tanımlanır. Aşağıdaki örnek "radio" adlı kullanıcı için
+tanımlanan slip satırını gösterir :
+
+<P>
+<UL>
+Sradio:FvKurok73:1427:1:radio SLIP login:/tmp:/sbin/sliplogin
+</UL>
+
+<P>Aslında sizin için bir anlamı olduğunda bu adın ne olduğu pek de önemli değildir.
+
+<P>Bağlantı kuran için özel bir yol tanımlanması gerekmez. Bu nedenle /tmp
+iyi bir çözümdür. Unutulmaması gereken önemli bir özellik "sliplogin" komutunun
+normal "login shell" yerine kullanıldığıdır.
+
+<P><B>/etc/slip.hosts tanımlarını düzenleme.</B>
+
+<P>/etc/slip.hosts kütüğü "sliplogin" tarafından kullanıcı adı için taranan
+bir kütüktür. Buradaki kullanıcı bilgileri ile bağlantı tanımı ve 
+yönlendirmesi yapılır. IP adresi, ağ maskesi ve diğer
+bağlantı ayrıntıları bu kütükte bulunur. Aşağıdaki örnekte iki bilgisayar
+için bu kütükteki tanımlar gösterilmiştir.
+
+<P>
+<UL>
+#<BR>
+Sradio   44.136.8.99   44.136.8.100  255.255.255.0  normal      -1<BR>
+Salbert  44.136.8.99   DYNAMIC       255.255.255.0  compressed  60<BR>
+#<BR>
+</UL>
+
+<P>/etc/slip.hosts kütüğü satırları :
+
+<P>
+<OL>
+  <LI>Arayanın login adı.
+
+<P><LI>. Sunucu bilgisayarın IP adresi.
+
+<P><LI>Arayanın atanacağı IP adresi. Eğer bu bilgi DYNAMIC ise atanacak
+IP adresi /etc/slip.tty kütüğündeki tanımlara göre yapılır (bu kütük daha
+sonra açıklanacaktır).
+
+<P><LI>Arayana verilen ağ maskesi (noktalı sayısal değer olarak
+255.255.255.0 gibi).
+
+<P><LI>"slip konumu" tanımı. Size slip ya da cslip kullanma hakkını
+belirtir.
+
+<P><LI>Otomatik olarak hattın kapatılmasından önce ne kadar boş bekleme
+süresi olduğunu tanımlar. Eksi bir değer bu olanağı ortadan kaldırır.
+
+<P><LI>Diğer parametre ve seçenekler.
+</OL>
+
+<P>Not : ikinci ve üçüncü bilgi alanları için bilgisayar adını ya da
+noktalı sayısal gösterimi IP adresi olarak kullanabilirsiniz. Eğer
+bilgisayar adı kullanılırsanız, bu adın çözümlenebilir olması gerekir.
+
+<P>En çok kullanılan SLIP konumları :
+
+<P>
+<UL>
+<B>normal</B>
+<UL>
+normal sıkıştırılmamış SLIP için kullanılan,
+</UL>
+</UL>
+
+<P>
+<UL>
+<B>sıkıştırılmış (condensed)</B>
+<UL>
+van Jacobsen başlık sıkıştırması yapmak için (cSLIP) kullanılandır.
+</UL>
+</UL>
+<P>Sonuç olarak bu konumlardan birini kullanabilirsiniz.
+
+<P><B>/etc/slip.login kütüğü</B>
+
+<P>"sliplogin" /etc/slip.hosts kütüğünden uygun satırı bulunca,
+/etc/slip.login kütüğünü çalıştırarak SLIP arayüzünü, ip adresini ve 
+ağ maskesini tanımlar.
+
+<P>"sliplogin" ile beraber gönderilen /etc/slip.login kütüğü
+aşağıdaki gibidir :
+
+<UL>
+#!/bin/sh -<BR>
+#<BR>
+#       @(#)slip.login  5.1 (Berkeley) 7/1/90<BR>
+#<BR>
+# generic login file for a SLIP line.  sliplogin invokes this with<BR>
+# the parameters:<BR>
+#     $1       $2       $3    $4, $5, $6 ...<BR>
+#   SLIPunit ttyspeed   pid   the arguments from the slip.host entry<BR>
+#<BR>
+/sbin/ifconfig $1 $5 pointopoint $6 mtu 1500 -trailers up<BR>
+/sbin/route add $6<BR>
+arp -s $6 <hw_addr> pub<BR>
+exit 0<BR>
+#<BR>
+</UL>
+
+<P>Burada kullanılan komutlar SLIP arayüzünü tanımlamak için
+kullanılan "ifconfig" ve "route" komurlarıdır (aynı slattach
+komutunda olduğu gibi).
+
+<P>Proxy ARP kullanımına dikkatle bakın. Burada amaç ethernet arayüzündeki
+diğer bilgisayarların telefon hattı ile bağlanan bilgisayara nasıl 
+bağlanabileceğini belirtmek için kullanılır. Eğer sunucunuza bağlı
+bir ethernet ağı yoksa bu konuyla ilgili satırı tümüyle çıkarabilirsiniz.
+
+<P><B>/etc/slip.logout kütüğü</B>
+
+<P>Daha sonra bağlanacaklarda sorun olmaması için,
+<P>bağlantı koptuğunda seri uçun eski konumuna dönmesi gerekecektir. Bu işlem
+/etc/slip.logout kütüğü ile sağlanır. /etc/slip.login ile aynı yapıdadır
+vi aynı parametrelerle çağrılır.
+
+<P>
+<UL>
+#!/bin/sh -<BR>
+#<BR>
+#               slip.logout<BR>
+#<BR>
+/sbin/ifconfig $1 down<BR>
+arp -d $6<BR>
+exit 0<BR>
+#<BR>
+</UL>
+
+<P>Bunu tüm yaptığı arayüzü kaldırmaktır. Böylece daha önce yaratılmış olan
+yönlendirme de ortadan kalkar. Ayrıca arp komutu ile daha önce tanımlanmış
+ne kadar proxy-arp işlemi varsa onlar da ortadan kalkar. Ethernet kartınız
+yoksa arp komutu ile ilgili satırı kullanmanıza gerek yoktur.
+
+<P><B>/etc/slip.tty kütüğü</B>
+
+<P>Eğer değişken IP adres ataması kullanıyorsanız /etc/slip.tty
+kütüğünüz hangi seri uç için hangi IP adresinin atanacağı bilgisini saklar.
+
+<P>Yapısı aşağıdaki gibidir :
+
+<P>
+<UL>
+# slip.tty   değişken SLIP için tty -> IP adres tablosu<BR>
+# Yapı: /dev/tty?? xxx.xxx.xxx.xxx<BR>
+#<BR>
+/dev/ttyS0      192.168.0.100<BR>
+/dev/ttyS1      192.168.0.101<BR>
+#<BR>
+</UL>
+
+<P>Bu tabloya göre /dev/ttyS0 ucuna bağlantı kuran kullanıcının /etc/slip.hosts
+kütüğündeki adres çözüm alanı "DYNAMIC" ise adresi 192.168.0.100 olacaktır.
+
+<P>Bu yöntemle her uç için bir adres tanımlamanız yeterli olacaktır. Böylece
+tüm telefon çevirmeli kullanıcılar aynı anda bağlantı kuramadıklarından IP
+adresi kaybınız en aza inmiş olacaktır.
+
+<P><B>"dip" kullanan Slip sunucu.</B>
+
+<P>Burada belirtilmesi gereken önemli bir konu, aşağıda açıklanan bilgilerin
+bir çoğu "dip" programının nasıl kullanıldığını anlatan dökümandan
+alıntı yapıldığıdır.
+
+<P>"dip" giriş konumunda iken kendisini çağıran kullanıcıya ilişkin
+tanımları otomatik olarak yapar ve seri uca ait bilgileri /etc/diphosts
+kütüğünden alır.
+
+<P>İlk yapılması gereken işlem aşağıdaki sembolik link komutunu çalıştırmaktır.
+
+<P>
+<UL>
+# ln -sf /usr/sbin/dip /usr/sbin/diplogin
+</UL>
+
+<P>Daha sonra /etc/passwd ve /etc/diphosts kütüklerine gerekli satırları
+eklemelisiniz. Eklemeniz gereken satırların yapısı aşağıdaki gibi olmalıdır :
+
+<P>Linux bilgisayarınızı "dip" kullanan bir SLIP sunucu olarak tanımlamak için
+kullanıcılar için bazı özel SLIP hesapları (login adı) açmanız gerekecektir.
+Çünkü giriş konumunda "dip" programı "login" programı gibi çalışır. Önerilen
+bir yöntem, tüm SLIP kullanıxılarının ilk harfinin "S" ile başlamasıdır.
+
+<P>SLIP kullanıcısı için örnek /etc/passwd satırı şöyledir :
+
+<P>
+<IMG SRC="img/ag05.gif" BODER=0>
+
+<P>Kullanıcı doğru olarak sisteme girdikten sonra "login" programı
+"diplogin" komutunu çalıştırır. "dip" programı kendisinin giriş
+konumunda olduğunu anlar ve kendisini çalıştıran kullanıcının adını,
+kullanıcı numarasını alarak işleme başlar. /etc/diphosts kütüğünden
+kulalnıcı adı ya da terminal birimi adına uygun ilk satırı bulur ve bu
+satırdaki tanımlara göre ağ tanımlarını otomatik olarak yapar. Sunucunuzu
+aynı anda değişmez (durağan) ve değişken IP adresi ataması yapabilecek 
+biçimde tanımlayabilirsiniz (Bazı kullanıcılar için durağan IP adresi,
+diğerleri için değişken IP adresi kullanmak gibi).
+
+<P>Giriş konumunda kullanılıyorsa "dip" otomatik olarak "Proxy-ARP"
+satırını arayüz tanımlarına ekler.
+
+<P><B>/etc/diphosts tanımlama</B>
+
+<P>
+  /etc/diphosts is used by dip to lookup preset configurations for
+  remote hosts. These remote hosts might be users dialing into your
+  linux machine, or they might be for machines that you dial into with
+  your linux machine.
+
+<P>Genel olarak /etc/diphosts kütüğü aşağıdaki gibidir :
+
+<P>
+<UL>
+..<BR>
+Suwalt::145.71.34.1:145.71.34.2:255.255.255.0:SLIP uwalt:CSLIP,1006<BR>
+ttyS1::145.71.34.3:145.71.34.2:255.255.255.0:Dynamic ttyS1:CSLIP,296<BR>
+..<BR>
+</UL>
+
+<P>Bilgi alanları :
+
+<OL>
+<LI>
+   login adı: as returned by getpwuid(getuid()) or tty name.
+
+<LI>
+   kullanılmaz: şifre ile uyumludur
+
+<LI>
+   Diğer Bilgisayar Adresi: Arayan bilgisayarın IP adresidir (sayısal ya da
+isim olarak).
+
+<LI>
+   Yerel Bilgisayar Adresi: Bu bilgisayarın IP adresi (sayısal ya da ad olarak)
+<LI>
+   Ağ adresi: noktalı sayısal gösterim ile
+<LI>
+   Açıklama Alanı: Ne isterseniz yazın
+<LI>
+   protokol: Slip, CSlip v.b.
+<LI>
+   MTU: tamsayı
+</OL>
+
+<P>Örnek bir SLIP kullanıcısı için /etc/net/diphosts satırı :
+
+<P>
+<UL>
+Sfredm::145.71.34.1:145.71.34.2:255.255.255.0:SLIP uwalt:SLIP,296
+</UL>
+
+<P>Burada uzaktaki adresi 145.71.34.1 olan, MTU değeri 296 olan bilgisayarla
+kurulan SLIP bağı tanımlanmıştır. Ya da :
+
+<P>
+<UL>
+Sfredm::145.71.34.1:145.71.34.2:255.255.255.0:SLIP uwalt:CSLIP,1006
+</UL>
+
+<P>Burada 145.71.34.1 adresi, 1006 MTU değeri ile kurulan cSLIP
+bağlantısı tanımlanmıştır.
+
+<P>Buna göre, durağan IP adresi alacak kullanıcılar için /etc/diphosts
+kütüğünde kullanıcı adı ile bir satır, değişken IP aresleri
+için bu kütükte tty (seri uç) adı ile bir satır tanımı bulundurmalısınız.
+Bilmeniz gereken önemli bir ipucu, en az her terminal (uç için) bir
+satır ve IP adresi tanımı kullanmanız gerektiğidir. Böylece kullanıcı hangi
+terminalden bağlanırsa bağlansın, kendisine mutlaka bir IP adresi atanacaktır.
+
+<P>Kullanıcı bağlanı kurduğunda normal "login" ve şifre isteği ile
+karşılaşır. Kulalnıcı buraya SLIP adını ve şiresini girer. Değerler doğru ise
+özel bir mesajla karşılaşmadan SLIP konumuna geçerler. Kendi uçlarındaki
+bağlantı tanımları "diphosts" adlı kütükten sağlanır.
+
+<P><B>dSLIP paketini kullanarak SLIP sunucu kurma.</B>
+
+<P>Matt Dillon <dillon@apollo.west.oic.com> tarafından yazılan paket yanlız
+telefon hattından bağlanma işlemini çözümlemez Aynı zamanda telefon
+hattından arama yaparak bağlantı yapmanızı da sağlar (dial-in ve dial-out).
+Matt'in pakaeti küçük programlar ve script'lerden oluşur.
+
+<P>Matt, README kütüğünde programlarla ilgili ayrıntılı açıklama 
+yapttığından burada yinelenmemiştir.
+
+<P><B>dSLIP paketini :</B>
+
+<P>apollo.west.oic.com bilgisayarındaki /pub/linux/dillon_src/dSLIP203.tgz
+adresinden sağlayabilirsiniz.
+
+<P>İşlemlere başlamadan README kütüğünü okuyup programlar için gerekli olan
+/etc/passwd ve /etc/group satırlarını yaratmalısınız.
+<HR>
+<br />
+</div>
+               </div>
+             </div>
+           </div>
+
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,138 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Hyperlink Preprocessor </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">24 Mart 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>MCVE (Monetra) Ödeme İşlevleri</h2>
+
+<h3>Giriş</h3>
+
+Bu işlevler PHP kodlamasında MCVE (Monetra) API (libmonetra, önceleri libmcve olarak bilinirdi) MCVE/Monetra  ile çalışmanızı sağlar.
+MCVE/Monetra Main Street Softworks'un  Linux/Unix/MacOSX/Windows için kredi/hesap/hediye kartları çözümüdür (http://www.mainstreetsoftworks.com/ adresine bakın). Doğrudan kredi kartı takas merkezine *nix kutunuz, modem ve/ya da internet bağlantısıyla bilgi göndermenizi sağlar. Böylece Authorize.Net ya da Pay Flow Pro gibi merkezleri atlamanızı sağlar. PHP için MCVE/Monetra modülünü kullanarak, PHP kodlamasında doğrudan MCVE/Monetra kullanarak kredi kart işlemleri tamamlanır.
+Aşağıdaki referanslar işlemi özetler.
+<br /><br />
+    Not: MCVE/Monetra, RedHat'nın CCVS yerinedir. RedHat ile yapılan anlaşma gereğince tüm müşteriler 2001'de MCVE ortamına aktarılmıştır.
+<br /><br />
+    Not: Bu uzantu PECL havuzuna alınmıştır. PHP ile paketli değildir.
+<br /><br />
+    Not: Window ortamında bu uzantı yoktur.
+
+<h3>Kurulum</h3>
+
+PHP içinde MCVE (Monetra) desteğini açmak için, önce LibMonetra (eskiden libmcve) kurulum yolu belirlenir. Eğer MCVE/Monetra desteğini PHP içine gömmek için "--with-mcve" seçeneğiyle ayarları yapılmalıdır. Eğer bu seçeneği libmonetra kurulum yolunu göstermeden kullanırsanız, PHP varsayılan yolu arar (/usr/local). Eğer Monetra (MCVE) standart yerde değilse, "configure" "--with-mcve=$mcve_path" ile çalıştırılmalıdır. MCVE/Monetra desteği $mcve_path/lib ve $mcve_path/include yollarının var olmasını ve ekleme yolunda mcve.h ya da monetra.h dosyalarının olmasını  libmcve.so ve/ya da libmcve.a ve/ya da libmonetra.so ve/ya da libmonetra.a kitaplıklarının lib yolunda olmasını ister.
+<br /><br />
+Eğer MCVE/Monetra desteğini bir modül olarak kurmak isterseniz, PECL havuzunu
+kullanarak yapabilirsiniz. PEAR 1.4.0 sürümünü kullanıyorsanız 'pecl install mcve' komutu işinizi görecektir.
+<br /><br />
+MCVE/Monetra gerçek sunucu/istemci ayrımına sahip olduğundan PHP'yi MCVE
+desteğiyle çalıştırmak için ayrıca bir gereksinim yoktur. PHP altındaki
+MCVE/Monetra uzantınızı denemek için testbox.monetra.com adresinde port 8333 kullanılmalıdır. Ya da 8444 port  MCVE/Monetra PHP API kullanan SSL için gerekir. Burada adınız için 'vitale' ve şifre için 'test' kullanın. Diğer bilgiler için  http://www.mainstreetsoftworks.com/ adresine bakabilirsiniz.
+
+<h3>Ayrıca aşağıdakilere de bakın:</h3>
+
+ MCVE/Monetra PHP API için ek belgeler http://www.mainstreetsoftworks.com/documentation.html adresinde vardır. Main Street belgeleri tamamlanmıştır ve işlevler için ilk başvurulacaklardandır.
+
+<h3>Kaynak Tipi</h3>
+
+m_initconn() işlevinden dönen MCVE_CONN kaynağını tanımlar.
+
+<h3>Önceden Tanımlı Değişmezler</h3>
+
+Aşağıdaki değişmezler bu uzantıyla tanımlanır. Uzantı yüklü değilse
+kullanılamaz.
+<pre>
+M_PENDING (tamsayı)
+M_DONE (tamsayı)
+M_ERROR (tamsayı)
+M_FAIL (tamsayı)
+M_SUCCESS (tamsayı)
+</pre>
+<h3>İçindekiler</h3>
+<ul>
+    <li> m_checkstatus — işlemin bitip bitmediğine bakar.
+    <li> m_completeauthorizations — Kuyrukta bekleyen tamamlanmış yetkilendirmeler. Onların tanıtım kodlarından oluşan bir dizi döner
+    <li> m_connect — MCVE'ye bağlantı kurar.
+    <li> m_connectionerror — Bağlantının neden kesildiğinin yazı olarak dönmesi
+    <li> m_deletetrans — Belirtilen işlemi MCVE_CONN yapısından silmek
+    <li> m_destroyconn — Bağlantısı ve MCVE_CONN yapısını boz
+    <li> m_destroyengine — IP/SSL bağlantıda kullanılan belleği boşaltma
+    <li> m_getcell — virgülle ayrılan yanıttan kolon adıyla belirli bir hücreyi al
+    <li> m_getcellbynum — Virgülle ayrılan yanıttan kolon numarasıyla belirli hücreyi al
+    <li> m_getcommadelimited — MCVE'den dönen RAW virgül ile ayrılmış veriden al
+    <li> m_getheader — Virgülle ayrılmış yanıttan kolonun adını al.
+    <li> m_initconn — MCVE_CONN yapısını ilkleme ve yaratma
+    <li> m_initengine — IP/SSL bağlantı için istemciyi ayarla
+    <li> m_iscommadelimited — yanıt virgül ile ayrılıyor mu bak
+    <li> m_maxconntimeout — MCVE bağlanması için API için gereken en uzun zaman
+    <li> m_monitor — MCVE ile iletişimi (gönderme/alma) bloksuz konumda yap
+    <li> m_numcolumns — Virgülle ayrılmış yanıtta kolon sayısını al
+    <li> m_numrows — Virgülle ayrılan yanıtta satır sayısını al
+    <li> m_parsecommadelimited — virgülle ayrılan yanıtı tara ki m_getcell vb çalışsın.
+    <li> m_responsekeys — Bu işlemde yanıt değişgeçleri olarak kullanılabilecek anahtarları belirten yazı dizilerini döndürür
+    <li> m_responseparam — Kişiselleştirilmiş yanıt değişgeçini al
+    <li> m_returnstatus — İşlem geçerli mi bak
+    <li> m_setblocking — Bağlantı için bloklu/bloksuz konumunu ayarlama
+    <li> m_setdropfile — Drop_File için bağlantı yöntemini ayarlama
+    <li> m_setip — IP'ye bağlantı yöntemini ayarlama
+    <li> m_setssl_cafile — SSL CA (Setifika Yetkilisi) dosyası. Sunucu sertifikasının onaylanması için dosya
+    <li> m_setssl_files — Eğer sunucu istemcinin sertifikasını onaylamak/denetlemek isterse, sertifika anahtar dosyalarını ve sertifikaları ayarlama
+    <li> m_setssl — SSL'e bağlantı yöntemini ayarlama
+    <li> m_settimeout — En uzun işlem süresini ayarla (her işlem için)
+    <li> m_sslcert_gen_hash — SLL istemci sertifika onayı için karıştırma kodu üret
+    <li> m_transactionssent — Çıktı tamponu boş mu bak
+    <li> m_transinqueue — istemci kuyruğundaki işlem sayısı
+    <li> m_transkeyval — Bir işleme anahtar/değer ikilisini ekle. Eskimiş
+tarnsparam() yerinedir.
+    <li> m_transnew — Yeni işlem başlatma.
+    <li> m_transsend — Tamamlama ve işlemi bitirme
+    <li> m_uwait — x mikro saniye bekle
+    <li> m_validateidentifier — Geçirilen tanıtım kodunu geçirildiği herhangi bir işlemde denetlemek.
+    <li> m_verifyconnection — bağlantı olduğunda PING göndererek bağlantıyı denetler. Bunu ayarlayım ayarlamamayı belirtir.
+    <li> m_verifysslcert — ssl sunucu sertifikasını denetleyip denetlememeyi ayarlar
+</ul>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

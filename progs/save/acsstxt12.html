@@ -1,0 +1,456 @@
+<html>
+<body>
+<div id="sag"><span class="yazi">26 Ekim 2007</span></div>
+<h2>Sınıflandırma (classification)</h2>
+<span class="yazi">
+Bu özellik, Bir öğeyi nasıl ve nereye görüntüleyeceğinizi belirtir.
+</span>
+<h3>Genel</h3>
+<span class="yazi">
+Bu özellik, Bir öğeyi nasıl ve nereye görüntüleyeceğinizi belirtir. Bir başka öğe içinde resmin yerede görüneceğini tanımlar, bir öğeyi normal yerine göreceli olarak nereye yerleştirileceğini belirtir. Bir öğenin mutlak yerini tanımlar ve bir öğenin görülebilirliğinin nasıl kontrol edileceğini belirtir.
+</span>
+<br />
+<br />
+<table class="yazi">
+<tr><td>Destekleyen Tarayıcılar:</td><td>IE: Internet Explorer, F: Firefox, N: Netscape.</td></tr>
+<tr><td></td><td>W3C: Buradaki sayısal değer CSS türünü (CSS1 ya da CSS2) gösterir.</td></tr>
+</table>
+<br />
+<table class="fyazi" cellspacing="0" border="1" cellpadding="3">
+  <tr>
+    <th width="25%" align="left">Özellik</th>
+    <th width="30%" align="left">Açıklama</th>
+
+    <th width="25%" align="left">Değerler</th>
+    <th width="5%" align="left">IE</th>
+    <th width="4%" align="left">F</th>
+    <th width="4%" align="left">N</th>
+    <th width="7%" align="left">W3C</th>
+  </tr>
+
+  <tr>
+    <td valign="top">clear</td>
+    <td valign="top">Nir öğenin, başka kayan öğelere izin verilmeyen yanlarını tanımlar.</td>
+    <td valign="top">left<br />
+      right<br />
+      both<br />
+      none</td>
+    <td valign="top">4</td>
+    <td valign="top">1</td>
+    <td valign="top">4</td>
+    <td valign="top">1</td>
+  </tr>
+  <tr>
+    <td valign="top">cursor</td>
+    <td valign="top">Görüntülenecek İmleç (cursor) tipini tanımlar.</td>
+    <td valign="top"><span class="value-inst-uri noxref"><i>url-adresi</i><br />
+      </span>auto<br />
+      crosshair<br />
+      default<br />
+      pointer<br />
+      move<br />
+      e-resize<br />
+      ne-resize<br />
+      nw-resize<br />
+      n-resize<br />
+      se-resize<br />
+      sw-resize<br />
+      s-resize<br />
+      w-resize<br />
+      text<br />
+      wait<br />
+      help</td>
+    <td valign="top">4</td>
+    <td valign="top">1</td>
+    <td valign="top">6</td>
+    <td valign="top">2</td>
+
+  </tr>
+  <tr>
+    <td valign="top">display</td>
+    <td valign="top">Bir öğe eğer görüntülenirse nasıl olduğunu tanımlar</td>
+    <td valign="top">none<br />
+      inline<br />
+      block<br />
+      list-item<br />
+      run-in<br />
+      compact<br />
+      marker<br />
+      table<br />
+      inline-table<br />
+      table-row-group<br />
+      table-header-group<br />
+      table-footer-group<br />
+      table-row<br />
+      table-column-group<br />
+      table-column<br />
+      table-cell<br />
+      table-caption</td>
+    <td valign="top">4</td>
+    <td valign="top">1</td>
+    <td valign="top">4</td>
+    <td valign="top">1</td>
+  </tr>
+  <tr>
+    <td valign="top">float</td>
+    <td valign="top">Bir resim y ada yazının diğer bir öğe içinde nasıl yer alacağını tanımlar</td>
+    <td valign="top">left<br />
+      right<br />
+      none</td>
+    <td valign="top">4</td>
+    <td valign="top">1</td>
+    <td valign="top">4</td>
+    <td valign="top">1</td>
+  </tr>
+  <tr>
+    <td valign="top">position</td>
+    <td valign="top">Bir öğeyi statik, göreceli, mutlak ve değişmez yerleştirmek için kullanılır.</td>
+    <td valign="top">static<br />
+      relative<br />
+      absolute<br />
+      fixed</td>
+    <td valign="top">4</td>
+    <td valign="top">1</td>
+    <td valign="top">4</td>
+    <td valign="top">2</td>
+  </tr>
+  <tr>
+    <td valign="top">visibility</td>
+    <td valign="top">Bir öğenin görüntülenecek mi yoksa gizlenecek mi olduğunu belirtir.</td>
+    <td valign="top">visible<br />
+      hidden<br />
+      collapse</td>
+    <td valign="top">4</td>
+    <td valign="top">1</td>
+    <td valign="top">6</td>
+    <td valign="top">2</td>
+  </tr>
+</table>
+<br />
+<h3>Silme (clear) Özelliği</h3>
+<span class="yazi">
+Bir öğenin içinde yer alan resim ve yazı öğelerine kayan/gezinen öğeler denir.
+<br />
+Bu özellik bir öğenin, gezinen diğer öğelerin olamayan yanlarını tanımlar.
+</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+h2
+{
+clear: right
+}
+
+address
+{
+clear: both
+}
+</pre>
+</fieldset>
+<span class="yazi">
+Olası değerler:
+<br>
+left: Gezinen öğelere sol tarafta izin verilmez.<br />
+right: Gezinen öğelere sağ tarafta izin verilmez.<br />
+both: Hem sağ hem de sol tarafta gezinen öğelere izin verilmez.<br />
+none: Varsayılan değer. Gezinen öğelere her iki yönde de izin verilir.<br />
+</span>
+<br />
+<h3>İmleç (cursor) Özelliği</h3>
+<span class="yazi">
+Bu özellik, bir öğeye yöneltildiğinde hangi tür imleçin kullanılacağını gösterir.
+</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+h2
+{
+cursor: crosshair
+}
+
+p
+{
+cursor : url("first.cur"), url("second.cur"), pointer
+}
+</pre>
+</fieldset>
+<span class="yazi">
+Olası değerler:
+</span>
+<br>
+<table cellspacing="0" border="1" cellpadding="3" class="fyazi">
+  <tr>
+    <th align="left" valign="top" width="25%">Değer</th>
+    <th align="left" valign="top">Açıklama</th>
+  </tr>
+  <tr>
+    <td valign="top"><i>url-adresi</i></td>
+
+    <td valign="top"><p class="yazi">Özel olarak kullanılacak imleçin url-adresi verilir.</p>
+      <p class="yazi"><b>Not:</b> Her zaman soysal bir imleçi tanımların en sonunda mutlaka belirtin, öyle ki burada tanımlanan imleçlerin hiç biri kullanılamadığında işe yarasın</p></td>
+  </tr>
+  <tr>
+    <td valign="top">default</td>
+    <td valign="top">Varsayılan imleç (çoğu kez bir oktur)</td>
+  </tr>
+  <tr>
+    <td valign="top">auto</td>
+    <td valign="top">Varsayılan değer. İmleçi tarayıcı belirler</td>
+  </tr>
+  <tr>
+    <td valign="top">crosshair</td>
+    <td valign="top">İmleç bir haça dönüşür</td>
+  </tr>
+  <tr>
+    <td valign="top">pointer</td>
+    <td valign="top">İmleç, el biçiminde bir göstericiye dönüşür.</td>
+  </tr>
+  <tr>
+
+    <td valign="top">move</td>
+    <td valign="top">İmleç hareket ettirilecek birşey olduğunu gösterir</td>
+  </tr>
+  <tr>
+    <td valign="top">e-resize</td>
+    <td valign="top">İmleç bir kutunun kenarlarının sağa(doğuya) hareket edeceğini belirtir</td>
+  </tr>
+  <tr>
+    <td valign="top">ne-resize</td>
+    <td valign="top">İmleç kutunun kenarının yukarı ve sağa (kuzey/doğu) hareket edeceğini gösterir<br />
+  </tr>
+  <tr>
+    <td valign="top">nw-resize</td>
+    <td valign="top">İmleç kutunun kenarının yukarı ve sola (kuzey/batı) hareket edeceğini gösterir<br />
+  </tr>
+  <tr>
+    <td valign="top">n-resize</td>
+    <td valign="top">İmleç kutunun kenarının yukarı (kuzey) hareket edeceğini gösterir<br />
+  </tr>
+  <tr>
+    <td valign="top">se-resize</td>
+
+    <td valign="top">İmleç kutunun kenarının aşağı ve sağa (güney/doğu) hareket edeceğini gösterir<br />
+  </tr>
+  <tr>
+    <td valign="top">sw-resize</td>
+    <td valign="top">İmleç kutunun kenarının aşağı ve sola (güney/batı) hareket edeceğini gösterir<br />
+  </tr>
+  <tr>
+    <td valign="top">s-resize</td>
+    <td valign="top">İmleç kutunun kenarının aşağı (güney) hareket edeceğini gösterir<br />
+  </tr>
+  <tr>
+    <td valign="top">w-resize</td>
+    <td valign="top">İmleç kutunun kenarının sola (batı) hareket edeceğini gösterir<br />
+  </tr>
+  <tr>
+    <td valign="top">text</td>
+    <td valign="top">The cursor indicates text</td>
+  </tr>
+  <tr>
+    <td valign="top">wait</td>
+    <td valign="top">İmleç programın meşgul olduğunu gösterir (çoğu kez bir kum saati) <br />
+  </tr>
+  <tr>
+    <td valign="top">help</td>
+    <td valign="top">İmleç yardımın hazır olduğunu gösterir (Çoğu kez bir soru işareti ya da balon)</td>
+  </tr>
+</table>
+<br />
+<h3>Görüntüleme (display) Özelliği</h3>
+<span class="yazi">
+Bu özellik bir öğenin görüntülenecese, nasıl görüntülendiğini anlatır.
+</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+p
+{
+display: block
+}
+
+li
+{
+display: list-item
+}
+
+table
+{
+display: table
+}
+
+td, th
+{
+display: table-cell
+}
+</pre>
+</fieldset>
+<span class="yazi">
+Olası değerler:
+</span>
+<br>
+<table class="fyazi" cellspacing="0" border="1" cellpadding="3">
+  <tr>
+    <th align="left" valign="top" width="30%">Değer</th>
+    <th align="left" valign="top" width="70%">Açıklama</th>
+  </tr>
+
+  <tr>
+    <td valign="top">none</td>
+    <td valign="top">Öğe görüntülenmeyecektir</td>
+  </tr>
+  <tr>
+    <td valign="top">block</td>
+    <td valign="top">Öğe, önünde ve arkasındaki satır boşluklarıyla blok düzeyi bir öğe olarak görüntülenecektir.</td>
+  </tr>
+  <tr>
+    <td valign="top">inline</td>
+    <td valign="top">Varsayılan değer. Öğe önünde ve arkasında satır boşlukları olmadan satır içinde (inline) görüntülenecektir. </td>
+  </tr>
+  <tr>
+    <td valign="top">list-item</td>
+    <td valign="top">Öğe bir liste biçiminde görüntülenir</td>
+  </tr>
+  <tr>
+    <td valign="top">run-in</td>
+    <td valign="top">Öğe içeriğine bağımlı olarak, blok düzeyi ya da satır içi öğe olarak görüntülenir</td>
+  </tr>
+  <tr>
+    <td valign="top">compact</td>
+    <td valign="top">İçeriğine göre bir öğe ya blok düzeyinde ya da satır içinde görüntülenir.</td>
+  </tr>
+  <tr>
+    <td valign="top">marker</td>
+    <td valign="top">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top">table</td>
+    <td valign="top">Öğe tablonun önünde arkasındaki satır aralıklarıyla blok tablo olarak görüntülenir (&lt;table&gt; gibi) </td>
+  </tr>
+  <tr>
+    <td valign="top">inline-table</td>
+    <td valign="top">Öğe önünde ve ardında satır aralıkları olmadan satır içi tablo gibi görüntülenir (&lt;table&gt; gibi) </td>
+  </tr>
+  <tr>
+    <td valign="top">
+      table-row-group</td>
+    <td valign="top">Bir öğe bir ya da daha çok tablo satırı gibi görüntülenir (&lt;tbody&gt; gibi)</td>
+  </tr>
+  <tr>
+    <td valign="top">table-header-group</td>
+    <td valign="top">Öğe bir tablodaki bir ya ada daha çok satır gibi görüntülenir (&lt;thead&gt; gibi)</td>
+  </tr>
+  <tr>
+    <td valign="top">table-footer-group</td>
+    <td valign="top">Öğe bir tablodaki bir ya ada daha çok satır gibi görüntülenir (&lt;tfoot&gt; gibi)</td>
+  </tr>
+  <tr>
+    <td valign="top">table-row</td>
+    <td valign="top">Öğe bir tablonun satırı gibi görüntülenir (&lt;tr&gt; gibi)</td>
+  </tr>
+  <tr>
+    <td valign="top">
+      table-column-group</td>
+    <td valign="top">Bir öğe bir ya da daha çok kolon gibi görüntülenir (&lt;colgroup&gt; gibi)</td>
+  </tr>
+  <tr>
+    <td valign="top">table-column</td>
+    <td valign="top">Bir öğe hücrelerin kolonları gibi görüntülenir (&lt;col&gt; gibi)</td>
+  </tr>
+  <tr>
+    <td valign="top">table-cell</td>
+    <td valign="top">Öğe bir tablonun hücresi gibi görüntülenir (&lt;td&gt; and &lt;th&gt; gibi)</td>
+  </tr>
+  <tr>
+    <td valign="top">table-caption</td>
+    <td valign="top">Öğe bir tablonun başlığı gibi görüntülenir (&lt;caption&gt; gibi)</td>
+  </tr>
+</table>
+<br />
+<h3>Gezinme/Kayma (float) Özelliği</h3>
+<span class="yazi">
+Bir üst öğe içinde resim ya da yazı öğesinin nerede bulunacağını tanımlar.<br />
+</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+img
+{
+float: left
+}
+</pre>
+</fieldset>
+<span class="yazi">
+Olası değerler:
+<br>
+left: Resim ya da yazı üst öğenin soluna doğru kaydırılır<br />
+right: Resim ya da yazı üst öğenin sağına doğru kaydırılır<br />
+none: Varsayılan değer. Resim ya da yazı üst öğenin neresinde tanımlandıysa orada kalır.<br />
+</span>
+<br />
+<h3>Konum (position) Özelliği</h3>
+<fieldset class="fyazi">
+<pre>
+h1
+{
+position:absolute;
+left:100px;
+top:150px;
+}
+</pre>
+</fieldset>
+<span class="yazi">
+Olası değerler:
+</span>
+<br>
+<table class="fyazi" cellspacing="0" border="1" cellpadding="3">
+  <tr>
+    <th align="left" valign="top">Değer</th>
+    <th align="left" valign="top">Açıklama</th>
+  </tr>
+  <tr>
+    <td valign="top">static</td>
+    <td valign="top">Varsayılan değer. Konumu durağan (static) olan bir öğe sayfayla beraber kayar (gezinir). Durağan öğe konumu top, bottom, left ya da right tanımlarının tümünü önemsemez/atlar </td>
+  </tr>
+  <tr>
+    <td valign="top">relative</td>
+    <td valign="top">Konumu göreceli olan bir öğe (position: relative) üst öğenin normal konumuna göre yerleriş, yani &quot;left:20&quot; öğenin SOL konumuna 20 pixel eklenmesini sağlar</td>
+  </tr>
+  <tr>
+    <td valign="top">absolute</td>
+    <td valign="top">Bir öğenin mutlak konumu (position: absolute) içinde bulunduğu bloka göreceli olarak belirtilen koordinatlarda bulunur. Öğenin yeri
+      &quot;left&quot;, &quot;top&quot;, &quot;right&quot;, ve
+      &quot;bottom&quot; özellikleriyle belirlenir</td>
+  </tr>
+  <tr>
+    <td valign="top">fixed</td>
+    <td valign="top">Değişmez konumlu bir öğe (position: fixed) tarayıcı penceresine göre yerleşir.
+      &quot;left&quot;, &quot;top&quot;, &quot;right&quot;, ve
+      &quot;bottom&quot; özellikleri ile yeri tanımlanır. Sayfanın kaydırılmasına bakmaksızın öğe hep aynı yerde kalır
+	(IE7 için strict mode)</td>
+  </tr>
+</table>
+<br />
+<h3>Görünülebilme (visibility) Özelliği</h3>
+<span class="yazi">
+Görünülebilme özelliği öğenin görünüp görünemeyeceğini belirtir<br />
+</span>
+<br />
+<fieldset class="fyazi">
+<pre>
+p
+{
+visibility: hidden
+}
+</pre>
+</fieldset>
+<span class="yazi">
+Olası değerler:
+<br>
+visible: Öğe görülebilir
+hidden: Öğe görünemez
+collapse: tablo öğeleri içinde kullanılırsa, değer satır ve kolonları kaldırır ama tablonun görünüşünü değiştirmez. Kolon ve satırlar için ayrılmış olan alan başka içerikler için kullanılır. Bu değer başka öğeler için de kullanılırsa adı "hidden" (gizlenmiş) olur.<br />
+</span>
+<br />
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP kökler - Programlama</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+function ackapa(no)
+{
+var bolum="secim"+no;
+    target=document.getElementById(bolum);
+    if(target.style.display == "inline") {
+         target.style.display = "none";
+    } else {
+         target.style.display = "inline";
+    }
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <a href="phptxt7.html" class="nav">Php Kök</a>
+               <a href="phpkok1.html" class="sub">ext_skel</a><br 7>
+               <a href="phpkok2.html" class="sub">UNIX:config.m4</a><br 7>
+               <a href="phpkok3.html" class="sub">Win:config.w32</a><br 7>
+               <a href="phpkok4.html" class="sub">zend_module</a><br 7>
+               <a href="phpkok8.html" class="sub">Zorunluluklar</a><br 7>
+               <a href="phpkok9.html" class="sub">Hazırlama</a><br 7>
+               <a href="phpkok10.html" class="sub">İskelet doldurma</a><br 7>
+               <a href="phpkok11.html" class="sub">Hazılama</a><br 7>
+               <a href="phpkok12.html" class="sub">Denemeler</a><br 7>
+               <a href="phpkok13.html" class="sub">Paket Yaratma</a><br 7>
+               <a href="phpkok14.html" class="sub">pdo_dbh_t</a><br 7>
+               <a href="phpkok15.html" class="sub">pdo_stmt_t</a><br 7>
+               <a href="phpkok16.html" class="sub">Değişmezler</a><br 7>
+               <a href="phpkok17.html" class="sub">Hatalar</a><br 7>
+               <a href="phpkok18.html" class="sub">PHP uzantı API</a><br 7>
+               <a href="phpkok19.html" class="sub">Zend API: </a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">10 Mart 2008</span></div>
+<div id="bdy" class="yazi">
+<h3>Denemeler</h3>
+
+PDO'nun çekirdek denemeleri vardır. Tüm sürücüler bunlardan geçebilmelidir. Yoksa sürüm olamazlar. PHP kaynak dağıtımından çalışırlar, o halde sizin sürücünüz için denemeleri çalıştırmak bazı şeyleri biraz çevirmeyi gerektirir. Önerilen işlem en son PHP 5.1 resim çekerini (snapshot) indirmek ve aşağıdaki işlemleri yapmaktır:
+<pre>
+$ cp -r pdo_SKEL /path/to/php-5.1/ext
+</pre>
+Bu denemelerinize başlamanız için koşumları tutmanızı sağlar. Sonraki işlem PDO sıradan çekirdek denemeleri yaratmaktır. Genelde bu dosyaya common.phpt adı verilir. Bu dosya ext_skel tarafından yaratılan "tests" adlı dosya yoluna yerleştirilmelidir. Bu dosyanın içeriği aşağıdaki gibi olur:
+<pre>
+--TEST--
+SKEL
+--SKIPIF--
+&lt;?php # vim:ft=php
+if (!extension_loaded('pdo_SKEL')) print 'skip'; ?&gt;
+--REDIRECTTEST--
+if (false !== getenv('PDO_SKEL_TEST_DSN')) {
+# user set them from their shell
+   $config['ENV']['PDOTEST_DSN'] = getenv('PDO_SKEL_TEST_DSN');
+   $config['ENV']['PDOTEST_USER'] = getenv('PDO_SKEL_TEST_USER');
+   $config['ENV']['PDOTEST_PASS'] = getenv('PDO_SKEL_TEST_PASS');
+   if (false !== getenv('PDO_SKEL_TEST_ATTR')) {
+      $config['ENV']['PDOTEST_ATTR'] = getenv('PDO_SKEL_TEST_ATTR');
+   }
+   return $config;
+}
+return array(
+   'ENV' =&gt; array(
+           'PDOTEST_DSN' =&gt; 'SKEL:dsn',
+           'PDOTEST_USER' =&gt; 'username',
+           'PDOTEST_PASS' =&gt; 'password'
+       ),
+   'TESTS' =&gt; 'ext/pdo/tests'
+   );
+</pre>
+Bu sıradan çekirdek denemeleri çalıştırmanızı sağlar. PDOTEST_DSN, PDOTEST_USER ve PDOTEST_PASS değerlerini PDO yapıcısına dsn olarak geçirilir. Kullanıcı kodu ve şifresini girilir. Önce çevre incelenir, böylece gerekli değerler deneme ortamına taşınabilir.
+<br /><br />
+Test koşumları aşağıdaki gibi çalıştırılabilir:
+<pre>
+$ cd /path/to/php-5.1
+$ make TESTS=ext/pdo_SKEL/tests PDO_SKEL_TEST_DSN="skel:dsn" \
+ PDO_SKEL_TEST_USER=user PDO_SKEL_TEST_PASS=pass test
+</pre> 
+         </div>
+<div id="sag"> <B><A HREF="javascript:history.back()">Dönüş</A></B> </div>
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

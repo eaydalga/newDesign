@@ -1,0 +1,1615 @@
+#!/usr/bin/perl
+$| = 1;
+# Regular expressions to select which files do what in which directory
+
+$DIR = { '92-1' => { MD => '[A-Z]{6}\.921',
+		     CD => 'TRCD\.921',
+		     CL => 'TRCL-.\.921',
+		     ED => 'TRED\.921',
+		     SD => 'TRSD\.921',
+		     DC => '1921'},
+	 
+	 # work needs doing on message structure
+	 '93-2' => { MD => '[A-Z]{6}\.932',
+		     CD => 'EDCD\.932',
+		     CL => 'EDCL-.\.932',
+		     ED => 'EDED\.932',
+		     SD => 'EDSD\.932',
+		     DC => '2932'},
+	 
+	 'S93A' => { MD => '[A-Z]{6}_S\.93A',
+		     CD => 'EDCD\.93A',
+		     CL => 'UNCL-.\.93A',
+		     ED => 'EDED\.93A',
+		     SD => 'EDSD\.93A' },
+	 
+	 'D93A' => { MD => '[A-Z]{6}_D\.93A',
+		     CD => 'TRCD\.93A',
+		     CL => 'UNCL-.\.93A',
+		     ED => 'TRED\.93A',
+		     SD => 'TRSD\.93A' },
+	 
+	 'D94A' => { MD => '[A-Z]{6}_D\.94A',
+		     CD => 'TRCD\.94A',
+		     CL => 'UNCL-.\.94A',
+		     ED => 'TRED\.94A',
+		     SD => 'TRSD\.94A' },
+	 
+	 'D94B' => { MD => '[A-Z]{6}_D\.94B',
+		     CD => 'TRCD\.94B',
+		     CL => 'UNCL-.\.94B',
+		     ED => 'TRED\.94B',
+		     SD => 'TRSD\.94B' },
+	 
+	 'D95A' => { MD => '[A-Z]{6}_D\.95A',
+		     CD => 'TRCD\.95A',
+		     CL => 'UNCL-.\.95A',
+		     ED => 'TRED\.95A',
+		     SD => 'TRSD\.95A' },
+	 
+	 'D95B' => { MD => '[A-Z]{6}_D\.95B',
+		     CD => 'TRCD\.95B',
+		     CL => 'UNCL-.\.95B',
+		     ED => 'TRED\.95B',
+		     SD => 'TRSD\.95B' },
+	 
+	 'D96A' => { MD => '[A-Z]{6}_D\.96A',
+		     CD => 'TRCD\.96A',
+		     CL => 'UNCL-.\.96A',
+		     ED => 'TRED\.96A',
+		     SD => 'TRSD\.96A' },
+	 
+	 'D96B' => { MD => '[A-Z]{6}_D\.96B',
+		     CD => 'TRCD\.96B',
+		     CL => 'UNCL-.\.96B',
+		     ED => 'TRED\.96B',
+		     SD => 'TRSD\.96B' },
+	 
+	 'D97A' => { MD => '[A-Z]{6}_D\.97A',
+		     CD => '[IE]DCD\.97A',
+		     CL => 'UNCL\.97A',
+		     ED => '[IE]DED\.97A',
+		     SD => '[IE]DSD\.97A' },
+	 
+	 'D97B' => { MD => '[A-Z]{6}_D\.97B',
+		     CD => '[IE]DCD\.97B',
+		     CL => 'UNCL\.97B',
+		     ED => '[IE]DED\.97B',
+		     SD => '[IE]DSD\.97B',
+		     SL => 'UNSL\.97B'},
+	 
+	 'D98A' => { MD => '[A-Z]{6}_D\.98A',
+		     CD => '[IE]DCD\.98A',
+		     CL => 'UNCL\.98A',
+		     ED => '[IE]DED\.98A',
+		     SD => '[IE]DSD\.98A',
+		     SL => 'UNSL\.98A' },
+	 
+	 'D98B' => { MD => '[A-Z]{6}_D\.98B',
+		     CD => '[IE]DCD\.98B',
+		     CL => 'UNCL\.98B',
+		     ED => '[IE]DED\.98B',
+		     SD => '[IE]DSD\.98B',
+		     SL => 'UNSL\.98B' },
+	 
+	 'D99A' => { MD => '[A-Z]{6}_D\.99A',
+		     CD => '[IE]DCD\.99A',
+		     CL => 'UNCL\.99A',
+		     ED => '[IE]DED\.99A',
+		     SD => '[IE]DSD\.99A',
+		     SL => 'UNSL\.99A', },
+	 
+	 'D99B' => { MD => '[A-Z]{6}_D\.99B',
+		     CD => '[IE]DCD\.99B',
+		     CL => 'UNCL\.99B',
+		     ED => '[IE]DED\.99B',
+		     SD => '[IE]DSD\.99B',
+		     #SL => 'UNSL\.99B'
+		 },
+	 
+	 'D00A' => { MD => '[A-Z]{6}_D\.00A',
+		     CD => '[IE]DCD\.00A',
+		     CL => 'UNCL\.00A',
+		     ED => '[IE]DED\.00A',
+		     SD => '[IE]DSD\.00A',
+		     #SL => 'UNSL\.00A'
+		 },
+	 
+	 'D00B' => { MD => '[A-Z]{6}_D\.00B',
+		     CD => '[IE]DCD\.00B',
+		     CL => 'UNCL\.00B',
+		     ED => '[IE]DED\.00B',
+		     SD => '[IE]DSD\.00B',
+		     #SL => 'UNSL\.00B'
+		 },
+	 
+	 'D01A' => { MD => '[A-Z]{6}_D\.01A',
+		     CD => '[IE]DCD\.01A',
+		     CL => 'UNCL\.01A',
+		     ED => '[IE]DED\.01A',
+		     SD => '[IE]DSD\.01A',
+		     #SL => 'UNSL\.01A'
+		 },
+	 
+	 'D01B' => { MD => '[A-Z]{6}_D\.01B',
+		     CD => '[IE]DCD\.01B',
+		     CL => 'UNCL\.01B',
+		     ED => '[IE]DED\.01B',
+		     SD => '[IE]DSD\.01B',
+		     #SL => 'UNSL\.01B'
+		 },
+	 
+	 'D01C' => { MD => '[A-Z]{6}_D\.01C',
+		     CD => '[IE]DCD\.01C',
+		     CL => 'UNCL\.01C',
+		     ED => '[IE]DED\.01C',
+		     SD => '[IE]DSD\.01C',
+		     #SL => 'UNSL\.01C'
+		 },
+	 
+	 'D02A' => { MD => '[A-Z]{6}_D\.02A',
+		     CD => '[IE]DCD\.02A',
+		     CL => 'UNCL\.02A',
+		     ED => '[IE]DED\.02A',
+		     SD => '[IE]DSD\.02A',
+		     #SL => 'UNSL\.02A'
+		 },
+	 
+	 'D02B' => { MD => '[A-Z]{6}_D\.02B',
+		     CD => '[IE]DCD\.02B',
+		     CL => 'UNCL\.02B',
+		     ED => '[IE]DED\.02B',
+		     SD => '[IE]DSD\.02B',
+		     #SL => 'UNSL\.02B'
+		 },
+	 
+	 'D03A' => { MD => '[A-Z]{6}_D\.03A',
+		     CD => '[IE]DCD\.03A',
+		     CL => 'UNCL\.03A',
+		     ED => '[IE]DED\.03A',
+		     SD => '[IE]DSD\.03A',
+		     #SL => 'UNSL\.03A'
+		 },
+	 
+	 'D04A' => { MD => '[A-Z]{6}_D\.04A',
+		     CD => '[IE]DCD\.04A',
+		     CL => 'UNCL\.04A',
+		     ED => '[IE]DED\.04A',
+		     SD => '[IE]DSD\.04A',
+		     #SL => 'UNSL\.04A'
+		 },	 
+     };
+
+
+$xml = 1;
+
+if($ARGV[0] eq '-s') {
+    $xml = 0;
+    shift;
+}
+
+%files = ();
+defined($dir = shift) or die &usage;
+
+chdir($dir) or die "Couldn't chdir($dir): $!\n";
+
+opendir(DIR, '.') or die "Couldn't opendir(.): $!\n";
+@files = readdir(DIR);
+closedir(DIR);
+
+$dir =~ tr/a-z/A-Z/;
+
+($version, $release) = ($1, $2) if $dir =~ /^([A-Z])(\d{2}[A-Z])/;
+($version, $release) = ($2, $1) if $dir =~ /^(\d{2})-(\d)/;
+
+foreach (sort keys %{$DIR->{$dir}}) {
+    $re = $DIR->{$dir}->{$_};
+    @{$files{$_}} = grep(/^$re$/i, @files);
+}
+
+if($xml) {
+    print '<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>',"\n";
+
+    printf "%s\n\n", xmlComment("EDIFACT version $version, release $release");
+
+    print <DATA>;
+
+    printf "%s\n", xmlStart('tsg',
+			    'version' => $version,
+			    'release' => $release);
+
+    my $uned = [&read_uned(@{$files{ED}})];
+    my $uncl = [&read_uncl(@{$files{CL}}, @{$files{SL}})];
+    
+    &uned2xml($uned, $uncl);
+    
+    &unsd2xml(@{$files{SD}});
+    &uncd2xml(@{$files{CD}});
+    &unsm2xml($DIR->{$dir}{DC} ? $DIR->{$dir}{DC} : $dir, @{$files{MD}});
+    
+    printf "%s\n", xmlEnd('tsg');
+} else {
+    &unsd2francesco(@{$files{SD}});
+    &uncd2francesco(@{$files{CD}});
+    &uned2francesco(@{$files{ED}});
+    &uncl2francesco(@{$files{CL}}, @{$files{SL}},);
+    &unsm2francesco($DIR->{$dir}{DC} ? $DIR->{$dir}{DC} : $dir, @{$files{MD}});
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+sub read_unsd {
+    my(@files) = @_;
+    my @segment = ();
+    
+    foreach(@files) {
+        my $segment = {};
+	
+        open(FILE, $_) or die "Couldn't open($_): $!\n";
+	
+	while(<FILE>) {
+	    $segment = {} if /^[-\304]{3,}/;
+	    
+	    if(/^\s*$/) {
+		$segment->{_last} = _none;
+		
+	    } elsif(!defined $segment->{_code} &&
+		    /^\s*(\S{0,2})\s+([a-z]{3})\s+(\S.*?)\s*$/i) {
+		$segment->{_flag} = $1;
+		$segment->{_code} = $2;
+		$segment->{_name} = $3;
+		$segment->{_last} = '_name';
+		push(@segment, $segment);
+		
+	    } elsif(/^(\S*)\s+([a-z]{4})[a-z]*:\s+(\S?.*?)\s*$/i) {
+		my $attr = $2;
+		$attr =~ tr/[A-Z]/[a-z]/;
+		$segment->{_.$attr} = $3;
+		$segment->{_last} = _.$attr;
+		
+	    } elsif($segment->{_last} eq _none &&
+   /^(\d*)\s*(\S?)\s+(\S{4})\s+(\S.*?)\s+([A-Z])\s*(\d*)\s*(\S*)\s*$/i) {
+		my($indx, $flag, $code) = ($1, $2, $3);
+		my($name, $reqr, $reps) = ($4, $5, $6);
+		my $cplx = ($code =~ /^[a-z]/i) ? 1 : 0;
+		push(@{$segment->{_list}}, { _indx => $indx, _flag => $flag,
+					     _code => $code, _name => $name,
+					     _reqr => $reqr, _reps => $reps,
+					     _cplx => $cplx});
+		$segment->{_last} = _elem;
+	    } else {
+		$segment->{$segment->{_last}} .= $_;
+		$segment->{$segment->{_last}} =~ s/\s+/ /g;
+		$segment->{$segment->{_last}} =~ s/\s*$//;
+		$segment->{$segment->{_last}} =~ s/^\s*//;
+	    }
+	}
+	close(FILE);
+    }
+
+    @segment;
+}
+
+sub read_uncd {
+    my(@files) = @_;
+    my @elem = ();
+    
+    foreach(@files) {
+	my $elem = {};
+	
+	open(FILE, $_) or die "Couldn't open($_): $!\n";
+	
+	while(<FILE>) {
+	    $elem = {} if /^[-\304]{3,}/;
+	    
+	    if(/^\s*$/) {
+		$elem->{_last} = _none;
+		
+	    } elsif(!defined $elem->{_code} &&
+		    /^\s*(\S{0,2})\s+([a-z]\d{3})\s+(\S.*?)\s*$/i) {
+		$elem->{_flag} = $1;
+		$elem->{_code} = $2;
+		$elem->{_name} = $3;
+		$elem->{_last} = '_name';
+		push(@elem, $elem);
+		
+	    } elsif(/^\s*(\S{0,2})\s+([a-z]{4}):\s+(\S?.*?)\s*$/i) {
+		my $attr = $2;
+		$attr =~ tr/[A-Z]/[a-z]/;
+		$elem->{_.$attr} = $3;
+		$elem->{_last} = _.$attr;
+		
+	    } elsif(/^(\d*)\s*(\S?)\s+(\d{4})\s+(\S.*?)\s+(\S)\s+(\S+)\s*$/i) {
+		push(@{$elem->{_list}}, { _indx => $1, _flag => $2,
+					   _code => $3, _name => $4,
+					   _reqr => $5, _repr => $6});
+	    } else {
+		$elem->{$elem->{_last}} .= $_;
+		$elem->{$elem->{_last}} =~ s/\s+/ /g;
+		$elem->{$elem->{_last}} =~ s/\s*$//;
+		$elem->{$elem->{_last}} =~ s/^\s*//;
+	    }
+	}
+	close(FILE);
+    }
+    @elem;
+}
+
+sub read_uned {
+    my(@files) = @_;
+    my($type, $fixd, $size);
+    my @elem = ();
+
+    foreach(@files) {
+	my $elem = {};
+	
+	open(FILE, $_) or die "Couldn't open($_): $!\n";
+	
+	while(<FILE>) {
+	    $elem = {} if /^[-\304]{3,}/;
+	    
+	    if(/^\s*$/) {
+		$elem->{_last} = _none;
+	    } elsif(!defined $elem->{_code} &&
+		    /(\S?)\s+(\d{4})\s+(\S.*?)\s*$/) {
+		my $name = $3;
+		$elem->{_flag} = $1;
+		$elem->{_code} = $2;
+		$elem->{_last} = _name;
+		$elem->{_usge} = $1 if $name =~ s/\s*\[(\S+)\]\s*$//;
+		$elem->{_name} = $name;
+		push(@elem, $elem);
+		
+	    } elsif(/^(\S?)\s+([a-z]{4}):\s+(\S?.*?)\s*$/i) {
+		my $attr = $2;
+		$attr =~ tr/[A-Z]/[a-z]/;
+		$elem->{_.$attr} = $3;
+		$elem->{_last} = _.$attr;
+		
+	    } else {
+		$elem->{$elem->{_last}} .= $_;
+		$elem->{$elem->{_last}} =~ s/\s+/ /g;
+		$elem->{$elem->{_last}} =~ s/\s+$//;
+		
+	    }
+	}
+	close(FILE);
+    }
+
+    
+    foreach (@elem) {
+	if($_->{_repr} =~ /([a-z]+)(\.?\.?)(\d+)/) {
+	    ($form, $fixd, $size) = ($1, $2, $3);
+	    $fixd = ($fixd =~ /\S/ ? 0 : 1);
+	    $type = 'U';
+	    $type = 'N' if $form =~ /n/;
+	    $type = 'A' if $form =~ /a/;
+	    $type = 'X' if $form =~ /an/;
+	    
+	} else {
+	    ($type, $fixd, $size) = ('ERROR', 0, 0);
+	}
+
+	$_->{_type} = $type;
+	$_->{_min} = $fixd ? $size : 1;
+	$_->{_max} = $size;
+    }
+
+    @elem;
+}
+
+sub read_uncl {
+    my(@files) = @_;
+    my @elem;
+    
+    foreach $file (@files) {
+	my $elem = undef;
+	my $item = undef;
+
+	open(FILE, $file) or die "Couldn't open $_: $!\n";
+	
+	while(<FILE>) {
+	    if($. == 1 && /^PART/) { while(<FILE>) { last if /^[-\304]{3,}/ } }
+	    
+	    if(/^[-\304]{3,}/) {
+		$elem = undef;
+		$item = undef;
+		
+	    } elsif(/^\s*$/) {
+		$elem->{_last} = undef if defined $elem;
+
+	    } elsif(/^(\S*)\s+([a-z]{4})[a-z]*:\s+(\S?.*?)\s*$/i) {
+                my($flag, $attr, $val) = ($1, $2, $3);
+                $attr =~ tr/[A-Z]/[a-z]/;
+                $elem->{_.$attr} = $val;
+                $elem->{_last} = _.$attr;
+		
+	    } elsif(!defined $elem && /^([\S\s]+)\s+(\d{4})\s+(\S.*\S)\s*$/) {
+		my($flag, $code, $name) = ($1, $2, $3);
+		$elem = {
+		    _flag => $flag,
+		    _code => $code,
+		    _name => $name,
+		};
+		push(@elem, $elem);
+		
+	    } elsif(defined $elem && defined $elem->{_last}) {
+		$elem->{$elem->{_last}} .= $_;
+		$elem->{$elem->{_last}} =~ s/\s+/ /g;
+		$elem->{$elem->{_last}} =~ s/\s*$//;
+		$elem->{$elem->{_last}} =~ s/^\s*//;
+		
+	    } elsif(defined $elem && ! defined $elem->{_last} &&
+		    /^(..)(.{7})\s+(\S.*?)\s*$/) {
+		my($flag, $code, $name) = ($1, $2, $3);
+		if($code =~ /\S/) {
+		    $code =~ s/^\s*//;
+		    $code =~ s/\s*$//;
+		    $item = {
+			_flag => $flag,
+			_code => $code,
+			_name => $name,
+		    };
+		    push(@{$elem->{_list}}, $item);
+		    
+		} else {
+		    $item->{_desc} .= $_;
+		    $item->{_desc} =~ s/\s+/ /g;
+		    $item->{_desc} =~ s/\s*$//;
+		    $item->{_desc} =~ s/^\s*//;
+		    
+		}
+	    }
+	}
+    }
+    @elem;
+}
+
+sub read_unsm {
+    my($dir, @files) = @_;
+    my @messages;
+    
+    foreach my $file (@files) {
+	open(FILE, $file) or die "Couldn't open $_: $!\n";
+	
+	my $info = &document_info(FILE);
+	
+	while(<FILE>) {
+	    # FIXME - need to check last line read in subs if
+	    # we are wanting to parse more than one section
+	    if(/^\s?(\d+\.[\d\.]*)\s+(\S.*?)\s*$/) {
+		my($section, $title) = ($1, $2);	    
+		#printf "$section $title\n";
+		
+		if($title =~ /Segment\s+table/i) {
+		    $info->{_list} = &read_segment_table(FILE, $info->{_type});
+		    push(@messages, $info);
+		}
+		if($title =~ /Segment\s+Clarification/i) {
+		    $info->{_indx} =
+			&read_data_segment_clarification(FILE, $section);
+		}
+	    }
+	}
+	close(FILE);
+    }
+    @messages;
+}
+
+sub read_document_info {
+    my($fh) = @_;
+    my $info = {};
+    
+    while(<$fh>) {
+	last if /^(\d+\.[\d\.]*)/; # (section header)
+	$info->{_type}     = $1 if /Message\s+Type\s*:\s*(\S+)/i;
+	$info->{_version}  = $1 if /Version\s*:\s*(\S+)/i;
+	$info->{_release}  = $1 if /Release\s*:\s*(\S+)/i;
+	$info->{_agency}   = $1 if /Contr. Agency\s*:\s*(\S+)/i;
+	$info->{_status}   = $1 if /Status\s*:\s*(\S+)/i;
+	$info->{_revision} = $1 if /Revision\s*:\s*(\S+)/i;
+	$info->{_date}     = $1 if /Date\s*:\s*(\S+)/i;
+    }
+    return $info;
+}
+
+sub read_segment_table {
+    my($fh, $type) = @_;
+    my @stack = ( { _list => [] } );
+    
+    while(<$fh>) {
+	# Finish processing if we see the start of a new section
+	last if /^(\d+\.[\d\.]*)/;
+	
+	# Strip trailing whitespace, and ingnore blank lines
+	s/[\r\n\s]+$//;
+	next if /^$/;
+	
+	# If there is no entry on the stack we have underflowed
+	if(defined($list = $stack[$#stack])) {
+	    # ok
+	    $list = $list->{_list};
+	} else {
+	    warn "Loop-stack underflow in $type at line $.\n";
+	    $list = []; # everything now gets lost
+	}
+	
+	# Does this line indicate a new segment group?
+	if(/^(\d{0,4})\s*(\S?)\s+.*Segment\s+group\s+(\d+).*(\S)\s+(\d+)/i) {
+	    my $item = {
+		_loop => 1,
+		_indx => length($1) ? $1 : undef ,
+		_flag => $2,
+		_code => $3,
+		_reqr => $4,
+		_reps => $5,
+		_list => [],
+	    };
+	    #printf "%spush SG %s\n", ' ' x $#stack, $3;
+	    push(@$list, $item);
+	    push(@stack, $item);
+	    next; # start of a segment group cannot end a group - short circuit
+	}
+	
+	# Does this line, instead, indicate a segment ?
+	elsif(/^(\d{0,4})\s*(\S?)\s+(\S+)\s+(\S.*?)\s+(\S)\s+(\d+)/) {
+	    #printf "%s%s (%s)\n", ' 'x$#loop, $3, $1;
+	    my $item = {
+		_indx => length($1) ? $1 : undef,
+		_flag => $2,
+		_code => $3,
+		_name => $4,
+		_reqr => $5,
+		_reps => $6,
+	    };
+	    #printf "%spush EL %s\n", ' ' x $#stack, $3;
+	    push(@$list, $item);
+	}	 
+	
+	# Multiple loops closed in one line (?)
+	if(/([\301+]+)[\177-\377|]*$/) {
+	    foreach(split(//, $1)) {
+		pop(@stack);
+	    }
+	}
+	
+	# Single loop closed (?)
+	if(/(\331)[\177-\377]*$/) {
+	    pop(@stack);
+	}
+
+	# It would appear that other lines are simply column headings and
+	# continuation columns and can be ignored.
+	
+    }
+    
+    $stack[0]->{_list};
+}
+
+sub read_data_segment_clarification {
+    my($fh, $section) = @_;
+    my $indx;
+    my %indx;
+    my $cont = 0;
+    my $note = 0;
+
+    while(<$fh>) {
+        if(/^(\d+\.[\d\.]*)/) {
+            last unless is_subsection($section, $1);
+        } elsif(/^(\d{4})(...)\s*(\S.*?)[:,]\s*(.*?)\s*$/) {
+            $indx = $1;
+            $indx{$indx}->{_flag} = $2;
+            $indx{$indx}->{_code} = $3;
+            $indx{$indx}->{_name} = $4;
+            $cont = /-\s*$/ ? 1 : 0;
+	    $note = 0;
+	} elsif(/^\s+Note:\s*(.*?)\s*$/) {
+	    $note = 1;
+	    $indx{$indx}->{_note} = $1;
+	} elsif($note) {
+            s/^\s*|\s*$//g;
+            $indx{$indx}->{_note} .= " $_";
+	    $indx{$indx}->{_note} =~ s/^\s*|\s*$//g;
+        } elsif($cont) {
+            s/^\s*|\s*$//g;
+            $cont = /-\s*$/ ? 1 : 0;
+            $indx{$indx}->{_name} .= $_;
+        } else {
+            s/^\s*|\s*$//g;
+            $indx{$indx}->{_desc} .= " $_" if defined $indx;
+            $indx{$indx}->{_desc} =~ s/^\s*|\s*$//g;
+        }
+    }
+  done:
+
+    \%indx;
+}
+
+sub is_subsection {
+    my($section, $subsect) = @_;
+    my @section = split(/\./, $section);
+    my @subsect = split(/\./, $subsect);
+    foreach my $part (@section) { return 0 if shift(@subsect) != $part };
+    1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+sub unsd2xml {
+    my(@files) = @_;
+    
+    printf " %s\n", xmlStart('segments');
+    
+    foreach my $segment (&read_unsd(@files)) {
+	printf "  %s\n", xmlStart('segment',
+				  'code' => $segment->{_code},
+				  'name' => $segment->{_name},
+				  'desc' => $segment->{_func},
+				  'note' => $segment->{_note},
+				  );
+	
+	foreach(@{$segment->{_list}}) {
+	    next if $_->{_flag} =~ /-/; # removed from spec
+	    my $reqr = $_->{_reqr} eq 'M' ? 'mandatory' : 'conditional';
+	    my $reps = $_->{_reps} ? $_->{_reps} : 1;
+	    my $type = $_->{_cplx} ? 'composite' : 'simple';
+	    printf "   %s\n", xmlEmpty('elemref',
+				       'code' => $_->{_code},
+				       #'indx' => $_->{_indx},
+				       'reqr' => $reqr ,
+				       #'reps' => $reps,
+				       'type' => $type,
+				       );
+	}
+	
+	printf "  %s\n\n", xmlEnd('segment');
+    }
+    
+    printf "  %s\n\n\n", xmlEnd('segments');
+}
+
+sub uncd2xml {
+    my(@files) = @_;
+    
+    printf " %s\n", xmlStart('composites');
+    foreach $element (&read_uncd(@files)) {
+	printf "  %s\n", xmlStart('composite',
+				 'code' => $element->{_code},
+				 'name' => $element->{_name},
+				 'desc' => $element->{_desc},
+				 'note' => $element->{_note});
+	
+	foreach(@{$element->{_list}}) {
+	    my $reqr = $_->{_reqr} eq 'M' ? 'mandatory' : 'conditional';
+            my $reps = $_->{_reps} ? $_->{_reps} : 1;
+	    printf "   %s\n", xmlEmpty('component',
+				       'code' => $_->{_code},
+				       'reqr' => $reqr,
+				       #'reps' => $reps,
+				       #'indx' => $_->{_indx}
+				       );
+	}
+
+	printf "  %s\n\n", xmlEnd('composite');
+    }
+    printf " %s\n\n\n", xmlEnd('composites');
+}
+
+sub uned2xml {
+    my($uned, $uncl) = @_;
+    my %uncl;
+    
+    printf " %s\n", xmlStart('elements');
+    
+    if(defined $uncl) { foreach(@$uncl) { $uncl{$_->{_code}} = $_ } }
+    
+    foreach $element (@$uned) {
+	my $repr = 'mixed';
+	$repr = 'alpha'   if $element->{_type} eq 'A';
+	$repr = 'numeric' if $element->{_type} eq 'N';
+	
+	my %attr = ('code' => $element->{_code},
+		    'name' => $element->{_name},
+		    'min'  => $element->{_min},
+		    'max'  => $element->{_max},
+		    'desc' => $element->{_desc},
+		    'note' => $element->{_note},
+		    'usge' => $element->{_usge},
+		    'repr' => $repr);
+	
+	if(defined ($uncl = $uncl{$element->{_code}})) {
+	    printf "  %s\n", xmlStart('element', %attr);
+	    &uncv2xml($uncl);
+	    printf "  %s\n\n", xmlEnd('element');
+	} else {
+	    printf "  %s\n\n", xmlEmpty('element', %attr);
+	}
+	
+    }
+    printf " %s\n\n\n", xmlEnd('elements');
+}
+
+sub uncv2xml {
+    my($uncv) = @_;
+    foreach(@{$uncv->{_list}}) {
+	printf "   %s\n", xmlEmpty('value',
+				   'code' => $_->{_code},
+				   'name' => $_->{_name},
+				   'desc' => $_->{_desc});
+    }
+}
+
+sub uncl2xml {
+    my($codelists) = @_;
+    
+    printf " %s\n", xmlStart('codelists');
+    
+    foreach $elem (@$codelists) {
+	printf "  %s\n", xmlStart('codelist', 'code' => $elem->{_code});
+	&uncv2xml($elem);
+	printf "  %s\n\n\n", xmlEnd('codelist');
+    }
+    
+    printf " %s\n", xmlEnd('codelists');
+}
+
+sub unsm2xml {
+    my($dir, @files) = @_;
+    my @transactions = &read_unsm($dir, @files);
+    
+    printf " %s\n", xmlStart('transactions');
+    
+    foreach $transaction (@transactions) {
+	printf "  %s\n", xmlStart('transaction',
+				  'code'    => $transaction->{_type},
+				  'version' => $transaction->{_version},
+				  'release' => $transaction->{_release},
+				  'agency'  => $transaction->{_agency}
+				  );
+
+	_unsm2xml(3, $transaction->{_list}, $transaction->{_indx});
+	
+	printf "  %s\n\n", xmlEnd('transaction');
+    }
+    
+    printf " %s\n\n\n", xmlEnd('transactions');
+}
+
+sub _unsm2xml {
+    my($indent, $list, $indx) = @_;
+    
+    foreach my $item (@$list) {
+	#my $desc = $indx->{$item->{_indx}}->{_desc};
+	#my $name = $indx->{$item->{_indx}}->{_name};
+	my $reqr = 'conditional';
+	$reqr = 'mandatory' if $item->{_reps} eq 'M';
+
+	my %attr = (
+		    #'indx' => $item->{_indx},
+		    'code' => $item->{_code},
+		    'reps' => $item->{_reps},
+		    #'reqr' => $item->{_reqr},
+		    'reqr' => $reqr,
+
+		    'name' => $indx->{$item->{_indx}}->{_name},
+		    'desc' => $indx->{$item->{_indx}}->{_desc},
+		    'note' => $indx->{$item->{_indx}}->{_note},
+		    );
+	
+	if($item->{_loop}) {
+	    printf "%s%s\n", ' 'x$indent,xmlStart('loop', %attr);
+	    _unsm2xml($indent + 1, $item->{_list}, $indx);
+	    printf "%s%s\n", ' 'x$indent, xmlEnd('loop');
+	    
+	} else {
+	    printf "%s%s\n", ' 'x$indent, xmlEmpty('segref', %attr);
+	}
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# http://www.w3.org/TR/2004/REC-xml-20040204/#dt-escape
+# <!ENTITY lt     "&#38;#60;">
+# <!ENTITY gt     "&#62;">
+# <!ENTITY amp    "&#38;#38;">
+# <!ENTITY apos   "&#39;">
+# <!ENTITY quot   "&#34;">
+
+sub xmlText {
+    my(@text) = @_;
+    my $text = '';
+    foreach my $val (@text) {
+#        $val =~ s/\046/&#38;#38;/g; # & - must do this one first
+#        $val =~ s/\042/&#34;/g;     # "
+#        $val =~ s/\047/&#39;/g;     # '
+#        $val =~ s/\074/&#38;#60;/g; # <
+#        $val =~ s/\074/&#62;/g;     # >
+
+        $val =~ s/\046/&amp;/g;  # & - must do this one first
+        $val =~ s/\042/&quot;/g; # "
+        $val =~ s/\047/&apos;/g; # '
+        $val =~ s/\074/&lt;/g;   # <
+        $val =~ s/\076/&gt;/g;   # >
+
+        $text .= $val;
+    }
+    return $text;
+}
+
+sub xmlAttr {
+    my($key, $val) = @_;
+    return unless defined $key && $key =~ /\S/;
+    return unless defined $val;
+    return sprintf '%s="%s"', $key, xmlText($val);
+}
+
+sub xmlTag {
+    my($tag, %attr) = @_;
+    my($key,  @attr);
+    foreach $key (sort { $a cmp $b } keys %attr) {
+        my $attr = &xmlAttr($key, $attr{$key});
+        push(@attr, $attr) if defined $attr;
+    }
+    return join(' ', $tag, @attr);
+}
+
+sub xmlPI      { return sprintf "<?%s?>", &xmlTag(shift(@_), @_) }
+sub xmlComment { return sprintf "<!-- %s -->", xmlText(@_) }
+sub xmlStart   { return sprintf "<%s>",   &xmlTag(shift(@_), @_) }
+sub xmlEmpty   { return sprintf "<%s/>",  &xmlTag(shift(@_), @_) }
+sub xmlEnd     { return sprintf "</%s>",  $_[0]}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+######################################################################
+# This is all the old code
+######################################################################
+
+
+sub unsd2francesco {
+    my(@files) = @_;
+    my @segment = ();
+    
+    foreach(@files) {
+        my $segment = {};
+	
+        open(FILE, $_) or die "Couldn't open($_): $!\n";
+	
+	while(<FILE>) {
+	    $segment = {} if /^[-\304]{3,}/;
+	    
+	    if(/^\s*$/) {
+		$segment->{_last} = _none;
+		
+	    } elsif(!defined $segment->{_code} &&
+		    /^\s*(\S{0,2})\s+([a-z]{3})\s+(\S.*?)\s*$/i) {
+		$segment->{_flag} = $1;
+		$segment->{_code} = $2;
+		$segment->{_name} = $3;
+		$segment->{_last} = '_name';
+		push(@segment, $segment);
+		
+	    } elsif(/^(\S*)\s+([a-z]{4})[a-z]*:\s+(\S?.*?)\s*$/i) {
+		my $attr = $2;
+		$attr =~ tr/[A-Z]/[a-z]/;
+		$segment->{_.$attr} = $3;
+		$segment->{_last} = _.$attr;
+		
+	    } elsif($segment->{_last} eq _none &&
+   /^(\d*)\s*(\S?)\s+(\S{4})\s+(\S.*?)\s+([A-Z])\s*(\d*)\s*(\S*)\s*$/i) {
+		push(@{$segment->{_list}}, { _indx => $1, _flag => $2,
+					     _code => $3, _name => $4,
+					     _reqr => $5, _reps => $6});
+		$segment->{_last} = _elem;
+	    } else {
+		$segment->{$segment->{_last}} .= $_;
+		$segment->{$segment->{_last}} =~ s/\s+/ /g;
+		$segment->{$segment->{_last}} =~ s/\s*$//;
+		$segment->{$segment->{_last}} =~ s/^\s*//;
+	    }
+	}
+	close(FILE);
+    }
+    
+    
+    print "\nSEGMENT\n";
+    foreach (@segment) {
+	printf "\t%s\t%s\t%s\n",
+	$_->{_code},
+	$_->{_name},
+	$_->{_func},
+	$_->{_note};
+    }
+    
+    print "\nSEGLIST\n";
+    foreach my $segment (@segment) {
+	foreach(@{$segment->{_list}}) {
+	    next if $_->{_flag} =~ /-/;
+
+	    printf "\t%s\t%s\t%1s\t%s\n",
+	    $segment->{_code},
+	    $_->{_code},
+	    $_->{_reqr},
+	    $_->{_code} =~ /[a-z]/i ? 'COMPOSITE' : 'ELEMENT',
+	    $_->{_reps} ? $_->{_reps} : 1,
+	    $_->{_indx};
+	}
+    }
+}
+
+
+
+
+
+
+
+sub uncd2francesco {
+    my(@files) = @_;
+    my @elem = ();
+    
+    foreach(@files) {
+	my $elem = {};
+	
+	open(FILE, $_) or die "Couldn't open($_): $!\n";
+	
+	while(<FILE>) {
+	    $elem = {} if /^[-\304]{3,}/;
+	    
+	    if(/^\s*$/) {
+		$elem->{_last} = _none;
+		
+	    } elsif(!defined $elem->{_code} &&
+		    /^\s*(\S{0,2})\s+([a-z]\d{3})\s+(\S.*?)\s*$/i) {
+		$elem->{_flag} = $1;
+		$elem->{_code} = $2;
+		$elem->{_name} = $3;
+		$elem->{_last} = '_name';
+		push(@elem, $elem);
+		
+	    } elsif(/^\s*(\S{0,2})\s+([a-z]{4}):\s+(\S?.*?)\s*$/i) {
+		my $attr = $2;
+		$attr =~ tr/[A-Z]/[a-z]/;
+		$elem->{_.$attr} = $3;
+		$elem->{_last} = _.$attr;
+		
+	    } elsif(/^(\d*)\s*(\S?)\s+(\d{4})\s+(\S.*?)\s+(\S)\s+(\S+)\s*$/i) {
+		push(@{$elem->{_list}}, { _indx => $1, _flag => $2,
+					   _code => $3, _name => $4,
+					   _reqr => $5, _repr => $6});
+	    } else {
+		$elem->{$elem->{_last}} .= $_;
+		$elem->{$elem->{_last}} =~ s/\s+/ /g;
+		$elem->{$elem->{_last}} =~ s/\s*$//;
+		$elem->{$elem->{_last}} =~ s/^\s*//;
+	    }
+	}
+	close(FILE);
+    }
+
+    print "\nCOMPOSITE\n";
+    foreach (@elem) {
+	printf "\t%s\t%s\t%s\n",
+	$_->{_code},
+	$_->{_name},
+	$_->{_desc},
+	$_->{_note};
+    }
+
+
+    print "\nCOMPONENT\n";
+    foreach my $elem (@elem) {
+	foreach(@{$elem->{_list}}) {
+	    printf "\t%s\t%s\t%1s\t\n",
+	    $elem->{_code},
+	    $_->{_code},
+	    $_->{_reqr},
+	    $_->{_reps} ? $_->{_reps} : 1,
+	    $_->{_indx};
+	}
+    }
+
+}
+
+
+
+
+
+
+
+sub uned2francesco {
+    my(@files) = @_;
+    my($type, $fixd, $size);
+    my @elem = ();
+
+    foreach(@files) {
+	my $elem = {};
+	
+	open(FILE, $_) or die "Couldn't open($_): $!\n";
+	
+	while(<FILE>) {
+	    $elem = {} if /^[-\304]{3,}/;
+	    
+	    if(/^\s*$/) {
+		$elem->{_last} = _none;
+	    } elsif(!defined $elem->{_code} &&
+		    /(\S?)\s+(\d{4})\s+(\S.*?)\s*$/) {
+		my $name = $3;
+		$elem->{_flag} = $1;
+		$elem->{_code} = $2;
+		$elem->{_last} = _name;
+		$elem->{_usge} = $1 if $name =~ s/\s*\[(\S+)\]\s*$//;
+		$elem->{_name} = $name;
+		push(@elem, $elem);
+		
+	    } elsif(/^(\S?)\s+([a-z]{4}):\s+(\S?.*?)\s*$/i) {
+		my $attr = $2;
+		$attr =~ tr/[A-Z]/[a-z]/;
+		$elem->{_.$attr} = $3;
+		$elem->{_last} = _.$attr;
+		
+	    } else {
+		$elem->{$elem->{_last}} .= $_;
+		$elem->{$elem->{_last}} =~ s/\s+/ /g;
+		$elem->{$elem->{_last}} =~ s/\s+$//;
+		
+	    }
+	}
+	close(FILE);
+    }
+
+    
+    print "\nELEMENT\n";
+    foreach (@elem) {
+	if($_->{_repr} =~ /([a-z]+)(\.?\.?)(\d+)/) {
+	    ($form, $fixd, $size) = ($1, $2, $3);
+	    $fixd = ($fixd =~ /\S/ ? 0 : 1);
+	    $type = 'U';
+	    $type = 'N' if $form =~ /n/;
+	    $type = 'A' if $form =~ /a/;
+	    $type = 'X' if $form =~ /an/;
+
+	} else {
+	    ($type, $fixd, $size) = ('ERROR', 0, 0);
+	}
+	
+	printf "\t%s\t%s\t%d\t%d\t%s\t%s\t%s\t%s\n",
+	$_->{_code},
+	$type,
+	$fixd ? $size : 1,
+	$size,
+	$_->{_name},
+	$_->{_desc},
+	$_->{_note},
+	$_->{_usge};
+    }
+}
+
+
+sub unsm2francesco {
+    my($dir, @files) = @_;
+    my %segment_tables;
+    my $file;
+    
+    foreach $file (@files) {
+	open(FILE, $file) or die "Couldn't open $_: $!\n";
+	
+	my $info = &document_info(FILE);
+	while(<FILE>) {
+	    
+	  new_section:
+	    if(/^\s?(\d+\.[\d\.]*)\s+(\S.*?)\s*$/) {
+		my($section, $title) = ($1, $2);	    
+		#printf "$section $title\n";
+		if($title =~ /Segment\s+table/i) {
+		    $segment_tables{$info->{_type}} =
+			&segment_table(FILE, $info->{_type});
+		    goto new_section;
+		}
+	    }
+	}
+	close(FILE);
+    }
+
+    print "\nLOOP\n";
+    foreach $file (sort keys %segment_tables) {
+	@list = @{$segment_tables{$file}};
+	
+	foreach $loop (@list) {
+	    foreach (@{$loop->{_list}}) {
+		next if $info->{_flag} =~ /-/; # ???
+		
+		$code = $_->{_code};
+		$cont = $loop->{defined $loop->{_indx} ? _indx : _code};
+		$indx = defined $_->{_indx} ? $_->{_indx} : $_->{_code};
+		
+		printf "\t%s\t%s\t%s\t%s\t%s\t%d\t%s\n",
+		$file,
+		$cont,
+		$indx,
+		$code,
+		$_->{_reqr},
+		$_->{_reps},
+		$_->{_loop} ? 'LOOP' : 'SEGMENT';
+	    }	
+	    warn "Possible corruption in $file! UNT/UIT not last segment!\n",
+	    if !defined $cont && $code ne 'UNT' && $code ne 'UIT';
+	    print "\n";
+	}
+    }
+}
+
+sub document_info {
+    my($fh) = @_;
+    my $info = {};
+    
+    while(<$fh>) {
+	last if /^(\d+\.[\d\.]*)/;
+	$info->{_type}     = $1 if /Message\s+Type\s*:\s*(\S+)/i;
+	$info->{_version}  = $1 if /Version\s*:\s*(\S+)/i;
+	$info->{_release}  = $1 if /Release\s*:\s*(\S+)/i;
+	$info->{_agency}   = $1 if /Contr. Agency\s*:\s*(\S+)/i;
+	$info->{_status}   = $1 if /Status\s*:\s*(\S+)/i;
+	$info->{_revision} = $1 if /Revision\s*:\s*(\S+)/i;
+	$info->{_date}     = $1 if /Date\s*:\s*(\S+)/i;
+    }
+    return $info;
+}
+
+sub segment_table {
+    my($fh, $type) = @_;
+    my $main = { _list => [] };
+    my @list = ($main);
+    my @loop = ($main);
+    
+    while(<$fh>) {
+	last if /^(\d+\.[\d\.]*)/;
+	
+	s/[\r\n\s]+$//;
+	next if /^$/;
+	
+	if(defined($list = $loop[$#loop])) {
+	    $list = $list->{_list};
+	} else {
+	    warn "Loop-stack underflow in $type at line $.\n";
+	    $list = [];
+	}
+
+	if(/^(\d{0,4})\s*(\S?)\s+.*Segment\s+group\s+(\d+).*(\S)\s+(\d+)/i) {
+	    my $item = {
+		_loop => 1,
+		_indx => length($1) ? $1 : undef ,
+		_flag => $2,
+		_code => $3,
+		_reqr => $4,
+		_reps => $5,
+		_list => [],
+	    };
+	    push(@$list, $item);
+	    push(@loop, $item);
+	    push(@list, $item);
+	    next;
+	    
+	} elsif(/^(\d{0,4})\s*(\S?)\s+(\S+)\s+(\S.*?)\s+(\S)\s+(\d+)/) {
+	    #printf "%s%s (%s)\n", ' 'x$#loop, $3, $1;
+	    my $item = {
+		_indx => length($1) ? $1 : undef,
+		_flag => $2,
+		_code => $3,
+		_name => $4,
+		_reqr => $5,
+		_reps => $6,
+	    };	    
+	    push(@$list, $item);
+	}	 
+	
+	if(/([\301+]+)[\177-\377|]*$/) {
+	    foreach(split(//, $1)) {
+		pop(@loop);
+		#print "pop\n";
+	    }
+	}
+
+	if(/(\331)[\177-\377]*$/) {
+	    pop(@loop);
+	    #print "pop\n";
+	}	
+    }
+    return \@list;
+}
+
+sub uncl2francesco {
+    my(@files) = @_;
+    my @elem;
+    foreach $file (@files) {
+	my $elem = undef;
+	my $item = undef;
+
+	open(FILE, $file) or die "Couldn't open $_: $!\n";
+	
+	while(<FILE>) {
+	    if($. == 1 && /^PART/) { while(<FILE>) { last if /^[-\304]{3,}/ } }
+	    
+	    if(/^[-\304]{3,}/) {
+		$elem = undef;
+		$item = undef;
+		
+	    } elsif(/^\s*$/) {
+		$elem->{_last} = undef if defined $elem;
+
+	    } elsif(/^(\S*)\s+([a-z]{4})[a-z]*:\s+(\S?.*?)\s*$/i) {
+                my($flag, $attr, $val) = ($1, $2, $3);
+                $attr =~ tr/[A-Z]/[a-z]/;
+                $elem->{_.$attr} = $val;
+                $elem->{_last} = _.$attr;
+		
+	    } elsif(!defined $elem && /^([\S\s]+)\s+(\d{4})\s+(\S.*\S)\s*$/) {
+		my($flag, $code, $name) = ($1, $2, $3);
+		$elem = {
+		    _flag => $flag,
+		    _code => $code,
+		    _name => $name,
+		};
+		push(@elem, $elem);
+		
+	    } elsif(defined $elem && defined $elem->{_last}) {
+		$elem->{$elem->{_last}} .= $_;
+		$elem->{$elem->{_last}} =~ s/\s+/ /g;
+		$elem->{$elem->{_last}} =~ s/\s*$//;
+		$elem->{$elem->{_last}} =~ s/^\s*//;
+		
+	    } elsif(defined $elem && ! defined $elem->{_last} &&
+		    /^(..)(.{7})\s+(\S.*?)\s*$/) {
+		my($flag, $code, $name) = ($1, $2, $3);
+		if($code =~ /\S/) {
+		    $code =~ s/^\s*//;
+		    $code =~ s/\s*$//;
+		    $item = {
+			_flag => $flag,
+			_code => $code,
+			_name => $name,
+		    };
+		    push(@{$elem->{_list}}, $item);
+		    
+		} else {
+		    $item->{_desc} .= $_;
+		    $item->{_desc} =~ s/\s+/ /g;
+		    $item->{_desc} =~ s/\s*$//;
+		    $item->{_desc} =~ s/^\s*//;
+		    
+		}
+	    }
+	}
+    }
+
+
+    print "\nCODELIST\n";
+    foreach $elem (@elem) {
+	foreach(@{$elem->{_list}}) {
+	    printf "\t%s\t%s\t%s\t%s\n",
+	    $elem->{_code},
+	    $_->{_code},
+	    $_->{_name},
+	    $_->{_desc};
+	}
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+sub usage {
+    return <<EOF
+Usage: untd2t [-x] <directory>
+
+    -x   output new XML format
+
+EOF
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+__END__;
+<!DOCTYPE tsg [
+
+<!ELEMENT tsg (segments?, composites?, elements?, codelists?, transactions?)>
+<!ATTLIST tsg
+    version CDATA #IMPLIED
+    release CDATA #IMPLIED
+>
+
+
+<!-- segments:func <=> composites:desc -->
+
+<!ELEMENT segments     (segment+)>
+<!ELEMENT composites   (composite+)>
+<!ELEMENT elements     (element+)>
+<!ELEMENT codelists    (codelist+)>
+<!ELEMENT transactions (transaction+)>
+
+<!ELEMENT segment ((elemref)*)>
+<!ATTLIST segment
+    code CDATA #REQUIRED
+    name CDATA #IMPLIED
+    desc CDATA #IMPLIED
+    note CDATA #IMPLIED
+>
+
+<!ELEMENT elemref EMPTY>
+<!ATTLIST elemref
+    code CDATA #REQUIRED
+    indx CDATA #IMPLIED
+    reqr (mandatory|conditional) #REQUIRED
+    type (simple|composite) #REQUIRED
+>
+
+<!ELEMENT composite (component*)>
+<!ATTLIST composite
+    code CDATA #REQUIRED
+    name CDATA #IMPLIED
+    desc CDATA #IMPLIED
+    note CDATA #IMPLIED
+>
+
+<!ELEMENT component EMPTY>
+<!ATTLIST component
+    code CDATA #REQUIRED
+    indx CDATA #IMPLIED
+    reqr (mandatory|conditional) #REQUIRED
+>
+
+<!ELEMENT element (value*)>
+<!ATTLIST element
+    code CDATA   #REQUIRED
+    name CDATA   #IMPLIED
+    min  CDATA   #IMPLIED
+    max  CDATA   #IMPLIED
+    desc CDATA   #IMPLIED
+    note CDATA   #IMPLIED
+    usge CDATA   #IMPLIED
+    repr (alpha|numeric|mixed|1decimal|2decimal|3decimal|4decimal) 'mixed'
+>
+
+<!ELEMENT codelist (value*)>
+<!ATTLIST codelist
+    code CDATA #REQUIRED
+>
+
+<!ELEMENT value EMPTY>
+<!ATTLIST value
+    code CDATA #REQUIRED
+    name CDATA #IMPLIED
+    desc CDATA #IMPLIED
+    note CDATA #IMPLIED
+>
+
+
+
+<!ELEMENT transaction ((segref|loop)+)>
+<!ATTLIST transaction
+    agency  CDATA #IMPLIED
+    release CDATA #IMPLIED
+    type    CDATA #IMPLIED
+    version CDATA #IMPLIED
+>
+
+<!ELEMENT segref EMPTY>
+<!ATTLIST segref
+    code CDATA #REQUIRED
+    reps CDATA #REQUIRED
+    indx CDATA #IMPLIED
+    reqr (mandatory|conditional) #REQUIRED
+>
+
+<!ELEMENT loop ((segref|loop)+)>
+<!ATTLIST loop
+    code CDATA #REQUIRED
+    reps CDATA #REQUIRED
+    indx CDATA #IMPLIED
+    reqr (mandatory|conditional) #REQUIRED
+>
+
+
+]>
+
+

@@ -1,0 +1,195 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Hyperlink Preprocessor </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">31 Mart 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>mSQL İşlevleri</h2>
+
+<h3>Giriş</h3>
+
+Bu işlemler mSQL veritabanı sunucusuna erişime izin verir. Daha çok bilgi için
+http://www.hughes.com.au/ adresine bakın.
+
+<h3>Kurulum</h3>
+
+Bu işlevlerin çalışabilmesi için PHP "--with-msql[=DIR]" seçeneğiyle
+derlenmelidir. DIR mSQL yazılımının kurulu olduğu yoldur. Varsayılanı
+/usr/local/msql3 olarak bilinir.
+<br /><br />
+    Not: Win32 kullanıcıları için Not<br />
+Bu uzantının çalışması için Windows sistemi PATH çevresel değişkeninin
+erişebildiği yerde DLL dosyaları bulunmalıdır. DLL'leri PHP klasörüne
+taşımakla da çalışır.
+
+<h3>Çalışma zamanı Ayarları</h3>
+
+php.ini ayarları işlevlerin çalışmasını etkiler.
+
+<h3>mSQL Ayarlama Seçenekleri</h3>
+
+<table class="yazi">
+<tr><td>Adı</td><td>Varsayılan</td><td>Değişebilir</td><td>Değişme
+Kaydı</td></tr>
+<tr><td>msql.allow_persistent</td><td>"1"</td><td>PHP_INI_ALL</td><td></td></tr>
+<tr><td>msql.max_persistent</td><td>"-1"</td><td>PHP_INI_ALL</td><td></td></tr>
+<tr><td>msql.max_links</td><td>"-1"</td><td>PHP_INI_ALL</td><td></td></tr>
+</table>
+
+PHP_INI_* tanımlarının değişmezleri için php.ini yönelticilerine bakın
+
+Ayarlama yönelticileri için aşağıdaki kısa açıklamalara bakın
+<dl>
+<dt>msql.allow_persistent mantıksal
+
+    <dd>Sürekli mSQL bağlantısına izin verip verilmeyeceğine bak
+</dd></dt>
+<dt>msql.max_persistent tamsayı
+
+    <dd>Her işlem için en çok sürekli mSQL bağlantısı
+</dd></dt>
+<dt>msql.max_links tamsayı
+
+    <dd>Her işlem için sürekli bağlantılar da dahil toplam en çok mSQL bağlantısı sayısı
+</dd></dt>
+</dl>
+
+<h3>Kaynak Türleri</h3>
+
+mSQL modülünde ki kaynak türü vardır. İlki veritabanı bağlantısı için bağlantı tanıtıcısı, ikincisi sorgulama sonuçlarını tutan kaynaktır.
+
+<h3>Önceden Tanımlı Değişmezler</h3>
+
+Aşağıdaki değişmezler bu uzantı için tanımlanmıştır. Bu uzantı yüklü olduğunda
+kullanılabilir.
+<pre>
+MSQL_ASSOC (tamsayı)
+MSQL_NUM (tamsayı)
+MSQL_BOTH (tamsayı)
+</pre>
+<h3>Örnekler</h3>
+
+Bu örnek nasıl bağlantı kurulacağını, nasıl sorgu çalıştırılacağını, sonuç
+satırlarının nasıl yazdırılacağını ve mSQL veri tabanından bağlantının nasıl
+kapatılacağını gösterir.
+
+<h3>Örnek-1 mSQL kullanım örneği</h3>
+<pre>
+&lt;?php
+/* Bağlanma, veri tabanını seçme */
+$link = msql_connect('localhost', 'username', 'password')
+    or die('Bağlanamadı : ' . msql_error($link));
+
+msql_select_db('database', $link)
+    or die('Veri tabanına bağlanamadı');
+
+/* SQL sorgu gönder */
+$query = 'SELECT * FROM my_table';
+$result = msql_query($query, $link) or die('Query failed : ' . msql_error());
+
+/* Sonuçları HTML olarak yaz */
+echo "<table>\n";
+while ($row = msql_fetch_array($result, MSQL_ASSOC)) {
+    echo "\t<tr>\n";
+    foreach ($row as $col_value) {
+        echo "\t\t<td>$col_value</td>\n";
+    }
+    echo "\t</tr>\n";
+}
+echo "</table>\n";
+
+/* Sonuç takımını boşalt */
+msql_free_result($result);
+
+/* Bağlantıyı kapat */
+msql_close($link);
+?&gt;
+</pre>
+<h3>İçindekiler</h3>
+<ul>
+    <li> msql_affected_rows — Etkilenen satır sayısını döndür
+    <li> msql_close — mSQL bağlantısını kapat
+    <li> msql_connect — mSQL bağlantısını aç
+    <li> msql_create_db — mSQL veritabanı yarat
+    <li> msql_createdb — msql_create_db eşdeğeri
+    <li> msql_data_seek — İçsel satır göstergesini taşı
+    <li> msql_db_query — mSQL sorgusunu gönder
+    <li> msql_dbname — msql_result eşdeğeri
+    <li> msql_drop_db — mSQL veritananını düşür (sil)
+    <li> msql_error — Son msql çağrısının hata mesajını döndür
+    <li> msql_fetch_array — Satırı dizi olarak bul
+    <li> msql_fetch_field — Alan bilgisini al
+    <li> msql_fetch_object — Satırı nesne olarak bul
+    <li> msql_fetch_row — Satırı sıralanmış dizi olarak al
+    <li> msql_field_flags — Alan durum kodlarını al
+    <li> msql_field_len — Alan enini al
+    <li> msql_field_name — Sonuçtaki belirtilen alanın adını al
+    <li> msql_field_seek — Alanın uzaklığını ayarla
+    <li> msql_field_table — Alanın tablo adını al
+    <li> msql_field_type — Alanın tipini al
+    <li> msql_fieldflags — msql_field_flags eşdeğeridir
+    <li> msql_fieldlen — msql_field_len eşdeğeridir
+    <li> msql_fieldname — msql_field_name eşdeğeridir
+    <li> msql_fieldtable — msql_field_table eşdeğeridir
+    <li> msql_fieldtype — msql_field_type eşdeğeridir
+    <li> msql_free_result — Sonuç belleğini boşalt
+    <li> msql_list_dbs — Sunucudaki mSQL veritabainını listele
+    <li> msql_list_fields — Sonuç alanlarını listele
+    <li> msql_list_tables — mSQL veritabanındaki tabloları listele
+    <li> msql_num_fields — Sonuçtaki alan sayısını al
+    <li> msql_num_rows — Sonuçtaki satır sayısını al
+    <li> msql_numfields — msql_num_fields eşdeğeri
+    <li> msql_numrows — msql_num_rows eşdeğeri
+    <li> msql_pconnect — Sürekli mSQL bağlantısı aç
+    <li> msql_query — mSQL sorgusu gönder
+    <li> msql_regcase — sql_regcase eşdeğeri
+    <li> msql_result — Sonuç verisini al
+    <li> msql_select_db — mSQL veritabanını seç
+    <li> msql_tablename — msql_result eşdeğeri
+    <li> msql — msql_db_query eşdeğeri
+</ul>
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

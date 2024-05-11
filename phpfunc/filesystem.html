@@ -1,0 +1,253 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Filesystem (Dosya düzeni) İşlevleri </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">21 Şubat 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>Filesystem (Dosya düzeni) İşlevleri</h2>
+
+<h3>Gereksinim</h3>
+
+Bu uzantıyı oluşturmak için ayrıca kitaplık gerekmez, ama PHP Linux ortamında
+büyük dosya desteği ile çalışacaksa derlenirke -D_LARGEFILE_SOURCE
+-D_FILE_OFFSET_BITS=64 derleme durum kodu kullanılmalıdır.
+
+<h3>Çalışma Zamanı Ayarları</h3>
+
+Bu işlevlerin davranışları php.ini ayarlarından etkilenir.
+
+<b>Dosya düzeni (Filesystem) ve Akar (Streams) Ayar seçenekleri</b>
+<table class="yazi" width="100%">
+<tr><td>Adı</td><td>Varsayılan</td><td>Değişebilir</td><td>Değişme
+Kaydı</td></tr>
+<tr><td>allow_url_fopen</td><td>"1"</td><td>PHP_INI_ALL</td><td>PHP_INI_ALL in PHP <= 4.3.4. PHP_INI_SYSTEM in PHP < 6. Available since PHP 4.0.4.</td></tr>
+<tr><td>allow_url_include</td><td>"0"</td><td>PHP_INI_ALL</td><td>PHP 5 içinde PHP_INI_SYSTEM. PHP 5.2.0 den beri var.</td></tr>
+<tr><td>user_agent</td><td>NULL</td><td>PHP_INI_ALL</td><td>PHP 4.3.0 den beri var.</td></tr>
+<tr><td>default_socket_timeout</td><td>"60"</td><td>PHP_INI_ALL</td><td>PHP 4.3.0 den beri var.</td></tr>
+<tr><td>from</td><td>""</td><td>PHP_INI_ALL</td><td></td></tr>
+<tr><td>auto_detect_line_endings</td><td>"0"</td><td>PHP_INI_ALL</td><td>PHP 4.3.0 den beri var.</td></tr>
+</table>
+
+Aşağıda ayarların yönelticilerinin kısa açıklaması yer almaktadır.
+<dl>
+<dt>allow_url_fopen mantıksal
+
+    <dd>
+Bu seçenek dosya gibi URL nesnesine erişimi açan URL-anlamlı fopen paketlerini açar. Varsayılan paketler uzak dosyalara ftp ya da http protokolleriyle erişim için sunulur. zlib gibi bazı uzantılar ek paketleri kaydederler.
+<br /><br />
+        Not: Güvenlik nedeniyle bu yaralar yalnız php.ini içinde yapılır
+<br /><br />
+        Not: 
+Bu seçenek 4.0.3 sürümünden sonra ortaya atıldı. Bu sürümde "--disable-url-fopen-wrapper" yaralı derlemede kullanılır.
+<br /><br />
+    UYARI
+<br /><br />
+Windows sürümlerinde (4.3.0 sürüm) şu işlevler uzaktaki dosayalara erişimi desteklemez: include(9, include_once(9, require(9, require_once() ve image uzantısındaki imagecreatefromxxx işlevleri.
+</dd></dt>
+<dt>allow_url_include mantıksal
+
+    <dd>
+Bu seçenek URL-anlamlı fopen paketlerinin include(), include_once(), require(), require_once() işlevlerinde kullanımına izin verir.
+<br /><br />
+        Not: Bu ayar için allow_url_fopen i"on" olmalıdır.
+
+</dd></dt>
+<dt>user_agent yazı dizisi
+
+    <dd>PHP göndersin diye kullanıcı acentası tanımlanır.
+</dd></dt>
+<dt>default_socket_timeout tam sayı
+
+    <dd> Socket tabanlı akarlar için varsayılan zaman aşımı (saniye olarak) 
+<br /><br />
+        Not: PHP 4.3.0 sürümünde kullanıma sunuldu
+
+</dd></dt>
+<dt>from yazı dizisi
+
+    <dd>anonymous (anonim) ftp şifresini tanımlar (sizin e-posta adresiniz)
+</dd></dt>
+<dt>auto_detect_line_endings mantıksal
+
+    <dd>
+sAaçıldığında ("on" olduğunda) PHP fgets() ve file() ile okunan veriyi inceler ve Uniz, Ms-Dos ya da Macintosh satır sonundan hangisini kullandığına bakar
+<br /><br />
+Bu PHP ile Macintosh sistemi arasındaki iletişimi açar. Ama varsayılan değer "off" olarak tanımlanmıştır. İlk satırda satır sonunu (EOL) belirlemenin çok az verim sorunu olur. Ve Uniz ortamında insanlar "CR" özelliğini öğe ayıracı olarak kullanma alışkanlığında olduklarından Uniz sistemlerinde geçmişe uyumlu bir anlayış olmamaktadır.
+<br /><br />
+        Not: Bu ayar seçeneği sürüm 4.3.0 ile kullanıma sunuldu
+</dd></dt>
+</dl>
+
+Kaynak türü
+
+<h3>Önceden Tanımlı Değişmezler</h3>
+
+Aşağıdaki değişmezler bu uzantı için geçerlidir.
+<dl>
+<dt>GLOB_BRACE (integer)</dt>
+<dt>GLOB_ONLYDIR (integer)</dt>
+<dt>GLOB_MARK (integer)</dt>
+<dt>GLOB_NOSORT (integer)</dt>
+<dt>GLOB_NOCHECK (integer)</dt>
+<dt>GLOB_NOESCAPE (integer)</dt>
+<dt>PATHINFO_DIRNAME (integer)</dt>
+<dt>PATHINFO_BASENAME (integer)</dt>
+<dt>PATHINFO_EXTENSION (integer)</dt>
+<dt>PATHINFO_FILENAME (integer)</dt>
+    <dd>PHP 5.2.0. sürümden beri
+</dd></dt>
+<dt>FILE_USE_INCLUDE_PATH (integer)
+    <dd>include_path içindeki dosya yolları arasında dosya adı için arama yapar (PHP 5 den beri). 
+</dd></dt>
+<dt>FILE_APPEND (integer)
+    <dd>Var olan dosyaya içerik eklemek
+</dd></dt>
+<dt>FILE_IGNORE_NEW_LINES (integer)
+    <dd>EOL (satır sonu) karakterlerinin ayıklanması (PHP 5 den beri). 
+</dd></dt>
+<dt>FILE_SKIP_EMPTY_LINES (integer)
+    <dd>Boş satırları atlayın (PHP 5 den beri). 
+</dd></dt>
+<dt>FILE_BINARY (integer)
+    <dd>İkili konum (PHP 6 den beri). 
+</dd></dt>
+<dt>FILE_TEXT (integer)
+    <dd>Yazı konumu (PHP 6 den beri). 
+</dd></dt>
+</dl>
+
+Ayrıca Bakın
+
+İlgili işlevler için, Dosya yolları ve Program çalıştırma bölümüne de bakın.
+<br /><br />
+Uzaktaki dosyalar için bir liste ve değişik URL paketlerinin açıklaması kullanılabilir.  
+
+İçindekiler
+<ul>
+    <li> basename — Dosya yolunun dosya adı bölümünü döndürür
+    <li> chgrp — Dosya grubunu değiştirir
+    <li> chmod — Dosya konumunu değiştirir
+    <li> chown — Dosya sahibini değiştirir
+    <li> clearstatcache — Dosya durum belleğini siler
+    <li> copy — Dosyayı kopyalar
+    <li> delete — "unlink" ya da "unset" işlevlerine bakın
+    <li> dirname — Dosya yolunun yol parçasını döndürür
+    <li> disk_free_space — Dosya yolundaki boşluğu döndürür
+    <li> disk_total_space — Dosya yolunun toplam boyunu döndürür
+    <li> diskfreespace — disk_free_space (boş disk alanı) eşdeğeri
+    <li> fclose — Açık dosya göstergesini kapatır
+    <li> feof — bir dosya göstergesinde dosya sonuna bakar
+    <li> fflush — Çıkışı dosyaya tümüyle aktarır
+    <li> fgetc — Dosya göstergesinden bir karakter alır
+    <li> fgetcsv — Dosya göstergesinden bir satır alır ve CSV alanlarını tarar
+    <li> fgets —Dosya göstergesinden bir satır alır
+    <li> fgetss — Dosya göstergesinden bir satır alır ve HTML biçimlerini
+temizler
+    <li> file_exists — Bir dosya yolu ya da dosya var mı bakar
+    <li> file_get_contents — Tüm dosyayı bir yazı dizisine okur
+    <li> file_put_contents — Bir yazı dizisini dosyaya yazar.
+    <li> file — Tüm dosyayı bir diziye okur
+    <li> fileatime — Dosyanın son erişim zamanını alır
+    <li> filectime — Dosyanın "inode" değişim zamanını alır
+    <li> filegroup — Dosya grubunu alır
+    <li> fileinode — dosyanın "inode" değerini alır
+    <li> filemtime — Dosyanın değiştirilme zamanını alır
+    <li> fileowner — Dosya sahibini alır
+    <li> fileperms — Dosya erişim izinlerini alır
+    <li> filesize — Dosya boyunu alır
+    <li> filetype — Dosya türünü alır
+    <li> flock — Taşınabilecek önerilebilir dosya kilitleme
+    <li> fnmatch — Dosya adını bir desene göre arama
+    <li> fopen — bir URL adres ya da dosya okur
+    <li> fpassthru — Kalan tüm veriyi dosya göstergesine yazdır
+    <li> fputcsv — Bir satırı CSV biçiminde kalıpla ve dosya göstergesine
+yazdır
+    <li> fputs — fwrite eşdeğeridir
+    <li> fread — Güvenilir İkili dosya okuma
+    <li> fscanf — Bir kalıba göre girişi dosyadan tarar
+    <li> fseek — dosya göstergesini kaydırma/değiştirme
+    <li> fstat — Açık dosya göstergesi kullanarak dosya hakkında bilgi alır
+    <li> ftell — Dosya göstergesi okuma/yazma yerini belirtir
+    <li> ftruncate — Dosyayı belirtilen boyu göre küçültür.
+    <li> fwrite — Güvenilir ikili dosya yazma
+    <li> glob — Bir desene uyan dosya yollarını bulmak
+    <li> is_dir — Dosyaadı dosya yolumudur bak
+    <li> is_executable — Dosya yolu çalışabilir mi bak
+    <li> is_file — Dosya yolu kurallı dosya mı bak
+    <li> is_link — Dosya sembolik bağ mı bak
+    <li> is_readable — Dosya okunabilir mi bak
+    <li> is_uploaded_file — Dosya HTTP POST ile yüklendi mi bak
+    <li> is_writable — Dosya yazılabilir mi bak
+    <li> is_writeable — is_writable eşdeğeridir
+    <li> lchgrp — sembolik bağın grup sahipliğini değiştirir
+    <li> lchown — sembolik bağın kullanıcı sahipliğini değiştirir
+    <li> link — Sabit/Katı bağ kur
+    <li> linkinfo — bağ hakkında bilgi alır
+    <li> lstat — Dosya ya da sembolik bağ hakkında bilgi alma
+    <li> mkdir — Dosya yolu yapma
+    <li> move_uploaded_file — Yüklenen dosyanın yeni bir yere taşıma
+    <li> parse_ini_file — Ayar dosyasını tarama
+    <li> pathinfo — dosya yolu hakkında bilgi döndürür
+    <li> pclose — işlem dosya yolunu kapatır
+    <li> popen — işlem dosya yolunu açar
+    <li> readfile — Bir dosyayı okur
+    <li> readlink — sembolik bağın hedefini döndürür
+    <li> realpath — Gerçek ve mutlak dosya yolunu döndürür
+    <li> rename — Dosya ya da dosya yolunun adını değiştirme
+    <li> rewind — dosya göstergesini başa sarmak
+    <li> rmdir — dosya yolunu siler
+    <li> set_file_buffer — stream_set_write_buffer eşdeğeridir
+    <li> stat — Bir dosya hakkında bilgi verir
+    <li> symlink — Sembolik bağ kurar
+    <li> tempnam — Tekil dosya adıyla dosya yaratma
+    <li> tmpfile — Geçici dosya yarat
+    <li> touch — Bir dosyanın yaratılış ve değiştirilme zamanını ayarlama
+    <li> umask — o anki "umask" değerini değiştirir
+    <li> unlink — Bir dosyayı siler
+</ul>
+
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

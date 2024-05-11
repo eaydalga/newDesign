@@ -1,0 +1,49 @@
+
+Users
+  usrNo
+  email
+  passwd
+  fullName
+
+Personel Data
+  usrNo
+  bilgiKodu
+  bilgiAlani
+
+Yakin arkadaşlar
+  usrNo
+  arkadasNo <-- usrNo
+
+Bilgi Kodu Tablosu
+  bilgiKodu
+  bilgiKoduAdi
+  bilgiLen
+
+Uyg Kullanici gruplari
+  uygKodu
+  rotayNo
+
+Uygulama Baslik Tablosu
+  uygKodu
+  uygAdi
+  uygIlkSecNo
+
+Uygulama Satirlari
+  uygKodu
+  uygSecNo
+  uygSayfa
+  uygSatir
+  uygTers
+  uygDevam
+  uygAtla
+
+Uygulama Secenegi
+  uygSecNo
+  uygsecAdi
+  uygIslemi
+
+Reklam tablosu
+  RekBTar
+  RekSTar
+  RekURL
+  RekSum

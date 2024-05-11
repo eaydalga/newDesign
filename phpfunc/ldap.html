@@ -1,0 +1,299 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Hyperlink Preprocessor </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="islevler.html" class="nav">İşlevler</a>
+               <a href="cekirdek.html" class="nav">PHPÇekirdek</a>
+               <a href="../progs/php.html" class="nav">PHP-AnaSayfa</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">21 Mart 2008</span></div>
+<div id="bdy" class="yazi">
+
+<h2>LDAP İşlevleri</h2>
+<h3>Giriş</h3>
+
+LDAP hafif ağırlıkta dosay yolu erişim protokolüdür. Bu protokol "Dosya yolu
+sunucularına" erişim için kullanılır. Dosya yolu özel bir veri tabanı olup
+ağaç yapısı hakkında bilgi saklar.
+<br /><br />
+Kavram Disk üzerindeki dosya yolu tanımına benzer. Bu içerikte fark, kök
+dosya yolunun "Dünya" olması ve alt dosya yollarının ilk düzeyinin "ülkeler"
+olmasıdır. Daha aşağıya doğru indikçe firmalar, organizasyonlar ya da yerler
+daha da aşağılara inildiğinde insanlar ve belkide donanım ve belgeler için de
+yollar bulabiliriz.
+<br /><br />
+Disk üzerindeki bir alt dosya yolundaki dosyaya erişmek için, aşağıdaki gibi
+birşey kullanmanız gerekir:
+<pre>
+     /usr/local/myapp/docs
+</pre>
+
+Kesme göstergedeki her bölümü tanımlar ve sıralama soldan sağa doğrudur.
+<br /><br />
+Tümüyle tanımlanmış bir dosyaya erişimin LDAP eşdeğerine "seçilebilen ad"
+denir. Kısaca "dn" olarak yazılır (distinguished name"). Bir örnek vermek
+gerekirse:
+
+<pre>
+     cn=John Smith,ou=Accounts,o=My Company,c=US
+</pre>
+
+virgül her bölümü ayırır ve sıralama sağdan sola doğrudur. Bu dn değerini
+şöyle okursunuz:
+<pre>
+     ülke = US
+     organizasyon = My Company
+     organizasyonBirimi = Accounts
+     ortakAd = John Smith
+</pre>    
+
+Diskinizi oraganize etmek konusunda uygulanacak katı kurallar olmadığı gibi,
+dosyay yolu sunucusu amaca uygun herhangi bir yapıyı ayarlayabilir. Ayrıca,
+kullanılan bazı kurallar da vardır. Mesaj onun yapısı hakkında bir şey
+bilmeden dosay yolu erişimi hakkında kod yazılamayacağıdır. Elinizde ne
+olduğunu bilmeden veri tabanı için nasıl hiçbirşey yazamazsanız burada da aynı
+kural geçerlidir.
+<br /><br />
+LDAP hakkında kaybolan bilgi aşağıdaki yerlerden sağlanabilir:
+<ul>
+    <li> Mozilla
+    <li> OpenLDAP Projesi
+</ul>
+Netscape SDK kullanışlı Programcı kitabı sunar (HTML kalıbında)
+
+<h3>Gereksinimler</h3>
+
+LDAP istemci kitaplıklarını OpenLDAP ya da  Bind9.net gibi sitelerden almalı
+ve PHP LDAP desteğiyle derlenmelidir.
+
+<h3>Kurulum</h3>
+
+LDAP desteği PHP içinde varsayılan olarak açık değildir. "--with-ldap[=DIR]"
+kullanmanız gerekir. DIR LDAP ana kurulum yoludur. SASL desteğini açmak için
+"--with-ldap-sasl[=DIR] kullanılmalıdır. Bu arada sasl.h sistemde olmalıdır.
+<br /><br />
+    Not: Win32 Kullanıcılarına Not<br />
+Bu uzantının çalışabilmesi için DLL dosyalarının Windows sistemindeki PATH
+çevresel değişkeninde tanımlı olması gerekir. Ya da DLL dosyalarını sistem
+yoluna kopyalamak da sorunu çözer ama önerilmez. Uzantı aşağıdaki dosyaların
+libeay32.dll and ssleay32.dll PATH ile erişilecek yerde olmasını ister.
+<br /><br />
+PHP 4.3.0 öncesi sürümler ek olarak libsasl.dll de ister.
+<br /><br />
+Oracle LDAP kitaplığını kullanmak için, Oracle çevresel değişkenleri uygun
+ayarlanmış olmalıdır.
+
+<h3>Çalışma Zamanı Ayarları</h3>
+
+php.ini ayarları işlevlerin davranışını değiştirir.
+
+<h3>LDAP ayarlama seçenekleri</h3>
+<table class="yazi">
+<tr><td>Adı</td><td>Varsayılan</td><td>değişebilir</td><td>DeğişimKaydı</td></tr>
+<tr><td>ldap.max_links</td><td>"-1"</td><td>PHP_INI_SYSTEM</td><td></td></tr>
+</table>
+
+php.ini yönelticileri diğer PHP_INI_* ve değişmezlerini tanımlar.
+
+<h3>Kaynak Türleri</h3>
+
+Birçok LDAP işlevi kaynakları işler ya da onları döndürür (örneğin
+ldap_connect() LDAP bağlantı tanımlayıcısı döndürür. Bu da birçok LDAP
+işlevinde kullanılır).
+
+<h3>Önceden Tanımlı Değişmezler</h3>
+
+Aşağıdaki değişmezler bu uzantı için tanımlanmıştır. Uzantı olmayınca
+kullanılamaz.
+
+<pre>
+LDAP_DEREF_NEVER (tamsayı)
+LDAP_DEREF_SEARCHING (tamsayı)
+LDAP_DEREF_FINDING (tamsayı)
+LDAP_DEREF_ALWAYS (tamsayı)
+LDAP_OPT_DEREF (tamsayı)
+LDAP_OPT_SIZELIMIT (tamsayı)
+LDAP_OPT_TIMELIMIT (tamsayı)
+LDAP_OPT_NETWORK_TIMEOUT (tamsayı)
+    ldap_set_option() için seçenekler
+    ağ zaman aşımını belirlemek için
+    kullanılır (PHP 5.3.0 sürümünden beri vardır).
+LDAP_OPT_PROTOCOL_VERSION (tamsayı)
+LDAP_OPT_ERROR_NUMBER (tamsayı)
+LDAP_OPT_REFERRALS (tamsayı)
+LDAP_OPT_RESTART (tamsayı)
+LDAP_OPT_HOST_NAME (tamsayı)
+LDAP_OPT_ERROR_STRING (tamsayı)
+LDAP_OPT_MATCHED_DN (tamsayı)
+LDAP_OPT_SERVER_CONTROLS (tamsayı)
+LDAP_OPT_CLIENT_CONTROLS (tamsayı)
+LDAP_OPT_DEBUG_LEVEL (tamsayı)
+GSLC_SSL_NO_AUTH (tamsayı)
+GSLC_SSL_ONEWAY_AUTH (tamsayı)
+GSLC_SSL_TWOWAY_AUTH (tamsayı)
+</pre>
+
+<h3>Örnekler</h3>
+
+Bir dosya yolu sunucusundan soyadı "S" ile başlayanların bilgilerini alma.
+Görüntüleme adı ve e-posta adresiyle beraber olur.
+
+<h3>Örnek-1 LDAP arama örneği</h3>
+<pre>
+&lt;?php
+// LDAP ile temel sıralama bağlanma (connect), bind,
+//          (arama) search, (aramayı yorumlama) interpret search
+//          (sonuçlar) result, (bağlantıyı kapama) close connection
+// olur...
+
+echo "&lt;h3&gt;LDAP query test&lt;/h3&gt;";
+echo "Connecting ...";
+$ds=ldap_connect("localhost");  // Geçerli LDAP sunucu olmalıdır
+echo "connect result is " . $ds . "&lt;br /&gt;";
+
+if ($ds) { 
+    echo "Binding ..."; 
+    $r=ldap_bind($ds);     // Bu anonim bağlantıdır, tipik olarak
+                           // yalnız okuma erişimidir
+    echo "Bind result is " . $r . "&lt;br /&gt;";
+
+    echo "Searching for (sn=S*) ...";
+    // Search surname entry
+    $sr=ldap_search($ds, "o=My Company, c=US", "sn=S*");  
+    echo "Search result is " . $sr . "&lt;br /&gt;";
+
+    echo "Number of entires returned is " .
+          ldap_count_entries($ds, $sr) . "&lt;br /&gt;";
+
+    echo "Getting entries ...&lt;p&gt;";
+    $info = ldap_get_entries($ds, $sr);
+    echo "Data for " . $info["count"] . " items returned:&lt;p&gt;";
+
+    for ($i=0; $i&lt;$info["count"]; $i++) {
+        echo "dn is: " . $info[$i]["dn"] . "&lt;br /&gt;";
+        echo "first cn entry is: " . $info[$i]["cn"][0] . "&lt;br /&gt;";
+        echo "first email entry is: " . $info[$i]["mail"][0] .
+             "&lt;br /&gt;&lt;hr /&gt;";
+    }
+
+    echo "Closing connection";
+    ldap_close($ds);
+
+} else {
+    echo "&lt;h4&gt;Unable to connect to LDAP server&lt;/h4&gt;";
+}
+?&gt;
+</pre>
+<h3>PHP LDAP çağrıma işlemini kullanmak</h3>
+
+LDAP çağırma işlemlerini kullanmadan önce bilmeniz gerekenler...
+<ul>
+    <li>
+
+      kullanacağınız dosya yolu sunucusunun adı ya da adresi 
+    <li>
+
+      sunucunun "temel dn" değeri (Bu sunucuda tutulan Dünya yolunun bir parçası - "o=My Company,c=US" olabilir)
+    <li>
+
+      Sunucuya erişmek için bir şifre gerekecek mi (birçok sunucu anonim bağlantıya okuma erişimi verir, ama diğerleri için bir şifre ister).
+</ul>
+
+LDAP çağırma işleminin tipik sıralaması: (uygulamanın içinde de bu sıralamayı
+izleyebilirsiniz)
+<pre>
+  ldap_connect()    // sunucuya bağlantı kur
+     |
+  ldap_bind()       // anonim ya da denetlenmiş "giriş"
+     |
+  dosya yolunda arama ya da güncelleme gibi birşey yap
+  ve sonucu görüntüle
+     |
+  ldap_close()      // "çıkış"
+</pre>
+<h3>İçindekiler</h3>
+<ul>
+    <li> ldap_8859_to_t61 — 8859 karakterlerini t61 karakterlerine
+çevir
+    <li> ldap_add — LDAp yoluna öğeler/giriş noktaları ekle
+    <li> ldap_bind — LDAP yolunu bağla
+    <li> ldap_close — ldap_unbind eşdeğeri
+    <li> ldap_compare — Dn ile belirtilen giriş noktasının bulunan niteliğinin değerinin karşılaştırılması.
+    <li> ldap_connect — LDAP sunucuya bağlan
+    <li> ldap_count_entries — Aramada kaç giriş noktası olduğunu say
+    <li> ldap_delete — Dosya yolundan bir giriş noktasını sil
+    <li> ldap_dn2ufn — DN'yi Kullanıcıya kolay adlandırma kalıbına çevirmek
+    <li> ldap_err2str — LDAP hata sayısını yazı dizisi hata mesajına çevirmek
+    <li> ldap_errno — Son LDAp komutunun dönen LDAP hata mesajını almak
+    <li> ldap_error — Son LDAP komutunun LDAP hata mesajını döndürür
+    <li> ldap_explode_dn — DN'yi parçalarına ayırır
+    <li> ldap_first_attribute — İlk niteliği döndürür
+    <li> ldap_first_entry — İlk sonuç tanımını döndürür
+    <li> ldap_first_reference — İlk göstergeyi döndürür
+    <li> ldap_free_result — Sonuç belleğini boşalt
+    <li> ldap_get_attributes — Arama sonucu giriş noktalarından nitelikleri al
+    <li> ldap_get_dn — sonuç giriş noktasının DN'sini al
+    <li> ldap_get_entries — Tüm sonuç giriş noktalarını al
+    <li> ldap_get_option — Verilen seçenek için o anki değeri al
+    <li> ldap_get_values_len — Sonuç giriş noktasından tün ikili değerleri al
+    <li> ldap_get_values — Sonuç giriş noktasından tüm değerleri al
+    <li> ldap_list — Tek düzey arama
+    <li> ldap_mod_add — O anki niteliklere yeni nitelik değerleri ekle
+    <li> ldap_mod_del — O anki niteliklerden nitelik değerlerini sil
+    <li> ldap_mod_replace — Nitelik değerlerini yenileriyle değiştir
+    <li> ldap_modify — LDAp giriş noktasını değiştir
+    <li> ldap_next_attribute — Sonuçtaki bir sonraki niteliği al
+    <li> ldap_next_entry — Bir sonraki sonuç giriş noktasını al
+    <li> ldap_next_reference — Sonraki göstergeyi al
+    <li> ldap_parse_reference — Gösterilen giriş noktasından bilgiyi al
+    <li> ldap_parse_result — Sonuçtan bilgiyi alıp aç
+    <li> ldap_read — Bir giriş noktasını oku
+    <li> ldap_rename — Bir giriş noktasının adını değiştir
+    <li> ldap_sasl_bind — LDAP dosya yoluna SASL kullanarak bağlan
+    <li> ldap_search — LDAP ağacını ara
+    <li> ldap_set_option — Verilen seçeneğin değerini ayarla
+    <li> ldap_set_rebind_proc — gönderenin iadesinde geri almak için işlev ayarı yap.
+    <li> ldap_sort — LDAP sonuç giriş noktalarını sırala
+    <li> ldap_start_tls — TLS başlat
+    <li> ldap_t61_to_8859 — t61 karakterlerini 8859 karakterlerine çevir
+    <li> ldap_unbind — LDAP yolundan ayrıl
+</ul>
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

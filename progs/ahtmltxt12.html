@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>HTML -  Video Kodları </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="htmltxt1.html" class="nav">Öğeler</a>
+               <a href="htmltxt2.html" class="nav">Biçimler</a>
+               <a href="htmltxt3.html" class="nav">Kalıplama</a>
+               <a href="htmltxt4.html" class="nav">Varlıklar</a>
+               <a href="htmltxt5.html" class="nav">Bağlar</a>
+               <a href="htmltxt6.html" class="nav">Çerçeveler</a>
+               <a href="htmltxt7.html" class="nav">Tablolar</a>
+               <a href="htmltxt8.html" class="nav">Listeler</a>
+               <a href="htmltxt9.html" class="nav">Formlar</a>
+               <a href="htmltxt10.html" class="nav">Resimler</a>
+               <a href="htmltxt11.html" class="nav">Art-Alan</a>
+               <a href="htmltxt12.html" class="nav">Renkler</a>
+               <a href="htmltxt13.html" class="nav">RenkDeğerleri</a>
+               <a href="htmltxt14.html" class="nav">RenkAdları</a>
+               <font color="#8e9ccb"><h3>Gelişmiş</h3></font>
+               <a href="ahtmltxt1.html" class="nav">Yerleşim</a>
+               <a href="ahtmltxt2.html" class="nav">YazıTipleri</a>
+               <a href="ahtmltxt3.html" class="nav">Stiller</a>
+               <a href="ahtmltxt4.html" class="nav">Başlık</a>
+               <a href="ahtmltxt6.html" class="nav">URL-Adresleri</a>
+               <a href="ahtmltxt7.html" class="nav">YazıDüzeni</a>
+               <a href="ahtmltxt8.html" class="nav">Nitelikler</a>
+               <a href="ahtmltxt9.html" class="nav">Olaylar</a>
+               <a href="ahtmltxt10.html" class="nav">URL-Kodlama</a>
+               <a href="ahtmltxt11.html" class="nav">Muzik-Kodu</a>
+               <a href="ahtmltxt12.html" class="nav">Video-Kodu</a>
+               <a href="ahtmltxt13.html" class="nav">WEB-Sunucu</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>HTML</h2></center>
+       <div id="ortataraf">
+<!-- html sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">1 Aralık 2007</span></div>
+<h2>HTML - Video Kodları</h2>
+<span class="yazi">
+WEb sayfalarınıza videoları eklemek iki değişik yoldan sağlanır. Bu yötemlerden biri &lt;embed /&gt; kullanmaktır. "embed" biçiminin kapanış tanımı yoktur. Aslında "img" biçimi gibi çalışır. Video'nun hatasız görüntülenebilmesi için "src" (kaynak) niteliğinde URL adresi doğru olarak girilmelidir.
+</span>
+<div class="yazi">
+<p class="yazi">Bir filmi durdurmak için nesnenin altındaki düğmeler kullanılır ya da nesne üzerinde tek tıklamayla (stop anlamına gelir) film durdurulur. Devam etmek ya da başlatmak için ikili tıklama yapılmalıdır.</p>
+
+<p class="yazi">Bir "a" biçiminin "href" niteliğine dosyanın URL adresi yazılarak video tanımı yapılabilir (aynı küçük resim" görüntülemek gibi...</p>
+
+<pre class="yazi">
+    &lt;a href="http://www.tizag.com/pics/flash/motiontween1easy.swf"&gt;
+        motiontween1easy.swf&lt;/a&gt;
+</pre>
+
+<h3>HTML - Video Ortam Türleri</h3>
+
+<p class="yazi">Flash film (.swf), AVI film (.avi), ve MOV film (.mov) dosyaları "embed" biçimde tanımlanabilir.</p>
+
+    <li> .swf dosyalar - Macromedia flash programı ile yaratılan dosyalar</li>
+    <li> .wmv dosyalar - Microsoft'un Window Media Video dosya türüdür.</li>
+    <li> .mov dosyalar - Apple Quick Time Movie kalıplamasıdır.</li>
+    <li> .mpeg dosyalar - Moving Pictures Expert Group tarafından yaratılan sıkıştırılmış film dosyasıdır.</li>
+
+<p class="yazi">Yukarıdaki listede yer alan dosyalar Internet'te en sık kullanılan kalıplardır.
+The listings above are the most commonly used formats for the internet.
+".mpeg" dosyalar ve Macromedia'nın .swf dosyaları en çok sıkıştırılmış olan ve Internet'te en çok kullanılanlardır.</p>
+
+<h3>HTML - Embed Niteliği</h3>
+
+<p class="yazi">Daha önce tartışılmış olan "src" niteliğine ek olarak "&lt;embed /&gt;" için özel olan nitelikler vardır. Bunlar:
+volume, autostart, hidden, ve loop nitelikleridir.</p>
+
+    <li> autostart - sormadan otomatik başlamasını sağlamak için kullanılır. Değeri "true" ya da "false" olur.</li>
+    <li> hidden - nesnenin play/stop/pause tuşlarının gizlenip gizlenmemesini tanımlar. Değerler "false" ya da "true" olabilir. (gömülen ortamın art alandan yalnız sesini duyurmak için saklanır).</li>
+    <li> loop - iBurada "true" değer ortam sürekli döngü oluşturur. "false" döngü olmaması demektir.</li>
+    <li> playcount - Bu değere bir sayı girmek ortamın belirtilen sayı kadar yinalanmesi sağlanır ve sonra döngü devam etmez.</li>
+    <li> volume - ortamın ses ayarını tanımlar (değer 0 - 100 arasında bir değer olur).</li>
+
+<h3>HTML - Google Video</h3>
+
+<p class="yazi">Google Video Internet üzerinde film paylaşımında kullanılır. Burada herhangi bir video'yu aramak olanağı vardır. Google bu video filmleri sayfanızdan yayınlamanıza olanak verir.</p>
+
+<p class="yazi">Google, "embed" biçimi içinde yazı alanı kullanılmasını destekler. Bu yazıyı kendi sayfanıza kopyalarsanız Google video'larını sayfanıza gömmüş olabilirsiniz.</p>
+
+<pre>
+&lt;! -- Google Video HTML Code -- &gt;
+
+&lt;embed style="width:400px; height:326px;" id="VideoPlayback" 
+align="middle" type="application/x-shockwave-flash" 
+src="http://video.google.com/googleplayer.swf?videoUrl=http%3A%
+2F%2Fvp.video.google.com%2Fvideodownload%3Fversion%3D0%26
+secureurl%3DvgAAAG7ggqAHSiJjpW0D3w4aYTUFW9M-NghJgbJjy8mhm
+cEoPD-qcpQj2i1OD9xJ6RseUKhCxEKqxhx0jnEJlzf04o-E7gUJc5z_Ur
+OEGJAZeqGJwm5u3VIm_6cNAj34Tj_GwI13lu4V8_s49xIsqh8GGFa2yKI
+pP3DN-u3fZclxMdm3EKZKMqwjROPGPOcl1AMH17kgA5XA503H4WS0Gefm
+G5TKWrRHsY2d3pOatXR_2IxBzGEIq5p-9ybrmmn_o0zj6g%26sigh%3DP
+dJGakwLdDs6uXBefAsAxQMQDls%26begin%3D0%26len%3D3569%26doc
+id%3D8734085858581743191&thumbnailUrl=http%3A%2F%2Fvi
+deo.google.com%2FThumbnailServer%3Fapp%3Dvss%26contentid%
+3Dbc66969d46ff8d61%26second%3D0%26itag%3Dw320%26urlcreate
+d%3D1147452288%26sigh%3DhQlKmBGLA2yrYhrTGpU029bCEHA&p
+layerId=8734085858581743191" allowScriptAccess="sameDomain" 
+quality="best" bgcolor="#ffffff" scale="noScale" 
+wmode="window" salign="TL" FlashVars="playerMode=embedded"&gt;
+&lt;/embed&gt;
+
+&lt;! -- End of Google Video HTML Code --&gt;
+</pre>
+
+<p class="yazi">Yukarıdaki karışık bir kod, ama bir kez kendi sayfanıza eklediniz mi çok güzel bir video klibiniz olur.</p>
+</div>
+<br />
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>

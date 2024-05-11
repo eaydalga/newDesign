@@ -1,0 +1,79 @@
+<div id="sec5" style="display: none;"><br>
+<br>
+<span class="yazi">
+Aybim Bilgisayar Tic. Ltd. Şti. Üyelik Sistemi, üyelere tanınan
+ayrıcalıklı yazılım kullanımıdır. Üyeler kod ve şifreyle giriş yaparak,
+kişisel bilgilerine ve kullanımlarına sunulmuş yazılımlara
+erişebilirler. Ayrıntılar için <a href="uyelere.html">tıklayın</a>
+</span>
+<hr>
+<table>
+<tbody>
+<tr>
+<td class="yazi" valign="bottom">
+<form id="sifregir" method="post" action="javascript:basvurubak('sifregir','user/sifreli.php');">
+<fieldset class="bdy">
+<h3> ÜYE GİRİŞİ</h3>
+<table class="yazi" cellpadding="1" cellspacing="3">
+<tbody>
+<tr>
+<td>Üye Kodu </td>
+<td width="70%"><input size="10" name="kullanici" type="text" class="required"></td>
+</tr>
+<tr>
+<td>Şifre </td>
+<td width="70%"><input name="sifre" size="10" type="password" class="required"> <input value="Git" class="gyazi" type="submit">
+</td>
+</tr>
+</tbody>
+</table>
+</fieldset>
+</form>
+</td>
+<td class="yazi" valign="top">
+<br>
+Üye değilseniz üyelik için başvuru yapabilirsiniz...
+<br>
+<br>
+<form method="post" id="basvur" action="javascript:basvurubak('basvur','user/basvuru.php');">
+<fieldset class="bdy">
+<h3>ÜYE BAŞVURUSU</h3>
+<table class="yazi">
+<tbody>
+<tr>
+<td>Üye Kodu </td>
+<td> <input size="10" name="uyeno" type="text" class="required"> </td>
+</tr>
+<tr>
+<td>Şifre </td>
+<td> <input size="10" name="sifre" type="password" class="required"> </td>
+</tr>
+<tr>
+<td>Şifre Tekrarı </td>
+<td> <input size="10" name="sifre2" type="password" class="required"> </td>
+</tr>
+<tr>
+<td>e-Posta Adresi </td>
+<td> <input size="13" name="eposta" type="text" class="required"> </td>
+</tr>
+<tr>
+<td>Adı Soyadı </td>
+<td> <input size="13" name="fullname" type="text" class="required"> </td>
+</tr>
+<tr>
+<td>Güvenlik Kodu</td>
+<td><img src="cc.php" alt="" /></td>
+</tr>
+<tr>
+<td>Güvenlik Kodu</td>
+<td> <input size="10" name="security" type="text" class="required"> <input value="Git" class="gyazi" type="submit"> </td>
+</tr>
+</tbody>
+</table>
+</fieldset>
+</form>
+</td>
+</tr>
+</tbody>
+</table>
+</div>

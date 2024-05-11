@@ -1,0 +1,168 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>PHP Hyperlink Preprocessor İlk Anlatım</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META content=0 http-equiv=expires>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<script language="JavaScript" src="../js/browser.js"> </script>
+<script type="text/javascript">
+function myvoid()
+{
+}
+</script>
+</head>
+
+<body onLoad="ayarla();">
+<div id="taban">
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td valign="top">
+       <div id="soltaraf">
+           <a href="../index.html"><img src="../img/aybim.png" border="0"></a><br /><br />
+           <div class="menublock">
+               <font color="#8e9ccb"><h3>Tanımlar</h3></font>
+               <a href="javascript:myvoid();" class="nav">Başlarken</a>
+               <a href="phptxt11.html" class="sub">ilk Anlatım</a>
+               <a href="javascript:myvoid();" class="nav">Kurulumlar</a>
+               <a href="phptxt21.html" class="sub">Genel Kurulum</a><br />
+               <a href="phptxt22.html" class="sub">UNIX Kurulumu</a><br />
+               <a href="phptxt23.html" class="sub">OSX Kurulumu</a><br />
+               <a href="phptxt24.html" class="sub">Wins Kurulumu</a>
+               <a href="javascript:myvoid();" class="nav">Dil Kuralları</a>
+               <a href="phptxt31.html" class="sub">Temel yazım</a><br />
+               <a href="phptxt32.html" class="sub">Tipler</a><br />
+               <a href="phptxt33.html" class="sub">Değişkenler</a><br />
+               <a href="phptxt34.html" class="sub">Değişmezler</a><br />
+               <a href="phptxt35.html" class="sub">Deyimler</a><br />
+               <a href="phptxt36.html" class="sub">İşlemler</a><br />
+               <a href="phptxt37.html" class="sub">Kontrol Yapıları</a><br />
+               <a href="phptxt38.html" class="sub">İşlevler</a><br />
+               <a href="phptxt39.html" class="sub">Sınıflar Nesneler</a><br />
+               <a href="phptxt391.html" class="sub">Ad uzayı</a><br />
+               <a href="phptxt392.html" class="sub">İstisnalar</a>
+               <a href="javascript:myvoid();" class="nav">Güvenlik</a>
+               <a href="phptxt41.html" class="sub">Giriş</a><br />
+               <a href="phptxt42.html" class="sub">Genel bilgi</a><br />
+               <a href="phptxt43.html" class="sub">CGI iklisi</a><br />
+               <a href="phptxt44.html" class="sub">Apache modülü</a><br />
+               <a href="phptxt45.html" class="sub">Dosyadüzeni</a><br />
+               <a href="phptxt46.html" class="sub">Veritabanı</a><br />
+               <a href="phptxt47.html" class="sub">Hatalar</a><br />
+               <a href="phptxt48.html" class="sub">Diğerleri</a><br />
+               <a href="javascript:myvoid();" class="nav">Özellikler</a>
+               <a href="phptxt51.html" class="sub">HTTP Şifresi</a><br />
+               <a href="phptxt52.html" class="sub">Çerezler</a><br />
+               <a href="phptxt53.html" class="sub">Oturumlar</a><br />
+               <a href="phptxt54.html" class="sub">XForm</a><br />
+               <a href="phptxt55.html" class="sub">DosyaYükleme</a><br />
+               <a href="phptxt56.html" class="sub">UzakDosyalar</a><br />
+               <a href="phptxt57.html" class="sub">Bağlantılar</a><br />
+               <a href="phptxt58.html" class="sub">VTBağlantısı</a>
+               <font color="#8e9ccb"><h3>Gelişmiş</h3></font>
+               <a href="phptxt7.html" class="nav">Php Kökü</a>
+               <a href="phptxt8.html" class="nav">Ekler</a>
+           </div>
+       </div>
+    </td><td valign="top">
+       <center><h2>PHP Hyperlink Preprocessor</h2></center>
+       <div id="ortataraf">
+<!-- cascading style sheets ardaşık stil sayfaları -->
+         <span><img src="img/notebook1.gif"></span>
+         <div id="canvas">
+<div id="sag"><span class="yazi">11 Ocak 2008</span></div>
+<div id="bdy" class="yazi">
+<h2>İlk Anlatım</h2>
+Burada kısa bir anlatımla PHP kodlamasının özelliklerinden söz edilmiştir.
+<br /><br />
+PHP kullanımıyla ilgili en önemli özellik, dinamik web sayfaları yaratılabilmektir. PHP web sayfaları HTML gibidir. Aynı biçimde aynı programlarla değiştirilebilir.
+<br /><br />
+PHP dosyalarının uzantıları '.php' biçimindedir. Sunucu bu dosyaları önce PHP önişlemcisinden geçirir, PHP biçimleri açılıp anlamlı HTML biçimlerine ve yazılara dönüştürüldükten sonra tarayıcıya HTML olarak gönderilir. Bu yapıyı sunucu altında şöyle özetleyebiliriz. Diyelim HTML sunucu Apache olsun ve PHP modüllerle desteklensin. Bu işlem için bir de veri tabanına gerek vardır. O zaman MySQL modülleriyle beslenen sunucu dört dörtlük hazırlanmış olur. Diğer ortamlarda da benzeri altyapı hazırlanabilir. İleride bu konuyu işleyen web sayfalarında kurulumlar incelenebilir.
+<h3>İlk PHP etkinleştirilmiş sayfanız</h3>
+'merhaba.php' adlı bir dosyayı sunucunun belge kökünde (DOCUMENT_ROOT) olduğunu varsayalım.
+<pre class="fyazi">
+&lt;html&gt;
+ &lt;head&gt;
+  &lt;title&gt;PHP Test&lt;/title&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+ &lt;?php echo '&lt;p&gt;Merhaba Dünya&lt;/p&gt;'; ?&gt; 
+ &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+PHP önişlemciden geçirince, bu dosya aşağıdaki biçimde tarayıcıya gönderilir:
+<pre class="fyazi">
+&lt;html&gt;
+ &lt;head&gt;
+  &lt;title&gt;PHP Test&lt;/title&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+ &lt;p&gt;Hello World&lt;/p&gt;
+ &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+Burada PHP "echo" işlemiyle yazı dizisi yazdırılmıştır. Belki bu kadar temel bir işlem için PHP kullanmak gerekmeyebilir. Burada en önemli sorun eğer PHP dosyası bir önişlemciden çıktı vermeden geçerse, tarayıcıda indirme (download) yapılacakmış gibi davranır ve kullanıcı tüm PHP kodunu indirmiş olur.
+<br /><br />
+İkinci örnek PHP özelliklerini veren 'phpinfo' işlevidir:
+<pre class="fyazi">
+   &lt;?php phpinfo(); ?&gt;
+</pre>
+<h3>Daha kullanışlı birşey</h3>
+$_SERVER çok özel PHP evrensel değişkenidir. Hemen her tür WEB sunucu bilgilerini içerir.
+<pre class="fyazi">
+&lt;?php
+echo $_SERVER['HTTP_USER_AGENT'];
+?&gt;
+</pre>
+Bu örnekte kullanılan $_SERVER bir dizidir. Hatta bu diziyi oluşturan değişkene süper evrensel değişken de denir. Dizinin bir öğesine erişim örnekte görterildiği gibi olur. Kullanıcı dizi öğelerine (ya da hicrelerine) erişmek isterse ya öğenin adını ya da dizin numarasını kullanır.
+<br /><br />
+Bir çok php komutu bir PHP biçimi içinde toplanabilir. Böylece PHP kodlaması öbekleri oluşabilir. Her öbek içinde birçok PHP işlemi yapılabilir.
+<br /><br />
+Eğer biraz C dili yazım kurallarını biliyorsanız PHP kodlaması size mantıklı gelecektir. Ama konuyu hiç bilmiyorsanız PHP kitabının ilk birkaç bölümünü okumanızı öneririz. Aşağıdaki örnekte 'If' (Eğer) deyiminden sonra strpos() işlevi ile tanışırız. PHP içinde tanımlanmış işlevlerdendir. Bir diziyi bir başka dizi için arar. Burada biz 'MSIE' yazısını $_SERVER['HTTP_USER_AGENT'] içinde aramaktayız. Eğer eşiti bulunursa aranan yazıdaki yeriin başlangıçtan uzaklığı sayısal değer olarak bize döner. Eşiti bulamazsa FALSE döner. 'If' deyimi TRUE için kıvrımlı parantezler içindekileri işleme alır. Aksi halde bu kodlama çalışmaz. 'if,else' ikilisi 'srttoupper()' ya da 'strlen()' gibi işlevler de örnekte kullanılabilir.
+<pre class="fyazi">
+&lt;?php
+if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== FALSE) {
+?&gt;
+&lt;h3&gt;strpos() false olmayan bir değer döndürmüştür&lt;/h3&gt;
+&lt;p&gt;Internet Explorer kullanıyorsunuz&lt;/p&gt;
+&lt;?php
+} else {
+?&gt;
+&lt;h3&gt;strpos() false döndürmüş olmalı &lt;/h3&gt;
+&lt;p&gt;Internet Explorer kullanmuyorsunuz &lt;/p&gt;
+&lt;?php
+}
+?&gt;
+</pre>
+Burada birşeyleri yazdırmak için echo kullanmak yerine PHP ortamından çıkıp doğrudan HTML olarak yazdırma yapılabildiği gösterilmiştir.
+<h3>Formları kullanma</h3>
+PHP için en güçlü olduğu konu olarak giriş formlarını ileri sürebiliriz. Her tür form öğesi otomatik olarak PHP kodlamasınca kullanılabilir.
+<pre class="fyazi">
+&lt;form action="action.php" method="post"&gt;
+ &lt;p&gt;Adınız: <input type="text" name="name" />&lt;/p&gt;
+ &lt;p&gt;Yaşınız: <input type="text" name="age" />&lt;/p&gt;
+ &lt;p&gt;<input type="submit" />&lt;/p&gt;
+&lt;/form&gt;
+</pre>
+Yukarıdaki HTML kodlamasında gönderme (submit) yapıldığında sunucudaki kök klasörde bulunan 'action.php' kodlaması çalışmaya başlar ve sonucu yine tarayıcıda web sayfası olarak görünür. Bu örnek istemci-sunucu uygulamasının tipik bir örneğidir. Sunucuda çalışan 'action.php' aşağıdaki gibi olabilir:
+<pre class="fyazi">
+Merhaba &lt;?php echo htmlspecialchars($_POST['name']); ?&gt;.
+Siz &lt;?php echo (int)$_POST['age']; ?&gt; yaşınızdasınız.
+</pre>
+Bu örneğin en çarpıcı özelliği 'htmlspecialchars()' adlı PHP işlevidir. Giriş alanında HTML ve javascript gibi kodların olmamasını sağlar. "action.php" form bilgilerini $_POST dizisinden alır ama HTML form tanımında "method=GET" denmiş olsaydı bilgiler $_GET dizisinden alınacaktı. $_REQUEST dizisini de kullanma olanağı vardır. O zaman "method" hakkında bilgi sahibi olmak gerekmez.
+<h3>Eski kodu yeni PHP ile kullanmak</h3>
+Eskiden $_HTTP_*_VAR form değişkenleri için kullanılırken yeni PHP ortamında $_GET, $_POST $_COOKIE, $_SERVER, $_FILES, $_ENV, $_REQUEST, ve $_SESSION kullanılır oldu.
+<br /><br />
+Eskiden olduğu gibi kayıtlı değişkenleri kullanmak olanağı yoktur. Örneğin eskiden "http://alan_adi/birsey.php?id=1" gibi bir bağdan sonra 'birsey.php' içinde "$id" doğrudan kullanılırdı. Şimdi yerine $_GET['id'] sunulmaktadır.
+
+</div>
+         </div>
+         <span><img src="img/notebook1.gif"><br /></span>
+       </div>
+    </td><td valign="top">
+       <div id="sagtaraf">
+       </div>
+    </td></tr>
+    </table>
+</div>
+</body>
+</html>
